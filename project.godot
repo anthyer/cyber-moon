@@ -27,6 +27,7 @@ window/stretch/aspect="expand"
 
 EventBus="*res://scripts/core/event_bus.gd"
 DayCycleManager="*res://scripts/core/day_cycle_manager.gd"
+InventoryManager="*res://scripts/core/inventory_manager.gd"
 
 [rendering]
 
