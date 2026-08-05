@@ -21,6 +21,7 @@ DayCycleManager="*res://scripts/core/day_cycle_manager.gd"
 InventoryManager="*res://scripts/core/inventory_manager.gd"
 InputManager="*res://scripts/core/input_manager.gd"
 GameManager="*res://scripts/core/game_manager.gd"
+SaveManager="*res://scripts/core/save_manager.gd"
 
 [display]
 
