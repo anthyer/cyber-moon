@@ -26,6 +26,7 @@ window/stretch/aspect="expand"
 [autoload]
 
 EventBus="*res://scripts/core/event_bus.gd"
+DayCycleManager="*res://scripts/core/day_cycle_manager.gd"
 
 [rendering]
 
