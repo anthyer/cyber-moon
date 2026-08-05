@@ -1,8 +1,6 @@
 class_name Cultivo
 extends Resource
 
-const Item = preload("res://scripts/resources/item.gd")
-
 @export var nome: String = ""
 @export var tempo_de_crescimento_dias: int = 1
 @export var estagios_de_crescimento: Array[Texture2D] = []
