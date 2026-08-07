@@ -1,30 +1,43 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://bmdn2elpadbxx"]
 
 [ext_resource type="PackedScene" uid="uid://cg5fh2pwqrj16" path="res://assets/models/kenney_nature_kit/platform_grass.glb" id="1_piso"]
-[ext_resource type="PackedScene" uid="uid://dlxe4ugh7fr8p" path="res://assets/models/kenney_mini_characters/character_female_a.glb" id="2_personagem"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/player/camera_jogador.tscn" id="4_camera"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ceu"]
+
+[sub_resource type="Sky" id="Sky_ceu"]
+sky_material = SubResource("ProceduralSkyMaterial_ceu")
+
+[sub_resource type="Environment" id="Environment_ambiente"]
+background_mode = 2
+sky = SubResource("Sky_ceu")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grama"]
-albedo_color = Color(0.172549, 0.847059, 0.721569, 1)
+albedo_color = Color(0.32549, 0.580392, 0.235294, 1)
 roughness = 0.9
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_grama"]
 material = SubResource("StandardMaterial3D_grama")
 size = Vector2(30, 30)
 
-[node name="Playground" type="Node3D"]
+[node name="Playground" type="Node3D" unique_id=263848000]
 
-[node name="Grama" type="MeshInstance3D" parent="."]
+[node name="Ambiente" type="WorldEnvironment" parent="." unique_id=2132912754]
+environment = SubResource("Environment_ambiente")
+
+[node name="Grama" type="MeshInstance3D" parent="." unique_id=1055796786]
 mesh = SubResource("PlaneMesh_grama")
 
-[node name="Piso" parent="." instance=ExtResource("1_piso")]
+[node name="Piso" parent="." unique_id=318763688 instance=ExtResource("1_piso")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05380863, 0)
 
-[node name="Personagem" parent="." instance=ExtResource("2_personagem")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.083, 0)
+[node name="Player" parent="." unique_id=46018077 instance=ExtResource("3_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13680863, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.7071068, -0.7071068, 0, 0.7071068, 0.7071068, 0, 5, 5)
-current = true
+[node name="CameraJogador" parent="." unique_id=1222982591 instance=ExtResource("4_camera")]
+alvo = NodePath("../Player")
 
-[node name="Luz" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.7071068, -0.7071068, 0, 0.7071068, 0.7071068, 0, 5, 0)
+[node name="Luz" type="DirectionalLight3D" parent="." unique_id=1982780356]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 5, 0)
 shadow_enabled = true
