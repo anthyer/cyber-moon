@@ -12,6 +12,7 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 | `mover_direita` | D / seta para direita | D-pad para direita |
 | `interagir` | E | Botão A / Cross |
 | `abrir_inventario` | I | Botão Y / Triangle |
+| `correr` | Shift esquerdo | Botão B / Circle |
 
 O suporte ao eixo analógico dos manetes fica para uma iteração futura, quando o movimento do jogador for implementado e puder ser testado com um controle físico; por enquanto o D-pad cobre a entrada digital equivalente.
 

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/player/camera_jogador.gd" id="1_script"]
+
+[node name="CameraJogador" type="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 5, 5)
+current = true
+script = ExtResource("1_script")
