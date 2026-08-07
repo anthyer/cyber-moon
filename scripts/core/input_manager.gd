@@ -11,3 +11,6 @@ func interagir_pressionado() -> bool:
 
 func abrir_inventario_pressionado() -> bool:
 	return Input.is_action_just_pressed("abrir_inventario")
+
+func dash_pressionado() -> bool:
+	return Input.is_action_just_pressed("dash")
