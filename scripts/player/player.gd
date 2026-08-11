@@ -6,6 +6,8 @@ extends CharacterBody3D
 @export var velocidade_dash: float = 12.0
 @export var duracao_dash: float = 0.2
 @export var cooldown_dash: float = 0.8
+@export var velocidade_ataque: float = 1.6
+@export var folga_pos_golpe: float = 0.1
 @export var janela_combo_ataque: float = 0.6
 @export var cooldown_ataque: float = 0.3
 
@@ -39,8 +41,8 @@ func _physics_process(delta: float) -> void:
 
 	if _tempo_dash_restante <= 0.0 and _tempo_ataque_restante <= 0.0 and _tempo_cooldown_ataque_restante <= 0.0 and InputManager.atacar_pressionado():
 		var nome_clipe: String = CLIPES_COMBO_ATAQUE[_indice_combo]
-		animation_player.play(nome_clipe)
-		_tempo_ataque_restante = animation_player.get_animation(nome_clipe).length
+		animation_player.play(nome_clipe, -1.0, velocidade_ataque)
+		_tempo_ataque_restante = animation_player.get_animation(nome_clipe).length / velocidade_ataque + folga_pos_golpe
 		_tempo_janela_combo_restante = janela_combo_ataque
 
 		_indice_combo += 1
