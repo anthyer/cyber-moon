@@ -34,6 +34,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05380863, 0)
 
 [node name="Player" parent="." unique_id=46018077 instance=ExtResource("3_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13680863, 0)
+cooldown_dash = 0.2
+velocidade_ataque = 1.8
+folga_pos_golpe = 0.18
+cooldown_ataque = 0.5
 
 [node name="CameraJogador" parent="." unique_id=1222982591 instance=ExtResource("4_camera")]
 alvo = NodePath("../Player")
