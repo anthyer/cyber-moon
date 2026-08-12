@@ -17,3 +17,18 @@ func dash_pressionado() -> bool:
 
 func atacar_pressionado() -> bool:
 	return Input.is_action_just_pressed("atacar")
+
+func equipar_1_pressionado() -> bool:
+	return Input.is_action_just_pressed("equipar_1")
+
+func equipar_2_pressionado() -> bool:
+	return Input.is_action_just_pressed("equipar_2")
+
+func equipar_3_pressionado() -> bool:
+	return Input.is_action_just_pressed("equipar_3")
+
+func proxima_ferramenta_pressionada() -> bool:
+	return Input.is_action_just_pressed("ferramenta_proxima")
+
+func ferramenta_anterior_pressionada() -> bool:
+	return Input.is_action_just_pressed("ferramenta_anterior")
