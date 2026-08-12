@@ -23,6 +23,7 @@ InventoryManager="*res://scripts/core/inventory_manager.gd"
 InputManager="*res://scripts/core/input_manager.gd"
 GameManager="*res://scripts/core/game_manager.gd"
 SaveManager="*res://scripts/core/save_manager.gd"
+EquipmentManager="*res://scripts/core/equipment_manager.gd"
 
 [display]
 
