@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cg5fh2pwqrj16" path="res://assets/models/kenney_nature_kit/platform_grass.glb" id="1_piso"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/player/camera_jogador.tscn" id="4_camera"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_ferramenta.tscn" id="5_hud"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ceu"]
 
@@ -45,3 +46,7 @@ alvo = NodePath("../Player")
 [node name="Luz" type="DirectionalLight3D" parent="." unique_id=1982780356]
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 5, 0)
 shadow_enabled = true
+
+[node name="InterfaceHUD" type="CanvasLayer" parent="."]
+
+[node name="HudFerramenta" parent="InterfaceHUD" instance=ExtResource("5_hud")]
