@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" path="res://scenes/player/camera_jogador.tscn" id="4_camera"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_ferramenta.tscn" id="5_hud"]
 [ext_resource type="MeshLibrary" path="res://resources/farming/mesh_library_solo.tres" id="6_grade_solo"]
+[ext_resource type="Script" path="res://scripts/farming/grade_solo.gd" id="7_grade_solo_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ceu"]
 
@@ -36,6 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05380863, 0)
 
 [node name="GradeSolo" type="GridMap" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+script = ExtResource("7_grade_solo_script")
 mesh_library = ExtResource("6_grade_solo")
 cell_size = Vector3(1, 1, 1)
 
