@@ -37,6 +37,17 @@ func _physics_process(delta: float) -> void:
 	_tempo_janela_combo_restante = max(_tempo_janela_combo_restante - delta, 0.0)
 	_tempo_cooldown_ataque_restante = max(_tempo_cooldown_ataque_restante - delta, 0.0)
 
+	if InputManager.equipar_1_pressionado():
+		EquipmentManager.equipar_indice(-1)
+	elif InputManager.equipar_2_pressionado():
+		EquipmentManager.equipar_indice(0)
+	elif InputManager.equipar_3_pressionado():
+		EquipmentManager.equipar_indice(1)
+	elif InputManager.proxima_ferramenta_pressionada():
+		EquipmentManager.ciclar(1)
+	elif InputManager.ferramenta_anterior_pressionada():
+		EquipmentManager.ciclar(-1)
+
 	if _tempo_janela_combo_restante <= 0.0:
 		_indice_combo = 0
 
