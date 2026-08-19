@@ -45,13 +45,13 @@ mesh = SubResource("PlaneMesh_grama")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05380863, 0)
 
 [node name="GradeSolo" type="GridMap" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.063946486, 0.12171689, -0.113750935)
 script = ExtResource("7_grade_solo_script")
 mesh_library = ExtResource("6_grade_solo")
-cell_size = Vector3(1, 1, 1)
+cell_size = Vector3(1, 0.1, 1)
 
 [node name="IndicadorAlvo" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.063946486, 0.18171689, -0.113750935)
 visible = false
 mesh = SubResource("PlaneMesh_indicador")
 

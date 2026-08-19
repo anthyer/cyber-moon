@@ -57,7 +57,7 @@ func _physics_process(delta: float) -> void:
 		var celula_alvo: Vector2i = grade_solo.obter_celula_alvo(global_position, personagem.rotation.y)
 		var posicao_local: Vector3 = grade_solo.map_to_local(Vector3i(celula_alvo.x, 0, celula_alvo.y))
 		indicador_alvo.global_position = grade_solo.global_transform * posicao_local
-		indicador_alvo.global_position.y = 0.03
+		indicador_alvo.global_position.y += 0.01
 
 	if _tempo_dash_restante <= 0.0 and _tempo_movimento_travado_ataque_restante <= 0.0 and _tempo_cooldown_restante <= 0.0 and InputManager.dash_pressionado():
 		_direcao_dash = Vector3(sin(personagem.rotation.y), 0.0, cos(personagem.rotation.y))
