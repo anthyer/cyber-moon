@@ -5,6 +5,7 @@ signal tool_equipped(ferramenta: Ferramenta)
 @export var ferramentas: Array[Ferramenta] = [
 	preload("res://resources/items/enxada.tres"),
 	preload("res://resources/items/regador.tres"),
+	preload("res://resources/items/picareta.tres"),
 ]
 var indice_atual: int = -1
 
