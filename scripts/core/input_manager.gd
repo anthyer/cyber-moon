@@ -27,6 +27,9 @@ func equipar_2_pressionado() -> bool:
 func equipar_3_pressionado() -> bool:
 	return Input.is_action_just_pressed("equipar_3")
 
+func equipar_4_pressionado() -> bool:
+	return Input.is_action_just_pressed("equipar_4")
+
 func proxima_ferramenta_pressionada() -> bool:
 	return Input.is_action_just_pressed("ferramenta_proxima")
 

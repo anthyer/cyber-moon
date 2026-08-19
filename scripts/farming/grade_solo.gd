@@ -19,13 +19,23 @@ func molhar(celula: Vector2i) -> bool:
 	EventBus.tile_watered.emit(celula)
 	return true
 
+func remover(celula: Vector2i) -> bool:
+	if _estado.get(celula, EstadoTile.VAZIO) == EstadoTile.VAZIO:
+		return false
+	_definir_estado(celula, EstadoTile.VAZIO)
+	EventBus.tile_removed.emit(celula)
+	return true
+
 func obter_celula_alvo(posicao_jogador: Vector3, rotacao_y: float) -> Vector2i:
 	var direcao := Vector3(sin(rotacao_y), 0.0, cos(rotacao_y))
 	var alvo_local := local_to_map(to_local(posicao_jogador + direcao))
 	return Vector2i(alvo_local.x, alvo_local.z)
 
 func _definir_estado(celula: Vector2i, novo_estado: EstadoTile) -> void:
-	_estado[celula] = novo_estado
+	if novo_estado == EstadoTile.VAZIO:
+		_estado.erase(celula)
+	else:
+		_estado[celula] = novo_estado
 	_atualizar_variante(celula)
 	_atualizar_variante(celula + Vector2i.LEFT)
 	_atualizar_variante(celula + Vector2i.RIGHT)

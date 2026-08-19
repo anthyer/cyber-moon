@@ -43,6 +43,8 @@ func _physics_process(delta: float) -> void:
 		EquipmentManager.equipar_indice(0)
 	elif InputManager.equipar_3_pressionado():
 		EquipmentManager.equipar_indice(1)
+	elif InputManager.equipar_4_pressionado():
+		EquipmentManager.equipar_indice(2)
 	elif InputManager.proxima_ferramenta_pressionada():
 		EquipmentManager.ciclar(1)
 	elif InputManager.ferramenta_anterior_pressionada():
@@ -84,6 +86,8 @@ func _physics_process(delta: float) -> void:
 				acao_teve_efeito = grade_solo.arar(celula_alvo)
 			elif ferramenta_equipada.id_acao == &"regador":
 				acao_teve_efeito = grade_solo.molhar(celula_alvo)
+			elif ferramenta_equipada.id_acao == &"picareta":
+				acao_teve_efeito = grade_solo.remover(celula_alvo)
 
 			if acao_teve_efeito:
 				var nome_clipe_interacao: String = CLIPES_INTERACAO[_indice_interacao]
