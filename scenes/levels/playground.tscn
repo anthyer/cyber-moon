@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" path="res://scenes/player/camera_jogador.tscn" id="4_camera"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_ferramenta.tscn" id="5_hud"]
 [ext_resource type="MeshLibrary" path="res://resources/farming/mesh_library_solo.tres" id="6_grade_solo"]
-[ext_resource type="Script" path="res://scripts/farming/grade_solo.gd" id="7_grade_solo_script"]
+[ext_resource type="Script" uid="uid://bh0qol4kr20b1" path="res://scripts/farming/grade_solo.gd" id="7_grade_solo_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ceu"]
 
@@ -25,8 +25,8 @@ material = SubResource("StandardMaterial3D_grama")
 size = Vector2(30, 30)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_indicador"]
-albedo_color = Color(1, 1, 0, 0.5)
 transparency = 1
+albedo_color = Color(1, 1, 0, 0.5)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_indicador"]
 material = SubResource("StandardMaterial3D_indicador")
@@ -44,13 +44,13 @@ mesh = SubResource("PlaneMesh_grama")
 [node name="Piso" parent="." unique_id=318763688 instance=ExtResource("1_piso")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05380863, 0)
 
-[node name="GradeSolo" type="GridMap" parent="."]
+[node name="GradeSolo" type="GridMap" parent="." unique_id=45987543]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.063946486, 0.12171689, -0.113750935)
-script = ExtResource("7_grade_solo_script")
 mesh_library = ExtResource("6_grade_solo")
 cell_size = Vector3(1, 0.1, 1)
+script = ExtResource("7_grade_solo_script")
 
-[node name="IndicadorAlvo" type="MeshInstance3D" parent="."]
+[node name="IndicadorAlvo" type="MeshInstance3D" parent="." unique_id=503128782]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.063946486, 0.18171689, -0.113750935)
 visible = false
 mesh = SubResource("PlaneMesh_indicador")
@@ -70,6 +70,6 @@ alvo = NodePath("../Player")
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 5, 0)
 shadow_enabled = true
 
-[node name="InterfaceHUD" type="CanvasLayer" parent="."]
+[node name="InterfaceHUD" type="CanvasLayer" parent="." unique_id=1083850535]
 
-[node name="HudFerramenta" parent="InterfaceHUD" instance=ExtResource("5_hud")]
+[node name="HudFerramenta" parent="InterfaceHUD" unique_id=883570029 instance=ExtResource("5_hud")]
