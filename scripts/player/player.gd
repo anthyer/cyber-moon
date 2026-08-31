@@ -14,10 +14,13 @@ extends CharacterBody3D
 const CLIPES_COMBO_ATAQUE: Array[String] = ["attack-melee-left", "attack-melee-left", "attack-melee-right"]
 const CLIPES_INTERACAO: Array[String] = ["interact-left", "interact-right"]
 
+@export var caminho_grade_solo: NodePath = ^"../GradeSolo"
+@export var caminho_indicador_alvo: NodePath = ^"../IndicadorAlvo"
+
 @onready var personagem: Node3D = $Personagem
 @onready var animation_player: AnimationPlayer = $Personagem/AnimationPlayer
-@onready var grade_solo: GradeSolo = $"../GradeSolo"
-@onready var indicador_alvo: MeshInstance3D = $"../IndicadorAlvo"
+@onready var grade_solo: GradeSolo = get_node_or_null(caminho_grade_solo)
+@onready var indicador_alvo: MeshInstance3D = get_node_or_null(caminho_indicador_alvo)
 
 var _tempo_dash_restante: float = 0.0
 var _tempo_cooldown_restante: float = 0.0
@@ -54,12 +57,18 @@ func _physics_process(delta: float) -> void:
 		_indice_combo = 0
 
 	var ferramenta_equipada: Ferramenta = EquipmentManager.ferramenta_atual()
-	indicador_alvo.visible = ferramenta_equipada != null
-	if ferramenta_equipada != null:
-		var celula_alvo: Vector2i = grade_solo.obter_celula_alvo(global_position, personagem.rotation.y)
-		var posicao_local: Vector3 = grade_solo.map_to_local(Vector3i(celula_alvo.x, 0, celula_alvo.y))
-		indicador_alvo.global_position = grade_solo.global_transform * posicao_local
-		indicador_alvo.global_position.y += 0.01
+
+	var celula_alvo: Vector2i
+	var tem_celula_alvo: bool = ferramenta_equipada != null and grade_solo != null
+	if tem_celula_alvo:
+		celula_alvo = grade_solo.obter_celula_alvo(global_position, personagem.rotation.y)
+
+	if indicador_alvo != null:
+		indicador_alvo.visible = tem_celula_alvo and grade_solo.limite.has_point(celula_alvo)
+		if indicador_alvo.visible:
+			var posicao_local: Vector3 = grade_solo.map_to_local(Vector3i(celula_alvo.x, 0, celula_alvo.y))
+			indicador_alvo.global_position = grade_solo.global_transform * posicao_local
+			indicador_alvo.global_position.y += 0.01
 
 	if _tempo_dash_restante <= 0.0 and _tempo_movimento_travado_ataque_restante <= 0.0 and _tempo_cooldown_restante <= 0.0 and InputManager.dash_pressionado():
 		_direcao_dash = Vector3(sin(personagem.rotation.y), 0.0, cos(personagem.rotation.y))
@@ -79,15 +88,8 @@ func _physics_process(delta: float) -> void:
 				_indice_combo = 0
 				_tempo_cooldown_ataque_restante = cooldown_ataque
 				_tempo_janela_combo_restante = 0.0
-		else:
-			var celula_alvo: Vector2i = grade_solo.obter_celula_alvo(global_position, personagem.rotation.y)
-			var acao_teve_efeito: bool = false
-			if ferramenta_equipada.id_acao == &"enxada":
-				acao_teve_efeito = grade_solo.arar(celula_alvo)
-			elif ferramenta_equipada.id_acao == &"regador":
-				acao_teve_efeito = grade_solo.molhar(celula_alvo)
-			elif ferramenta_equipada.id_acao == &"picareta":
-				acao_teve_efeito = grade_solo.remover(celula_alvo)
+		elif grade_solo != null:
+			var acao_teve_efeito: bool = grade_solo.aplicar(ferramenta_equipada.id_acao, celula_alvo)
 
 			if acao_teve_efeito:
 				var nome_clipe_interacao: String = CLIPES_INTERACAO[_indice_interacao]
