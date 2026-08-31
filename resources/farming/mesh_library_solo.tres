@@ -1,16 +1,18 @@
-[gd_resource type="MeshLibrary" format=3]
+[gd_resource type="MeshLibrary" format=3 uid="uid://q8qtcnmxqrqq"]
 
-[ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_dry_single_sem_borda.png" id="1_1ruij"]
-[ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_dry_left_sem_borda.png" id="2_0kpnw"]
-[ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_dry_middle_sem_borda.png" id="3_2pgm0"]
-[ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_dry_right_sem_borda.png" id="4_2thu7"]
-[ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_watered_single_sem_borda.png" id="5_23lsk"]
-[ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_watered_left_sem_borda.png" id="6_tcird"]
-[ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_watered_middle_sem_borda.png" id="7_38pkg"]
-[ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_watered_right_sem_borda.png" id="8_g7j8m"]
+[ext_resource type="Texture2D" uid="uid://c0lojgqtmtlce" path="res://assets/textures/kenney_tiny_farm/soil_plow_dry_single.png" id="1_1ruij"]
+[ext_resource type="Texture2D" uid="uid://cljt5a3nrmnnp" path="res://assets/textures/kenney_tiny_farm/soil_plow_dry_left.png" id="2_0kpnw"]
+[ext_resource type="Texture2D" uid="uid://dgmhfg6lb3imp" path="res://assets/textures/kenney_tiny_farm/soil_plow_dry_middle.png" id="3_2pgm0"]
+[ext_resource type="Texture2D" uid="uid://bgm6s85try0xu" path="res://assets/textures/kenney_tiny_farm/soil_plow_dry_right.png" id="4_2thu7"]
+[ext_resource type="Texture2D" uid="uid://b5m7hb1xnilbr" path="res://assets/textures/kenney_tiny_farm/soil_plow_watered_single.png" id="5_23lsk"]
+[ext_resource type="Texture2D" uid="uid://c03ixvdica0kr" path="res://assets/textures/kenney_tiny_farm/soil_plow_watered_left.png" id="6_tcird"]
+[ext_resource type="Texture2D" uid="uid://dp2sh12b6iv70" path="res://assets/textures/kenney_tiny_farm/soil_plow_watered_middle.png" id="7_38pkg"]
+[ext_resource type="Texture2D" uid="uid://b01fg6b465cfd" path="res://assets/textures/kenney_tiny_farm/soil_plow_watered_right.png" id="8_g7j8m"]
 
 [sub_resource type="StandardMaterial3D" id="Mat_dry_single"]
 transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 albedo_texture = ExtResource("1_1ruij")
 texture_filter = 0
 
@@ -20,6 +22,8 @@ size = Vector2(1, 1)
 
 [sub_resource type="StandardMaterial3D" id="Mat_dry_left"]
 transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 albedo_texture = ExtResource("2_0kpnw")
 texture_filter = 0
 
@@ -29,6 +33,8 @@ size = Vector2(1, 1)
 
 [sub_resource type="StandardMaterial3D" id="Mat_dry_middle"]
 transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 albedo_texture = ExtResource("3_2pgm0")
 texture_filter = 0
 
@@ -38,6 +44,8 @@ size = Vector2(1, 1)
 
 [sub_resource type="StandardMaterial3D" id="Mat_dry_right"]
 transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 albedo_texture = ExtResource("4_2thu7")
 texture_filter = 0
 
@@ -47,6 +55,8 @@ size = Vector2(1, 1)
 
 [sub_resource type="StandardMaterial3D" id="Mat_watered_single"]
 transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 albedo_texture = ExtResource("5_23lsk")
 texture_filter = 0
 
@@ -56,6 +66,8 @@ size = Vector2(1, 1)
 
 [sub_resource type="StandardMaterial3D" id="Mat_watered_left"]
 transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 albedo_texture = ExtResource("6_tcird")
 texture_filter = 0
 
@@ -65,6 +77,8 @@ size = Vector2(1, 1)
 
 [sub_resource type="StandardMaterial3D" id="Mat_watered_middle"]
 transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 albedo_texture = ExtResource("7_38pkg")
 texture_filter = 0
 
@@ -74,6 +88,8 @@ size = Vector2(1, 1)
 
 [sub_resource type="StandardMaterial3D" id="Mat_watered_right"]
 transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 albedo_texture = ExtResource("8_g7j8m")
 texture_filter = 0
 
