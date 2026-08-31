@@ -5,7 +5,11 @@ enum EstadoTile { VAZIO, ARADO_SECO, ARADO_MOLHADO }
 
 var _estado: Dictionary = {}
 
+@export var limite: Rect2i = Rect2i(Vector2i(-15, -15), Vector2i(30, 30))
+
 func arar(celula: Vector2i) -> bool:
+	if not limite.has_point(celula):
+		return false
 	if _estado.get(celula, EstadoTile.VAZIO) != EstadoTile.VAZIO:
 		return false
 	_definir_estado(celula, EstadoTile.ARADO_SECO)
@@ -13,6 +17,8 @@ func arar(celula: Vector2i) -> bool:
 	return true
 
 func molhar(celula: Vector2i) -> bool:
+	if not limite.has_point(celula):
+		return false
 	if _estado.get(celula, EstadoTile.VAZIO) != EstadoTile.ARADO_SECO:
 		return false
 	_definir_estado(celula, EstadoTile.ARADO_MOLHADO)
@@ -20,11 +26,24 @@ func molhar(celula: Vector2i) -> bool:
 	return true
 
 func remover(celula: Vector2i) -> bool:
+	if not limite.has_point(celula):
+		return false
 	if _estado.get(celula, EstadoTile.VAZIO) == EstadoTile.VAZIO:
 		return false
 	_definir_estado(celula, EstadoTile.VAZIO)
 	EventBus.tile_removed.emit(celula)
 	return true
+
+func aplicar(id_acao: StringName, celula: Vector2i) -> bool:
+	match id_acao:
+		&"enxada":
+			return arar(celula)
+		&"regador":
+			return molhar(celula)
+		&"picareta":
+			return remover(celula)
+		_:
+			return false
 
 func obter_celula_alvo(posicao_jogador: Vector3, rotacao_y: float) -> Vector2i:
 	var direcao := Vector3(sin(rotacao_y), 0.0, cos(rotacao_y))
@@ -58,4 +77,7 @@ func _atualizar_variante(celula: Vector2i) -> void:
 
 	var prefixo: String = "dry" if estado == EstadoTile.ARADO_SECO else "watered"
 	var nome_item: String = "soil_plow_%s_%s" % [prefixo, sufixo]
-	set_cell_item(Vector3i(celula.x, 0, celula.y), mesh_library.find_item_by_name(nome_item))
+	var indice_item: int = mesh_library.find_item_by_name(nome_item)
+	if indice_item == -1:
+		push_error("GradeSolo: item de MeshLibrary nao encontrado: %s" % nome_item)
+	set_cell_item(Vector3i(celula.x, 0, celula.y), indice_item)
