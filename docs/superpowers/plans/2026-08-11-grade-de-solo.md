@@ -386,10 +386,10 @@ git commit -m "fix(farming): configura import lossless sem compressao VRAM pras 
 
 - [ ] **Step 1: Criar a cena-fonte com os 8 planos**
 
-`scenes/farming/fonte_mesh_library_solo.tscn` — um `Node3D` raiz com 8 filhos `MeshInstance3D`, cada um com `PlaneMesh` de `size = Vector2(1, 1)` e um `StandardMaterial3D` próprio (`texture_filter = 0` é `Nearest` no enum `BaseMaterial3D.TextureFilter`) apontando pra textura correspondente. O nome de cada nó vira o nome do item na `MeshLibrary`:
+`scenes/farming/fonte_mesh_library_solo.tscn` — um `Node3D` raiz com 8 filhos `MeshInstance3D`, cada um com seu **próprio** `PlaneMesh` de `size = Vector2(1, 1)`. O material (`texture_filter = 0` é `Nearest` no enum `BaseMaterial3D.TextureFilter`, `albedo_texture` apontando pra textura correspondente) é atribuído **direto no `PlaneMesh`** (`material = SubResource(...)`), não como `surface_material_override` no `MeshInstance3D` — a ferramenta `mcp__godot__export_mesh_library` (usada no Step 2) lê só `MeshInstance3D.mesh` ao gerar cada item da `MeshLibrary` e ignora qualquer `surface_material_override`, então o material precisa estar embutido no mesh em si, não numa sobreposição por instância. Isso também significa que cada um dos 8 planos precisa de um `PlaneMesh` só seu (não dá pra compartilhar um `PlaneMesh` entre vários nós com materiais diferentes, já que o material agora mora no mesh). O nome de cada nó vira o nome do item na `MeshLibrary`:
 
 ```
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=25 format=3]
 
 [ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_dry_single.png" id="1_dry_single"]
 [ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_dry_left.png" id="2_dry_left"]
@@ -399,9 +399,6 @@ git commit -m "fix(farming): configura import lossless sem compressao VRAM pras 
 [ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_watered_left.png" id="6_watered_left"]
 [ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_watered_middle.png" id="7_watered_middle"]
 [ext_resource type="Texture2D" path="res://assets/textures/kenney_tiny_farm/soil_plow_watered_right.png" id="8_watered_right"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_solo"]
-size = Vector2(1, 1)
 
 [sub_resource type="StandardMaterial3D" id="Mat_dry_single"]
 texture_filter = 0
@@ -435,54 +432,78 @@ albedo_texture = ExtResource("7_watered_middle")
 texture_filter = 0
 albedo_texture = ExtResource("8_watered_right")
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_dry_single"]
+material = SubResource("Mat_dry_single")
+size = Vector2(1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dry_left"]
+material = SubResource("Mat_dry_left")
+size = Vector2(1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dry_middle"]
+material = SubResource("Mat_dry_middle")
+size = Vector2(1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dry_right"]
+material = SubResource("Mat_dry_right")
+size = Vector2(1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_watered_single"]
+material = SubResource("Mat_watered_single")
+size = Vector2(1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_watered_left"]
+material = SubResource("Mat_watered_left")
+size = Vector2(1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_watered_middle"]
+material = SubResource("Mat_watered_middle")
+size = Vector2(1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_watered_right"]
+material = SubResource("Mat_watered_right")
+size = Vector2(1, 1)
+
 [node name="FonteMeshLibrarySolo" type="Node3D"]
 
 [node name="soil_plow_dry_single" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
-mesh = SubResource("PlaneMesh_solo")
-surface_material_override/0 = SubResource("Mat_dry_single")
+mesh = SubResource("PlaneMesh_dry_single")
 
 [node name="soil_plow_dry_left" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.02, 0)
-mesh = SubResource("PlaneMesh_solo")
-surface_material_override/0 = SubResource("Mat_dry_left")
+mesh = SubResource("PlaneMesh_dry_left")
 
 [node name="soil_plow_dry_middle" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.02, 0)
-mesh = SubResource("PlaneMesh_solo")
-surface_material_override/0 = SubResource("Mat_dry_middle")
+mesh = SubResource("PlaneMesh_dry_middle")
 
 [node name="soil_plow_dry_right" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.02, 0)
-mesh = SubResource("PlaneMesh_solo")
-surface_material_override/0 = SubResource("Mat_dry_right")
+mesh = SubResource("PlaneMesh_dry_right")
 
 [node name="soil_plow_watered_single" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 1)
-mesh = SubResource("PlaneMesh_solo")
-surface_material_override/0 = SubResource("Mat_watered_single")
+mesh = SubResource("PlaneMesh_watered_single")
 
 [node name="soil_plow_watered_left" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.02, 1)
-mesh = SubResource("PlaneMesh_solo")
-surface_material_override/0 = SubResource("Mat_watered_left")
+mesh = SubResource("PlaneMesh_watered_left")
 
 [node name="soil_plow_watered_middle" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.02, 1)
-mesh = SubResource("PlaneMesh_solo")
-surface_material_override/0 = SubResource("Mat_watered_middle")
+mesh = SubResource("PlaneMesh_watered_middle")
 
 [node name="soil_plow_watered_right" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.02, 1)
-mesh = SubResource("PlaneMesh_solo")
-surface_material_override/0 = SubResource("Mat_watered_right")
+mesh = SubResource("PlaneMesh_watered_right")
 ```
 
 (Os 8 planos ficam espalhados numa grade 4x2 só pra não se sobrepor visualmente na cena-fonte — a posição deles aqui não importa pro resultado final, só a existência de cada nó com seu mesh e material. O deslocamento `y = 0.02` em cada um é o que vai fazer o item, já dentro da `MeshLibrary`, renderizar ligeiramente acima do plano de grama quando usado no `GridMap`, evitando z-fighting.)
 
 - [ ] **Step 2: Exportar a `MeshLibrary`**
 
-Carregue o schema da ferramenta com `ToolSearch("select:mcp__godot__export_mesh_library")`, depois chame `mcp__godot__export_mesh_library` apontando a cena-fonte (`res://scenes/farming/fonte_mesh_library_solo.tscn`) como origem e `res://resources/farming/mesh_library_solo.tres` como destino.
+Carregue o schema da ferramenta com `ToolSearch("select:mcp__godot__export_mesh_library")`, depois chame `mcp__godot__export_mesh_library` apontando a cena-fonte como origem e `resources/farming/mesh_library_solo.tres` como destino. Os parâmetros `scenePath`/`outputPath` dessa ferramenta esperam caminho relativo ao projeto **sem** o prefixo `res://` (passar `res://...` retorna erro "Scene file does not exist") — use `scenes/farming/fonte_mesh_library_solo.tscn` e `resources/farming/mesh_library_solo.tres` diretamente.
 
 - [ ] **Step 3: Verificar**
 
@@ -534,9 +555,12 @@ Depois do nó `Piso`, antes do nó `Player`:
 
 ```
 [node name="GradeSolo" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
 mesh_library = ExtResource("6_grade_solo")
 cell_size = Vector3(1, 1, 1)
 ```
+
+**Nota (ajuste sobre a Task 6):** o offset `y = 0.02` pra evitar z-fighting com a grama, que a Task 6 previa embutir no `mesh_transform` de cada item da `MeshLibrary`, não sobreviveu à exportação via `mcp__godot__export_mesh_library` (a ferramenta zera o transform de todos os itens, verificado na Task 6). Por isso o offset entra aqui, direto no `transform` do próprio nó `GridMap` — desloca o grid inteiro pra cima uma vez só, em vez de por item, com o mesmo efeito visual.
 
 - [ ] **Step 4: Verificar**
 
@@ -854,9 +878,51 @@ git commit -m "feat(farming): enxada e regador substituem o combo de ataque quan
 
 ---
 
+## Task 11: Conectar os inputs de equipar/ciclar ao `EquipmentManager`
+
+**Contexto:** lacuna descoberta na revisão da Task 10 — a Task 3 criou as ações de input e os métodos `InputManager.equipar_1_pressionado()` etc., e a prosa da Task 3 descrevia a intenção (`equipar_2` → `EquipmentManager.equipar_indice(0)`), mas nenhuma task tinha um Step que efetivamente chamasse esses métodos do `EquipmentManager`. Sem isso, o jogador não consegue equipar enxada/regador de jeito nenhum jogando normalmente — só chamando código direto, como os agentes fizeram pra verificar as Tasks 9 e 10.
+
+**Files:**
+- Modify: `scripts/player/player.gd`
+
+**Interfaces:**
+- Consumes: `InputManager.equipar_1_pressionado()`, `equipar_2_pressionado()`, `equipar_3_pressionado()`, `proxima_ferramenta_pressionada()`, `ferramenta_anterior_pressionada()` (Task 3); `EquipmentManager.equipar_indice(indice: int)`, `EquipmentManager.ciclar(direcao: int)` (Task 2).
+
+- [ ] **Step 1: Adicionar a checagem de troca de ferramenta em `_physics_process`**
+
+No início de `_physics_process`, junto aos decrementos de timer já existentes (antes da lógica de dash/ataque):
+
+```gdscript
+	if InputManager.equipar_1_pressionado():
+		EquipmentManager.equipar_indice(-1)
+	elif InputManager.equipar_2_pressionado():
+		EquipmentManager.equipar_indice(0)
+	elif InputManager.equipar_3_pressionado():
+		EquipmentManager.equipar_indice(1)
+	elif InputManager.proxima_ferramenta_pressionada():
+		EquipmentManager.ciclar(1)
+	elif InputManager.ferramenta_anterior_pressionada():
+		EquipmentManager.ciclar(-1)
+```
+
+`elif` entre as 5 checagens porque só uma pode fazer sentido por frame (não dá pra apertar duas teclas de equipar diferentes no mesmo frame de forma útil); `equipar_indice(0)`/`equipar_indice(1)` são os índices fixos de enxada/regador em `EquipmentManager.ferramentas`, os mesmos já usados no Step 2 da Task 3.
+
+- [ ] **Step 2: Verificar manualmente**
+
+Rode o jogo. Aperte `1`, `2`, `3` e confirme que o HUD alterna entre "Socos"/"Enxada"/"Regador" e o indicador de alvo aparece/some de acordo. Gire a roda do mouse pra cima e pra baixo e confirme que cicla na mesma sequência (socos → enxada → regador → socos, e o sentido inverso). Isso fecha o ciclo: agora dá pra jogar a feature inteira (Tasks 1-11) só com teclado/mouse, sem precisar chamar nada por código.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add scripts/player/player.gd
+git commit -m "feat(farming): conecta os inputs de equipar/ciclar ferramenta ao EquipmentManager"
+```
+
+---
+
 ## Self-Review
 
-**Cobertura da spec:** Ferramenta equipada (Task 1-2), HUD (Task 4), input incluindo scroll do mouse (Task 3), GridMap + MeshLibrary + recolorir grama (Task 5-7), estado do grid + autotile horizontal + sinais do EventBus (Task 8), indicador de alvo (Task 9), integração final em `player.gd` com enxada e regador (Task 10). Todos os itens do "Objetivo" da spec têm uma task correspondente. Os itens de "Fora de escopo" (plantio, secagem automática, posse por inventário, VFX/SFX, cena de fazenda separada) não têm task — corretamente, não deveriam ter.
+**Cobertura da spec:** Ferramenta equipada (Task 1-2), HUD (Task 4), input incluindo scroll do mouse (Task 3), GridMap + MeshLibrary + recolorir grama (Task 5-7), estado do grid + autotile horizontal + sinais do EventBus (Task 8), indicador de alvo (Task 9), integração final em `player.gd` com enxada e regador (Task 10), conexão dos inputs de equipar ao `EquipmentManager` (Task 11 — adicionada depois da revisão da Task 10 ter pego essa lacuna: a Task 3 só criava os métodos de input, nenhuma task os chamava de fato). Todos os itens do "Objetivo" da spec têm uma task correspondente. Os itens de "Fora de escopo" (plantio, secagem automática, posse por inventário, VFX/SFX, cena de fazenda separada) não têm task — corretamente, não deveriam ter.
 
 **Placeholders:** nenhum "TBD"/"implementar depois" — todo passo tem código completo ou comando exato.
 
