@@ -1,19 +1,24 @@
-# Cyber Moon
+# CyberMoon
 
-Jogo de fazendinha com temática cyberpunk. Combina coleta de recursos, ciclo de dias, combate em RPG simples e um sistema de relacionamento com NPCs. A evolução da fazenda é travada atrás de marcos de recursos acumulados pelo jogador, ligados ao avanço da história, cujo fio condutor é a expansão da cidade sobre os campos.
+Um fazendeiro em um mundo cyberpunk luta para preservar seus campos enquanto a cidade consome tudo ao redor, coletando recursos, forjando alianças e enfrentando inimigos para salvar o que ainda resta de natural.
 
-## Requisitos
+## Principais inspirações
 
-Godot 4.7, com o renderer GL Compatibility.
+- Stardew Valley
+- Cyberpunk 2077
+- Rune Factory
+- Harvest Moon
 
-## Como abrir o projeto
+## Características técnicas
 
-Abra a pasta do repositório pelo Project Manager do Godot e selecione `project.godot`.
+- Câmera top down
+- Renderização 3D simples
 
-## Documentação
+## Objetivo
 
-- `docs/arquitetura.md`: autoloads e modelo de dados.
-- `docs/convencoes.md`: nomenclatura e estrutura de pastas.
-- `docs/pipeline_de_assets.md`: fluxo de importação de assets.
-- `docs/entrada.md`: ações do Input Map e dispositivos suportados.
-- `docs/glossario.md`: termos de design mapeados para nomes técnicos.
+Evoluir a fazenda, a evolução se dá pela progressão da história que está travada atrás de marcos em forma de recursos acumulados pelo jogador. O ponto chave é barrar a expansão da cidade até os campos.
+
+## Equipe
+
+- Antonio Marcos da Silva
+- Bernardo Silva Bombazaro
