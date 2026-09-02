@@ -1,10 +1,10 @@
 # Godot 4+ specific ignores
 .godot/
-/android/
+android/
 
 # Area de trabalho local de execucao de planos, nao faz parte do projeto
-/.superpowers/
+.superpowers/
 
 # Pacotes brutos de assets, baixados localmente e nao versionados; ver
-# docs/pipeline_de_assets.md para o fluxo de extracao para assets/
-/_import/*.zip
+# game/docs/pipeline_de_assets.md para o fluxo de extracao para game/assets/
+game/_import/*.zip
