@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "godot": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@coding-solo/godot-mcp"],
+      "env": {
+        "GODOT_PATH": "/var/lib/flatpak/exports/bin/org.godotengine.Godot"
+      }
+    }
+  }
+}
