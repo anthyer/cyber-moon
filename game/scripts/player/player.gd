@@ -10,6 +10,7 @@ extends CharacterBody3D
 @export var folga_pos_golpe: float = 0.1
 @export var janela_combo_ataque: float = 0.6
 @export var cooldown_ataque: float = 0.3
+@export var gravidade: float = 24.0
 
 const CLIPES_COMBO_ATAQUE: Array[String] = ["attack-melee-left", "attack-melee-left", "attack-melee-right"]
 const CLIPES_INTERACAO: Array[String] = ["interact-left", "interact-right"]
@@ -125,6 +126,11 @@ func _physics_process(delta: float) -> void:
 			personagem.rotation.y = lerp_angle(personagem.rotation.y, angulo_alvo, velocidade_rotacao * delta)
 
 		_atualizar_animacao(direcao, esta_correndo, false)
+
+	if is_on_floor():
+		velocity.y = 0.0
+	else:
+		velocity.y -= gravidade * delta
 
 	move_and_slide()
 
