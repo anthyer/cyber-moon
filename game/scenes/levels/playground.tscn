@@ -94,7 +94,19 @@ roughness = 0.9
 material = SubResource("StandardMaterial3D_grama")
 size = Vector2(40, 37)
 
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
+
+
 [node name="Playground" type="Node3D" unique_id=263848000]
+
+[node name="ChaoBase" type="StaticBody3D" parent="." unique_id=100000001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+collision_layer = 1
+collision_mask = 0
+metadata/superficie = &"grama"
+
+[node name="FormaChao" type="CollisionShape3D" parent="ChaoBase" unique_id=100000002]
+shape = SubResource("WorldBoundaryShape3D_chao")
 
 [node name="Ambiente" type="WorldEnvironment" parent="." unique_id=2132912754]
 environment = SubResource("Environment_ambiente")
