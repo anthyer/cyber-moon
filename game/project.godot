@@ -124,6 +124,17 @@ ferramenta_anterior={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="mundo"
+3d_physics/layer_2="jogador"
+3d_physics/layer_3="npc"
+3d_physics/layer_4="inimigo"
+3d_physics/layer_5="item_no_chao"
+3d_physics/layer_6="area_interacao"
+3d_physics/layer_7="hitbox_ataque"
+3d_physics/layer_8="solo_agricola"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
