@@ -1,18 +1,101 @@
 @tool
 extends EditorScenePostImport
 
-## Normaliza os materiais dos pacotes de modelos da Kenney na importação.
+## Normaliza os materiais dos pacotes de modelos da Kenney na importação e gera a
+## colisão estática do cenário.
 ##
 ## Os modelos são exportados com metallicFactor 1.0 no glTF. Com esse valor o
 ## Godot trata a cor do albedo como cor de reflexo e zera a componente difusa,
 ## deixando tudo escuro. Como esses materiais tiram a cor inteira do albedo, o
 ## componente metálico não acrescenta nada e é zerado aqui.
+##
+## A colisão é gerada aqui, e não à mão na cena, porque o playground instancia
+## centenas de cópias dos mesmos modelos. Gerando na importação, um modelo
+## corrigido conserta todas as instâncias dele de uma vez.
 
 const RUGOSIDADE_PADRAO: float = 0.9
 
+const CAMADA_MUNDO: int = 1
+
+## Modelos cujo nome contém um destes trechos não recebem colisão. São decoração
+## que o jogador precisa poder atravessar, senão andar pelo mapa vira um labirinto
+## de tufos de grama invisíveis.
+const TRECHOS_SEM_COLISAO: Array[String] = [
+	"grass", "flower", "mushroom", "plant", "crops_",
+	"mulch", "mound", "mark_", "mark-",
+]
+
+## Mapeamento de trecho do nome do arquivo para superfície. A primeira entrada que
+## casar vence, então a ordem importa: "path_stone" precisa vir antes de "path".
+const SUPERFICIE_POR_TRECHO: Array = [
+	["road", &"asfalto"],
+	["driveway", &"asfalto"],
+	["sidewalk", &"pedra"],
+	["path_stone", &"pedra"],
+	["stone", &"pedra"],
+	["cliff", &"pedra"],
+	["rock", &"pedra"],
+	["bridge", &"madeira"],
+	["log_", &"madeira"],
+	["plank", &"madeira"],
+	["fence", &"madeira"],
+	["crate", &"madeira"],
+	["tree", &"madeira"],
+	["building", &"metal"],
+	["detail_", &"metal"],
+	["tank", &"metal"],
+	["silo", &"metal"],
+	["ground_path", &"terra"],
+	["dirt", &"terra"],
+	["platform_grass", &"grama"],
+	["ground_grass", &"grama"],
+]
+
+const SUPERFICIE_PADRAO: StringName = &"grama"
+
 func _post_import(cena: Node) -> Object:
+	var nome_do_arquivo: String = get_source_file().get_file().to_lower()
 	_normalizar_materiais(cena)
+	if not _deve_ter_colisao(nome_do_arquivo):
+		return cena
+	var superficie: StringName = _superficie_do_nome(nome_do_arquivo)
+	_gerar_colisao(cena, cena, superficie)
 	return cena
+
+func _deve_ter_colisao(nome_do_arquivo: String) -> bool:
+	for trecho in TRECHOS_SEM_COLISAO:
+		if nome_do_arquivo.contains(trecho):
+			return false
+	return true
+
+func _superficie_do_nome(nome_do_arquivo: String) -> StringName:
+	for par in SUPERFICIE_POR_TRECHO:
+		if nome_do_arquivo.contains(par[0] as String):
+			return par[1] as StringName
+	return SUPERFICIE_PADRAO
+
+func _gerar_colisao(no: Node, raiz: Node, superficie: StringName) -> void:
+	if no is MeshInstance3D:
+		var instancia := no as MeshInstance3D
+		var malha: Mesh = instancia.mesh
+		if malha != null and malha.get_surface_count() > 0:
+			var corpo := StaticBody3D.new()
+			corpo.name = "Colisao"
+			corpo.collision_layer = CAMADA_MUNDO
+			corpo.collision_mask = 0
+			corpo.set_meta(&"superficie", superficie)
+
+			var forma := CollisionShape3D.new()
+			forma.name = "FormaColisao"
+			forma.shape = malha.create_trimesh_shape()
+
+			corpo.add_child(forma)
+			instancia.add_child(corpo)
+			corpo.owner = raiz
+			forma.owner = raiz
+
+	for filho in no.get_children():
+		_gerar_colisao(filho, raiz, superficie)
 
 func _normalizar_materiais(no: Node) -> void:
 	if no is MeshInstance3D:
