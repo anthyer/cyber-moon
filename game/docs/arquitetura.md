@@ -27,3 +27,25 @@ Um novo cultivo, item ou NPC vira um arquivo `.tres` criado no editor, sem exigi
 ## Composição de cenas
 
 Entidades do jogo usam herança de cena padrão do Godot. Nós de comportamento reutilizáveis são extraídos como cenas próprias e instanciados como filhos quando o mesmo comportamento se repete em mais de um tipo de entidade.
+
+## Camadas de física
+
+O jogo usa 8 camadas de colisão 3D, nomeadas no `project.godot`:
+
+| Camada | Nome | Quem fica nela |
+|---|---|---|
+| 1 | `mundo` | cenário estático, chão, paredes, obstáculo |
+| 2 | `jogador` | o corpo do jogador |
+| 3 | `npc` | corpo dos NPCs |
+| 4 | `inimigo` | corpo dos inimigos |
+| 5 | `item_no_chao` | item dropado esperando ser pego |
+| 6 | `area_interacao` | área que detecta o que dá para interagir |
+| 7 | `hitbox_ataque` | área de dano de um golpe |
+| 8 | `solo_agricola` | a grade de solo arável |
+
+A colisão do cenário não é montada à mão nas cenas. Ela é gerada na importação pelo
+`scripts/utils/post_import_kenney.gd`, que cria um `StaticBody3D` com forma trimesh
+para cada malha do modelo e marca nele uma metadata `superficie`, usada pelo sistema de
+áudio para escolher o som de passo. Modelos de decoração atravessável ficam de fora por
+uma lista de trechos de nome no próprio script.
+
