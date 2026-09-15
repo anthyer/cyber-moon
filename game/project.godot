@@ -24,6 +24,12 @@ InputManager="*res://scripts/core/input_manager.gd"
 GameManager="*res://scripts/core/game_manager.gd"
 SaveManager="*res://scripts/core/save_manager.gd"
 EquipmentManager="*res://scripts/core/equipment_manager.gd"
+AudioManager="*res://scripts/core/audio_manager.gd"
+
+
+[audio]
+
+buses/default_bus_layout="res://default_bus_layout.tres"
 
 [display]
 
