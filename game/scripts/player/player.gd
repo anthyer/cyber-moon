@@ -11,6 +11,7 @@ extends CharacterBody3D
 @export var janela_combo_ataque: float = 0.6
 @export var cooldown_ataque: float = 0.3
 @export var gravidade: float = 24.0
+@export var altura_degrau: float = 0.35
 
 const CLIPES_COMBO_ATAQUE: Array[String] = ["attack-melee-left", "attack-melee-left", "attack-melee-right"]
 const CLIPES_INTERACAO: Array[String] = ["interact-left", "interact-right"]
@@ -133,6 +134,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= gravidade * delta
 
 	move_and_slide()
+	_tentar_subir_degrau()
 
 func _travar_movimento_pela_animacao(nome_clipe: String) -> void:
 	animation_player.play(nome_clipe, -1.0, velocidade_ataque)
@@ -150,3 +152,37 @@ func _atualizar_animacao(direcao: Vector3, esta_correndo: bool, esta_dando_dash:
 
 	if animation_player.current_animation != animacao_alvo:
 		animation_player.play(animacao_alvo)
+
+func _tentar_subir_degrau() -> void:
+	## Permite subir degraus baixos (escadinha da ponte, beira de calçada) sem pular.
+	## Só tenta quando o player está encostado numa parede e se movendo.
+	if not is_on_wall():
+		return
+	var dir_plana: Vector3 = velocity
+	dir_plana.y = 0.0
+	if dir_plana.length() < 0.1:
+		return
+	dir_plana = dir_plana.normalized()
+
+	var espaco: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	## Ponto de onde sai o raio: acima do player na altura do degrau máximo
+	var origem_alta: Vector3 = global_position + Vector3.UP * (altura_degrau + 0.05)
+
+	## Raio à frente na altura do degrau — se bater em algo, o obstáculo é alto demais
+	var params_frente := PhysicsRayQueryParameters3D.create(
+		origem_alta, origem_alta + dir_plana * 0.4, collision_mask
+	)
+	params_frente.exclude = [get_rid()]
+	if espaco.intersect_ray(params_frente):
+		return
+
+	## Raio para baixo à frente — encontra o topo do degrau
+	var destino_frente: Vector3 = origem_alta + dir_plana * 0.25
+	var params_baixo := PhysicsRayQueryParameters3D.create(
+		destino_frente, destino_frente + Vector3.DOWN * (altura_degrau + 0.1), collision_mask
+	)
+	params_baixo.exclude = [get_rid()]
+	var resultado: Dictionary = espaco.intersect_ray(params_baixo)
+	if resultado:
+		## Sobe o player para o topo do degrau encontrado
+		global_position.y = resultado.position.y + 0.02
