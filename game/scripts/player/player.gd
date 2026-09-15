@@ -94,6 +94,7 @@ func _physics_process(delta: float) -> void:
 			var acao_teve_efeito: bool = grade_solo.aplicar(ferramenta_equipada.id_acao, celula_alvo)
 
 			if acao_teve_efeito:
+				AudioManager.tocar_sfx(ferramenta_equipada.som_de_uso, global_position)
 				var nome_clipe_interacao: String = CLIPES_INTERACAO[_indice_interacao]
 				_travar_movimento_pela_animacao(nome_clipe_interacao)
 				_indice_interacao = (_indice_interacao + 1) % CLIPES_INTERACAO.size()
