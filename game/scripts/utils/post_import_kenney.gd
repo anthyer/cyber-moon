@@ -23,8 +23,11 @@ const CAMADA_MUNDO: int = 1
 ## são instanciados como filhos do CharacterBody3D, e ter um StaticBody3D dentro de
 ## um corpo que se move faz o move_and_slide() interpretar o contato como plataforma
 ## em movimento, lançando o personagem para cima indefinidamente.
+## A ponte (bridge) fica de fora porque a colisão trimesh inclui grades e suportes
+## laterais que bloqueiam o player; sem step-up no CharacterBody3D o player não
+## consegue subir no deck. Revisitar quando houver lógica de step-up.
 const TRECHOS_SEM_COLISAO: Array[String] = [
-	"character", "animal",
+	"character", "animal", "bridge",
 	"grass", "flower", "mushroom", "plant", "crops_",
 	"mulch", "mound", "mark_", "mark-",
 ]
@@ -39,7 +42,6 @@ const SUPERFICIE_POR_TRECHO: Array = [
 	["stone", &"pedra"],
 	["cliff", &"pedra"],
 	["rock", &"pedra"],
-	["bridge", &"madeira"],
 	["log_", &"madeira"],
 	["plank", &"madeira"],
 	["fence", &"madeira"],
@@ -54,6 +56,7 @@ const SUPERFICIE_POR_TRECHO: Array = [
 	["platform_grass", &"grama"],
 	["ground_grass", &"grama"],
 ]
+
 
 const SUPERFICIE_PADRAO: StringName = &"grama"
 
