@@ -13,3 +13,5 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Expansão da cidade | City expansion / sinal `city_expansion_blocked` |
 | Perfil de NPC | NPC profile / `PerfilNpc` (classe Resource) |
 | Nó de diálogo | Dialogue node / `NoDialogo` (classe Resource) |
+| Banco de passos | Footsteps bank / `BancoDePassos` (classe Resource) |
+| Superfície | Surface / metadata `superficie` |

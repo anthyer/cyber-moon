@@ -10,6 +10,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 - `InputManager` (`scripts/core/input_manager.gd`): traduz o Input Map do Godot em consultas simples (`obter_direcao_movimento`, `interagir_pressionado`, `abrir_inventario_pressionado`), independente do dispositivo físico usado.
 - `GameManager` (`scripts/core/game_manager.gd`): guarda a fase da história e os marcos de progresso já desbloqueados. Método principal: `desbloquear_marco`, que emite `EventBus.city_expansion_blocked`.
 - `SaveManager` (`scripts/core/save_manager.gd`): grava e lê o progresso em `user://save_game.json`.
+- `AudioManager` (`scripts/core/audio_manager.gd`): Ponto único de reprodução de som do jogo com piscina de tocadores reutilizados para SFX.
 
 Cada autoload tem responsabilidade única. Quando um autoload começar a acumular lógica de um domínio diferente do seu, isso é sinal de que uma responsabilidade nova precisa de seu próprio autoload.
 
@@ -21,6 +22,7 @@ Conteúdo de jogo é representado por classes `Resource` customizadas, definidas
 - `Cultivo` (`scripts/resources/cultivo.gd`): uma cultura plantável na fazenda.
 - `PerfilNpc` (`scripts/resources/perfil_npc.gd`): dados de um NPC.
 - `NoDialogo` (`scripts/resources/no_dialogo.gd`): um nó de uma árvore de diálogo.
+- `BancoDePassos` (`scripts/resources/banco_de_passos.gd`): mapeia tipos de superfície a clipes de áudio para os passos do jogador.
 
 Um novo cultivo, item ou NPC vira um arquivo `.tres` criado no editor, sem exigir código novo.
 
@@ -49,3 +51,6 @@ para cada malha do modelo e marca nele uma metadata `superficie`, usada pelo sis
 áudio para escolher o som de passo. Modelos de decoração atravessável ficam de fora por
 uma lista de trechos de nome no próprio script.
 
+## Áudio
+
+O sistema de áudio utiliza três buses (`Musica`, `SFX`, e `Ambiente`) para controle independente de volume. Os sons de passo devem ser organizados em pastas por superfície em `game/assets/audio/sfx/passos/` (ex. `grama`, `terra`). Uma regra fundamental do `AudioManager` é que chamadas de som com fluxo nulo (quando o arquivo não existe) são intencionalmente ignoradas, permitindo que o jogo rode sem erros enquanto os assets de áudio ainda não foram incluídos.
