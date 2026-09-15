@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BancoDePassos" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/banco_de_passos.gd" id="1_abc12"]
+
+[resource]
+script = ExtResource("1_abc12")
+clipes_por_superficie = {}
+superficie_padrao = &"grama"
+variacao_de_tom = 0.08
+variacao_de_volume_db = 2.0
