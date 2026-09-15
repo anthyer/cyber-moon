@@ -99,3 +99,33 @@ Decisão que tomei sozinho e qual era a alternativa.
 Onde o plano divergia do código real.
 
 -->
+
+### 2026-09-15, plano 01
+
+**Bugs encontrados na implementacao e corrigidos:**
+
+O script `post_import_kenney.gd` aplicava colisao em TODOS os `.glb` do projeto, incluindo
+`character_female_f.glb` do pacote kenney_mini_characters. O personagem ficava com
+`StaticBody3D` dentro dele. Como esse corpo e filho do `Personagem` que e filho do `Player`
+(CharacterBody3D), o `move_and_slide()` interpretava o contato com o proprio corpo como
+"plataforma em movimento" e lancava o player para cima indefinidamente. Fix: adicionar
+`"character"` e `"animal"` a `TRECHOS_SEM_COLISAO`.
+
+A lista `TRECHOS_SEM_COLISAO` continha `"grass"`, que casava com `platform_grass.glb` e
+`ground_grass.glb` (pecas de chao que precisam de colisao). Fix: a nova funcao
+`_tem_superficie_conhecida()` verifica se o modelo esta em `SUPERFICIE_POR_TRECHO`; se
+sim, recebe colisao independente da lista de exclusao.
+
+**Divergencias do plano:**
+
+O plano dizia para colocar o `ChaoBase` em `y = -0.6`. Com os tiles de chao em `y = 0` e o
+plano visual `Grama2`/`Grama3` em `y ≈ 0`, o valor -0.6 colocava o player bem abaixo do
+visual onde nao tem tile. Ajustado para `y = 0` (sem transform no ChaoBase), que alinha com
+o piso visual. O spawn do player foi ajustado de `y = 0.136` para `y = 0.5` para garantir
+que o player aparece acima de qualquer tile e cai suavemente.
+
+**Tarefa 5 (ajuste andando pelo mapa):** feita parcialmente pelo diagnostico automatico.
+Os bugs acima foram os ajustes necessarios. Nao foi possivel andar manualmente por todo o
+mapa para detectar obstaculos incorretos, pois nao ha acesso ao editor grafico nesta sessao.
+O Antonio devera revisar encostando em tudo ao voltar.
+

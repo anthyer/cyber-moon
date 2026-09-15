@@ -5,7 +5,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 
 ## Situação
 
-- [ ] 01 Colisão de cenário (**prioridade**)
+- [x] 01 Colisão de cenário (**prioridade**)
 - [ ] 02 Som (**prioridade**)
 - [ ] Vídeo de entrega das duas prioridades
 - [ ] 03 Sistema de itens
