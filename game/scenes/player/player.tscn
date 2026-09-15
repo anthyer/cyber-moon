@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://d2br6e0shdkjd" path="res://assets/models/kenney_mini_characters/character_female_f.glb" id="2_personagem"]
+[ext_resource type="Script" path="res://scripts/player/passos_do_jogador.gd" id="3_passos"]
+[ext_resource type="Resource" path="res://resources/audio/passos_padrao.tres" id="4_banco"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.3
@@ -17,3 +19,12 @@ script = ExtResource("1_script")
 [node name="FormaColisao" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("CapsuleShape3D_player")
+
+[node name="RaioSuperficie" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+target_position = Vector3(0, -0.8, 0)
+collision_mask = 1
+
+[node name="PassosDoJogador" type="Node" parent="."]
+script = ExtResource("3_passos")
+banco = ExtResource("4_banco")
