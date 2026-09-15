@@ -56,11 +56,21 @@ const SUPERFICIE_PADRAO: StringName = &"grama"
 func _post_import(cena: Node) -> Object:
 	var nome_do_arquivo: String = get_source_file().get_file().to_lower()
 	_normalizar_materiais(cena)
-	if not _deve_ter_colisao(nome_do_arquivo):
-		return cena
 	var superficie: StringName = _superficie_do_nome(nome_do_arquivo)
+	## Modelos com superfície conhecida sempre recebem colisão: são peças de chão ou
+	## obstáculo reconhecido. Só aplica a lista de exclusão quando o modelo não foi
+	## reconhecido pelo mapeamento e recebeu o valor padrão.
+	var tem_superficie_conhecida: bool = _tem_superficie_conhecida(nome_do_arquivo)
+	if not tem_superficie_conhecida and not _deve_ter_colisao(nome_do_arquivo):
+		return cena
 	_gerar_colisao(cena, cena, superficie)
 	return cena
+
+func _tem_superficie_conhecida(nome_do_arquivo: String) -> bool:
+	for par in SUPERFICIE_POR_TRECHO:
+		if nome_do_arquivo.contains(par[0] as String):
+			return true
+	return false
 
 func _deve_ter_colisao(nome_do_arquivo: String) -> bool:
 	for trecho in TRECHOS_SEM_COLISAO:
