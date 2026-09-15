@@ -19,8 +19,12 @@ const CAMADA_MUNDO: int = 1
 
 ## Modelos cujo nome contém um destes trechos não recebem colisão. São decoração
 ## que o jogador precisa poder atravessar, senão andar pelo mapa vira um labirinto
-## de tufos de grama invisíveis.
+## de tufos de grama invisíveis. Modelos de personagem também ficam de fora: eles
+## são instanciados como filhos do CharacterBody3D, e ter um StaticBody3D dentro de
+## um corpo que se move faz o move_and_slide() interpretar o contato como plataforma
+## em movimento, lançando o personagem para cima indefinidamente.
 const TRECHOS_SEM_COLISAO: Array[String] = [
+	"character", "animal",
 	"grass", "flower", "mushroom", "plant", "crops_",
 	"mulch", "mound", "mark_", "mark-",
 ]

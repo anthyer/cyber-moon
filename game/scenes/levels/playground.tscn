@@ -100,7 +100,6 @@ size = Vector2(40, 37)
 [node name="Playground" type="Node3D" unique_id=263848000]
 
 [node name="ChaoBase" type="StaticBody3D" parent="." unique_id=100000001]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
 collision_layer = 1
 collision_mask = 0
 metadata/superficie = &"grama"
@@ -126,7 +125,7 @@ visible = false
 mesh = SubResource("PlaneMesh_indicador")
 
 [node name="Player" parent="." unique_id=46018077 instance=ExtResource("3_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13680863, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 cooldown_dash = 0.2
 velocidade_ataque = 1.8
 folga_pos_golpe = 0.13
