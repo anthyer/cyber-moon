@@ -166,21 +166,31 @@ func _tentar_subir_degrau() -> void:
 	dir_plana = dir_plana.normalized()
 
 	var espaco: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	var melhor_alvo: float = -1.0
 
-	## Um único raio de cima para baixo, logo à frente do player. Começa acima
-	## da altura máxima do degrau e varre para baixo até o nível dos pés. O
-	## primeiro ponto de impacto é a superfície onde o player pode pousar.
-	var inicio: Vector3 = global_position + dir_plana * 0.3 + Vector3.UP * (altura_degrau + 0.1)
-	var fim: Vector3 = global_position + dir_plana * 0.3 + Vector3.DOWN * 0.1
-	var params := PhysicsRayQueryParameters3D.create(inicio, fim, collision_mask)
-	params.exclude = [get_rid()]
-	var resultado: Dictionary = espaco.intersect_ray(params)
-	if not resultado:
+	## Testa em três distâncias à frente para não perder o topo do degrau
+	## quando o raio cai exatamente na face vertical da escada.
+	for dist: float in [0.2, 0.4, 0.6]:
+		var inicio: Vector3 = global_position + dir_plana * dist + Vector3.UP * (altura_degrau + 0.1)
+		var fim: Vector3 = global_position + dir_plana * dist + Vector3.DOWN * 0.1
+		var params := PhysicsRayQueryParameters3D.create(inicio, fim, collision_mask)
+		params.exclude = [get_rid()]
+		var resultado: Dictionary = espaco.intersect_ray(params)
+		if resultado.is_empty():
+			continue
+		var alvo: float = resultado.position.y
+		## Só considera se o alvo está acima do player e dentro da altura máxima
+		if alvo > global_position.y + 0.02 and alvo <= global_position.y + altura_degrau:
+			if alvo > melhor_alvo:
+				melhor_alvo = alvo
+
+	if melhor_alvo < 0.0:
 		return
 
-	var altura_alvo: float = resultado.position.y
-	## Só sobe se o alvo está acima do player (é degrau para cima) e dentro
-	## da altura máxima configurada (não escala paredes altas).
-	if altura_alvo > global_position.y + 0.02 and altura_alvo <= global_position.y + altura_degrau:
-		global_position.y = altura_alvo + 0.02
+	## Teleporta para o topo do degrau e zera velocity.y para que a gravidade
+	## acumulada não desfaça imediatamente a subida no próximo move_and_slide().
+	global_position.y = melhor_alvo + 0.02
+	velocity.y = maxf(velocity.y, 0.0)
+
+
 
