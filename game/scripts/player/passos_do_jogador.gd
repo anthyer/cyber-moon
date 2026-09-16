@@ -118,6 +118,9 @@ func _superficie_sob_o_pe() -> StringName:
 
 func _superficie_do_nome(nome_do_arquivo: String) -> StringName:
 	var superficies = [
+		["water", &"agua"],
+		["river", &"agua"],
+		["lake", &"agua"],
 		["road", &"asfalto"],
 		["driveway", &"asfalto"],
 		["sidewalk", &"pedra"],
