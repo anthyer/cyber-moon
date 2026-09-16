@@ -96,6 +96,15 @@ func _parar_passo() -> void:
 		_tocador_atual = null
 
 func _superficie_sob_o_pe() -> StringName:
+	var grade_solo = get_node_or_null(^"../../GradeSolo")
+	if grade_solo != null and grade_solo.has_method("local_to_map"):
+		var ponto_local = grade_solo.to_local(get_parent().global_position)
+		var celula = grade_solo.local_to_map(ponto_local)
+		var item_id = grade_solo.get_cell_item(celula)
+		if item_id != GridMap.INVALID_CELL_ITEM:
+			var nome_item = grade_solo.mesh_library.get_item_name(item_id).to_lower()
+			return _superficie_do_nome(nome_item)
+			
 	if not _raio.is_colliding():
 		return banco.superficie_padrao
 	var corpo: Object = _raio.get_collider()
@@ -118,6 +127,7 @@ func _superficie_sob_o_pe() -> StringName:
 
 func _superficie_do_nome(nome_do_arquivo: String) -> StringName:
 	var superficies = [
+		["watered", &"agua"],
 		["water", &"agua"],
 		["river", &"agua"],
 		["lake", &"agua"],
@@ -140,6 +150,7 @@ func _superficie_do_nome(nome_do_arquivo: String) -> StringName:
 		["silo", &"metal"],
 		["ground_path", &"terra"],
 		["dirt", &"terra"],
+		["soil", &"terra"],
 		["platform_grass", &"grama"],
 		["ground_grass", &"grama"]
 	]
