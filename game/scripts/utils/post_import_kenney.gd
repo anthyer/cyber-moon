@@ -25,13 +25,16 @@ const CAMADA_MUNDO: int = 1
 ## em movimento, lançando o personagem para cima indefinidamente.
 const TRECHOS_SEM_COLISAO: Array[String] = [
 	"character", "animal",
-	"grass", "flower", "mushroom", "plant", "crops_",
+	"grass", "flower", "mushroom", "plant_", "crops_",
 	"mulch", "mound", "mark_", "mark-",
 ]
 
 ## Mapeamento de trecho do nome do arquivo para superfície. A primeira entrada que
 ## casar vence, então a ordem importa: "path_stone" precisa vir antes de "path".
 const SUPERFICIE_POR_TRECHO: Array = [
+	["water", &"agua"],
+	["river", &"agua"],
+	["lake", &"agua"],
 	["road", &"asfalto"],
 	["driveway", &"asfalto"],
 	["sidewalk", &"pedra"],

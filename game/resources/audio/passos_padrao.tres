@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/resources/banco_de_passos.gd" id="1_abc12"]
 [ext_resource type="AudioStream" path="res://assets/audio/music/footstep_grass_1.wav" id="2_grass1"]
 [ext_resource type="AudioStream" path="res://assets/audio/music/footstep_grass_2.wav" id="3_grass2"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/footstep_water.wav" id="5_water"]
 [ext_resource type="AudioStream" path="res://assets/audio/music/footstep_concrete.wav" id="4_concrete"]
 
 [resource]
@@ -13,7 +14,8 @@ clipes_por_superficie = {
 &"pedra": Array[AudioStream]([ExtResource("4_concrete")]),
 &"asfalto": Array[AudioStream]([ExtResource("4_concrete")]),
 &"madeira": Array[AudioStream]([ExtResource("4_concrete")]),
-&"metal": Array[AudioStream]([ExtResource("4_concrete")])
+&"metal": Array[AudioStream]([ExtResource("4_concrete")]),
+&"agua": Array[AudioStream]([ExtResource("5_water")])
 }
 superficie_padrao = &"grama"
 variacao_de_tom = 0.08
