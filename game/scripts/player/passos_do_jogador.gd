@@ -27,6 +27,7 @@ extends Node
 
 var _fase_anterior: float = 0.0
 var _clipe_anterior: StringName = &""
+var _tocador_atual: AudioStreamPlayer3D = null
 
 func _physics_process(_delta: float) -> void:
 	var clipe: StringName = _animation_player.current_animation
@@ -34,6 +35,7 @@ func _physics_process(_delta: float) -> void:
 	if fases.is_empty():
 		_fase_anterior = 0.0
 		_clipe_anterior = clipe
+		_parar_passo()
 		return
 
 	var duracao: float = _animation_player.current_animation_length
@@ -44,6 +46,7 @@ func _physics_process(_delta: float) -> void:
 	if clipe != _clipe_anterior:
 		_clipe_anterior = clipe
 		_fase_anterior = fase_atual
+		_parar_passo()
 		return
 
 	for fase in fases:
@@ -70,6 +73,7 @@ func _cruzou(anterior: float, atual: float, alvo: float) -> bool:
 	return anterior < alvo or atual >= alvo
 
 func _tocar_passo(clipe: StringName) -> void:
+	_parar_passo()
 	if banco == null:
 		return
 	var superficie: StringName = _superficie_sob_o_pe()
@@ -77,12 +81,19 @@ func _tocar_passo(clipe: StringName) -> void:
 	if fluxo == null:
 		return
 	var volume: float = volume_correndo_db if clipe == &"sprint" else volume_andando_db
-	AudioManager.tocar_sfx(
+	# Como o áudio foi cortado fisicamente para apenas 1 passo (0.45s), tocamos ele inteiro
+	_tocador_atual = AudioManager.tocar_sfx(
 		fluxo,
 		get_parent().global_position,
-		volume + banco.sortear_volume_db(),
+		volume + banco.sortear_volume_db() + 6.0,
 		banco.sortear_tom()
 	)
+
+func _parar_passo() -> void:
+	if _tocador_atual != null and is_instance_valid(_tocador_atual):
+		if _tocador_atual.playing:
+			_tocador_atual.stop()
+		_tocador_atual = null
 
 func _superficie_sob_o_pe() -> StringName:
 	if not _raio.is_colliding():
@@ -90,4 +101,46 @@ func _superficie_sob_o_pe() -> StringName:
 	var corpo: Object = _raio.get_collider()
 	if corpo == null:
 		return banco.superficie_padrao
+	if corpo is GridMap:
+		var gridmap := corpo as GridMap
+		var ponto_colisao = _raio.get_collision_point()
+		var normal_global = _raio.get_collision_normal()
+		# Transforma a normal global para o espaço local do GridMap
+		var normal_local = gridmap.global_transform.basis.inverse() * normal_global
+		var ponto_local = gridmap.to_local(ponto_colisao)
+		# Empurra ligeiramente o ponto para dentro da célula atingida
+		var celula = gridmap.local_to_map(ponto_local - normal_local * 0.1)
+		var item_id = gridmap.get_cell_item(celula)
+		if item_id != GridMap.INVALID_CELL_ITEM:
+			var nome_item = gridmap.mesh_library.get_item_name(item_id).to_lower()
+			return _superficie_do_nome(nome_item)
 	return corpo.get_meta(&"superficie", banco.superficie_padrao)
+
+func _superficie_do_nome(nome_do_arquivo: String) -> StringName:
+	var superficies = [
+		["road", &"asfalto"],
+		["driveway", &"asfalto"],
+		["sidewalk", &"pedra"],
+		["path_stone", &"pedra"],
+		["stone", &"pedra"],
+		["cliff", &"pedra"],
+		["rock", &"pedra"],
+		["bridge", &"madeira"],
+		["log_", &"madeira"],
+		["plank", &"madeira"],
+		["fence", &"madeira"],
+		["crate", &"madeira"],
+		["tree", &"madeira"],
+		["building", &"metal"],
+		["detail_", &"metal"],
+		["tank", &"metal"],
+		["silo", &"metal"],
+		["ground_path", &"terra"],
+		["dirt", &"terra"],
+		["platform_grass", &"grama"],
+		["ground_grass", &"grama"]
+	]
+	for par in superficies:
+		if nome_do_arquivo.contains(par[0]):
+			return par[1]
+	return banco.superficie_padrao

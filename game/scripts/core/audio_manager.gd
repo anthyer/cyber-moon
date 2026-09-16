@@ -8,7 +8,7 @@ extends Node
 
 const TAMANHO_DA_PISCINA: int = 16
 const DISTANCIA_MAXIMA_SFX: float = 30.0
-const CAMINHO_MUSICA_PADRAO: String = "res://assets/audio/music/tema_fazenda.ogg"
+const CAMINHO_MUSICA_PADRAO: String = "res://assets/audio/music/blush_response.wav"
 
 var _piscina: Array[AudioStreamPlayer3D] = []
 var _tocador_de_musica: AudioStreamPlayer
@@ -30,17 +30,18 @@ func _ready() -> void:
 
 ## Toca um efeito posicionado no mundo. Ignora a chamada quando o fluxo é nulo, que
 ## é o caso normal enquanto os clipes de áudio ainda não chegaram.
-func tocar_sfx(fluxo: AudioStream, posicao: Vector3, volume_db: float = 0.0, tom: float = 1.0) -> void:
+func tocar_sfx(fluxo: AudioStream, posicao: Vector3, volume_db: float = 0.0, tom: float = 1.0) -> AudioStreamPlayer3D:
 	if fluxo == null:
-		return
+		return null
 	var tocador: AudioStreamPlayer3D = _tocador_livre()
 	if tocador == null:
-		return
+		return null
 	tocador.stream = fluxo
 	tocador.global_position = posicao
 	tocador.volume_db = volume_db
 	tocador.pitch_scale = tom
 	tocador.play()
+	return tocador
 
 func tocar_musica(fluxo: AudioStream, duracao_do_fade: float = 1.5) -> void:
 	if fluxo == null or fluxo == _musica_atual:
@@ -48,7 +49,7 @@ func tocar_musica(fluxo: AudioStream, duracao_do_fade: float = 1.5) -> void:
 	_musica_atual = fluxo
 	if not _tocador_de_musica.playing:
 		_tocador_de_musica.stream = fluxo
-		_tocador_de_musica.volume_db = 0.0
+		_tocador_de_musica.volume_db = -12.0
 		_tocador_de_musica.play()
 		return
 	var transicao := create_tween()
@@ -57,7 +58,7 @@ func tocar_musica(fluxo: AudioStream, duracao_do_fade: float = 1.5) -> void:
 		_tocador_de_musica.stream = fluxo
 		_tocador_de_musica.play()
 	)
-	transicao.tween_property(_tocador_de_musica, "volume_db", 0.0, duracao_do_fade)
+	transicao.tween_property(_tocador_de_musica, "volume_db", -12.0, duracao_do_fade)
 
 func parar_musica(duracao_do_fade: float = 1.5) -> void:
 	_musica_atual = null

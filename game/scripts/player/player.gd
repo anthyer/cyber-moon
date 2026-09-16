@@ -84,6 +84,8 @@ func _physics_process(delta: float) -> void:
 			var nome_clipe: String = CLIPES_COMBO_ATAQUE[_indice_combo]
 			_travar_movimento_pela_animacao(nome_clipe)
 			_tempo_janela_combo_restante = janela_combo_ataque
+			if ResourceLoader.exists("res://assets/audio/sfx/punch.wav"):
+				AudioManager.tocar_sfx(load("res://assets/audio/sfx/punch.wav") as AudioStream, global_position)
 
 			_indice_combo += 1
 			if _indice_combo >= CLIPES_COMBO_ATAQUE.size():
@@ -134,7 +136,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y -= gravidade * delta
 
+	var estava_na_parede = is_on_wall()
 	move_and_slide()
+	if not estava_na_parede and is_on_wall():
+		if ResourceLoader.exists("res://assets/audio/sfx/collision.wav"):
+			AudioManager.tocar_sfx(load("res://assets/audio/sfx/collision.wav") as AudioStream, global_position, -15.0)
 	_tentar_subir_degrau()
 
 func _travar_movimento_pela_animacao(nome_clipe: String) -> void:
