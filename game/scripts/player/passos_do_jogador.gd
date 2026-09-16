@@ -88,7 +88,7 @@ func _tocar_passo(clipe: StringName) -> void:
 	_tocador_atual = AudioManager.tocar_sfx(
 		fluxo,
 		get_parent().global_position,
-		volume + banco.sortear_volume_db() + 6.0,
+		volume + banco.sortear_volume_db() + 12.0,
 		banco.sortear_tom()
 	)
 

@@ -25,6 +25,7 @@ func _ready() -> void:
 
 	_tocador_de_musica = AudioStreamPlayer.new()
 	_tocador_de_musica.bus = &"Musica"
+	_tocador_de_musica.finished.connect(_tocador_de_musica.play)
 	add_child(_tocador_de_musica)
 	_tocar_musica_padrao()
 
