@@ -82,13 +82,13 @@ func _tocar_passo(clipe: StringName) -> void:
 		return
 	var volume: float = volume_correndo_db if clipe == &"sprint" else volume_andando_db
 	if superficie == &"agua":
-		volume -= 6.0
+		volume -= 12.0
 	
 	# Como o áudio foi cortado fisicamente para apenas 1 passo (0.45s), tocamos ele inteiro
 	_tocador_atual = AudioManager.tocar_sfx(
 		fluxo,
 		get_parent().global_position,
-		volume + banco.sortear_volume_db() + 12.0,
+		volume + banco.sortear_volume_db() + 14.0,
 		banco.sortear_tom()
 	)
 
