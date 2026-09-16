@@ -54,8 +54,8 @@ const SUPERFICIE_POR_TRECHO: Array = [
 	["silo", &"metal"],
 	["ground_path", &"terra"],
 	["dirt", &"terra"],
-	["platform_grass", &"grama"],
-	["ground_grass", &"grama"],
+	["platform_grass", &"agua"],
+	["ground_grass", &"agua"],
 ]
 
 

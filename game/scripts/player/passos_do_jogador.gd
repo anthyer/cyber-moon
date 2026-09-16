@@ -151,8 +151,8 @@ func _superficie_do_nome(nome_do_arquivo: String) -> StringName:
 		["ground_path", &"terra"],
 		["dirt", &"terra"],
 		["soil", &"terra"],
-		["platform_grass", &"grama"],
-		["ground_grass", &"grama"]
+		["platform_grass", &"agua"],
+		["ground_grass", &"agua"]
 	]
 	for par in superficies:
 		if nome_do_arquivo.contains(par[0]):
