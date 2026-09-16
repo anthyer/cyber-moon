@@ -51,7 +51,7 @@ func tocar_musica(fluxo: AudioStream, duracao_do_fade: float = 1.5) -> void:
 		
 	if not _tocador_de_musica.playing:
 		_tocador_de_musica.stream = fluxo
-		_tocador_de_musica.volume_db = -12.0
+		_tocador_de_musica.volume_db = -18.0
 		_tocador_de_musica.play()
 		return
 	var transicao := create_tween()
@@ -60,7 +60,7 @@ func tocar_musica(fluxo: AudioStream, duracao_do_fade: float = 1.5) -> void:
 		_tocador_de_musica.stream = fluxo
 		_tocador_de_musica.play()
 	)
-	transicao.tween_property(_tocador_de_musica, "volume_db", -12.0, duracao_do_fade)
+	transicao.tween_property(_tocador_de_musica, "volume_db", -18.0, duracao_do_fade)
 
 func parar_musica(duracao_do_fade: float = 1.5) -> void:
 	_musica_atual = null
