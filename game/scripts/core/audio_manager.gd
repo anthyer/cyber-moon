@@ -47,10 +47,6 @@ func tocar_musica(fluxo: AudioStream, duracao_do_fade: float = 1.5) -> void:
 	if fluxo == null or fluxo == _musica_atual:
 		return
 	_musica_atual = fluxo
-	
-	# Força loop para arquivos .wav independentemente do .import cacheado
-	if fluxo is AudioStreamWAV:
-		fluxo.loop_mode = AudioStreamWAV.LOOP_FORWARD
 		
 	if not _tocador_de_musica.playing:
 		_tocador_de_musica.stream = fluxo
