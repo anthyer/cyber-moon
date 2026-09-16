@@ -81,6 +81,9 @@ func _tocar_passo(clipe: StringName) -> void:
 	if fluxo == null:
 		return
 	var volume: float = volume_correndo_db if clipe == &"sprint" else volume_andando_db
+	if superficie == &"agua":
+		volume -= 12.0
+	
 	# Como o áudio foi cortado fisicamente para apenas 1 passo (0.45s), tocamos ele inteiro
 	_tocador_atual = AudioManager.tocar_sfx(
 		fluxo,
@@ -103,25 +106,20 @@ func _superficie_sob_o_pe() -> StringName:
 		var item_id = grade_solo.get_cell_item(celula)
 		if item_id != GridMap.INVALID_CELL_ITEM:
 			var nome_item = grade_solo.mesh_library.get_item_name(item_id).to_lower()
-			print("[Passos] GradeSolo hit: ", nome_item)
 			return _superficie_do_nome(nome_item)
 			
 	if not _raio.is_colliding():
-		print("[Passos] Raycast nao colidiu")
 		return banco.superficie_padrao
 	var corpo: Object = _raio.get_collider()
 	if corpo == null:
-		print("[Passos] Raycast colidiu com null")
 		return banco.superficie_padrao
 		
 	var parent_name = corpo.get_parent().name if corpo.get_parent() else ""
 	var sup_pelo_nome = _superficie_do_nome(parent_name.to_lower())
 	if sup_pelo_nome != banco.superficie_padrao:
-		print("[Passos] Parent override: ", sup_pelo_nome)
 		return sup_pelo_nome
 
 	var meta_sup = corpo.get_meta(&"superficie", banco.superficie_padrao)
-	print("[Passos] Meta fallback: ", meta_sup)
 	return meta_sup
 
 func _superficie_do_nome(nome_do_arquivo: String) -> StringName:
