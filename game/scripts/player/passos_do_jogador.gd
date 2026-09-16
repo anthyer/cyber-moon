@@ -114,25 +114,15 @@ func _superficie_sob_o_pe() -> StringName:
 		print("[Passos] Raycast colidiu com null")
 		return banco.superficie_padrao
 		
-	var parent_name = corpo.get_parent().name if corpo.get_parent() else "no_parent"
-	var meta_sup = corpo.get_meta(&"superficie", banco.superficie_padrao)
-	print("[Passos] Raycast hit: ", corpo.name, " parent: ", parent_name, " meta: ", meta_sup)
-	return meta_sup
+	var parent_name = corpo.get_parent().name if corpo.get_parent() else ""
+	var sup_pelo_nome = _superficie_do_nome(parent_name.to_lower())
+	if sup_pelo_nome != banco.superficie_padrao:
+		print("[Passos] Parent override: ", sup_pelo_nome)
+		return sup_pelo_nome
 
-	if corpo is GridMap:
-		var gridmap := corpo as GridMap
-		var ponto_colisao = _raio.get_collision_point()
-		var normal_global = _raio.get_collision_normal()
-		# Transforma a normal global para o espaço local do GridMap
-		var normal_local = gridmap.global_transform.basis.inverse() * normal_global
-		var ponto_local = gridmap.to_local(ponto_colisao)
-		# Empurra ligeiramente o ponto para dentro da célula atingida
-		var celula = gridmap.local_to_map(ponto_local - normal_local * 0.1)
-		var item_id = gridmap.get_cell_item(celula)
-		if item_id != GridMap.INVALID_CELL_ITEM:
-			var nome_item = gridmap.mesh_library.get_item_name(item_id).to_lower()
-			return _superficie_do_nome(nome_item)
-	return corpo.get_meta(&"superficie", banco.superficie_padrao)
+	var meta_sup = corpo.get_meta(&"superficie", banco.superficie_padrao)
+	print("[Passos] Meta fallback: ", meta_sup)
+	return meta_sup
 
 func _superficie_do_nome(nome_do_arquivo: String) -> StringName:
 	var superficies = [
@@ -140,6 +130,7 @@ func _superficie_do_nome(nome_do_arquivo: String) -> StringName:
 		["water", &"agua"],
 		["river", &"agua"],
 		["lake", &"agua"],
+		["piso", &"agua"],
 		["road", &"asfalto"],
 		["driveway", &"asfalto"],
 		["sidewalk", &"pedra"],
