@@ -11,7 +11,7 @@ extends CharacterBody3D
 @export var janela_combo_ataque: float = 0.6
 @export var cooldown_ataque: float = 0.3
 @export var gravidade: float = 24.0
-@export var altura_degrau: float = 1.0
+@export var altura_degrau: float = 0.4
 
 const CLIPES_COMBO_ATAQUE: Array[String] = ["attack-melee-left", "attack-melee-left", "attack-melee-right"]
 const CLIPES_INTERACAO: Array[String] = ["interact-left", "interact-right"]
@@ -136,12 +136,15 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y -= gravidade * delta
 
+	var velocidade_horizontal = velocity
+	velocidade_horizontal.y = 0.0
+	
 	var estava_na_parede = is_on_wall()
 	move_and_slide()
 	if not estava_na_parede and is_on_wall():
 		if ResourceLoader.exists("res://assets/audio/sfx/collision.wav"):
 			AudioManager.tocar_sfx(load("res://assets/audio/sfx/collision.wav") as AudioStream, global_position, -15.0)
-	_tentar_subir_degrau()
+	_tentar_subir_degrau(velocidade_horizontal)
 
 func _travar_movimento_pela_animacao(nome_clipe: String) -> void:
 	animation_player.play(nome_clipe, -1.0, velocidade_ataque)
@@ -160,14 +163,13 @@ func _atualizar_animacao(direcao: Vector3, esta_correndo: bool, esta_dando_dash:
 	if animation_player.current_animation != animacao_alvo:
 		animation_player.play(animacao_alvo)
 
-func _tentar_subir_degrau() -> void:
+func _tentar_subir_degrau(dir_plana_esperada: Vector3) -> void:
 	## Permite subir degraus e rampas baixas (escadinha da ponte, beira de calçada)
 	## sem precisar pular. Só tenta quando o player está encostado numa parede e
 	## se movendo horizontalmente.
 	if not is_on_wall():
 		return
-	var dir_plana: Vector3 = velocity
-	dir_plana.y = 0.0
+	var dir_plana: Vector3 = dir_plana_esperada
 	if dir_plana.length() < 0.1:
 		return
 	dir_plana = dir_plana.normalized()
@@ -185,6 +187,12 @@ func _tentar_subir_degrau() -> void:
 		var resultado: Dictionary = espaco.intersect_ray(params)
 		if resultado.is_empty():
 			continue
+		
+		# Só sobe se a superfície for um chão (inclinação menor que 45 graus)
+		var normal: Vector3 = resultado.get("normal", Vector3.UP)
+		if normal.angle_to(Vector3.UP) > deg_to_rad(45.0):
+			continue
+
 		var alvo: float = resultado.position.y
 		## Só considera se o alvo está acima do player e dentro da altura máxima
 		if alvo > global_position.y + 0.02 and alvo <= global_position.y + altura_degrau:
