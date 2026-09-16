@@ -103,13 +103,22 @@ func _superficie_sob_o_pe() -> StringName:
 		var item_id = grade_solo.get_cell_item(celula)
 		if item_id != GridMap.INVALID_CELL_ITEM:
 			var nome_item = grade_solo.mesh_library.get_item_name(item_id).to_lower()
+			print("[Passos] GradeSolo hit: ", nome_item)
 			return _superficie_do_nome(nome_item)
 			
 	if not _raio.is_colliding():
+		print("[Passos] Raycast nao colidiu")
 		return banco.superficie_padrao
 	var corpo: Object = _raio.get_collider()
 	if corpo == null:
+		print("[Passos] Raycast colidiu com null")
 		return banco.superficie_padrao
+		
+	var parent_name = corpo.get_parent().name if corpo.get_parent() else "no_parent"
+	var meta_sup = corpo.get_meta(&"superficie", banco.superficie_padrao)
+	print("[Passos] Raycast hit: ", corpo.name, " parent: ", parent_name, " meta: ", meta_sup)
+	return meta_sup
+
 	if corpo is GridMap:
 		var gridmap := corpo as GridMap
 		var ponto_colisao = _raio.get_collision_point()
