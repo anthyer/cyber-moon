@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="Item" format=3]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://b82qqop3mvap8"]
 
-[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/beetroot_icon.png" id="1_8m5df"]
-[ext_resource type="Script" path="res://scripts/resources/item.gd" id="2_1jae7"]
+[ext_resource type="Texture2D" uid="uid://etfs4j8ho4yp" path="res://assets/textures/tiny_farm_crops/beetroot_icon.png" id="1_8m5df"]
+[ext_resource type="Script" uid="uid://csos04p175jws" path="res://scripts/resources/item.gd" id="2_1jae7"]
 
 [resource]
 script = ExtResource("2_1jae7")
