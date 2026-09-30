@@ -5,7 +5,11 @@ extends Node3D
 ##
 ## É uma cena só para todos os itens: a aparência vem do ícone do Item que ela
 ## representa, mostrado como um quadrado em pé. Gira devagar e flutua de leve, como o
-## item dropado do Minecraft, para chamar atenção no cenário. O quadrado não usa
+## item dropado do Minecraft, para chamar atenção no cenário.
+##
+## A coleta é automática, também como no Minecraft: quando o jogador entra no raio da
+## AreaDeAtracao, o item voa até ele ganhando velocidade, e entra no inventário ao
+## encostar no corpo do jogador (AreaDeColeta). Não precisa apertar botão. O quadrado não usa
 ## billboard (sempre virado para a câmera) porque billboard anula a rotação e o
 ## giro deixaria de aparecer.
 ##
@@ -23,6 +27,15 @@ const CAMINHO_DA_CENA: String = "res://scenes/items/item_no_mundo.tscn"
 ## ponto não nascerem um exatamente em cima do outro.
 const ESPALHAMENTO_AO_SOLTAR: float = 0.3
 
+## Tempo em que um item recém-solto não é atraído. Sem isso, um item que cai do lado do
+## jogador (colheita, drop de inimigo, item largado com Q) voltaria para ele no mesmo
+## instante, antes de dar para ver que caiu.
+const ESPERA_AO_SOLTAR: float = 0.6
+
+## Altura, a partir dos pés do jogador, do ponto para onde o item voa. Mira o meio do
+## corpo, e não os pés, para o contato acontecer de frente.
+const ALTURA_DO_ALVO_NO_JOGADOR: float = 0.6
+
 @export var item: Item
 @export var quantidade: int = 1
 
@@ -38,16 +51,51 @@ const ESPALHAMENTO_AO_SOLTAR: float = 0.3
 ## segundo ícone.
 @export var cor_das_copias: Color = Color(0.6, 0.6, 0.6)
 
+## Velocidade com que o item sai do lugar quando começa a ser atraído, quanto ela
+## cresce por segundo, e o teto. O teto fica acima da velocidade do dash (12), para o
+## item alcançar o jogador mesmo que ele fuja.
+@export var velocidade_inicial_de_atracao: float = 1.0
+@export var aceleracao_de_atracao: float = 18.0
+@export var velocidade_maxima_de_atracao: float = 16.0
+
+## Segundos antes de o item poder ser atraído. A cena colocada no mapa começa em 0; o
+## soltar() usa ESPERA_AO_SOLTAR.
+@export var espera_para_atrair: float = 0.0
+
 @onready var visual: Sprite3D = $Visual
+@onready var area_de_atracao: Area3D = $AreaDeAtracao
+@onready var area_de_coleta: Area3D = $AreaDeColeta
 
 var _altura_inicial_do_visual: float = 0.0
 var _tempo: float = 0.0
+var _jogador_alvo: Node3D = null
+var _velocidade_de_atracao: float = 0.0
 
 func _ready() -> void:
 	_altura_inicial_do_visual = visual.position.y
 	if item != null and item.icone != null:
 		visual.texture = item.icone
 	_criar_copias_de_espessura()
+	area_de_atracao.body_entered.connect(_ao_jogador_chegar_perto)
+	area_de_coleta.body_entered.connect(_ao_encostar_no_jogador)
+
+## A atração mexe na posição de um nó com área de colisão, por isso fica no passo de
+## física. O giro e a flutuação, que são só visuais, ficam no _process.
+func _physics_process(delta: float) -> void:
+	if espera_para_atrair > 0.0:
+		espera_para_atrair -= delta
+		if espera_para_atrair <= 0.0:
+			_procurar_jogador_ja_dentro_do_raio()
+		return
+	if _jogador_alvo == null or not is_instance_valid(_jogador_alvo):
+		return
+
+	_velocidade_de_atracao = minf(
+		_velocidade_de_atracao + aceleracao_de_atracao * delta,
+		velocidade_maxima_de_atracao
+	)
+	var destino: Vector3 = _jogador_alvo.global_position + Vector3.UP * ALTURA_DO_ALVO_NO_JOGADOR
+	global_position = global_position.move_toward(destino, _velocidade_de_atracao * delta)
 
 func _process(delta: float) -> void:
 	_tempo += delta
@@ -79,14 +127,14 @@ static func soltar(item_solto: Item, quantidade_solta: int, posicao: Vector3, pa
 		0.0,
 		randf_range(-ESPALHAMENTO_AO_SOLTAR, ESPALHAMENTO_AO_SOLTAR)
 	)
+	instancia.espera_para_atrair = ESPERA_AO_SOLTAR
 	pai.add_child(instancia)
 	instancia.global_position = posicao + empurrao
 	return instancia
 
-## Chamado quando o jogador interage. Tenta colocar no inventário e se some.
-## Retorna false quando o inventário estava cheio, e aí o item continua no chão.
-## Por enquanto sempre dá certo: o InventoryManager ainda não tem limite, e o caso
-## de inventário cheio nasce no plano 04.
+## Coloca o item no inventário e tira ele do mundo. Retorna false quando o inventário
+## estava cheio, e aí o item continua onde está. Por enquanto sempre dá certo: o
+## InventoryManager ainda não tem limite, e o caso de inventário cheio nasce no plano 04.
 func coletar() -> bool:
 	if item == null:
 		return false
@@ -95,7 +143,30 @@ func coletar() -> bool:
 	queue_free()
 	return true
 
-## Contrato de interação: todo nó interagível tem este método, e a AreaInteracao do
-## jogador só chama ele, sem saber se o alvo é item, NPC ou baú.
-func interagir() -> void:
-	coletar()
+## As duas áreas só enxergam a camada do jogador, então todo corpo que chega aqui é ele.
+func _ao_jogador_chegar_perto(corpo: Node3D) -> void:
+	if espera_para_atrair > 0.0:
+		return
+	_comecar_atracao(corpo)
+
+func _ao_encostar_no_jogador(_corpo: Node3D) -> void:
+	if espera_para_atrair > 0.0:
+		return
+	if not coletar():
+		# Inventário cheio: o item para de perseguir o jogador e fica onde parou.
+		_jogador_alvo = null
+		_velocidade_de_atracao = 0.0
+
+## Quando a espera acaba com o jogador já dentro do raio, o body_entered não dispara de
+## novo, então é preciso olhar quem já está lá dentro.
+func _procurar_jogador_ja_dentro_do_raio() -> void:
+	for corpo in area_de_atracao.get_overlapping_bodies():
+		_comecar_atracao(corpo)
+	for corpo in area_de_coleta.get_overlapping_bodies():
+		_ao_encostar_no_jogador(corpo)
+
+func _comecar_atracao(jogador: Node3D) -> void:
+	if _jogador_alvo != null:
+		return
+	_jogador_alvo = jogador
+	_velocidade_de_atracao = velocidade_inicial_de_atracao
