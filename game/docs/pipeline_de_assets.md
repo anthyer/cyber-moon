@@ -13,6 +13,16 @@ Exemplo: um arquivo bruto `personagem_ana_diffuse.png` se torna `assets/textures
 
 Nada dentro de `_import/` é referenciado diretamente por cenas ou scripts. Essa pasta é apenas uma zona de trânsito.
 
+## Ícones de item
+
+Os ícones de item são 16x16, no mesmo tamanho da arte das colheitas em
+`assets/textures/tiny_farm_crops/`. Os itens que ainda não têm arte usam um placeholder
+em `assets/textures/icones_itens/<id>.png`, gerado pelo script
+`equipe/ferramentas/gerar_icones_placeholder.py` (Python puro, sem biblioteca externa). O
+import segue a mesma regra da paleta, `Lossless` com `detect_3d/compress_to=0`, porque o
+ícone aparece em 3D no item caído no chão e a compressão borraria a pixel art. Para trocar
+um placeholder por arte de verdade, basta apontar outro PNG no campo `icone` do `.tres`.
+
 ## Pacotes de terceiros
 
 A maior parte da arte do jogo vem de pacotes prontos da Kenney, que chegam como um `.zip` com o mesmo modelo exportado em vários formatos. As regras abaixo valem para qualquer pacote desse tipo.

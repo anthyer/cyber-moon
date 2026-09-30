@@ -18,13 +18,25 @@ Cada autoload tem responsabilidade única. Quando um autoload começar a acumula
 
 Conteúdo de jogo é representado por classes `Resource` customizadas, definidas em `scripts/resources/` e instanciadas como arquivos `.tres` em `resources/`:
 
-- `Item` (`scripts/resources/item.gd`): um item do inventário.
+- `Item` (`scripts/resources/item.gd`): um item do inventário, com `id` estável, `categoria` (enum `Item.Categoria`), ícone e valor de venda. Filhas: `Ferramenta`, `Semente` (aponta o `Cultivo`) e `Consumivel` (vida e stamina recuperadas).
 - `Cultivo` (`scripts/resources/cultivo.gd`): uma cultura plantável na fazenda.
 - `PerfilNpc` (`scripts/resources/perfil_npc.gd`): dados de um NPC.
 - `NoDialogo` (`scripts/resources/no_dialogo.gd`): um nó de uma árvore de diálogo.
 - `BancoDePassos` (`scripts/resources/banco_de_passos.gd`): mapeia tipos de superfície a clipes de áudio para os passos do jogador.
 
 Um novo cultivo, item ou NPC vira um arquivo `.tres` criado no editor, sem exigir código novo.
+
+O catálogo de itens fica em `resources/items/`, numa subpasta por grupo (`colheitas`,
+`sementes`, `sucata`, `recursos`, `materiais`, `consumiveis`, `especiais`,
+`ferramentas`), e o nome do arquivo é o `id` do item. Tudo menos as ferramentas é gerado
+pelo script `scripts/utils/gerar_catalogo_itens.gd`, que guarda os números em tabela.
+Para mudar um valor, edite a tabela e rode de novo:
+
+```
+godot --headless --path game --script res://scripts/utils/gerar_catalogo_itens.gd
+```
+
+As ferramentas são editadas à mão, porque têm som e ação próprios.
 
 ## Composição de cenas
 
