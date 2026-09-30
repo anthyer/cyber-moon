@@ -50,16 +50,23 @@ qual `Item` representa e mostra o ícone dele como um quadrado em pé que gira e
 corpo fica na camada `item_no_chao`. Para fazer um item cair no mundo, qualquer sistema
 chama `ItemNoMundo.soltar(item, quantidade, posicao, pai)`.
 
+**Coleta automática, sem botão.** O item tem duas áreas que só enxergam a camada
+`jogador`. Quando o jogador entra na `AreaDeAtracao` (raio 2), o item voa até ele
+ganhando velocidade; quando encosta no corpo do jogador (`AreaDeColeta`), chama
+`coletar()`, que põe o item no `InventoryManager`, emite `EventBus.item_picked_up` e
+remove o item do mundo. Item solto por `soltar()` espera 0,6 s antes de ser atraído, para
+não voltar para o jogador no instante em que cai do lado dele. Se `coletar()` falhar
+(inventário cheio, a partir do plano 04), o item para de perseguir o jogador.
+
 O jogador tem um nó `AreaInteracao` (script `scripts/player/area_de_interacao.gd`, classe
 `AreaDeInteracao`) com raio de 1,5 que enxerga as camadas `item_no_chao`, `npc` e
 `area_interacao`. Ao apertar `interagir`, o `player.gd` pede o `alvo_mais_proximo()` e
-chama `interagir()` nele.
+chama `interagir()` nele. Item no chão não usa essa área, porque é coletado sozinho; ela
+fica para colher, conversar e abrir baú (planos 06, 15 e 17).
 
 **Contrato de interação:** um nó é interagível quando tem o método `interagir()`. A área
 detecta o corpo de colisão e sobe pela árvore até o primeiro ancestral com esse método.
-O jogador não conhece o tipo do alvo; item, NPC e baú decidem sozinhos o que fazer. No
-`ItemNoMundo`, `interagir()` chama `coletar()`, que põe o item no `InventoryManager`,
-emite `EventBus.item_picked_up` e remove o item do chão.
+O jogador não conhece o tipo do alvo; NPC, planta e baú decidem sozinhos o que fazer.
 
 ## Camadas de física
 

@@ -15,13 +15,19 @@ O plano foi revisado contra o código antes de começar. Onde esta seção contr
 abaixo, vale esta seção.
 
 **Situação (2026-09-29):** feito. Os critérios de pronto foram conferidos por um teste
-automático no playground, que coletou os três itens de demonstração pelo `interagir` e
-usou a enxada. O teste à mão fica com o Antonio, pelos itens do nó
+automático no playground, que coletou os três itens de demonstração e usou a enxada. O teste à mão fica com o Antonio, pelos itens do nó
 `ItensDeDemonstracao`.
 
 **Catálogo aprovado pelo Antonio:** sucata na categoria RECURSO; valores de venda de
 pão de trigo 30, sopa de legumes 70, estimulante 55, nanogel 80 e buquê 60; ids
 `moeda` e `servo_motor` renomeados para `credito` e `servomotor`.
+
+**Coleta automática (pedido do Antonio depois da entrega):** o item não é mais pego com
+o botão `interagir`. Ao chegar perto, ele voa até o jogador ganhando velocidade e entra
+no inventário quando encosta no corpo dele, como no Minecraft. Item solto por
+`soltar()` espera 0,6 s antes de ser atraído. Isso substitui a seção "Coleta pelo
+jogador" abaixo no que diz respeito ao item; a `AreaInteracao` continua existindo para
+os planos 06, 15 e 17. Também deixa de valer o primeiro item de "Fora de escopo".
 
 **Billboard:** o `ItemNoMundo` não usa billboard, porque ele anula o giro. O quadrado
 gira de verdade, e cópias do sprite logo atrás dele dão espessura ao item. Se não agradar, basta

@@ -137,6 +137,9 @@ feita no commit 5f72630. A regra fica em `scripts/utils/superficies.gd`.
 - Ids `moeda` e `servo_motor` viraram `credito` e `servomotor`, e os planos 09, 16 e
   17 foram atualizados junto.
 - Sucata ficou na categoria RECURSO. Consumíveis e buquê ganharam valor de venda.
+- A coleta virou automática, com ímã, a pedido do Antonio. O plano deixava isso fora de
+  escopo. Quando o plano 04 der limite ao inventário, o item que não couber para de
+  perseguir o jogador; vale conferir se o comportamento agrada.
 
 **Fica para depois:**
 

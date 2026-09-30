@@ -17,5 +17,6 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Superfície | Surface / metadata `superficie` |
 | Item no chão | Dropped item / `ItemNoMundo` (cena e classe) |
 | Pegar item | Pick up item / sinal `item_picked_up`, método `ItemNoMundo.coletar()` |
+| Ímã de coleta | Item magnet / `AreaDeAtracao` e `AreaDeColeta` do `ItemNoMundo` |
 | Área de interação | Interaction area / `AreaDeInteracao`, nó `AreaInteracao` do jogador |
 | Interagir | Interact / método `interagir()` em todo nó interagível |
