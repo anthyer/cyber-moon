@@ -10,10 +10,11 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 | `mover_baixo` | S / seta para baixo | — | D-pad ou stick esquerdo para baixo |
 | `mover_esquerda` | A / seta para esquerda | — | D-pad ou stick esquerdo para esquerda |
 | `mover_direita` | D / seta para direita | — | D-pad ou stick esquerdo para direita |
-| `interagir` | E | — | Botão A / Cross |
-| `abrir_inventario` | I | — | Botão Y / Triangle, ou Start |
+| `interagir` | F | — | Botão A / Cross |
+| `abrir_inventario` | E | — | Botão Y / Triangle, ou Start |
+| `menu_pausa` | Esc | — | Back / Select |
 | `correr` | Shift esquerdo | — | Botão B / Circle |
-| `dash` | Q | Botão direito | R1 (botão direito superior) |
+| `dash` | Espaço | Botão direito | R1 (botão direito superior) |
 | `atacar` | — | Botão esquerdo | Quadrado / X (botão West) |
 | `equipar_1` | 1 (socos) | Nenhum | Nenhum |
 | `equipar_2` | 2 (enxada) | Nenhum | Nenhum |
@@ -28,6 +29,7 @@ O stick esquerdo move o jogador junto com o D-pad. As quatro ações de moviment
 
 - Toda leitura de entrada passa pelo `InputManager` (`scripts/core/input_manager.gd`), nunca por verificação direta de tecla no código de gameplay.
 - Cada ação é mapeada, desde o início, para teclado e joystick simultaneamente; `dash` soma ainda um botão de mouse como atalho extra. O suporte a toque na tela será adicionado futuramente mapeando as mesmas ações.
+- `abrir_inventario` e `menu_pausa` abrem a mesma tela por enquanto, o menu de pausa com o inventário, porque ainda não existe tela de opções. Com o menu aberto, qualquer uma das duas fecha, e o jogo fica pausado de verdade enquanto ele está aberto.
 - Menus e telas de UI usam o sistema nativo de foco dos nós `Control` do Godot, permitindo navegação por teclado ou joystick sem depender do mouse.
 
 ## Painel arcade (placa DragonRise)
@@ -62,13 +64,12 @@ número bruto da placa:
 | Y | 3 | Gatilho direito | `ferramenta_proxima` |
 | Z | 4 | L1 | reservado |
 | Start | 6 | Start | `abrir_inventario` |
-| Select | 11 | Back / Select | reservado para a pausa |
+| Select | 11 | Back / Select | `menu_pausa` |
 | Alavanca | eixos 0 e 1 | Stick esquerdo | movimento |
 
-Os dois reservados já chegam ao Godot como L1 e Back, que nenhuma ação usa hoje. Quando
-a ação existir, basta o bind no Input Map, sem mexer no mapeamento. O Select fica para
-a `menu_pausa` do plano 04 (que previa Start para ela, mas no painel o Start ficou com
-o inventário). Para o Z, a sugestão é `interagir`: é a única ação existente sem botão no
+O Z ainda chega ao Godot como L1, que nenhuma ação usa hoje. Quando a ação existir,
+basta o bind no Input Map, sem mexer no mapeamento. O Select ficou com a `menu_pausa`
+(o plano 04 previa Start para ela, mas no painel o Start ficou com o inventário). Para o Z, a sugestão é `interagir`: é a única ação existente sem botão no
 painel, e fica ao lado do Y, perto dos botões de ferramenta.
 
 Para o Godot instalado por flatpak, a variável fica gravada uma vez por máquina e vale

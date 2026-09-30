@@ -17,11 +17,11 @@ atualizado a cada ação nova que entrar de fato. Este arquivo é o alvo, aquele
 |---|---|---|---|
 | `mover_cima` / `baixo` / `esquerda` / `direita` | W A S D e setas | Minecraft | sim |
 | `correr` | Shift esquerdo (segurar) | Minecraft (sprint) | sim |
-| `dash` | Espaço | ver nota abaixo | muda |
+| `dash` | Espaço | ver nota abaixo | sim (plano 04) |
 | `atacar` | Botão esquerdo do mouse | Minecraft (usar item na mão) | sim |
-| `interagir` | F | conversar, abrir baú, colher | muda |
-| `abrir_inventario` | E | Minecraft | muda |
-| `menu_pausa` | Esc | Minecraft | novo |
+| `interagir` | F | conversar, abrir baú, colher | sim (plano 04) |
+| `abrir_inventario` | E | Minecraft | sim (plano 04) |
+| `menu_pausa` | Esc | Minecraft | sim (plano 04) |
 | `soltar_item` | Q | Minecraft (drop), usado também para presentear | novo |
 | `slot_1` a `slot_9` | 1 a 9 | Minecraft (hotbar) | amplia |
 | `slot_proximo` / `slot_anterior` | Roda do mouse | Minecraft | renomeia |
@@ -43,7 +43,7 @@ posição oeste e o X na posição norte, então a tradução é por posição, 
 | `slot_proximo` | R1 | 10 | Rune Factory 4 |
 | `soltar_item` | L2 (gatilho esquerdo) | eixo | posição livre |
 | `dash` | R2 (gatilho direito) | eixo | ver nota abaixo |
-| `menu_pausa` | Start | 6 | convenção |
+| `menu_pausa` | Back / Select | 4 | no painel arcade o Start ficou com o inventário |
 | `abrir_calendario` | Back / Select | 4 | convenção |
 
 **Cuidado com a enum.** No Godot 4, `9 = LeftShoulder (L1)` e `10 = RightShoulder (R1)`,
