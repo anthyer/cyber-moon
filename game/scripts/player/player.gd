@@ -46,23 +46,18 @@ func _physics_process(delta: float) -> void:
 	_tempo_janela_combo_restante = max(_tempo_janela_combo_restante - delta, 0.0)
 	_tempo_cooldown_ataque_restante = max(_tempo_cooldown_ataque_restante - delta, 0.0)
 
-	if InputManager.equipar_1_pressionado():
-		EquipmentManager.equipar_indice(-1)
-	elif InputManager.equipar_2_pressionado():
-		EquipmentManager.equipar_indice(0)
-	elif InputManager.equipar_3_pressionado():
-		EquipmentManager.equipar_indice(1)
-	elif InputManager.equipar_4_pressionado():
-		EquipmentManager.equipar_indice(2)
-	elif InputManager.proxima_ferramenta_pressionada():
+	var slot_pedido: int = InputManager.slot_numerico_pressionado()
+	if slot_pedido != -1:
+		EquipmentManager.selecionar(slot_pedido)
+	elif InputManager.slot_proximo_pressionado():
 		EquipmentManager.ciclar(1)
-	elif InputManager.ferramenta_anterior_pressionada():
+	elif InputManager.slot_anterior_pressionado():
 		EquipmentManager.ciclar(-1)
 
 	if _tempo_janela_combo_restante <= 0.0:
 		_indice_combo = 0
 
-	var ferramenta_equipada: Ferramenta = EquipmentManager.ferramenta_atual()
+	var ferramenta_equipada: Ferramenta = EquipmentManager.ferramenta_na_mao()
 
 	var celula_alvo: Vector2i
 	var tem_celula_alvo: bool = ferramenta_equipada != null and grade_solo != null

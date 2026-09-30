@@ -1,76 +1,50 @@
 extends Node
 
-## O item em uso: uma das ferramentas ou a soqueira, que é a arma de bater do jogador.
+## O item na mão do jogador é o que está no slot rápido selecionado, como no Minecraft.
 ##
-## É a mesma coisa que o espaço EM_USO do inventário, e as duas pontas ficam
-## sincronizadas: trocar pelas teclas atualiza o espaço, e equipar pelo menu atualiza o
-## item em uso. Até o plano 05 trocar as teclas pela barra rápida, as duas formas de
-## trocar convivem.
+## Este autoload guarda só qual dos 9 slots rápidos está selecionado. Quem tem os itens
+## é o InventoryManager: trocar o item de lugar no menu troca o que está na mão sem este
+## script saber. Slot vazio é uma seleção válida, e com ele (ou com a soqueira) o
+## ataque é o soco.
 
-signal tool_equipped(ferramenta: Ferramenta)
+signal slot_selecionado_alterado(indice: int)
 
-# Este @export nao tem efeito em runtime: este autoload eh registrado como
-# script puro (nao cena), entao nao existe Inspector pra editar esse array.
-# Na pratica ele funciona como uma constante populada pelos preload() abaixo.
-@export var ferramentas: Array[Ferramenta] = [
-	preload("res://resources/items/ferramentas/enxada.tres"),
-	preload("res://resources/items/ferramentas/regador.tres"),
-	preload("res://resources/items/ferramentas/picareta.tres"),
+## O que o jogador tem no começo, nessa ordem, para os slots 1 a 4 baterem com as
+## teclas 1 a 4. A lista vira dado do plano 17, junto com as sementes iniciais.
+const ITENS_INICIAIS: Array[String] = [
+	"res://resources/items/armas/soqueira.tres",
+	"res://resources/items/ferramentas/enxada.tres",
+	"res://resources/items/ferramentas/regador.tres",
+	"res://resources/items/ferramentas/picareta.tres",
 ]
 
-## O que fica em uso quando nenhuma ferramenta está: o ataque de soco vem dela. O
-## índice -1 de indice_atual quer dizer a soqueira.
-@export var soqueira: Item = preload("res://resources/items/armas/soqueira.tres")
-
-var indice_atual: int = -1
+var indice_selecionado: int = 0
 
 func _ready() -> void:
-	# O jogador começa com a soqueira e as ferramentas no inventário, nessa ordem, para
-	# os slots rápidos 1 a 4 baterem com as teclas 1 a 4. Este autoload vem depois do
-	# InventoryManager na lista do project.godot, então o inventário já existe aqui.
-	InventoryManager.adicionar_item(soqueira, 1)
-	for ferramenta in ferramentas:
-		InventoryManager.adicionar_item(ferramenta, 1)
-	InventoryManager.equipment_changed.connect(_ao_mudar_equipamento)
-	_sincronizar_espaco_em_uso()
+	# Este autoload vem depois do InventoryManager na lista do project.godot, então o
+	# inventário já existe aqui.
+	for caminho in ITENS_INICIAIS:
+		InventoryManager.adicionar_item(load(caminho) as Item, 1)
 
-func equipar_indice(indice: int) -> void:
-	if indice < -1 or indice >= ferramentas.size():
+func selecionar(indice: int) -> void:
+	if indice < 0 or indice >= InventoryManager.SLOTS_RAPIDOS:
 		return
-	indice_atual = indice
-	tool_equipped.emit(ferramenta_atual())
-	_sincronizar_espaco_em_uso()
+	if indice == indice_selecionado:
+		return
+	indice_selecionado = indice
+	slot_selecionado_alterado.emit(indice_selecionado)
 
+## Anda para o slot vizinho e dá a volta nas duas pontas, passando por slot vazio.
 func ciclar(direcao: int) -> void:
-	var total: int = ferramentas.size() + 1
-	var posicao: int = indice_atual + 1
-	posicao = (posicao + direcao + total) % total
-	equipar_indice(posicao - 1)
+	var total: int = InventoryManager.SLOTS_RAPIDOS
+	selecionar((indice_selecionado + direcao + total) % total)
 
-## A ferramenta em uso, ou null quando o item em uso é a soqueira.
-func ferramenta_atual() -> Ferramenta:
-	return ferramentas[indice_atual] if indice_atual >= 0 else null
+## O item no slot selecionado, ou null quando o slot está vazio.
+func item_na_mao() -> Item:
+	var pilha: PilhaDeItens = InventoryManager.slot_em(indice_selecionado)
+	return pilha.item if pilha != null else null
 
-## O item em uso, seja ferramenta ou soqueira. É o que a HUD mostra.
-func item_em_uso() -> Item:
-	var ferramenta: Ferramenta = ferramenta_atual()
-	return ferramenta if ferramenta != null else soqueira
-
-func _sincronizar_espaco_em_uso() -> void:
-	var indice_do_slot: int = InventoryManager.indice_do_item(item_em_uso())
-	if indice_do_slot == -1:
-		InventoryManager.desequipar(InventoryManager.Espaco.EM_USO)
-	else:
-		InventoryManager.equipar(InventoryManager.Espaco.EM_USO, indice_do_slot)
-
-## Só reage quando o item em uso mudou de fato, o que corta o vaivém entre os dois
-## autoloads: o inventário avisa, esta função troca e não devolve o aviso. Espaço
-## vazio ou soqueira no espaço voltam para o soco.
-func _ao_mudar_equipamento(espaco: InventoryManager.Espaco, item: Item) -> void:
-	if espaco != InventoryManager.Espaco.EM_USO:
-		return
-	var novo_indice: int = ferramentas.find(item as Ferramenta) if item is Ferramenta else -1
-	if novo_indice == indice_atual:
-		return
-	indice_atual = novo_indice
-	tool_equipped.emit(ferramenta_atual())
+## A ferramenta na mão, ou null quando o item na mão não é ferramenta (soqueira,
+## semente, slot vazio). O player usa isso para decidir entre usar ferramenta e socar.
+func ferramenta_na_mao() -> Ferramenta:
+	return item_na_mao() as Ferramenta

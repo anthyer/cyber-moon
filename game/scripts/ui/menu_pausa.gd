@@ -17,10 +17,10 @@ extends Control
 const CENA_DO_SLOT: PackedScene = preload("res://scenes/ui/slot_inventario.tscn")
 
 ## Espaços de equipamento mostrados na coluna da esquerda, de cima para baixo. O
-## primeiro é o item em uso agora (ferramenta ou soqueira). É var, e não const, porque o
-## enum vem de um autoload, que só existe com o jogo rodando.
+## primeiro é o item em uso agora, que é o slot rápido selecionado. É var, e não const,
+## porque o enum vem de um autoload, que só existe com o jogo rodando.
 var _espacos_na_tela: Array[Array] = [
-	[InventoryManager.Espaco.EM_USO, "Equipado"],
+	[SlotInventario.ESPACO_EM_USO, "Equipado"],
 	[InventoryManager.Espaco.ARMADURA, "Armadura"],
 	[InventoryManager.Espaco.ACESSORIO, "Acessório"],
 ]
@@ -46,6 +46,9 @@ func _ready() -> void:
 	_ligar_vizinhos_de_foco()
 	InventoryManager.inventory_changed.connect(_atualizar_tudo)
 	InventoryManager.equipment_changed.connect(_ao_mudar_equipamento)
+	# O "Equipado" e a marca de equipado dependem do slot selecionado, que muda fora do
+	# InventoryManager.
+	EquipmentManager.slot_selecionado_alterado.connect(_ao_mudar_selecao)
 	_atualizar_tudo()
 
 ## A entrada é lida no _process, pelo InputManager, porque o menu precisa responder
@@ -133,8 +136,9 @@ func _ao_acionar_slot(slot: SlotInventario) -> void:
 	if slot.eh_espaco_de_equipamento():
 		if _slot_segurado == null:
 			# Sem nada seguro, confirmar num espaço ocupado tira o equipamento. O item
-			# continua no slot dele, só deixa de estar equipado.
-			if slot.indice_mostrado() != -1:
+			# continua no slot dele, só deixa de estar equipado. O "Equipado" não tem o
+			# que tirar: ele é sempre o slot selecionado.
+			if not slot.eh_espaco_em_uso() and slot.indice_mostrado() != -1:
 				InventoryManager.desequipar(slot.espaco_de_equipamento)
 			return
 		SlotInventario.transferir(_slot_segurado.indice_mostrado(), -1, slot)
@@ -161,6 +165,9 @@ func _ao_focar_slot(slot: SlotInventario) -> void:
 	_mostrar_descricao(slot)
 
 func _ao_mudar_equipamento(_espaco: int, _item: Item) -> void:
+	_atualizar_tudo()
+
+func _ao_mudar_selecao(_indice: int) -> void:
 	_atualizar_tudo()
 
 func _atualizar_tudo() -> void:

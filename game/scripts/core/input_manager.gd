@@ -21,20 +21,17 @@ func dash_pressionado() -> bool:
 func atacar_pressionado() -> bool:
 	return Input.is_action_just_pressed("atacar")
 
-func equipar_1_pressionado() -> bool:
-	return Input.is_action_just_pressed("equipar_1")
+## Devolve o índice do slot rápido pedido por tecla numérica (0 para a tecla 1), ou -1
+## quando nenhuma foi pressionada neste quadro. Um método só no lugar de nove quase
+## iguais.
+func slot_numerico_pressionado() -> int:
+	for indice in 9:
+		if Input.is_action_just_pressed("slot_%d" % (indice + 1)):
+			return indice
+	return -1
 
-func equipar_2_pressionado() -> bool:
-	return Input.is_action_just_pressed("equipar_2")
+func slot_proximo_pressionado() -> bool:
+	return Input.is_action_just_pressed("slot_proximo")
 
-func equipar_3_pressionado() -> bool:
-	return Input.is_action_just_pressed("equipar_3")
-
-func equipar_4_pressionado() -> bool:
-	return Input.is_action_just_pressed("equipar_4")
-
-func proxima_ferramenta_pressionada() -> bool:
-	return Input.is_action_just_pressed("ferramenta_proxima")
-
-func ferramenta_anterior_pressionada() -> bool:
-	return Input.is_action_just_pressed("ferramenta_anterior")
+func slot_anterior_pressionado() -> bool:
+	return Input.is_action_just_pressed("slot_anterior")

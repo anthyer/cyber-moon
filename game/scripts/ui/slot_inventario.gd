@@ -7,6 +7,9 @@ extends Panel
 ## O slot não guarda item nenhum: ele só mostra o que o InventoryManager tem no índice
 ## dele. Num espaço de equipamento, o índice mostrado é o do slot equipado, porque
 ## equipar não copia o item (ver InventoryManager).
+##
+## A barra rápida da tela reusa esta cena em modo só de exibição: lá o slot não ganha
+## foco nem arrasta, porque organizar item é coisa do menu.
 
 ## Emitido quando o slot ganha foco, para o menu mostrar nome e descrição do item.
 signal focado(slot: SlotInventario)
@@ -18,18 +21,36 @@ const COR_DE_FUNDO: Color = Color(0.06, 0.07, 0.12, 0.85)
 const COR_DA_BORDA: Color = Color(0.25, 0.3, 0.45, 1.0)
 const COR_DA_BORDA_FOCADA: Color = Color(0.2, 0.95, 1.0, 1.0)
 const COR_DA_BORDA_SEGURANDO: Color = Color(1.0, 0.25, 0.8, 1.0)
+const COR_DA_BORDA_SELECIONADA: Color = Color(1.0, 0.85, 0.2, 1.0)
+const LARGURA_DA_BORDA: int = 2
+const LARGURA_DA_BORDA_SELECIONADA: int = 3
+
+## Valor de espaco_de_equipamento do espaço "Equipado" do menu. Ele não é um espaço do
+## InventoryManager: o item em uso é o slot rápido selecionado, guardado pelo
+## EquipmentManager. Por isso usa um número fora do enum Espaco (que começa em 0) e
+## diferente do -1 de slot comum.
+const ESPACO_EM_USO: int = -2
 const TAMANHO_DA_PREVIA: Vector2 = Vector2(40, 40)
 
 ## Índice no InventoryManager.slots. Ignorado quando o slot é espaço de equipamento.
 @export var indice_do_slot: int = -1
-## Valor de InventoryManager.Espaco quando este slot é um espaço de equipamento, ou -1
-## quando é um slot comum do inventário.
+## Valor de InventoryManager.Espaco quando este slot é um espaço de equipamento,
+## ESPACO_EM_USO para o espaço "Equipado", ou -1 quando é um slot comum do inventário.
 @export var espaco_de_equipamento: int = -1
+## Ligado pela barra rápida da tela: o slot só mostra, sem foco, arraste nem marca de
+## equipado (na barra o destaque do selecionado já diz qual está em uso).
+@export var somente_exibicao: bool = false
 
 ## Ligado pelo menu enquanto este slot é a origem de um pegar e soltar pelo controle.
 var segurando: bool = false:
 	set(valor):
 		segurando = valor
+		_atualizar_estilo()
+
+## Ligado pela barra rápida no slot que é o item em uso.
+var selecionado: bool = false:
+	set(valor):
+		selecionado = valor
 		_atualizar_estilo()
 
 @onready var icone: TextureRect = $Icone
@@ -40,8 +61,11 @@ var _estilo: StyleBoxFlat = StyleBoxFlat.new()
 
 func _ready() -> void:
 	_estilo.bg_color = COR_DE_FUNDO
-	_estilo.set_border_width_all(2)
 	_estilo.set_corner_radius_all(4)
+	if somente_exibicao:
+		# MOUSE_FILTER_IGNORE também desliga o arraste, que depende do mouse chegar aqui.
+		focus_mode = Control.FOCUS_NONE
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_theme_stylebox_override(&"panel", _estilo)
 	focus_entered.connect(_ao_ganhar_foco)
 	focus_exited.connect(_atualizar_estilo)
@@ -51,9 +75,15 @@ func _ready() -> void:
 func eh_espaco_de_equipamento() -> bool:
 	return espaco_de_equipamento != -1
 
-## Índice do InventoryManager que este slot mostra agora. Num espaço de equipamento é
-## o slot equipado, que pode ser -1 quando o espaço está vazio.
+func eh_espaco_em_uso() -> bool:
+	return espaco_de_equipamento == ESPACO_EM_USO
+
+## Índice do InventoryManager que este slot mostra agora. No espaço "Equipado" é o slot
+## rápido selecionado; nos outros espaços de equipamento é o slot equipado, que pode ser
+## -1 quando o espaço está vazio.
 func indice_mostrado() -> int:
+	if eh_espaco_em_uso():
+		return EquipmentManager.indice_selecionado
 	if eh_espaco_de_equipamento():
 		return InventoryManager.indice_equipado(espaco_de_equipamento)
 	return indice_do_slot
@@ -73,7 +103,7 @@ func atualizar() -> void:
 		icone.texture = pilha.item.icone
 		rotulo_quantidade.text = str(pilha.quantidade)
 		rotulo_quantidade.visible = pilha.quantidade > 1
-	marca_equipado.visible = not eh_espaco_de_equipamento() and _esta_equipado()
+	marca_equipado.visible = not somente_exibicao and not eh_espaco_de_equipamento() and _esta_equipado()
 
 ## Move o conteúdo de um slot de origem para o slot de destino. Fica aqui, e não no
 ## menu, porque o arraste do mouse e o pegar e soltar do controle fazem exatamente a
@@ -81,12 +111,18 @@ func atualizar() -> void:
 static func transferir(indice_origem: int, espaco_origem: int, destino: SlotInventario) -> void:
 	if indice_origem < 0:
 		return
+	# Soltar no "Equipado" põe o item no slot rápido selecionado, trocando com o que
+	# estava lá. Aceita qualquer item: semente na mão também é item em uso (plano 06).
+	if destino.eh_espaco_em_uso():
+		InventoryManager.mover(indice_origem, EquipmentManager.indice_selecionado)
+		return
 	if destino.eh_espaco_de_equipamento():
 		InventoryManager.equipar(destino.espaco_de_equipamento, indice_origem)
 		return
 	# Tirar um item de um espaço de equipamento e soltar no inventário é desequipar. O
-	# item continua no slot dele, então só muda de lugar se o destino for outro slot.
-	if espaco_origem != -1:
+	# item continua no slot dele, então só muda de lugar se o destino for outro slot. O
+	# "Equipado" não desequipa nada: tirar dele só move o item do slot selecionado.
+	if espaco_origem >= 0:
 		InventoryManager.desequipar(espaco_origem)
 	InventoryManager.mover(indice_origem, destino.indice_do_slot)
 
@@ -111,7 +147,7 @@ func _get_drag_data(_posicao: Vector2) -> Variant:
 func _can_drop_data(_posicao: Vector2, dados: Variant) -> bool:
 	if not (dados is Dictionary and dados.has("indice_origem")):
 		return false
-	if not eh_espaco_de_equipamento():
+	if not eh_espaco_de_equipamento() or eh_espaco_em_uso():
 		return true
 	var pilha: PilhaDeItens = InventoryManager.slot_em(dados["indice_origem"])
 	if pilha == null:
@@ -131,14 +167,19 @@ func _ao_ganhar_foco() -> void:
 	focado.emit(self)
 
 func _esta_equipado() -> bool:
+	if indice_do_slot == EquipmentManager.indice_selecionado:
+		return true
 	for espaco in InventoryManager.CATEGORIAS_POR_ESPACO:
 		if InventoryManager.indice_equipado(espaco) == indice_do_slot:
 			return true
 	return false
 
 func _atualizar_estilo() -> void:
+	_estilo.set_border_width_all(LARGURA_DA_BORDA_SELECIONADA if selecionado else LARGURA_DA_BORDA)
 	if segurando:
 		_estilo.border_color = COR_DA_BORDA_SEGURANDO
+	elif selecionado:
+		_estilo.border_color = COR_DA_BORDA_SELECIONADA
 	elif has_focus():
 		_estilo.border_color = COR_DA_BORDA_FOCADA
 	else:

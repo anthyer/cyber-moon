@@ -4,8 +4,8 @@ extends Node
 ##
 ## São 36 slots num array só: os índices de 0 a 8 são a barra rápida e de 9 a 35 a
 ## matriz principal de 3 linhas por 9 colunas, como no Minecraft. A matriz tem a mesma
-## largura da barra rápida, então cada coluna da matriz fica em cima de um slot rápido. A barra rápida conta na capacidade total. Slot vazio é
-## null.
+## largura da barra rápida, então cada coluna da matriz fica em cima de um slot rápido.
+## A barra rápida conta na capacidade total. Slot vazio é null.
 ##
 ## Equipar não copia o item: guarda o índice do slot. O item equipado continua ocupando
 ## o slot dele, e se o item mudar de lugar o equipamento acompanha.
@@ -22,13 +22,12 @@ const SLOTS_RAPIDOS: int = 9
 const SLOTS_DA_MATRIZ: int = COLUNAS * LINHAS
 const TOTAL_DE_SLOTS: int = SLOTS_RAPIDOS + SLOTS_DA_MATRIZ
 
-## EM_USO é o item que o jogador tem equipado agora, o que o botão de atacar usa: uma
-## ferramenta (enxada, regador, picareta) ou uma arma (a soqueira, para bater).
-enum Espaco { EM_USO, ARMADURA, ACESSORIO }
+## O item em uso (na mão) não é um espaço daqui: é o slot rápido selecionado, e quem
+## guarda a seleção é o EquipmentManager. Aqui ficam só os equipamentos vestidos.
+enum Espaco { ARMADURA, ACESSORIO }
 
 ## Que categorias de item cada espaço aceita.
 const CATEGORIAS_POR_ESPACO: Dictionary = {
-	Espaco.EM_USO: [Item.Categoria.FERRAMENTA, Item.Categoria.ARMA],
 	Espaco.ARMADURA: [Item.Categoria.ARMADURA],
 	Espaco.ACESSORIO: [Item.Categoria.ACESSORIO],
 }
@@ -37,7 +36,6 @@ var slots: Array[PilhaDeItens] = []
 
 ## Espaço para índice do slot equipado, ou -1 quando o espaço está vazio.
 var _equipados: Dictionary = {
-	Espaco.EM_USO: -1,
 	Espaco.ARMADURA: -1,
 	Espaco.ACESSORIO: -1,
 }
