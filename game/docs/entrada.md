@@ -6,12 +6,12 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 
 | Ação | Teclado | Mouse | Joystick |
 |---|---|---|---|
-| `mover_cima` | W / seta para cima | — | D-pad para cima |
-| `mover_baixo` | S / seta para baixo | — | D-pad para baixo |
-| `mover_esquerda` | A / seta para esquerda | — | D-pad para esquerda |
-| `mover_direita` | D / seta para direita | — | D-pad para direita |
+| `mover_cima` | W / seta para cima | — | D-pad ou stick esquerdo para cima |
+| `mover_baixo` | S / seta para baixo | — | D-pad ou stick esquerdo para baixo |
+| `mover_esquerda` | A / seta para esquerda | — | D-pad ou stick esquerdo para esquerda |
+| `mover_direita` | D / seta para direita | — | D-pad ou stick esquerdo para direita |
 | `interagir` | E | — | Botão A / Cross |
-| `abrir_inventario` | I | — | Botão Y / Triangle |
+| `abrir_inventario` | I | — | Botão Y / Triangle, ou Start |
 | `correr` | Shift esquerdo | — | Botão B / Circle |
 | `dash` | Q | Botão direito | R1 (botão direito superior) |
 | `atacar` | — | Botão esquerdo | Quadrado / X (botão West) |
@@ -22,10 +22,65 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 | `ferramenta_proxima` | Nenhum | Roda para baixo | Gatilho direito |
 | `ferramenta_anterior` | Nenhum | Roda para cima | Gatilho esquerdo |
 
-O suporte ao eixo analógico dos manetes fica para uma iteração futura, quando o movimento do jogador for implementado e puder ser testado com um controle físico; por enquanto o D-pad cobre a entrada digital equivalente.
+O stick esquerdo move o jogador junto com o D-pad. As quatro ações de movimento usam zona morta de 0.2 (as outras ficam em 0.5) para o stick analógico responder a um toque leve; teclado e D-pad não são afetados, porque só valem 0 ou 1.
 
 ## Regras
 
 - Toda leitura de entrada passa pelo `InputManager` (`scripts/core/input_manager.gd`), nunca por verificação direta de tecla no código de gameplay.
 - Cada ação é mapeada, desde o início, para teclado e joystick simultaneamente; `dash` soma ainda um botão de mouse como atalho extra. O suporte a toque na tela será adicionado futuramente mapeando as mesmas ações.
 - Menus e telas de UI usam o sistema nativo de foco dos nós `Control` do Godot, permitindo navegação por teclado ou joystick sem depender do mouse.
+
+## Painel arcade (placa DragonRise)
+
+O painel arcade usado nos testes tem uma placa USB DragonRise "Generic USB Joystick"
+(USB `0079:0006`), com alavanca digital, 6 botões de ação (A, B, C em baixo e X, Y, Z
+em cima, no padrão Sega), Start e Select. O Godot 4.7 lê
+controles pelo SDL, e o SDL reconhece essa placa como um gamepad DragonRise comum, com
+um mapeamento que não corresponde ao painel: só parte dos botões chega ao jogo, e os
+outros o SDL descarta antes do Godot ver.
+
+`Input.add_joy_mapping()` não resolve. Quando o SDL já trata o aparelho como gamepad,
+o Godot pula o próprio sistema de mapeamento, e aplicar um mapeamento por cima faz o
+controle parar de responder por completo (testado). O mapeamento precisa ser entregue
+ao próprio SDL, pela variável de ambiente `SDL_GAMECONTROLLERCONFIG`, que ele lê ao
+iniciar:
+
+```
+0300457e790000000600000010010000,Painel Arcade DragonRise,x:b0,b:b1,lefttrigger:b2,righttrigger:b3,leftshoulder:b4,rightshoulder:b5,start:b6,back:b11,leftx:a0,lefty:a1,platform:Linux,
+```
+
+O mapeamento traduz cada botão físico para o botão padrão que o Input Map já usa, então
+nenhum bind específico do painel entra no `project.godot`. Botões do painel, com o
+número bruto da placa:
+
+| Botão do painel | Número bruto | Vira | Ação |
+|---|---|---|---|
+| A | 0 | X (West) | `atacar` |
+| B | 1 | B (East) | `correr` |
+| C | 5 | R1 | `dash` |
+| X | 2 | Gatilho esquerdo | `ferramenta_anterior` |
+| Y | 3 | Gatilho direito | `ferramenta_proxima` |
+| Z | 4 | L1 | reservado |
+| Start | 6 | Start | `abrir_inventario` |
+| Select | 11 | Back / Select | reservado para a pausa |
+| Alavanca | eixos 0 e 1 | Stick esquerdo | movimento |
+
+Os dois reservados já chegam ao Godot como L1 e Back, que nenhuma ação usa hoje. Quando
+a ação existir, basta o bind no Input Map, sem mexer no mapeamento. O Select fica para
+a `menu_pausa` do plano 04 (que previa Start para ela, mas no painel o Start ficou com
+o inventário). Para o Z, a sugestão é `interagir`: é a única ação existente sem botão no
+painel, e fica ao lado do Y, perto dos botões de ferramenta.
+
+Para o Godot instalado por flatpak, a variável fica gravada uma vez por máquina e vale
+para o editor e para o jogo rodado por ele:
+
+```bash
+flatpak override --user --env=SDL_GAMECONTROLLERCONFIG="<linha acima>" org.godotengine.Godot
+```
+
+Para desfazer, `flatpak override --user --unset-env=SDL_GAMECONTROLLERCONFIG org.godotengine.Godot`.
+Fora do flatpak (build exportado, por exemplo), basta exportar a mesma variável antes de
+abrir o jogo. O GUID do início da linha é o que o Godot informa em
+`Input.get_joy_guid()`; o trecho `457e` vem do nome da placa, o que impede que o
+mapeamento afete gamepads DragonRise de mesmo código USB. Outra placa arcade precisa
+de linha própria, montada lendo os números brutos com `/dev/input/js0`.
