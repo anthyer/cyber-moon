@@ -124,7 +124,3 @@ tudo para achar obstáculo incorreto. O Antonio revisa isso ao voltar.
 
 **Decisão:** o `platform_grass.glb` (o `Piso` do playground) toca som de água, por escolha
 feita no commit 5f72630. A regra fica em `scripts/utils/superficies.gd`.
-
-**Pendente:** a música de fundo está em `.wav` de 38 MB. Converter para `.ogg` reduz o
-arquivo para poucos MB sem perda audível; o loop passa a ser ligado pela opção `loop`
-no import do `.ogg`.

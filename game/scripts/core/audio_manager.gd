@@ -8,7 +8,7 @@ extends Node
 
 const TAMANHO_DA_PISCINA: int = 16
 const DISTANCIA_MAXIMA_SFX: float = 30.0
-const CAMINHO_MUSICA_PADRAO: String = "res://assets/audio/music/blush_response.wav"
+const CAMINHO_MUSICA_PADRAO: String = "res://assets/audio/music/blush_response.ogg"
 
 var _piscina: Array[AudioStreamPlayer3D] = []
 var _tocador_de_musica: AudioStreamPlayer
