@@ -9,6 +9,49 @@ objeto que gira no chão e vai para o inventário quando o jogador interage.
 **Entrega para:** 04 (inventário), 06 (colheita produz item), 08 (arma é item), 16
 (presente é item), 17 (comércio vende item).
 
+## Revisão de 2026-09-29 (vale sobre o resto do plano)
+
+O plano foi revisado contra o código antes de começar. Onde esta seção contradiz o texto
+abaixo, vale esta seção.
+
+**Situação:** em pausa. O catálogo precisa ser revisado pelo Antonio antes da tarefa 3.
+As tarefas 1 e 2 (modelo de dados) podem começar antes disso.
+
+**Decisões do Antonio:**
+
+- **Ícones placeholder.** Só as 6 colheitas têm arte (16x16 em
+  `assets/textures/tiny_farm_crops/`). Os outros 31 itens ganham um ícone 16x16 simples,
+  com forma e cor por categoria, gerado por um script versionado em
+  `equipe/ferramentas/`. Arte de verdade entra depois, trocando só o PNG apontado no
+  `.tres`. Os ícones ficam em `assets/textures/icones_itens/`.
+- **Catálogo revisado antes de gerar.** Nomes, ids e valores das tabelas abaixo são um
+  primeiro chute. Depois do modelo de dados, a tabela é mostrada ao Antonio para ajuste,
+  e só então os `.tres` são gerados.
+
+**Ajustes ao plano encontrados na revisão:**
+
+- **Sinal em inglês.** A convenção pede sinal em inglês no passado. O sinal fica
+  `item_picked_up(item: Item, quantidade: int)`, e não `item_coletado`.
+- **Gerador roda pela linha de comando.** Em vez de script de editor, o gerador do
+  catálogo é um script `extends SceneTree` em `game/scripts/utils/`, rodado com
+  `--headless --script`. Assim dá para gerar de novo sem abrir o editor.
+- **Mover as ferramentas quebra o `EquipmentManager`.** Os três `.tres` de ferramenta
+  vão para `resources/items/ferramentas/`, e os `preload()` do `EquipmentManager`
+  precisam apontar para o caminho novo no mesmo commit.
+- **`item_de_teste.tres` sai.** Nenhum sistema usa, e o catálogo real o substitui.
+- **Contrato de interação.** Qualquer coisa interagível tem um método `interagir()`. A
+  `AreaInteracao` devolve o nó dono do corpo detectado, e o `player.gd` só chama
+  `alvo.interagir()`, sem saber se é item, NPC ou baú. É o mesmo padrão de despacho do
+  `GradeSolo.aplicar()`. No `ItemNoMundo`, `interagir()` chama `coletar()`.
+- **Moeda nunca vai para o chão.** O plano 17 decidiu que crédito é um número no
+  `EconomyManager`. O item `moeda` existe só como ícone de interface, com
+  `pode_ser_presente = false`.
+- **`coletar()` sempre dá certo por enquanto.** O `InventoryManager` atual não tem limite.
+  O caso de inventário cheio passa a existir no plano 04.
+- **`Semente.cultivo` fica vazio.** Os `.tres` de `Cultivo` nascem no plano 06, que
+  preenche esse campo.
+- **`interagir` continua no E.** A troca para F é do plano 04.
+
 ## Contexto
 
 Hoje `game/scripts/resources/item.gd` tem cinco campos: nome, descrição, ícone,
@@ -223,6 +266,8 @@ e deixa cada sistema decidir o que fazer com o alvo.
   ferramenta existentes para preencher `id` e `categoria`. Rodar o jogo e confirmar que
   as ferramentas continuam funcionando.
 - [ ] **2.** Criar `semente.gd` e `consumivel.gd`.
+- [ ] **2b.** Gerar os ícones placeholder e mostrar ao Antonio a tabela do catálogo
+  para revisão. Não seguir para a 3 sem a tabela aprovada.
 - [ ] **3.** Criar os `.tres` do catálogo. É trabalho repetitivo, e vale fazer um script
   de editor `@tool` que gera os `.tres` a partir de uma tabela, em vez de 40 arquivos na
   mão. O script fica em `game/scripts/utils/`, roda uma vez e continua versionado como

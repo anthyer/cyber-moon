@@ -124,3 +124,11 @@ tudo para achar obstáculo incorreto. O Antonio revisa isso ao voltar.
 
 **Decisão:** o `platform_grass.glb` (o `Piso` do playground) toca som de água, por escolha
 feita no commit 5f72630. A regra fica em `scripts/utils/superficies.gd`.
+
+### 2026-09-29, plano 03 em pausa
+
+O plano 03 foi revisado e as decisões estão registradas no topo dele, na seção "Revisão
+de 2026-09-29". Ícones dos itens sem arte serão placeholder gerado por script, e o
+catálogo espera revisão do Antonio antes de virar `.tres`. O trabalho parou antes da
+primeira linha de código porque a prioridade passou a ser os controles, testados com um
+controle de arcade.
