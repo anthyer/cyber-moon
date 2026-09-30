@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/items/item_no_mundo.gd" id="1_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_item"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[node name="ItemNoMundo" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Visual" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+pixel_size = 0.025
+alpha_cut = 1
+texture_filter = 0
+
+[node name="Corpo" type="StaticBody3D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="FormaColisao" type="CollisionShape3D" parent="Corpo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+shape = SubResource("BoxShape3D_item")
