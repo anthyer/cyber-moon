@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Semente" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_cenoura.png" id="1_fjmtq"]
+[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="2_vnqbj"]
+
+[resource]
+script = ExtResource("2_vnqbj")
+id = &"semente_cenoura"
+nome = "Semente de cenoura"
+icone = ExtResource("1_fjmtq")
+categoria = 1
+valor_de_venda = 8

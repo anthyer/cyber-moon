@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/composto_organico.png" id="1_idb4i"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="2_8t2oj"]
+
+[resource]
+script = ExtResource("2_8t2oj")
+id = &"composto_organico"
+nome = "Composto orgânico"
+icone = ExtResource("1_idb4i")
+categoria = 7
+valor_de_venda = 30

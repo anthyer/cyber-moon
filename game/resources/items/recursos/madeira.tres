@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/madeira.png" id="1_gaath"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="2_nprd6"]
+
+[resource]
+script = ExtResource("2_nprd6")
+id = &"madeira"
+nome = "Madeira"
+icone = ExtResource("1_gaath")
+valor_de_venda = 5

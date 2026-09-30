@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/tomato_icon.png" id="1_q5ssp"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="2_hflyb"]
+
+[resource]
+script = ExtResource("2_hflyb")
+id = &"tomate"
+nome = "Tomate"
+icone = ExtResource("1_q5ssp")
+categoria = 2
+valor_de_venda = 30

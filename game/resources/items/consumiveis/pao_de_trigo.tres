@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Consumivel" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/pao_de_trigo.png" id="1_u8aq5"]
+[ext_resource type="Script" path="res://scripts/resources/consumivel.gd" id="2_pmtil"]
+
+[resource]
+script = ExtResource("2_pmtil")
+recupera_vida = 20
+recupera_stamina = 15
+id = &"pao_de_trigo"
+nome = "Pão de trigo"
+icone = ExtResource("1_u8aq5")
+categoria = 6
+valor_de_venda = 30

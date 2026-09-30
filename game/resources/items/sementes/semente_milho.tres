@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Semente" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_milho.png" id="1_g2rej"]
+[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="2_jnltu"]
+
+[resource]
+script = ExtResource("2_jnltu")
+id = &"semente_milho"
+nome = "Semente de milho"
+icone = ExtResource("1_g2rej")
+categoria = 1
+valor_de_venda = 13

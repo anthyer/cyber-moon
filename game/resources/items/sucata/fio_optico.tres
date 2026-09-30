@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/fio_optico.png" id="1_c8hdg"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="2_6551j"]
+
+[resource]
+script = ExtResource("2_6551j")
+id = &"fio_optico"
+nome = "Fio óptico"
+icone = ExtResource("1_c8hdg")
+valor_de_venda = 22
