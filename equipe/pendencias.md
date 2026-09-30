@@ -127,10 +127,23 @@ feita no commit 5f72630. A regra fica em `scripts/utils/superficies.gd`.
 
 ### 2026-09-29, plano 03
 
-O plano 03 foi revisado e as decisões estão registradas no topo dele, na seção "Revisão
-de 2026-09-29". Ícones dos itens sem arte serão placeholder gerado por script, e o
-catálogo espera revisão do Antonio antes de virar `.tres`. Tarefas 1 a 7 foram feitas
-no mesmo dia; o que falta está no topo do plano.
+**Feito.** As decisões e ajustes estão no topo do plano, na seção "Revisão de
+2026-09-29". Resumo do que mudou em relação ao texto original:
+
+- Sinal em inglês, `item_picked_up`, e não `item_coletado`.
+- O gerador do catálogo é script de linha de comando (`extends SceneTree`), não de editor.
+- O item no chão não usa billboard, porque ele anula o giro. Para não virar uma linha
+  de lado, o sprite ganhou duas cópias logo atrás (lateral escura e face de trás).
+- Ids `moeda` e `servo_motor` viraram `credito` e `servomotor`, e os planos 09, 16 e
+  17 foram atualizados junto.
+- Sucata ficou na categoria RECURSO. Consumíveis e buquê ganharam valor de venda.
+
+**Fica para depois:**
+
+- Os três itens de demonstração perto do spawn (`ItensDeDemonstracao`) existem só para
+  teste. Podem sair quando o plano 06 começar a soltar colheita de verdade.
+- Os 30 ícones são placeholder. Arte de verdade entra trocando o PNG no `.tres`.
+- `Semente.cultivo` está vazio em todas as sementes até o plano 06.
 
 ### 2026-09-29, remapear controles
 

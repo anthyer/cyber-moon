@@ -8,7 +8,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 01 Colisão de cenário (**prioridade**)
 - [x] 02 Som (**prioridade**)
 - [x] Vídeo de entrega das duas prioridades
-- [ ] 03 Sistema de itens
+- [x] 03 Sistema de itens
 - [ ] 04 Inventário
 - [ ] 05 Barra de acesso rápido
 - [ ] 06 Plantio e colheita

@@ -14,10 +14,10 @@ objeto que gira no chão e vai para o inventário quando o jogador interage.
 O plano foi revisado contra o código antes de começar. Onde esta seção contradiz o texto
 abaixo, vale esta seção.
 
-**Situação (2026-09-29):** tarefas 1 a 7 feitas. Falta o Antonio testar a coleta à mão
-com os três itens de demonstração perto do spawn (nó `ItensDeDemonstracao` do
-playground) e aprovar o giro sem billboard. Depois disso o plano pode ser marcado em
-`ordem-de-execucao.md`.
+**Situação (2026-09-29):** feito. Os critérios de pronto foram conferidos por um teste
+automático no playground, que coletou os três itens de demonstração pelo `interagir` e
+usou a enxada. O teste à mão fica com o Antonio, pelos itens do nó
+`ItensDeDemonstracao`.
 
 **Catálogo aprovado pelo Antonio:** sucata na categoria RECURSO; valores de venda de
 pão de trigo 30, sopa de legumes 70, estimulante 55, nanogel 80 e buquê 60; ids
