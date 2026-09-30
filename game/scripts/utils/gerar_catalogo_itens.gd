@@ -70,6 +70,12 @@ const ESPECIAIS: Array = [
 	[&"credito", "Crédito", 0, false],
 ]
 
+## id, nome, venda. Armas não empilham e não servem de presente. A classe Arma, com dano
+## e alcance, nasce no plano 08; até lá a arma é um Item comum da categoria ARMA.
+const ARMAS: Array = [
+	[&"soqueira", "Soqueira", 15],
+]
+
 func _init() -> void:
 	var total: int = 0
 	for linha in COLHEITAS:
@@ -113,6 +119,14 @@ func _init() -> void:
 		_preencher(especial, linha[0], linha[1], linha[2], Item.Categoria.ESPECIAL)
 		especial.pode_ser_presente = linha[3]
 		total += _salvar(especial, "especiais")
+
+	for linha in ARMAS:
+		var arma: Item = Item.new()
+		_preencher(arma, linha[0], linha[1], linha[2], Item.Categoria.ARMA)
+		arma.empilhavel = false
+		arma.quantidade_maxima_por_pilha = 1
+		arma.pode_ser_presente = false
+		total += _salvar(arma, "armas")
 
 	print("Catálogo gerado: %d itens." % total)
 	quit()

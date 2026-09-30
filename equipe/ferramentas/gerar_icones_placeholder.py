@@ -416,6 +416,25 @@ FORMAS = {
         "................",
         "................",
     ],
+    "soqueira": [
+        "................",
+        "................",
+        "................",
+        ".bbbbbbbbbbbbb..",
+        ".a..a..a..a..a..",
+        ".a..a..a..a..a..",
+        ".aaaaaaaaaaaaa..",
+        "..aaaaaaaaaaa...",
+        "...cccccccccc...",
+        "....cccccccc....",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+    ],
+
 }
 
 
@@ -480,6 +499,8 @@ ITENS = [
     ("enxada", "enxada", paleta((170, 175, 185), d=MADEIRA_DO_CABO)),
     ("regador", "regador", paleta((70, 140, 200))),
     ("picareta", "picareta", paleta((160, 165, 175), d=MADEIRA_DO_CABO)),
+    # Arma: a soqueira é o que o jogador usa quando não está com ferramenta na mão.
+    ("soqueira", "soqueira", paleta((125, 130, 145))),
 ]
 
 
