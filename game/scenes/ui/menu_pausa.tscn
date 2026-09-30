@@ -1,0 +1,125 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/menu_pausa.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
+bg_color = Color(0.03, 0.04, 0.08, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.95, 1, 0.6)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="MenuPausa" type="Control"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Fundo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Centro" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Painel" type="PanelContainer" parent="Centro"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+
+[node name="Margem" type="MarginContainer" parent="Centro/Painel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 16
+
+[node name="Colunas" type="VBoxContainer" parent="Centro/Painel/Margem"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Topo" type="HBoxContainer" parent="Centro/Painel/Margem/Colunas"]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="ColunaEsquerda" type="VBoxContainer" parent="Centro/Painel/Margem/Colunas/Topo"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TituloEquipamento" type="Label" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.95, 1, 1)
+text = "Equipamento"
+
+[node name="ListaDeEquipamento" type="VBoxContainer" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ReservaDeStatus" type="Label" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda"]
+modulate = Color(1, 1, 1, 0.45)
+layout_mode = 2
+text = "Vida e stamina
+(plano 07)"
+
+[node name="ColunaDireita" type="VBoxContainer" parent="Centro/Painel/Margem/Colunas/Topo"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TituloInventario" type="Label" parent="Centro/Painel/Margem/Colunas/Topo/ColunaDireita"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.95, 1, 1)
+text = "Inventário"
+
+[node name="Matriz" type="GridContainer" parent="Centro/Painel/Margem/Colunas/Topo/ColunaDireita"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 8
+
+[node name="TituloBarraRapida" type="Label" parent="Centro/Painel/Margem/Colunas/Topo/ColunaDireita"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.25, 0.8, 1)
+text = "Barra rápida"
+
+[node name="BarraRapida" type="GridContainer" parent="Centro/Painel/Margem/Colunas/Topo/ColunaDireita"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 4
+columns = 9
+
+[node name="Rodape" type="VBoxContainer" parent="Centro/Painel/Margem/Colunas"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+
+[node name="NomeDoItem" type="Label" parent="Centro/Painel/Margem/Colunas/Rodape"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="DescricaoDoItem" type="Label" parent="Centro/Painel/Margem/Colunas/Rodape"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.75)
+layout_mode = 2
+autowrap_mode = 3

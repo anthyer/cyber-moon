@@ -72,6 +72,7 @@
 [ext_resource type="Resource" path="res://resources/items/colheitas/beterraba.tres" id="91_beterraba"]
 [ext_resource type="Resource" path="res://resources/items/sementes/semente_milho.tres" id="92_semente_milho"]
 [ext_resource type="Resource" path="res://resources/items/sucata/celula_energia.tres" id="93_celula_energia"]
+[ext_resource type="PackedScene" path="res://scenes/ui/menu_pausa.tscn" id="94_menu_pausa"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ceu"]
 
@@ -146,6 +147,8 @@ shadow_enabled = true
 [node name="InterfaceHUD" type="CanvasLayer" parent="." unique_id=1083850535]
 
 [node name="HudFerramenta" parent="InterfaceHUD" unique_id=883570029 instance=ExtResource("5_hud")]
+
+[node name="MenuPausa" parent="InterfaceHUD" instance=ExtResource("94_menu_pausa")]
 
 [node name="building-type-a2" parent="." unique_id=1628838430 instance=ExtResource("7_i1gjs")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -3.41, 0, 2.1330462)
