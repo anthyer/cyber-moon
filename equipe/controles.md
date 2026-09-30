@@ -23,8 +23,8 @@ atualizado a cada ação nova que entrar de fato. Este arquivo é o alvo, aquele
 | `abrir_inventario` | E | Minecraft | sim (plano 04) |
 | `menu_pausa` | Esc | Minecraft | sim (plano 04) |
 | `soltar_item` | Q | Minecraft (drop), usado também para presentear | novo |
-| `slot_1` a `slot_9` | 1 a 9 | Minecraft (hotbar) | amplia |
-| `slot_proximo` / `slot_anterior` | Roda do mouse | Minecraft | renomeia |
+| `slot_1` a `slot_9` | 1 a 9 | Minecraft (hotbar) | sim (plano 05) |
+| `slot_proximo` / `slot_anterior` | Roda do mouse | Minecraft | sim (plano 05) |
 | `abrir_calendario` | C | Stardew Valley | novo |
 
 ## Controle
@@ -39,10 +39,10 @@ posição oeste e o X na posição norte, então a tradução é por posição, 
 | `correr` | B (leste), segurar | 1 | Rune Factory 4 (B corre) |
 | `atacar` | X (oeste) | 2 | Rune Factory 4 (ataque no botão oeste) |
 | `abrir_inventario` | Y (norte) | 3 | igual hoje |
-| `slot_anterior` | L1 | 9 | Rune Factory 4 (L e R ciclam equipamento) |
-| `slot_proximo` | R1 | 10 | Rune Factory 4 |
+| `slot_anterior` | LT / L2 (gatilho esquerdo) | eixo 4 | decisão do Antonio no plano 05 |
+| `slot_proximo` | RT / R2 (gatilho direito) | eixo 5 | decisão do Antonio no plano 05 |
 | `soltar_item` | L2 (gatilho esquerdo) | eixo | posição livre |
-| `dash` | R2 (gatilho direito) | eixo | ver nota abaixo |
+| `dash` | R1 | 10 | ver nota abaixo |
 | `menu_pausa` | Back / Select | 4 | no painel arcade o Start ficou com o inventário |
 | `abrir_calendario` | Back / Select | 4 | convenção |
 
@@ -55,11 +55,11 @@ no `project.godot` antes de escrever um novo a mão.
 Não são ajustes cosméticos, são conflitos reais criados pelas features novas. Estão
 concentradas aqui para não ficarem escondidas dentro de um plano.
 
-**`dash` sai de Q e de R1.** Q vira `soltar_item`, porque é a tecla de largar item no
-Minecraft e o sistema de presente para NPC depende dela (plano 16). R1 vira
-`slot_proximo`, porque L1 e R1 ciclando equipamento é Rune Factory 4. O dash vai para
-Espaço no teclado e R2 no controle. O bind de botão direito do mouse para dash pode
-ficar como atalho extra, não conflita com nada.
+**`dash` sai de Q.** Q vira `soltar_item`, porque é a tecla de largar item no
+Minecraft e o sistema de presente para NPC depende dela (plano 16). O dash foi para
+Espaço no teclado (plano 04). No controle ele continua no R1: no plano 05 o Antonio
+decidiu que a ciclagem dos slots fica nos gatilhos (LT/RT, L2/R2) e não em L1/R1, então
+o R1 não precisou sair do dash. O botão direito do mouse segue como atalho extra.
 
 **`abrir_inventario` sai de I e vai para E.** E é inventário no Minecraft e a memória
 muscular é forte. Quem faz o plano 04 muda isso.

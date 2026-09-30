@@ -16,12 +16,9 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 | `correr` | Shift esquerdo | Nenhum | Botão B / Circle |
 | `dash` | Espaço | Botão direito | R1 (botão direito superior) |
 | `atacar` | Nenhum | Botão esquerdo | Quadrado / X (botão West) |
-| `equipar_1` | 1 (soqueira) | Nenhum | Nenhum |
-| `equipar_2` | 2 (enxada) | Nenhum | Nenhum |
-| `equipar_3` | 3 (regador) | Nenhum | Nenhum |
-| `equipar_4` | 4 (picareta) | Nenhum | Nenhum |
-| `ferramenta_proxima` | Nenhum | Roda para baixo | Gatilho direito |
-| `ferramenta_anterior` | Nenhum | Roda para cima | Gatilho esquerdo |
+| `slot_1` a `slot_9` | 1 a 9 (seleciona o slot rápido) | Nenhum | Nenhum |
+| `slot_proximo` | Nenhum | Roda para baixo | Gatilho direito (RT / R2) |
+| `slot_anterior` | Nenhum | Roda para cima | Gatilho esquerdo (LT / L2) |
 
 O stick esquerdo move o jogador junto com o D-pad. As quatro ações de movimento usam zona morta de 0.2 (as outras ficam em 0.5) para o stick analógico responder a um toque leve; teclado e D-pad não são afetados, porque só valem 0 ou 1.
 
@@ -62,8 +59,8 @@ número bruto da placa:
 | A | 0 | X (West) | `atacar`, e confirmar nos menus |
 | B | 1 | B (East) | `correr` |
 | C | 5 | R1 | `dash` |
-| X | 2 | Gatilho esquerdo | `ferramenta_anterior` |
-| Y | 3 | Gatilho direito | `ferramenta_proxima` |
+| X | 2 | Gatilho esquerdo | `slot_anterior` |
+| Y | 3 | Gatilho direito | `slot_proximo` |
 | Z | 4 | L1 | reservado |
 | Start | 6 | Start | `abrir_inventario` |
 | Select | 11 | Back / Select | `menu_pausa` |
