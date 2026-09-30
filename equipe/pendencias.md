@@ -132,3 +132,30 @@ de 2026-09-29". Ícones dos itens sem arte serão placeholder gerado por script,
 catálogo espera revisão do Antonio antes de virar `.tres`. O trabalho parou antes da
 primeira linha de código porque a prioridade passou a ser os controles, testados com um
 controle de arcade.
+
+### 2026-09-29, remapear controles
+
+**Pendência:** uma tela de remapear controles dentro das configurações do jogo, para
+cada jogador ligar qualquer botão a qualquer ação. Fica para quando os menus forem
+compostos, junto da tela de opções que ainda não existe (ver "Não há tela de opções"
+acima). O remapeamento salvo precisa ser reaplicado ao abrir o jogo.
+
+**Por que ela sozinha não resolve o painel arcade.** O painel de teste (placa DragonRise,
+detalhes em `game/docs/entrada.md`, seção "Painel arcade") só funciona inteiro com a
+variável `SDL_GAMECONTROLLERCONFIG`, que hoje está gravada apenas no flatpak do Godot
+da máquina do Antonio. Sem ela, o SDL descarta parte dos botões antes de o jogo ver, e
+um botão que nunca chega não pode ser remapeado. O jogo exportado não herda essa
+variável. Para o painel funcionar fora do editor, a tela de remapear precisa vir junto
+de uma destas saídas:
+
+- um script de abertura (`.sh` no Linux, `.bat` no Windows) que define a variável e abre
+  o jogo;
+- o próprio jogo se reabrir com a variável definida, quando detectar a placa na
+  primeira abertura (o SDL lê a variável antes de qualquer script rodar, por isso
+  defini-la de dentro do jogo não vale para a execução atual). Ainda não testado.
+
+**Duas coisas a conferir quando chegar a hora.** No Windows o GUID do controle é outro,
+então a linha de mapeamento precisa ser lida de novo numa máquina Windows. Na versão
+web a variável não existe, o controle passa pela API de gamepad do navegador, e um
+painel genérico costuma chegar com os números brutos; lá a tela de remapear é a única
+saída, e precisa ser testada no navegador.
