@@ -13,7 +13,7 @@ já existem.
 ## Decisões fechadas
 
 **A moeda é o crédito, e não ocupa slot.** Um número no `EconomyManager`, mostrado na
-HUD, não um item empilhado no inventário. O item `moeda` do catálogo do plano 03 vira
+HUD, não um item empilhado no inventário. O item `credito` do catálogo do plano 03 vira
 apenas o ícone usado na interface.
 
 **O jogador começa com 500 créditos e algumas sementes.** Como o Antonio pediu: só o

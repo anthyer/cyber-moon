@@ -40,7 +40,7 @@ O que muda entre eles é dado, não código. Um `Resource` configura tudo.
 | Comportamento ocioso | corre em círculo | patrulha entre dois pontos | fica parado, gira devagar |
 | Animação de ataque | `attack-kick-left` | `attack-melee-right` | `attack-kick-right` |
 | Experiência | 20 | 35 | 60 |
-| Sucata que dropa | `sucata_metal` | `placa_queimada`, `fio_optico` | `servo_motor`, `celula_energia` |
+| Sucata que dropa | `sucata_metal` | `placa_queimada`, `fio_optico` | `servomotor`, `celula_energia` |
 
 O drone é rápido e fraco, para ensinar o jogador a desviar. O ciborgue é o inimigo
 padrão. A sentinela é lenta e perigosa, e é a que recompensa a arma pesada e o dash.

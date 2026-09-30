@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://v78vd63kte1m"
-path="res://.godot/imported/moeda.png-b299b12c977747fe054be1372496859b.ctex"
+uid="uid://c1pgorddcr4il"
+path="res://.godot/imported/servomotor.png-83c562b8bba8406f7a03ae625d8826e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/icones_itens/moeda.png"
-dest_files=["res://.godot/imported/moeda.png-b299b12c977747fe054be1372496859b.ctex"]
+source_file="res://assets/textures/icones_itens/servomotor.png"
+dest_files=["res://.godot/imported/servomotor.png-83c562b8bba8406f7a03ae625d8826e1.ctex"]
 
 [params]
 

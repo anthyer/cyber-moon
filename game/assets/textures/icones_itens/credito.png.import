@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1pgorddcr4il"
-path="res://.godot/imported/servo_motor.png-d156a994229282b6fc0b8e41d51f6ebd.ctex"
+uid="uid://v78vd63kte1m"
+path="res://.godot/imported/credito.png-66b86fd02c9a5829898b64494c6f8b45.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/icones_itens/servo_motor.png"
-dest_files=["res://.godot/imported/servo_motor.png-d156a994229282b6fc0b8e41d51f6ebd.ctex"]
+source_file="res://assets/textures/icones_itens/credito.png"
+dest_files=["res://.godot/imported/credito.png-66b86fd02c9a5829898b64494c6f8b45.ctex"]
 
 [params]
 

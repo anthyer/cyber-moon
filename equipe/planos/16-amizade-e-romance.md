@@ -96,7 +96,7 @@ são sem precisar de exposição.
 
 | NPC | Ama | Gosta | Não gosta | Odeia |
 |---|---|---|---|---|
-| Vitor | `servo_motor`, `chapa_reciclada` | `sucata_metal`, `minerio_ferro`, `placa_queimada` | `buque` | `nanogel` |
+| Vitor | `servomotor`, `chapa_reciclada` | `sucata_metal`, `minerio_ferro`, `placa_queimada` | `buque` | `nanogel` |
 | Kenji | `nucleo_sintetico`, `fio_optico` | `celula_energia`, `placa_queimada`, `estimulante` | `pedra`, `fibra` | `composto_organico` |
 | Rafa | `biocombustivel`, `estimulante` | `pao_de_trigo`, `milho`, `celula_energia` | `pedra` | `sucata_metal` |
 | Marta | `sopa_de_legumes`, `repolho` | `cenoura`, `beterraba`, `tomate`, `trigo` | `sucata_metal` | `placa_queimada` |

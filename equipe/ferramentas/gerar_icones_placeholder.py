@@ -451,7 +451,7 @@ ITENS = [
     ("placa_queimada", "placa", paleta((40, 120, 70), d=(210, 180, 60), e=(30, 30, 35))),
     ("celula_energia", "bateria", paleta((90, 95, 110), d=(35, 35, 45), e=(80, 240, 120))),
     ("fio_optico", "bobina", paleta((60, 170, 230), d=(60, 60, 70), e=(250, 250, 200))),
-    ("servo_motor", "motor", paleta((200, 120, 40), d=(70, 70, 80), e=(170, 175, 185))),
+    ("servomotor", "motor", paleta((200, 120, 40), d=(70, 70, 80), e=(170, 175, 185))),
     ("nucleo_sintetico", "cristal", paleta((180, 70, 220), d=(240, 170, 255), e=(255, 255, 255))),
     # Recursos do campo.
     ("madeira", "tora", paleta((140, 90, 50), d=(95, 60, 30), e=(215, 170, 110))),
@@ -475,7 +475,7 @@ ITENS = [
         "a": (50, 130, 50), "b": (100, 190, 80), "c": (220, 60, 120),
         "d": (240, 90, 140), "e": (250, 230, 90),
     }),
-    ("moeda", "moeda", paleta((230, 180, 40), d=(150, 100, 20))),
+    ("credito", "moeda", paleta((230, 180, 40), d=(150, 100, 20))),
     # Ferramentas: o ferro fica na cor base, o cabo de madeira no detalhe "d".
     ("enxada", "enxada", paleta((170, 175, 185), d=MADEIRA_DO_CABO)),
     ("regador", "regador", paleta((70, 140, 200))),
