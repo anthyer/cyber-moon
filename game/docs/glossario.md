@@ -26,3 +26,6 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Ímã de coleta | Item magnet / `AreaDeAtracao` e `AreaDeColeta` do `ItemNoMundo` |
 | Área de interação | Interaction area / `AreaDeInteracao`, nó `AreaInteracao` do jogador |
 | Interagir | Interact / método `interagir()` em todo nó interagível |
+| Planta na grade | Planted crop / classe interna `GradeSolo.PlantaNaGrade` |
+| Estágio de crescimento | Growth stage / `Cultivo.estagios_de_crescimento`, sinal `crop_grown` |
+| Rebrota | Regrowth / `Cultivo.estagio_de_rebrota` |

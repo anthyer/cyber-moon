@@ -4,7 +4,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 
 ## Autoloads
 
-- `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada` e `item_picked_up(item, quantidade)`, emitido quando o jogador pega um item do chão.
+- `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada`, `item_picked_up(item, quantidade)` (o jogador pegou um item do chão), `crop_planted(celula, cultivo)` e `crop_grown(celula, novo_estagio)`.
 - `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): controla o número do dia e a hora atual. Sinais próprios: `day_started`, `day_ended`. Método principal: `avancar_para_o_proximo_dia()`.
 - `InventoryManager` (`scripts/core/inventory_manager.gd`): inventário do jogador em 36 slots, cada um uma `PilhaDeItens` ou `null`. Os índices de 0 a 8 são a barra rápida e de 9 a 35 a matriz de 3 linhas por 9 colunas, a mesma largura da barra rápida. `adicionar_item` devolve o que não coube (inventário cheio), e completa pilhas iguais antes de ocupar o primeiro slot vazio, varrendo a barra rápida antes da matriz. Também guarda o equipamento: os espaços `ARMADURA` e `ACESSORIO` apontam para o índice de um slot, e o item equipado continua ocupando esse slot. Sinais: `inventory_changed` e `equipment_changed(espaco, item)`.
 - `EquipmentManager` (`scripts/core/equipment_manager.gd`): guarda só qual dos 9 slots rápidos está selecionado (`indice_selecionado`, sinal `slot_selecionado_alterado`). O item na mão é o que está nesse slot do `InventoryManager` (`item_na_mao()`, `ferramenta_na_mao()`), como no Minecraft. Slot vazio é uma seleção válida, e com ele ou com a soqueira o ataque é o soco. Ao iniciar, põe a soqueira e as três ferramentas nos slots rápidos 1 a 4.
@@ -21,7 +21,7 @@ Conteúdo de jogo é representado por classes `Resource` customizadas, definidas
 
 - `PilhaDeItens` (`scripts/resources/pilha_de_itens.gd`): um item e sua quantidade num slot do inventário.
 - `Item` (`scripts/resources/item.gd`): um item do inventário, com `id` estável, `categoria` (enum `Item.Categoria`), ícone e valor de venda. Filhas: `Ferramenta`, `Semente` (aponta o `Cultivo`) e `Consumivel` (vida e stamina recuperadas).
-- `Cultivo` (`scripts/resources/cultivo.gd`): uma cultura plantável na fazenda.
+- `Cultivo` (`scripts/resources/cultivo.gd`): uma cultura plantável, com as texturas de cada estágio, os dias por estágio, o item colhido e a quantidade, e o estágio de rebrota. Os `.tres` ficam em `resources/farming/cultivos/` e são gerados junto com o catálogo de itens. Cada `Semente` aponta para o seu `Cultivo`.
 - `PerfilNpc` (`scripts/resources/perfil_npc.gd`): dados de um NPC.
 - `NoDialogo` (`scripts/resources/no_dialogo.gd`): um nó de uma árvore de diálogo.
 - `BancoDePassos` (`scripts/resources/banco_de_passos.gd`): mapeia tipos de superfície a clipes de áudio para os passos do jogador.
@@ -120,4 +120,27 @@ durante o jogo, com o slot selecionado destacado e o nome do item aparecendo por
 segundos quando a seleção muda. Ela reusa a cena do slot do inventário em modo só de
 exibição (sem foco e sem arraste) e escuta dois sinais: `inventory_changed` e
 `slot_selecionado_alterado`. Some enquanto o jogo está pausado.
+
+## Plantio e colheita
+
+O estado das plantas mora na `GradeSolo` (`scripts/farming/grade_solo.gd`), num
+dicionário de célula para `PlantaNaGrade`, paralelo ao dicionário do estado do solo. A
+`PlantaNaGrade` é classe interna, e não Resource, porque é estado da partida: guarda o
+`Cultivo`, o estágio e o progresso dentro do estágio.
+
+- **Plantar:** com uma `Semente` na mão, o botão de atacar chama
+  `GradeSolo.plantar(celula, cultivo)` na célula à frente e gasta uma semente do slot
+  selecionado. Só planta em célula arada e sem planta.
+- **Crescer:** a `GradeSolo` escuta `DayCycleManager.day_started`. A cada dia, a planta
+  ganha progresso 2 se o solo está molhado e 1 se está seco, e sobe de estágio ao juntar
+  `dias_por_estagio * 2`. Ou seja, `dias_por_estagio` é o ritmo com solo molhado, e seco
+  leva o dobro. Ao virar o dia, o solo molhado seca.
+- **Colher:** `interagir` na célula à frente chama `GradeSolo.colher(celula)`. Só colhe
+  planta madura. O item nasce no chão como `ItemNoMundo` e é coletado pelo ímã. A planta
+  some, ou volta ao `estagio_de_rebrota` do cultivo (milho e tomate).
+- **Desfazer o solo** com a picareta tira a planta junto, sem render colheita.
+
+O visual da planta são sprites em pé, sem billboard, fincados na célula: duas fileiras,
+uma atrás da outra, viradas para a câmera (que não gira). O tamanho e o recuo das
+fileiras são exports da `GradeSolo`.
 
