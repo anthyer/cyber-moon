@@ -5,6 +5,12 @@
 
 [resource]
 script = ExtResource("1")
+id = &"enxada"
 nome = "Enxada"
+categoria = 3
+valor_de_venda = 0
+pode_ser_presente = false
+empilhavel = false
+quantidade_maxima_por_pilha = 1
 id_acao = &"enxada"
 som_de_uso = ExtResource("2")

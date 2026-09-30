@@ -6,9 +6,9 @@ signal tool_equipped(ferramenta: Ferramenta)
 # script puro (nao cena), entao nao existe Inspector pra editar esse array.
 # Na pratica ele funciona como uma constante populada pelos preload() abaixo.
 @export var ferramentas: Array[Ferramenta] = [
-	preload("res://resources/items/enxada.tres"),
-	preload("res://resources/items/regador.tres"),
-	preload("res://resources/items/picareta.tres"),
+	preload("res://resources/items/ferramentas/enxada.tres"),
+	preload("res://resources/items/ferramentas/regador.tres"),
+	preload("res://resources/items/ferramentas/picareta.tres"),
 ]
 var indice_atual: int = -1
 
