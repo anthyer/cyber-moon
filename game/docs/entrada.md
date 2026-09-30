@@ -16,7 +16,7 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 | `correr` | Shift esquerdo | Nenhum | Botão B / Circle |
 | `dash` | Espaço | Botão direito | R1 (botão direito superior) |
 | `atacar` | Nenhum | Botão esquerdo | Quadrado / X (botão West) |
-| `equipar_1` | 1 (socos) | Nenhum | Nenhum |
+| `equipar_1` | 1 (soqueira) | Nenhum | Nenhum |
 | `equipar_2` | 2 (enxada) | Nenhum | Nenhum |
 | `equipar_3` | 3 (regador) | Nenhum | Nenhum |
 | `equipar_4` | 4 (picareta) | Nenhum | Nenhum |

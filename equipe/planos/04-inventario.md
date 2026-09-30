@@ -16,10 +16,15 @@ pelo mouse, o equipar e o inventário cheio deixando o item no chão.
 
 **Decisões do Antonio:**
 
-- **Equipamento de solo são as ferramentas** (enxada, regador, picareta). O espaço
-  `SOLO` aceita a categoria FERRAMENTA e é a mesma coisa que a ferramenta em uso: o
-  `EquipmentManager` sincroniza os dois nos dois sentidos, e as três ferramentas entram
-  na barra rápida ao iniciar o jogo.
+- **O espaço de solo virou "Equipado", o item em uso agora.** Primeiro o Antonio definiu
+  o equipamento de solo como as ferramentas; depois pediu que o espaço fosse o item
+  equipado atual. Ele juntou a "mão" do plano e o "solo" num espaço só, `EM_USO`, que
+  aceita ferramenta ou arma e é a mesma coisa que o item em uso do `EquipmentManager`
+  (sincronizados nos dois sentidos).
+- **Socos virou a Soqueira**, um item da categoria ARMA (`resources/items/armas/`),
+  com ícone. É o item em uso quando nenhuma ferramenta está, e o ataque de soco vem
+  dela. O jogador começa com soqueira, enxada, regador e picareta nos slots rápidos 1 a
+  4, batendo com as teclas 1 a 4. A classe Arma, com dano, é do plano 08.
 - **Controle move item com pegar e soltar**, porque controle não arrasta.
 
 **Ajustes ao plano:**

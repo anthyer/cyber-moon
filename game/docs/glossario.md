@@ -19,6 +19,8 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Pegar item | Pick up item / sinal `item_picked_up`, método `ItemNoMundo.coletar()` |
 | Pilha de itens | Item stack / `PilhaDeItens` (classe Resource) |
 | Espaço de equipamento | Equipment slot / enum `InventoryManager.Espaco` |
+| Item equipado (em uso) | Item in use / espaço `Espaco.EM_USO`, `EquipmentManager.item_em_uso()` |
+| Soqueira | Brass knuckles / item `soqueira`, categoria ARMA, o soco do jogador |
 | Menu de pausa | Pause menu / cena `menu_pausa.tscn`, também a tela do inventário |
 | Ímã de coleta | Item magnet / `AreaDeAtracao` e `AreaDeColeta` do `ItemNoMundo` |
 | Área de interação | Interaction area / `AreaDeInteracao`, nó `AreaInteracao` do jogador |

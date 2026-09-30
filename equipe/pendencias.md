@@ -159,7 +159,7 @@ feita no commit 5f72630. A regra fica em `scripts/utils/superficies.gd`.
 - Armadura e acessório não têm nenhum item. Os espaços existem e aceitam a categoria
   certa, mas só dá para testar quando o plano 08 (ou outro) criar esses itens.
 - As teclas 1 a 4 e os gatilhos ainda trocam a ferramenta por uma lista fixa no
-  `EquipmentManager`, ao lado do espaço de solo do menu. O plano 05 troca isso pela barra
+  `EquipmentManager`, ao lado do espaço "Equipado" do menu. O plano 05 troca isso pela barra
   rápida, e aí a lista fixa pode sair.
 - O slot guarda o espaço de equipamento como `int`, porque o enum está num autoload sem
   `class_name` e não dá para fazer cast dele fora do autoload. Funciona, mas se um dia o
