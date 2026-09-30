@@ -5,7 +5,7 @@ extends Resource
 ##
 ## As chaves do dicionário são os mesmos StringName que o post_import_kenney.gd
 ## grava como metadata nos corpos do cenário: grama, terra, pedra, madeira, metal
-## e asfalto.
+## e asfalto. A lista completa fica em scripts/utils/superficies.gd.
 
 @export var clipes_por_superficie: Dictionary = {}
 
@@ -13,6 +13,10 @@ extends Resource
 
 @export_range(0.0, 0.5) var variacao_de_tom: float = 0.08
 @export_range(0.0, 6.0) var variacao_de_volume_db: float = 2.0
+
+## Soma em dB aplicada ao passo de cada superfície, para equilibrar clipes que foram
+## gravados mais altos que os outros. Superfície ausente não recebe ajuste.
+@export var ajuste_de_volume_por_superficie: Dictionary = {}
 
 var _ultimo_indice_por_superficie: Dictionary = {}
 
@@ -40,3 +44,6 @@ func sortear_tom() -> float:
 
 func sortear_volume_db() -> float:
 	return randf_range(-variacao_de_volume_db, variacao_de_volume_db)
+
+func ajuste_de_volume_db(superficie: StringName) -> float:
+	return ajuste_de_volume_por_superficie.get(superficie, 0.0)

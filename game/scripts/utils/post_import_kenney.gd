@@ -29,68 +29,23 @@ const TRECHOS_SEM_COLISAO: Array[String] = [
 	"mulch", "mound", "mark_", "mark-",
 ]
 
-## Mapeamento de trecho do nome do arquivo para superfície. A primeira entrada que
-## casar vence, então a ordem importa: "path_stone" precisa vir antes de "path".
-const SUPERFICIE_POR_TRECHO: Array = [
-	["water", &"agua"],
-	["river", &"agua"],
-	["lake", &"agua"],
-	["road", &"asfalto"],
-	["driveway", &"asfalto"],
-	["sidewalk", &"pedra"],
-	["path_stone", &"pedra"],
-	["stone", &"pedra"],
-	["cliff", &"pedra"],
-	["rock", &"pedra"],
-	["bridge", &"madeira"],
-	["log_", &"madeira"],
-	["plank", &"madeira"],
-	["fence", &"madeira"],
-	["crate", &"madeira"],
-	["tree", &"madeira"],
-	["building", &"metal"],
-	["detail_", &"metal"],
-	["tank", &"metal"],
-	["silo", &"metal"],
-	["ground_path", &"terra"],
-	["dirt", &"terra"],
-	["platform_grass", &"agua"],
-	["ground_grass", &"agua"],
-]
-
-
-const SUPERFICIE_PADRAO: StringName = &"grama"
-
 func _post_import(cena: Node) -> Object:
 	var nome_do_arquivo: String = get_source_file().get_file().to_lower()
 	_normalizar_materiais(cena)
-	var superficie: StringName = _superficie_do_nome(nome_do_arquivo)
+	var superficie: StringName = Superficies.do_nome(nome_do_arquivo)
 	## Modelos com superfície conhecida sempre recebem colisão: são peças de chão ou
 	## obstáculo reconhecido. Só aplica a lista de exclusão quando o modelo não foi
-	## reconhecido pelo mapeamento e recebeu o valor padrão.
-	var tem_superficie_conhecida: bool = _tem_superficie_conhecida(nome_do_arquivo)
-	if not tem_superficie_conhecida and not _deve_ter_colisao(nome_do_arquivo):
+	## reconhecido pela tabela de superfícies e recebeu o valor padrão.
+	if not Superficies.reconhece(nome_do_arquivo) and not _deve_ter_colisao(nome_do_arquivo):
 		return cena
 	_gerar_colisao(cena, cena, superficie)
 	return cena
-
-func _tem_superficie_conhecida(nome_do_arquivo: String) -> bool:
-	for par in SUPERFICIE_POR_TRECHO:
-		if nome_do_arquivo.contains(par[0] as String):
-			return true
-	return false
 
 func _deve_ter_colisao(nome_do_arquivo: String) -> bool:
 	for trecho in TRECHOS_SEM_COLISAO:
 		if nome_do_arquivo.contains(trecho):
 			return false
 	return true
-
-func _superficie_do_nome(nome_do_arquivo: String) -> StringName:
-	for par in SUPERFICIE_POR_TRECHO:
-		if nome_do_arquivo.contains(par[0] as String):
-			return par[1] as StringName
-	return SUPERFICIE_PADRAO
 
 func _gerar_colisao(no: Node, raiz: Node, superficie: StringName) -> void:
 	if no is MeshInstance3D:

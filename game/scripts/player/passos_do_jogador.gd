@@ -19,8 +19,10 @@ extends Node
 @export var fases_andando: Array[float] = [0.15, 0.65]
 @export var fases_correndo: Array[float] = [0.10, 0.60]
 
-@export var volume_andando_db: float = -6.0
-@export var volume_correndo_db: float = -2.0
+## Volumes acima de zero porque os clipes de passo foram gravados baixos em relação à
+## música e aos efeitos. O ajuste fino por superfície fica no BancoDePassos.
+@export var volume_andando_db: float = 8.0
+@export var volume_correndo_db: float = 12.0
 
 @onready var _animation_player: AnimationPlayer = get_node(caminho_animation_player)
 @onready var _raio: RayCast3D = get_node(caminho_raio_superficie)
@@ -81,14 +83,11 @@ func _tocar_passo(clipe: StringName) -> void:
 	if fluxo == null:
 		return
 	var volume: float = volume_correndo_db if clipe == &"sprint" else volume_andando_db
-	if superficie == &"agua":
-		volume -= 12.0
-	
-	# Como o áudio foi cortado fisicamente para apenas 1 passo (0.45s), tocamos ele inteiro
+	volume += banco.ajuste_de_volume_db(superficie) + banco.sortear_volume_db()
 	_tocador_atual = AudioManager.tocar_sfx(
 		fluxo,
 		get_parent().global_position,
-		volume + banco.sortear_volume_db() + 14.0,
+		volume,
 		banco.sortear_tom()
 	)
 
@@ -98,61 +97,26 @@ func _parar_passo() -> void:
 			_tocador_atual.stop()
 		_tocador_atual = null
 
+## A grade de solo vem primeiro porque as células do GridMap não têm corpo de colisão
+## para o raio acertar. Depois vale o nome do modelo sob o pé e, por último, a
+## metadata gravada na importação.
 func _superficie_sob_o_pe() -> StringName:
-	var grade_solo = get_node_or_null(^"../../GradeSolo")
-	if grade_solo != null and grade_solo.has_method("local_to_map"):
-		var ponto_local = grade_solo.to_local(get_parent().global_position)
-		var celula = grade_solo.local_to_map(ponto_local)
-		var item_id = grade_solo.get_cell_item(celula)
+	var grade_solo: GridMap = get_node_or_null(^"../../GradeSolo") as GridMap
+	if grade_solo != null:
+		var ponto_local: Vector3 = grade_solo.to_local(get_parent().global_position)
+		var celula: Vector3i = grade_solo.local_to_map(ponto_local)
+		var item_id: int = grade_solo.get_cell_item(celula)
 		if item_id != GridMap.INVALID_CELL_ITEM:
-			var nome_item = grade_solo.mesh_library.get_item_name(item_id).to_lower()
-			return _superficie_do_nome(nome_item)
-			
+			return Superficies.do_nome(grade_solo.mesh_library.get_item_name(item_id))
+
 	if not _raio.is_colliding():
 		return banco.superficie_padrao
-	var corpo: Object = _raio.get_collider()
+	var corpo: Node = _raio.get_collider() as Node
 	if corpo == null:
 		return banco.superficie_padrao
-		
-	var parent_name = corpo.get_parent().name if corpo.get_parent() else ""
-	var sup_pelo_nome = _superficie_do_nome(parent_name.to_lower())
-	if sup_pelo_nome != banco.superficie_padrao:
-		return sup_pelo_nome
 
-	var meta_sup = corpo.get_meta(&"superficie", banco.superficie_padrao)
-	return meta_sup
+	var no_do_modelo: Node = corpo.get_parent()
+	if no_do_modelo != null and Superficies.reconhece(no_do_modelo.name):
+		return Superficies.do_nome(no_do_modelo.name)
 
-func _superficie_do_nome(nome_do_arquivo: String) -> StringName:
-	var superficies = [
-		["watered", &"agua"],
-		["water", &"agua"],
-		["river", &"agua"],
-		["lake", &"agua"],
-		["piso", &"agua"],
-		["road", &"asfalto"],
-		["driveway", &"asfalto"],
-		["sidewalk", &"pedra"],
-		["path_stone", &"pedra"],
-		["stone", &"pedra"],
-		["cliff", &"pedra"],
-		["rock", &"pedra"],
-		["bridge", &"madeira"],
-		["log_", &"madeira"],
-		["plank", &"madeira"],
-		["fence", &"madeira"],
-		["crate", &"madeira"],
-		["tree", &"madeira"],
-		["building", &"metal"],
-		["detail_", &"metal"],
-		["tank", &"metal"],
-		["silo", &"metal"],
-		["ground_path", &"terra"],
-		["dirt", &"terra"],
-		["soil", &"terra"],
-		["platform_grass", &"agua"],
-		["ground_grass", &"agua"]
-	]
-	for par in superficies:
-		if nome_do_arquivo.contains(par[0]):
-			return par[1]
-	return banco.superficie_padrao
+	return corpo.get_meta(&"superficie", banco.superficie_padrao)

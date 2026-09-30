@@ -20,3 +20,6 @@ clipes_por_superficie = {
 superficie_padrao = &"grama"
 variacao_de_tom = 0.08
 variacao_de_volume_db = 2.0
+ajuste_de_volume_por_superficie = {
+&"agua": -12.0
+}
