@@ -9,6 +9,33 @@ controle.
 
 **Entrega para:** 06, 08, 16.
 
+## Revisão de 2026-09-30 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido por teste automático no playground: teclas 1 a 9, roda do
+mouse e gatilhos com volta nas duas pontas, enxada no slot 2 arando, slot vazio socando,
+item coletado aparecendo na barra, e a barra sumindo com o menu aberto.
+
+**Decisões do Antonio:**
+
+- **Gatilhos ciclam no controle** (LT/RT no Xbox, L2/R2 no PlayStation), e não L1/R1.
+  Era o bind que já existia, então só mudou o nome das ações. O dash continua no R1, e o
+  painel arcade não mudou.
+
+**Ajustes ao plano:**
+
+- O plano 04 já tinha criado o espaço "Equipado" (item em uso) e a soqueira no lugar dos
+  socos. Aqui o "Equipado" virou uma janela para o slot rápido selecionado: mostra o item
+  na mão, e soltar um item nele leva o item para o slot selecionado. O `InventoryManager`
+  deixou de ter o espaço `EM_USO`; a seleção é só do `EquipmentManager`.
+- O item na mão pode ser qualquer item (semente, colheita), não só ferramenta ou arma,
+  porque o plano 06 planta com a semente na mão. Com item que não é ferramenta, o ataque
+  é o soco.
+- O jogador começa com soqueira, enxada, regador e picareta nos slots 1 a 4.
+- Sinais: `slot_selecionado_alterado` no `EquipmentManager` e `inventory_changed` no
+  `InventoryManager` (o plano citava `inventario_alterado`).
+- A barra processa sempre e se esconde quando o jogo pausa, porque um nó que para de
+  processar na pausa não consegue se esconder a tempo.
+
 ## Contexto
 
 Hoje existe `game/scenes/ui/hud_ferramenta.tscn` com `hud_ferramenta.gd`, que mostra a
@@ -98,16 +125,16 @@ O `player.gd` perde o bloco de seis `elif` de equipar e fica com três linhas.
 
 ## Tarefas
 
-- [ ] **1.** Renomear as ações no `project.godot`, ampliando para 9, e ajustar o
+- [x] **1.** Renomear as ações no `project.godot`, ampliando para 9, e ajustar o
   `InputManager`. Atualizar `game/docs/entrada.md`.
-- [ ] **2.** Reescrever o `EquipmentManager` como casca fina sobre o `InventoryManager`.
+- [x] **2.** Reescrever o `EquipmentManager` como casca fina sobre o `InventoryManager`.
   Ajustar a chamada em `player.gd`.
-- [ ] **3.** Criar `barra_rapida.tscn` reusando `slot_inventario.tscn`.
-- [ ] **4.** Trocar `hud_ferramenta.tscn` pela barra no `playground.tscn`. Apagar a HUD
+- [x] **3.** Criar `barra_rapida.tscn` reusando `slot_inventario.tscn`.
+- [x] **4.** Trocar `hud_ferramenta.tscn` pela barra no `playground.tscn`. Apagar a HUD
   antiga e o script dela.
-- [ ] **5.** Adicionar o texto do nome do item que aparece e some ao trocar de slot.
-- [ ] **6.** Esconder a barra quando o jogo estiver pausado.
-- [ ] **7.** Documentar e commitar.
+- [x] **5.** Adicionar o texto do nome do item que aparece e some ao trocar de slot.
+- [x] **6.** Esconder a barra quando o jogo estiver pausado.
+- [x] **7.** Documentar e commitar.
 
 ## Critério de pronto
 
