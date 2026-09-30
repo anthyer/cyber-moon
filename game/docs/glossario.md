@@ -15,3 +15,7 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Nó de diálogo | Dialogue node / `NoDialogo` (classe Resource) |
 | Banco de passos | Footsteps bank / `BancoDePassos` (classe Resource) |
 | Superfície | Surface / metadata `superficie` |
+| Item no chão | Dropped item / `ItemNoMundo` (cena e classe) |
+| Pegar item | Pick up item / sinal `item_picked_up`, método `ItemNoMundo.coletar()` |
+| Área de interação | Interaction area / `AreaDeInteracao`, nó `AreaInteracao` do jogador |
+| Interagir | Interact / método `interagir()` em todo nó interagível |

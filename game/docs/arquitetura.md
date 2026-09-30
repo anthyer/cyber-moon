@@ -4,7 +4,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 
 ## Autoloads
 
-- `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`.
+- `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada` e `item_picked_up(item, quantidade)`, emitido quando o jogador pega um item do chão.
 - `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): controla o número do dia e a hora atual. Sinais próprios: `day_started`, `day_ended`. Método principal: `avancar_para_o_proximo_dia()`.
 - `InventoryManager` (`scripts/core/inventory_manager.gd`): guarda as quantidades de cada `Item` no inventário do jogador. Métodos: `adicionar_item`, `remover_item`, `obter_quantidade`.
 - `InputManager` (`scripts/core/input_manager.gd`): traduz o Input Map do Godot em consultas simples (`obter_direcao_movimento`, `interagir_pressionado`, `abrir_inventario_pressionado`), independente do dispositivo físico usado.
@@ -29,6 +29,25 @@ Um novo cultivo, item ou NPC vira um arquivo `.tres` criado no editor, sem exigi
 ## Composição de cenas
 
 Entidades do jogo usam herança de cena padrão do Godot. Nós de comportamento reutilizáveis são extraídos como cenas próprias e instanciados como filhos quando o mesmo comportamento se repete em mais de um tipo de entidade.
+
+## Itens no mundo e interação
+
+Um item caído no chão é uma instância de `ItemNoMundo` (`scenes/items/item_no_mundo.tscn`,
+script `scripts/items/item_no_mundo.gd`). É uma cena só para todos os itens: ela recebe
+qual `Item` representa e mostra o ícone dele como um quadrado em pé que gira e flutua. O
+corpo fica na camada `item_no_chao`. Para fazer um item cair no mundo, qualquer sistema
+chama `ItemNoMundo.soltar(item, quantidade, posicao, pai)`.
+
+O jogador tem um nó `AreaInteracao` (script `scripts/player/area_de_interacao.gd`, classe
+`AreaDeInteracao`) com raio de 1,5 que enxerga as camadas `item_no_chao`, `npc` e
+`area_interacao`. Ao apertar `interagir`, o `player.gd` pede o `alvo_mais_proximo()` e
+chama `interagir()` nele.
+
+**Contrato de interação:** um nó é interagível quando tem o método `interagir()`. A área
+detecta o corpo de colisão e sobe pela árvore até o primeiro ancestral com esse método.
+O jogador não conhece o tipo do alvo; item, NPC e baú decidem sozinhos o que fazer. No
+`ItemNoMundo`, `interagir()` chama `coletar()`, que põe o item no `InventoryManager`,
+emite `EventBus.item_picked_up` e remove o item do chão.
 
 ## Camadas de física
 
