@@ -176,6 +176,25 @@ feita no commit 5f72630. A regra fica em `scripts/utils/superficies.gd`.
 - A barra some durante a pausa, mas o plano também pede que ela suma durante o diálogo.
   Isso fica para o plano 15, que cria o diálogo.
 
+### 2026-09-30, plano 06
+
+**Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-09-30".
+
+**Temporário, precisa sair depois:**
+
+- A tecla N (`teste_avancar_dia`) e o nó `AtalhosDeTeste` do playground avançam o dia.
+  Saem no plano 10.
+- As 5 sementes de cada cultura no inventário inicial são estoque de teste. O plano 17
+  define o inventário inicial.
+
+**Fica para depois:**
+
+- Nada murcha ainda, e a checagem de estação no plantio está desligada. É o plano 11.
+- O plantio não tem som próprio. O plano 02 só previu som de ferramenta.
+- As plantas não são salvas. Entra no plano de save completo que ainda não existe.
+- Os três itens de demonstração do playground saíram, como previsto na pendência do
+  plano 03.
+
 ### 2026-09-29, remapear controles
 
 **Pendência:** uma tela de remapear controles dentro das configurações do jogo, para

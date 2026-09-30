@@ -8,6 +8,36 @@ chão e vai para o inventário.
 
 **Entrega para:** 17 (a fazenda é a fonte primária de renda).
 
+## Revisão de 2026-09-30 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido por teste automático no playground com as teclas de
+verdade (arar, molhar, plantar, passar dias, colher) e por captura de tela das seis
+culturas nos três estágios.
+
+**Decisões do Antonio:**
+
+- **Planta como no Minecraft, sem billboard.** Os sprites ficam em pé, fincados na
+  terra, virados para a câmera (que não gira), em duas fileiras por célula, uma atrás da
+  outra. Isso substitui o `BILLBOARD_FIXED_Y` do texto abaixo.
+- **Tecla temporária N avança um dia**, até o plano 10 trazer o ciclo automático.
+- **O jogador começa com 5 sementes de cada cultura**, até o plano 17 definir o
+  inventário inicial.
+
+**Ajustes ao plano:**
+
+- **Ritmo de crescimento.** `dias_por_estagio` é o número de dias com solo molhado, e
+  solo seco leva o dobro, para toda cultura. Pela conta do texto original, a cenoura e
+  o trigo (1 dia por estágio) cresceriam igual com solo seco ou molhado, e o critério de
+  pronto pede que molhado seja o dobro.
+- Os cultivos são gerados pelo mesmo script do catálogo de itens, em
+  `resources/farming/cultivos/`, e não criados à mão.
+- A colheita usa a célula à frente do jogador, como o plano recomendava, e o indicador
+  de alvo aparece também com semente na mão e diante de planta madura.
+- Com semente na mão e solo que não aceita plantio, o botão de atacar dá soco, como
+  qualquer item que não é ferramenta.
+- O item colhido é coletado sozinho pelo ímã do plano 03, então não é preciso apertar
+  nada para pegar.
+
 ## Contexto
 
 `GradeSolo` já sabe arar, molhar e remover, e já guarda estado por célula num dicionário.
@@ -145,23 +175,23 @@ Colher com a mão vazia funciona. Não exige ferramenta.
 
 ## Tarefas
 
-- [ ] **1.** Ampliar `cultivo.gd`. Criar os 6 `.tres` apontando para as texturas já
+- [x] **1.** Ampliar `cultivo.gd`. Criar os 6 `.tres` apontando para as texturas já
   importadas.
-- [ ] **2.** Criar os 6 `.tres` de item colhido e os 6 de semente (plano 03 definiu os
+- [x] **2.** Criar os 6 `.tres` de item colhido e os 6 de semente (plano 03 definiu os
   ids), e ligar `Cultivo.item_colhido` e `Semente.cultivo`.
-- [ ] **3.** Adicionar `_plantas`, a classe `PlantaNaGrade` e o método `plantar` em
+- [x] **3.** Adicionar `_plantas`, a classe `PlantaNaGrade` e o método `plantar` em
   `GradeSolo`, criando o `Sprite3D` na posição da célula. Verificar plantando à mão por
   script e vendo a planta aparecer em pé no lugar certo.
-- [ ] **4.** Ligar o plantio ao jogador com semente na mão.
-- [ ] **5.** Implementar `avancar_um_dia` e conectar ao `day_started`. Como o ciclo de
+- [x] **4.** Ligar o plantio ao jogador com semente na mão.
+- [x] **5.** Implementar `avancar_um_dia` e conectar ao `day_started`. Como o ciclo de
   dia automático é o plano 10, teste chamando
   `DayCycleManager.avancar_para_o_proximo_dia()` por uma tecla temporária.
-- [ ] **6.** Implementar `esta_madura` e `colher`, soltando o item no chão com
+- [x] **6.** Implementar `esta_madura` e `colher`, soltando o item no chão com
   `ItemNoMundo.soltar()`.
-- [ ] **7.** Implementar rebrota para milho e tomate.
-- [ ] **8.** Ajustar `pixel_size` e altura do sprite olhando o jogo rodando. Este passo é
+- [x] **7.** Implementar rebrota para milho e tomate.
+- [x] **8.** Ajustar `pixel_size` e altura do sprite olhando o jogo rodando. Este passo é
   de olho, não de conta.
-- [ ] **9.** Documentar e commitar.
+- [x] **9.** Documentar e commitar.
 
 ## Critério de pronto
 

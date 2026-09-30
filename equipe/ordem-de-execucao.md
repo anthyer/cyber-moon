@@ -11,7 +11,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 03 Sistema de itens
 - [x] 04 Inventário
 - [x] 05 Barra de acesso rápido
-- [ ] 06 Plantio e colheita
+- [x] 06 Plantio e colheita
 - [ ] 07 Status: vida e stamina
 - [ ] 08 Armas
 - [ ] 09 Inimigos
