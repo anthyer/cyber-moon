@@ -2,8 +2,9 @@ extends Node
 
 ## Inventário do jogador em slots, estilo Rune Factory e Minecraft.
 ##
-## São 41 slots num array só: os índices de 0 a 8 são a barra rápida e de 9 a 40 a
-## matriz principal de 8 por 4. A barra rápida conta na capacidade total. Slot vazio é
+## São 36 slots num array só: os índices de 0 a 8 são a barra rápida e de 9 a 35 a
+## matriz principal de 3 linhas por 9 colunas, como no Minecraft. A matriz tem a mesma
+## largura da barra rápida, então cada coluna da matriz fica em cima de um slot rápido. A barra rápida conta na capacidade total. Slot vazio é
 ## null.
 ##
 ## Equipar não copia o item: guarda o índice do slot. O item equipado continua ocupando
@@ -15,8 +16,8 @@ signal equipment_changed(espaco: Espaco, item: Item)
 signal item_added(item: Item, quantidade: int)
 signal item_removed(item: Item, quantidade: int)
 
-const COLUNAS: int = 8
-const LINHAS: int = 4
+const COLUNAS: int = 9
+const LINHAS: int = 3
 const SLOTS_RAPIDOS: int = 9
 const SLOTS_DA_MATRIZ: int = COLUNAS * LINHAS
 const TOTAL_DE_SLOTS: int = SLOTS_RAPIDOS + SLOTS_DA_MATRIZ

@@ -116,9 +116,6 @@ func _ligar_vizinhos_de_foco() -> void:
 		var da_barra: SlotInventario = _slots_rapidos[coluna]
 		de_baixo_da_matriz.focus_neighbor_bottom = de_baixo_da_matriz.get_path_to(da_barra)
 		da_barra.focus_neighbor_top = da_barra.get_path_to(de_baixo_da_matriz)
-	# A barra tem 9 slots e a matriz 8 colunas: o nono sobe para a última coluna.
-	var nono: SlotInventario = _slots_rapidos[InventoryManager.SLOTS_RAPIDOS - 1]
-	nono.focus_neighbor_top = nono.get_path_to(_slots_da_matriz[ultima_linha * colunas + colunas - 1])
 
 	var ultimo_equipamento: int = _slots_de_equipamento.size() - 1
 	for linha in InventoryManager.LINHAS:

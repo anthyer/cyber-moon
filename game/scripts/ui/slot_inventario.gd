@@ -1,7 +1,7 @@
 class_name SlotInventario
 extends Panel
 
-## Um quadrado do inventário na tela. A mesma cena serve os 41 slots comuns e os
+## Um quadrado do inventário na tela. A mesma cena serve os 36 slots comuns e os
 ## espaços de equipamento, para o visual e o arrastar e soltar existirem num lugar só.
 ##
 ## O slot não guarda item nenhum: ele só mostra o que o InventoryManager tem no índice

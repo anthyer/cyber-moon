@@ -6,7 +6,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 
 - `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada` e `item_picked_up(item, quantidade)`, emitido quando o jogador pega um item do chão.
 - `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): controla o número do dia e a hora atual. Sinais próprios: `day_started`, `day_ended`. Método principal: `avancar_para_o_proximo_dia()`.
-- `InventoryManager` (`scripts/core/inventory_manager.gd`): inventário do jogador em 41 slots, cada um uma `PilhaDeItens` ou `null`. Os índices de 0 a 8 são a barra rápida e de 9 a 40 a matriz de 8 por 4. `adicionar_item` devolve o que não coube (inventário cheio), e completa pilhas iguais antes de ocupar o primeiro slot vazio, varrendo a barra rápida antes da matriz. Também guarda o equipamento: os espaços `ARMADURA`, `SOLO` e `ACESSORIO` apontam para o índice de um slot, e o item equipado continua ocupando esse slot. Sinais: `inventory_changed` e `equipment_changed(espaco, item)`.
+- `InventoryManager` (`scripts/core/inventory_manager.gd`): inventário do jogador em 36 slots, cada um uma `PilhaDeItens` ou `null`. Os índices de 0 a 8 são a barra rápida e de 9 a 35 a matriz de 3 linhas por 9 colunas, a mesma largura da barra rápida. `adicionar_item` devolve o que não coube (inventário cheio), e completa pilhas iguais antes de ocupar o primeiro slot vazio, varrendo a barra rápida antes da matriz. Também guarda o equipamento: os espaços `ARMADURA`, `SOLO` e `ACESSORIO` apontam para o índice de um slot, e o item equipado continua ocupando esse slot. Sinais: `inventory_changed` e `equipment_changed(espaco, item)`.
 - `EquipmentManager` (`scripts/core/equipment_manager.gd`): a ferramenta em uso. É a mesma coisa que o espaço `SOLO` do inventário, e os dois ficam sincronizados nos dois sentidos. Ao iniciar, põe as três ferramentas no inventário.
 - `InputManager` (`scripts/core/input_manager.gd`): traduz o Input Map do Godot em consultas simples (`obter_direcao_movimento`, `interagir_pressionado`, `abrir_inventario_pressionado`), independente do dispositivo físico usado.
 - `GameManager` (`scripts/core/game_manager.gd`): guarda a fase da história e os marcos de progresso já desbloqueados. Método principal: `desbloquear_marco`, que emite `EventBus.city_expansion_blocked`.
@@ -100,7 +100,7 @@ O sistema de áudio utiliza três buses (`Musica`, `SFX`, e `Ambiente`) para con
 O menu de pausa (`scenes/ui/menu_pausa.tscn`, dentro do `InterfaceHUD` do playground) é
 também a tela do inventário. Abrir o menu pausa o jogo de verdade
 (`get_tree().paused`), e o nó do menu fica em `PROCESS_MODE_ALWAYS` para continuar
-lendo a entrada. Os 44 slots da tela (41 do inventário e 3 de equipamento) são
+lendo a entrada. Os 39 slots da tela (36 do inventário e 3 de equipamento) são
 instâncias de uma cena só, `scenes/ui/slot_inventario.tscn`, criadas por código. A tela
 só mostra o que o `InventoryManager` tem e redesenha quando ele avisa.
 

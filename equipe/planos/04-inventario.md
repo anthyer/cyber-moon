@@ -31,6 +31,9 @@ pelo mouse, o equipar e o inventário cheio deixando o item no chão.
 - `menu_pausa` ficou no Select, e não no Start, porque no painel arcade o Start já é o
   inventário. E e Esc abrem a mesma tela enquanto não existe tela de opções.
 - `ui_accept` ganhou o botão X/West, onde chega o A do painel arcade.
+- **Matriz 3 x 9, pedido do Antonio depois da entrega.** A matriz passou de 8 colunas
+  por 4 linhas para 3 linhas por 9 colunas, como no Minecraft. Com os 9 rápidos, o total
+  é 36 slots, e não 41. Onde o texto abaixo fala em 8 x 4 ou 41, vale 3 x 9 e 36.
 
 ## Contexto
 
