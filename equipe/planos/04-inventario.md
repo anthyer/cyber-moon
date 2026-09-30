@@ -8,6 +8,30 @@ solo.
 
 **Entrega para:** 05 (a barra rápida é uma fatia deste inventário), 06, 08, 17.
 
+## Revisão de 2026-09-29 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido por testes automáticos: pilhas e inventário por script,
+e no playground o abrir e fechar com pausa, o pegar e soltar pelo controle, o arrastar
+pelo mouse, o equipar e o inventário cheio deixando o item no chão.
+
+**Decisões do Antonio:**
+
+- **Equipamento de solo são as ferramentas** (enxada, regador, picareta). O espaço
+  `SOLO` aceita a categoria FERRAMENTA e é a mesma coisa que a ferramenta em uso: o
+  `EquipmentManager` sincroniza os dois nos dois sentidos, e as três ferramentas entram
+  na barra rápida ao iniciar o jogo.
+- **Controle move item com pegar e soltar**, porque controle não arrasta.
+
+**Ajustes ao plano:**
+
+- Sinais em inglês, `inventory_changed` e `equipment_changed`, pela convenção.
+- Categoria `ACESSORIO` nova no fim do enum de `Item`. Não existe item de armadura nem
+  de acessório ainda, então esses dois espaços funcionam mas começam vazios.
+- `dash` também mudou de Q para Espaço, como `controles.md` pede para este plano.
+- `menu_pausa` ficou no Select, e não no Start, porque no painel arcade o Start já é o
+  inventário. E e Esc abrem a mesma tela enquanto não existe tela de opções.
+- `ui_accept` ganhou o botão X/West, onde chega o A do painel arcade.
+
 ## Contexto
 
 O `InventoryManager` de hoje é um dicionário de item para quantidade. Não tem posição,
@@ -138,19 +162,19 @@ func menu_pausa_pressionado() -> bool
 
 ## Tarefas
 
-- [ ] **1.** Criar `pilha_de_itens.gd`. Testar por script headless: criar duas pilhas,
+- [x] **1.** Criar `pilha_de_itens.gd`. Testar por script headless: criar duas pilhas,
   juntar, conferir a sobra.
-- [ ] **2.** Reescrever o `InventoryManager`. Manter as assinaturas antigas funcionando.
+- [x] **2.** Reescrever o `InventoryManager`. Manter as assinaturas antigas funcionando.
   Verificar por script headless: adicionar 200 de um item que empilha até 99 e conferir
   que ocupou 3 slots.
-- [ ] **3.** Fazer as três mudanças de bind e a ação `menu_pausa`. Atualizar
+- [x] **3.** Fazer as três mudanças de bind e a ação `menu_pausa`. Atualizar
   `game/docs/entrada.md`. Rodar e conferir que E abre alguma coisa e F interage.
-- [ ] **4.** Criar `slot_inventario.tscn` com arrastar e soltar.
-- [ ] **5.** Criar `menu_pausa.tscn` montando a matriz e a barra rápida com o slot
+- [x] **4.** Criar `slot_inventario.tscn` com arrastar e soltar.
+- [x] **5.** Criar `menu_pausa.tscn` montando a matriz e a barra rápida com o slot
   reusado. Ligar ao sinal `inventario_alterado`.
-- [ ] **6.** Ligar pausa de verdade do jogo e o fechar com Esc.
-- [ ] **7.** Implementar equipar, arrastando item para os espaços de equipamento.
-- [ ] **8.** Documentar e commitar.
+- [x] **6.** Ligar pausa de verdade do jogo e o fechar com Esc.
+- [x] **7.** Implementar equipar, arrastando item para os espaços de equipamento.
+- [x] **8.** Documentar e commitar.
 
 ## Critério de pronto
 

@@ -9,7 +9,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 02 Som (**prioridade**)
 - [x] Vídeo de entrega das duas prioridades
 - [x] 03 Sistema de itens
-- [ ] 04 Inventário
+- [x] 04 Inventário
 - [ ] 05 Barra de acesso rápido
 - [ ] 06 Plantio e colheita
 - [ ] 07 Status: vida e stamina

@@ -148,6 +148,23 @@ feita no commit 5f72630. A regra fica em `scripts/utils/superficies.gd`.
 - Os 30 ícones são placeholder. Arte de verdade entra trocando o PNG no `.tres`.
 - `Semente.cultivo` está vazio em todas as sementes até o plano 06.
 
+### 2026-09-29, plano 04
+
+**Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-09-29".
+
+**Fica para depois:**
+
+- Os itens do catálogo não têm descrição. O rodapé do menu mostra o nome e deixa a
+  descrição em branco. Vale escrever uma linha por item no gerador do catálogo.
+- Armadura e acessório não têm nenhum item. Os espaços existem e aceitam a categoria
+  certa, mas só dá para testar quando o plano 08 (ou outro) criar esses itens.
+- As teclas 1 a 4 e os gatilhos ainda trocam a ferramenta por uma lista fixa no
+  `EquipmentManager`, ao lado do espaço de solo do menu. O plano 05 troca isso pela barra
+  rápida, e aí a lista fixa pode sair.
+- O slot guarda o espaço de equipamento como `int`, porque o enum está num autoload sem
+  `class_name` e não dá para fazer cast dele fora do autoload. Funciona, mas se um dia o
+  `InventoryManager` ganhar `class_name`, vale tipar como `Espaco`.
+
 ### 2026-09-29, remapear controles
 
 **Pendência:** uma tela de remapear controles dentro das configurações do jogo, para
