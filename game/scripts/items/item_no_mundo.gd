@@ -8,6 +8,12 @@ extends Node3D
 ## item dropado do Minecraft, para chamar atenção no cenário. O quadrado não usa
 ## billboard (sempre virado para a câmera) porque billboard anula a rotação e o
 ## giro deixaria de aparecer.
+##
+## Um quadrado sozinho vira uma linha quando fica de lado para a câmera. Para o item
+## parecer ter espessura, o Visual ganha cópias do próprio sprite logo atrás dele,
+## deslocadas um pouco, como um ícone recortado em papelão grosso. A última cópia é a
+## face de trás e fica com a cor normal, para o item não escurecer quando vira de
+## costas. As do meio ficam mais escuras e fazem o papel da lateral.
 
 ## Carregada com load() dentro de soltar(), e não com preload(), porque a cena já
 ## aponta para este script e o preload criaria uma referência circular.
@@ -24,6 +30,14 @@ const ESPALHAMENTO_AO_SOLTAR: float = 0.3
 @export var altura_da_flutuacao: float = 0.08
 @export var velocidade_da_flutuacao: float = 2.0
 
+## Quantas cópias do sprite ficam atrás do Visual e a distância entre cada uma. Com o
+## pixel_size de 0.025 do Visual, duas cópias a 0.0125 somam um pixel de espessura.
+@export var copias_de_espessura: int = 2
+@export var distancia_entre_copias: float = 0.0125
+## Cor das cópias do meio, para a borda do item ler como lateral e não como um
+## segundo ícone.
+@export var cor_das_copias: Color = Color(0.6, 0.6, 0.6)
+
 @onready var visual: Sprite3D = $Visual
 
 var _altura_inicial_do_visual: float = 0.0
@@ -33,11 +47,25 @@ func _ready() -> void:
 	_altura_inicial_do_visual = visual.position.y
 	if item != null and item.icone != null:
 		visual.texture = item.icone
+	_criar_copias_de_espessura()
 
 func _process(delta: float) -> void:
 	_tempo += delta
 	rotate_y(velocidade_de_giro * delta)
 	visual.position.y = _altura_inicial_do_visual + sin(_tempo * velocidade_da_flutuacao) * altura_da_flutuacao
+
+## As cópias são filhas do Visual para acompanharem a flutuação e o giro sem código
+## extra. Criadas depois da textura, para herdarem o ícone certo no duplicate().
+func _criar_copias_de_espessura() -> void:
+	for indice in copias_de_espessura:
+		var copia: Sprite3D = visual.duplicate() as Sprite3D
+		copia.name = "Espessura%d" % (indice + 1)
+		copia.transform = Transform3D.IDENTITY
+		copia.position.z = -distancia_entre_copias * (indice + 1)
+		var eh_a_face_de_tras: bool = indice == copias_de_espessura - 1
+		if not eh_a_face_de_tras:
+			copia.modulate = cor_das_copias
+		visual.add_child(copia)
 
 ## Cria uma instância já configurada e adiciona na cena, com um empurrão para
 ## o item não nascer exatamente em cima de outro.

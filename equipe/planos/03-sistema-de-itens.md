@@ -24,7 +24,7 @@ pão de trigo 30, sopa de legumes 70, estimulante 55, nanogel 80 e buquê 60; id
 `moeda` e `servo_motor` renomeados para `credito` e `servomotor`.
 
 **Billboard:** o `ItemNoMundo` não usa billboard, porque ele anula o giro. O quadrado
-gira de verdade e fica fino quando está de lado para a câmera. Se não agradar, basta
+gira de verdade, e cópias do sprite logo atrás dele dão espessura ao item. Se não agradar, basta
 ligar o billboard no `Visual` e aceitar que só a flutuação aparece.
 
 **Decisões do Antonio:**
