@@ -16,12 +16,12 @@ extends Control
 
 const CENA_DO_SLOT: PackedScene = preload("res://scenes/ui/slot_inventario.tscn")
 
-## Espaços de equipamento mostrados na coluna da esquerda, de cima para baixo. A mão
-## não aparece aqui: ela é o slot rápido selecionado, e fica com o plano 05. É var, e
-## não const, porque o enum vem de um autoload, que só existe com o jogo rodando.
+## Espaços de equipamento mostrados na coluna da esquerda, de cima para baixo. O
+## primeiro é o item em uso agora (ferramenta ou soqueira). É var, e não const, porque o
+## enum vem de um autoload, que só existe com o jogo rodando.
 var _espacos_na_tela: Array[Array] = [
+	[InventoryManager.Espaco.EM_USO, "Equipado"],
 	[InventoryManager.Espaco.ARMADURA, "Armadura"],
-	[InventoryManager.Espaco.SOLO, "Solo"],
 	[InventoryManager.Espaco.ACESSORIO, "Acessório"],
 ]
 

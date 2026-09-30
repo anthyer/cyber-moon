@@ -22,23 +22,23 @@ const SLOTS_RAPIDOS: int = 9
 const SLOTS_DA_MATRIZ: int = COLUNAS * LINHAS
 const TOTAL_DE_SLOTS: int = SLOTS_RAPIDOS + SLOTS_DA_MATRIZ
 
-enum Espaco { MAO, ARMADURA, SOLO, ACESSORIO }
+## EM_USO é o item que o jogador tem equipado agora, o que o botão de atacar usa: uma
+## ferramenta (enxada, regador, picareta) ou uma arma (a soqueira, para bater).
+enum Espaco { EM_USO, ARMADURA, ACESSORIO }
 
-## Que categoria de item cada espaço aceita. A mão é o slot rápido selecionado, e o
-## plano 05 cuida dela.
-const CATEGORIA_POR_ESPACO: Dictionary = {
-	Espaco.ARMADURA: Item.Categoria.ARMADURA,
-	Espaco.SOLO: Item.Categoria.FERRAMENTA,
-	Espaco.ACESSORIO: Item.Categoria.ACESSORIO,
+## Que categorias de item cada espaço aceita.
+const CATEGORIAS_POR_ESPACO: Dictionary = {
+	Espaco.EM_USO: [Item.Categoria.FERRAMENTA, Item.Categoria.ARMA],
+	Espaco.ARMADURA: [Item.Categoria.ARMADURA],
+	Espaco.ACESSORIO: [Item.Categoria.ACESSORIO],
 }
 
 var slots: Array[PilhaDeItens] = []
 
 ## Espaço para índice do slot equipado, ou -1 quando o espaço está vazio.
 var _equipados: Dictionary = {
-	Espaco.MAO: -1,
+	Espaco.EM_USO: -1,
 	Espaco.ARMADURA: -1,
-	Espaco.SOLO: -1,
 	Espaco.ACESSORIO: -1,
 }
 
@@ -130,18 +130,16 @@ func slot_em(indice: int) -> PilhaDeItens:
 ## Equipa o item do slot no espaço. Recusa slot vazio e item de categoria errada.
 func equipar(espaco: Espaco, indice_do_slot: int) -> bool:
 	var pilha: PilhaDeItens = slot_em(indice_do_slot)
-	if pilha == null:
-		return false
-	if espaco == Espaco.MAO:
-		if indice_do_slot >= SLOTS_RAPIDOS:
-			return false
-	elif pilha.item.categoria != CATEGORIA_POR_ESPACO[espaco]:
+	if pilha == null or not aceita(espaco, pilha.item):
 		return false
 	if _equipados[espaco] == indice_do_slot:
 		return true
 	_equipados[espaco] = indice_do_slot
 	equipment_changed.emit(espaco, pilha.item)
 	return true
+
+func aceita(espaco: Espaco, item: Item) -> bool:
+	return item != null and CATEGORIAS_POR_ESPACO[espaco].has(item.categoria)
 
 func desequipar(espaco: Espaco) -> void:
 	if _equipados[espaco] == -1:

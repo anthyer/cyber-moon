@@ -116,7 +116,7 @@ func _can_drop_data(_posicao: Vector2, dados: Variant) -> bool:
 	var pilha: PilhaDeItens = InventoryManager.slot_em(dados["indice_origem"])
 	if pilha == null:
 		return false
-	return pilha.item.categoria == InventoryManager.CATEGORIA_POR_ESPACO[espaco_de_equipamento]
+	return InventoryManager.aceita(espaco_de_equipamento, pilha.item)
 
 func _drop_data(_posicao: Vector2, dados: Variant) -> void:
 	transferir(dados["indice_origem"], dados["espaco_origem"], self)
@@ -131,7 +131,7 @@ func _ao_ganhar_foco() -> void:
 	focado.emit(self)
 
 func _esta_equipado() -> bool:
-	for espaco in [InventoryManager.Espaco.ARMADURA, InventoryManager.Espaco.SOLO, InventoryManager.Espaco.ACESSORIO]:
+	for espaco in InventoryManager.CATEGORIAS_POR_ESPACO:
 		if InventoryManager.indice_equipado(espaco) == indice_do_slot:
 			return true
 	return false
