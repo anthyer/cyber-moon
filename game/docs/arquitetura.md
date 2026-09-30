@@ -6,7 +6,8 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 
 - `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada` e `item_picked_up(item, quantidade)`, emitido quando o jogador pega um item do chão.
 - `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): controla o número do dia e a hora atual. Sinais próprios: `day_started`, `day_ended`. Método principal: `avancar_para_o_proximo_dia()`.
-- `InventoryManager` (`scripts/core/inventory_manager.gd`): guarda as quantidades de cada `Item` no inventário do jogador. Métodos: `adicionar_item`, `remover_item`, `obter_quantidade`.
+- `InventoryManager` (`scripts/core/inventory_manager.gd`): inventário do jogador em 41 slots, cada um uma `PilhaDeItens` ou `null`. Os índices de 0 a 8 são a barra rápida e de 9 a 40 a matriz de 8 por 4. `adicionar_item` devolve o que não coube (inventário cheio), e completa pilhas iguais antes de ocupar o primeiro slot vazio, varrendo a barra rápida antes da matriz. Também guarda o equipamento: os espaços `ARMADURA`, `SOLO` e `ACESSORIO` apontam para o índice de um slot, e o item equipado continua ocupando esse slot. Sinais: `inventory_changed` e `equipment_changed(espaco, item)`.
+- `EquipmentManager` (`scripts/core/equipment_manager.gd`): a ferramenta em uso. É a mesma coisa que o espaço `SOLO` do inventário, e os dois ficam sincronizados nos dois sentidos. Ao iniciar, põe as três ferramentas no inventário.
 - `InputManager` (`scripts/core/input_manager.gd`): traduz o Input Map do Godot em consultas simples (`obter_direcao_movimento`, `interagir_pressionado`, `abrir_inventario_pressionado`), independente do dispositivo físico usado.
 - `GameManager` (`scripts/core/game_manager.gd`): guarda a fase da história e os marcos de progresso já desbloqueados. Método principal: `desbloquear_marco`, que emite `EventBus.city_expansion_blocked`.
 - `SaveManager` (`scripts/core/save_manager.gd`): grava e lê o progresso em `user://save_game.json`.
@@ -18,6 +19,7 @@ Cada autoload tem responsabilidade única. Quando um autoload começar a acumula
 
 Conteúdo de jogo é representado por classes `Resource` customizadas, definidas em `scripts/resources/` e instanciadas como arquivos `.tres` em `resources/`:
 
+- `PilhaDeItens` (`scripts/resources/pilha_de_itens.gd`): um item e sua quantidade num slot do inventário.
 - `Item` (`scripts/resources/item.gd`): um item do inventário, com `id` estável, `categoria` (enum `Item.Categoria`), ícone e valor de venda. Filhas: `Ferramenta`, `Semente` (aponta o `Cultivo`) e `Consumivel` (vida e stamina recuperadas).
 - `Cultivo` (`scripts/resources/cultivo.gd`): uma cultura plantável na fazenda.
 - `PerfilNpc` (`scripts/resources/perfil_npc.gd`): dados de um NPC.
@@ -92,3 +94,18 @@ uma lista de trechos de nome no próprio script.
 ## Áudio
 
 O sistema de áudio utiliza três buses (`Musica`, `SFX`, e `Ambiente`) para controle independente de volume. Os sons de passo devem ser organizados em pastas por superfície em `game/assets/audio/sfx/passos/` (ex. `grama`, `terra`). Uma regra fundamental do `AudioManager` é que chamadas de som com fluxo nulo (quando o arquivo não existe) são intencionalmente ignoradas, permitindo que o jogo rode sem erros enquanto os assets de áudio ainda não foram incluídos.
+
+## Menu de pausa e inventário
+
+O menu de pausa (`scenes/ui/menu_pausa.tscn`, dentro do `InterfaceHUD` do playground) é
+também a tela do inventário. Abrir o menu pausa o jogo de verdade
+(`get_tree().paused`), e o nó do menu fica em `PROCESS_MODE_ALWAYS` para continuar
+lendo a entrada. Os 44 slots da tela (41 do inventário e 3 de equipamento) são
+instâncias de uma cena só, `scenes/ui/slot_inventario.tscn`, criadas por código. A tela
+só mostra o que o `InventoryManager` tem e redesenha quando ele avisa.
+
+Mover item tem dois caminhos com a mesma regra (`SlotInventario.transferir`): o mouse
+usa o arrastar e soltar nativo do Godot, e o controle usa pegar e soltar (confirma num
+slot para pegar, navega pelo foco, confirma em outro para soltar). Soltar num espaço de
+equipamento equipa, se a categoria servir.
+

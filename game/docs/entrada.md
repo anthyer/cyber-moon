@@ -6,16 +6,16 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 
 | Ação | Teclado | Mouse | Joystick |
 |---|---|---|---|
-| `mover_cima` | W / seta para cima | — | D-pad ou stick esquerdo para cima |
-| `mover_baixo` | S / seta para baixo | — | D-pad ou stick esquerdo para baixo |
-| `mover_esquerda` | A / seta para esquerda | — | D-pad ou stick esquerdo para esquerda |
-| `mover_direita` | D / seta para direita | — | D-pad ou stick esquerdo para direita |
-| `interagir` | F | — | Botão A / Cross |
-| `abrir_inventario` | E | — | Botão Y / Triangle, ou Start |
-| `menu_pausa` | Esc | — | Back / Select |
-| `correr` | Shift esquerdo | — | Botão B / Circle |
+| `mover_cima` | W / seta para cima | Nenhum | D-pad ou stick esquerdo para cima |
+| `mover_baixo` | S / seta para baixo | Nenhum | D-pad ou stick esquerdo para baixo |
+| `mover_esquerda` | A / seta para esquerda | Nenhum | D-pad ou stick esquerdo para esquerda |
+| `mover_direita` | D / seta para direita | Nenhum | D-pad ou stick esquerdo para direita |
+| `interagir` | F | Nenhum | Botão A / Cross |
+| `abrir_inventario` | E | Nenhum | Botão Y / Triangle, ou Start |
+| `menu_pausa` | Esc | Nenhum | Back / Select |
+| `correr` | Shift esquerdo | Nenhum | Botão B / Circle |
 | `dash` | Espaço | Botão direito | R1 (botão direito superior) |
-| `atacar` | — | Botão esquerdo | Quadrado / X (botão West) |
+| `atacar` | Nenhum | Botão esquerdo | Quadrado / X (botão West) |
 | `equipar_1` | 1 (socos) | Nenhum | Nenhum |
 | `equipar_2` | 2 (enxada) | Nenhum | Nenhum |
 | `equipar_3` | 3 (regador) | Nenhum | Nenhum |
@@ -29,6 +29,7 @@ O stick esquerdo move o jogador junto com o D-pad. As quatro ações de moviment
 
 - Toda leitura de entrada passa pelo `InputManager` (`scripts/core/input_manager.gd`), nunca por verificação direta de tecla no código de gameplay.
 - Cada ação é mapeada, desde o início, para teclado e joystick simultaneamente; `dash` soma ainda um botão de mouse como atalho extra. O suporte a toque na tela será adicionado futuramente mapeando as mesmas ações.
+- Nos menus, `ui_accept` confirma. Além dos binds padrão do Godot (Enter, Espaço e o botão A), ele também responde ao botão X/West, que é onde chega o botão A do painel arcade; sem isso o painel navegaria no menu sem conseguir confirmar. Com o jogo pausado não há conflito com `atacar`.
 - `abrir_inventario` e `menu_pausa` abrem a mesma tela por enquanto, o menu de pausa com o inventário, porque ainda não existe tela de opções. Com o menu aberto, qualquer uma das duas fecha, e o jogo fica pausado de verdade enquanto ele está aberto.
 - Menus e telas de UI usam o sistema nativo de foco dos nós `Control` do Godot, permitindo navegação por teclado ou joystick sem depender do mouse.
 
@@ -57,7 +58,7 @@ número bruto da placa:
 
 | Botão do painel | Número bruto | Vira | Ação |
 |---|---|---|---|
-| A | 0 | X (West) | `atacar` |
+| A | 0 | X (West) | `atacar`, e confirmar nos menus |
 | B | 1 | B (East) | `correr` |
 | C | 5 | R1 | `dash` |
 | X | 2 | Gatilho esquerdo | `ferramenta_anterior` |
