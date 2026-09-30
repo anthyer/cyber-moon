@@ -1,7 +1,7 @@
 # Plano 18: Chat entre jogadores (CyberMoon Chat)
 
 **Prioridade.** Feature de nuvem para a disciplina de Infraestrutura e Serviços de Nuvem.
-Não depende de nenhum dos planos 01-17 para funcionar — pode ser feita em paralelo.
+Não depende de nenhum dos planos 01-17 para funcionar, e pode ser feita em paralelo.
 
 **Objetivo:** jogadores conectados via WebGL podem se comunicar em tempo real através de
 um chat global, usando conexões WebSocket gerenciadas pelo AWS API Gateway. O jogador
@@ -27,33 +27,33 @@ integração do jogo com serviços de nuvem reais).
 - `game/scripts/core/event_bus.gd` é o barramento de eventos do jogo. Novos sinais
   serão adicionados aqui para o chat (`chat_mensagem_recebida`, `chat_conectado`,
   `chat_desconectado`).
-- `game/scripts/core/` já tem o padrão de autoloads — `ChatManager` entra aqui.
-- `game/scripts/ui/` tem scripts de UI — `chat_ui.gd` entra aqui.
-- `game/scenes/ui/` tem cenas de UI — `chat.tscn` entra aqui.
-- `game/project.godot` tem a lista de autoloads — `ChatManager` precisa ser registrado.
+- `game/scripts/core/` já tem o padrão de autoloads: `ChatManager` entra aqui.
+- `game/scripts/ui/` tem scripts de UI: `chat_ui.gd` entra aqui.
+- `game/scenes/ui/` tem cenas de UI: `chat.tscn` entra aqui.
+- `game/project.godot` tem a lista de autoloads: `ChatManager` precisa ser registrado.
 - O jogo roda em WebGL, que suporta WebSocket nativamente pelo `WebSocketPeer` do Godot 4.
 - Não existe nenhum sistema de rede no projeto hoje. Este plano é o primeiro.
 
 ## Arquivos novos
 
-- `game/scripts/core/chat_manager.gd` — autoload que gerencia a conexão WebSocket
-- `game/scripts/ui/chat_ui.gd` — script do painel de chat na tela
-- `game/scenes/ui/chat.tscn` — cena do painel de chat (PanelContainer com ScrollContainer)
-- `backend/lambdas/on_connect.py` — Lambda que roda quando um cliente conecta
-- `backend/lambdas/on_disconnect.py` — Lambda que roda quando um cliente desconecta
-- `backend/lambdas/send_message.py` — Lambda que distribui mensagens para os conectados
-- `backend/lambdas/authorizer.py` — Lambda autorizador que valida o token JWT do Cognito
-- `backend/terraform/main.tf` — infraestrutura como código (opcional, alternativa ao console)
+- `game/scripts/core/chat_manager.gd`: autoload que gerencia a conexão WebSocket
+- `game/scripts/ui/chat_ui.gd`: script do painel de chat na tela
+- `game/scenes/ui/chat.tscn`: cena do painel de chat (PanelContainer com ScrollContainer)
+- `backend/lambdas/on_connect.py`: Lambda que roda quando um cliente conecta
+- `backend/lambdas/on_disconnect.py`: Lambda que roda quando um cliente desconecta
+- `backend/lambdas/send_message.py`: Lambda que distribui mensagens para os conectados
+- `backend/lambdas/authorizer.py`: Lambda autorizador que valida o token JWT do Cognito
+- `backend/terraform/main.tf`: infraestrutura como código (opcional, alternativa ao console)
 
 ## Arquivos modificados
 
-- `game/project.godot` — registrar `ChatManager` nos autoloads
-- `game/scripts/core/event_bus.gd` — adicionar sinais do chat
-- `game/scenes/levels/playground.tscn` — instanciar `chat.tscn` como filho do HUD
+- `game/project.godot`: registrar `ChatManager` nos autoloads
+- `game/scripts/core/event_bus.gd`: adicionar sinais do chat
+- `game/scenes/levels/playground.tscn`: instanciar `chat.tscn` como filho do HUD
 
 ---
 
-## Parte A — Back-end AWS
+## Parte A: Back-end AWS
 
 As tarefas A1 a A5 constroem toda a infraestrutura na AWS. Faça pelo console da AWS ou
 pelo Terraform. O console é mais simples para começar.
@@ -100,7 +100,7 @@ para o histórico de mensagens.
 
 **Tabela `cybermoon-mensagens`:**
 - Partition key: `sala_id` (String)
-- Sort key: `enviada_em` (String — ISO 8601, ordena cronologicamente)
+- Sort key: `enviada_em` (String, ISO 8601, ordena cronologicamente)
 - Billing: On-demand
 - TTL attribute: `expira_em` (apaga mensagens automaticamente após 30 dias)
 
@@ -369,7 +369,7 @@ git commit -m "docs(chat): marca back-end testado e funcionando"
 
 ---
 
-## Parte B — Front-end Godot
+## Parte B: Front-end Godot
 
 As tarefas B1 a B4 integram o back-end ao jogo.
 
@@ -618,7 +618,7 @@ abrir_chat={
   mensagens renderizam corretamente:
 
 ```gdscript
-# linha temporaria de teste — remova antes do commit final
+# linha temporaria de teste, remova antes do commit final
 EventBus.chat_mensagem_recebida.emit("Fazendeiro", "Ola mundo!", "global", "2026-09-16T00:00:00Z")
 ```
 
@@ -713,13 +713,13 @@ git commit -m "feat(chat): adiciona build WebGL e hospeda no S3"
 
 ## Fora de escopo
 
-- Login real com tela de usuário e senha no jogo — fica para feature futura (plano 19).
-- Mensagens privadas — o back-end recebe `sala_id` e pode ser estendido, mas a UI só
+- Login real com tela de usuário e senha no jogo: fica para feature futura (plano 19).
+- Mensagens privadas: o back-end recebe `sala_id` e pode ser estendido, mas a UI só
   expõe a sala global agora.
-- Moderação e banimento pela UI do jogo — administração fica no console AWS.
-- ElastiCache / Redis para presença — o scan no DynamoDB é suficiente para o volume
+- Moderação e banimento pela UI do jogo: administração fica no console AWS.
+- ElastiCache / Redis para presença: o scan no DynamoDB é suficiente para o volume
   acadêmico; otimizar depois se necessário.
-- Filtro de palavras ofensivas — Lambda pode ter lista negra simples, mas não é
+- Filtro de palavras ofensivas: Lambda pode ter lista negra simples, mas não é
   requisito para a entrega.
 
 ---

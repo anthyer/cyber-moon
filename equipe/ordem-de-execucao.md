@@ -6,8 +6,8 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 ## Situação
 
 - [x] 01 Colisão de cenário (**prioridade**)
-- [ ] 02 Som (**prioridade**)
-- [ ] Vídeo de entrega das duas prioridades
+- [x] 02 Som (**prioridade**)
+- [x] Vídeo de entrega das duas prioridades
 - [ ] 03 Sistema de itens
 - [ ] 04 Inventário
 - [ ] 05 Barra de acesso rápido
@@ -23,6 +23,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [ ] 15 Sistema de diálogo
 - [ ] 16 Amizade e romance
 - [ ] 17 Comércio e economia
+- [ ] 18 Chat entre jogadores (independente dos outros, pode ser feito em paralelo)
 
 ## Por que essa ordem
 

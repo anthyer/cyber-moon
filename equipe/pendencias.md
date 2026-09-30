@@ -47,8 +47,8 @@ lutar e conversar), mas pode frustrar. É o gancho para estufa.
 fase da história e marcos, e mais nada. Depois dos 17 planos, vai faltar salvar
 inventário, status, relacionamentos, economia, estado da grade de solo e das plantas,
 clima e estação. Isso foi deixado de fora de cada plano individual de propósito, porque
-salvar tudo de uma vez é mais fácil do que salvar aos pedaços. **Vale um plano 18 só para
-isso**, e ele precisa existir antes de qualquer entrega jogável de verdade.
+salvar tudo de uma vez é mais fácil do que salvar aos pedaços. **Vale um plano próprio só
+para isso** (o número 18 ficou com o chat), e ele precisa existir antes de qualquer entrega jogável de verdade.
 
 **Não há fabricação.** O plano 03 cria itens processados (composto orgânico,
 biocombustível, nutrisolo, chapa reciclada) e o plano 17 os precifica, mas nenhum plano
@@ -94,38 +94,37 @@ mexa nesse valor.
 
 ### 2026-09-15, plano 01
 
-O que ficou de fora e por quê.
-Decisão que tomei sozinho e qual era a alternativa.
-Onde o plano divergia do código real.
+**Bugs encontrados na implementação e corrigidos:**
 
--->
-
-### 2026-09-15, plano 01
-
-**Bugs encontrados na implementacao e corrigidos:**
-
-O script `post_import_kenney.gd` aplicava colisao em TODOS os `.glb` do projeto, incluindo
+O script `post_import_kenney.gd` aplicava colisão em TODOS os `.glb` do projeto, incluindo
 `character_female_f.glb` do pacote kenney_mini_characters. O personagem ficava com
-`StaticBody3D` dentro dele. Como esse corpo e filho do `Personagem` que e filho do `Player`
-(CharacterBody3D), o `move_and_slide()` interpretava o contato com o proprio corpo como
-"plataforma em movimento" e lancava o player para cima indefinidamente. Fix: adicionar
+`StaticBody3D` dentro dele. Como esse corpo é filho do `Personagem`, que é filho do `Player`
+(CharacterBody3D), o `move_and_slide()` interpretava o contato com o próprio corpo como
+"plataforma em movimento" e lançava o player para cima indefinidamente. Correção: adicionar
 `"character"` e `"animal"` a `TRECHOS_SEM_COLISAO`.
 
 A lista `TRECHOS_SEM_COLISAO` continha `"grass"`, que casava com `platform_grass.glb` e
-`ground_grass.glb` (pecas de chao que precisam de colisao). Fix: a nova funcao
-`_tem_superficie_conhecida()` verifica se o modelo esta em `SUPERFICIE_POR_TRECHO`; se
-sim, recebe colisao independente da lista de exclusao.
+`ground_grass.glb` (peças de chão que precisam de colisão). Correção: todo modelo que tem
+superfície reconhecida pela tabela de `scripts/utils/superficies.gd` recebe colisão,
+independente da lista de exclusão.
 
-**Divergencias do plano:**
+**Divergências do plano:**
 
-O plano dizia para colocar o `ChaoBase` em `y = -0.6`. Com os tiles de chao em `y = 0` e o
+O plano dizia para colocar o `ChaoBase` em `y = -0.6`. Com os tiles de chão em `y = 0` e o
 plano visual `Grama2`/`Grama3` em `y ≈ 0`, o valor -0.6 colocava o player bem abaixo do
-visual onde nao tem tile. Ajustado para `y = 0` (sem transform no ChaoBase), que alinha com
+visual onde não tem tile. Ajustado para `y = 0` (sem transform no ChaoBase), que alinha com
 o piso visual. O spawn do player foi ajustado de `y = 0.136` para `y = 0.5` para garantir
 que o player aparece acima de qualquer tile e cai suavemente.
 
-**Tarefa 5 (ajuste andando pelo mapa):** feita parcialmente pelo diagnostico automatico.
-Os bugs acima foram os ajustes necessarios. Nao foi possivel andar manualmente por todo o
-mapa para detectar obstaculos incorretos, pois nao ha acesso ao editor grafico nesta sessao.
-O Antonio devera revisar encostando em tudo ao voltar.
+**Tarefa 5 (ajuste andando pelo mapa):** feita em parte. Os bugs acima foram os ajustes
+encontrados rodando o jogo, mas o mapa ainda não foi percorrido inteiro encostando em
+tudo para achar obstáculo incorreto. O Antonio revisa isso ao voltar.
 
+### 2026-09-15, plano 02
+
+**Decisão:** o `platform_grass.glb` (o `Piso` do playground) toca som de água, por escolha
+feita no commit 5f72630. A regra fica em `scripts/utils/superficies.gd`.
+
+**Pendente:** a música de fundo está em `.wav` de 38 MB. Converter para `.ogg` reduz o
+arquivo para poucos MB sem perda audível; o loop passa a ser ligado pela opção `loop`
+no import do `.ogg`.
