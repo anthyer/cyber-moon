@@ -3,7 +3,9 @@ extends Resource
 
 ## Categoria agrupa item para aba de inventário, filtro de loja e regra de presente.
 ## É enum, e não texto, para um erro de digitação virar erro de compilação.
-enum Categoria { RECURSO, SEMENTE, COLHEITA, FERRAMENTA, ARMA, ARMADURA, CONSUMIVEL, MATERIAL, ESPECIAL }
+## ACESSORIO entrou no fim, e não no meio, porque o .tres grava a categoria como número:
+## inserir no meio mudaria a categoria de todos os itens já salvos.
+enum Categoria { RECURSO, SEMENTE, COLHEITA, FERRAMENTA, ARMA, ARMADURA, CONSUMIVEL, MATERIAL, ESPECIAL, ACESSORIO }
 
 ## Chave estável do item, usada em save, em gosto de NPC e em lista de loja. O nome
 ## é só o texto da tela e pode mudar sem quebrar nada.

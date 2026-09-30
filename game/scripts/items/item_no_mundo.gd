@@ -140,14 +140,18 @@ static func soltar(item_solto: Item, quantidade_solta: int, posicao: Vector3, pa
 	instancia.global_position = posicao + empurrao
 	return instancia
 
-## Coloca o item no inventário e tira ele do mundo. Retorna false quando o inventário
-## estava cheio, e aí o item continua onde está. Por enquanto sempre dá certo: o
-## InventoryManager ainda não tem limite, e o caso de inventário cheio nasce no plano 04.
+## Coloca o item no inventário e tira ele do mundo. Com o inventário cheio, entra só o
+## que couber: o resto continua aqui, com a quantidade reduzida, e a função retorna false.
 func coletar() -> bool:
 	if item == null:
 		return false
-	InventoryManager.adicionar_item(item, quantidade)
-	EventBus.item_picked_up.emit(item, quantidade)
+	var sobra: int = InventoryManager.adicionar_item(item, quantidade)
+	var coletado: int = quantidade - sobra
+	if coletado > 0:
+		EventBus.item_picked_up.emit(item, coletado)
+	if sobra > 0:
+		quantidade = sobra
+		return false
 	queue_free()
 	return true
 
@@ -161,7 +165,7 @@ func _ao_encostar_no_jogador(_corpo: Node3D) -> void:
 	if espera_para_atrair > 0.0:
 		return
 	if not coletar():
-		# Inventário cheio: o item para de perseguir o jogador e fica onde parou.
+		# Inventário cheio: o que sobrou para de perseguir o jogador e fica onde parou.
 		_jogador_alvo = null
 		_velocidade_de_atracao = 0.0
 
