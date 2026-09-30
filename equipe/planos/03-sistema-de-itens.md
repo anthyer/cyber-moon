@@ -14,8 +14,18 @@ objeto que gira no chão e vai para o inventário quando o jogador interage.
 O plano foi revisado contra o código antes de começar. Onde esta seção contradiz o texto
 abaixo, vale esta seção.
 
-**Situação:** em pausa. O catálogo precisa ser revisado pelo Antonio antes da tarefa 3.
-As tarefas 1 e 2 (modelo de dados) podem começar antes disso.
+**Situação (2026-09-29):** tarefas 1 a 7 feitas. Falta o Antonio testar a coleta à mão
+com os três itens de demonstração perto do spawn (nó `ItensDeDemonstracao` do
+playground) e aprovar o giro sem billboard. Depois disso o plano pode ser marcado em
+`ordem-de-execucao.md`.
+
+**Catálogo aprovado pelo Antonio:** sucata na categoria RECURSO; valores de venda de
+pão de trigo 30, sopa de legumes 70, estimulante 55, nanogel 80 e buquê 60; ids
+`moeda` e `servo_motor` renomeados para `credito` e `servomotor`.
+
+**Billboard:** o `ItemNoMundo` não usa billboard, porque ele anula o giro. O quadrado
+gira de verdade e fica fino quando está de lado para a câmera. Se não agradar, basta
+ligar o billboard no `Visual` e aceitar que só a flutuação aparece.
 
 **Decisões do Antonio:**
 
@@ -44,7 +54,7 @@ As tarefas 1 e 2 (modelo de dados) podem começar antes disso.
   `alvo.interagir()`, sem saber se é item, NPC ou baú. É o mesmo padrão de despacho do
   `GradeSolo.aplicar()`. No `ItemNoMundo`, `interagir()` chama `coletar()`.
 - **Moeda nunca vai para o chão.** O plano 17 decidiu que crédito é um número no
-  `EconomyManager`. O item `moeda` existe só como ícone de interface, com
+  `EconomyManager`. O item `credito` existe só como ícone de interface, com
   `pode_ser_presente = false`.
 - **`coletar()` sempre dá certo por enquanto.** O `InventoryManager` atual não tem limite.
   O caso de inventário cheio passa a existir no plano 04.
@@ -155,7 +165,7 @@ do valor da colheita, arredondado para baixo. O preço de compra fica no plano 1
 | `placa_queimada` | Placa queimada | 15 |
 | `celula_energia` | Célula de energia | 45 |
 | `fio_optico` | Fio óptico | 22 |
-| `servo_motor` | Servomotor | 60 |
+| `servomotor` | Servomotor | 60 |
 | `nucleo_sintetico` | Núcleo sintético | 140 |
 
 **Recursos do campo.** Vêm de coletar no cenário.
@@ -191,7 +201,7 @@ do valor da colheita, arredondado para baixo. O preço de compra fica no plano 1
 | id | nome | uso |
 |---|---|---|
 | `buque` | Buquê | pedido de namoro (plano 16) |
-| `moeda` | Crédito | moeda do jogo (plano 17) |
+| `credito` | Crédito | moeda do jogo (plano 17) |
 
 Os valores de venda são um primeiro chute com uma lógica por trás: colheita rende mais
 por dia investido que recurso coletado, e material processado rende mais que a soma dos
@@ -262,22 +272,22 @@ e deixa cada sistema decidir o que fazer com o alvo.
 
 ## Tarefas
 
-- [ ] **1.** Ampliar `item.gd` com os campos novos. Atualizar os três `.tres` de
+- [x] **1.** Ampliar `item.gd` com os campos novos. Atualizar os três `.tres` de
   ferramenta existentes para preencher `id` e `categoria`. Rodar o jogo e confirmar que
   as ferramentas continuam funcionando.
-- [ ] **2.** Criar `semente.gd` e `consumivel.gd`.
-- [ ] **2b.** Gerar os ícones placeholder e mostrar ao Antonio a tabela do catálogo
+- [x] **2.** Criar `semente.gd` e `consumivel.gd`.
+- [x] **2b.** Gerar os ícones placeholder e mostrar ao Antonio a tabela do catálogo
   para revisão. Não seguir para a 3 sem a tabela aprovada.
-- [ ] **3.** Criar os `.tres` do catálogo. É trabalho repetitivo, e vale fazer um script
+- [x] **3.** Criar os `.tres` do catálogo. É trabalho repetitivo, e vale fazer um script
   de editor `@tool` que gera os `.tres` a partir de uma tabela, em vez de 40 arquivos na
   mão. O script fica em `game/scripts/utils/`, roda uma vez e continua versionado como
   documentação de onde os números vieram.
-- [ ] **4.** Criar `item_no_mundo.tscn` e o script. Testar colocando uma instância à mão
+- [x] **4.** Criar `item_no_mundo.tscn` e o script. Testar colocando uma instância à mão
   no playground e vendo ela girar.
-- [ ] **5.** Criar `area_de_interacao.gd` e o `AreaInteracao` no player.
-- [ ] **6.** Ligar `interagir` à coleta. Como o inventário de verdade é o plano 04, por
+- [x] **5.** Criar `area_de_interacao.gd` e o `AreaInteracao` no player.
+- [x] **6.** Ligar `interagir` à coleta. Como o inventário de verdade é o plano 04, por
   enquanto chame `InventoryManager.adicionar_item()` que já existe.
-- [ ] **7.** Documentar em `arquitetura.md` e `glossario.md`. Commit.
+- [x] **7.** Documentar em `arquitetura.md` e `glossario.md`. Commit.
 
 ## Critério de pronto
 
