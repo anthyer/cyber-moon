@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://d2br6e0shdkjd" path="res://assets/models/kenney_mini_characters/character_female_f.glb" id="2_personagem"]
@@ -6,10 +6,14 @@
 [ext_resource type="Resource" path="res://resources/audio/passos_padrao.tres" id="4_banco"]
 [ext_resource type="AudioStream" path="res://assets/audio/sfx/punch.wav" id="5_soco"]
 [ext_resource type="AudioStream" path="res://assets/audio/sfx/collision.wav" id="6_batida"]
+[ext_resource type="Script" path="res://scripts/player/area_de_interacao.gd" id="7_area_interacao"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.3
 height = 1.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_interacao"]
+radius = 1.5
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -32,3 +36,13 @@ collision_mask = 1
 [node name="PassosDoJogador" type="Node" parent="."]
 script = ExtResource("3_passos")
 banco = ExtResource("4_banco")
+
+[node name="AreaInteracao" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 52
+monitorable = false
+script = ExtResource("7_area_interacao")
+
+[node name="FormaInteracao" type="CollisionShape3D" parent="AreaInteracao"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("SphereShape3D_interacao")

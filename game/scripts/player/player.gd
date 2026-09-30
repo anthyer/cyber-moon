@@ -26,6 +26,7 @@ const CLIPES_INTERACAO: Array[String] = ["interact-left", "interact-right"]
 @onready var animation_player: AnimationPlayer = $Personagem/AnimationPlayer
 @onready var grade_solo: GradeSolo = get_node_or_null(caminho_grade_solo)
 @onready var indicador_alvo: MeshInstance3D = get_node_or_null(caminho_indicador_alvo)
+@onready var area_interacao: AreaDeInteracao = $AreaInteracao
 
 var _tempo_dash_restante: float = 0.0
 var _tempo_cooldown_restante: float = 0.0
@@ -81,6 +82,13 @@ func _physics_process(delta: float) -> void:
 		_tempo_cooldown_restante = cooldown_dash + duracao_dash
 		_indice_combo = 0
 		_tempo_janela_combo_restante = 0.0
+
+	# O player não sabe se o alvo é item, NPC ou baú: só chama interagir(), e cada
+	# alvo decide o que acontece. Ver AreaDeInteracao.
+	if _tempo_dash_restante <= 0.0 and _tempo_movimento_travado_ataque_restante <= 0.0 and InputManager.interagir_pressionado():
+		var alvo_da_interacao: Node3D = area_interacao.alvo_mais_proximo()
+		if alvo_da_interacao != null:
+			alvo_da_interacao.call(&"interagir")
 
 	if _tempo_dash_restante <= 0.0 and _tempo_ataque_restante <= 0.0 and _tempo_cooldown_ataque_restante <= 0.0 and InputManager.atacar_pressionado():
 		if ferramenta_equipada == null:
