@@ -68,6 +68,10 @@
 [ext_resource type="PackedScene" uid="uid://comlytaeprrj5" path="res://assets/models/kenney_city_kit_industrial/building_p.glb" id="66_c0ymh"]
 [ext_resource type="PackedScene" uid="uid://dppo7f2lat5ob" path="res://assets/models/kenney_city_kit_industrial/building_q.glb" id="67_esnbq"]
 [ext_resource type="PackedScene" uid="uid://cslhvvsvgcnlw" path="res://assets/models/kenney_city_kit_roads/road_end.glb" id="68_tf8gs"]
+[ext_resource type="PackedScene" path="res://scenes/items/item_no_mundo.tscn" id="90_item_no_mundo"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/beterraba.tres" id="91_beterraba"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_milho.tres" id="92_semente_milho"]
+[ext_resource type="Resource" path="res://resources/items/sucata/celula_energia.tres" id="93_celula_energia"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ceu"]
 
@@ -1259,3 +1263,19 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 21.544, 0, -16.488037)
 
 [node name="path-stones-long36" parent="." unique_id=2049296640 instance=ExtResource("10_p5pig")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 23.27676, 0, -13.726708)
+
+[node name="ItensDeDemonstracao" type="Node3D" parent="."]
+
+[node name="Beterraba" parent="ItensDeDemonstracao" instance=ExtResource("90_item_no_mundo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1.5)
+item = ExtResource("91_beterraba")
+quantidade = 3
+
+[node name="SementeDeMilho" parent="ItensDeDemonstracao" instance=ExtResource("90_item_no_mundo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 1.5)
+item = ExtResource("92_semente_milho")
+quantidade = 5
+
+[node name="CelulaDeEnergia" parent="ItensDeDemonstracao" instance=ExtResource("90_item_no_mundo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 1.5)
+item = ExtResource("93_celula_energia")
