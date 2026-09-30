@@ -93,6 +93,20 @@ func remover_item(item: Item, quantidade: int) -> bool:
 	inventory_changed.emit()
 	return true
 
+## Tira a quantidade de um slot específico. Serve para gastar o item que está na mão
+## (plantar a semente do slot selecionado), e não uma pilha igual de outro slot.
+func remover_do_slot(indice: int, quantidade: int) -> bool:
+	var pilha: PilhaDeItens = slot_em(indice)
+	if pilha == null or pilha.quantidade < quantidade:
+		return false
+	var item: Item = pilha.item
+	pilha.quantidade -= quantidade
+	if pilha.esta_vazia():
+		_esvaziar_slot(indice)
+	item_removed.emit(item, quantidade)
+	inventory_changed.emit()
+	return true
+
 func obter_quantidade(item: Item) -> int:
 	var total: int = 0
 	for pilha in slots:

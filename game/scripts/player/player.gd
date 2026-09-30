@@ -58,11 +58,16 @@ func _physics_process(delta: float) -> void:
 		_indice_combo = 0
 
 	var ferramenta_equipada: Ferramenta = EquipmentManager.ferramenta_na_mao()
+	var semente_na_mao: Semente = EquipmentManager.item_na_mao() as Semente
 
 	var celula_alvo: Vector2i
-	var tem_celula_alvo: bool = ferramenta_equipada != null and grade_solo != null
-	if tem_celula_alvo:
+	var tem_planta_madura_no_alvo: bool = false
+	if grade_solo != null:
 		celula_alvo = grade_solo.obter_celula_alvo(global_position, personagem.rotation.y)
+		tem_planta_madura_no_alvo = grade_solo.esta_madura(celula_alvo)
+	# O indicador aparece quando apertar um botão pode fazer algo na célula à frente:
+	# usar ferramenta, plantar semente ou colher planta madura.
+	var tem_celula_alvo: bool = grade_solo != null and (ferramenta_equipada != null or semente_na_mao != null or tem_planta_madura_no_alvo)
 
 	if indicador_alvo != null:
 		indicador_alvo.visible = tem_celula_alvo and grade_solo.limite.has_point(celula_alvo)
@@ -81,12 +86,20 @@ func _physics_process(delta: float) -> void:
 	# O player não sabe se o alvo é item, NPC ou baú: só chama interagir(), e cada
 	# alvo decide o que acontece. Ver AreaDeInteracao.
 	if _tempo_dash_restante <= 0.0 and _tempo_movimento_travado_ataque_restante <= 0.0 and InputManager.interagir_pressionado():
-		var alvo_da_interacao: Node3D = area_interacao.alvo_mais_proximo()
-		if alvo_da_interacao != null:
-			alvo_da_interacao.call(&"interagir")
+		# Colher vem antes dos outros alvos porque usa a mesma célula à frente que as
+		# ferramentas, e não a área de interação. Planta imatura não colhe e cai no
+		# caminho normal.
+		if grade_solo != null and grade_solo.colher(celula_alvo):
+			_tocar_animacao_de_interacao()
+		else:
+			var alvo_da_interacao: Node3D = area_interacao.alvo_mais_proximo()
+			if alvo_da_interacao != null:
+				alvo_da_interacao.call(&"interagir")
 
 	if _tempo_dash_restante <= 0.0 and _tempo_ataque_restante <= 0.0 and _tempo_cooldown_ataque_restante <= 0.0 and InputManager.atacar_pressionado():
-		if ferramenta_equipada == null:
+		if _plantar_semente_da_mao(semente_na_mao, celula_alvo):
+			_tocar_animacao_de_interacao()
+		elif ferramenta_equipada == null:
 			var nome_clipe: String = CLIPES_COMBO_ATAQUE[_indice_combo]
 			_travar_movimento_pela_animacao(nome_clipe)
 			_tempo_janela_combo_restante = janela_combo_ataque
@@ -102,9 +115,7 @@ func _physics_process(delta: float) -> void:
 
 			if acao_teve_efeito:
 				AudioManager.tocar_sfx(ferramenta_equipada.som_de_uso, global_position)
-				var nome_clipe_interacao: String = CLIPES_INTERACAO[_indice_interacao]
-				_travar_movimento_pela_animacao(nome_clipe_interacao)
-				_indice_interacao = (_indice_interacao + 1) % CLIPES_INTERACAO.size()
+				_tocar_animacao_de_interacao()
 
 	if _tempo_dash_restante > 0.0:
 		_tempo_dash_restante = max(_tempo_dash_restante - delta, 0.0)
@@ -149,6 +160,22 @@ func _physics_process(delta: float) -> void:
 	if not estava_na_parede and is_on_wall():
 		AudioManager.tocar_sfx(som_de_batida_na_parede, global_position, volume_batida_na_parede_db)
 	_tentar_subir_degrau(velocidade_horizontal)
+
+## Planta a semente do slot selecionado na célula à frente e gasta uma unidade dela.
+## Retorna false quando não há semente na mão ou a célula não aceita plantio, e aí o
+## botão de atacar segue para o soco.
+func _plantar_semente_da_mao(semente: Semente, celula: Vector2i) -> bool:
+	if semente == null or semente.cultivo == null or grade_solo == null:
+		return false
+	if not grade_solo.plantar(celula, semente.cultivo):
+		return false
+	InventoryManager.remover_do_slot(EquipmentManager.indice_selecionado, 1)
+	return true
+
+func _tocar_animacao_de_interacao() -> void:
+	var nome_clipe_interacao: String = CLIPES_INTERACAO[_indice_interacao]
+	_travar_movimento_pela_animacao(nome_clipe_interacao)
+	_indice_interacao = (_indice_interacao + 1) % CLIPES_INTERACAO.size()
 
 func _travar_movimento_pela_animacao(nome_clipe: String) -> void:
 	animation_player.play(nome_clipe, -1.0, velocidade_ataque)

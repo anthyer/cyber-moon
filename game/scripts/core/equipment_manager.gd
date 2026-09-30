@@ -9,13 +9,20 @@ extends Node
 
 signal slot_selecionado_alterado(indice: int)
 
-## O que o jogador tem no começo, nessa ordem, para os slots 1 a 4 baterem com as
-## teclas 1 a 4. A lista vira dado do plano 17, junto com as sementes iniciais.
-const ITENS_INICIAIS: Array[String] = [
-	"res://resources/items/armas/soqueira.tres",
-	"res://resources/items/ferramentas/enxada.tres",
-	"res://resources/items/ferramentas/regador.tres",
-	"res://resources/items/ferramentas/picareta.tres",
+## O que o jogador tem no começo, com a quantidade, nessa ordem, para os slots 1 a 4
+## baterem com as teclas 1 a 4. As sementes são um estoque de teste até o plano 17, que
+## define o inventário inicial de verdade e leva esta lista para um Resource.
+const ITENS_INICIAIS: Array = [
+	["res://resources/items/armas/soqueira.tres", 1],
+	["res://resources/items/ferramentas/enxada.tres", 1],
+	["res://resources/items/ferramentas/regador.tres", 1],
+	["res://resources/items/ferramentas/picareta.tres", 1],
+	["res://resources/items/sementes/semente_cenoura.tres", 5],
+	["res://resources/items/sementes/semente_trigo.tres", 5],
+	["res://resources/items/sementes/semente_beterraba.tres", 5],
+	["res://resources/items/sementes/semente_repolho.tres", 5],
+	["res://resources/items/sementes/semente_milho.tres", 5],
+	["res://resources/items/sementes/semente_tomate.tres", 5],
 ]
 
 var indice_selecionado: int = 0
@@ -23,8 +30,8 @@ var indice_selecionado: int = 0
 func _ready() -> void:
 	# Este autoload vem depois do InventoryManager na lista do project.godot, então o
 	# inventário já existe aqui.
-	for caminho in ITENS_INICIAIS:
-		InventoryManager.adicionar_item(load(caminho) as Item, 1)
+	for caminho_e_quantidade in ITENS_INICIAIS:
+		InventoryManager.adicionar_item(load(caminho_e_quantidade[0]) as Item, caminho_e_quantidade[1])
 
 func selecionar(indice: int) -> void:
 	if indice < 0 or indice >= InventoryManager.SLOTS_RAPIDOS:
