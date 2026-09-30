@@ -1,9 +1,11 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://d2br6e0shdkjd" path="res://assets/models/kenney_mini_characters/character_female_f.glb" id="2_personagem"]
 [ext_resource type="Script" path="res://scripts/player/passos_do_jogador.gd" id="3_passos"]
 [ext_resource type="Resource" path="res://resources/audio/passos_padrao.tres" id="4_banco"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/punch.wav" id="5_soco"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/collision.wav" id="6_batida"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.3
@@ -13,6 +15,8 @@ height = 1.6
 collision_layer = 2
 collision_mask = 13
 script = ExtResource("1_script")
+som_de_soco = ExtResource("5_soco")
+som_de_batida_na_parede = ExtResource("6_batida")
 
 [node name="Personagem" parent="." instance=ExtResource("2_personagem")]
 

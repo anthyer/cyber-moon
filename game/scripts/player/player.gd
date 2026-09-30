@@ -12,6 +12,9 @@ extends CharacterBody3D
 @export var cooldown_ataque: float = 0.3
 @export var gravidade: float = 24.0
 @export var altura_degrau: float = 0.4
+@export var som_de_soco: AudioStream
+@export var som_de_batida_na_parede: AudioStream
+@export var volume_batida_na_parede_db: float = -15.0
 
 const CLIPES_COMBO_ATAQUE: Array[String] = ["attack-melee-left", "attack-melee-left", "attack-melee-right"]
 const CLIPES_INTERACAO: Array[String] = ["interact-left", "interact-right"]
@@ -84,8 +87,7 @@ func _physics_process(delta: float) -> void:
 			var nome_clipe: String = CLIPES_COMBO_ATAQUE[_indice_combo]
 			_travar_movimento_pela_animacao(nome_clipe)
 			_tempo_janela_combo_restante = janela_combo_ataque
-			if ResourceLoader.exists("res://assets/audio/sfx/punch.wav"):
-				AudioManager.tocar_sfx(load("res://assets/audio/sfx/punch.wav") as AudioStream, global_position)
+			AudioManager.tocar_sfx(som_de_soco, global_position)
 
 			_indice_combo += 1
 			if _indice_combo >= CLIPES_COMBO_ATAQUE.size():
@@ -136,14 +138,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y -= gravidade * delta
 
-	var velocidade_horizontal = velocity
+	var velocidade_horizontal: Vector3 = velocity
 	velocidade_horizontal.y = 0.0
-	
-	var estava_na_parede = is_on_wall()
+
+	var estava_na_parede: bool = is_on_wall()
 	move_and_slide()
 	if not estava_na_parede and is_on_wall():
-		if ResourceLoader.exists("res://assets/audio/sfx/collision.wav"):
-			AudioManager.tocar_sfx(load("res://assets/audio/sfx/collision.wav") as AudioStream, global_position, -15.0)
+		AudioManager.tocar_sfx(som_de_batida_na_parede, global_position, volume_batida_na_parede_db)
 	_tentar_subir_degrau(velocidade_horizontal)
 
 func _travar_movimento_pela_animacao(nome_clipe: String) -> void:
@@ -206,6 +207,3 @@ func _tentar_subir_degrau(dir_plana_esperada: Vector3) -> void:
 	## acumulada não desfaça imediatamente a subida no próximo move_and_slide().
 	global_position.y = melhor_alvo + 0.02
 	velocity.y = maxf(velocity.y, 0.0)
-
-
-
