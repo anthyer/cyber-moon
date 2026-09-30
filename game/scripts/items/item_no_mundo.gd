@@ -32,9 +32,10 @@ const ESPALHAMENTO_AO_SOLTAR: float = 0.3
 ## instante, antes de dar para ver que caiu.
 const ESPERA_AO_SOLTAR: float = 0.6
 
-## Altura, a partir dos pés do jogador, do ponto para onde o item voa. Mira o meio do
-## corpo, e não os pés, para o contato acontecer de frente.
-const ALTURA_DO_ALVO_NO_JOGADOR: float = 0.6
+## Altura do centro do peito do personagem, a partir dos pés. O personagem da Kenney tem
+## 0,67 m: o corpo vai até 0,38 m e o ombro fica em 0,29 m, medidos no jogo rodando.
+## Se o modelo do jogador mudar, este número precisa ser medido de novo.
+const ALTURA_DO_PEITO_DO_JOGADOR: float = 0.28
 
 @export var item: Item
 @export var quantidade: int = 1
@@ -94,12 +95,19 @@ func _physics_process(delta: float) -> void:
 		_velocidade_de_atracao + aceleracao_de_atracao * delta,
 		velocidade_maxima_de_atracao
 	)
-	var destino: Vector3 = _jogador_alvo.global_position + Vector3.UP * ALTURA_DO_ALVO_NO_JOGADOR
+	# O que tem que chegar no peito é o centro do sprite, que fica acima da raiz do item.
+	var altura_da_raiz: float = ALTURA_DO_PEITO_DO_JOGADOR - _altura_inicial_do_visual
+	var destino: Vector3 = _jogador_alvo.global_position + Vector3.UP * altura_da_raiz
 	global_position = global_position.move_toward(destino, _velocidade_de_atracao * delta)
 
 func _process(delta: float) -> void:
 	_tempo += delta
 	rotate_y(velocidade_de_giro * delta)
+	# Enquanto voa até o jogador, a flutuação para, senão o item chega acima ou abaixo
+	# do peito dependendo do momento em que foi puxado.
+	if _jogador_alvo != null:
+		visual.position.y = _altura_inicial_do_visual
+		return
 	visual.position.y = _altura_inicial_do_visual + sin(_tempo * velocidade_da_flutuacao) * altura_da_flutuacao
 
 ## As cópias são filhas do Visual para acompanharem a flutuação e o giro sem código

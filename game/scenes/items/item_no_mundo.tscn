@@ -9,7 +9,7 @@ size = Vector3(0.4, 0.4, 0.4)
 radius = 2.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_coleta"]
-radius = 0.3
+radius = 0.1
 
 [node name="ItemNoMundo" type="Node3D"]
 script = ExtResource("1_script")
