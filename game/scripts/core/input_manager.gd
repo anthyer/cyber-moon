@@ -35,3 +35,9 @@ func slot_proximo_pressionado() -> bool:
 
 func slot_anterior_pressionado() -> bool:
 	return Input.is_action_just_pressed("slot_anterior")
+
+## Temporária: avança um dia para testar o crescimento das plantas. Sai quando o plano
+## 10 trouxer o ciclo de dia automático.
+func teste_avancar_dia_pressionado() -> bool:
+	return Input.is_action_just_pressed("teste_avancar_dia")
+

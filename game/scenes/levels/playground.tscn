@@ -73,6 +73,7 @@
 [ext_resource type="Resource" path="res://resources/items/sementes/semente_milho.tres" id="92_semente_milho"]
 [ext_resource type="Resource" path="res://resources/items/sucata/celula_energia.tres" id="93_celula_energia"]
 [ext_resource type="PackedScene" path="res://scenes/ui/menu_pausa.tscn" id="94_menu_pausa"]
+[ext_resource type="Script" path="res://scripts/utils/atalhos_de_teste.gd" id="95_atalhos_de_teste"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -1280,3 +1281,6 @@ quantidade = 5
 [node name="CelulaDeEnergia" parent="ItensDeDemonstracao" unique_id=1237076333 instance=ExtResource("90_item_no_mundo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 1.5)
 item = ExtResource("93_celula_energia")
+
+[node name="AtalhosDeTeste" type="Node" parent="."]
+script = ExtResource("95_atalhos_de_teste")
