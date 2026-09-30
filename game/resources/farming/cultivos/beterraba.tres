@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Cultivo" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/beetroot_1.png" id="1_frcfe"]
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/beetroot_2.png" id="2_xcjcg"]
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/beetroot_3.png" id="3_dyeaf"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/beterraba.tres" id="4_mrpel"]
+[ext_resource type="Script" path="res://scripts/resources/cultivo.gd" id="5_q4538"]
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/beetroot_withered.png" id="6_m3occ"]
+
+[resource]
+script = ExtResource("5_q4538")
+id = &"beterraba"
+nome = "Beterraba"
+estagios_de_crescimento = Array[Texture2D]([ExtResource("1_frcfe"), ExtResource("2_xcjcg"), ExtResource("3_dyeaf")])
+textura_murcha = ExtResource("6_m3occ")
+item_colhido = ExtResource("4_mrpel")

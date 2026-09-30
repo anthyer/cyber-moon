@@ -17,15 +17,20 @@ extends SceneTree
 const PASTA_DOS_ITENS: String = "res://resources/items/"
 const PASTA_DOS_ICONES: String = "res://assets/textures/icones_itens/"
 const PASTA_DOS_CROPS: String = "res://assets/textures/tiny_farm_crops/"
+const PASTA_DOS_CULTIVOS: String = "res://resources/farming/cultivos/"
+const ESTAGIOS_POR_CULTIVO: int = 3
 
-## id, nome, venda, nome da cultura no arquivo de arte (tiny_farm_crops/<cultura>_icon.png).
+## id, nome, venda, nome da cultura no arquivo de arte (tiny_farm_crops/<cultura>_icon.png),
+## dias por estágio, estágio de rebrota (0 para não rebrotar), quantidade mínima e máxima.
+## O ritmo varia para o plantio não ficar todo igual: cenoura e trigo são rápidos,
+## tomate é lento mas rebrota e rende várias colheitas.
 const COLHEITAS: Array = [
-	[&"beterraba", "Beterraba", 35, "beetroot"],
-	[&"repolho", "Repolho", 50, "cabbage"],
-	[&"cenoura", "Cenoura", 25, "carrot"],
-	[&"milho", "Milho", 40, "corn"],
-	[&"tomate", "Tomate", 30, "tomato"],
-	[&"trigo", "Trigo", 20, "wheat"],
+	[&"beterraba", "Beterraba", 35, "beetroot", 2, 0, 1, 2],
+	[&"repolho", "Repolho", 50, "cabbage", 2, 0, 1, 1],
+	[&"cenoura", "Cenoura", 25, "carrot", 1, 0, 1, 2],
+	[&"milho", "Milho", 40, "corn", 2, 1, 1, 2],
+	[&"tomate", "Tomate", 30, "tomato", 3, 1, 1, 3],
+	[&"trigo", "Trigo", 20, "wheat", 1, 0, 2, 3],
 ]
 
 ## id, nome, venda. A sucata é RECURSO, como madeira e pedra: é matéria-prima que cai de
@@ -83,6 +88,7 @@ func _init() -> void:
 		_preencher(colheita, linha[0], linha[1], linha[2], Item.Categoria.COLHEITA)
 		colheita.icone = load(PASTA_DOS_CROPS + linha[3] + "_icon.png")
 		total += _salvar(colheita, "colheitas")
+		var cultivo: Cultivo = _gerar_cultivo(linha, colheita)
 
 		# A semente vale um terço da colheita, arredondado para baixo. O preço de compra
 		# na loja é do plano 17.
@@ -90,6 +96,7 @@ func _init() -> void:
 		var id_da_semente: StringName = StringName("semente_" + String(linha[0]))
 		var nome_da_semente: String = "Semente de " + String(linha[1]).to_lower()
 		_preencher(semente, id_da_semente, nome_da_semente, floori(int(linha[2]) / 3.0), Item.Categoria.SEMENTE)
+		semente.cultivo = cultivo
 		total += _salvar(semente, "sementes")
 
 	for linha in SUCATA:
@@ -131,6 +138,31 @@ func _init() -> void:
 	print("Catálogo gerado: %d itens." % total)
 	quit()
 
+## Cria o .tres do cultivo, apontando para o item colhido já salvo. O cultivo fica em
+## resources/farming/cultivos/, fora da pasta de itens, porque não é item de inventário.
+func _gerar_cultivo(linha: Array, colheita: Item) -> Cultivo:
+	var cultivo: Cultivo = Cultivo.new()
+	cultivo.id = linha[0]
+	cultivo.nome = linha[1]
+	for numero in range(1, ESTAGIOS_POR_CULTIVO + 1):
+		cultivo.estagios_de_crescimento.append(load("%s%s_%d.png" % [PASTA_DOS_CROPS, linha[3], numero]))
+	cultivo.textura_murcha = load("%s%s_withered.png" % [PASTA_DOS_CROPS, linha[3]])
+	cultivo.dias_por_estagio = linha[4]
+	cultivo.estagio_de_rebrota = linha[5]
+	cultivo.quantidade_colhida_minima = linha[6]
+	cultivo.quantidade_colhida_maxima = linha[7]
+	cultivo.item_colhido = colheita
+
+	DirAccess.make_dir_recursive_absolute(PASTA_DOS_CULTIVOS)
+	var caminho: String = "%s%s.tres" % [PASTA_DOS_CULTIVOS, cultivo.id]
+	var erro: Error = ResourceSaver.save(cultivo, caminho)
+	if erro != OK:
+		push_error("Falha ao salvar %s: %s" % [caminho, error_string(erro)])
+	# Assumir o caminho faz a semente gravar o cultivo como referência ao arquivo, e não
+	# como uma cópia embutida dentro do .tres dela.
+	cultivo.take_over_path(caminho)
+	return cultivo
+
 ## Preenche os campos comuns. O ícone padrão é o placeholder com o nome do id; as
 ## colheitas trocam pelo ícone de verdade depois desta chamada.
 func _preencher(item: Item, id: StringName, nome: String, venda: int, categoria: Item.Categoria) -> void:
@@ -151,4 +183,7 @@ func _salvar(item: Item, subpasta: String) -> int:
 	if erro != OK:
 		push_error("Falha ao salvar %s: %s" % [caminho, error_string(erro)])
 		return 0
+	# Assumir o caminho faz quem aponta para este item (o cultivo, no caso da colheita)
+	# gravar uma referência ao arquivo, e não uma cópia embutida.
+	item.take_over_path(caminho)
 	return 1

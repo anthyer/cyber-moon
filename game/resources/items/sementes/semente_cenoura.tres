@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="Semente" format=3]
 
-[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_cenoura.png" id="1_fjmtq"]
-[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="2_vnqbj"]
+[ext_resource type="Resource" path="res://resources/farming/cultivos/cenoura.tres" id="1_vnqbj"]
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_cenoura.png" id="2_lxr1k"]
+[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="3_bl3iu"]
 
 [resource]
-script = ExtResource("2_vnqbj")
+script = ExtResource("3_bl3iu")
+cultivo = ExtResource("1_vnqbj")
 id = &"semente_cenoura"
 nome = "Semente de cenoura"
-icone = ExtResource("1_fjmtq")
+icone = ExtResource("2_lxr1k")
 categoria = 1
 valor_de_venda = 8

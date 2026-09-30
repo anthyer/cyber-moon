@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="Semente" format=3]
 
-[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_trigo.png" id="1_3otie"]
-[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="2_oxj16"]
+[ext_resource type="Resource" path="res://resources/farming/cultivos/trigo.tres" id="1_oxj16"]
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_trigo.png" id="2_pifg6"]
+[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="3_yabq3"]
 
 [resource]
-script = ExtResource("2_oxj16")
+script = ExtResource("3_yabq3")
+cultivo = ExtResource("1_oxj16")
 id = &"semente_trigo"
 nome = "Semente de trigo"
-icone = ExtResource("1_3otie")
+icone = ExtResource("2_pifg6")
 categoria = 1
 valor_de_venda = 6

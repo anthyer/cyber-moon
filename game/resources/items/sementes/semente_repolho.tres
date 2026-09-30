@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="Semente" format=3]
 
-[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_repolho.png" id="1_evn1g"]
-[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="2_yrcxn"]
+[ext_resource type="Resource" path="res://resources/farming/cultivos/repolho.tres" id="1_yrcxn"]
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_repolho.png" id="2_er8wf"]
+[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="3_fknab"]
 
 [resource]
-script = ExtResource("2_yrcxn")
+script = ExtResource("3_fknab")
+cultivo = ExtResource("1_yrcxn")
 id = &"semente_repolho"
 nome = "Semente de repolho"
-icone = ExtResource("1_evn1g")
+icone = ExtResource("2_er8wf")
 categoria = 1
 valor_de_venda = 16

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Cultivo" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/corn_1.png" id="1_j5gph"]
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/corn_2.png" id="2_tyxjc"]
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/corn_3.png" id="3_d6fon"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/milho.tres" id="4_34h1f"]
+[ext_resource type="Script" path="res://scripts/resources/cultivo.gd" id="5_83nvd"]
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/corn_withered.png" id="6_8gc3j"]
+
+[resource]
+script = ExtResource("5_83nvd")
+id = &"milho"
+nome = "Milho"
+estagios_de_crescimento = Array[Texture2D]([ExtResource("1_j5gph"), ExtResource("2_tyxjc"), ExtResource("3_d6fon")])
+textura_murcha = ExtResource("6_8gc3j")
+item_colhido = ExtResource("4_34h1f")
+estagio_de_rebrota = 1

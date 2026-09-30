@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Cultivo" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/tomato_1.png" id="1_8357c"]
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/tomato_2.png" id="2_h0qnf"]
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/tomato_3.png" id="3_byftp"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/tomate.tres" id="4_a2ut5"]
+[ext_resource type="Script" path="res://scripts/resources/cultivo.gd" id="5_vhtmi"]
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/tomato_withered.png" id="6_uc1x0"]
+
+[resource]
+script = ExtResource("5_vhtmi")
+id = &"tomate"
+nome = "Tomate"
+estagios_de_crescimento = Array[Texture2D]([ExtResource("1_8357c"), ExtResource("2_h0qnf"), ExtResource("3_byftp")])
+textura_murcha = ExtResource("6_uc1x0")
+dias_por_estagio = 3
+item_colhido = ExtResource("4_a2ut5")
+quantidade_colhida_maxima = 3
+estagio_de_rebrota = 1

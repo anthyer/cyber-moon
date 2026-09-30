@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="Semente" format=3]
 
-[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_tomate.png" id="1_71f2e"]
-[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="2_wnyov"]
+[ext_resource type="Resource" path="res://resources/farming/cultivos/tomate.tres" id="1_wnyov"]
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_tomate.png" id="2_nk36g"]
+[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="3_ewaen"]
 
 [resource]
-script = ExtResource("2_wnyov")
+script = ExtResource("3_ewaen")
+cultivo = ExtResource("1_wnyov")
 id = &"semente_tomate"
 nome = "Semente de tomate"
-icone = ExtResource("1_71f2e")
+icone = ExtResource("2_nk36g")
 categoria = 1
 valor_de_venda = 10

@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="Semente" format=3 uid="uid://2i6gqumgsvgf"]
+[gd_resource type="Resource" script_class="Semente" format=3]
 
-[ext_resource type="Texture2D" uid="uid://b4u135jc4u6v8" path="res://assets/textures/icones_itens/semente_milho.png" id="1_g2rej"]
-[ext_resource type="Script" uid="uid://b1lmkc3nxsoim" path="res://scripts/resources/semente.gd" id="2_jnltu"]
+[ext_resource type="Resource" path="res://resources/farming/cultivos/milho.tres" id="1_jnltu"]
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_milho.png" id="2_ieoxx"]
+[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="3_jf26j"]
 
 [resource]
-script = ExtResource("2_jnltu")
+script = ExtResource("3_jf26j")
+cultivo = ExtResource("1_jnltu")
 id = &"semente_milho"
 nome = "Semente de milho"
-icone = ExtResource("1_g2rej")
+icone = ExtResource("2_ieoxx")
 categoria = 1
 valor_de_venda = 13

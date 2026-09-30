@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="Semente" format=3]
 
-[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_beterraba.png" id="1_jvlgv"]
-[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="2_lep1f"]
+[ext_resource type="Resource" path="res://resources/farming/cultivos/beterraba.tres" id="1_lep1f"]
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/semente_beterraba.png" id="2_n40i5"]
+[ext_resource type="Script" path="res://scripts/resources/semente.gd" id="3_31rwl"]
 
 [resource]
-script = ExtResource("2_lep1f")
+script = ExtResource("3_31rwl")
+cultivo = ExtResource("1_lep1f")
 id = &"semente_beterraba"
 nome = "Semente de beterraba"
-icone = ExtResource("1_jvlgv")
+icone = ExtResource("2_n40i5")
 categoria = 1
 valor_de_venda = 11

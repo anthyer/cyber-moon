@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Cultivo" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/carrot_1.png" id="1_hmj5n"]
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/carrot_2.png" id="2_x5cox"]
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/carrot_3.png" id="3_b78fk"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/cenoura.tres" id="4_lv0ah"]
+[ext_resource type="Script" path="res://scripts/resources/cultivo.gd" id="5_knhul"]
+[ext_resource type="Texture2D" path="res://assets/textures/tiny_farm_crops/carrot_withered.png" id="6_qjk47"]
+
+[resource]
+script = ExtResource("5_knhul")
+id = &"cenoura"
+nome = "Cenoura"
+estagios_de_crescimento = Array[Texture2D]([ExtResource("1_hmj5n"), ExtResource("2_x5cox"), ExtResource("3_b78fk")])
+textura_murcha = ExtResource("6_qjk47")
+dias_por_estagio = 1
+item_colhido = ExtResource("4_lv0ah")
