@@ -219,6 +219,27 @@ plano, seção "Revisão de 2026-09-30".
 - Os 3 pães de trigo do inventário inicial são estoque de teste, como as sementes.
 - O status não é salvo. Entra no plano de save completo.
 
+### 2026-09-30, plano 08
+
+**Feito.** Decisões e ajustes no topo do plano.
+
+**Temporário, precisa sair depois:**
+
+- Os três alvos de treino do playground (`AlvosDeTreino`) saem quando o plano 09 trouxer
+  inimigos.
+- As quatro armas no inventário inicial são estoque de teste, como as sementes e os pães.
+
+**Fica para depois:**
+
+- Os modelos das armas são bengalas e muleta do pacote de acessibilidade. Trocar por
+  modelo de arma é só mudar o campo `modelo` no `.tres` e refazer o encaixe na tabela do
+  gerador.
+- Só existe um som de golpe (`punch.wav`), usado por todas as armas, inclusive o rifle.
+- Andando com o rifle, ele aponta para baixo junto com o braço, porque não existe clipe
+  de andar segurando arma. Parado, a pose é a de segurar com as duas mãos.
+- O gerador do catálogo imprime um erro de compilação ao carregar a cena do projétil,
+  porque roda sem os autoloads. As armas saem certas mesmo assim.
+
 ### 2026-09-29, remapear controles
 
 **Pendência:** uma tela de remapear controles dentro das configurações do jogo, para

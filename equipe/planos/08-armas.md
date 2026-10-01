@@ -25,6 +25,29 @@ stamina).
   campo próprio.
 - **O item na mão é o slot rápido selecionado** (plano 05). Arma na mão é arma em uso.
 
+**Situação (2026-09-30):** feito. Conferido por teste automático contra os alvos de
+treino: dano de cada arma, stamina só no acerto, alcance do espadão maior que o da
+foice, combo do punho, projétil do rifle acertando e sumindo sozinho, e ferramenta na mão
+não atacando. O encaixe dos modelos na mão foi ajustado por captura de tela.
+
+**Ajustes feitos na implementação:**
+
+- **Tipo `PUNHO`.** O enum ganhou um quarto tipo para o combo de três golpes. Os cestos
+  são `Arma` desse tipo (dano 8), e as mãos vazias usam `resources/combat/punho.tres`
+  (dano 5), que é uma `Arma` fora do inventário. Assim todo golpe passa pelo mesmo código.
+- **Encaixe do modelo** é posição e rotação em graus (`posicao_do_modelo`,
+  `rotacao_do_modelo_em_graus`), e não um `Transform3D`, para dar para ajustar no
+  Inspector. Os valores ficam na tabela do gerador do catálogo.
+- **O `BoneAttachment3D` é criado em código**, porque o esqueleto mora dentro do `.glb`
+  do personagem e não dá para pôr um nó filho dele na cena do jogador.
+- **Alvo de treino.** Três bonecos no playground (`AlvosDeTreino`) servem para testar os
+  golpes até o plano 09 trazer inimigos. Eles implementam o contrato de dano,
+  `receber_dano(quantidade, origem)`, que os inimigos vão seguir.
+- **Ícones das armas** criados em pixel art no estilo dos outros.
+- **Som:** todas as armas de corpo a corpo e o rifle usam o `punch.wav`, que é o único som
+  de golpe que existe.
+- O jogador começa com as quatro armas nos slots 5 a 8, como estoque de teste.
+
 ## O que o pacote de personagens já oferece
 
 Isto foi verificado carregando o `.glb` no Godot, não é suposição. O
@@ -169,20 +192,20 @@ Disparar toca `holding-both-shoot`.
 
 ## Tarefas
 
-- [ ] **1.** Criar `arma.gd` e os 4 `.tres`.
-- [ ] **2.** Adicionar o `BoneAttachment3D` no `arm-right` e fazer o modelo da arma
+- [x] **1.** Criar `arma.gd` e os 4 `.tres`.
+- [x] **2.** Adicionar o `BoneAttachment3D` no `arm-right` e fazer o modelo da arma
   aparecer e sumir ao trocar de slot. Verificar visualmente: a arma tem que acompanhar a
   mão durante a animação de andar.
-- [ ] **3.** Ajustar `deslocamento_do_modelo` e `escala_do_modelo` de cada arma olhando
+- [x] **3.** Ajustar `deslocamento_do_modelo` e `escala_do_modelo` de cada arma olhando
   no jogo. Este passo é de olho e vai levar mais tempo que parece.
-- [ ] **4.** Criar `ataque_do_jogador.gd` e a `HitboxAtaque`. Sem inimigo ainda, teste
+- [x] **4.** Criar `ataque_do_jogador.gd` e a `HitboxAtaque`. Sem inimigo ainda, teste
   colocando um `Area3D` de mentira no playground e imprimindo quando for atingido.
-- [ ] **5.** Ligar o ataque ao `player.gd`, respeitando o tipo da arma, o cooldown e o
+- [x] **5.** Ligar o ataque ao `player.gd`, respeitando o tipo da arma, o cooldown e o
   custo de stamina do plano 07.
-- [ ] **6.** Implementar o golpe pesado com a animação desacelerada.
-- [ ] **7.** Criar o projétil e a arma de distância, com a pose `holding-both`.
-- [ ] **8.** Ligar o som do golpe (`AudioManager.tocar_sfx`, plano 02).
-- [ ] **9.** Documentar e commitar.
+- [x] **6.** Implementar o golpe pesado com a animação desacelerada.
+- [x] **7.** Criar o projétil e a arma de distância, com a pose `holding-both`.
+- [x] **8.** Ligar o som do golpe (`AudioManager.tocar_sfx`, plano 02).
+- [x] **9.** Documentar e commitar.
 
 ## Critério de pronto
 
