@@ -39,3 +39,11 @@ enum Tipo {
 @export_group("Projétil")
 @export var projetil: PackedScene
 @export var velocidade_do_projetil: float = 18.0
+
+@export_group("Mira")
+## Mostra uma linha de laser saindo da arma até o primeiro obstáculo, para o jogador
+## ver para onde o tiro vai. O comprimento máximo é o alcance da arma.
+@export var tem_mira_laser: bool = false
+## Multiplica a velocidade com que o personagem vira enquanto a arma está na mão. Arma
+## de mira pede giro rápido, senão o tiro sai antes de o personagem terminar de virar.
+@export var multiplicador_de_giro: float = 1.0

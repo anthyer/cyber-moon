@@ -36,6 +36,7 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Ponto de spawn | Spawn point / `Marker3D` `PontoDeSpawn`, a casa do jogador |
 | Arma | Weapon / `Arma` (classe Resource), enum `Arma.Tipo` |
 | Área de acerto | Hitbox / nó `HitboxAtaque`, script `AtaqueDoJogador` |
+| Mira laser | Laser sight / `Arma.tem_mira_laser`, nós `FeixeDoLaser` e `PontoDoLaser` |
 | Projétil | Projectile / `Projetil` (cena e classe) |
 | Alvo de treino | Training dummy / `AlvoDeTreino`, temporário até o plano 09 |
 | Efeito de partículas | Particle effect / `EfeitoDeParticulas`, cenas em `scenes/effects/` |

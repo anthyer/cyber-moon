@@ -86,6 +86,9 @@ const PASTA_DOS_MODELOS_DE_ARMA: String = "res://assets/models/kenney_mini_chara
 ## da arma sai certo mesmo assim, porque só guarda o caminho da cena.
 const CENA_DO_PROJETIL: String = "res://scenes/combat/projetil.tscn"
 const SOM_DO_GOLPE: String = "res://assets/audio/sfx/punch.wav"
+## Com arma de distância na mão o personagem vira este tanto mais rápido, para a mira
+## acompanhar o direcional.
+const GIRO_DA_ARMA_DE_DISTANCIA: float = 2.5
 
 ## id, nome, venda, tipo, dano, alcance, stamina por acerto, velocidade da animação,
 ## cooldown, arquivo do modelo (vazio para nenhum) e escala do modelo.
@@ -180,6 +183,8 @@ func _init() -> void:
 			arma.rotacao_do_modelo_em_graus = ENCAIXE_NA_MAO[linha[0]][1]
 		if arma.tipo == Arma.Tipo.DISTANCIA:
 			arma.projetil = load(CENA_DO_PROJETIL)
+			arma.tem_mira_laser = true
+			arma.multiplicador_de_giro = GIRO_DA_ARMA_DE_DISTANCIA
 		total += _salvar(arma, "armas")
 
 	print("Catálogo gerado: %d itens." % total)

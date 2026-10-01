@@ -197,6 +197,12 @@ golpe acontecer no mundo:
   e pode acertar vários.
 - **Projétil:** `scenes/combat/projetil.tscn` viaja reto, some ao bater em qualquer coisa
   e some sozinho depois de 3 segundos.
+- **Mira laser:** arma com `tem_mira_laser` mostra uma linha fina que sai do mesmo ponto e
+  na mesma direção do projétil, e para no primeiro obstáculo (mundo ou inimigo) ou no
+  alcance da arma. É desenhada em código, sem cena própria.
+
+A arma também pode acelerar o giro do personagem (`multiplicador_de_giro`). O rifle usa
+2,5, para a mira acompanhar o direcional.
 
 **Contrato de dano:** quem pode levar dano tem o método
 `receber_dano(quantidade: int, origem: Node3D)` e fica na camada `inimigo`. A hitbox e o

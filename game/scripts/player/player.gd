@@ -158,7 +158,10 @@ func _physics_process(delta: float) -> void:
 
 		if direcao != Vector3.ZERO:
 			var angulo_alvo: float = atan2(direcao.x, direcao.z)
-			personagem.rotation.y = lerp_angle(personagem.rotation.y, angulo_alvo, velocidade_rotacao * delta)
+			# A arma na mão pode acelerar o giro: com o rifle o personagem vira mais
+			# rápido, para a mira acompanhar o direcional.
+			var velocidade_de_giro: float = velocidade_rotacao * _arma_em_uso().multiplicador_de_giro
+			personagem.rotation.y = lerp_angle(personagem.rotation.y, angulo_alvo, minf(velocidade_de_giro * delta, 1.0))
 
 		_atualizar_animacao(direcao, esta_correndo, false)
 

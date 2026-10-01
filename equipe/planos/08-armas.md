@@ -47,6 +47,10 @@ não atacando. O encaixe dos modelos na mão foi ajustado por captura de tela.
 - **Som:** todas as armas de corpo a corpo e o rifle usam o `punch.wav`, que é o único som
   de golpe que existe.
 - O jogador começa com as quatro armas nos slots 5 a 8, como estoque de teste.
+- **Mira laser e giro rápido no rifle** (pedido do Antonio depois da entrega). A arma
+  ganhou dois campos: `tem_mira_laser`, que mostra uma linha vermelha por onde o tiro
+  vai passar, e `multiplicador_de_giro`, que faz o personagem virar mais rápido com a
+  arma na mão. O rifle usa os dois, com giro 2,5 vezes mais rápido.
 
 ## O que o pacote de personagens já oferece
 
