@@ -15,4 +15,5 @@ pode_ser_presente = false
 empilhavel = false
 quantidade_maxima_por_pilha = 1
 id_acao = &"regador"
+experiencia_ao_usar = 1
 som_de_uso = ExtResource("2")

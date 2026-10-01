@@ -18,9 +18,12 @@ extends CharacterBody3D
 
 const CLIPES_COMBO_ATAQUE: Array[String] = ["attack-melee-left", "attack-melee-left", "attack-melee-right"]
 const CLIPES_INTERACAO: Array[String] = ["interact-left", "interact-right"]
+const CLIPE_DE_QUEDA: String = "die"
 
 @export var caminho_grade_solo: NodePath = ^"../GradeSolo"
 @export var caminho_indicador_alvo: NodePath = ^"../IndicadorAlvo"
+## Onde o jogador acorda depois de desmaiar. É a casa dele.
+@export var caminho_ponto_de_spawn: NodePath = ^"../PontoDeSpawn"
 
 @onready var personagem: Node3D = $Personagem
 @onready var animation_player: AnimationPlayer = $Personagem/AnimationPlayer
@@ -39,7 +42,18 @@ var _tempo_movimento_travado_ataque_restante: float = 0.0
 var _tempo_janela_combo_restante: float = 0.0
 var _tempo_cooldown_ataque_restante: float = 0.0
 
+## Entre cair e acordar o jogador não responde a nenhum comando.
+var _desmaiado: bool = false
+
+func _ready() -> void:
+	StatusManager.player_fainted.connect(_ao_desmaiar)
+	StatusManager.player_woke_up.connect(_ao_acordar)
+
 func _physics_process(delta: float) -> void:
+	if _desmaiado:
+		_cair_parado(delta)
+		return
+
 	_tempo_cooldown_restante = max(_tempo_cooldown_restante - delta, 0.0)
 	_tempo_ataque_restante = max(_tempo_ataque_restante - delta, 0.0)
 	_tempo_movimento_travado_ataque_restante = max(_tempo_movimento_travado_ataque_restante - delta, 0.0)
@@ -76,7 +90,7 @@ func _physics_process(delta: float) -> void:
 			indicador_alvo.global_position = grade_solo.global_transform * posicao_local
 			indicador_alvo.global_position.y += 0.01
 
-	if _tempo_dash_restante <= 0.0 and _tempo_movimento_travado_ataque_restante <= 0.0 and _tempo_cooldown_restante <= 0.0 and InputManager.dash_pressionado():
+	if _tempo_dash_restante <= 0.0 and _tempo_movimento_travado_ataque_restante <= 0.0 and _tempo_cooldown_restante <= 0.0 and InputManager.dash_pressionado() and StatusManager.gastar_stamina(StatusManager.custos.stamina_dash):
 		_direcao_dash = Vector3(sin(personagem.rotation.y), 0.0, cos(personagem.rotation.y))
 		_tempo_dash_restante = duracao_dash
 		_tempo_cooldown_restante = cooldown_dash + duracao_dash
@@ -89,7 +103,7 @@ func _physics_process(delta: float) -> void:
 		# Colher vem antes dos outros alvos porque usa a mesma célula à frente que as
 		# ferramentas, e não a área de interação. Planta imatura não colhe e cai no
 		# caminho normal.
-		if grade_solo != null and grade_solo.colher(celula_alvo):
+		if _colher_na_celula(celula_alvo):
 			_tocar_animacao_de_interacao()
 		else:
 			var alvo_da_interacao: Node3D = area_interacao.alvo_mais_proximo()
@@ -99,7 +113,12 @@ func _physics_process(delta: float) -> void:
 	if _tempo_dash_restante <= 0.0 and _tempo_ataque_restante <= 0.0 and _tempo_cooldown_ataque_restante <= 0.0 and InputManager.atacar_pressionado():
 		if _plantar_semente_da_mao(semente_na_mao, celula_alvo):
 			_tocar_animacao_de_interacao()
-		elif ferramenta_equipada == null:
+		elif _comer_consumivel_da_mao():
+			_tocar_animacao_de_interacao()
+		elif ferramenta_equipada != null:
+			if _usar_ferramenta(ferramenta_equipada, celula_alvo):
+				_tocar_animacao_de_interacao()
+		elif StatusManager.gastar_stamina(StatusManager.custos.stamina_soco):
 			var nome_clipe: String = CLIPES_COMBO_ATAQUE[_indice_combo]
 			_travar_movimento_pela_animacao(nome_clipe)
 			_tempo_janela_combo_restante = janela_combo_ataque
@@ -110,12 +129,6 @@ func _physics_process(delta: float) -> void:
 				_indice_combo = 0
 				_tempo_cooldown_ataque_restante = cooldown_ataque
 				_tempo_janela_combo_restante = 0.0
-		elif grade_solo != null:
-			var acao_teve_efeito: bool = grade_solo.aplicar(ferramenta_equipada.id_acao, celula_alvo)
-
-			if acao_teve_efeito:
-				AudioManager.tocar_sfx(ferramenta_equipada.som_de_uso, global_position)
-				_tocar_animacao_de_interacao()
 
 	if _tempo_dash_restante > 0.0:
 		_tempo_dash_restante = max(_tempo_dash_restante - delta, 0.0)
@@ -161,16 +174,79 @@ func _physics_process(delta: float) -> void:
 		AudioManager.tocar_sfx(som_de_batida_na_parede, global_position, volume_batida_na_parede_db)
 	_tentar_subir_degrau(velocidade_horizontal)
 
+## As ações de fazenda seguem a mesma regra: sem stamina para o custo a ação é
+## recusada, e a stamina só é cobrada quando a ação teve efeito de verdade. Usar a
+## enxada num quadrado onde ela não faz nada não custa.
+
+func _usar_ferramenta(ferramenta: Ferramenta, celula: Vector2i) -> bool:
+	if grade_solo == null or not StatusManager.tem_stamina(ferramenta.custo_de_stamina):
+		return false
+	if not grade_solo.aplicar(ferramenta.id_acao, celula):
+		return false
+	AudioManager.tocar_sfx(ferramenta.som_de_uso, global_position)
+	StatusManager.ganhar_experiencia(ferramenta.experiencia_ao_usar)
+	StatusManager.gastar_stamina(ferramenta.custo_de_stamina)
+	return true
+
 ## Planta a semente do slot selecionado na célula à frente e gasta uma unidade dela.
 ## Retorna false quando não há semente na mão ou a célula não aceita plantio, e aí o
 ## botão de atacar segue para o soco.
 func _plantar_semente_da_mao(semente: Semente, celula: Vector2i) -> bool:
 	if semente == null or semente.cultivo == null or grade_solo == null:
 		return false
+	if not StatusManager.tem_stamina(StatusManager.custos.stamina_plantar):
+		return false
 	if not grade_solo.plantar(celula, semente.cultivo):
 		return false
 	InventoryManager.remover_do_slot(EquipmentManager.indice_selecionado, 1)
+	StatusManager.ganhar_experiencia(StatusManager.custos.experiencia_plantar)
+	StatusManager.gastar_stamina(StatusManager.custos.stamina_plantar)
 	return true
+
+func _colher_na_celula(celula: Vector2i) -> bool:
+	if grade_solo == null or not StatusManager.tem_stamina(StatusManager.custos.stamina_colher):
+		return false
+	if not grade_solo.colher(celula):
+		return false
+	StatusManager.ganhar_experiencia(StatusManager.custos.experiencia_colher)
+	StatusManager.gastar_stamina(StatusManager.custos.stamina_colher)
+	return true
+
+## Com um consumível na mão, o botão de atacar come uma unidade. Não come quando vida e
+## stamina já estão cheias, para o item não ser gasto à toa.
+func _comer_consumivel_da_mao() -> bool:
+	var consumivel: Consumivel = EquipmentManager.item_na_mao() as Consumivel
+	if consumivel == null or not StatusManager.consumir(consumivel):
+		return false
+	InventoryManager.remover_do_slot(EquipmentManager.indice_selecionado, 1)
+	return true
+
+func _ao_desmaiar(_motivo: StatusManager.Motivo) -> void:
+	_desmaiado = true
+	_tempo_dash_restante = 0.0
+	_indice_combo = 0
+	if indicador_alvo != null:
+		indicador_alvo.visible = false
+	animation_player.play(CLIPE_DE_QUEDA)
+
+## Acorda em casa, de pé. Sem o ponto de spawn na cena, acorda onde caiu.
+func _ao_acordar(_motivo: StatusManager.Motivo) -> void:
+	var ponto_de_spawn: Node3D = get_node_or_null(caminho_ponto_de_spawn) as Node3D
+	if ponto_de_spawn != null:
+		global_position = ponto_de_spawn.global_position
+	velocity = Vector3.ZERO
+	_desmaiado = false
+	animation_player.play("idle")
+
+## Caído, o jogador só obedece à gravidade, para não ficar flutuando se cair no ar.
+func _cair_parado(delta: float) -> void:
+	velocity.x = 0.0
+	velocity.z = 0.0
+	if is_on_floor():
+		velocity.y = 0.0
+	else:
+		velocity.y -= gravidade * delta
+	move_and_slide()
 
 func _tocar_animacao_de_interacao() -> void:
 	var nome_clipe_interacao: String = CLIPES_INTERACAO[_indice_interacao]
@@ -178,6 +254,10 @@ func _tocar_animacao_de_interacao() -> void:
 	_indice_interacao = (_indice_interacao + 1) % CLIPES_INTERACAO.size()
 
 func _travar_movimento_pela_animacao(nome_clipe: String) -> void:
+	# A ação que zerou a stamina já derrubou o jogador: a animação dela não pode tocar
+	# por cima da queda.
+	if _desmaiado:
+		return
 	animation_player.play(nome_clipe, -1.0, velocidade_ataque)
 
 	var duracao_clipe: float = animation_player.get_animation(nome_clipe).length / velocidade_ataque
@@ -185,6 +265,10 @@ func _travar_movimento_pela_animacao(nome_clipe: String) -> void:
 	_tempo_movimento_travado_ataque_restante = duracao_clipe + folga_pos_golpe
 
 func _atualizar_animacao(direcao: Vector3, esta_correndo: bool, esta_dando_dash: bool) -> void:
+	# O quadro em que o jogador cai ainda passa pelo código de movimento, que voltaria
+	# para a animação parada por cima da queda.
+	if _desmaiado:
+		return
 	var animacao_alvo: String = "idle"
 	if esta_dando_dash:
 		animacao_alvo = "jump"
