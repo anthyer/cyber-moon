@@ -225,7 +225,9 @@ plano, seção "Revisão de 2026-09-30".
 
 **Temporário, precisa sair depois:**
 
-- (Resolvido no plano 09: os alvos de treino saíram, a `AreaDeTeste` tem inimigos de verdade.)
+- Os alvos de treino chegaram a sair no plano 09 e voltaram no mesmo dia, a pedido do
+  Antonio, para testar o combate ao lado dos inimigos. Ficam enquanto o combate estiver
+  sendo ajustado.
 - As quatro armas no inventário inicial são estoque de teste, como as sementes e os pães.
 
 **Fica para depois:**
@@ -238,6 +240,25 @@ plano, seção "Revisão de 2026-09-30".
   de andar segurando arma. Parado, a pose é a de segurar com as duas mãos.
 - O gerador do catálogo imprime um erro de compilação ao carregar a cena do projétil,
   porque roda sem os autoloads. As armas saem certas mesmo assim.
+
+### 2026-10-01, revisar armas e combate
+
+**Pendência do Antonio:** revisar no futuro as armas e o combate, com atenção a três
+pontos:
+
+- **Stagger.** Hoje quem apanha é empurrado e pisca, mas continua agindo: o inimigo não
+  é interrompido no meio do golpe, nem o jogador. Falta um atordoamento curto que corte
+  a ação de quem levou o golpe, com peso diferente por arma (o espadão atordoa mais que
+  a foice).
+- **Combos.** Só o punho tem combo de três golpes. As armas dão um golpe por vez. Falta
+  desenhar a sequência de golpes de cada arma.
+- **Animações.** As armas usam o clipe de soco do pacote Kenney (`attack-melee-right`),
+  a pesada só com ele mais lento. Faltam animações próprias por tipo de arma, e a de
+  andar segurando a arma de distância.
+
+Para testar isso, o playground mantém os três bonecos de treino perto do spawn
+(`AlvosDeTreino`, que não revidam e mostram o dano) e dez inimigos: seis na
+`AreaDeTeste` (z = -15) e quatro espalhados (`InimigosEspalhados`).
 
 ### 2026-10-01, auditoria da colisão do plano 01
 

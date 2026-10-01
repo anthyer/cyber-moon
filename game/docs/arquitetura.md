@@ -268,6 +268,9 @@ O jogador e os inimigos só aceitam a camada `mundo` como chão de plataforma
 (`platform_floor_layers = 1`). Sem isso, a cápsula de um sobe na do outro e a física
 trata quem anda como plataforma em movimento.
 
-Seis inimigos de teste ficam no nó `AreaDeTeste` do playground, na faixa livre em
-z = -15, longe da fazenda.
+Para testar o combate, o playground tem seis inimigos no nó `AreaDeTeste` (na faixa
+livre em z = -15), quatro espalhados pelo mapa (`InimigosEspalhados`) e três bonecos de
+treino perto do spawn (`AlvosDeTreino`). O boneco (`AlvoDeTreino`) implementa o contrato
+de dano, não revida, não morre e mostra o número do dano, o que serve para medir armas
+com calma. Nenhum inimigo percebe o jogador a partir do spawn nem da fazenda.
 

@@ -22,7 +22,9 @@ quadros por segundo com os inimigos ativos.
   mesmo método.
 - **Sinais em inglês:** `damage_dealt` e `enemy_defeated`.
 - **Sem partículas**, porque este plano é anterior ao 19.
-- **Os alvos de treino do plano 08 saíram**, como previsto.
+- **Os alvos de treino do plano 08 ficam**, a pedido do Antonio, ao lado dos inimigos,
+  para testar o combate. Além dos seis da `AreaDeTeste`, há quatro inimigos espalhados
+  pelo mapa (`InimigosEspalhados`).
 - **Patrulha:** o segundo ponto é um `Marker3D` indicado no inimigo; sem ele, o inimigo
   patrulha 4 metros para o lado.
 - **Golpe do inimigo sai virado para o jogador.** O giro suave ainda não tinha terminado

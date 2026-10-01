@@ -40,5 +40,6 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Disparo em leque | Spread shot / `Arma.projeteis_por_disparo`, `Arma.abertura_do_cone_em_graus` |
 | Projétil | Projectile / `Projetil` (cena e classe) |
 | Inimigo | Enemy / `Inimigo` (cena e classe), configurado por `PerfilInimigo` (classe Resource) |
+| Alvo de treino | Training dummy / `AlvoDeTreino`, boneco que leva dano e não revida |
 | Reação a dano | Damage reaction / `ReacaoADano` (cena e classe) |
 | Efeito de partículas | Particle effect / `EfeitoDeParticulas`, cenas em `scenes/effects/` |
