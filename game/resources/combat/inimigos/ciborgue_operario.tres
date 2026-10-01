@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="PerfilInimigo" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/perfil_inimigo.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_male_f.glb" id="2"]
+[ext_resource type="Resource" path="res://resources/items/sucata/placa_queimada.tres" id="3"]
+[ext_resource type="Resource" path="res://resources/items/sucata/fio_optico.tres" id="4"]
+
+[resource]
+script = ExtResource("1")
+id = &"ciborgue_operario"
+nome = "Ciborgue operário"
+modelo = ExtResource("2")
+cor = Color(1, 0.6, 0.25, 1)
+vida_maxima = 70
+velocidade = 2.8
+dano = 14
+alcance_de_ataque = 1.4
+intervalo_entre_ataques = 1.6
+animacao_de_ataque = &"attack-melee-right"
+velocidade_da_animacao_de_ataque = 1.0
+raio_de_percepcao = 12.0
+raio_de_desistencia = 18.0
+comportamento_ocioso = 1
+experiencia_concedida = 35
+itens_dropados = Array[Resource]([ExtResource("3"), ExtResource("4")])

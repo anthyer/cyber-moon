@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="PerfilInimigo" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/perfil_inimigo.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_male_e.glb" id="2"]
+[ext_resource type="Resource" path="res://resources/items/sucata/sucata_metal.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+id = &"drone_rastejador"
+nome = "Drone rastejador"
+modelo = ExtResource("2")
+cor = Color(1, 0.35, 0.35, 1)
+vida_maxima = 30
+velocidade = 4.5
+dano = 6
+alcance_de_ataque = 1.0
+intervalo_entre_ataques = 0.8
+animacao_de_ataque = &"attack-kick-left"
+velocidade_da_animacao_de_ataque = 1.4
+raio_de_percepcao = 9.0
+raio_de_desistencia = 14.0
+comportamento_ocioso = 0
+experiencia_concedida = 20
+itens_dropados = Array[Resource]([ExtResource("3")])
