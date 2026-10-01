@@ -76,6 +76,7 @@
 [ext_resource type="Resource" path="res://resources/combat/inimigos/drone_rastejador.tres" id="100_drone"]
 [ext_resource type="Resource" path="res://resources/combat/inimigos/ciborgue_operario.tres" id="101_ciborgue"]
 [ext_resource type="Resource" path="res://resources/combat/inimigos/sentinela_pesada.tres" id="102_sentinela"]
+[ext_resource type="PackedScene" path="res://scenes/combat/alvo_de_treino.tscn" id="103_alvo_de_treino"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -1310,4 +1311,37 @@ caminho_do_ponto_de_patrulha = NodePath("../PatrulhaCiborgue2")
 
 [node name="Sentinela" parent="AreaDeTeste" instance=ExtResource("99_inimigo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0.2, -15)
+perfil = ExtResource("102_sentinela")
+
+[node name="AlvosDeTreino" type="Node3D" parent="."]
+
+[node name="AlvoDeTreino1" parent="AlvosDeTreino" instance=ExtResource("103_alvo_de_treino")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 2)
+
+[node name="AlvoDeTreino2" parent="AlvosDeTreino" instance=ExtResource("103_alvo_de_treino")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2.6)
+
+[node name="AlvoDeTreino3" parent="AlvosDeTreino" instance=ExtResource("103_alvo_de_treino")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 6)
+
+[node name="InimigosEspalhados" type="Node3D" parent="."]
+
+[node name="PatrulhaCiborgueLeste" type="Marker3D" parent="InimigosEspalhados"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 6)
+
+[node name="DroneLeste" parent="InimigosEspalhados" instance=ExtResource("99_inimigo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0.2, -4)
+perfil = ExtResource("100_drone")
+
+[node name="DroneOeste" parent="InimigosEspalhados" instance=ExtResource("99_inimigo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.2, -4)
+perfil = ExtResource("100_drone")
+
+[node name="CiborgueLeste" parent="InimigosEspalhados" instance=ExtResource("99_inimigo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0.2, 6)
+perfil = ExtResource("101_ciborgue")
+caminho_do_ponto_de_patrulha = NodePath("../PatrulhaCiborgueLeste")
+
+[node name="SentinelaOeste" parent="InimigosEspalhados" instance=ExtResource("99_inimigo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.2, 11)
 perfil = ExtResource("102_sentinela")
