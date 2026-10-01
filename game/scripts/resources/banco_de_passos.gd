@@ -18,6 +18,11 @@ extends Resource
 ## gravados mais altos que os outros. Superfície ausente não recebe ajuste.
 @export var ajuste_de_volume_por_superficie: Dictionary = {}
 
+## Cor da poeira que o passo levanta em cada superfície. Superfície ausente usa a cor
+## padrão.
+@export var cor_da_poeira_por_superficie: Dictionary = {}
+@export var cor_da_poeira_padrao: Color = Color(0.75, 0.72, 0.65)
+
 var _ultimo_indice_por_superficie: Dictionary = {}
 
 ## Sorteia um clipe da superfície pedida, evitando repetir o último sorteado.
@@ -47,3 +52,6 @@ func sortear_volume_db() -> float:
 
 func ajuste_de_volume_db(superficie: StringName) -> float:
 	return ajuste_de_volume_por_superficie.get(superficie, 0.0)
+
+func cor_da_poeira(superficie: StringName) -> Color:
+	return cor_da_poeira_por_superficie.get(superficie, cor_da_poeira_padrao)

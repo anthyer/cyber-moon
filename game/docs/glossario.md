@@ -38,3 +38,4 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Área de acerto | Hitbox / nó `HitboxAtaque`, script `AtaqueDoJogador` |
 | Projétil | Projectile / `Projetil` (cena e classe) |
 | Alvo de treino | Training dummy / `AlvoDeTreino`, temporário até o plano 09 |
+| Efeito de partículas | Particle effect / `EfeitoDeParticulas`, cenas em `scenes/effects/` |

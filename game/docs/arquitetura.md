@@ -206,3 +206,17 @@ mesmo.
 
 A stamina do golpe só é cobrada quando ele acerta alguém, uma vez por golpe.
 
+## Efeitos de partícula
+
+Os efeitos usam `CPUParticles3D`, e não `GPUParticles3D`, porque o jogo roda no
+renderizador Compatibility com a web como alvo, onde as partículas de CPU funcionam igual
+em qualquer máquina. Cada efeito é uma cena pequena em `scenes/effects/` com o script
+`EfeitoDeParticulas` (`scripts/effects/efeito_de_particulas.gd`): ela dispara uma vez e
+se apaga sozinha. Quem quer um efeito chama
+`EfeitoDeParticulas.soltar(cena, posicao, cor, quantidade, pai)`, com a fase como pai,
+para as partículas ficarem onde nasceram.
+
+O primeiro efeito é a poeira do passo (`poeira_de_passo.tscn`): a cada passada, o
+`passos_do_jogador.gd` solta uns quadradinhos na cor da superfície sob o pé. As cores
+ficam no `BancoDePassos`, junto dos sons (`cor_da_poeira_por_superficie`).
+

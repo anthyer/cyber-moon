@@ -21,6 +21,11 @@ extends Node
 
 ## Volumes acima de zero porque os clipes de passo foram gravados baixos em relação à
 ## música e aos efeitos. O ajuste fino por superfície fica no BancoDePassos.
+## Poeira que sai do pé a cada passo, na cor da superfície. Vazio não mostra nada.
+@export var efeito_de_passo: PackedScene
+@export var particulas_andando: int = 5
+@export var particulas_correndo: int = 9
+
 @export var volume_andando_db: float = 8.0
 @export var volume_correndo_db: float = 12.0
 
@@ -79,6 +84,8 @@ func _tocar_passo(clipe: StringName) -> void:
 	if banco == null:
 		return
 	var superficie: StringName = _superficie_sob_o_pe()
+	# A poeira vem antes do som porque não depende de haver clipe para a superfície.
+	_soltar_poeira(clipe, superficie)
 	var fluxo: AudioStream = banco.sortear(superficie)
 	if fluxo == null:
 		return
@@ -90,6 +97,15 @@ func _tocar_passo(clipe: StringName) -> void:
 		volume,
 		banco.sortear_tom()
 	)
+
+## A poeira fica presa à fase, e não ao jogador, para ficar onde o pé pisou enquanto
+## ele segue andando.
+func _soltar_poeira(clipe: StringName, superficie: StringName) -> void:
+	if efeito_de_passo == null:
+		return
+	var jogador: Node3D = get_parent() as Node3D
+	var quantidade: int = particulas_correndo if clipe == &"sprint" else particulas_andando
+	EfeitoDeParticulas.soltar(efeito_de_passo, jogador.global_position + Vector3.UP * 0.03, banco.cor_da_poeira(superficie), quantidade, jogador.get_parent())
 
 func _parar_passo() -> void:
 	if _tocador_atual != null and is_instance_valid(_tocador_atual):
@@ -105,6 +121,9 @@ func _superficie_sob_o_pe() -> StringName:
 	if grade_solo != null:
 		var ponto_local: Vector3 = grade_solo.to_local(get_parent().global_position)
 		var celula: Vector3i = grade_solo.local_to_map(ponto_local)
+		# A terra arada só existe no andar zero da grade. Sem fixar o andar, a altura do
+		# jogador cai em outro andar e a célula parece sempre vazia.
+		celula.y = 0
 		var item_id: int = grade_solo.get_cell_item(celula)
 		if item_id != GridMap.INVALID_CELL_ITEM:
 			return Superficies.do_nome(grade_solo.mesh_library.get_item_name(item_id))

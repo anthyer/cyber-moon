@@ -23,3 +23,12 @@ variacao_de_volume_db = 2.0
 ajuste_de_volume_por_superficie = {
 &"agua": -12.0
 }
+cor_da_poeira_por_superficie = {
+&"grama": Color(0.55, 0.78, 0.4, 1),
+&"terra": Color(0.62, 0.43, 0.28, 1),
+&"pedra": Color(0.7, 0.7, 0.73, 1),
+&"asfalto": Color(0.5, 0.5, 0.56, 1),
+&"madeira": Color(0.72, 0.55, 0.36, 1),
+&"metal": Color(0.78, 0.8, 0.85, 1),
+&"agua": Color(0.72, 0.9, 0.98, 1)
+}

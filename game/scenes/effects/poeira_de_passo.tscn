@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/effects/efeito_de_particulas.gd" id="1_script"]
+
+[sub_resource type="StandardMaterial3D" id="Material_poeira"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="Malha_poeira"]
+material = SubResource("Material_poeira")
+size = Vector3(0.045, 0.045, 0.045)
+
+[sub_resource type="Curve" id="Curva_de_tamanho"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="PoeiraDePasso" type="CPUParticles3D"]
+emitting = false
+amount = 6
+lifetime = 0.45
+one_shot = true
+explosiveness = 0.9
+mesh = SubResource("Malha_poeira")
+emission_shape = 1
+emission_sphere_radius = 0.06
+direction = Vector3(0, 1, 0)
+spread = 65.0
+gravity = Vector3(0, -3.2, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.1
+scale_amount_min = 0.7
+scale_amount_max = 1.3
+scale_amount_curve = SubResource("Curva_de_tamanho")
+script = ExtResource("1_script")
