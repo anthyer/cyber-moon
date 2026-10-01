@@ -1,6 +1,6 @@
 # Ordem de execução
 
-As 17 features na ordem em que devem ser feitas. A numeração não é sugestão: cada plano
+As features na ordem em que devem ser feitas. A numeração não é sugestão: cada plano
 assume que os anteriores existem. Marque o checkbox quando terminar.
 
 ## Situação
@@ -24,6 +24,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [ ] 16 Amizade e romance
 - [ ] 17 Comércio e economia
 - [ ] 18 Chat entre jogadores (independente dos outros, pode ser feito em paralelo)
+- [ ] 19 Partículas no que já existe (depois de todos os planos acima; feature nova, escrita depois deste plano, já nasce com partículas)
 
 ## Por que essa ordem
 

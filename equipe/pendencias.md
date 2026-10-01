@@ -240,6 +240,13 @@ plano, seção "Revisão de 2026-09-30".
 - O gerador do catálogo imprime um erro de compilação ao carregar a cena do projétil,
   porque roda sem os autoloads. As armas saem certas mesmo assim.
 
+### 2026-09-30, partículas
+
+O jogo ganhou um sistema de partículas e o primeiro efeito, a poeira do passo. Por
+decisão do Antonio, os efeitos do que já foi feito não entram agora: viraram o plano 19,
+que roda depois de todos os planos existentes. Feature nova, escrita depois dele, já
+nasce com partículas (a regra está no `CLAUDE.md` e na skill `padrao-cyber-moon`).
+
 ### 2026-09-29, remapear controles
 
 **Pendência:** uma tela de remapear controles dentro das configurações do jogo, para

@@ -5,7 +5,7 @@ description: Use ao começar a implementar uma feature do Cyber Moon a partir de
 
 # Executar um plano do Cyber Moon
 
-Os planos ficam em `equipe/planos/`, numerados de 01 a 17 na ordem de dependência
+Os planos ficam em `equipe/planos/`, numerados de 01 a 19 na ordem de dependência
 explicada em `equipe/ordem-de-execucao.md`.
 
 ## Escolher o plano

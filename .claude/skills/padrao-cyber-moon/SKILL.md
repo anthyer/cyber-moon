@@ -64,6 +64,18 @@ modelo: o `player.gd` não conhece o nome de nenhuma ferramenta, só passa o `id
 lê o booleano de retorno. Ao adicionar comportamento por tipo, procure o ponto de
 despacho existente antes de criar um `if` novo no chamador.
 
+## Partículas
+
+Os efeitos usam `CPUParticles3D` (renderizador Compatibility, alvo web), numa cena
+pequena em `game/scenes/effects/` com o script `EfeitoDeParticulas`, que dispara uma vez
+e se apaga sozinha. Quem quer um efeito chama
+`EfeitoDeParticulas.soltar(cena, posicao, cor, quantidade, pai)`.
+
+Feature nova já nasce com o efeito das ações que ela cria: ao escrever um plano novo,
+ponha o efeito na lista de tarefas. Os planos 01 a 18 são a exceção: foram escritos sem
+partículas e o plano 19 cobre todos de uma vez, depois deles. Ao executar um desses
+planos antigos, não acrescente partículas por conta própria.
+
 ## Tipagem
 
 GDScript com tipo estático em tudo que for declaração: parâmetro, retorno, variável de
@@ -77,3 +89,4 @@ membro, variável local não trivial. O código existente faz isso sem exceção
 - A documentação em `game/docs/` que descrevia o sistema alterado continua verdadeira?
 - Entrou ação de entrada nova? Então `game/docs/entrada.md` precisa da linha nova.
 - Entrou sinal novo no EventBus? Então `game/docs/arquitetura.md` precisa da linha nova.
+- É feature de um plano novo (depois do 19)? Então as ações dela têm efeito de partículas.
