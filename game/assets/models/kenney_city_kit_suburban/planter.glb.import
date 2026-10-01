@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dfjjlyifxdvfr"
+uid="uid://budmvrl6x3cgh"
 path="res://.godot/imported/planter.glb-ebd93ad2a23d0bd6d9fed090f30b5f2c.scn"
 
 [deps]
@@ -35,7 +35,7 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
-import_script/path="res://scripts/utils/post_import_kenney.gd"
+import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
