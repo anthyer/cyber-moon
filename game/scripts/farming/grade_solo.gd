@@ -23,6 +23,9 @@ const PROGRESSO_DIA_SECO: int = 1
 var _estado: Dictionary = {}
 ## Célula para PlantaNaGrade. Célula sem entrada é célula sem planta.
 var _plantas: Dictionary = {}
+## Cultivo para o número de linhas vazias na base das texturas dele. Medir a textura
+## custa caro, então cada cultivo é medido uma vez só.
+var _margem_inferior_por_cultivo: Dictionary = {}
 
 @export var limite: Rect2i = Rect2i(Vector2i(-15, -15), Vector2i(30, 30))
 
@@ -33,7 +36,12 @@ var _plantas: Dictionary = {}
 ## A planta é desenhada como sprites em pé, fixos, virados para a câmera (que não gira),
 ## como as plantações do Minecraft. São duas fileiras por célula, uma atrás da outra,
 ## nesta distância do centro, para o quadrado parecer plantado e não ter um sprite só.
-@export var recuo_das_fileiras: float = 0.22
+@export var recuo_das_fileiras: float = 0.13
+## A terra não fica no centro da célula: na textura do solo ela ocupa as 12 linhas de
+## baixo das 16, então a faixa de terra fica deslocada para a frente. Este é o
+## deslocamento, em metros, do centro da célula até o centro da faixa de terra
+## (2 linhas de 16, num quadrado de 1 metro). Se a arte do solo mudar, mude junto.
+@export var centro_da_terra_na_celula: float = 0.125
 @export var fileiras_por_celula: int = 2
 
 func _ready() -> void:
@@ -203,7 +211,7 @@ func _criar_visual_da_planta(celula: Vector2i) -> Node3D:
 		var posicao_relativa: float = 0.0
 		if fileiras_por_celula > 1:
 			posicao_relativa = lerpf(-recuo_das_fileiras, recuo_das_fileiras, float(indice) / float(fileiras_por_celula - 1))
-		sprite.position.z = posicao_relativa
+		sprite.position.z = centro_da_terra_na_celula + posicao_relativa
 		raiz.add_child(sprite)
 	return raiz
 
@@ -213,8 +221,10 @@ func _atualizar_visual_da_planta(planta: PlantaNaGrade) -> void:
 		var sprite: Sprite3D = filho as Sprite3D
 		sprite.texture = textura
 		# O sprite é centralizado na textura, então sobe meia altura para a base
-		# encostar no chão.
-		sprite.position.y = textura.get_height() * tamanho_do_pixel_da_planta * 0.5
+		# encostar no chão, e desce a margem vazia que a arte tem embaixo. Sem descontar
+		# a margem a planta flutua, e de cima parece plantada fora do quadrado.
+		var altura_em_pixels: float = textura.get_height() * 0.5 - _margem_inferior(planta.cultivo)
+		sprite.position.y = altura_em_pixels * tamanho_do_pixel_da_planta
 
 func _tirar_planta(celula: Vector2i) -> void:
 	var planta: PlantaNaGrade = planta_em(celula)
@@ -222,4 +232,29 @@ func _tirar_planta(celula: Vector2i) -> void:
 		return
 	planta.visual.queue_free()
 	_plantas.erase(celula)
+
+## Quantas linhas totalmente transparentes existem na base das texturas do cultivo. Usa
+## a menor margem entre os estágios, para todos ficarem na mesma linha de chão e a
+## planta não pular de altura ao crescer.
+func _margem_inferior(cultivo: Cultivo) -> int:
+	if _margem_inferior_por_cultivo.has(cultivo):
+		return _margem_inferior_por_cultivo[cultivo]
+	var menor_margem: int = -1
+	for textura in cultivo.estagios_de_crescimento:
+		var imagem: Image = textura.get_image()
+		var margem: int = 0
+		for linha in range(imagem.get_height() - 1, -1, -1):
+			if _linha_tem_pixel(imagem, linha):
+				break
+			margem += 1
+		if menor_margem == -1 or margem < menor_margem:
+			menor_margem = margem
+	_margem_inferior_por_cultivo[cultivo] = maxi(menor_margem, 0)
+	return _margem_inferior_por_cultivo[cultivo]
+
+func _linha_tem_pixel(imagem: Image, linha: int) -> bool:
+	for coluna in imagem.get_width():
+		if imagem.get_pixel(coluna, linha).a > 0.0:
+			return true
+	return false
 
