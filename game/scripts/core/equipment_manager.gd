@@ -10,13 +10,17 @@ extends Node
 signal slot_selecionado_alterado(indice: int)
 
 ## O que o jogador tem no começo, com a quantidade, nessa ordem, para os slots 1 a 4
-## baterem com as teclas 1 a 4. As sementes e os pães são estoque de teste até o plano 17, que
+## baterem com as teclas 1 a 4. As armas, as sementes e os pães são estoque de teste até o plano 17, que
 ## define o inventário inicial de verdade e leva esta lista para um Resource.
 const ITENS_INICIAIS: Array = [
 	["res://resources/items/armas/cestos.tres", 1],
 	["res://resources/items/ferramentas/enxada.tres", 1],
 	["res://resources/items/ferramentas/regador.tres", 1],
 	["res://resources/items/ferramentas/picareta.tres", 1],
+	["res://resources/items/armas/foice_curva.tres", 1],
+	["res://resources/items/armas/bastao_choque.tres", 1],
+	["res://resources/items/armas/espadao_sucata.tres", 1],
+	["res://resources/items/armas/rifle_de_ferro.tres", 1],
 	["res://resources/items/sementes/semente_cenoura.tres", 5],
 	["res://resources/items/sementes/semente_trigo.tres", 5],
 	["res://resources/items/sementes/semente_beterraba.tres", 5],

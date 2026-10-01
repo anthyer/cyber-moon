@@ -12,13 +12,18 @@ extends CharacterBody3D
 @export var cooldown_ataque: float = 0.3
 @export var gravidade: float = 24.0
 @export var altura_degrau: float = 0.4
-@export var som_de_soco: AudioStream
+## O que ataca quando não há arma na mão: slot vazio, ou item que não é arma nem tem uso
+## próprio. É uma Arma como as outras, só que não mora no inventário.
+@export var punho: Arma
 @export var som_de_batida_na_parede: AudioStream
 @export var volume_batida_na_parede_db: float = -15.0
 
 const CLIPES_COMBO_ATAQUE: Array[String] = ["attack-melee-left", "attack-melee-left", "attack-melee-right"]
 const CLIPES_INTERACAO: Array[String] = ["interact-left", "interact-right"]
 const CLIPE_DE_QUEDA: String = "die"
+const CLIPE_DE_GOLPE_DE_ARMA: String = "attack-melee-right"
+const CLIPE_DE_DISPARO: String = "holding-both-shoot"
+const CLIPE_PARADO_COM_ARMA_DE_DISTANCIA: String = "holding-both"
 
 @export var caminho_grade_solo: NodePath = ^"../GradeSolo"
 @export var caminho_indicador_alvo: NodePath = ^"../IndicadorAlvo"
@@ -30,6 +35,7 @@ const CLIPE_DE_QUEDA: String = "die"
 @onready var grade_solo: GradeSolo = get_node_or_null(caminho_grade_solo)
 @onready var indicador_alvo: MeshInstance3D = get_node_or_null(caminho_indicador_alvo)
 @onready var area_interacao: AreaDeInteracao = $AreaInteracao
+@onready var ataque: AtaqueDoJogador = $AtaqueDoJogador
 
 var _tempo_dash_restante: float = 0.0
 var _tempo_cooldown_restante: float = 0.0
@@ -48,6 +54,11 @@ var _desmaiado: bool = false
 func _ready() -> void:
 	StatusManager.player_fainted.connect(_ao_desmaiar)
 	StatusManager.player_woke_up.connect(_ao_acordar)
+	# O modelo na mão acompanha o item na mão, que muda ao trocar de slot e também ao
+	# mexer no inventário (o item do slot selecionado pode ter saído de lá).
+	EquipmentManager.slot_selecionado_alterado.connect(_ao_mudar_item_na_mao.unbind(1))
+	InventoryManager.inventory_changed.connect(_ao_mudar_item_na_mao)
+	_ao_mudar_item_na_mao()
 
 func _physics_process(delta: float) -> void:
 	if _desmaiado:
@@ -119,18 +130,7 @@ func _physics_process(delta: float) -> void:
 			if _usar_ferramenta(ferramenta_equipada, celula_alvo):
 				_tocar_animacao_de_interacao()
 		else:
-			# O golpe em si não gasta stamina. Ela só é cobrada quando o golpe acerta um
-			# oponente, e quem cobra é a detecção de acerto (planos 08 e 09).
-			var nome_clipe: String = CLIPES_COMBO_ATAQUE[_indice_combo]
-			_travar_movimento_pela_animacao(nome_clipe)
-			_tempo_janela_combo_restante = janela_combo_ataque
-			AudioManager.tocar_sfx(som_de_soco, global_position)
-
-			_indice_combo += 1
-			if _indice_combo >= CLIPES_COMBO_ATAQUE.size():
-				_indice_combo = 0
-				_tempo_cooldown_ataque_restante = cooldown_ataque
-				_tempo_janela_combo_restante = 0.0
+			_atacar_com(_arma_em_uso())
 
 	if _tempo_dash_restante > 0.0:
 		_tempo_dash_restante = max(_tempo_dash_restante - delta, 0.0)
@@ -250,21 +250,66 @@ func _cair_parado(delta: float) -> void:
 		velocity.y -= gravidade * delta
 	move_and_slide()
 
+## A arma na mão, ou o punho quando o item na mão não é arma.
+func _arma_em_uso() -> Arma:
+	var arma_na_mao: Arma = EquipmentManager.item_na_mao() as Arma
+	return arma_na_mao if arma_na_mao != null else punho
+
+## Um caminho só para todo golpe. O que muda entre os tipos de arma é o clipe, a
+## velocidade dele e se o golpe acerta por área ou dispara um projétil. O golpe em si
+## não gasta stamina: ela só é cobrada quando acerta um oponente, e quem cobra é o
+## AtaqueDoJogador (ou o projétil).
+func _atacar_com(arma: Arma) -> void:
+	if arma == null:
+		return
+	AudioManager.tocar_sfx(arma.som_do_golpe, global_position)
+
+	if arma.tipo == Arma.Tipo.DISTANCIA:
+		_travar_movimento_pela_animacao(CLIPE_DE_DISPARO, arma.velocidade_da_animacao)
+		ataque.disparar(arma)
+		_tempo_cooldown_ataque_restante = arma.cooldown
+		return
+
+	if arma.tipo == Arma.Tipo.PUNHO:
+		# Só o punho tem combo: três golpes em sequência, com uma pausa no fim.
+		var duracao: float = _travar_movimento_pela_animacao(CLIPES_COMBO_ATAQUE[_indice_combo], arma.velocidade_da_animacao)
+		ataque.executar_golpe(arma, duracao)
+		_tempo_janela_combo_restante = janela_combo_ataque
+		_indice_combo += 1
+		if _indice_combo >= CLIPES_COMBO_ATAQUE.size():
+			_indice_combo = 0
+			_tempo_cooldown_ataque_restante = cooldown_ataque
+			_tempo_janela_combo_restante = 0.0
+		return
+
+	# Arma leve e pesada dão um golpe por vez. A pesada usa o mesmo clipe, mais lento.
+	var duracao_do_golpe: float = _travar_movimento_pela_animacao(CLIPE_DE_GOLPE_DE_ARMA, arma.velocidade_da_animacao)
+	ataque.executar_golpe(arma, duracao_do_golpe)
+	_tempo_cooldown_ataque_restante = arma.cooldown
+
+func _ao_mudar_item_na_mao() -> void:
+	ataque.trocar_modelo(EquipmentManager.item_na_mao() as Arma)
+
 func _tocar_animacao_de_interacao() -> void:
 	var nome_clipe_interacao: String = CLIPES_INTERACAO[_indice_interacao]
 	_travar_movimento_pela_animacao(nome_clipe_interacao)
 	_indice_interacao = (_indice_interacao + 1) % CLIPES_INTERACAO.size()
 
-func _travar_movimento_pela_animacao(nome_clipe: String) -> void:
+## Toca o clipe e trava o movimento até ele acabar. Devolve a duração real do clipe, já
+## dividida pela velocidade. Sem velocidade informada, usa a das ferramentas.
+func _travar_movimento_pela_animacao(nome_clipe: String, velocidade: float = 0.0) -> float:
 	# A ação que zerou a stamina já derrubou o jogador: a animação dela não pode tocar
 	# por cima da queda.
 	if _desmaiado:
-		return
-	animation_player.play(nome_clipe, -1.0, velocidade_ataque)
+		return 0.0
+	if velocidade <= 0.0:
+		velocidade = velocidade_ataque
+	animation_player.play(nome_clipe, -1.0, velocidade)
 
-	var duracao_clipe: float = animation_player.get_animation(nome_clipe).length / velocidade_ataque
+	var duracao_clipe: float = animation_player.get_animation(nome_clipe).length / velocidade
 	_tempo_ataque_restante = duracao_clipe
 	_tempo_movimento_travado_ataque_restante = duracao_clipe + folga_pos_golpe
+	return duracao_clipe
 
 func _atualizar_animacao(direcao: Vector3, esta_correndo: bool, esta_dando_dash: bool) -> void:
 	# O quadro em que o jogador cai ainda passa pelo código de movimento, que voltaria
@@ -272,6 +317,10 @@ func _atualizar_animacao(direcao: Vector3, esta_correndo: bool, esta_dando_dash:
 	if _desmaiado:
 		return
 	var animacao_alvo: String = "idle"
+	# Parado com arma de distância na mão, o personagem segura a arma com as duas mãos.
+	# Andando continua o clipe normal, porque não existe clipe de andar armado.
+	if _arma_em_uso() != null and _arma_em_uso().tipo == Arma.Tipo.DISTANCIA:
+		animacao_alvo = CLIPE_PARADO_COM_ARMA_DE_DISTANCIA
 	if esta_dando_dash:
 		animacao_alvo = "jump"
 	elif direcao != Vector3.ZERO:

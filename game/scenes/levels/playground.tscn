@@ -72,6 +72,7 @@
 [ext_resource type="Script" path="res://scripts/utils/atalhos_de_teste.gd" id="95_atalhos_de_teste"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_status.tscn" id="96_hud_status"]
 [ext_resource type="PackedScene" path="res://scenes/ui/tela_de_desmaio.tscn" id="97_tela_de_desmaio"]
+[ext_resource type="PackedScene" path="res://scenes/combat/alvo_de_treino.tscn" id="98_alvo_de_treino"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -1273,3 +1274,14 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 23.27676, 0, -13.726708)
 
 [node name="AtalhosDeTeste" type="Node" parent="."]
 script = ExtResource("95_atalhos_de_teste")
+
+[node name="AlvosDeTreino" type="Node3D" parent="."]
+
+[node name="AlvoDeTreino1" parent="AlvosDeTreino" instance=ExtResource("98_alvo_de_treino")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 2)
+
+[node name="AlvoDeTreino2" parent="AlvosDeTreino" instance=ExtResource("98_alvo_de_treino")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2.6)
+
+[node name="AlvoDeTreino3" parent="AlvosDeTreino" instance=ExtResource("98_alvo_de_treino")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 6)
