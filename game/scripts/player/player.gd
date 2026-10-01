@@ -90,7 +90,7 @@ func _physics_process(delta: float) -> void:
 			indicador_alvo.global_position = grade_solo.global_transform * posicao_local
 			indicador_alvo.global_position.y += 0.01
 
-	if _tempo_dash_restante <= 0.0 and _tempo_movimento_travado_ataque_restante <= 0.0 and _tempo_cooldown_restante <= 0.0 and InputManager.dash_pressionado() and StatusManager.gastar_stamina(StatusManager.custos.stamina_dash):
+	if _tempo_dash_restante <= 0.0 and _tempo_movimento_travado_ataque_restante <= 0.0 and _tempo_cooldown_restante <= 0.0 and InputManager.dash_pressionado():
 		_direcao_dash = Vector3(sin(personagem.rotation.y), 0.0, cos(personagem.rotation.y))
 		_tempo_dash_restante = duracao_dash
 		_tempo_cooldown_restante = cooldown_dash + duracao_dash
@@ -118,7 +118,9 @@ func _physics_process(delta: float) -> void:
 		elif ferramenta_equipada != null:
 			if _usar_ferramenta(ferramenta_equipada, celula_alvo):
 				_tocar_animacao_de_interacao()
-		elif StatusManager.gastar_stamina(StatusManager.custos.stamina_soco):
+		else:
+			# O golpe em si não gasta stamina. Ela só é cobrada quando o golpe acerta um
+			# oponente, e quem cobra é a detecção de acerto (planos 08 e 09).
 			var nome_clipe: String = CLIPES_COMBO_ATAQUE[_indice_combo]
 			_travar_movimento_pela_animacao(nome_clipe)
 			_tempo_janela_combo_restante = janela_combo_ataque

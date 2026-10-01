@@ -16,6 +16,7 @@ extends Resource
 @export var stamina_colher: float = 1.0
 @export var experiencia_colher: int = 3
 
-@export_group("Movimento e combate")
-@export var stamina_soco: float = 1.0
-@export var stamina_dash: float = 3.0
+@export_group("Combate")
+## Cobrado só quando o golpe acerta um oponente. Golpe no ar não custa nada, e o dash
+## também não gasta stamina.
+@export var stamina_golpe_que_acerta: float = 1.0
