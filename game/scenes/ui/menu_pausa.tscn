@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/menu_pausa.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/ui/barras_de_status.tscn" id="2_barras_de_status"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
 bg_color = Color(0.03, 0.04, 0.08, 0.92)
@@ -76,11 +77,8 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="ReservaDeStatus" type="Label" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda"]
-modulate = Color(1, 1, 1, 0.45)
+[node name="BarrasDeStatus" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda" instance=ExtResource("2_barras_de_status")]
 layout_mode = 2
-text = "Vida e stamina
-(plano 07)"
 
 [node name="ColunaDireita" type="VBoxContainer" parent="Centro/Painel/Margem/Colunas/Topo"]
 layout_mode = 2

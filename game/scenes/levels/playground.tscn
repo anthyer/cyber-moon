@@ -70,6 +70,8 @@
 [ext_resource type="PackedScene" uid="uid://cslhvvsvgcnlw" path="res://assets/models/kenney_city_kit_roads/road_end.glb" id="68_tf8gs"]
 [ext_resource type="PackedScene" path="res://scenes/ui/menu_pausa.tscn" id="94_menu_pausa"]
 [ext_resource type="Script" path="res://scripts/utils/atalhos_de_teste.gd" id="95_atalhos_de_teste"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_status.tscn" id="96_hud_status"]
+[ext_resource type="PackedScene" path="res://scenes/ui/tela_de_desmaio.tscn" id="97_tela_de_desmaio"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -139,11 +141,18 @@ alvo = NodePath("../Player")
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 5, 0)
 shadow_enabled = true
 
+[node name="PontoDeSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
 [node name="InterfaceHUD" type="CanvasLayer" parent="." unique_id=1083850535]
 
 [node name="BarraRapida" parent="InterfaceHUD" instance=ExtResource("5_barra_rapida")]
 
+[node name="HudStatus" parent="InterfaceHUD" instance=ExtResource("96_hud_status")]
+
 [node name="MenuPausa" parent="InterfaceHUD" unique_id=2111358796 instance=ExtResource("94_menu_pausa")]
+
+[node name="TelaDeDesmaio" parent="InterfaceHUD" instance=ExtResource("97_tela_de_desmaio")]
 
 [node name="building-type-a2" parent="." unique_id=1628838430 instance=ExtResource("7_i1gjs")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -3.41, 0, 2.1330462)
