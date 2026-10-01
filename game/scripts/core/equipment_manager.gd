@@ -20,7 +20,7 @@ const ITENS_INICIAIS: Array = [
 	["res://resources/items/armas/foice_curva.tres", 1],
 	["res://resources/items/armas/bastao_choque.tres", 1],
 	["res://resources/items/armas/espadao_sucata.tres", 1],
-	["res://resources/items/armas/rifle_de_ferro.tres", 1],
+	["res://resources/items/armas/escopeta_serrada.tres", 1],
 	["res://resources/items/sementes/semente_cenoura.tres", 5],
 	["res://resources/items/sementes/semente_trigo.tres", 5],
 	["res://resources/items/sementes/semente_beterraba.tres", 5],

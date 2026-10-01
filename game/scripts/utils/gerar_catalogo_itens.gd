@@ -89,6 +89,13 @@ const SOM_DO_GOLPE: String = "res://assets/audio/sfx/punch.wav"
 ## Com arma de distância na mão o personagem vira este tanto mais rápido, para a mira
 ## acompanhar o direcional.
 const GIRO_DA_ARMA_DE_DISTANCIA: float = 2.5
+## A escopeta de cano serrado solta 6 projéteis num cone pequeno. O dano da tabela é o
+## de cada projétil, então o disparo inteiro acertando vale 36, o maior do jogo, mas só
+## de perto: de longe o cone abre e poucos projéteis acertam. O alcance de 5 metros é o
+## maior entre as armas, e não é infinito.
+const PROJETEIS_DA_ESCOPETA: int = 6
+const ABERTURA_DO_CONE_DA_ESCOPETA: float = 16.0
+const VELOCIDADE_DO_PROJETIL_DA_ESCOPETA: float = 22.0
 
 ## id, nome, venda, tipo, dano, alcance, stamina por acerto, velocidade da animação,
 ## cooldown, arquivo do modelo (vazio para nenhum) e escala do modelo.
@@ -102,18 +109,18 @@ const ARMAS: Array = [
 	[&"foice_curva", "Foice curva", 60, Arma.Tipo.LEVE, 12, 1.2, 1.5, 1.8, 0.25, "aid_cane.glb", 1.0],
 	[&"bastao_choque", "Bastão de choque", 120, Arma.Tipo.LEVE, 20, 1.3, 2.0, 1.5, 0.35, "aid_cane_low_vision.glb", 1.0],
 	[&"espadao_sucata", "Espadão de sucata", 180, Arma.Tipo.PESADA, 34, 1.9, 4.0, 0.55, 0.6, "aid_crutch.glb", 2.5],
-	[&"rifle_de_ferro", "Rifle de ferro velho", 220, Arma.Tipo.DISTANCIA, 18, 14.0, 2.0, 1.0, 0.5, "aid_cane_blind.glb", 1.0],
+	[&"escopeta_serrada", "Escopeta de cano serrado", 220, Arma.Tipo.DISTANCIA, 6, 5.0, 3.0, 1.0, 0.8, "aid_cane_blind.glb", 0.6],
 ]
 
 ## id da arma para [posição, rotação em graus] do modelo dentro do osso da mão direita.
 ## O braço se estende no eixo X negativo do osso, então a mão fica em x = -0.14. As
-## armas de corpo a corpo ficam inclinadas para cima; o rifle fica deitado ao longo do
+## armas de corpo a corpo ficam inclinadas para cima; a escopeta fica deitada ao longo do
 ## braço, para apontar para a frente na pose de segurar com as duas mãos.
 const ENCAIXE_NA_MAO: Dictionary = {
 	&"foice_curva": [Vector3(-0.14, 0.0, 0.0), Vector3(40.0, 0.0, 0.0)],
 	&"bastao_choque": [Vector3(-0.14, 0.0, 0.0), Vector3(40.0, 0.0, 0.0)],
 	&"espadao_sucata": [Vector3(-0.14, 0.0, 0.0), Vector3(30.0, 0.0, 0.0)],
-	&"rifle_de_ferro": [Vector3(-0.04, -0.02, 0.0), Vector3(0.0, 0.0, 90.0)],
+	&"escopeta_serrada": [Vector3(-0.04, -0.02, 0.0), Vector3(0.0, 0.0, 90.0)],
 }
 
 func _init() -> void:
@@ -185,6 +192,9 @@ func _init() -> void:
 			arma.projetil = load(CENA_DO_PROJETIL)
 			arma.tem_mira_laser = true
 			arma.multiplicador_de_giro = GIRO_DA_ARMA_DE_DISTANCIA
+			arma.projeteis_por_disparo = PROJETEIS_DA_ESCOPETA
+			arma.abertura_do_cone_em_graus = ABERTURA_DO_CONE_DA_ESCOPETA
+			arma.velocidade_do_projetil = VELOCIDADE_DO_PROJETIL_DA_ESCOPETA
 		total += _salvar(arma, "armas")
 
 	print("Catálogo gerado: %d itens." % total)

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d3tmv4kom7upx"
-path="res://.godot/imported/rifle_de_ferro.png-d7038e30730edd5efa131d02b4278114.ctex"
+path="res://.godot/imported/escopeta_serrada.png-08f190f78f8556022a40436e19fa805d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/icones_itens/rifle_de_ferro.png"
-dest_files=["res://.godot/imported/rifle_de_ferro.png-d7038e30730edd5efa131d02b4278114.ctex"]
+source_file="res://assets/textures/icones_itens/escopeta_serrada.png"
+dest_files=["res://.godot/imported/escopeta_serrada.png-08f190f78f8556022a40436e19fa805d.ctex"]
 
 [params]
 

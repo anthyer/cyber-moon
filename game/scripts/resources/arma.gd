@@ -19,8 +19,8 @@ enum Tipo {
 
 @export var tipo: Tipo = Tipo.LEVE
 @export var dano: int = 10
-## Até onde o golpe alcança à frente do jogador, em metros. Na arma de distância não é
-## usado: o alcance é o tempo de vida do projétil.
+## Até onde o golpe alcança à frente do jogador, em metros. Na arma de distância é a
+## distância que o projétil percorre antes de sumir.
 @export var alcance: float = 1.2
 ## Cobrado só quando o golpe acerta um oponente. Golpe no ar é de graça.
 @export var custo_de_stamina: float = 1.5
@@ -39,10 +39,16 @@ enum Tipo {
 @export_group("Projétil")
 @export var projetil: PackedScene
 @export var velocidade_do_projetil: float = 18.0
+## Quantos projéteis saem de uma vez. Mais de um faz a arma disparar em leque, como
+## uma escopeta: o dano da arma é o de cada projétil.
+@export var projeteis_por_disparo: int = 1
+## Abertura total do leque, em graus. Os projéteis se espalham por igual dentro dela.
+@export var abertura_do_cone_em_graus: float = 0.0
 
 @export_group("Mira")
 ## Mostra uma linha de laser saindo da arma até o primeiro obstáculo, para o jogador
-## ver para onde o tiro vai. O comprimento máximo é o alcance da arma.
+## ver para onde o tiro vai. O comprimento máximo é o alcance da arma. Arma que dispara
+## em leque mostra também as duas bordas do cone.
 @export var tem_mira_laser: bool = false
 ## Multiplica a velocidade com que o personagem vira enquanto a arma está na mão. Arma
 ## de mira pede giro rápido, senão o tiro sai antes de o personagem terminar de virar.

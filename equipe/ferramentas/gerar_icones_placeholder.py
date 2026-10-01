@@ -470,20 +470,20 @@ FORMAS = {
         ".d..............",
         "................",
     ],
-    "rifle": [
+    "escopeta": [
         "................",
         "................",
         "................",
         "................",
-        "................",
-        "..............e.",
-        ".....aaaaaaaaaa.",
-        ".ddaabbbbbbbbba.",
-        "dddaaaaccc......",
-        "ddd..a.c........",
-        "dd....a.........",
-        "................",
-        "................",
+        ".bbbbbbbbbb.....",
+        ".aaaaaaaaaadd...",
+        ".ccccccccccdddd.",
+        ".bbbbbbbbbbbddd.",
+        ".aaaaaaaaaa.ddd.",
+        ".cccccccccc.ddd.",
+        "......e.e...ddd.",
+        "......eee...ddd.",
+        "............dd..",
         "................",
         "................",
         "................",
@@ -578,7 +578,8 @@ ITENS = [
     ("foice_curva", "foice", paleta((175, 180, 190), d=MADEIRA_DO_CABO)),
     # O "e" do espadão é o remendo enferrujado na chapa.
     ("espadao_sucata", "espadao", paleta((140, 145, 155), d=MADEIRA_DO_CABO, e=(175, 95, 50))),
-    ("rifle_de_ferro", "rifle", paleta((95, 100, 112), d=MADEIRA_DO_CABO)),
+    # Escopeta de cano serrado: dois canos curtos empilhados e a coronha curta de madeira.
+    ("escopeta_serrada", "escopeta", paleta((105, 110, 122), d=MADEIRA_DO_CABO, e=(60, 62, 70))),
     # No bastão, o "d" é a empunhadura amarela e o "e" é a faísca da ponta.
     ("bastao_choque", "bastao_de_choque", paleta((70, 75, 95), d=(230, 200, 60), e=(110, 240, 250))),
 ]
