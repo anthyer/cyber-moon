@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="Ferramenta" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="Ferramenta" load_steps=4 format=3 uid="uid://6qrrihawl7vl"]
 
-[ext_resource type="Script" path="res://scripts/resources/ferramenta.gd" id="1"]
+[ext_resource type="Script" uid="uid://bsbq3rx7k2qi0" path="res://scripts/resources/ferramenta.gd" id="1"]
 [ext_resource type="Texture2D" path="res://assets/textures/icones_itens/regador.png" id="3"]
-[ext_resource type="AudioStream" path="res://assets/audio/sfx/watering_can.wav" id="2"]
+[ext_resource type="AudioStream" uid="uid://c8l1sefamqo02" path="res://assets/audio/sfx/watering_can.wav" id="2"]
 
 [resource]
 script = ExtResource("1")
