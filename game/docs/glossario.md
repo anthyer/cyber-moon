@@ -28,4 +28,5 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Interagir | Interact / método `interagir()` em todo nó interagível |
 | Planta na grade | Planted crop / classe interna `GradeSolo.PlantaNaGrade` |
 | Estágio de crescimento | Growth stage / `Cultivo.estagios_de_crescimento`, sinal `crop_grown` |
+| Planta murcha | Withered crop / `PlantaNaGrade.murcha`, sinal `crop_withered` |
 | Rebrota | Regrowth / `Cultivo.estagio_de_rebrota` |

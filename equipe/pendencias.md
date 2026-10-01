@@ -189,7 +189,11 @@ feita no commit 5f72630. A regra fica em `scripts/utils/superficies.gd`.
 
 **Fica para depois:**
 
-- Nada murcha ainda, e a checagem de estação no plantio está desligada. É o plano 11.
+- A planta já murcha por solo seco. Murchar por estação e a checagem de estação no
+  plantio são do plano 11.
+- A planta madura também murcha se passar um dia sem regar. Foi a leitura literal do
+  pedido ("semente ou planta em solo seco"); se for punitivo demais, basta poupar a
+  planta madura no `avancar_um_dia`.
 - O plantio não tem som próprio. O plano 02 só previu som de ferramenta.
 - As plantas não são salvas. Entra no plano de save completo que ainda não existe.
 - Os três itens de demonstração do playground saíram, como previsto na pendência do

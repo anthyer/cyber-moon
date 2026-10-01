@@ -35,7 +35,7 @@ posição oeste e o X na posição norte, então a tradução é por posição, 
 | Ação | Botão | `button_index` | Origem |
 |---|---|---|---|
 | `mover_*` | D-pad | 11 a 14 | igual hoje |
-| `interagir` | A (sul) | 0 | Rune Factory 4 (A confirma) |
+| `interagir` | A (sul), ou L1 | 0 e 9 | Rune Factory 4 (A confirma). O L1 é o botão Z do painel arcade |
 | `correr` | B (leste), segurar | 1 | Rune Factory 4 (B corre) |
 | `atacar` | X (oeste) | 2 | Rune Factory 4 (ataque no botão oeste) |
 | `abrir_inventario` | Y (norte) | 3 | igual hoje |

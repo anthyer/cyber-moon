@@ -22,13 +22,19 @@ culturas nos três estágios.
 - **Tecla temporária N avança um dia**, até o plano 10 trazer o ciclo automático.
 - **O jogador começa com 5 sementes de cada cultura**, até o plano 17 definir o
   inventário inicial.
+- **Solo seco mata a planta** (pedido depois da entrega). Passar um dia em solo seco
+  murcha a planta, em qualquer estágio, e ela está perdida. Isso troca duas decisões do
+  texto abaixo: "molhar acelera, não é obrigatório" e "planta só morre por estação".
+  Regar é obrigatório todo dia, e `dias_por_estagio` conta só dias de solo molhado.
+- **A enxada arranca a planta** e mantém a terra arada. É como se tira a planta murcha.
+  A picareta tira a planta e a terra juntas.
+- **Colheita só no estágio máximo, de 2 a 4 itens**, sorteado, para todas as culturas.
+  Isso substitui a coluna de quantidade da tabela abaixo.
+- **Colher é com o botão de interação:** F no teclado, A/Cross no controle, e L1, que é
+  o botão Z do painel arcade (nenhum botão do painel chega como A).
 
 **Ajustes ao plano:**
 
-- **Ritmo de crescimento.** `dias_por_estagio` é o número de dias com solo molhado, e
-  solo seco leva o dobro, para toda cultura. Pela conta do texto original, a cenoura e
-  o trigo (1 dia por estágio) cresceriam igual com solo seco ou molhado, e o critério de
-  pronto pede que molhado seja o dobro.
 - Os cultivos são gerados pelo mesmo script do catálogo de itens, em
   `resources/farming/cultivos/`, e não criados à mão.
 - A colheita usa a célula à frente do jogador, como o plano recomendava, e o indicador

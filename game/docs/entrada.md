@@ -10,7 +10,7 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 | `mover_baixo` | S / seta para baixo | Nenhum | D-pad ou stick esquerdo para baixo |
 | `mover_esquerda` | A / seta para esquerda | Nenhum | D-pad ou stick esquerdo para esquerda |
 | `mover_direita` | D / seta para direita | Nenhum | D-pad ou stick esquerdo para direita |
-| `interagir` | F | Nenhum | Botão A / Cross |
+| `interagir` | F | Nenhum | Botão A / Cross, ou L1 |
 | `abrir_inventario` | E | Nenhum | Botão Y / Triangle, ou Start |
 | `menu_pausa` | Esc | Nenhum | Back / Select |
 | `correr` | Shift esquerdo | Nenhum | Botão B / Circle |
@@ -62,15 +62,15 @@ número bruto da placa:
 | C | 5 | R1 | `dash` |
 | X | 2 | Gatilho esquerdo | `slot_anterior` |
 | Y | 3 | Gatilho direito | `slot_proximo` |
-| Z | 4 | L1 | reservado |
+| Z | 4 | L1 | `interagir` |
 | Start | 6 | Start | `abrir_inventario` |
 | Select | 11 | Back / Select | `menu_pausa` |
 | Alavanca | eixos 0 e 1 | Stick esquerdo | movimento |
 
-O Z ainda chega ao Godot como L1, que nenhuma ação usa hoje. Quando a ação existir,
-basta o bind no Input Map, sem mexer no mapeamento. O Select ficou com a `menu_pausa`
-(o plano 04 previa Start para ela, mas no painel o Start ficou com o inventário). Para o Z, a sugestão é `interagir`: é a única ação existente sem botão no
-painel, e fica ao lado do Y, perto dos botões de ferramenta.
+O Z chega ao Godot como L1 e ficou com `interagir`, que era a única ação sem botão no
+painel: nenhum botão dele chega como A, que é o `interagir` dos controles comuns. O
+Select ficou com a `menu_pausa` (o plano 04 previa Start para ela, mas no painel o Start
+ficou com o inventário).
 
 Para o Godot instalado por flatpak, a variável fica gravada uma vez por máquina e vale
 para o editor e para o jogo rodado por ele:
