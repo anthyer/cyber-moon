@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Arma" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/arma.gd" id="1"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/punch.wav" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = &"punho"
+nome = "Punho"
+categoria = 4
+tipo = 0
+dano = 5
+alcance = 1.0
+custo_de_stamina = 1.0
+velocidade_da_animacao = 1.8
+som_do_golpe = ExtResource("2")

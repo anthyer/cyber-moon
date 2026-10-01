@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Arma" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/bastao_choque.png" id="1_dls5i"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/aid_cane_low_vision.glb" id="2_fdy7x"]
+[ext_resource type="Script" path="res://scripts/resources/arma.gd" id="3_7ejhq"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/punch.wav" id="4_22714"]
+
+[resource]
+script = ExtResource("3_7ejhq")
+dano = 20
+alcance = 1.3
+custo_de_stamina = 2.0
+velocidade_da_animacao = 1.5
+cooldown = 0.35
+som_do_golpe = ExtResource("4_22714")
+modelo = ExtResource("2_fdy7x")
+posicao_do_modelo = Vector3(-0.14, 0, 0)
+rotacao_do_modelo_em_graus = Vector3(40, 0, 0)
+id = &"bastao_choque"
+nome = "Bastão de choque"
+icone = ExtResource("1_dls5i")
+categoria = 4
+empilhavel = false
+quantidade_maxima_por_pilha = 1
+valor_de_venda = 120
+pode_ser_presente = false

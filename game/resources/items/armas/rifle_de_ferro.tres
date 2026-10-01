@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="Arma" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/rifle_de_ferro.png" id="1_y5o4r"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/aid_cane_blind.glb" id="2_1iuy1"]
+[ext_resource type="PackedScene" path="res://scenes/combat/projetil.tscn" id="3_5ra2w"]
+[ext_resource type="Script" path="res://scripts/resources/arma.gd" id="4_vh7jx"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/punch.wav" id="5_ctjak"]
+
+[resource]
+script = ExtResource("4_vh7jx")
+tipo = 3
+dano = 18
+alcance = 14.0
+custo_de_stamina = 2.0
+velocidade_da_animacao = 1.0
+cooldown = 0.5
+som_do_golpe = ExtResource("5_ctjak")
+modelo = ExtResource("2_1iuy1")
+posicao_do_modelo = Vector3(-0.04, -0.02, 0)
+rotacao_do_modelo_em_graus = Vector3(0, 0, 90)
+projetil = ExtResource("3_5ra2w")
+id = &"rifle_de_ferro"
+nome = "Rifle de ferro velho"
+icone = ExtResource("1_y5o4r")
+categoria = 4
+empilhavel = false
+quantidade_maxima_por_pilha = 1
+valor_de_venda = 220
+pode_ser_presente = false

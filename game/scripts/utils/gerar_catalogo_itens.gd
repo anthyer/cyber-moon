@@ -80,11 +80,38 @@ const ESPECIAIS: Array = [
 	[&"credito", "Crédito", 0, false],
 ]
 
-## id, nome, venda. Armas não empilham e não servem de presente. A classe Arma, com dano
-## e alcance, nasce no plano 08; até lá a arma é um Item comum da categoria ARMA.
+const PASTA_DOS_MODELOS_DE_ARMA: String = "res://assets/models/kenney_mini_characters/"
+## O gerador roda sem os autoloads do jogo, e o script do projétil usa o StatusManager.
+## Por isso carregar esta cena aqui imprime um erro de compilação no terminal. O .tres
+## da arma sai certo mesmo assim, porque só guarda o caminho da cena.
+const CENA_DO_PROJETIL: String = "res://scenes/combat/projetil.tscn"
+const SOM_DO_GOLPE: String = "res://assets/audio/sfx/punch.wav"
+
+## id, nome, venda, tipo, dano, alcance, stamina por acerto, velocidade da animação,
+## cooldown, arquivo do modelo (vazio para nenhum) e escala do modelo.
+##
+## Os modelos são placeholder: bengalas e muleta do pacote de acessibilidade, que por
+## acaso têm formato de bastão comprido. Trocar por modelo de arma de verdade é só mudar
+## o campo modelo no .tres. A posição e a rotação do modelo na mão estão na tabela
+## ENCAIXE_NA_MAO, porque foram ajustadas olhando o jogo.
 const ARMAS: Array = [
-	[&"cestos", "Cestos", 15],
+	[&"cestos", "Cestos", 15, Arma.Tipo.PUNHO, 8, 1.0, 1.0, 1.8, 0.3, "", 1.0],
+	[&"foice_curva", "Foice curva", 60, Arma.Tipo.LEVE, 12, 1.2, 1.5, 1.8, 0.25, "aid_cane.glb", 1.0],
+	[&"bastao_choque", "Bastão de choque", 120, Arma.Tipo.LEVE, 20, 1.3, 2.0, 1.5, 0.35, "aid_cane_low_vision.glb", 1.0],
+	[&"espadao_sucata", "Espadão de sucata", 180, Arma.Tipo.PESADA, 34, 1.9, 4.0, 0.55, 0.6, "aid_crutch.glb", 2.5],
+	[&"rifle_de_ferro", "Rifle de ferro velho", 220, Arma.Tipo.DISTANCIA, 18, 14.0, 2.0, 1.0, 0.5, "aid_cane_blind.glb", 1.0],
 ]
+
+## id da arma para [posição, rotação em graus] do modelo dentro do osso da mão direita.
+## O braço se estende no eixo X negativo do osso, então a mão fica em x = -0.14. As
+## armas de corpo a corpo ficam inclinadas para cima; o rifle fica deitado ao longo do
+## braço, para apontar para a frente na pose de segurar com as duas mãos.
+const ENCAIXE_NA_MAO: Dictionary = {
+	&"foice_curva": [Vector3(-0.14, 0.0, 0.0), Vector3(40.0, 0.0, 0.0)],
+	&"bastao_choque": [Vector3(-0.14, 0.0, 0.0), Vector3(40.0, 0.0, 0.0)],
+	&"espadao_sucata": [Vector3(-0.14, 0.0, 0.0), Vector3(30.0, 0.0, 0.0)],
+	&"rifle_de_ferro": [Vector3(-0.04, -0.02, 0.0), Vector3(0.0, 0.0, 90.0)],
+}
 
 func _init() -> void:
 	var total: int = 0
@@ -133,11 +160,26 @@ func _init() -> void:
 		total += _salvar(especial, "especiais")
 
 	for linha in ARMAS:
-		var arma: Item = Item.new()
+		var arma: Arma = Arma.new()
 		_preencher(arma, linha[0], linha[1], linha[2], Item.Categoria.ARMA)
 		arma.empilhavel = false
 		arma.quantidade_maxima_por_pilha = 1
 		arma.pode_ser_presente = false
+		arma.tipo = linha[3]
+		arma.dano = linha[4]
+		arma.alcance = linha[5]
+		arma.custo_de_stamina = linha[6]
+		arma.velocidade_da_animacao = linha[7]
+		arma.cooldown = linha[8]
+		arma.som_do_golpe = load(SOM_DO_GOLPE)
+		if linha[9] != "":
+			arma.modelo = load(PASTA_DOS_MODELOS_DE_ARMA + linha[9])
+			arma.escala_do_modelo = Vector3.ONE * float(linha[10])
+		if ENCAIXE_NA_MAO.has(linha[0]):
+			arma.posicao_do_modelo = ENCAIXE_NA_MAO[linha[0]][0]
+			arma.rotacao_do_modelo_em_graus = ENCAIXE_NA_MAO[linha[0]][1]
+		if arma.tipo == Arma.Tipo.DISTANCIA:
+			arma.projetil = load(CENA_DO_PROJETIL)
 		total += _salvar(arma, "armas")
 
 	print("Catálogo gerado: %d itens." % total)
