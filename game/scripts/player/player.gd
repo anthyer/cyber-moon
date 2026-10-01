@@ -10,6 +10,10 @@ extends CharacterBody3D
 @export var folga_pos_golpe: float = 0.1
 @export var janela_combo_ataque: float = 0.6
 @export var cooldown_ataque: float = 0.3
+## Fração do golpe a partir da qual o dash já pode sair, cortando o resto da animação.
+## É o ponto em que o golpe termina de acertar: dali em diante é só recuperação, e
+## poder sair dela com um dash deixa o jogador responder a um ataque rápido.
+@export_range(0.0, 1.0) var fracao_do_golpe_que_libera_o_dash: float = 0.65
 @export var gravidade: float = 24.0
 @export var altura_degrau: float = 0.4
 ## O que ataca quando não há arma na mão: slot vazio, ou item que não é arma nem tem uso
@@ -47,6 +51,7 @@ var _tempo_ataque_restante: float = 0.0
 var _tempo_movimento_travado_ataque_restante: float = 0.0
 var _tempo_janela_combo_restante: float = 0.0
 var _tempo_cooldown_ataque_restante: float = 0.0
+var _duracao_do_golpe_atual: float = 0.0
 
 ## Entre cair e acordar o jogador não responde a nenhum comando.
 var _desmaiado: bool = false
@@ -101,8 +106,19 @@ func _physics_process(delta: float) -> void:
 			indicador_alvo.global_position = grade_solo.global_transform * posicao_local
 			indicador_alvo.global_position.y += 0.01
 
-	if _tempo_dash_restante <= 0.0 and _tempo_movimento_travado_ataque_restante <= 0.0 and _tempo_cooldown_restante <= 0.0 and InputManager.dash_pressionado():
-		_direcao_dash = Vector3(sin(personagem.rotation.y), 0.0, cos(personagem.rotation.y))
+	if _tempo_dash_restante <= 0.0 and _dash_liberado_pelo_golpe() and _tempo_cooldown_restante <= 0.0 and InputManager.dash_pressionado():
+		# O dash vai para onde o direcional aponta, e só usa a frente do personagem
+		# quando não há direção. Depois de um golpe o personagem está virado para o
+		# alvo, e é justamente dele que o jogador quer se afastar.
+		var entrada_do_dash: Vector2 = InputManager.obter_direcao_movimento()
+		if entrada_do_dash != Vector2.ZERO:
+			_direcao_dash = Vector3(entrada_do_dash.x, 0.0, entrada_do_dash.y).normalized()
+			personagem.rotation.y = atan2(_direcao_dash.x, _direcao_dash.z)
+		else:
+			_direcao_dash = Vector3(sin(personagem.rotation.y), 0.0, cos(personagem.rotation.y))
+		# O dash corta a recuperação do golpe que estava em andamento.
+		_tempo_ataque_restante = 0.0
+		_tempo_movimento_travado_ataque_restante = 0.0
 		_tempo_dash_restante = duracao_dash
 		_tempo_cooldown_restante = cooldown_dash + duracao_dash
 		_indice_combo = 0
@@ -158,7 +174,7 @@ func _physics_process(delta: float) -> void:
 
 		if direcao != Vector3.ZERO:
 			var angulo_alvo: float = atan2(direcao.x, direcao.z)
-			# A arma na mão pode acelerar o giro: com o rifle o personagem vira mais
+			# A arma na mão pode acelerar o giro: com a escopeta o personagem vira mais
 			# rápido, para a mira acompanhar o direcional.
 			var velocidade_de_giro: float = velocidade_rotacao * _arma_em_uso().multiplicador_de_giro
 			personagem.rotation.y = lerp_angle(personagem.rotation.y, angulo_alvo, minf(velocidade_de_giro * delta, 1.0))
@@ -253,6 +269,16 @@ func _cair_parado(delta: float) -> void:
 		velocity.y -= gravidade * delta
 	move_and_slide()
 
+## Sem golpe em andamento o dash está sempre liberado. Durante um golpe, só depois que
+## ele terminou de acertar.
+func _dash_liberado_pelo_golpe() -> bool:
+	if _tempo_movimento_travado_ataque_restante <= 0.0:
+		return true
+	if _duracao_do_golpe_atual <= 0.0:
+		return false
+	var decorrido: float = _duracao_do_golpe_atual - _tempo_ataque_restante
+	return decorrido >= _duracao_do_golpe_atual * fracao_do_golpe_que_libera_o_dash
+
 ## A arma na mão, ou o punho quando o item na mão não é arma.
 func _arma_em_uso() -> Arma:
 	var arma_na_mao: Arma = EquipmentManager.item_na_mao() as Arma
@@ -310,6 +336,7 @@ func _travar_movimento_pela_animacao(nome_clipe: String, velocidade: float = 0.0
 	animation_player.play(nome_clipe, -1.0, velocidade)
 
 	var duracao_clipe: float = animation_player.get_animation(nome_clipe).length / velocidade
+	_duracao_do_golpe_atual = duracao_clipe
 	_tempo_ataque_restante = duracao_clipe
 	_tempo_movimento_travado_ataque_restante = duracao_clipe + folga_pos_golpe
 	return duracao_clipe
