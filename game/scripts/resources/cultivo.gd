@@ -22,5 +22,17 @@ extends Resource
 ## sumir. É o que faz tomate render várias colheitas de um plantio só.
 @export var estagio_de_rebrota: int = 0
 
+## Tamanho da planta madura em relação ao padrão. A muda nasce no tamanho padrão e a
+## planta cresce até esta escala a cada estágio. Serve para cultura que na vida real é
+## alta, como o milho.
+@export var escala_da_planta_madura: float = 1.0
+
 func estagio_maduro() -> int:
 	return estagios_de_crescimento.size() - 1
+
+## Escala do visual num estágio: 1.0 na muda, subindo por igual até a escala da madura.
+func escala_no_estagio(estagio: int) -> float:
+	var maduro: int = estagio_maduro()
+	if maduro <= 0:
+		return escala_da_planta_madura
+	return lerpf(1.0, escala_da_planta_madura, clampf(float(estagio) / float(maduro), 0.0, 1.0))

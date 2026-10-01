@@ -228,14 +228,17 @@ func _criar_visual_da_planta(celula: Vector2i) -> Node3D:
 
 func _atualizar_visual_da_planta(planta: PlantaNaGrade) -> void:
 	var textura: Texture2D = planta.cultivo.textura_murcha if planta.murcha else planta.cultivo.estagios_de_crescimento[planta.estagio]
+	# A murcha mantém o tamanho que a planta tinha quando secou.
+	var tamanho_do_pixel: float = tamanho_do_pixel_da_planta * planta.cultivo.escala_no_estagio(planta.estagio)
 	for filho in planta.visual.get_children():
 		var sprite: Sprite3D = filho as Sprite3D
 		sprite.texture = textura
+		sprite.pixel_size = tamanho_do_pixel
 		# O sprite é centralizado na textura, então sobe meia altura para a base
 		# encostar no chão, e desce a margem vazia que a arte tem embaixo. Sem descontar
 		# a margem a planta flutua, e de cima parece plantada fora do quadrado.
 		var altura_em_pixels: float = textura.get_height() * 0.5 - _margem_inferior(planta.cultivo)
-		sprite.position.y = altura_em_pixels * tamanho_do_pixel_da_planta
+		sprite.position.y = altura_em_pixels * tamanho_do_pixel
 
 func _tirar_planta(celula: Vector2i) -> void:
 	var planta: PlantaNaGrade = planta_em(celula)

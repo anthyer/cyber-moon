@@ -147,7 +147,8 @@ dicionário de célula para `PlantaNaGrade`, paralelo ao dicionário do estado d
 
 O visual da planta são sprites em pé, sem billboard, fincados na célula: duas fileiras,
 uma atrás da outra, viradas para a câmera (que não gira). O tamanho e o recuo das
-fileiras são exports da `GradeSolo`. Dois detalhes de arte entram na conta da posição: a
+fileiras são exports da `GradeSolo`. Cada `Cultivo` pode ter uma `escala_da_planta_madura`: a
+muda nasce no tamanho padrão e cresce até essa escala (o milho maduro fica 1,4 vez maior). Dois detalhes de arte entram na conta da posição: a
 margem transparente na base das texturas da planta é descontada, para ela não flutuar, e
 as fileiras são centradas na faixa de terra desenhada, que fica deslocada para a frente
 dentro da célula porque a textura do solo tem 4 linhas vazias em cima.

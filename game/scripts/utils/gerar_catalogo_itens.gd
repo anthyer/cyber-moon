@@ -21,16 +21,17 @@ const PASTA_DOS_CULTIVOS: String = "res://resources/farming/cultivos/"
 const ESTAGIOS_POR_CULTIVO: int = 3
 
 ## id, nome, venda, nome da cultura no arquivo de arte (tiny_farm_crops/<cultura>_icon.png),
-## dias por estágio e estágio de rebrota (0 para não rebrotar). O ritmo varia para o
-## plantio não ficar todo igual: cenoura e trigo são rápidos, tomate é lento mas
-## rebrota e rende várias colheitas.
+## dias por estágio, estágio de rebrota (0 para não rebrotar) e escala da planta madura.
+## O ritmo varia para o plantio não ficar todo igual: cenoura e trigo são rápidos,
+## tomate é lento mas rebrota e rende várias colheitas. O milho maduro é maior que as
+## outras plantas, porque na vida real o pé de milho é alto.
 const COLHEITAS: Array = [
-	[&"beterraba", "Beterraba", 35, "beetroot", 2, 0],
-	[&"repolho", "Repolho", 50, "cabbage", 2, 0],
-	[&"cenoura", "Cenoura", 25, "carrot", 1, 0],
-	[&"milho", "Milho", 40, "corn", 2, 1],
-	[&"tomate", "Tomate", 30, "tomato", 3, 1],
-	[&"trigo", "Trigo", 20, "wheat", 1, 0],
+	[&"beterraba", "Beterraba", 35, "beetroot", 2, 0, 1.0],
+	[&"repolho", "Repolho", 50, "cabbage", 2, 0, 1.0],
+	[&"cenoura", "Cenoura", 25, "carrot", 1, 0, 1.0],
+	[&"milho", "Milho", 40, "corn", 2, 1, 1.4],
+	[&"tomate", "Tomate", 30, "tomato", 3, 1, 1.0],
+	[&"trigo", "Trigo", 20, "wheat", 1, 0, 1.0],
 ]
 
 ## Toda cultura rende de 2 a 4 itens por colheita, sorteado na hora de colher.
@@ -153,6 +154,7 @@ func _gerar_cultivo(linha: Array, colheita: Item) -> Cultivo:
 	cultivo.textura_murcha = load("%s%s_withered.png" % [PASTA_DOS_CROPS, linha[3]])
 	cultivo.dias_por_estagio = linha[4]
 	cultivo.estagio_de_rebrota = linha[5]
+	cultivo.escala_da_planta_madura = linha[6]
 	cultivo.quantidade_colhida_minima = COLHEITA_MINIMA
 	cultivo.quantidade_colhida_maxima = COLHEITA_MAXIMA
 	cultivo.item_colhido = colheita
