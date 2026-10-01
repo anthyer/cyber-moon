@@ -8,6 +8,22 @@ stamina).
 
 **Entrega para:** 09 (o inimigo precisa levar dano de alguma coisa).
 
+## Revisão de 2026-09-30 (vale sobre o resto do plano)
+
+**Decisões do Antonio já tomadas, que mudam este plano:**
+
+- **Golpe só gasta stamina quando acerta um oponente.** Golpe no ar é de graça e sai
+  mesmo com pouca stamina. O custo é cobrado no ponto em que a hitbox confirma o acerto,
+  uma vez por golpe, e não ao apertar o botão. Onde o texto abaixo diz "todo golpe
+  consome stamina e não sai quando não há stamina", vale esta regra. O `custo_de_stamina`
+  da arma continua existindo, mas é o custo do golpe que acerta.
+- **Dash não gasta stamina.**
+- **A soqueira já existe** como item da categoria ARMA (`resources/items/armas/`), criada
+  no plano 04 como `Item` comum. Ela vira `Arma` aqui. O custo do soco que acerta está em
+  `resources/status/custos_padrao.tres` (`stamina_golpe_que_acerta`) até a soqueira ter o
+  campo próprio.
+- **O item na mão é o slot rápido selecionado** (plano 05). Arma na mão é arma em uso.
+
 ## O que o pacote de personagens já oferece
 
 Isto foi verificado carregando o `.glb` no Godot, não é suposição. O

@@ -23,7 +23,7 @@ Conteúdo de jogo é representado por classes `Resource` customizadas, definidas
 - `PilhaDeItens` (`scripts/resources/pilha_de_itens.gd`): um item e sua quantidade num slot do inventário.
 - `Item` (`scripts/resources/item.gd`): um item do inventário, com `id` estável, `categoria` (enum `Item.Categoria`), ícone e valor de venda. Filhas: `Ferramenta`, `Semente` (aponta o `Cultivo`) e `Consumivel` (vida e stamina recuperadas).
 - `Cultivo` (`scripts/resources/cultivo.gd`): uma cultura plantável, com as texturas de cada estágio, os dias por estágio, o item colhido e a quantidade, e o estágio de rebrota. Os `.tres` ficam em `resources/farming/cultivos/` e são gerados junto com o catálogo de itens. Cada `Semente` aponta para o seu `Cultivo`.
-- `CustosDeAcao` (`scripts/resources/custos_de_acao.gd`): stamina gasta e experiência ganha por plantar, colher, socar e dar dash. O balanceamento fica num arquivo só, `resources/status/custos_padrao.tres`. O custo de cada ferramenta fica no `.tres` dela (`custo_de_stamina`, `experiencia_ao_usar`).
+- `CustosDeAcao` (`scripts/resources/custos_de_acao.gd`): stamina gasta e experiência ganha por plantar e colher, e a stamina do golpe que acerta um oponente. O balanceamento fica num arquivo só, `resources/status/custos_padrao.tres`. O custo de cada ferramenta fica no `.tres` dela (`custo_de_stamina`, `experiencia_ao_usar`).
 - `PerfilNpc` (`scripts/resources/perfil_npc.gd`): dados de um NPC.
 - `NoDialogo` (`scripts/resources/no_dialogo.gd`): um nó de uma árvore de diálogo.
 - `BancoDePassos` (`scripts/resources/banco_de_passos.gd`): mapeia tipos de superfície a clipes de áudio para os passos do jogador.
@@ -159,7 +159,8 @@ dentro da célula porque a textura do solo tem 4 linhas vazias em cima.
 
 Toda ação do jogador que gasta stamina segue a mesma regra, aplicada no `player.gd`: sem
 stamina para o custo a ação é recusada, e a stamina só é cobrada quando a ação teve
-efeito (usar a enxada onde ela não faz nada não custa). Com um `Consumivel` na mão, o
+efeito (usar a enxada onde ela não faz nada não custa). O dash não gasta stamina, e o
+golpe só gasta quando acerta um oponente; golpe no ar é de graça. Com um `Consumivel` na mão, o
 botão de atacar come uma unidade, desde que ele recupere alguma coisa.
 
 Subir de nível (experiência `100 * nivel`, até o nível 20) aumenta a vida máxima em 10 e

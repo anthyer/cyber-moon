@@ -22,12 +22,18 @@ plantar, recusa sem stamina, comer pão, subir de nível, desmaio de cansaço e 
   stamina e metade da vida. Isso substitui o `FATOR_STAMINA_APOS_DESMAIO` do texto
   abaixo.
 
+- **Dash não gasta stamina, e golpe só gasta quando acerta um oponente** (pedido depois
+  da entrega). Isso substitui as linhas de dash e de golpes da tabela de custos abaixo:
+  golpe no ar é de graça. Como ainda não existe oponente nem detecção de acerto, hoje
+  nenhum golpe gasta nada. O custo do acerto já está em `custos_padrao.tres`
+  (`stamina_golpe_que_acerta`), esperando os planos 08 e 09.
+
 **Ajustes ao plano:**
 
 - Sinais em inglês: `health_changed`, `stamina_changed`, `level_changed`,
   `experience_changed`, `player_fainted` e `player_woke_up`.
-- Os custos viraram dado: o de cada ferramenta está no `.tres` dela, e os de plantar,
-  colher, soco e dash estão em `resources/status/custos_padrao.tres`. O custo é cobrado
+- Os custos viraram dado: o de cada ferramenta está no `.tres` dela, e os de plantar e
+  colher e o do golpe que acerta estão em `resources/status/custos_padrao.tres`. O custo é cobrado
   no `player.gd`, e não dentro do `GradeSolo.aplicar()`, porque é o player que tem a
   ferramenta com o custo na mão.
 - **Perder crédito ao desmaiar não entrou**, porque a moeda só existe no plano 17.
