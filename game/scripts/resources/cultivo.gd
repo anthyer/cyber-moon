@@ -9,14 +9,13 @@ extends Resource
 @export var nome: String = ""
 ## Uma textura por estágio, da muda até a planta madura. O último é o estágio de colher.
 @export var estagios_de_crescimento: Array[Texture2D] = []
-## Sem uso até o plano 11, que murcha o que está fora da estação.
+## A planta que passou um dia em solo seco fica com esta textura até ser arrancada.
 @export var textura_murcha: Texture2D
-## Dias para passar de um estágio ao seguinte com o solo molhado. Com o solo seco leva
-## o dobro.
+## Dias de solo molhado para passar de um estágio ao seguinte.
 @export var dias_por_estagio: int = 2
 @export var item_colhido: Item
-@export var quantidade_colhida_minima: int = 1
-@export var quantidade_colhida_maxima: int = 2
+@export var quantidade_colhida_minima: int = 2
+@export var quantidade_colhida_maxima: int = 4
 ## Vazio vale para qualquer estação. A checagem entra no plano 11.
 @export var estacoes_permitidas: Array[StringName] = []
 ## Quando maior que zero, a planta volta para este estágio ao ser colhida em vez de

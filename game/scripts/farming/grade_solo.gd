@@ -9,16 +9,12 @@ enum EstadoTile { VAZIO, ARADO_SECO, ARADO_MOLHADO }
 class PlantaNaGrade:
 	var cultivo: Cultivo
 	var estagio: int = 0
-	## Progresso dentro do estágio atual, em meios dias: um dia de solo molhado vale 2,
-	## um dia de solo seco vale 1.
-	var progresso_no_estagio: int = 0
+	## Dias de solo molhado já contados dentro do estágio atual.
+	var dias_no_estagio: int = 0
+	## Planta que passou um dia em solo seco. Não cresce mais nem dá colheita, e fica na
+	## célula até ser arrancada com a enxada.
 	var murcha: bool = false
 	var visual: Node3D
-
-## Progresso que um dia dá à planta. Solo molhado vale o dobro do seco, o que faz regar
-## ter valor sem a planta morrer por descuido.
-const PROGRESSO_DIA_MOLHADO: int = 2
-const PROGRESSO_DIA_SECO: int = 1
 
 var _estado: Dictionary = {}
 ## Célula para PlantaNaGrade. Célula sem entrada é célula sem planta.
@@ -47,9 +43,16 @@ var _margem_inferior_por_cultivo: Dictionary = {}
 func _ready() -> void:
 	DayCycleManager.day_started.connect(_ao_comecar_o_dia)
 
+## Em célula vazia, ara. Em célula com planta, arranca a planta e mantém a terra arada:
+## é como o jogador se livra da planta murcha, e também serve para desistir de um
+## plantio.
 func arar(celula: Vector2i) -> bool:
 	if not limite.has_point(celula):
 		return false
+	if _plantas.has(celula):
+		_tirar_planta(celula)
+		EventBus.crop_removed.emit(celula)
+		return true
 	if _estado.get(celula, EstadoTile.VAZIO) != EstadoTile.VAZIO:
 		return false
 	_definir_estado(celula, EstadoTile.ARADO_SECO)
@@ -113,25 +116,33 @@ func colher(celula: Vector2i) -> bool:
 
 	if cultivo.estagio_de_rebrota > 0:
 		planta.estagio = cultivo.estagio_de_rebrota
-		planta.progresso_no_estagio = 0
+		planta.dias_no_estagio = 0
 		_atualizar_visual_da_planta(planta)
 	else:
 		_tirar_planta(celula)
 	EventBus.crop_harvested.emit(cultivo, quantidade)
 	return true
 
-## Um dia passou: cada planta ganha progresso conforme o solo dela, e todo solo molhado
-## seca. É o único lugar que mexe no progresso das plantas.
+## Um dia passou. A planta em solo molhado conta um dia de crescimento; a planta em
+## solo seco murcha e está perdida, em qualquer estágio, inclusive madura. Depois todo
+## solo molhado seca, então é preciso regar de novo a cada dia. É o único lugar que mexe
+## no crescimento das plantas.
 func avancar_um_dia() -> void:
 	for celula: Vector2i in _plantas:
 		var planta: PlantaNaGrade = _plantas[celula]
-		if planta.murcha or planta.estagio >= planta.cultivo.estagio_maduro():
+		if planta.murcha:
 			continue
 		var molhado: bool = _estado.get(celula, EstadoTile.VAZIO) == EstadoTile.ARADO_MOLHADO
-		planta.progresso_no_estagio += PROGRESSO_DIA_MOLHADO if molhado else PROGRESSO_DIA_SECO
-		var progresso_para_crescer: int = planta.cultivo.dias_por_estagio * PROGRESSO_DIA_MOLHADO
-		if planta.progresso_no_estagio >= progresso_para_crescer:
-			planta.progresso_no_estagio = 0
+		if not molhado:
+			planta.murcha = true
+			_atualizar_visual_da_planta(planta)
+			EventBus.crop_withered.emit(celula)
+			continue
+		if planta.estagio >= planta.cultivo.estagio_maduro():
+			continue
+		planta.dias_no_estagio += 1
+		if planta.dias_no_estagio >= planta.cultivo.dias_por_estagio:
+			planta.dias_no_estagio = 0
 			planta.estagio += 1
 			_atualizar_visual_da_planta(planta)
 			EventBus.crop_grown.emit(celula, planta.estagio)
