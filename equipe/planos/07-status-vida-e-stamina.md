@@ -9,6 +9,33 @@ gasta stamina).
 
 **Entrega para:** 08, 09, 10, 17.
 
+## Revisão de 2026-09-30 (vale sobre o resto do plano)
+
+**Situação:** feito, menos a tarefa 8 (ajustar os números jogando), que depende de o
+Antonio jogar. Conferido por teste automático no playground: custos de arar, molhar e
+plantar, recusa sem stamina, comer pão, subir de nível, desmaio de cansaço e derrota.
+
+**Decisão do Antonio:**
+
+- **O desmaio não reduz o máximo.** Quem cai acorda no dia seguinte com a barra pela
+  metade, e o máximo continua igual. Cansaço: metade da stamina. Derrota: metade da
+  stamina e metade da vida. Isso substitui o `FATOR_STAMINA_APOS_DESMAIO` do texto
+  abaixo.
+
+**Ajustes ao plano:**
+
+- Sinais em inglês: `health_changed`, `stamina_changed`, `level_changed`,
+  `experience_changed`, `player_fainted` e `player_woke_up`.
+- Os custos viraram dado: o de cada ferramenta está no `.tres` dela, e os de plantar,
+  colher, soco e dash estão em `resources/status/custos_padrao.tres`. O custo é cobrado
+  no `player.gd`, e não dentro do `GradeSolo.aplicar()`, porque é o player que tem a
+  ferramenta com o custo na mão.
+- **Perder crédito ao desmaiar não entrou**, porque a moeda só existe no plano 17.
+- Dormir é a virada do dia. Hoje ela só acontece pela tecla temporária N e pelo desmaio.
+- O jogador começa com 3 pães de trigo, para dar para testar o consumível.
+- Os custos de arma (leve, pesada, ranged) e a experiência por inimigo ficam para os
+  planos 08 e 09, que criam essas ações.
+
 ## Decisões fechadas
 
 **Um autoload `StatusManager`.** Vida e stamina são consultados por combate, por fazenda,
@@ -130,18 +157,18 @@ maior. Sem tela de game over: no gênero, perder é perder um dia.
 
 ## Tarefas
 
-- [ ] **1.** Criar o `StatusManager` e registrar o autoload. Verificar por script
+- [x] **1.** Criar o `StatusManager` e registrar o autoload. Verificar por script
   headless: gastar stamina até zerar e conferir que o sinal saiu.
-- [ ] **2.** Criar `hud_status.tscn` e ligar aos sinais. Colocar no `playground.tscn`.
-- [ ] **3.** Cobrar stamina em `GradeSolo.aplicar()`, só quando a ação teve efeito.
-- [ ] **4.** Cobrar stamina no dash e no ataque, em `player.gd`.
-- [ ] **5.** Implementar experiência e nível, com os máximos crescendo.
-- [ ] **6.** Implementar o desmaio inteiro, com o `Marker3D` de casa.
-- [ ] **7.** Ligar `Consumivel` (plano 03) a `curar` e `recuperar_stamina`, com o botão
+- [x] **2.** Criar `hud_status.tscn` e ligar aos sinais. Colocar no `playground.tscn`.
+- [x] **3.** Cobrar stamina em `GradeSolo.aplicar()`, só quando a ação teve efeito.
+- [x] **4.** Cobrar stamina no dash e no ataque, em `player.gd`.
+- [x] **5.** Implementar experiência e nível, com os máximos crescendo.
+- [x] **6.** Implementar o desmaio inteiro, com o `Marker3D` de casa.
+- [x] **7.** Ligar `Consumivel` (plano 03) a `curar` e `recuperar_stamina`, com o botão
   de usar item da mão.
 - [ ] **8.** Ajustar os números jogando. Este passo não é opcional: a tabela acima é
   chute.
-- [ ] **9.** Documentar e commitar.
+- [x] **9.** Documentar e commitar.
 
 ## Critério de pronto
 

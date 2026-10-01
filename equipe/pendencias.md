@@ -199,6 +199,26 @@ feita no commit 5f72630. A regra fica em `scripts/utils/superficies.gd`.
 - Os três itens de demonstração do playground saíram, como previsto na pendência do
   plano 03.
 
+### 2026-09-30, plano 07
+
+**Feito**, menos o ajuste dos números jogando (tarefa 8). Decisões e ajustes no topo do
+plano, seção "Revisão de 2026-09-30".
+
+**Precisa do Antonio:**
+
+- Jogar e ajustar os custos em `resources/status/custos_padrao.tres` e nos `.tres` das
+  ferramentas. A tabela atual é o chute do plano.
+
+**Fica para depois:**
+
+- Desmaiar não tira crédito ainda. Quando o plano 17 criar o `EconomyManager`, ele
+  escuta `StatusManager.player_fainted` e desconta.
+- Não existe cama: dormir é a tecla temporária N. O plano 10 traz o fim do dia.
+- Nada causa dano ao jogador ainda (é o plano 09), então a derrota só foi testada
+  chamando `receber_dano` por script.
+- Os 3 pães de trigo do inventário inicial são estoque de teste, como as sementes.
+- O status não é salvo. Entra no plano de save completo.
+
 ### 2026-09-29, remapear controles
 
 **Pendência:** uma tela de remapear controles dentro das configurações do jogo, para

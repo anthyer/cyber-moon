@@ -12,7 +12,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 04 Inventário
 - [x] 05 Barra de acesso rápido
 - [x] 06 Plantio e colheita
-- [ ] 07 Status: vida e stamina
+- [x] 07 Status: vida e stamina
 - [ ] 08 Armas
 - [ ] 09 Inimigos
 - [ ] 10 Ciclo de dia e noite
