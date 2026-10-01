@@ -13,8 +13,8 @@
 [ext_resource type="AudioStream" path="res://assets/audio/sfx/punch.wav" id="11_som_de_dano"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
-radius = 0.3
-height = 1.6
+radius = 0.25
+height = 0.7
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_interacao"]
 radius = 1.5
@@ -35,7 +35,7 @@ som_de_batida_na_parede = ExtResource("6_batida")
 [node name="Personagem" parent="." instance=ExtResource("2_personagem")]
 
 [node name="FormaColisao" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 shape = SubResource("CapsuleShape3D_player")
 
 [node name="RaioSuperficie" type="RayCast3D" parent="."]
