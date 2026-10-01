@@ -434,7 +434,78 @@ FORMAS = {
         "................",
         "................",
     ],
-
+    "foice": [
+        "................",
+        "...aaaaaaa......",
+        "..abbbbbbbaa....",
+        ".abcc....ccba...",
+        ".ac.......cba...",
+        ".a.........ba...",
+        "...........dd...",
+        "...........dd...",
+        "...........dd...",
+        "...........dd...",
+        "...........dd...",
+        "...........dd...",
+        "...........dd...",
+        "...........dd...",
+        "................",
+        "................",
+    ],
+    "espadao": [
+        ".............aa.",
+        "............aba.",
+        "...........abba.",
+        "..........abea..",
+        ".........abba...",
+        "........aeba....",
+        ".......abba.....",
+        "......abba......",
+        ".....abea.......",
+        "..c.abba........",
+        "..ccaba.........",
+        "...ccc..........",
+        "..ddcc..........",
+        ".dd..c..........",
+        ".d..............",
+        "................",
+    ],
+    "rifle": [
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "..............e.",
+        ".....aaaaaaaaaa.",
+        ".ddaabbbbbbbbba.",
+        "dddaaaaccc......",
+        "ddd..a.c........",
+        "dd....a.........",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+    ],
+    "bastao_de_choque": [
+        "..........e..e..",
+        "...........ee...",
+        "..........eaae.e",
+        ".........abba...",
+        "........abba....",
+        ".......abba.....",
+        "......abba......",
+        ".....acca.......",
+        "....adda........",
+        "...adda.........",
+        "..adda..........",
+        ".adda...........",
+        ".aaa............",
+        "................",
+        "................",
+        "................",
+    ],
 }
 
 
@@ -503,6 +574,13 @@ ITENS = [
     # jogador usa quando não está com ferramenta na mão. O couro fica na cor base, as
     # tiras do pulso no detalhe "d" e os rebites de metal no "e".
     ("cestos", "cestos", paleta((150, 95, 55), d=(205, 170, 120), e=(205, 210, 220))),
+    # Armas do plano 08. O metal fica na cor base e o cabo de madeira no detalhe "d".
+    ("foice_curva", "foice", paleta((175, 180, 190), d=MADEIRA_DO_CABO)),
+    # O "e" do espadão é o remendo enferrujado na chapa.
+    ("espadao_sucata", "espadao", paleta((140, 145, 155), d=MADEIRA_DO_CABO, e=(175, 95, 50))),
+    ("rifle_de_ferro", "rifle", paleta((95, 100, 112), d=MADEIRA_DO_CABO)),
+    # No bastão, o "d" é a empunhadura amarela e o "e" é a faísca da ponta.
+    ("bastao_choque", "bastao_de_choque", paleta((70, 75, 95), d=(230, 200, 60), e=(110, 240, 250))),
 ]
 
 
