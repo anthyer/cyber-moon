@@ -23,8 +23,10 @@ const CAMADA_MUNDO: int = 1
 ## são instanciados como filhos do CharacterBody3D, e ter um StaticBody3D dentro de
 ## um corpo que se move faz o move_and_slide() interpretar o contato como plataforma
 ## em movimento, lançando o personagem para cima indefinidamente.
+## Os acessórios do pacote de personagens (aid_*: bengala, muleta, óculos) também,
+## porque viram arma presa na mão e teriam o mesmo efeito.
 const TRECHOS_SEM_COLISAO: Array[String] = [
-	"character", "animal",
+	"character", "animal", "aid_",
 	"grass", "flower", "mushroom", "plant_", "crops_",
 	"mulch", "mound", "mark_", "mark-",
 ]

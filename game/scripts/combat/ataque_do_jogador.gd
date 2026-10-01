@@ -122,6 +122,11 @@ func trocar_modelo(arma: Arma) -> void:
 	if arma == null or arma.modelo == null or _suporte_da_mao == null:
 		return
 	_modelo_atual = arma.modelo.instantiate() as Node3D
+	# O modelo na mão é só visual. Um corpo de colisão preso ao personagem faz a física
+	# tratar o próprio jogador como plataforma em movimento e arremessá-lo (o mesmo bug
+	# do plano 01), então qualquer colisão que o modelo traga é removida.
+	for corpo in _modelo_atual.find_children("*", "CollisionObject3D", true, false):
+		corpo.free()
 	_suporte_da_mao.add_child(_modelo_atual)
 	_modelo_atual.position = arma.posicao_do_modelo
 	_modelo_atual.rotation_degrees = arma.rotacao_do_modelo_em_graus
