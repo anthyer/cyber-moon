@@ -34,3 +34,7 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Desmaio, queda | Fainting / sinais `player_fainted` e `player_woke_up`, enum `StatusManager.Motivo` |
 | Custos de ação | Action costs / `CustosDeAcao` (classe Resource) |
 | Ponto de spawn | Spawn point / `Marker3D` `PontoDeSpawn`, a casa do jogador |
+| Arma | Weapon / `Arma` (classe Resource), enum `Arma.Tipo` |
+| Área de acerto | Hitbox / nó `HitboxAtaque`, script `AtaqueDoJogador` |
+| Projétil | Projectile / `Projetil` (cena e classe) |
+| Alvo de treino | Training dummy / `AlvoDeTreino`, temporário até o plano 09 |

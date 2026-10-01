@@ -24,6 +24,7 @@ Conteúdo de jogo é representado por classes `Resource` customizadas, definidas
 - `Item` (`scripts/resources/item.gd`): um item do inventário, com `id` estável, `categoria` (enum `Item.Categoria`), ícone e valor de venda. Filhas: `Ferramenta`, `Semente` (aponta o `Cultivo`) e `Consumivel` (vida e stamina recuperadas).
 - `Cultivo` (`scripts/resources/cultivo.gd`): uma cultura plantável, com as texturas de cada estágio, os dias por estágio, o item colhido e a quantidade, e o estágio de rebrota. Os `.tres` ficam em `resources/farming/cultivos/` e são gerados junto com o catálogo de itens. Cada `Semente` aponta para o seu `Cultivo`.
 - `CustosDeAcao` (`scripts/resources/custos_de_acao.gd`): stamina gasta e experiência ganha por plantar e colher, e a stamina do golpe que acerta um oponente. O balanceamento fica num arquivo só, `resources/status/custos_padrao.tres`. O custo de cada ferramenta fica no `.tres` dela (`custo_de_stamina`, `experiencia_ao_usar`).
+- `Arma` (`scripts/resources/arma.gd`): item da categoria ARMA com tipo (`PUNHO`, `LEVE`, `PESADA`, `DISTANCIA`), dano, alcance, custo de stamina por acerto, velocidade da animação, cooldown, o modelo que aparece na mão e, na arma de distância, o projétil. Os `.tres` ficam em `resources/items/armas/` e são gerados com o catálogo. O punho das mãos vazias é uma `Arma` fora do inventário, em `resources/combat/punho.tres`.
 - `PerfilNpc` (`scripts/resources/perfil_npc.gd`): dados de um NPC.
 - `NoDialogo` (`scripts/resources/no_dialogo.gd`): um nó de uma árvore de diálogo.
 - `BancoDePassos` (`scripts/resources/banco_de_passos.gd`): mapeia tipos de superfície a clipes de áudio para os passos do jogador.
@@ -176,4 +177,32 @@ devolve tudo.
 
 As barras são um componente só (`scenes/ui/barras_de_status.tscn`), usado na HUD e no
 menu de pausa.
+
+## Combate do jogador
+
+Todo golpe passa por um caminho só no `player.gd` (`_atacar_com`), e o que muda entre os
+tipos de arma é dado do `.tres`: o punho faz o combo de três golpes, a arma leve e a
+pesada dão um golpe por vez (a pesada com o mesmo clipe, mais lento), e a arma de
+distância dispara um projétil. Sem arma na mão, o golpe é do punho.
+
+O `AtaqueDoJogador` (`scripts/combat/ataque_do_jogador.gd`, nó filho do `Player`) faz o
+golpe acontecer no mundo:
+
+- **Arma na mão:** um `BoneAttachment3D` no osso `arm-right`, criado em código porque o
+  esqueleto vem pronto dentro do `.glb`, segura o modelo da arma. O encaixe (posição,
+  rotação, escala) é dado da arma.
+- **Acerto por área:** a `HitboxAtaque` é uma esfera à frente do jogador, do tamanho do
+  alcance da arma. Ela vale numa janela entre 35% e 65% da duração do clipe, porque as
+  animações do `.glb` não aceitam marcação de quadro. Um golpe acerta cada alvo uma vez,
+  e pode acertar vários.
+- **Projétil:** `scenes/combat/projetil.tscn` viaja reto, some ao bater em qualquer coisa
+  e some sozinho depois de 3 segundos.
+
+**Contrato de dano:** quem pode levar dano tem o método
+`receber_dano(quantidade: int, origem: Node3D)` e fica na camada `inimigo`. A hitbox e o
+projétil sobem pela árvore a partir do corpo atingido até achar esse método. O
+`AlvoDeTreino` é o primeiro a implementar o contrato, e os inimigos do plano 09 seguem o
+mesmo.
+
+A stamina do golpe só é cobrada quando ele acerta alguém, uma vez por golpe.
 
