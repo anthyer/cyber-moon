@@ -1,4 +1,4 @@
-# Plano 02: Som
+# Plano 02: Som (Concluído)
 
 **Prioridade.** Junto com o plano 01, é o que precisa estar pronto antes do vídeo de
 entrega.
