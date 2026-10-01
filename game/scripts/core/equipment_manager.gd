@@ -4,7 +4,7 @@ extends Node
 ##
 ## Este autoload guarda só qual dos 9 slots rápidos está selecionado. Quem tem os itens
 ## é o InventoryManager: trocar o item de lugar no menu troca o que está na mão sem este
-## script saber. Slot vazio é uma seleção válida, e com ele (ou com a soqueira) o
+## script saber. Slot vazio é uma seleção válida, e com ele (ou com os cestos) o
 ## ataque é o soco.
 
 signal slot_selecionado_alterado(indice: int)
@@ -13,7 +13,7 @@ signal slot_selecionado_alterado(indice: int)
 ## baterem com as teclas 1 a 4. As sementes e os pães são estoque de teste até o plano 17, que
 ## define o inventário inicial de verdade e leva esta lista para um Resource.
 const ITENS_INICIAIS: Array = [
-	["res://resources/items/armas/soqueira.tres", 1],
+	["res://resources/items/armas/cestos.tres", 1],
 	["res://resources/items/ferramentas/enxada.tres", 1],
 	["res://resources/items/ferramentas/regador.tres", 1],
 	["res://resources/items/ferramentas/picareta.tres", 1],
@@ -52,7 +52,7 @@ func item_na_mao() -> Item:
 	var pilha: PilhaDeItens = InventoryManager.slot_em(indice_selecionado)
 	return pilha.item if pilha != null else null
 
-## A ferramenta na mão, ou null quando o item na mão não é ferramenta (soqueira,
+## A ferramenta na mão, ou null quando o item na mão não é ferramenta (cestos,
 ## semente, slot vazio). O player usa isso para decidir entre usar ferramenta e socar.
 func ferramenta_na_mao() -> Ferramenta:
 	return item_na_mao() as Ferramenta

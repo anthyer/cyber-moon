@@ -416,21 +416,21 @@ FORMAS = {
         "................",
         "................",
     ],
-    "soqueira": [
+    "cestos": [
         "................",
         "................",
-        "................",
-        ".bbbbbbbbbbbbb..",
-        ".a..a..a..a..a..",
-        ".a..a..a..a..a..",
-        ".aaaaaaaaaaaaa..",
-        "..aaaaaaaaaaa...",
-        "...cccccccccc...",
+        "....aaaaaaa.....",
+        "...abbbbbbba....",
+        "..aaeaaeaaeaa...",
+        "..aaaaaaaaaaaa..",
+        "..aacaaaaaaaaaa.",
+        "..aaaaaaaaaabaa.",
+        "..aaaaaaaaaaaa..",
+        "...caaaaaaaac...",
+        "...dcdcdcdcdc...",
+        "...cdcdcdcdcd...",
+        "...dcdcdcdcdc...",
         "....cccccccc....",
-        "................",
-        "................",
-        "................",
-        "................",
         "................",
         "................",
     ],
@@ -499,8 +499,10 @@ ITENS = [
     ("enxada", "enxada", paleta((170, 175, 185), d=MADEIRA_DO_CABO)),
     ("regador", "regador", paleta((70, 140, 200))),
     ("picareta", "picareta", paleta((160, 165, 175), d=MADEIRA_DO_CABO)),
-    # Arma: a soqueira é o que o jogador usa quando não está com ferramenta na mão.
-    ("soqueira", "soqueira", paleta((125, 130, 145))),
+    # Arma: os cestos são a luva de couro com tiras dos pugilistas antigos, e é o que o
+    # jogador usa quando não está com ferramenta na mão. O couro fica na cor base, as
+    # tiras do pulso no detalhe "d" e os rebites de metal no "e".
+    ("cestos", "cestos", paleta((150, 95, 55), d=(205, 170, 120), e=(205, 210, 220))),
 ]
 
 

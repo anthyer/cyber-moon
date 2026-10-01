@@ -83,7 +83,7 @@ const ESPECIAIS: Array = [
 ## id, nome, venda. Armas não empilham e não servem de presente. A classe Arma, com dano
 ## e alcance, nasce no plano 08; até lá a arma é um Item comum da categoria ARMA.
 const ARMAS: Array = [
-	[&"soqueira", "Soqueira", 15],
+	[&"cestos", "Cestos", 15],
 ]
 
 func _init() -> void:
