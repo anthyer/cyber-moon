@@ -27,6 +27,7 @@ O stick esquerdo move o jogador junto com o D-pad. As quatro ações de moviment
 
 - Toda leitura de entrada passa pelo `InputManager` (`scripts/core/input_manager.gd`), nunca por verificação direta de tecla no código de gameplay.
 - Cada ação é mapeada, desde o início, para teclado e joystick simultaneamente; `dash` soma ainda um botão de mouse como atalho extra. O suporte a toque na tela será adicionado futuramente mapeando as mesmas ações.
+- `atacar` é o botão de usar o item da mão: ferramenta age na célula à frente, semente planta, consumível é comido, e com soqueira, slot vazio ou qualquer outro item ele dá soco.
 - Nos menus, as direções (`ui_up`, `ui_down`, `ui_left`, `ui_right`) respondem às setas, ao D-pad, ao stick esquerdo e também ao WASD, para quem joga no WASD não precisar trocar de mão ao abrir o inventário. Com o menu aberto o jogo está pausado, então as mesmas teclas não movem o personagem.
 - Nos menus, `ui_accept` confirma. Além dos binds padrão do Godot (Enter, Espaço e o botão A), ele também responde ao botão X/West, que é onde chega o botão A do painel arcade; sem isso o painel navegaria no menu sem conseguir confirmar. Com o jogo pausado não há conflito com `atacar`.
 - `abrir_inventario` e `menu_pausa` abrem a mesma tela por enquanto, o menu de pausa com o inventário, porque ainda não existe tela de opções. Com o menu aberto, qualquer uma das duas fecha, e o jogo fica pausado de verdade enquanto ele está aberto.

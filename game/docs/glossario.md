@@ -30,3 +30,7 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Estágio de crescimento | Growth stage / `Cultivo.estagios_de_crescimento`, sinal `crop_grown` |
 | Planta murcha | Withered crop / `PlantaNaGrade.murcha`, sinal `crop_withered` |
 | Rebrota | Regrowth / `Cultivo.estagio_de_rebrota` |
+| Stamina (fôlego) | Stamina / `StatusManager.stamina_atual`, sinal `stamina_changed` |
+| Desmaio, queda | Fainting / sinais `player_fainted` e `player_woke_up`, enum `StatusManager.Motivo` |
+| Custos de ação | Action costs / `CustosDeAcao` (classe Resource) |
+| Ponto de spawn | Spawn point / `Marker3D` `PontoDeSpawn`, a casa do jogador |

@@ -8,6 +8,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 - `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): controla o número do dia e a hora atual. Sinais próprios: `day_started`, `day_ended`. Método principal: `avancar_para_o_proximo_dia()`.
 - `InventoryManager` (`scripts/core/inventory_manager.gd`): inventário do jogador em 36 slots, cada um uma `PilhaDeItens` ou `null`. Os índices de 0 a 8 são a barra rápida e de 9 a 35 a matriz de 3 linhas por 9 colunas, a mesma largura da barra rápida. `adicionar_item` devolve o que não coube (inventário cheio), e completa pilhas iguais antes de ocupar o primeiro slot vazio, varrendo a barra rápida antes da matriz. Também guarda o equipamento: os espaços `ARMADURA` e `ACESSORIO` apontam para o índice de um slot, e o item equipado continua ocupando esse slot. Sinais: `inventory_changed` e `equipment_changed(espaco, item)`.
 - `EquipmentManager` (`scripts/core/equipment_manager.gd`): guarda só qual dos 9 slots rápidos está selecionado (`indice_selecionado`, sinal `slot_selecionado_alterado`). O item na mão é o que está nesse slot do `InventoryManager` (`item_na_mao()`, `ferramenta_na_mao()`), como no Minecraft. Slot vazio é uma seleção válida, e com ele ou com a soqueira o ataque é o soco. Ao iniciar, põe a soqueira e as três ferramentas nos slots rápidos 1 a 4.
+- `StatusManager` (`scripts/core/status_manager.gd`): vida, stamina, experiência e nível do jogador. Sinais `health_changed`, `stamina_changed`, `level_changed`, `experience_changed`, `player_fainted(motivo)` e `player_woke_up(motivo)`. A stamina só volta dormindo (virada do dia) ou comendo; a vida volta devagar depois de 5 segundos sem dano.
 - `InputManager` (`scripts/core/input_manager.gd`): traduz o Input Map do Godot em consultas simples (`obter_direcao_movimento`, `interagir_pressionado`, `abrir_inventario_pressionado`), independente do dispositivo físico usado.
 - `GameManager` (`scripts/core/game_manager.gd`): guarda a fase da história e os marcos de progresso já desbloqueados. Método principal: `desbloquear_marco`, que emite `EventBus.city_expansion_blocked`.
 - `SaveManager` (`scripts/core/save_manager.gd`): grava e lê o progresso em `user://save_game.json`.
@@ -22,6 +23,7 @@ Conteúdo de jogo é representado por classes `Resource` customizadas, definidas
 - `PilhaDeItens` (`scripts/resources/pilha_de_itens.gd`): um item e sua quantidade num slot do inventário.
 - `Item` (`scripts/resources/item.gd`): um item do inventário, com `id` estável, `categoria` (enum `Item.Categoria`), ícone e valor de venda. Filhas: `Ferramenta`, `Semente` (aponta o `Cultivo`) e `Consumivel` (vida e stamina recuperadas).
 - `Cultivo` (`scripts/resources/cultivo.gd`): uma cultura plantável, com as texturas de cada estágio, os dias por estágio, o item colhido e a quantidade, e o estágio de rebrota. Os `.tres` ficam em `resources/farming/cultivos/` e são gerados junto com o catálogo de itens. Cada `Semente` aponta para o seu `Cultivo`.
+- `CustosDeAcao` (`scripts/resources/custos_de_acao.gd`): stamina gasta e experiência ganha por plantar, colher, socar e dar dash. O balanceamento fica num arquivo só, `resources/status/custos_padrao.tres`. O custo de cada ferramenta fica no `.tres` dela (`custo_de_stamina`, `experiencia_ao_usar`).
 - `PerfilNpc` (`scripts/resources/perfil_npc.gd`): dados de um NPC.
 - `NoDialogo` (`scripts/resources/no_dialogo.gd`): um nó de uma árvore de diálogo.
 - `BancoDePassos` (`scripts/resources/banco_de_passos.gd`): mapeia tipos de superfície a clipes de áudio para os passos do jogador.
@@ -152,4 +154,25 @@ muda nasce no tamanho padrão e cresce até essa escala (o milho maduro fica 1,4
 margem transparente na base das texturas da planta é descontada, para ela não flutuar, e
 as fileiras são centradas na faixa de terra desenhada, que fica deslocada para a frente
 dentro da célula porque a textura do solo tem 4 linhas vazias em cima.
+
+## Status, stamina e queda
+
+Toda ação do jogador que gasta stamina segue a mesma regra, aplicada no `player.gd`: sem
+stamina para o custo a ação é recusada, e a stamina só é cobrada quando a ação teve
+efeito (usar a enxada onde ela não faz nada não custa). Com um `Consumivel` na mão, o
+botão de atacar come uma unidade, desde que ele recupere alguma coisa.
+
+Subir de nível (experiência `100 * nivel`, até o nível 20) aumenta a vida máxima em 10 e
+a stamina máxima em 8.
+
+Zerar a stamina ou a vida derruba o jogador. Não há tela de fim de jogo: o
+`StatusManager` emite `player_fainted`, o `player.gd` toca a animação de queda e para de
+responder, e a `tela_de_desmaio` escurece e chama `acordar_no_dia_seguinte()`. Isso vira
+o dia, e o jogador acorda no `PontoDeSpawn` da fase. O máximo das barras não muda: quem
+desmaiou de cansaço acorda com metade da stamina, e quem foi derrotado acorda com metade
+da stamina e metade da vida. O que falta pode ser recuperado comendo, e uma noite normal
+devolve tudo.
+
+As barras são um componente só (`scenes/ui/barras_de_status.tscn`), usado na HUD e no
+menu de pausa.
 
