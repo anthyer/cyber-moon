@@ -4,7 +4,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 
 ## Autoloads
 
-- `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada`, `item_picked_up(item, quantidade)` (o jogador pegou um item do chão), `crop_planted(celula, cultivo)`, `crop_grown(celula, novo_estagio)`, `crop_withered(celula)` e `crop_removed(celula)`.
+- `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada`, `item_picked_up(item, quantidade)` (o jogador pegou um item do chão), `crop_planted(celula, cultivo)`, `crop_grown(celula, novo_estagio)`, `crop_withered(celula)`, `crop_removed(celula)`, `damage_dealt(alvo, quantidade)` e `enemy_defeated(perfil, posicao)`.
 - `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): controla o número do dia e a hora atual. Sinais próprios: `day_started`, `day_ended`. Método principal: `avancar_para_o_proximo_dia()`.
 - `InventoryManager` (`scripts/core/inventory_manager.gd`): inventário do jogador em 36 slots, cada um uma `PilhaDeItens` ou `null`. Os índices de 0 a 8 são a barra rápida e de 9 a 35 a matriz de 3 linhas por 9 colunas, a mesma largura da barra rápida. `adicionar_item` devolve o que não coube (inventário cheio), e completa pilhas iguais antes de ocupar o primeiro slot vazio, varrendo a barra rápida antes da matriz. Também guarda o equipamento: os espaços `ARMADURA` e `ACESSORIO` apontam para o índice de um slot, e o item equipado continua ocupando esse slot. Sinais: `inventory_changed` e `equipment_changed(espaco, item)`.
 - `EquipmentManager` (`scripts/core/equipment_manager.gd`): guarda só qual dos 9 slots rápidos está selecionado (`indice_selecionado`, sinal `slot_selecionado_alterado`). O item na mão é o que está nesse slot do `InventoryManager` (`item_na_mao()`, `ferramenta_na_mao()`), como no Minecraft. Slot vazio é uma seleção válida, e com ele ou com os cestos o ataque é o soco. Ao iniciar, põe os cestos e as três ferramentas nos slots rápidos 1 a 4.
@@ -25,6 +25,7 @@ Conteúdo de jogo é representado por classes `Resource` customizadas, definidas
 - `Cultivo` (`scripts/resources/cultivo.gd`): uma cultura plantável, com as texturas de cada estágio, os dias por estágio, o item colhido e a quantidade, e o estágio de rebrota. Os `.tres` ficam em `resources/farming/cultivos/` e são gerados junto com o catálogo de itens. Cada `Semente` aponta para o seu `Cultivo`.
 - `CustosDeAcao` (`scripts/resources/custos_de_acao.gd`): stamina gasta e experiência ganha por plantar e colher, e a stamina do golpe que acerta um oponente. O balanceamento fica num arquivo só, `resources/status/custos_padrao.tres`. O custo de cada ferramenta fica no `.tres` dela (`custo_de_stamina`, `experiencia_ao_usar`).
 - `Arma` (`scripts/resources/arma.gd`): item da categoria ARMA com tipo (`PUNHO`, `LEVE`, `PESADA`, `DISTANCIA`), dano, alcance, custo de stamina por acerto, velocidade da animação, cooldown, o modelo que aparece na mão e, na arma de distância, o projétil. Os `.tres` ficam em `resources/items/armas/` e são gerados com o catálogo. O punho das mãos vazias é uma `Arma` fora do inventário, em `resources/combat/punho.tres`.
+- `PerfilInimigo` (`scripts/resources/perfil_inimigo.gd`): tudo que diferencia um tipo de inimigo: modelo e cor, vida, velocidade, dano, alcance e intervalo do ataque, raios de percepção e de desistência, comportamento parado, experiência e drop. Os `.tres` ficam em `resources/combat/inimigos/`.
 - `PerfilNpc` (`scripts/resources/perfil_npc.gd`): dados de um NPC.
 - `NoDialogo` (`scripts/resources/no_dialogo.gd`): um nó de uma árvore de diálogo.
 - `BancoDePassos` (`scripts/resources/banco_de_passos.gd`): mapeia tipos de superfície a clipes de áudio para os passos do jogador.
@@ -214,10 +215,14 @@ pode sair antes, assim que o golpe termina de acertar (65% do clipe, o export
 aponta, e só usa a frente do personagem quando não há direção.
 
 **Contrato de dano:** quem pode levar dano tem o método
-`receber_dano(quantidade: int, origem: Node3D)` e fica na camada `inimigo`. A hitbox e o
-projétil sobem pela árvore a partir do corpo atingido até achar esse método. O
-`AlvoDeTreino` é o primeiro a implementar o contrato, e os inimigos do plano 09 seguem o
-mesmo.
+`receber_dano(quantidade: int, origem: Node3D)`. A hitbox e o projétil sobem pela árvore
+a partir do corpo atingido até achar esse método. O `Inimigo` e o jogador implementam o
+contrato: o golpe do jogador procura a camada `inimigo`, e o golpe do inimigo procura a
+camada `jogador`.
+
+**Modelo na mão sem colisão:** o `AtaqueDoJogador` remove qualquer corpo de colisão do
+modelo da arma ao prendê-lo na mão, e os acessórios `aid_*` estão na lista de modelos sem
+colisão da importação. Um corpo sólido preso ao personagem faz a física arremessá-lo.
 
 A stamina do golpe só é cobrada quando ele acerta alguém, uma vez por golpe.
 
@@ -234,4 +239,30 @@ para as partículas ficarem onde nasceram.
 O primeiro efeito é a poeira do passo (`poeira_de_passo.tscn`): a cada passada, o
 `passos_do_jogador.gd` solta uns quadradinhos na cor da superfície sob o pé. As cores
 ficam no `BancoDePassos`, junto dos sons (`cor_da_poeira_por_superficie`).
+
+## Inimigos
+
+Um inimigo é uma cena só, `scenes/combat/inimigo.tscn` (script `Inimigo`), configurada
+por um `PerfilInimigo`. O modelo vem do perfil e é tingido em código, sobrescrevendo uma
+cópia do material de cada superfície, sem mexer no `.glb`.
+
+O comportamento é uma máquina de quatro estados num `match`: `OCIOSO` (círculo,
+patrulha ou parado girando, conforme o perfil), `PERSEGUINDO`, `ATACANDO` e
+`MORRENDO`. O raio de desistência é maior que o de percepção, para o inimigo não ligar e
+desligar a perseguição na borda. Ele anda em linha reta, sem desviar de obstáculo, e
+acha o jogador pelo grupo `jogador`. Morrendo, toca `die`, dá a experiência pelo
+`StatusManager`, emite `enemy_defeated` e solta um item do perfil com `ItemNoMundo`.
+
+**Reação a dano** (`scenes/combat/reacao_a_dano.tscn`, script `ReacaoADano`) é um nó
+filho do jogador e de cada inimigo: empurrão para longe de quem bateu, piscada branca
+(uma camada no `material_overlay`, para não apagar o tingimento), invencibilidade curta
+e som. Ele não move o corpo: o dono lê `empurrao_atual()` e soma na própria velocidade.
+No jogador, a câmera também sacode.
+
+O jogador e os inimigos só aceitam a camada `mundo` como chão de plataforma
+(`platform_floor_layers = 1`). Sem isso, a cápsula de um sobe na do outro e a física
+trata quem anda como plataforma em movimento.
+
+Seis inimigos de teste ficam no nó `AreaDeTeste` do playground, na faixa livre em
+z = -15, longe da fazenda.
 

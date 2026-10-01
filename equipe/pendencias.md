@@ -225,8 +225,7 @@ plano, seção "Revisão de 2026-09-30".
 
 **Temporário, precisa sair depois:**
 
-- Os três alvos de treino do playground (`AlvosDeTreino`) saem quando o plano 09 trouxer
-  inimigos.
+- (Resolvido no plano 09: os alvos de treino saíram, a `AreaDeTeste` tem inimigos de verdade.)
 - As quatro armas no inventário inicial são estoque de teste, como as sementes e os pães.
 
 **Fica para depois:**
@@ -239,6 +238,28 @@ plano, seção "Revisão de 2026-09-30".
   de andar segurando arma. Parado, a pose é a de segurar com as duas mãos.
 - O gerador do catálogo imprime um erro de compilação ao carregar a cena do projétil,
   porque roda sem os autoloads. As armas saem certas mesmo assim.
+
+### 2026-10-01, plano 09
+
+**Feito**, menos o ajuste dos números jogando (tarefa 9). Decisões no topo do plano.
+
+**Precisa do Antonio:**
+
+- Jogar contra os seis inimigos da `AreaDeTeste` e ajustar os números dos três `.tres`
+  em `resources/combat/inimigos/`. A tabela é o chute do plano.
+
+**Descoberto no caminho:**
+
+- Nesta máquina, os modelos estavam sem colisão nenhuma, porque o cache de importação
+  (`game/.godot/imported/`) era de antes do plano 01. Foi preciso apagar o cache dos
+  `.glb` e reimportar. Quem clonar o projeto de novo, ou tiver cache antigo, precisa
+  fazer o mesmo. Está na skill `rodar-o-jogo`.
+
+**Fica para depois:**
+
+- Inimigo anda em linha reta e encosta em parede. Navegação é sugestão de feature.
+- Os inimigos não aparecem sozinhos: estão colocados à mão no playground.
+- Todo dano usa o `punch.wav`.
 
 ### 2026-09-30, partículas
 

@@ -6,6 +6,34 @@ quando ele se afasta. Eles tiram vida, levam dano, reagem ao dano e morrem.
 
 **Depende de:** 07 (vida), 08 (o que causa dano neles).
 
+## Revisão de 2026-10-01 (vale sobre o resto do plano)
+
+**Situação:** feito, menos a tarefa 9 (ajustar os números jogando), que depende de o
+Antonio jogar. Conferido por teste automático no playground: tingimento, os três
+comportamentos parados, perseguir e desistir sem oscilar (zero trocas de estado com o
+jogador parado entre os dois raios), o ataque tirando vida do jogador, golpe do jogador
+tirando vida e empurrando, invencibilidade curta, morte com experiência e drop, e 87
+quadros por segundo com os inimigos ativos.
+
+**Ajustes ao plano:**
+
+- **Contrato de dano** é o que já existia desde o plano 08,
+  `receber_dano(quantidade: int, origem: Node3D)`, e não uma posição. O jogador ganhou o
+  mesmo método.
+- **Sinais em inglês:** `damage_dealt` e `enemy_defeated`.
+- **Sem partículas**, porque este plano é anterior ao 19.
+- **Os alvos de treino do plano 08 saíram**, como previsto.
+- **Patrulha:** o segundo ponto é um `Marker3D` indicado no inimigo; sem ele, o inimigo
+  patrulha 4 metros para o lado.
+- **Golpe do inimigo sai virado para o jogador.** O giro suave ainda não tinha terminado
+  quando o golpe começava, e a área de acerto nascia para o lado errado.
+- **Plataforma só no mundo.** O jogador e o inimigo só aceitam a camada `mundo` como chão
+  de plataforma, senão um arremessa o outro ao encostar.
+- **Modelo da arma sem colisão.** A reimportação dos modelos deu colisão às bengalas e à
+  muleta usadas como arma, e o corpo sólido preso à mão arremessava o jogador. O modelo
+  da arma agora perde qualquer colisão, e os `aid_*` entraram na lista de modelos sem
+  colisão da importação.
+
 ## Contexto e placeholder
 
 Os inimigos são ciborgues e robôs, tema cyberpunk. Não existe modelo de inimigo no
@@ -148,19 +176,19 @@ sentinela. Marcadores de patrulha (`Marker3D`) para os que patrulham.
 
 ## Tarefas
 
-- [ ] **1.** Criar `perfil_inimigo.gd` e os três `.tres`.
-- [ ] **2.** Criar `inimigo.tscn` e o script com a máquina de estados, só com `OCIOSO` e
+- [x] **1.** Criar `perfil_inimigo.gd` e os três `.tres`.
+- [x] **2.** Criar `inimigo.tscn` e o script com a máquina de estados, só com `OCIOSO` e
   `PERSEGUINDO`. Verificar: o inimigo persegue ao chegar perto e desiste ao se afastar,
   sem tremer na borda.
-- [ ] **3.** Implementar os três comportamentos ociosos.
-- [ ] **4.** Implementar `ATACANDO`, com a hitbox do inimigo tirando vida do jogador.
-- [ ] **5.** Fazer o inimigo levar dano da hitbox e do projétil do jogador (plano 08).
-- [ ] **6.** Criar `reacao_a_dano.tscn` e usar nos dois lados.
-- [ ] **7.** Implementar `MORRENDO`, com drop de item usando `ItemNoMundo.soltar()` e
+- [x] **3.** Implementar os três comportamentos ociosos.
+- [x] **4.** Implementar `ATACANDO`, com a hitbox do inimigo tirando vida do jogador.
+- [x] **5.** Fazer o inimigo levar dano da hitbox e do projétil do jogador (plano 08).
+- [x] **6.** Criar `reacao_a_dano.tscn` e usar nos dois lados.
+- [x] **7.** Implementar `MORRENDO`, com drop de item usando `ItemNoMundo.soltar()` e
   experiência pelo `StatusManager`.
-- [ ] **8.** Montar a área de teste no playground.
+- [x] **8.** Montar a área de teste no playground.
 - [ ] **9.** Ajustar os números jogando. A tabela acima é chute.
-- [ ] **10.** Documentar e commitar.
+- [x] **10.** Documentar e commitar.
 
 ## Critério de pronto
 

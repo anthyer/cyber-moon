@@ -47,7 +47,7 @@ Para lógica pura que não depende de cena, um script headless com `--script` ve
 mais rápido que abrir o jogo. Carregue o recurso real com `load()` em vez de confiar na
 leitura do arquivo de texto.
 
-## Três armadilhas que já morderam este projeto
+## Armadilhas que já morderam este projeto
 
 **Transform3D em `.tscn` é row-major.** Os 9 números da base são as linhas da matriz,
 não os vetores de eixo x, y, z que o construtor `Transform3D(Vector3, Vector3, Vector3,
@@ -89,6 +89,13 @@ O padrão é `1`, e assim que a textura aparece numa cena 3D o Godot a reimporta
 como VRAM Compressed, misturando as cores vizinhas. Para paleta e para pixel art, o
 `.import` precisa de `compress/mode=0` e `detect_3d/compress_to=0`. As texturas em
 `game/assets/textures/tiny_farm_crops/` já estão assim.
+
+**Modelo sem colisão numa máquina e com colisão na outra** é cache de importação velho.
+A colisão dos modelos é gerada pelo script de pós importação, e o resultado fica em
+`game/.godot/imported/`, que não vai para o git. Se as configurações de importação não
+mudaram, o Godot não reimporta, e uma máquina com cache anterior ao plano 01 fica com
+os modelos sem colisão. Conferir: conte os `StaticBody3D` da fase carregada (centenas,
+não quatro). Resolver: apague `game/.godot/imported/*.glb-*` e rode o `--import`.
 
 ## Antes de dizer que funciona
 
