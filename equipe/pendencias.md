@@ -239,6 +239,22 @@ plano, seção "Revisão de 2026-09-30".
 - O gerador do catálogo imprime um erro de compilação ao carregar a cena do projétil,
   porque roda sem os autoloads. As armas saem certas mesmo assim.
 
+### 2026-10-01, auditoria da colisão do plano 01
+
+Conferida com o jogo carregado, a pedido do Antonio:
+
+- **Certo:** 57 tipos de modelo com colisão (prédios, árvores, cercas, pedras, pisos),
+  todos na camada `mundo` e com a superfície certa; grama, folhagem, mudas e o planter
+  sem colisão, como o Bernardo definiu. A ponte é atravessada nos dois sentidos com a
+  subida de degraus. Cercas e prédios barram onde devem.
+- **Corrigido:** a cápsula do jogador tinha 1,6 m de altura para um boneco de 0,67 m, e
+  batia em copas de árvore e beirais acima da cabeça dele. Eram uns 150 m² de paredes
+  invisíveis no mapa. A cápsula do jogador e a dos inimigos passaram a raio 0,25 e
+  altura 0,7, e a varredura caiu de 600 pontos para 5 (resíduo de 3 cm). Combate, ímã de
+  itens e a ponte foram testados de novo depois da mudança.
+- **Para saber:** com a cápsula menor, o jogador passa por baixo de copas e toldos e
+  fica escondido por eles na câmera de cima.
+
 ### 2026-10-01, plano 09
 
 **Feito**, menos o ajuste dos números jogando (tarefa 9). Decisões no topo do plano.

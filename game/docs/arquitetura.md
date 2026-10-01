@@ -259,6 +259,11 @@ filho do jogador e de cada inimigo: empurrão para longe de quem bateu, piscada 
 e som. Ele não move o corpo: o dono lê `empurrao_atual()` e soma na própria velocidade.
 No jogador, a câmera também sacode.
 
+**Tamanho da cápsula:** o jogador e os inimigos usam uma cápsula do tamanho do boneco
+(raio 0,25 e altura 0,7, centro a 0,35 do chão). O personagem da Kenney tem só 0,67 de
+altura, e uma cápsula mais alta bate em copas de árvore e beirais acima da cabeça dele,
+que para quem joga parecem paredes invisíveis.
+
 O jogador e os inimigos só aceitam a camada `mundo` como chão de plataforma
 (`platform_floor_layers = 1`). Sem isso, a cápsula de um sobe na do outro e a física
 trata quem anda como plataforma em movimento.
