@@ -23,14 +23,14 @@ const ESTAGIOS_POR_CULTIVO: int = 3
 ## id, nome, venda, nome da cultura no arquivo de arte (tiny_farm_crops/<cultura>_icon.png),
 ## dias por estágio, estágio de rebrota (0 para não rebrotar) e escala da planta madura.
 ## O ritmo varia para o plantio não ficar todo igual: cenoura e trigo são rápidos,
-## tomate é lento mas rebrota e rende várias colheitas. O milho maduro é maior que as
-## outras plantas, porque na vida real o pé de milho é alto.
+## tomate é lento mas rebrota e rende várias colheitas. O milho e o tomate maduros são
+## maiores que as outras plantas, porque na vida real são pés altos, o milho mais.
 const COLHEITAS: Array = [
 	[&"beterraba", "Beterraba", 35, "beetroot", 2, 0, 1.0],
 	[&"repolho", "Repolho", 50, "cabbage", 2, 0, 1.0],
 	[&"cenoura", "Cenoura", 25, "carrot", 1, 0, 1.0],
 	[&"milho", "Milho", 40, "corn", 2, 1, 1.4],
-	[&"tomate", "Tomate", 30, "tomato", 3, 1, 1.0],
+	[&"tomate", "Tomate", 30, "tomato", 3, 1, 1.25],
 	[&"trigo", "Trigo", 20, "wheat", 1, 0, 1.0],
 ]
 

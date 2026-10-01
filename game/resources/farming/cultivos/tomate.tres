@@ -16,3 +16,4 @@ textura_murcha = ExtResource("6_uc1x0")
 dias_por_estagio = 3
 item_colhido = ExtResource("4_a2ut5")
 estagio_de_rebrota = 1
+escala_da_planta_madura = 1.25
