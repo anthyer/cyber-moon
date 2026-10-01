@@ -21,7 +21,7 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Espaço de equipamento | Equipment slot / enum `InventoryManager.Espaco` |
 | Item na mão (equipado) | Item in hand / slot rápido selecionado, `EquipmentManager.item_na_mao()` |
 | Barra de acesso rápido | Hotbar / cena `barra_rapida.tscn`, slots 0 a 8 do inventário |
-| Soqueira | Brass knuckles / item `soqueira`, categoria ARMA, o soco do jogador |
+| Cestos | Caestus (luva de couro com tiras dos pugilistas antigos) / item `cestos`, categoria ARMA, o soco do jogador |
 | Menu de pausa | Pause menu / cena `menu_pausa.tscn`, também a tela do inventário |
 | Ímã de coleta | Item magnet / `AreaDeAtracao` e `AreaDeColeta` do `ItemNoMundo` |
 | Área de interação | Interaction area / `AreaDeInteracao`, nó `AreaInteracao` do jogador |

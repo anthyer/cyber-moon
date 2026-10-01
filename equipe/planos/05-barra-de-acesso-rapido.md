@@ -23,14 +23,14 @@ item coletado aparecendo na barra, e a barra sumindo com o menu aberto.
 
 **Ajustes ao plano:**
 
-- O plano 04 já tinha criado o espaço "Equipado" (item em uso) e a soqueira no lugar dos
+- O plano 04 já tinha criado o espaço "Equipado" (item em uso) e a soqueira (hoje os cestos) no lugar dos
   socos. Aqui o "Equipado" virou uma janela para o slot rápido selecionado: mostra o item
   na mão, e soltar um item nele leva o item para o slot selecionado. O `InventoryManager`
   deixou de ter o espaço `EM_USO`; a seleção é só do `EquipmentManager`.
 - O item na mão pode ser qualquer item (semente, colheita), não só ferramenta ou arma,
   porque o plano 06 planta com a semente na mão. Com item que não é ferramenta, o ataque
   é o soco.
-- O jogador começa com soqueira, enxada, regador e picareta nos slots 1 a 4.
+- O jogador começa com os cestos, enxada, regador e picareta nos slots 1 a 4.
 - Sinais: `slot_selecionado_alterado` no `EquipmentManager` e `inventory_changed` no
   `InventoryManager` (o plano citava `inventario_alterado`).
 - A barra processa sempre e se esconde quando o jogo pausa, porque um nó que para de

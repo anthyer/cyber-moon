@@ -23,7 +23,9 @@ pelo mouse, o equipar e o inventário cheio deixando o item no chão.
   (sincronizados nos dois sentidos).
 - **Socos virou a Soqueira**, um item da categoria ARMA (`resources/items/armas/`),
   com ícone. É o item em uso quando nenhuma ferramenta está, e o ataque de soco vem
-  dela. O jogador começa com soqueira, enxada, regador e picareta nos slots rápidos 1 a
+  dela. Depois, a pedido do Antonio, a soqueira foi trocada pelos **Cestos**, a luva de
+  couro com tiras dos pugilistas antigos (id `cestos`), com nome e sprite novos.
+  O jogador começa com os cestos, enxada, regador e picareta nos slots rápidos 1 a
   4, batendo com as teclas 1 a 4. A classe Arma, com dano, é do plano 08.
 - **Controle move item com pegar e soltar**, porque controle não arrasta.
 

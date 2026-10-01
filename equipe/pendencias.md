@@ -170,7 +170,7 @@ feita no commit 5f72630. A regra fica em `scripts/utils/superficies.gd`.
 
 **Fica para depois:**
 
-- Os itens iniciais (soqueira e as três ferramentas) estão numa lista de caminhos no
+- Os itens iniciais (cestos e as três ferramentas) estão numa lista de caminhos no
   `EquipmentManager`. O plano 17 dá ao jogador o inventário inicial com sementes; aí essa
   lista vira um Resource de inventário inicial, junto das sementes.
 - A barra some durante a pausa, mas o plano também pede que ela suma durante o diálogo.

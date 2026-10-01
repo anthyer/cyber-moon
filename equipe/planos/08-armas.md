@@ -18,9 +18,10 @@ stamina).
   consome stamina e não sai quando não há stamina", vale esta regra. O `custo_de_stamina`
   da arma continua existindo, mas é o custo do golpe que acerta.
 - **Dash não gasta stamina.**
-- **A soqueira já existe** como item da categoria ARMA (`resources/items/armas/`), criada
-  no plano 04 como `Item` comum. Ela vira `Arma` aqui. O custo do soco que acerta está em
-  `resources/status/custos_padrao.tres` (`stamina_golpe_que_acerta`) até a soqueira ter o
+- **Os cestos já existem** (a luva de couro dos pugilistas antigos, que substituiu a
+  soqueira) como item da categoria ARMA (`resources/items/armas/`), criados
+  no plano 04 como `Item` comum. Viram `Arma` aqui. O custo do soco que acerta está em
+  `resources/status/custos_padrao.tres` (`stamina_golpe_que_acerta`) até os cestos terem o
   campo próprio.
 - **O item na mão é o slot rápido selecionado** (plano 05). Arma na mão é arma em uso.
 
