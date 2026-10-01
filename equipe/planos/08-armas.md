@@ -27,7 +27,7 @@ stamina).
 
 **Situação (2026-09-30):** feito. Conferido por teste automático contra os alvos de
 treino: dano de cada arma, stamina só no acerto, alcance do espadão maior que o da
-foice, combo do punho, projétil do rifle acertando e sumindo sozinho, e ferramenta na mão
+foice, combo do punho, projétil da arma de distância acertando e sumindo sozinho, e ferramenta na mão
 não atacando. O encaixe dos modelos na mão foi ajustado por captura de tela.
 
 **Ajustes feitos na implementação:**
@@ -44,13 +44,22 @@ não atacando. O encaixe dos modelos na mão foi ajustado por captura de tela.
   golpes até o plano 09 trazer inimigos. Eles implementam o contrato de dano,
   `receber_dano(quantidade, origem)`, que os inimigos vão seguir.
 - **Ícones das armas** criados em pixel art no estilo dos outros.
-- **Som:** todas as armas de corpo a corpo e o rifle usam o `punch.wav`, que é o único som
+- **Som:** todas as armas de corpo a corpo e a escopeta usam o `punch.wav`, que é o único som
   de golpe que existe.
 - O jogador começa com as quatro armas nos slots 5 a 8, como estoque de teste.
-- **Mira laser e giro rápido no rifle** (pedido do Antonio depois da entrega). A arma
-  ganhou dois campos: `tem_mira_laser`, que mostra uma linha vermelha por onde o tiro
-  vai passar, e `multiplicador_de_giro`, que faz o personagem virar mais rápido com a
-  arma na mão. O rifle usa os dois, com giro 2,5 vezes mais rápido.
+- **A arma de distância é uma escopeta de cano serrado, e não um rifle** (pedido do
+  Antonio depois da entrega). Cada disparo solta 6 projéteis num cone de 16 graus, com
+  alcance de 5 metros: é a arma de maior alcance, mas não infinito. O dano é por
+  projétil (6), então de perto, com todos acertando, vale 36, e de longe o cone abre e
+  acertam poucos. A stamina é cobrada uma vez por disparo. Onde o texto abaixo fala em
+  rifle, vale a escopeta (`escopeta_serrada`).
+- **Mira laser e giro rápido** (pedido do Antonio). A arma ganhou `tem_mira_laser`, que
+  mostra por onde o tiro vai passar (o centro e as duas bordas do cone), e
+  `multiplicador_de_giro`, que faz o personagem virar mais rápido com ela na mão. A
+  escopeta usa os dois, com giro 2,5 vezes mais rápido.
+- **Dash depois do golpe** (pedido do Antonio). O dash pode sair assim que o golpe
+  termina de acertar, cortando a recuperação, e vai para onde o direcional aponta. Com o
+  espadão, saía depois de 0,86 s e agora sai aos 0,50 s.
 
 ## O que o pacote de personagens já oferece
 

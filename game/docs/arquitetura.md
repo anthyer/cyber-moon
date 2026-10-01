@@ -196,13 +196,22 @@ golpe acontecer no mundo:
   animações do `.glb` não aceitam marcação de quadro. Um golpe acerta cada alvo uma vez,
   e pode acertar vários.
 - **Projétil:** `scenes/combat/projetil.tscn` viaja reto, some ao bater em qualquer coisa
-  e some sozinho depois de 3 segundos.
+  e some ao percorrer o alcance da arma. A arma pode soltar vários de uma vez, abertos
+  em leque (`projeteis_por_disparo`, `abertura_do_cone_em_graus`), e aí a stamina do
+  disparo é cobrada uma vez só. A escopeta de cano serrado solta 6 num cone de 16 graus,
+  com 5 metros de alcance.
 - **Mira laser:** arma com `tem_mira_laser` mostra uma linha fina que sai do mesmo ponto e
   na mesma direção do projétil, e para no primeiro obstáculo (mundo ou inimigo) ou no
-  alcance da arma. É desenhada em código, sem cena própria.
+  alcance da arma. Arma em leque mostra também as duas bordas do cone, mais apagadas. É
+  desenhada em código, sem cena própria.
 
-A arma também pode acelerar o giro do personagem (`multiplicador_de_giro`). O rifle usa
-2,5, para a mira acompanhar o direcional.
+A arma também pode acelerar o giro do personagem (`multiplicador_de_giro`). A escopeta
+usa 2,5, para a mira acompanhar o direcional.
+
+**Dash depois do golpe:** o golpe trava o movimento até a animação acabar, mas o dash
+pode sair antes, assim que o golpe termina de acertar (65% do clipe, o export
+`fracao_do_golpe_que_libera_o_dash` do player). O dash vai para onde o direcional
+aponta, e só usa a frente do personagem quando não há direção.
 
 **Contrato de dano:** quem pode levar dano tem o método
 `receber_dano(quantidade: int, origem: Node3D)` e fica na camada `inimigo`. A hitbox e o

@@ -234,8 +234,8 @@ plano, seção "Revisão de 2026-09-30".
 - Os modelos das armas são bengalas e muleta do pacote de acessibilidade. Trocar por
   modelo de arma é só mudar o campo `modelo` no `.tres` e refazer o encaixe na tabela do
   gerador.
-- Só existe um som de golpe (`punch.wav`), usado por todas as armas, inclusive o rifle.
-- Andando com o rifle, ele aponta para baixo junto com o braço, porque não existe clipe
+- Só existe um som de golpe (`punch.wav`), usado por todas as armas, inclusive a escopeta.
+- Andando com a escopeta, ela aponta para baixo junto com o braço, porque não existe clipe
   de andar segurando arma. Parado, a pose é a de segurar com as duas mãos.
 - O gerador do catálogo imprime um erro de compilação ao carregar a cena do projétil,
   porque roda sem os autoloads. As armas saem certas mesmo assim.
