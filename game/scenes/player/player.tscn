@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://d2br6e0shdkjd" path="res://assets/models/kenney_mini_characters/character_female_f.glb" id="2_personagem"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://scripts/player/area_de_interacao.gd" id="7_area_interacao"]
 [ext_resource type="Script" path="res://scripts/combat/ataque_do_jogador.gd" id="8_ataque"]
 [ext_resource type="PackedScene" path="res://scenes/effects/poeira_de_passo.tscn" id="9_poeira"]
+[ext_resource type="PackedScene" path="res://scenes/combat/reacao_a_dano.tscn" id="10_reacao"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/punch.wav" id="11_som_de_dano"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.3
@@ -23,6 +25,9 @@ radius = 0.5
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 13
+platform_on_leave = 2
+platform_floor_layers = 1
+platform_wall_layers = 0
 script = ExtResource("1_script")
 punho = ExtResource("5_punho")
 som_de_batida_na_parede = ExtResource("6_batida")
@@ -63,3 +68,6 @@ shape = SubResource("SphereShape3D_hitbox")
 
 [node name="AtaqueDoJogador" type="Node3D" parent="."]
 script = ExtResource("8_ataque")
+
+[node name="ReacaoADano" parent="." instance=ExtResource("10_reacao")]
+som = ExtResource("11_som_de_dano")

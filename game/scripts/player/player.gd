@@ -40,6 +40,7 @@ const CLIPE_PARADO_COM_ARMA_DE_DISTANCIA: String = "holding-both"
 @onready var indicador_alvo: MeshInstance3D = get_node_or_null(caminho_indicador_alvo)
 @onready var area_interacao: AreaDeInteracao = $AreaInteracao
 @onready var ataque: AtaqueDoJogador = $AtaqueDoJogador
+@onready var reacao_a_dano: ReacaoADano = $ReacaoADano
 
 var _tempo_dash_restante: float = 0.0
 var _tempo_cooldown_restante: float = 0.0
@@ -57,6 +58,8 @@ var _duracao_do_golpe_atual: float = 0.0
 var _desmaiado: bool = false
 
 func _ready() -> void:
+	# Os inimigos acham o jogador por este grupo, sem depender do caminho na cena.
+	add_to_group(&"jogador")
 	StatusManager.player_fainted.connect(_ao_desmaiar)
 	StatusManager.player_woke_up.connect(_ao_acordar)
 	# O modelo na mão acompanha o item na mão, que muda ao trocar de slot e também ao
@@ -181,6 +184,12 @@ func _physics_process(delta: float) -> void:
 
 		_atualizar_animacao(direcao, esta_correndo, false)
 
+	# O empurrão de um golpe tira o controle por um instante e vale por cima do resto.
+	if reacao_a_dano.esta_sendo_empurrado():
+		var empurrao: Vector3 = reacao_a_dano.empurrao_atual()
+		velocity.x = empurrao.x
+		velocity.z = empurrao.z
+
 	if is_on_floor():
 		velocity.y = 0.0
 	else:
@@ -268,6 +277,19 @@ func _cair_parado(delta: float) -> void:
 	else:
 		velocity.y -= gravidade * delta
 	move_and_slide()
+
+## Contrato de dano do jogo, o mesmo dos inimigos. A vida mora no StatusManager; aqui
+## fica a reação física: empurrão, piscada, invencibilidade curta e sacudida da câmera.
+func receber_dano(quantidade: int, origem: Node3D) -> void:
+	if _desmaiado or not reacao_a_dano.pode_levar_dano():
+		return
+	var posicao_de_quem_bateu: Vector3 = origem.global_position if origem != null else global_position
+	reacao_a_dano.reagir(posicao_de_quem_bateu)
+	StatusManager.receber_dano(quantidade, origem)
+	EventBus.damage_dealt.emit(self, quantidade)
+	var camera: Camera3D = get_viewport().get_camera_3d()
+	if camera != null and camera.has_method(&"sacudir"):
+		camera.call(&"sacudir")
 
 ## Sem golpe em andamento o dash está sempre liberado. Durante um golpe, só depois que
 ## ele terminou de acertar.
