@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="PerfilInimigo" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="PerfilInimigo" load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/perfil_inimigo.gd" id="1"]
 [ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_female_f.glb" id="2"]
 [ext_resource type="Resource" path="res://resources/items/sucata/servomotor.tres" id="3"]
 [ext_resource type="Resource" path="res://resources/items/sucata/celula_energia.tres" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/combat/projetil.tscn" id="5"]
 
 [resource]
 script = ExtResource("1")
@@ -13,13 +14,18 @@ modelo = ExtResource("2")
 cor = Color(0.65, 0.4, 1, 1)
 vida_maxima = 160
 velocidade = 1.8
-dano = 30
-alcance_de_ataque = 2.2
+dano = 15
+alcance_de_ataque = 7.0
 intervalo_entre_ataques = 2.8
-animacao_de_ataque = &"attack-kick-right"
-velocidade_da_animacao_de_ataque = 0.6
-raio_de_percepcao = 7.0
-raio_de_desistencia = 10.0
+animacao_de_ataque = &"holding-both-shoot"
+velocidade_da_animacao_de_ataque = 0.5
+projetil = ExtResource("5")
+projeteis_por_disparo = 3
+abertura_do_cone_em_graus = 30.0
+velocidade_do_projetil = 5.0
+alcance_do_projetil = 9.0
+raio_de_percepcao = 10.0
+raio_de_desistencia = 14.0
 comportamento_ocioso = 2
 experiencia_concedida = 60
 itens_dropados = Array[Resource]([ExtResource("3"), ExtResource("4")])

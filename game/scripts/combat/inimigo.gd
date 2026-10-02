@@ -28,6 +28,7 @@ enum Estado { OCIOSO, PERSEGUINDO, ATACANDO, MORRENDO }
 const INICIO_DA_JANELA_DE_ACERTO: float = 0.35
 const FIM_DA_JANELA_DE_ACERTO: float = 0.65
 const ALTURA_DO_GOLPE: float = 0.3
+const DISTANCIA_DA_BOCA_DO_TIRO: float = 0.4
 
 const RAIO_DO_CIRCULO_OCIOSO: float = 2.0
 const VELOCIDADE_DO_GIRO_PARADO: float = 0.6
@@ -182,7 +183,10 @@ func _processar_ataque(delta: float) -> void:
 	velocity.z = 0.0
 	_tempo_do_golpe += delta
 	var dentro_da_janela: bool = _tempo_do_golpe >= _duracao_do_golpe * INICIO_DA_JANELA_DE_ACERTO and _tempo_do_golpe <= _duracao_do_golpe * FIM_DA_JANELA_DE_ACERTO
-	if dentro_da_janela and not _golpe_ja_acertou:
+	if dentro_da_janela and not _golpe_ja_acertou and perfil.projetil != null:
+		_disparar()
+		_golpe_ja_acertou = true
+	elif dentro_da_janela and not _golpe_ja_acertou:
 		for corpo in _hitbox.get_overlapping_bodies():
 			if corpo.has_method(&"receber_dano"):
 				corpo.call(&"receber_dano", perfil.dano, self)
@@ -191,6 +195,19 @@ func _processar_ataque(delta: float) -> void:
 	if _tempo_do_golpe >= _duracao_do_golpe:
 		_tempo_ate_poder_atacar = perfil.intervalo_entre_ataques
 		estado = Estado.PERSEGUINDO
+
+## Solta os projéteis do perfil na direção em que o inimigo olha, abertos em leque por
+## igual quando são vários, como a escopeta do jogador.
+func _disparar() -> void:
+	var centro: Vector3 = _direcao_do_modelo()
+	var origem: Vector3 = global_position + centro * DISTANCIA_DA_BOCA_DO_TIRO + Vector3.UP * ALTURA_DO_GOLPE
+	var quantidade: int = maxi(perfil.projeteis_por_disparo, 1)
+	var meia_abertura: float = deg_to_rad(perfil.abertura_do_cone_em_graus) * 0.5
+	for indice in quantidade:
+		var direcao: Vector3 = centro
+		if quantidade > 1:
+			direcao = centro.rotated(Vector3.UP, lerpf(-meia_abertura, meia_abertura, float(indice) / float(quantidade - 1)))
+		Projetil.disparar_de_inimigo(perfil.projetil, origem, direcao, perfil.dano, perfil.velocidade_do_projetil, perfil.alcance_do_projetil, perfil.cor, self, get_parent())
 
 func _morrer() -> void:
 	estado = Estado.MORRENDO

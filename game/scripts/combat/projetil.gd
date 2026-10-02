@@ -13,6 +13,10 @@ extends Area3D
 ## do que acertou até achar um nó com esse método.
 
 const SEGUNDOS_DE_VIDA: float = 3.0
+## Camadas mundo (1) e jogador (2): o tiro do inimigo para na parede e acerta o jogador.
+const MASCARA_DO_TIRO_DE_INIMIGO: int = 3
+## O tiro do inimigo é lento e feito para ser desviado, então é maior para ser visto.
+const ESCALA_DO_TIRO_DE_INIMIGO: float = 1.8
 
 var dano: int = 0
 var velocidade: float = 18.0
@@ -45,6 +49,32 @@ static func disparar(cena: PackedScene, origem: Vector3, direcao_do_tiro: Vector
 	pai.add_child(projetil)
 	projetil.global_position = origem
 	return projetil
+
+## Disparo de inimigo. Usa a mesma cena, mas procura o jogador em vez dos inimigos, não
+## cobra stamina de ninguém, e sai tingido para o jogador saber de quem é o tiro.
+static func disparar_de_inimigo(cena: PackedScene, origem: Vector3, direcao_do_tiro: Vector3, dano_do_tiro: int, velocidade_do_tiro: float, alcance_do_tiro: float, cor: Color, dono_do_tiro: Node3D, pai: Node) -> Projetil:
+	var projetil: Projetil = cena.instantiate() as Projetil
+	projetil.dano = dano_do_tiro
+	projetil.velocidade = velocidade_do_tiro
+	projetil.alcance = alcance_do_tiro
+	projetil.direcao = direcao_do_tiro
+	projetil.dono = dono_do_tiro
+	projetil.collision_mask = MASCARA_DO_TIRO_DE_INIMIGO
+	projetil._tingir(cor)
+	pai.add_child(projetil)
+	projetil.global_position = origem
+	return projetil
+
+## O material da cena é dividido por todos os projéteis, então tingir troca por uma
+## cópia só deste.
+func _tingir(cor: Color) -> void:
+	var visual: MeshInstance3D = get_node_or_null(^"Visual") as MeshInstance3D
+	if visual == null:
+		return
+	var material: StandardMaterial3D = (visual.mesh.surface_get_material(0) as StandardMaterial3D).duplicate() as StandardMaterial3D
+	material.albedo_color = cor
+	visual.material_override = material
+	visual.scale = Vector3.ONE * ESCALA_DO_TIRO_DE_INIMIGO
 
 func _ready() -> void:
 	direcao = direcao.normalized()

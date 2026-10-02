@@ -29,6 +29,18 @@ enum ComportamentoOcioso {
 @export var animacao_de_ataque: StringName = &"attack-melee-right"
 @export var velocidade_da_animacao_de_ataque: float = 1.0
 
+@export_group("Ataque de distância")
+## Com um projétil aqui, o ataque deixa de ser corpo a corpo: o inimigo para ao chegar
+## no alcance de ataque e dispara. O dano do perfil passa a ser o de cada projétil.
+@export var projetil: PackedScene
+@export var projeteis_por_disparo: int = 1
+## Abertura total do leque, em graus, quando há mais de um projétil.
+@export var abertura_do_cone_em_graus: float = 0.0
+## Lento de propósito: o jogador vê o tiro vindo e pode desviar.
+@export var velocidade_do_projetil: float = 5.0
+## Distância que o projétil percorre antes de sumir.
+@export var alcance_do_projetil: float = 9.0
+
 @export_group("Percepção")
 @export var raio_de_percepcao: float = 10.0
 ## Maior que o raio de percepção de propósito. Se fossem iguais, o inimigo ligaria e
