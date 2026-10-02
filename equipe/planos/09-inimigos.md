@@ -25,6 +25,13 @@ quadros por segundo com os inimigos ativos.
 - **Os alvos de treino do plano 08 ficam**, a pedido do Antonio, ao lado dos inimigos,
   para testar o combate. Além dos seis da `AreaDeTeste`, há quatro inimigos espalhados
   pelo mapa (`InimigosEspalhados`).
+- **A sentinela ataca de longe** (pedido do Antonio depois da entrega). Em vez do chute
+  corpo a corpo, ela para a 7 metros e dispara 3 projéteis num cone de 30 graus, no
+  estilo da escopeta, com alcance de 9 metros e projétil lento (5 m/s), para o jogador
+  ver e desviar. Cada projétil tira 15, e a invencibilidade curta do jogador faz o
+  disparo inteiro contar uma vez. O perfil ganhou os campos de ataque de distância, e a
+  percepção da sentinela subiu para 10 (desistência 14). Isso muda a coluna dela na
+  tabela abaixo.
 - **Patrulha:** o segundo ponto é um `Marker3D` indicado no inimigo; sem ele, o inimigo
   patrulha 4 metros para o lado.
 - **Golpe do inimigo sai virado para o jogador.** O giro suave ainda não tinha terminado

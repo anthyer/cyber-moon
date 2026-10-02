@@ -211,10 +211,9 @@ golpe acontecer no mundo:
 A arma também pode acelerar o giro do personagem (`multiplicador_de_giro`). A escopeta
 usa 2,5, para a mira acompanhar o direcional.
 
-**Modo de mira:** arma com `giro_da_mira_em_graus_por_segundo` maior que zero troca o
-que o botão de correr faz. Segurando o botão, o `player.gd` planta o personagem no lugar
-e esquerda e direita giram a mira nessa velocidade, constante, para acertar o ângulo com
-precisão. A escopeta usa 90 graus por segundo.
+**Correr que planta:** arma com `correr_planta_no_lugar` troca o que o botão de correr
+faz. Segurando o botão, o `player.gd` zera a velocidade e o direcional continua virando
+o personagem do jeito normal, para mirar sem sair do lugar. A escopeta usa.
 
 **Dash depois do golpe:** o golpe trava o movimento até a animação acabar, mas o dash
 pode sair antes, assim que o golpe termina de acertar (65% do clipe, o export
@@ -257,7 +256,14 @@ O comportamento é uma máquina de quatro estados num `match`: `OCIOSO` (círcul
 patrulha ou parado girando, conforme o perfil), `PERSEGUINDO`, `ATACANDO` e
 `MORRENDO`. O raio de desistência é maior que o de percepção, para o inimigo não ligar e
 desligar a perseguição na borda. Ele anda em linha reta, sem desviar de obstáculo, e
-acha o jogador pelo grupo `jogador`. Morrendo, toca `die`, dá a experiência pelo
+acha o jogador pelo grupo `jogador`.
+
+O ataque é corpo a corpo por padrão: uma área de acerto à frente do inimigo, na janela
+do clipe. Perfil com `projetil` ataca de longe: o inimigo para ao chegar no
+`alcance_de_ataque` e dispara os projéteis do perfil, abertos em leque quando são vários.
+O tiro do inimigo usa a mesma cena do projétil do jogador, mas procura a camada
+`jogador`, sai tingido com a cor do inimigo e é lento, para dar para desviar. A
+sentinela dispara 3 projéteis num cone de 30 graus, a 5 m/s, com 9 metros de alcance. Morrendo, toca `die`, dá a experiência pelo
 `StatusManager`, emite `enemy_defeated` e solta um item do perfil com `ItemNoMundo`.
 
 **Reação a dano** (`scenes/combat/reacao_a_dano.tscn`, script `ReacaoADano`) é um nó

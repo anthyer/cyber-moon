@@ -59,10 +59,11 @@ não atacando. O encaixe dos modelos na mão foi ajustado por captura de tela.
   no estilo da marcação da enxada, a pedido do Antonio), e
   `multiplicador_de_giro`, que faz o personagem virar mais rápido com ela na mão. A
   escopeta usa os dois, com giro 2,5 vezes mais rápido.
-- **Modo de mira** (teste pedido pelo Antonio). Com a escopeta na mão, segurar o botão
-  de correr não corre: planta o personagem no lugar, e esquerda e direita giram a mira a
-  90 graus por segundo, com precisão. A velocidade é um campo da arma
-  (`giro_da_mira_em_graus_por_segundo`), e zero desliga o modo.
+- **Correr planta o personagem com a escopeta** (pedido do Antonio). Com a escopeta na
+  mão, segurar o botão de correr não corre: planta o personagem no lugar, e o direcional
+  vira ele do jeito normal. Chegou a ser testado um giro lento de mira com esquerda e
+  direita, e o Antonio preferiu voltar ao giro normal. É o campo `correr_planta_no_lugar`
+  da arma.
 - **Dash depois do golpe** (pedido do Antonio). O dash pode sair assim que o golpe
   termina de acertar, cortando a recuperação, e vai para onde o direcional aponta. Com o
   espadão, saía depois de 0,86 s e agora sai aos 0,50 s.
