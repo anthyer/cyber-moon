@@ -80,6 +80,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_relogio.tscn" id="104_hud_relogio"]
 [ext_resource type="Script" path="res://scripts/core/iluminacao_do_ciclo.gd" id="105_iluminacao"]
 [ext_resource type="PackedScene" path="res://scenes/world/cama.tscn" id="106_cama"]
+[ext_resource type="PackedScene" path="res://scenes/ui/menu_debug.tscn" id="107_menu_debug"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -165,6 +166,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="MenuPausa" parent="InterfaceHUD" unique_id=2111358796 instance=ExtResource("94_menu_pausa")]
 
 [node name="TelaDeDesmaio" parent="InterfaceHUD" unique_id=2083079390 instance=ExtResource("97_tela_de_desmaio")]
+
+[node name="MenuDebug" parent="InterfaceHUD" instance=ExtResource("107_menu_debug")]
 
 [node name="building-type-a2" parent="." unique_id=1628838430 instance=ExtResource("7_i1gjs")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -3.41, 0, 2.1330462)
