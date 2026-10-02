@@ -1,5 +1,5 @@
 name: cybermoon
-description: A minimal AWS Python Pulumi program
+description: Infraestrutura do Cyber Moon na AWS
 runtime:
   name: python
   options:
