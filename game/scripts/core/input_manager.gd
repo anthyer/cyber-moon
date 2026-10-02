@@ -79,3 +79,7 @@ func slot_anterior_pressionado() -> bool:
 func teste_avancar_dia_pressionado() -> bool:
 	return Input.is_action_just_pressed("teste_avancar_dia")
 
+## Abre e fecha o menu de debug. Só no teclado, de propósito: é ferramenta de teste.
+func menu_debug_pressionado() -> bool:
+	return Input.is_action_just_pressed("menu_debug")
+

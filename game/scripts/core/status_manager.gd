@@ -44,6 +44,8 @@ var vida_atual: int = VIDA_BASE
 var stamina_atual: float = STAMINA_BASE
 ## Verdadeiro entre a queda e o acordar. Enquanto vale, nada gasta nem recupera.
 var esta_desmaiado: bool = false
+## Só para teste, ligado pelo menu de debug: o jogador não perde vida nem cai por dano.
+var invencivel_para_teste: bool = false
 ## Verdadeiro no dia em que o jogador acordou depois de cair, com a barra pela metade.
 var desmaiou_ontem: bool = false
 
@@ -99,7 +101,7 @@ func recuperar_stamina(quantidade: float) -> void:
 
 ## A origem é quem causou o dano. Ainda não é usada; o plano 09 usa para o recuo.
 func receber_dano(quantidade: int, _origem: Node3D = null) -> void:
-	if esta_desmaiado or quantidade <= 0:
+	if esta_desmaiado or quantidade <= 0 or invencivel_para_teste:
 		return
 	vida_atual = maxi(vida_atual - quantidade, 0)
 	_segundos_desde_o_dano = 0.0

@@ -272,3 +272,20 @@ func _linha_tem_pixel(imagem: Image, linha: int) -> bool:
 			return true
 	return false
 
+## Leva toda planta viva ao estágio maduro, para testar colheita sem esperar os dias.
+## Usado pelo menu de debug.
+func amadurecer_todas_as_plantas() -> void:
+	for celula: Vector2i in _plantas:
+		var planta: PlantaNaGrade = _plantas[celula]
+		if planta.murcha:
+			continue
+		planta.estagio = planta.cultivo.estagio_maduro()
+		planta.dias_no_estagio = 0
+		_atualizar_visual_da_planta(planta)
+
+## Molha toda célula arada, para testar crescimento sem regar uma por uma.
+func molhar_todo_o_solo() -> void:
+	for celula: Vector2i in _estado.keys():
+		if _estado[celula] == EstadoTile.ARADO_SECO:
+			molhar(celula)
+

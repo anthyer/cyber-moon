@@ -77,6 +77,12 @@ func dormir(forcado: bool = false) -> void:
 	if forcado:
 		StatusManager.cair_de_sono()
 
+## Pula o relógio para uma hora do dia atual, entre 6:00 e a 1:00. Serve ao menu de debug
+## e a eventos que mudam a hora; a iluminação e o relógio da tela acompanham pelos sinais.
+func definir_hora(hora: float) -> void:
+	hora_atual = clampf(hora, HORA_INICIO_DIA, HORA_LIMITE - 0.01)
+	_anunciar_mudancas()
+
 func periodo_atual() -> Periodo:
 	if hora_atual < HORA_INICIO_DIA or hora_atual >= HORA_MEIA_NOITE:
 		return Periodo.MADRUGADA
