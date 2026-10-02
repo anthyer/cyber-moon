@@ -161,6 +161,8 @@ func _physics_process(delta: float) -> void:
 	elif _tempo_movimento_travado_ataque_restante > 0.0:
 		velocity.x = 0.0
 		velocity.z = 0.0
+	elif _esta_mirando():
+		_mirar_parado(delta)
 	else:
 		var entrada: Vector2 = InputManager.obter_direcao_movimento()
 		var direcao: Vector3 = Vector3(entrada.x, 0.0, entrada.y)
@@ -300,6 +302,25 @@ func _dash_liberado_pelo_golpe() -> bool:
 		return false
 	var decorrido: float = _duracao_do_golpe_atual - _tempo_ataque_restante
 	return decorrido >= _duracao_do_golpe_atual * fracao_do_golpe_que_libera_o_dash
+
+## O modo de mira vale quando a arma na mão tem giro de mira e o botão de correr está
+## segurado. Com qualquer outro item, o botão de correr continua sendo correr.
+func _esta_mirando() -> bool:
+	var arma: Arma = _arma_em_uso()
+	return arma != null and arma.giro_da_mira_em_graus_por_segundo > 0.0 and InputManager.correr_pressionado()
+
+## Mirando, o personagem fica plantado no lugar e o direcional só gira a mira: direita
+## gira no sentido horário visto de cima, esquerda no sentido contrário. O giro é em
+## velocidade constante, sem o salto do giro normal, que vira o personagem de uma vez
+## para a direção apertada.
+func _mirar_parado(delta: float) -> void:
+	velocity.x = 0.0
+	velocity.z = 0.0
+	var entrada: Vector2 = InputManager.obter_direcao_movimento()
+	var giro: float = deg_to_rad(_arma_em_uso().giro_da_mira_em_graus_por_segundo)
+	# Rotação positiva em Y é anti-horária vista de cima, por isso o sinal trocado.
+	personagem.rotation.y -= entrada.x * giro * delta
+	_atualizar_animacao(Vector3.ZERO, false, false)
 
 ## A arma na mão, ou o punho quando o item na mão não é arma.
 func _arma_em_uso() -> Arma:

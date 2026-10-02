@@ -25,6 +25,7 @@ projeteis_por_disparo = 6
 abertura_do_cone_em_graus = 32.0
 tem_mira_laser = true
 multiplicador_de_giro = 2.5
+giro_da_mira_em_graus_por_segundo = 90.0
 id = &"escopeta_serrada"
 nome = "Escopeta de cano serrado"
 icone = ExtResource("1_w3d54")

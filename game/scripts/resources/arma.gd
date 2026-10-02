@@ -53,3 +53,8 @@ enum Tipo {
 ## Multiplica a velocidade com que o personagem vira enquanto a arma está na mão. Arma
 ## de mira pede giro rápido, senão o tiro sai antes de o personagem terminar de virar.
 @export var multiplicador_de_giro: float = 1.0
+## Velocidade do giro no modo de mira, em graus por segundo. Com a arma na mão, segurar
+## o botão de correr planta o personagem no lugar, e esquerda e direita giram a mira
+## nesta velocidade, devagar o bastante para acertar o ângulo. Zero desliga o modo de
+## mira: a arma não muda o que o botão de correr faz.
+@export var giro_da_mira_em_graus_por_segundo: float = 0.0

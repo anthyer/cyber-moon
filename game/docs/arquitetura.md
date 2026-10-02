@@ -211,6 +211,11 @@ golpe acontecer no mundo:
 A arma também pode acelerar o giro do personagem (`multiplicador_de_giro`). A escopeta
 usa 2,5, para a mira acompanhar o direcional.
 
+**Modo de mira:** arma com `giro_da_mira_em_graus_por_segundo` maior que zero troca o
+que o botão de correr faz. Segurando o botão, o `player.gd` planta o personagem no lugar
+e esquerda e direita giram a mira nessa velocidade, constante, para acertar o ângulo com
+precisão. A escopeta usa 90 graus por segundo.
+
 **Dash depois do golpe:** o golpe trava o movimento até a animação acabar, mas o dash
 pode sair antes, assim que o golpe termina de acertar (65% do clipe, o export
 `fracao_do_golpe_que_libera_o_dash` do player). O dash vai para onde o direcional

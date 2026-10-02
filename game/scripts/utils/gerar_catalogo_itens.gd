@@ -89,6 +89,9 @@ const SOM_DO_GOLPE: String = "res://assets/audio/sfx/punch.wav"
 ## Com arma de distância na mão o personagem vira este tanto mais rápido, para a mira
 ## acompanhar o direcional.
 const GIRO_DA_ARMA_DE_DISTANCIA: float = 2.5
+## No modo de mira (botão de correr segurado) a escopeta gira a 90 graus por segundo: um
+## quarto de volta por segundo, lento o bastante para mirar com precisão.
+const GIRO_DA_MIRA_DA_ESCOPETA: float = 90.0
 ## A escopeta de cano serrado solta 6 projéteis num cone pequeno. O dano da tabela é o
 ## de cada projétil, então o disparo inteiro acertando vale 36, o maior do jogo, mas só
 ## de perto: de longe o cone abre e poucos projéteis acertam. O cone é largo (32 graus) e
@@ -192,6 +195,7 @@ func _init() -> void:
 			arma.projetil = load(CENA_DO_PROJETIL)
 			arma.tem_mira_laser = true
 			arma.multiplicador_de_giro = GIRO_DA_ARMA_DE_DISTANCIA
+			arma.giro_da_mira_em_graus_por_segundo = GIRO_DA_MIRA_DA_ESCOPETA
 			arma.projeteis_por_disparo = PROJETEIS_DA_ESCOPETA
 			arma.abertura_do_cone_em_graus = ABERTURA_DO_CONE_DA_ESCOPETA
 			arma.velocidade_do_projetil = VELOCIDADE_DO_PROJETIL_DA_ESCOPETA
