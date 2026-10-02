@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="Item" format=3]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://gxmrghlpuiiy"]
 
-[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/placa_queimada.png" id="1_3b27c"]
-[ext_resource type="Script" path="res://scripts/resources/item.gd" id="2_vcuko"]
+[ext_resource type="Texture2D" uid="uid://dpf3a6bn6j6hx" path="res://assets/textures/icones_itens/placa_queimada.png" id="1_3b27c"]
+[ext_resource type="Script" uid="uid://csos04p175jws" path="res://scripts/resources/item.gd" id="2_vcuko"]
 
 [resource]
 script = ExtResource("2_vcuko")
