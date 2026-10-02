@@ -63,7 +63,8 @@ não atacando. O encaixe dos modelos na mão foi ajustado por captura de tela.
   mão, segurar o botão de correr não corre: planta o personagem no lugar, e o direcional
   vira ele do jeito normal. Chegou a ser testado um giro lento de mira com esquerda e
   direita, e o Antonio preferiu voltar ao giro normal. É o campo `correr_planta_no_lugar`
-  da arma.
+  da arma. No teclado e mouse, plantado, a mira também segue o mouse (pedido do
+  Antonio); no controle vale só o direcional.
 - **Dash depois do golpe** (pedido do Antonio). O dash pode sair assim que o golpe
   termina de acertar, cortando a recuperação, e vai para onde o direcional aponta. Com o
   espadão, saía depois de 0,86 s e agora sai aos 0,50 s.

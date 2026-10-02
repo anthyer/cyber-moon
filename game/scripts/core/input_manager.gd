@@ -1,5 +1,43 @@
 extends Node
 
+## Abaixo deste valor o eixo do controle é tratado como parado. Stick analógico quase
+## nunca fica exatamente em zero, e sem a folga o jogo acharia que o jogador pegou o
+## controle só porque o stick tremeu.
+const FOLGA_DO_EIXO_DO_CONTROLE: float = 0.5
+
+var _usando_controle: bool = false
+var _posicao_do_mouse: Vector2 = Vector2.ZERO
+var _quadro_do_ultimo_movimento_do_mouse: int = -1000
+
+## Guarda de qual aparelho veio a última entrada e por onde o mouse andou. Não decide
+## nada de gameplay: só responde às perguntas de quem pergunta, como o resto deste script.
+func _input(evento: InputEvent) -> void:
+	if evento is InputEventMouseMotion:
+		_usando_controle = false
+		_posicao_do_mouse = (evento as InputEventMouseMotion).position
+		_quadro_do_ultimo_movimento_do_mouse = Engine.get_physics_frames()
+	elif evento is InputEventMouseButton:
+		_usando_controle = false
+		_posicao_do_mouse = (evento as InputEventMouseButton).position
+	elif evento is InputEventKey:
+		_usando_controle = false
+	elif evento is InputEventJoypadButton:
+		_usando_controle = true
+	elif evento is InputEventJoypadMotion and absf((evento as InputEventJoypadMotion).axis_value) > FOLGA_DO_EIXO_DO_CONTROLE:
+		_usando_controle = true
+
+## Verdadeiro quando a última entrada veio do teclado ou do mouse, e não do controle.
+func usando_teclado_e_mouse() -> bool:
+	return not _usando_controle
+
+## Posição do mouse na tela, em pixels, da última vez que ele se mexeu ou clicou.
+func posicao_do_mouse() -> Vector2:
+	return _posicao_do_mouse
+
+## Verdadeiro no quadro de física em que o mouse se mexeu e no seguinte.
+func mouse_se_moveu_agora() -> bool:
+	return Engine.get_physics_frames() - _quadro_do_ultimo_movimento_do_mouse <= 1
+
 func obter_direcao_movimento() -> Vector2:
 	return Input.get_vector("mover_esquerda", "mover_direita", "mover_cima", "mover_baixo")
 

@@ -213,7 +213,10 @@ usa 2,5, para a mira acompanhar o direcional.
 
 **Correr que planta:** arma com `correr_planta_no_lugar` troca o que o botão de correr
 faz. Segurando o botão, o `player.gd` zera a velocidade e o direcional continua virando
-o personagem do jeito normal, para mirar sem sair do lugar. A escopeta usa.
+o personagem do jeito normal, para mirar sem sair do lugar. A escopeta usa. No teclado e
+mouse, plantado, a mira segue o mouse: o `player.gd` projeta a posição do mouse num plano
+horizontal na altura do tiro e vira o personagem para esse ponto. Vale o que foi usado
+por último, o mouse ou as teclas de direção.
 
 **Dash depois do golpe:** o golpe trava o movimento até a animação acabar, mas o dash
 pode sair antes, assim que o golpe termina de acertar (65% do clipe, o export

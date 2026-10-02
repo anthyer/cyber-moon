@@ -28,6 +28,10 @@ const CLIPE_DE_QUEDA: String = "die"
 const CLIPE_DE_GOLPE_DE_ARMA: String = "attack-melee-right"
 const CLIPE_DE_DISPARO: String = "holding-both-shoot"
 const CLIPE_PARADO_COM_ARMA_DE_DISTANCIA: String = "holding-both"
+## Altura do plano em que o mouse é projetado, a mesma de onde o tiro sai.
+const ALTURA_DA_MIRA_PELO_MOUSE: float = 0.3
+## Com o mouse em cima do personagem o ângulo fica instável, então a mira não muda.
+const DISTANCIA_MINIMA_DA_MIRA_PELO_MOUSE: float = 0.3
 
 @export var caminho_grade_solo: NodePath = ^"../GradeSolo"
 @export var caminho_indicador_alvo: NodePath = ^"../IndicadorAlvo"
@@ -53,6 +57,8 @@ var _tempo_movimento_travado_ataque_restante: float = 0.0
 var _tempo_janela_combo_restante: float = 0.0
 var _tempo_cooldown_ataque_restante: float = 0.0
 var _duracao_do_golpe_atual: float = 0.0
+## Plantado no lugar, a mira está seguindo o mouse em vez das teclas de direção.
+var _mirando_pelo_mouse: bool = false
 
 ## Entre cair e acordar o jogador não responde a nenhum comando.
 var _desmaiado: bool = false
@@ -180,12 +186,23 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direcao.x * velocidade_atual
 		velocity.z = direcao.z * velocidade_atual
 
+		# Plantado, no teclado e mouse, a mira segue quem foi usado por último: o mouse
+		# quando ele se mexe, as teclas de direção quando uma é apertada.
+		if plantado and direcao != Vector3.ZERO:
+			_mirando_pelo_mouse = false
+		elif plantado and InputManager.usando_teclado_e_mouse() and InputManager.mouse_se_moveu_agora():
+			_mirando_pelo_mouse = true
+		elif not plantado:
+			_mirando_pelo_mouse = false
+
 		if direcao != Vector3.ZERO:
 			var angulo_alvo: float = atan2(direcao.x, direcao.z)
 			# A arma na mão pode acelerar o giro: com a escopeta o personagem vira mais
 			# rápido, para a mira acompanhar o direcional.
 			var velocidade_de_giro: float = velocidade_rotacao * _arma_em_uso().multiplicador_de_giro
 			personagem.rotation.y = lerp_angle(personagem.rotation.y, angulo_alvo, minf(velocidade_de_giro * delta, 1.0))
+		elif _mirando_pelo_mouse:
+			_virar_para_o_mouse()
 
 		_atualizar_animacao(Vector3.ZERO if plantado else direcao, esta_correndo, false)
 
@@ -305,6 +322,28 @@ func _dash_liberado_pelo_golpe() -> bool:
 		return false
 	var decorrido: float = _duracao_do_golpe_atual - _tempo_ataque_restante
 	return decorrido >= _duracao_do_golpe_atual * fracao_do_golpe_que_libera_o_dash
+
+## Vira o personagem para o ponto do chão que está embaixo do mouse. O ponto vem de um
+## raio da câmera até o plano horizontal na altura do tiro, e não até o chão de verdade,
+## para a mira não pular quando o mouse passa por cima de um telhado.
+func _virar_para_o_mouse() -> void:
+	var camera: Camera3D = get_viewport().get_camera_3d()
+	if camera == null:
+		return
+	var mouse: Vector2 = InputManager.posicao_do_mouse()
+	var origem: Vector3 = camera.project_ray_origin(mouse)
+	var sentido: Vector3 = camera.project_ray_normal(mouse)
+	if is_zero_approx(sentido.y):
+		return
+	var altura_do_plano: float = global_position.y + ALTURA_DA_MIRA_PELO_MOUSE
+	var distancia: float = (altura_do_plano - origem.y) / sentido.y
+	if distancia <= 0.0:
+		return
+	var ponto: Vector3 = origem + sentido * distancia
+	var para_o_ponto: Vector3 = ponto - global_position
+	if Vector2(para_o_ponto.x, para_o_ponto.z).length() < DISTANCIA_MINIMA_DA_MIRA_PELO_MOUSE:
+		return
+	personagem.rotation.y = atan2(para_o_ponto.x, para_o_ponto.z)
 
 ## Vale quando a arma na mão pede isso e o botão de correr está segurado. Com qualquer
 ## outro item, o botão de correr continua sendo correr.
