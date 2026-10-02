@@ -31,9 +31,18 @@ const TRECHOS_SEM_COLISAO: Array[String] = [
 	"mulch", "mound", "mark_", "mark-",
 ]
 
+## Peças planas de chão (estrada, calçada, caminho de pedra, piso). Elas não projetam
+## sombra que se veja, mas, com a sombra ligada, cada uma entra no cálculo da sombra do
+## sol a cada quadro. Desligar a sombra delas corta esse trabalho sem mudar a tela.
+const TRECHOS_SEM_SOMBRA: Array[String] = [
+	"road", "driveway", "sidewalk", "path", "ground_", "platform_", "tile",
+]
+
 func _post_import(cena: Node) -> Object:
 	var nome_do_arquivo: String = get_source_file().get_file().to_lower()
 	_normalizar_materiais(cena)
+	if _eh_peca_plana(nome_do_arquivo):
+		_desligar_sombra(cena)
 	var superficie: StringName = Superficies.do_nome(nome_do_arquivo)
 	## Modelos com superfície conhecida sempre recebem colisão: são peças de chão ou
 	## obstáculo reconhecido. Só aplica a lista de exclusão quando o modelo não foi
@@ -42,6 +51,18 @@ func _post_import(cena: Node) -> Object:
 		return cena
 	_gerar_colisao(cena, cena, superficie)
 	return cena
+
+func _eh_peca_plana(nome_do_arquivo: String) -> bool:
+	for trecho in TRECHOS_SEM_SOMBRA:
+		if nome_do_arquivo.contains(trecho):
+			return true
+	return false
+
+func _desligar_sombra(no: Node) -> void:
+	if no is GeometryInstance3D:
+		(no as GeometryInstance3D).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	for filho in no.get_children():
+		_desligar_sombra(filho)
 
 func _deve_ter_colisao(nome_do_arquivo: String) -> bool:
 	for trecho in TRECHOS_SEM_COLISAO:

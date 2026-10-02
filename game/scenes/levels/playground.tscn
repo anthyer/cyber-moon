@@ -148,6 +148,8 @@ alvo = NodePath("../Player")
 [node name="Luz" type="DirectionalLight3D" parent="." unique_id=1982780356]
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 5, 0)
 shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_max_distance = 35.0
 
 [node name="PontoDeSpawn" type="Marker3D" parent="." unique_id=1557458330]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -242,6 +244,7 @@ transform = Transform3D(-1.7484555e-07, 0, 4, 0, 4, 0, -4, 0, -1.7484555e-07, -6
 [node name="Grama2" type="MeshInstance3D" parent="." unique_id=1256172777]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.223688, 0.00828743, -4.5733023)
 layers = 3
+cast_shadow = 0
 mesh = SubResource("PlaneMesh_grama")
 
 [node name="path-stones-long9" parent="." unique_id=1356040647 instance=ExtResource("10_p5pig")]
@@ -1189,6 +1192,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3733454, 0, -15.138551)
 [node name="Grama3" type="MeshInstance3D" parent="." unique_id=1931103781]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.223688, 0.00828743, -4.5733023)
 layers = 3
+cast_shadow = 0
 mesh = SubResource("PlaneMesh_grama")
 
 [node name="road-driveway-single64" parent="." unique_id=1898603306 instance=ExtResource("19_1soop")]
