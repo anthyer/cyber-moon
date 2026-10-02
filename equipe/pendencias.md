@@ -241,6 +241,23 @@ plano, seção "Revisão de 2026-09-30".
 - O gerador do catálogo imprime um erro de compilação ao carregar a cena do projétil,
   porque roda sem os autoloads. As armas saem certas mesmo assim.
 
+### 2026-10-02, sombra e menu de debug
+
+**Sombra otimizada** a pedido do Antonio: distância de 35 m, duas divisões, mapa de 2048
+e sem sombra nas peças planas de chão. A cena passou de 145 para 191 quadros por segundo.
+O travamento que motivou o pedido era outro: a máquina estava sem memória (swap cheio),
+e o jogo caiu para 4 quadros por segundo mesmo sem sombra.
+
+**Atenção para quem já tem o projeto:** a sombra das peças planas é desligada na
+importação. Máquina com cache de importação antigo precisa reimportar esses modelos
+(ver a skill `rodar-o-jogo`). Sem reimportar, nada quebra, só fica sem esse ganho.
+
+**Fica para pensar depois:** sombra falsa (um círculo escuro) embaixo dos personagens,
+como reserva se a versão web pesar, e sombra pré-calculada só se o mapa final ficar
+pesado demais, aceitando que as sombras do cenário não acompanham o sol.
+
+**Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
+
 ### 2026-10-02, plano 10
 
 **Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-02".

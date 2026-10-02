@@ -44,6 +44,7 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Alvo de treino | Training dummy / `AlvoDeTreino`, boneco que leva dano e não revida |
 | Reação a dano | Damage reaction / `ReacaoADano` (cena e classe) |
 | Efeito de partículas | Particle effect / `EfeitoDeParticulas`, cenas em `scenes/effects/` |
+| Menu de debug | Debug menu / `MenuDebug` (cena e classe), tecla F3 |
 | Período do dia | Day period / enum `DayCycleManager.Periodo` (madrugada, manhã, tarde, anoitecer, noite) |
 | Cair de sono | Forced sleep / `DayCycleManager.dormir(true)`, `StatusManager.Motivo.SONO` |
 | Cama | Bed / `Cama` (cena e classe), dormir sem penalidade |

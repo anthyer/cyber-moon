@@ -20,6 +20,7 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 | `slot_proximo` | Nenhum | Roda para baixo | Gatilho direito (RT / R2) |
 | `slot_anterior` | Nenhum | Roda para cima | Gatilho esquerdo (LT / L2) |
 | `teste_avancar_dia` | N (atalho de teste: avança um dia na hora, sem penalidade) | Nenhum | Nenhum |
+| `menu_debug` | F3 (abre e fecha o menu de debug; só teclado, é ferramenta de teste) | Nenhum | Nenhum |
 
 O stick esquerdo move o jogador junto com o D-pad. As quatro ações de movimento usam zona morta de 0.2 (as outras ficam em 0.5) para o stick analógico responder a um toque leve; teclado e D-pad não são afetados, porque só valem 0 ou 1.
 

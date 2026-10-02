@@ -310,3 +310,28 @@ penalidade, e a stamina volta cheia. Chegando à 1:00, o `DayCycleManager` chama
 `dormir(true)`, que derruba o jogador pelo mesmo caminho do desmaio do plano 07
 (`StatusManager.Motivo.SONO`): ele acorda em casa no dia seguinte com metade da stamina.
 
+## Menu de debug
+
+O menu de debug (`scenes/ui/menu_debug.tscn`, script `MenuDebug`, no `InterfaceHUD` do
+playground) abre e fecha com F3 e serve para testar os sistemas sem esperar o jogo:
+trocar a hora, avançar o dia, congelar o relógio, encher vida e stamina, tomar dano,
+ganhar experiência, ficar invencível, teleportar, molhar o solo e amadurecer as plantas,
+ganhar sementes, pães e armas, soltar sucata, criar e matar inimigos, mostrar os quadros
+por segundo e ligar e desligar a sombra do sol. Ele não pausa o jogo e os botões não
+pegam foco, então o jogador continua andando com o menu aberto. Tudo que ele mexe é
+procurado na hora do clique, então o menu não quebra numa fase diferente.
+
+Os sistemas expõem funções públicas para ele, que também servem a eventos futuros:
+`DayCycleManager.definir_hora(hora)`, `StatusManager.invencivel_para_teste`,
+`GradeSolo.molhar_todo_o_solo()` e `GradeSolo.amadurecer_todas_as_plantas()`. Ação de teste
+nova entra no menu, e não como tecla solta.
+
+## Sombra
+
+A sombra do sol é a única sombra em tempo real, e foi ajustada para o renderizador
+Compatibility e o alvo web: vai até 35 metros (a câmera vê uns 15), usa duas divisões
+(`directional_shadow_mode = 1`) e um mapa de 2048 (`project.godot`). As peças planas de
+chão (estrada, calçada, caminho, piso) não projetam sombra: o script de importação desliga
+a sombra delas pela lista `TRECHOS_SEM_SOMBRA`, e os planos de grama da fase também estão
+sem sombra. Na mesma máquina, a cena passou de 145 para 191 quadros por segundo.
+
