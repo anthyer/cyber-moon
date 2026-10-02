@@ -161,8 +161,6 @@ func _physics_process(delta: float) -> void:
 	elif _tempo_movimento_travado_ataque_restante > 0.0:
 		velocity.x = 0.0
 		velocity.z = 0.0
-	elif _esta_mirando():
-		_mirar_parado(delta)
 	else:
 		var entrada: Vector2 = InputManager.obter_direcao_movimento()
 		var direcao: Vector3 = Vector3(entrada.x, 0.0, entrada.y)
@@ -171,8 +169,13 @@ func _physics_process(delta: float) -> void:
 			_indice_combo = 0
 			_tempo_janela_combo_restante = 0.0
 
-		var esta_correndo: bool = direcao != Vector3.ZERO and InputManager.correr_pressionado()
+		# Com a escopeta na mão, o botão de correr planta o personagem no lugar: ele vira
+		# para onde o direcional aponta, do jeito normal, mas não anda.
+		var plantado: bool = _correr_planta_no_lugar()
+		var esta_correndo: bool = direcao != Vector3.ZERO and InputManager.correr_pressionado() and not plantado
 		var velocidade_atual: float = velocidade_correr if esta_correndo else velocidade_andar
+		if plantado:
+			velocidade_atual = 0.0
 
 		velocity.x = direcao.x * velocidade_atual
 		velocity.z = direcao.z * velocidade_atual
@@ -184,7 +187,7 @@ func _physics_process(delta: float) -> void:
 			var velocidade_de_giro: float = velocidade_rotacao * _arma_em_uso().multiplicador_de_giro
 			personagem.rotation.y = lerp_angle(personagem.rotation.y, angulo_alvo, minf(velocidade_de_giro * delta, 1.0))
 
-		_atualizar_animacao(direcao, esta_correndo, false)
+		_atualizar_animacao(Vector3.ZERO if plantado else direcao, esta_correndo, false)
 
 	# O empurrão de um golpe tira o controle por um instante e vale por cima do resto.
 	if reacao_a_dano.esta_sendo_empurrado():
@@ -303,24 +306,11 @@ func _dash_liberado_pelo_golpe() -> bool:
 	var decorrido: float = _duracao_do_golpe_atual - _tempo_ataque_restante
 	return decorrido >= _duracao_do_golpe_atual * fracao_do_golpe_que_libera_o_dash
 
-## O modo de mira vale quando a arma na mão tem giro de mira e o botão de correr está
-## segurado. Com qualquer outro item, o botão de correr continua sendo correr.
-func _esta_mirando() -> bool:
+## Vale quando a arma na mão pede isso e o botão de correr está segurado. Com qualquer
+## outro item, o botão de correr continua sendo correr.
+func _correr_planta_no_lugar() -> bool:
 	var arma: Arma = _arma_em_uso()
-	return arma != null and arma.giro_da_mira_em_graus_por_segundo > 0.0 and InputManager.correr_pressionado()
-
-## Mirando, o personagem fica plantado no lugar e o direcional só gira a mira: direita
-## gira no sentido horário visto de cima, esquerda no sentido contrário. O giro é em
-## velocidade constante, sem o salto do giro normal, que vira o personagem de uma vez
-## para a direção apertada.
-func _mirar_parado(delta: float) -> void:
-	velocity.x = 0.0
-	velocity.z = 0.0
-	var entrada: Vector2 = InputManager.obter_direcao_movimento()
-	var giro: float = deg_to_rad(_arma_em_uso().giro_da_mira_em_graus_por_segundo)
-	# Rotação positiva em Y é anti-horária vista de cima, por isso o sinal trocado.
-	personagem.rotation.y -= entrada.x * giro * delta
-	_atualizar_animacao(Vector3.ZERO, false, false)
+	return arma != null and arma.correr_planta_no_lugar and InputManager.correr_pressionado()
 
 ## A arma na mão, ou o punho quando o item na mão não é arma.
 func _arma_em_uso() -> Arma:
