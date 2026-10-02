@@ -71,3 +71,10 @@ script = ExtResource("8_ataque")
 
 [node name="ReacaoADano" parent="." instance=ExtResource("10_reacao")]
 som = ExtResource("11_som_de_dano")
+
+[node name="LuzDoJogador" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_color = Color(0.62, 0.95, 1, 1)
+light_energy = 1.2
+omni_range = 6.0
+
