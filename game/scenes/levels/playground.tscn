@@ -77,6 +77,9 @@
 [ext_resource type="Resource" path="res://resources/combat/inimigos/ciborgue_operario.tres" id="101_ciborgue"]
 [ext_resource type="Resource" path="res://resources/combat/inimigos/sentinela_pesada.tres" id="102_sentinela"]
 [ext_resource type="PackedScene" path="res://scenes/combat/alvo_de_treino.tscn" id="103_alvo_de_treino"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_relogio.tscn" id="104_hud_relogio"]
+[ext_resource type="Script" path="res://scripts/core/iluminacao_do_ciclo.gd" id="105_iluminacao"]
+[ext_resource type="PackedScene" path="res://scenes/world/cama.tscn" id="106_cama"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -154,6 +157,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="BarraRapida" parent="InterfaceHUD" unique_id=1247019249 instance=ExtResource("5_barra_rapida")]
 
 [node name="HudStatus" parent="InterfaceHUD" unique_id=569994527 instance=ExtResource("96_hud_status")]
+
+[node name="HudRelogio" parent="InterfaceHUD" instance=ExtResource("104_hud_relogio")]
 
 [node name="MenuPausa" parent="InterfaceHUD" unique_id=2111358796 instance=ExtResource("94_menu_pausa")]
 
@@ -1345,3 +1350,10 @@ caminho_do_ponto_de_patrulha = NodePath("../PatrulhaCiborgueLeste")
 [node name="SentinelaOeste" parent="InimigosEspalhados" unique_id=402147276 instance=ExtResource("99_inimigo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.2, 11)
 perfil = ExtResource("102_sentinela")
+
+[node name="IluminacaoDoCiclo" type="Node" parent="."]
+script = ExtResource("105_iluminacao")
+
+[node name="Cama" parent="." instance=ExtResource("106_cama")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, 1)
+

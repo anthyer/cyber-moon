@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/cama.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://ck8y8rnyt85yk" path="res://assets/models/kenney_nature_kit/bed.glb" id="2_modelo"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cama"]
+radius = 0.6
+
+[node name="Cama" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Modelo" parent="." instance=ExtResource("2_modelo")]
+
+[node name="AreaDaCama" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="FormaDaArea" type="CollisionShape3D" parent="AreaDaCama"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("SphereShape3D_cama")
