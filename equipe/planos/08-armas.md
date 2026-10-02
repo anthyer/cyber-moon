@@ -54,7 +54,8 @@ não atacando. O encaixe dos modelos na mão foi ajustado por captura de tela.
   acertam poucos. A stamina é cobrada uma vez por disparo. Onde o texto abaixo fala em
   rifle, vale a escopeta (`escopeta_serrada`).
 - **Mira laser e giro rápido** (pedido do Antonio). A arma ganhou `tem_mira_laser`, que
-  mostra por onde o tiro vai passar (o centro e as duas bordas do cone), e
+  mostra por onde o tiro vai passar (na escopeta, uma área amarela translúcida no chão,
+  no estilo da marcação da enxada, a pedido do Antonio), e
   `multiplicador_de_giro`, que faz o personagem virar mais rápido com ela na mão. A
   escopeta usa os dois, com giro 2,5 vezes mais rápido.
 - **Dash depois do golpe** (pedido do Antonio). O dash pode sair assim que o golpe

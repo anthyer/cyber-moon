@@ -21,13 +21,19 @@ const OSSO_DA_MAO: StringName = &"arm-right"
 const ALTURA_DO_GOLPE: float = 0.3
 ## Distância à frente do jogador de onde saem o projétil e o laser.
 const DISTANCIA_DA_BOCA_DA_ARMA: float = 0.4
+const ALTURA_DA_AREA_SOBRE_O_CHAO: float = 0.04
 
 @export var caminho_do_personagem: NodePath = ^"../Personagem"
 @export var caminho_da_hitbox: NodePath = ^"../HitboxAtaque"
 
-@export_group("Mira laser")
+@export_group("Mira")
 @export var cor_do_laser: Color = Color(1.0, 0.15, 0.2, 0.85)
 @export var espessura_do_laser: float = 0.012
+## Cor da área do cone no chão, a mesma da marcação de alvo da enxada.
+@export var cor_da_area_do_cone: Color = Color(1.0, 1.0, 0.0, 0.5)
+## Quantas fatias formam o leque. Mais fatias contornam melhor um obstáculo no meio do
+## cone, e cada fatia custa um raio por quadro.
+@export var fatias_da_area_do_cone: int = 8
 ## O laser para no primeiro obstáculo destas camadas: mundo (1) e inimigo (8).
 @export_flags_3d_physics var mascara_do_laser: int = 9
 
@@ -41,8 +47,9 @@ var _arma_do_modelo: Arma
 
 var _feixe_do_laser: MeshInstance3D
 var _ponto_do_laser: MeshInstance3D
-## As duas bordas do cone, mostradas só na arma que dispara em leque.
-var _bordas_do_cone: Array[MeshInstance3D] = []
+## Área translúcida no chão, mostrada só na arma que dispara em leque.
+var _area_do_cone: MeshInstance3D
+var _malha_da_area_do_cone: ImmediateMesh
 
 var _arma_do_golpe: Arma
 var _segundos_desde_o_golpe: float = 0.0
@@ -132,90 +139,112 @@ func trocar_modelo(arma: Arma) -> void:
 	_modelo_atual.rotation_degrees = arma.rotacao_do_modelo_em_graus
 	_modelo_atual.scale = arma.escala_do_modelo
 
-## Cada feixe é uma caixa fina de 1 metro, esticada até o comprimento do laser, e o
-## ponto é um cubinho onde o laser bate. Ficam desligados de qualquer nó que gire, e a
-## posição é calculada a cada quadro. As bordas do cone são mais apagadas que o centro.
+## A mira tem duas formas, conforme a arma. Arma de um projétil só mostra um laser: uma
+## caixa fina de 1 metro esticada até o comprimento do tiro, com um cubinho onde ele
+## bate. Arma que dispara em leque mostra a área que o disparo cobre, pintada no chão
+## como a marcação de alvo da enxada. Nada disso fica preso a um nó que gira: a posição
+## é calculada a cada quadro.
 func _criar_mira_laser() -> void:
-	var material: StandardMaterial3D = _material_do_laser(cor_do_laser)
-	_feixe_do_laser = _novo_feixe("FeixeDoLaser", material)
-
-	var cor_da_borda: Color = cor_do_laser
-	cor_da_borda.a *= 0.45
-	var material_da_borda: StandardMaterial3D = _material_do_laser(cor_da_borda)
-	for nome in ["BordaEsquerdaDoCone", "BordaDireitaDoCone"]:
-		_bordas_do_cone.append(_novo_feixe(nome, material_da_borda))
+	var material: StandardMaterial3D = _material_translucido(cor_do_laser)
+	var malha_do_feixe: BoxMesh = BoxMesh.new()
+	malha_do_feixe.size = Vector3(espessura_do_laser, espessura_do_laser, 1.0)
+	malha_do_feixe.material = material
+	_feixe_do_laser = _novo_no_de_mira("FeixeDoLaser", malha_do_feixe)
 
 	var malha_do_ponto: BoxMesh = BoxMesh.new()
 	malha_do_ponto.size = Vector3.ONE * espessura_do_laser * 4.0
 	malha_do_ponto.material = material
-	_ponto_do_laser = MeshInstance3D.new()
-	_ponto_do_laser.name = "PontoDoLaser"
-	_ponto_do_laser.mesh = malha_do_ponto
-	_ponto_do_laser.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	_ponto_do_laser.top_level = true
-	_ponto_do_laser.visible = false
-	add_child(_ponto_do_laser)
+	_ponto_do_laser = _novo_no_de_mira("PontoDoLaser", malha_do_ponto)
 
-func _material_do_laser(cor: Color) -> StandardMaterial3D:
+	_malha_da_area_do_cone = ImmediateMesh.new()
+	_area_do_cone = _novo_no_de_mira("AreaDoCone", _malha_da_area_do_cone)
+	_area_do_cone.material_override = _material_translucido(cor_da_area_do_cone)
+
+func _material_translucido(cor: Color) -> StandardMaterial3D:
 	var material: StandardMaterial3D = StandardMaterial3D.new()
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.cull_mode = BaseMaterial3D.CULL_DISABLED
 	material.albedo_color = cor
 	return material
 
-func _novo_feixe(nome: String, material: StandardMaterial3D) -> MeshInstance3D:
-	var malha: BoxMesh = BoxMesh.new()
-	malha.size = Vector3(espessura_do_laser, espessura_do_laser, 1.0)
-	malha.material = material
-	var feixe: MeshInstance3D = MeshInstance3D.new()
-	feixe.name = nome
-	feixe.mesh = malha
-	feixe.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	feixe.top_level = true
-	feixe.visible = false
-	add_child(feixe)
-	return feixe
+func _novo_no_de_mira(nome: String, malha: Mesh) -> MeshInstance3D:
+	var no: MeshInstance3D = MeshInstance3D.new()
+	no.name = nome
+	no.mesh = malha
+	no.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	no.top_level = true
+	no.visible = false
+	add_child(no)
+	return no
 
-## O laser sai do mesmo ponto e nas mesmas direções dos projéteis, então mostra
-## exatamente por onde o tiro vai passar. Cada linha para no primeiro obstáculo ou no
-## alcance da arma. Arma que dispara em leque mostra o centro e as duas bordas do cone.
+## A mira sai do mesmo ponto e nas mesmas direções dos projéteis, então mostra
+## exatamente por onde o tiro vai passar, e para no primeiro obstáculo ou no alcance.
 func _atualizar_mira_laser() -> void:
 	var arma: Arma = _arma_do_modelo
 	var mostrar: bool = arma != null and arma.tem_mira_laser and not StatusManager.esta_desmaiado
 	_feixe_do_laser.visible = false
 	_ponto_do_laser.visible = false
-	for borda in _bordas_do_cone:
-		borda.visible = false
+	_area_do_cone.visible = false
 	if not mostrar:
 		return
 
+	if arma.projeteis_por_disparo > 1 and arma.abertura_do_cone_em_graus > 0.0:
+		_desenhar_area_do_cone(arma)
+		return
+
 	var origem: Vector3 = _boca_da_arma()
-	var fim_do_centro: Vector3 = _esticar_feixe(_feixe_do_laser, origem, _direcao_do_personagem(), arma.alcance)
-	if fim_do_centro.distance_to(origem) < arma.alcance - 0.01:
+	var direcao: Vector3 = _direcao_do_personagem()
+	var fim: Vector3 = _fim_do_raio(origem, direcao, arma.alcance)
+	var comprimento: float = origem.distance_to(fim)
+	if comprimento < 0.01:
+		return
+	_feixe_do_laser.visible = true
+	_feixe_do_laser.global_transform = Transform3D(Basis.looking_at(direcao, Vector3.UP), (origem + fim) * 0.5)
+	_feixe_do_laser.scale = Vector3(1.0, 1.0, comprimento)
+	if comprimento < arma.alcance - 0.01:
 		_ponto_do_laser.visible = true
-		_ponto_do_laser.global_position = fim_do_centro
+		_ponto_do_laser.global_position = fim
 
-	var direcoes: Array[Vector3] = _direcoes_do_cone(arma)
-	if direcoes.size() > 1:
-		_esticar_feixe(_bordas_do_cone[0], origem, direcoes[0], arma.alcance)
-		_esticar_feixe(_bordas_do_cone[1], origem, direcoes[direcoes.size() - 1], arma.alcance)
+## Pinta no chão o leque que o disparo cobre. O leque é feito de fatias, e a ponta de
+## cada uma vai até onde um raio naquela direção chega, então a área encurta onde há um
+## obstáculo, como a parede ou um inimigo, em vez de atravessá-lo.
+func _desenhar_area_do_cone(arma: Arma) -> void:
+	var dono: Node3D = get_parent() as Node3D
+	var origem: Vector3 = _boca_da_arma()
+	var centro: Vector3 = _direcao_do_personagem()
+	var meia_abertura: float = deg_to_rad(arma.abertura_do_cone_em_graus) * 0.5
+	var fatias: int = maxi(fatias_da_area_do_cone, 1)
+	# A área fica rente ao chão, um pouco acima para não brigar com o piso.
+	var altura_do_chao: float = dono.global_position.y + ALTURA_DA_AREA_SOBRE_O_CHAO
 
-## Posiciona o feixe da origem até o primeiro obstáculo na direção, ou até o alcance, e
-## devolve o ponto onde ele termina.
-func _esticar_feixe(feixe: MeshInstance3D, origem: Vector3, direcao: Vector3, alcance: float) -> Vector3:
+	var pontas: Array[Vector3] = []
+	for indice in fatias + 1:
+		var angulo: float = lerpf(-meia_abertura, meia_abertura, float(indice) / float(fatias))
+		var ponta: Vector3 = _fim_do_raio(origem, centro.rotated(Vector3.UP, angulo), arma.alcance)
+		ponta.y = altura_do_chao
+		pontas.append(ponta)
+	var vertice: Vector3 = Vector3(origem.x, altura_do_chao, origem.z)
+
+	_malha_da_area_do_cone.clear_surfaces()
+	_malha_da_area_do_cone.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	for indice in fatias:
+		_malha_da_area_do_cone.surface_add_vertex(vertice)
+		_malha_da_area_do_cone.surface_add_vertex(pontas[indice])
+		_malha_da_area_do_cone.surface_add_vertex(pontas[indice + 1])
+	_malha_da_area_do_cone.surface_end()
+	# Os vértices já estão em coordenadas do mundo, então o nó fica na origem.
+	_area_do_cone.global_transform = Transform3D.IDENTITY
+	_area_do_cone.visible = true
+
+## Até onde um raio chega saindo da origem na direção: o primeiro obstáculo ou o alcance.
+func _fim_do_raio(origem: Vector3, direcao: Vector3, alcance: float) -> Vector3:
 	var dono: CollisionObject3D = get_parent() as CollisionObject3D
 	var fim: Vector3 = origem + direcao * alcance
 	var consulta: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origem, fim, mascara_do_laser)
 	consulta.exclude = [dono.get_rid()]
 	var acerto: Dictionary = get_world_3d().direct_space_state.intersect_ray(consulta)
-	if not acerto.is_empty():
-		fim = acerto.position
-	var comprimento: float = origem.distance_to(fim)
-	feixe.visible = comprimento >= 0.01
-	if feixe.visible:
-		feixe.global_transform = Transform3D(Basis.looking_at(direcao, Vector3.UP), (origem + fim) * 0.5)
-		feixe.scale = Vector3(1.0, 1.0, comprimento)
-	return fim
+	return acerto.position if not acerto.is_empty() else fim
 
 ## O osso da mão fica dentro da cena do personagem, que vem pronta do .glb, então o
 ## suporte que segue o osso é criado em código em vez de ser um nó da cena do jogador.

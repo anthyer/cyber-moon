@@ -201,10 +201,12 @@ golpe acontecer no mundo:
   em leque (`projeteis_por_disparo`, `abertura_do_cone_em_graus`), e aí a stamina do
   disparo é cobrada uma vez só. A escopeta de cano serrado solta 6 num cone de 16 graus,
   com 5 metros de alcance.
-- **Mira laser:** arma com `tem_mira_laser` mostra uma linha fina que sai do mesmo ponto e
-  na mesma direção do projétil, e para no primeiro obstáculo (mundo ou inimigo) ou no
-  alcance da arma. Arma em leque mostra também as duas bordas do cone, mais apagadas. É
-  desenhada em código, sem cena própria.
+- **Mira:** arma com `tem_mira_laser` mostra por onde o tiro vai passar, saindo do mesmo
+  ponto e na mesma direção do projétil. Arma de um projétil só mostra uma linha de laser,
+  que para no primeiro obstáculo (mundo ou inimigo) ou no alcance. Arma em leque, como a
+  escopeta, mostra a área que o disparo cobre pintada no chão, amarela e translúcida
+  como a marcação de alvo da enxada, e a área encurta onde há obstáculo. As duas são
+  desenhadas em código, sem cena própria.
 
 A arma também pode acelerar o giro do personagem (`multiplicador_de_giro`). A escopeta
 usa 2,5, para a mira acompanhar o direcional.
