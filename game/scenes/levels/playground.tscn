@@ -69,7 +69,7 @@
 [ext_resource type="PackedScene" uid="uid://dppo7f2lat5ob" path="res://assets/models/kenney_city_kit_industrial/building_q.glb" id="67_esnbq"]
 [ext_resource type="PackedScene" uid="uid://cslhvvsvgcnlw" path="res://assets/models/kenney_city_kit_roads/road_end.glb" id="68_tf8gs"]
 [ext_resource type="PackedScene" path="res://scenes/ui/menu_pausa.tscn" id="94_menu_pausa"]
-[ext_resource type="Script" path="res://scripts/utils/atalhos_de_teste.gd" id="95_atalhos_de_teste"]
+[ext_resource type="Script" uid="uid://8b1tkhec1j1h" path="res://scripts/utils/atalhos_de_teste.gd" id="95_atalhos_de_teste"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_status.tscn" id="96_hud_status"]
 [ext_resource type="PackedScene" path="res://scenes/ui/tela_de_desmaio.tscn" id="97_tela_de_desmaio"]
 [ext_resource type="PackedScene" path="res://scenes/combat/inimigo.tscn" id="99_inimigo"]
@@ -146,18 +146,18 @@ alvo = NodePath("../Player")
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 5, 0)
 shadow_enabled = true
 
-[node name="PontoDeSpawn" type="Marker3D" parent="."]
+[node name="PontoDeSpawn" type="Marker3D" parent="." unique_id=1557458330]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="InterfaceHUD" type="CanvasLayer" parent="." unique_id=1083850535]
 
-[node name="BarraRapida" parent="InterfaceHUD" instance=ExtResource("5_barra_rapida")]
+[node name="BarraRapida" parent="InterfaceHUD" unique_id=1247019249 instance=ExtResource("5_barra_rapida")]
 
-[node name="HudStatus" parent="InterfaceHUD" instance=ExtResource("96_hud_status")]
+[node name="HudStatus" parent="InterfaceHUD" unique_id=569994527 instance=ExtResource("96_hud_status")]
 
 [node name="MenuPausa" parent="InterfaceHUD" unique_id=2111358796 instance=ExtResource("94_menu_pausa")]
 
-[node name="TelaDeDesmaio" parent="InterfaceHUD" instance=ExtResource("97_tela_de_desmaio")]
+[node name="TelaDeDesmaio" parent="InterfaceHUD" unique_id=2083079390 instance=ExtResource("97_tela_de_desmaio")]
 
 [node name="building-type-a2" parent="." unique_id=1628838430 instance=ExtResource("7_i1gjs")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -3.41, 0, 2.1330462)
@@ -1276,72 +1276,72 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 21.544, 0, -16.488037)
 [node name="path-stones-long36" parent="." unique_id=2049296640 instance=ExtResource("10_p5pig")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 23.27676, 0, -13.726708)
 
-[node name="AtalhosDeTeste" type="Node" parent="."]
+[node name="AtalhosDeTeste" type="Node" parent="." unique_id=1078968794]
 script = ExtResource("95_atalhos_de_teste")
 
-[node name="AreaDeTeste" type="Node3D" parent="."]
+[node name="AreaDeTeste" type="Node3D" parent="." unique_id=1622162799]
 
-[node name="PatrulhaCiborgue1" type="Marker3D" parent="AreaDeTeste"]
+[node name="PatrulhaCiborgue1" type="Marker3D" parent="AreaDeTeste" unique_id=1560307670]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -15)
 
-[node name="PatrulhaCiborgue2" type="Marker3D" parent="AreaDeTeste"]
+[node name="PatrulhaCiborgue2" type="Marker3D" parent="AreaDeTeste" unique_id=521477248]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -14.5)
 
-[node name="Drone1" parent="AreaDeTeste" instance=ExtResource("99_inimigo")]
+[node name="Drone1" parent="AreaDeTeste" unique_id=1472172892 instance=ExtResource("99_inimigo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, -15)
 perfil = ExtResource("100_drone")
 
-[node name="Drone2" parent="AreaDeTeste" instance=ExtResource("99_inimigo")]
+[node name="Drone2" parent="AreaDeTeste" unique_id=567137542 instance=ExtResource("99_inimigo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.2, -15)
 perfil = ExtResource("100_drone")
 
-[node name="Drone3" parent="AreaDeTeste" instance=ExtResource("99_inimigo")]
+[node name="Drone3" parent="AreaDeTeste" unique_id=1790948991 instance=ExtResource("99_inimigo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.2, -15)
 perfil = ExtResource("100_drone")
 
-[node name="Ciborgue1" parent="AreaDeTeste" instance=ExtResource("99_inimigo")]
+[node name="Ciborgue1" parent="AreaDeTeste" unique_id=410790053 instance=ExtResource("99_inimigo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.2, -15)
 perfil = ExtResource("101_ciborgue")
 caminho_do_ponto_de_patrulha = NodePath("../PatrulhaCiborgue1")
 
-[node name="Ciborgue2" parent="AreaDeTeste" instance=ExtResource("99_inimigo")]
+[node name="Ciborgue2" parent="AreaDeTeste" unique_id=1932375944 instance=ExtResource("99_inimigo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.2, -14.5)
 perfil = ExtResource("101_ciborgue")
 caminho_do_ponto_de_patrulha = NodePath("../PatrulhaCiborgue2")
 
-[node name="Sentinela" parent="AreaDeTeste" instance=ExtResource("99_inimigo")]
+[node name="Sentinela" parent="AreaDeTeste" unique_id=225702903 instance=ExtResource("99_inimigo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0.2, -15)
 perfil = ExtResource("102_sentinela")
 
-[node name="AlvosDeTreino" type="Node3D" parent="."]
+[node name="AlvosDeTreino" type="Node3D" parent="." unique_id=1413596224]
 
-[node name="AlvoDeTreino1" parent="AlvosDeTreino" instance=ExtResource("103_alvo_de_treino")]
+[node name="AlvoDeTreino1" parent="AlvosDeTreino" unique_id=991539069 instance=ExtResource("103_alvo_de_treino")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 2)
 
-[node name="AlvoDeTreino2" parent="AlvosDeTreino" instance=ExtResource("103_alvo_de_treino")]
+[node name="AlvoDeTreino2" parent="AlvosDeTreino" unique_id=301972309 instance=ExtResource("103_alvo_de_treino")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2.6)
 
-[node name="AlvoDeTreino3" parent="AlvosDeTreino" instance=ExtResource("103_alvo_de_treino")]
+[node name="AlvoDeTreino3" parent="AlvosDeTreino" unique_id=1350509185 instance=ExtResource("103_alvo_de_treino")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 6)
 
-[node name="InimigosEspalhados" type="Node3D" parent="."]
+[node name="InimigosEspalhados" type="Node3D" parent="." unique_id=786968949]
 
-[node name="PatrulhaCiborgueLeste" type="Marker3D" parent="InimigosEspalhados"]
+[node name="PatrulhaCiborgueLeste" type="Marker3D" parent="InimigosEspalhados" unique_id=2072637454]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 6)
 
-[node name="DroneLeste" parent="InimigosEspalhados" instance=ExtResource("99_inimigo")]
+[node name="DroneLeste" parent="InimigosEspalhados" unique_id=237660945 instance=ExtResource("99_inimigo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0.2, -4)
 perfil = ExtResource("100_drone")
 
-[node name="DroneOeste" parent="InimigosEspalhados" instance=ExtResource("99_inimigo")]
+[node name="DroneOeste" parent="InimigosEspalhados" unique_id=910345997 instance=ExtResource("99_inimigo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.2, -4)
 perfil = ExtResource("100_drone")
 
-[node name="CiborgueLeste" parent="InimigosEspalhados" instance=ExtResource("99_inimigo")]
+[node name="CiborgueLeste" parent="InimigosEspalhados" unique_id=1237985181 instance=ExtResource("99_inimigo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0.2, 6)
 perfil = ExtResource("101_ciborgue")
 caminho_do_ponto_de_patrulha = NodePath("../PatrulhaCiborgueLeste")
 
-[node name="SentinelaOeste" parent="InimigosEspalhados" instance=ExtResource("99_inimigo")]
+[node name="SentinelaOeste" parent="InimigosEspalhados" unique_id=402147276 instance=ExtResource("99_inimigo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.2, 11)
 perfil = ExtResource("102_sentinela")
