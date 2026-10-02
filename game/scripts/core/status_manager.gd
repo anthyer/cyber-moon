@@ -17,7 +17,8 @@ signal experience_changed(atual: int, para_o_proximo: int)
 signal player_fainted(motivo: Motivo)
 signal player_woke_up(motivo: Motivo)
 
-enum Motivo { EXAUSTAO, FERIMENTO }
+## SONO é cair de sono à 1:00 (plano 10). A penalidade é a mesma da exaustão.
+enum Motivo { EXAUSTAO, FERIMENTO, SONO }
 
 const VIDA_BASE: int = 100
 const STAMINA_BASE: float = 100.0
@@ -152,6 +153,10 @@ func acordar_no_dia_seguinte() -> void:
 	DayCycleManager.avancar_para_o_proximo_dia()
 	esta_desmaiado = false
 	player_woke_up.emit(_motivo_da_queda)
+
+## Chamado pelo DayCycleManager quando o relógio chega à 1:00.
+func cair_de_sono() -> void:
+	_cair(Motivo.SONO)
 
 func _cair(motivo: Motivo) -> void:
 	if esta_desmaiado:
