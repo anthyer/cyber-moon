@@ -91,10 +91,10 @@ const SOM_DO_GOLPE: String = "res://assets/audio/sfx/punch.wav"
 const GIRO_DA_ARMA_DE_DISTANCIA: float = 2.5
 ## A escopeta de cano serrado solta 6 projéteis num cone pequeno. O dano da tabela é o
 ## de cada projétil, então o disparo inteiro acertando vale 36, o maior do jogo, mas só
-## de perto: de longe o cone abre e poucos projéteis acertam. O alcance de 5 metros é o
-## maior entre as armas, e não é infinito.
+## de perto: de longe o cone abre e poucos projéteis acertam. O cone é largo (32 graus) e
+## o alcance é curto (3,5 metros): ainda é o maior entre as armas, e não é infinito.
 const PROJETEIS_DA_ESCOPETA: int = 6
-const ABERTURA_DO_CONE_DA_ESCOPETA: float = 16.0
+const ABERTURA_DO_CONE_DA_ESCOPETA: float = 32.0
 const VELOCIDADE_DO_PROJETIL_DA_ESCOPETA: float = 22.0
 
 ## id, nome, venda, tipo, dano, alcance, stamina por acerto, velocidade da animação,
@@ -109,7 +109,7 @@ const ARMAS: Array = [
 	[&"foice_curva", "Foice curva", 60, Arma.Tipo.LEVE, 12, 1.2, 1.5, 1.8, 0.25, "aid_cane.glb", 1.0],
 	[&"bastao_choque", "Bastão de choque", 120, Arma.Tipo.LEVE, 20, 1.3, 2.0, 1.5, 0.35, "aid_cane_low_vision.glb", 1.0],
 	[&"espadao_sucata", "Espadão de sucata", 180, Arma.Tipo.PESADA, 34, 1.9, 4.0, 0.55, 0.6, "aid_crutch.glb", 2.5],
-	[&"escopeta_serrada", "Escopeta de cano serrado", 220, Arma.Tipo.DISTANCIA, 6, 5.0, 3.0, 1.0, 0.8, "aid_cane_blind.glb", 0.6],
+	[&"escopeta_serrada", "Escopeta de cano serrado", 220, Arma.Tipo.DISTANCIA, 6, 3.5, 3.0, 1.0, 0.8, "aid_cane_blind.glb", 0.6],
 ]
 
 ## id da arma para [posição, rotação em graus] do modelo dentro do osso da mão direita.

@@ -10,7 +10,7 @@
 script = ExtResource("4_mxvvi")
 tipo = 3
 dano = 6
-alcance = 5.0
+alcance = 3.5
 custo_de_stamina = 3.0
 velocidade_da_animacao = 1.0
 cooldown = 0.8
@@ -22,7 +22,7 @@ rotacao_do_modelo_em_graus = Vector3(0, 0, 90)
 projetil = ExtResource("3_bjtpc")
 velocidade_do_projetil = 22.0
 projeteis_por_disparo = 6
-abertura_do_cone_em_graus = 16.0
+abertura_do_cone_em_graus = 32.0
 tem_mira_laser = true
 multiplicador_de_giro = 2.5
 id = &"escopeta_serrada"

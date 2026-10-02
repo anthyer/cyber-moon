@@ -48,8 +48,9 @@ não atacando. O encaixe dos modelos na mão foi ajustado por captura de tela.
   de golpe que existe.
 - O jogador começa com as quatro armas nos slots 5 a 8, como estoque de teste.
 - **A arma de distância é uma escopeta de cano serrado, e não um rifle** (pedido do
-  Antonio depois da entrega). Cada disparo solta 6 projéteis num cone de 16 graus, com
-  alcance de 5 metros: é a arma de maior alcance, mas não infinito. O dano é por
+  Antonio depois da entrega). Cada disparo solta 6 projéteis num cone de 32 graus, com
+  alcance de 3,5 metros (começou com 16 graus e 5 metros, e o Antonio pediu o cone mais
+  largo e o alcance menor): é a arma de maior alcance, mas não infinito. O dano é por
   projétil (6), então de perto, com todos acertando, vale 36, e de longe o cone abre e
   acertam poucos. A stamina é cobrada uma vez por disparo. Onde o texto abaixo fala em
   rifle, vale a escopeta (`escopeta_serrada`).

@@ -199,8 +199,8 @@ golpe acontecer no mundo:
 - **Projétil:** `scenes/combat/projetil.tscn` viaja reto, some ao bater em qualquer coisa
   e some ao percorrer o alcance da arma. A arma pode soltar vários de uma vez, abertos
   em leque (`projeteis_por_disparo`, `abertura_do_cone_em_graus`), e aí a stamina do
-  disparo é cobrada uma vez só. A escopeta de cano serrado solta 6 num cone de 16 graus,
-  com 5 metros de alcance.
+  disparo é cobrada uma vez só. A escopeta de cano serrado solta 6 num cone de 32 graus,
+  com 3,5 metros de alcance.
 - **Mira:** arma com `tem_mira_laser` mostra por onde o tiro vai passar, saindo do mesmo
   ponto e na mesma direção do projétil. Arma de um projétil só mostra uma linha de laser,
   que para no primeiro obstáculo (mundo ou inimigo) ou no alcance. Arma em leque, como a
