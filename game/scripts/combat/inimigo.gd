@@ -29,6 +29,7 @@ const INICIO_DA_JANELA_DE_ACERTO: float = 0.35
 const FIM_DA_JANELA_DE_ACERTO: float = 0.65
 const ALTURA_DO_GOLPE: float = 0.3
 const DISTANCIA_DA_BOCA_DO_TIRO: float = 0.4
+const CAMADA_MUNDO: int = 1
 
 const RAIO_DO_CIRCULO_OCIOSO: float = 2.0
 const VELOCIDADE_DO_GIRO_PARADO: float = 0.6
@@ -49,7 +50,6 @@ const PATRULHA_PADRAO: Vector3 = Vector3(4.0, 0.0, 0.0)
 @onready var _reacao: ReacaoADano = $ReacaoADano
 @onready var _hitbox: Area3D = $HitboxAtaque
 @onready var _forma_da_hitbox: CollisionShape3D = $HitboxAtaque/FormaHitbox
-@onready var _forma_do_corpo: CollisionShape3D = $FormaColisao
 
 var estado: Estado = Estado.OCIOSO
 var vida_atual: int = 0
@@ -212,9 +212,11 @@ func _disparar() -> void:
 func _morrer() -> void:
 	estado = Estado.MORRENDO
 	velocity = Vector3.ZERO
-	# Sem colisão o corpo para de empurrar o jogador e de levar golpe enquanto cai.
-	_forma_do_corpo.set_deferred(&"disabled", true)
+	# Fora de todas as camadas, o corpo para de bloquear o jogador e de levar golpe
+	# enquanto cai. A forma de colisão continua ligada e a máscara fica só no mundo,
+	# senão o corpo atravessa o chão com a gravidade e some do mapa.
 	collision_layer = 0
+	collision_mask = CAMADA_MUNDO
 	_animacao.play(&"die")
 	StatusManager.ganhar_experiencia(perfil.experiencia_concedida)
 	EventBus.enemy_defeated.emit(perfil, global_position)
