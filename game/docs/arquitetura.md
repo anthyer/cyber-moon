@@ -255,8 +255,9 @@ cópia do material de cada superfície, sem mexer no `.glb`.
 O comportamento é uma máquina de quatro estados num `match`: `OCIOSO` (círculo,
 patrulha ou parado girando, conforme o perfil), `PERSEGUINDO`, `ATACANDO` e
 `MORRENDO`. O raio de desistência é maior que o de percepção, para o inimigo não ligar e
-desligar a perseguição na borda. Ele anda em linha reta, sem desviar de obstáculo, e
-acha o jogador pelo grupo `jogador`.
+desligar a perseguição na borda. Ele anda em linha reta, sem desviar de obstáculo (a
+malha de navegação entra no plano 14, e ele passa a usá-la), e acha o jogador pelo grupo
+`jogador`.
 
 O ataque é corpo a corpo por padrão: uma área de acerto à frente do inimigo, na janela
 do clipe. Perfil com `projetil` ataca de longe: o inimigo para ao chegar no

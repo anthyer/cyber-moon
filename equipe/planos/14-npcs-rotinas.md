@@ -8,6 +8,31 @@ entre si.
 
 **Entrega para:** 15, 16, 17.
 
+## Nota de 2026-10-01: malha de navegação (NavMesh)
+
+A malha de navegação é o mapeamento de onde os personagens podem andar, o mesmo conceito
+do NavMesh da Unity. No Godot são dois nós: a `NavigationRegion3D` guarda a malha, gerada
+(bake) a partir da geometria ou da colisão do mapa, e o `NavigationAgent3D` vai em cada
+personagem e devolve o próximo ponto do caminho até o destino, contornando obstáculo.
+
+Decisões tomadas com o Antonio, para valer quando este plano for executado:
+
+- **A malha é feita aqui e serve aos dois.** Os NPCs precisam dela para as rotinas, e os
+  inimigos do plano 09, que hoje andam em linha reta e encostam em parede, passam a usar
+  a mesma malha. Ver a tarefa 6b.
+- **Gerar com o mapa final montado.** A malha é gerada de uma vez e precisa ser refeita
+  quando o mapa muda. No playground ela serve para desenvolver; a definitiva sai quando o
+  mapa final estiver pronto.
+- **Tamanho do agente.** O bake usa o tamanho do personagem para saber por onde ele
+  passa. A cápsula do jogador e dos inimigos é raio 0,25 e altura 0,7 (ajustada na
+  auditoria de colisão de 2026-10-01), e é esse o valor para o bake. Com altura maior, a
+  malha some debaixo de copas de árvore e beirais, pelo mesmo motivo da auditoria.
+- **Obstáculo que muda durante o jogo.** A malha não enxerga sozinha o que aparece ou
+  some com o jogo rodando, como um baú colocado no chão (plano 17). A terra arada não
+  atrapalha, porque é plana. Para objeto colocado pelo jogador, use `NavigationObstacle3D`
+  ou refaça a malha da região.
+- **Custo.** Leve para o tamanho deste mapa, e funciona no alvo web.
+
 ## O elenco
 
 Três homens e três mulheres, como o Antonio pediu. Modelos placeholder do
@@ -150,6 +175,9 @@ Um balão simples com reticências acima da cabeça vende a ideia. Um `Sprite3D`
   por script headless com horas e dias variados.
 - [ ] **6.** Implementar o andar até o destino com `NavigationAgent3D`, tocando `walk` em
   movimento e a animação do compromisso ao chegar.
+- [ ] **6b.** Fazer o `Inimigo` (plano 09) perseguir pelo `NavigationAgent3D` em vez de
+  andar em linha reta, usando a mesma malha. Conferir que ele contorna uma casa para
+  chegar no jogador.
 - [ ] **7.** Criar os seis `.tres` de perfil com as rotinas.
 - [ ] **8.** Implementar a regra da Folga e da chuva.
 - [ ] **9.** Implementar a encenação entre NPCs.

@@ -241,6 +241,15 @@ plano, seção "Revisão de 2026-09-30".
 - O gerador do catálogo imprime um erro de compilação ao carregar a cena do projétil,
   porque roda sem os autoloads. As armas saem certas mesmo assim.
 
+### 2026-10-01, malha de navegação (NavMesh)
+
+**Decidido com o Antonio:** o mapa final terá malha de navegação, o mapeamento de onde
+os personagens podem andar. Ela entra no plano 14 (rotinas de NPC), que já a previa, e os
+inimigos passam a usar a mesma malha para contornar obstáculo em vez de andar em linha
+reta (tarefa 6b do plano 14). As decisões e os cuidados estão na nota do topo do plano
+14: gerar com o mapa final montado, usar o tamanho da cápsula atual (raio 0,25, altura
+0,7) no bake, e tratar à parte os obstáculos que mudam durante o jogo.
+
 ### 2026-10-01, revisar armas e combate
 
 **Pendência do Antonio:** revisar no futuro as armas e o combate, com atenção a três
@@ -294,7 +303,8 @@ Conferida com o jogo carregado, a pedido do Antonio:
 
 **Fica para depois:**
 
-- Inimigo anda em linha reta e encosta em parede. Navegação é sugestão de feature.
+- Inimigo anda em linha reta e encosta em parede. Passa a usar a malha de navegação no
+  plano 14 (ver a entrada "malha de navegação" acima).
 - Os inimigos não aparecem sozinhos: estão colocados à mão no playground.
 - Todo dano usa o `punch.wav`.
 

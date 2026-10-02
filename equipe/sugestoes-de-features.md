@@ -113,9 +113,8 @@ ao combate inteiro.
 Encaixa direto nos marcos do `GameManager` e é o que o GDD promete quando fala em
 "evoluir a fazenda".
 
-**Navegação com desvio de obstáculo para inimigos.** O plano 09 deixou isso de fora e o
-inimigo anda em linha reta. O plano 14 já vai configurar a `NavigationRegion3D` para os
-NPCs, então metade do trabalho estará feita.
+**Navegação com desvio de obstáculo para inimigos.** Deixou de ser sugestão em
+2026-10-01: virou a tarefa 6b do plano 14, que usa a mesma malha de navegação dos NPCs.
 
 **Festival por estação.** Um evento por estação, com todos os NPCs no mesmo lugar e uma
 competição. É o que faz o calendário virar expectativa em vez de contador.
