@@ -5,7 +5,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 ## Autoloads
 
 - `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada`, `item_picked_up(item, quantidade)` (o jogador pegou um item do chão), `crop_planted(celula, cultivo)`, `crop_grown(celula, novo_estagio)`, `crop_withered(celula)`, `crop_removed(celula)`, `damage_dealt(alvo, quantidade)` e `enemy_defeated(perfil, posicao)`.
-- `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): controla o número do dia e a hora atual. Sinais próprios: `day_started`, `day_ended`. Método principal: `avancar_para_o_proximo_dia()`.
+- `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): o relógio do jogo. A hora anda sozinha das 6:00 à 1:00 do dia seguinte (5 minutos reais de dia, das 6:00 às 18:00, e 5 de noite, das 18:00 à 1:00), e passa de 24 em vez de voltar a zero (24.5 é 0:30). Sinais: `day_started`, `day_ended`, `hour_changed` (a cada minuto de jogo), `period_changed` e `player_slept(forcado)`. Métodos: `avancar_para_o_proximo_dia()`, `dormir(forcado)`, `periodo_atual()`, `hora_formatada()`, `fracao_do_dia()`. Para com o menu de pausa (pausa junto com a árvore) e com `tempo_congelado`.
 - `InventoryManager` (`scripts/core/inventory_manager.gd`): inventário do jogador em 36 slots, cada um uma `PilhaDeItens` ou `null`. Os índices de 0 a 8 são a barra rápida e de 9 a 35 a matriz de 3 linhas por 9 colunas, a mesma largura da barra rápida. `adicionar_item` devolve o que não coube (inventário cheio), e completa pilhas iguais antes de ocupar o primeiro slot vazio, varrendo a barra rápida antes da matriz. Também guarda o equipamento: os espaços `ARMADURA` e `ACESSORIO` apontam para o índice de um slot, e o item equipado continua ocupando esse slot. Sinais: `inventory_changed` e `equipment_changed(espaco, item)`.
 - `EquipmentManager` (`scripts/core/equipment_manager.gd`): guarda só qual dos 9 slots rápidos está selecionado (`indice_selecionado`, sinal `slot_selecionado_alterado`). O item na mão é o que está nesse slot do `InventoryManager` (`item_na_mao()`, `ferramenta_na_mao()`), como no Minecraft. Slot vazio é uma seleção válida, e com ele ou com os cestos o ataque é o soco. Ao iniciar, põe os cestos e as três ferramentas nos slots rápidos 1 a 4.
 - `StatusManager` (`scripts/core/status_manager.gd`): vida, stamina, experiência e nível do jogador. Sinais `health_changed`, `stamina_changed`, `level_changed`, `experience_changed`, `player_fainted(motivo)` e `player_woke_up(motivo)`. A stamina só volta dormindo (virada do dia) ou comendo; a vida volta devagar depois de 5 segundos sem dano.
@@ -290,4 +290,23 @@ livre em z = -15), quatro espalhados pelo mapa (`InimigosEspalhados`) e três bo
 treino perto do spawn (`AlvosDeTreino`). O boneco (`AlvoDeTreino`) implementa o contrato
 de dano, não revida, não morre e mostra o número do dano, o que serve para medir armas
 com calma. Nenhum inimigo percebe o jogador a partir do spawn nem da fazenda.
+
+## Dia e noite
+
+**Iluminação:** o nó `IluminacaoDoCiclo` (`scripts/core/iluminacao_do_ciclo.gd`) do
+playground escuta `hour_changed` e ajusta a luz direcional `Luz` e o `WorldEnvironment`
+`Ambiente`: cor e energia do sol, altura e direção dele (nasce no leste, se põe no oeste),
+e quanto o céu e o ambiente clareiam a cena. Os valores vêm de uma tabela de pontos por
+hora, interpolada, então a cena escurece e clareia aos poucos. A noite nunca fica toda
+preta. A luz é girada por código, e não pela matriz do `.tscn`.
+
+**Luz do jogador:** uma `OmniLight3D` (`LuzDoJogador`) ciano, de alcance curto, presa ao
+jogador e sempre ligada. De dia não aparece; à noite ilumina só em volta dele. Alcance e
+energia são as próprias propriedades da luz, e um item de lanterna futuro pode mudá-las.
+
+**Dormir:** a `Cama` (`scenes/world/cama.tscn`) implementa o contrato `interagir()` e chama
+`DayCycleManager.dormir(false)`. A tela de transição escurece, vira o dia e clareia, sem
+penalidade, e a stamina volta cheia. Chegando à 1:00, o `DayCycleManager` chama
+`dormir(true)`, que derruba o jogador pelo mesmo caminho do desmaio do plano 07
+(`StatusManager.Motivo.SONO`): ele acorda em casa no dia seguinte com metade da stamina.
 

@@ -15,7 +15,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 07 Status: vida e stamina
 - [x] 08 Armas
 - [x] 09 Inimigos
-- [ ] 10 Ciclo de dia e noite
+- [x] 10 Ciclo de dia e noite
 - [ ] 11 Estações
 - [ ] 12 Calendário
 - [ ] 13 Clima

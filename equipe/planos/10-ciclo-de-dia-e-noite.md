@@ -8,6 +8,29 @@ penalidade.
 
 **Entrega para:** 11, 12, 13, 14.
 
+## Revisão de 2026-10-02 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido por teste automático: 5 minutos reais de dia vão das 6:00
+às 18:00 e mais 5 de noite chegam à 1:00; os períodos trocam nas horas certas; o
+relógio para com o menu aberto; dormir na cama vira o dia com a stamina cheia e as
+plantas regadas crescendo; à 1:00 o jogador cai e acorda em casa com metade da stamina.
+A iluminação foi conferida por captura em cinco horários.
+
+**Ajustes ao plano:**
+
+- **Sinais em inglês:** `hour_changed`, `period_changed` e `player_slept`.
+- **A penalidade do sono forçado** é a do desmaio como ela ficou no plano 07: acordar com
+  metade da stamina (o máximo não diminui), e sem perder crédito, que só existe no plano
+  17. Entrou o motivo `SONO` no `StatusManager`, com texto próprio na tela.
+- **Noite das 18:00 à 1:00** (7 horas de jogo em 5 minutos reais), porque o limite é a
+  1:00.
+- **A luz do jogador não tem script próprio.** Alcance e energia já são propriedades
+  exportadas da `OmniLight3D`, e o item de lanterna pode mexer nelas direto.
+- **Não existe casa do jogador.** A cama ficou ao lado do `PontoDeSpawn`.
+- **A tecla N ficou**, como atalho de teste para avançar um dia na hora. O plano 06 dizia
+  que ela sairia aqui, mas com 10 minutos reais por dia ela continua útil para testar
+  plantio e estações. Sai quando o Antonio quiser.
+
 ## Contexto
 
 O `DayCycleManager` já existe com `numero_do_dia`, `hora_atual`, os sinais `day_started`
@@ -140,20 +163,20 @@ meia-noite, como aviso.
 
 ## Tarefas
 
-- [ ] **1.** Ampliar o `DayCycleManager` com o avanço da hora, os períodos e os sinais.
+- [x] **1.** Ampliar o `DayCycleManager` com o avanço da hora, os períodos e os sinais.
   Verificar por script headless: simular o `_process` e conferir que 5 minutos de dia dão
   12 horas de jogo.
-- [ ] **2.** Criar `hud_relogio.tscn` e colocar no playground.
-- [ ] **3.** Criar `iluminacao_do_ciclo.gd` e ligar ao `DirectionalLight3D` e ao
+- [x] **2.** Criar `hud_relogio.tscn` e colocar no playground.
+- [x] **3.** Criar `iluminacao_do_ciclo.gd` e ligar ao `DirectionalLight3D` e ao
   `WorldEnvironment` existentes. Rodar e ver o dia inteiro passar uma vez.
-- [ ] **4.** Ajustar as cores e as energias olhando na tela. A tabela é ponto de partida.
-- [ ] **5.** Adicionar a `LuzDoJogador`.
-- [ ] **6.** Adicionar a `Cama` e o dormir voluntário.
-- [ ] **7.** Implementar o sono forçado às 1:00 com a penalidade.
-- [ ] **8.** Congelar o tempo durante o menu de pausa.
-- [ ] **9.** Ligar `avancar_um_dia` da `GradeSolo` (plano 06) ao `day_started`, se ainda
+- [x] **4.** Ajustar as cores e as energias olhando na tela. A tabela é ponto de partida.
+- [x] **5.** Adicionar a `LuzDoJogador`.
+- [x] **6.** Adicionar a `Cama` e o dormir voluntário.
+- [x] **7.** Implementar o sono forçado às 1:00 com a penalidade.
+- [x] **8.** Congelar o tempo durante o menu de pausa.
+- [x] **9.** Ligar `avancar_um_dia` da `GradeSolo` (plano 06) ao `day_started`, se ainda
   não estiver.
-- [ ] **10.** Documentar e commitar.
+- [x] **10.** Documentar e commitar.
 
 ## Critério de pronto
 

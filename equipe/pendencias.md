@@ -183,7 +183,7 @@ feita no commit 5f72630. A regra fica em `scripts/utils/superficies.gd`.
 **Temporário, precisa sair depois:**
 
 - A tecla N (`teste_avancar_dia`) e o nó `AtalhosDeTeste` do playground avançam o dia.
-  Saem no plano 10.
+  Ficaram depois do plano 10 como atalho de teste (ver a entrada do plano 10).
 - As 5 sementes de cada cultura no inventário inicial são estoque de teste. O plano 17
   define o inventário inicial.
 
@@ -240,6 +240,23 @@ plano, seção "Revisão de 2026-09-30".
   de andar segurando arma. Parado, a pose é a de segurar com as duas mãos.
 - O gerador do catálogo imprime um erro de compilação ao carregar a cena do projétil,
   porque roda sem os autoloads. As armas saem certas mesmo assim.
+
+### 2026-10-02, plano 10
+
+**Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-02".
+
+**Precisa do Antonio:**
+
+- Jogar um dia inteiro e ajustar as cores e energias da tabela em
+  `scripts/core/iluminacao_do_ciclo.gd`. Foram conferidas por captura em cinco
+  horários, mas o ajuste fino é de olho, jogando.
+- Decidir se a tecla N de avançar o dia sai ou fica como atalho de teste.
+
+**Fica para depois:**
+
+- O horário não é salvo, como o resto do status.
+- Desmaiar e cair de sono não tiram crédito. É o plano 17.
+- Lua e estrelas no céu estão em `sugestoes-de-features.md`.
 
 ### 2026-10-01, malha de navegação (NavMesh)
 
