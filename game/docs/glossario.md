@@ -9,6 +9,10 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Item | Item / `Item` (classe Resource) |
 | Inventário | Inventory / `InventoryManager` |
 | Ciclo de dias | Day cycle / `DayCycleManager` |
+| Estação | Season / `SeasonManager`, sinal `season_changed` |
+| Perfil de estação | Season profile / `PerfilEstacao` (classe Resource) |
+| Brotação, Estiagem, Colheita, Apagão | ids `brotacao`, `estiagem`, `colheita`, `apagao` (primavera, verão, outono, inverno) |
+| Aviso na tela | Notice / sinal `notice_requested`, `HudAviso` |
 | Marco de progresso | Progress milestone / `GameManager.marcos_desbloqueados` |
 | Expansão da cidade | City expansion / sinal `city_expansion_blocked` |
 | Perfil de NPC | NPC profile / `PerfilNpc` (classe Resource) |

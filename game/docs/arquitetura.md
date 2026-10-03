@@ -6,6 +6,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 
 - `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada`, `item_picked_up(item, quantidade)` (o jogador pegou um item do chão), `crop_planted(celula, cultivo)`, `crop_grown(celula, novo_estagio)`, `crop_withered(celula)`, `crop_removed(celula)`, `damage_dealt(alvo, quantidade)` e `enemy_defeated(perfil, posicao)`.
 - `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): o relógio do jogo. A hora anda sozinha das 6:00 à 1:00 do dia seguinte (5 minutos reais de dia, das 6:00 às 18:00, e 5 de noite, das 18:00 à 1:00), e passa de 24 em vez de voltar a zero (24.5 é 0:30). Sinais: `day_started`, `day_ended`, `hour_changed` (a cada minuto de jogo), `period_changed` e `player_slept(forcado)`. Métodos: `avancar_para_o_proximo_dia()`, `dormir(forcado)`, `periodo_atual()`, `hora_formatada()`, `fracao_do_dia()`. Para com o menu de pausa (pausa junto com a árvore) e com `tempo_congelado`.
+- `SeasonManager` (`scripts/core/season_manager.gd`): o calendário. Quatro estações de 30 dias (Brotação, Estiagem, Colheita, Apagão), 120 dias por ano. Não guarda nada: estação, dia da estação e ano são calculados do `numero_do_dia` do `DayCycleManager` a cada pergunta. Sinais `season_changed(nova)` e `year_changed(novo_ano)`, emitidos no `day_started` da virada. Métodos: `estacao_atual()`, `dia_da_estacao()`, `ano_atual()`, `indice_da_estacao()`, `nome_exibido(estacao)`, `perfil_da_estacao(estacao)`, `perfil_atual()`.
 - `InventoryManager` (`scripts/core/inventory_manager.gd`): inventário do jogador em 36 slots, cada um uma `PilhaDeItens` ou `null`. Os índices de 0 a 8 são a barra rápida e de 9 a 35 a matriz de 3 linhas por 9 colunas, a mesma largura da barra rápida. `adicionar_item` devolve o que não coube (inventário cheio), e completa pilhas iguais antes de ocupar o primeiro slot vazio, varrendo a barra rápida antes da matriz. Também guarda o equipamento: os espaços `ARMADURA` e `ACESSORIO` apontam para o índice de um slot, e o item equipado continua ocupando esse slot. Sinais: `inventory_changed` e `equipment_changed(espaco, item)`.
 - `EquipmentManager` (`scripts/core/equipment_manager.gd`): guarda só qual dos 9 slots rápidos está selecionado (`indice_selecionado`, sinal `slot_selecionado_alterado`). O item na mão é o que está nesse slot do `InventoryManager` (`item_na_mao()`, `ferramenta_na_mao()`), como no Minecraft. Slot vazio é uma seleção válida, e com ele ou com os cestos o ataque é o soco. Ao iniciar, põe os cestos e as três ferramentas nos slots rápidos 1 a 4.
 - `StatusManager` (`scripts/core/status_manager.gd`): vida, stamina, experiência e nível do jogador. Sinais `health_changed`, `stamina_changed`, `level_changed`, `experience_changed`, `player_fainted(motivo)` e `player_woke_up(motivo)`. A stamina só volta dormindo (virada do dia) ou comendo; a vida volta devagar depois de 5 segundos sem dano.
@@ -134,13 +135,16 @@ dicionário de célula para `PlantaNaGrade`, paralelo ao dicionário do estado d
 
 - **Plantar:** com uma `Semente` na mão, o botão de atacar chama
   `GradeSolo.plantar(celula, cultivo)` na célula à frente e gasta uma semente do slot
-  selecionado. Só planta em célula arada e sem planta.
+  selecionado. Só planta em célula arada e sem planta, e só cultivo da estação atual
+  (`Cultivo.estacoes_permitidas`; vazio vale para todas). Fora da estação, a `GradeSolo`
+  recusa e pede um aviso na tela pelo `EventBus.notice_requested`.
 - **Crescer:** a `GradeSolo` escuta `DayCycleManager.day_started`. A cada dia, a planta
   em solo molhado conta um dia e sobe de estágio ao juntar `dias_por_estagio`. Ao virar
   o dia, o solo molhado seca, então é preciso regar todo dia.
 - **Murchar:** a planta que passa um dia em solo seco murcha, em qualquer estágio,
   inclusive madura. Ela troca para a `textura_murcha`, não cresce mais e não dá
-  colheita. Fica na célula até ser arrancada.
+  colheita. Fica na célula até ser arrancada. Na virada de estação, toda planta viva
+  cujo cultivo não serve para a estação nova também murcha.
 - **Colher:** `interagir` na célula à frente chama `GradeSolo.colher(celula)`. Só colhe
   planta no estágio máximo. Rende de 2 a 4 itens, sorteado, que nascem no chão como
   `ItemNoMundo` e são coletados pelo ímã. A planta some, ou volta ao
@@ -310,11 +314,35 @@ penalidade, e a stamina volta cheia. Chegando à 1:00, o `DayCycleManager` chama
 `dormir(true)`, que derruba o jogador pelo mesmo caminho do desmaio do plano 07
 (`StatusManager.Motivo.SONO`): ele acorda em casa no dia seguinte com metade da stamina.
 
+## Estações
+
+O `SeasonManager` diz a estação, e cada estação tem um `PerfilEstacao`
+(`scripts/resources/perfil_estacao.gd`, um `.tres` por estação em `resources/estacoes/`)
+com o que ela muda: cor da luz, multiplicador de energia, hora do anoitecer, cor da grama,
+música e chance de chuva (esta, para o clima do plano 13).
+
+- **Luz:** o `IluminacaoDoCiclo` multiplica a cor do sol pela da estação, e a energia do
+  sol e do ambiente pelo multiplicador. Os pontos da tabela do fim da tarde em diante andam
+  junto com o anoitecer da estação; o da 1:00 fica parado.
+- **Grama:** o nó `GramaDaEstacao` (`scripts/world/grama_da_estacao.gd`) multiplica a cor
+  original do material de grama pela cor da estação.
+- **Música:** na virada, se o perfil tiver faixa, o `SeasonManager` emite
+  `EventBus.musica_solicitada`.
+- **Plantio:** veja "Plantio e colheita".
+- **Relógio:** mostra a estação e o dia dentro dela, e o ano a partir do segundo.
+
+## Aviso na tela
+
+Qualquer sistema mostra uma frase curta ao jogador emitindo
+`EventBus.notice_requested(texto)`. Quem desenha é o `HudAviso`
+(`scenes/ui/hud_aviso.tscn`), acima da barra rápida: o texto fica 2,5 s e some. Um aviso
+novo substitui o anterior em vez de empilhar.
+
 ## Menu de debug
 
 O menu de debug (`scenes/ui/menu_debug.tscn`, script `MenuDebug`, no `InterfaceHUD` do
 playground) abre e fecha com F3 e serve para testar os sistemas sem esperar o jogo:
-trocar a hora, avançar o dia, congelar o relógio, encher vida e stamina, tomar dano,
+trocar a hora, avançar o dia, pular para a próxima estação, congelar o relógio, encher vida e stamina, tomar dano,
 ganhar experiência, ficar invencível, teleportar, molhar o solo e amadurecer as plantas,
 ganhar sementes, pães e armas, soltar sucata, criar e matar inimigos, mostrar os quadros
 por segundo e ligar e desligar a sombra do sol. Ele não pausa o jogo e os botões não

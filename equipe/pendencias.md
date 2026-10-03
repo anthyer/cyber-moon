@@ -267,6 +267,25 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-02, plano 11
+
+**Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-02".
+
+**Precisa do Antonio:**
+
+- Olhar as quatro estações jogando (botão "Pular para a próxima estação" no F3) e
+  ajustar as cores e energias em `resources/estacoes/*.tres`.
+- Escolher uma música por estação, se quiser. O campo `musica` dos perfis está vazio, e a
+  música padrão continua tocando o ano todo.
+
+**Fica para depois:**
+
+- Os blocos de grama dos modelos da Kenney não mudam de cor com a estação, só os planos de
+  grama. No mapa final, vale usar o mesmo material compartilhado no chão todo.
+- O período "Anoitecer" do relógio e a velocidade do relógio continuam com as 18:00 fixas.
+- A estação não precisa de save próprio: sai do número do dia, que o plano 20 salva.
+- Rotina de NPC por estação é do plano 14.
+
 ### 2026-10-02, plano 10
 
 **Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-02".

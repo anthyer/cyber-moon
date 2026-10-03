@@ -16,7 +16,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 08 Armas
 - [x] 09 Inimigos
 - [x] 10 Ciclo de dia e noite
-- [ ] 11 Estações
+- [x] 11 Estações
 - [ ] 12 Calendário
 - [ ] 13 Clima
 - [ ] 14 NPCs: rotinas e walk cycle

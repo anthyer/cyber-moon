@@ -8,6 +8,38 @@ troca pelo `EventBus.musica_solicitada`).
 
 **Entrega para:** 12, 13, 14, 17.
 
+## Revisão de 2026-10-02 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido por teste automático: dia 1 é Brotação dia 1, dia 30 é
+Brotação dia 30, dia 31 é Estiagem dia 1, dia 91 é Apagão dia 1 e dia 121 é Brotação dia
+1 do ano 2; em 120 dias o `season_changed` dispara quatro vezes e o `year_changed` uma.
+Tomate na Brotação é recusado com aviso; na virada para a Estiagem a cenoura murcha e o
+trigo não. A luz e a grama foram conferidas por captura nas quatro estações.
+
+**Ajustes ao plano:**
+
+- **Sinais em inglês:** `season_changed` e `year_changed`, como manda a convenção.
+- **`perfil_atual()` e `dias_ate_a_proxima_estacao()`** entraram no `SeasonManager`, por
+  conveniência da iluminação e do menu de debug.
+- **A música da estação é emitida pelo próprio `SeasonManager`** na virada, se o perfil
+  tiver faixa. Nenhum perfil tem ainda, e a música padrão continua tocando.
+- **A iluminação desloca a tabela do plano 10.** Os pontos das 18:00 e das 20:00 andam
+  junto com o anoitecer da estação (no Apagão viram 16:30 e 18:30), e o ponto da 1:00
+  fica parado. A cor do sol é multiplicada pela da estação, e a energia do sol e do
+  ambiente pelo multiplicador.
+- **A velocidade do relógio e o período "Anoitecer" do relógio não mudam por estação.**
+  Continuam com as 18:00 fixas do `DayCycleManager`. Só a luz segue o anoitecer da
+  estação, que é o que o jogador vê.
+- **A grama tingida é o material dos planos de grama do playground**, por um nó
+  `GramaDaEstacao`. Os blocos de grama dos modelos da Kenney não mudam.
+- **Cor da Colheita** ficou mais ocre do que a primeira tentativa, que saiu amarela.
+- **Planta murcha sai com a enxada ou com a picareta**, como ficou decidido no plano 06,
+  e não só com a picareta.
+- **Aviso na tela:** sinal novo `EventBus.notice_requested(texto)` e a HUD `HudAviso`,
+  que qualquer sistema pode usar.
+- **Menu de debug:** botão "Pular para a próxima estação".
+- **Sem partículas**, porque o plano é anterior à regra. Ficam para o plano 19.
+
 ## Decisões fechadas
 
 **Quatro estações, 30 dias cada, 120 dias por ano**, conforme o Antonio pediu. Os nomes
@@ -132,18 +164,18 @@ murcha só pode ser removida com a picareta.
 
 ## Tarefas
 
-- [ ] **1.** Criar `perfil_estacao.gd` e os quatro `.tres`.
-- [ ] **2.** Criar o `SeasonManager` e registrar o autoload. Verificar por script
+- [x] **1.** Criar `perfil_estacao.gd` e os quatro `.tres`.
+- [x] **2.** Criar o `SeasonManager` e registrar o autoload. Verificar por script
   headless: dia 1 é brotação dia 1; dia 30 é brotação dia 30; dia 31 é estiagem dia 1;
   dia 121 é brotação dia 1 do ano 2.
-- [ ] **3.** Emitir `estacao_mudou` no `day_started` quando o índice da estação muda.
-- [ ] **4.** Ligar a iluminação da estação ao `IluminacaoDoCiclo`.
-- [ ] **5.** Ligar a música da estação.
-- [ ] **6.** Ligar a cor da grama.
-- [ ] **7.** Preencher `estacoes_permitidas` nos seis cultivos e fazer `plantar` respeitar.
-- [ ] **8.** Implementar o murchar na virada de estação.
-- [ ] **9.** Mostrar a estação e o dia da estação no relógio da HUD.
-- [ ] **10.** Documentar e commitar.
+- [x] **3.** Emitir `estacao_mudou` no `day_started` quando o índice da estação muda.
+- [x] **4.** Ligar a iluminação da estação ao `IluminacaoDoCiclo`.
+- [x] **5.** Ligar a música da estação.
+- [x] **6.** Ligar a cor da grama.
+- [x] **7.** Preencher `estacoes_permitidas` nos seis cultivos e fazer `plantar` respeitar.
+- [x] **8.** Implementar o murchar na virada de estação.
+- [x] **9.** Mostrar a estação e o dia da estação no relógio da HUD.
+- [x] **10.** Documentar e commitar.
 
 ## Critério de pronto
 
