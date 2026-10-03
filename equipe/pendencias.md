@@ -47,8 +47,8 @@ lutar e conversar), mas pode frustrar. É o gancho para estufa.
 fase da história e marcos, e mais nada. Depois dos 17 planos, vai faltar salvar
 inventário, status, relacionamentos, economia, estado da grade de solo e das plantas,
 clima e estação. Isso foi deixado de fora de cada plano individual de propósito, porque
-salvar tudo de uma vez é mais fácil do que salvar aos pedaços. **Vale um plano próprio só
-para isso** (o número 18 ficou com o chat), e ele precisa existir antes de qualquer entrega jogável de verdade.
+salvar tudo de uma vez é mais fácil do que salvar aos pedaços. **Virou o plano 20**
+(`equipe/planos/20-salvar-o-jogo.md`, escrito em 2026-10-02), e ele precisa existir antes de qualquer entrega jogável de verdade.
 
 **Não há fabricação.** O plano 03 cria itens processados (composto orgânico,
 biocombustível, nutrisolo, chapa reciclada) e o plano 17 os precifica, mas nenhum plano
@@ -240,6 +240,15 @@ plano, seção "Revisão de 2026-09-30".
   de andar segurando arma. Parado, a pose é a de segurar com as duas mãos.
 - O gerador do catálogo imprime um erro de compilação ao carregar a cena do projétil,
   porque roda sem os autoloads. As armas saem certas mesmo assim.
+
+### 2026-10-02, decisões do Antonio sobre o que fica para o fim
+
+- **Salvar o jogo:** documentado como plano 20, feito depois dos planos de sistema e
+  obrigatório antes de qualquer entrega jogável.
+- **Balanceamento:** custos de stamina (plano 07), números dos inimigos (plano 09) e
+  cores do dia e da noite (plano 10) são ajustados depois de tudo pronto, numa etapa
+  final que está no fim de `ordem-de-execucao.md`.
+- **Revisão do combate** (stagger, combos e animações) vai junto do balanceamento final.
 
 ### 2026-10-02, sombra e menu de debug
 

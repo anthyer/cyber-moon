@@ -24,7 +24,9 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [ ] 16 Amizade e romance
 - [ ] 17 Comércio e economia
 - [ ] 18 Chat entre jogadores (independente dos outros, pode ser feito em paralelo)
+- [ ] 20 Salvar o jogo (depois dos planos de sistema; obrigatório antes de qualquer entrega jogável)
 - [ ] 19 Partículas no que já existe (depois de todos os planos acima; feature nova, escrita depois deste plano, já nasce com partículas)
+- [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
 
 ## Por que essa ordem
 
