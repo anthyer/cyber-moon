@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PerfilEstacao" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/perfil_estacao.gd" id="1_perfil"]
+
+[resource]
+script = ExtResource("1_perfil")
+id = &"apagao"
+nome_exibido = "Apagão"
+cor_da_luz = Color(0.72, 0.82, 1, 1)
+multiplicador_de_energia = 0.7
+hora_do_anoitecer = 16.5
+cor_da_grama = Color(0.8, 0.85, 1.05, 1)
+chance_de_chuva = 0.1

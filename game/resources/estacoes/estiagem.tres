@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PerfilEstacao" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/perfil_estacao.gd" id="1_perfil"]
+
+[resource]
+script = ExtResource("1_perfil")
+id = &"estiagem"
+nome_exibido = "Estiagem"
+cor_da_luz = Color(1, 0.96, 0.88, 1)
+multiplicador_de_energia = 1.15
+hora_do_anoitecer = 20.0
+cor_da_grama = Color(1.12, 1.05, 0.62, 1)
+chance_de_chuva = 0.15

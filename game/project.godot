@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 EventBus="*res://scripts/core/event_bus.gd"
 DayCycleManager="*res://scripts/core/day_cycle_manager.gd"
+SeasonManager="*res://scripts/core/season_manager.gd"
 InventoryManager="*res://scripts/core/inventory_manager.gd"
 InputManager="*res://scripts/core/input_manager.gd"
 GameManager="*res://scripts/core/game_manager.gd"

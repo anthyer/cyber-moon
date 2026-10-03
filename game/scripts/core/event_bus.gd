@@ -14,3 +14,5 @@ signal crop_withered(celula: Vector2i)
 signal crop_removed(celula: Vector2i)
 signal damage_dealt(alvo: Node3D, quantidade: int)
 signal enemy_defeated(perfil: PerfilInimigo, posicao: Vector3)
+## Um aviso curto na tela, como "Tomate não cresce no Apagão". Quem mostra é o HudAviso.
+signal notice_requested(texto: String)
