@@ -15,3 +15,4 @@ estagios_de_crescimento = Array[Texture2D]([ExtResource("1_epx5d"), ExtResource(
 textura_murcha = ExtResource("6_o7bl2")
 dias_por_estagio = 1
 item_colhido = ExtResource("4_a405m")
+estacoes_permitidas = Array[StringName]([&"brotacao", &"estiagem", &"colheita"])

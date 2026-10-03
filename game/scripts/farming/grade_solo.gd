@@ -42,6 +42,7 @@ var _margem_inferior_por_cultivo: Dictionary = {}
 
 func _ready() -> void:
 	DayCycleManager.day_started.connect(_ao_comecar_o_dia)
+	SeasonManager.season_changed.connect(_ao_mudar_estacao)
 
 ## Em célula vazia, ara. Em célula com planta, arranca a planta e mantém a terra arada:
 ## é como o jogador se livra da planta murcha, e também serve para desistir de um
@@ -88,6 +89,10 @@ func plantar(celula: Vector2i, cultivo: Cultivo) -> bool:
 		return false
 	if _plantas.has(celula):
 		return false
+	var estacao: StringName = SeasonManager.estacao_atual()
+	if not cultivo.cresce_na_estacao(estacao):
+		EventBus.notice_requested.emit("%s não cresce nesta estação (%s)." % [cultivo.nome, SeasonManager.nome_exibido(estacao)])
+		return false
 	var planta: PlantaNaGrade = PlantaNaGrade.new()
 	planta.cultivo = cultivo
 	planta.visual = _criar_visual_da_planta(celula)
@@ -122,6 +127,18 @@ func colher(celula: Vector2i) -> bool:
 		_tirar_planta(celula)
 	EventBus.crop_harvested.emit(cultivo, quantidade)
 	return true
+
+## A estação virou: toda planta viva cuja cultura não serve para a estação nova murcha,
+## em qualquer estágio, igual à planta que passou o dia em solo seco. Roda antes do
+## crescimento do dia, porque o SeasonManager é autoload e recebe o day_started primeiro.
+func _ao_mudar_estacao(nova: StringName) -> void:
+	for celula: Vector2i in _plantas:
+		var planta: PlantaNaGrade = _plantas[celula]
+		if planta.murcha or planta.cultivo.cresce_na_estacao(nova):
+			continue
+		planta.murcha = true
+		_atualizar_visual_da_planta(planta)
+		EventBus.crop_withered.emit(celula)
 
 ## Um dia passou. A planta em solo molhado conta um dia de crescimento; a planta em
 ## solo seco murcha e está perdida, em qualquer estágio, inclusive madura. Depois todo

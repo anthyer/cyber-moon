@@ -15,5 +15,6 @@ estagios_de_crescimento = Array[Texture2D]([ExtResource("1_8357c"), ExtResource(
 textura_murcha = ExtResource("6_uc1x0")
 dias_por_estagio = 3
 item_colhido = ExtResource("4_a2ut5")
+estacoes_permitidas = Array[StringName]([&"estiagem"])
 estagio_de_rebrota = 1
 escala_da_planta_madura = 1.25

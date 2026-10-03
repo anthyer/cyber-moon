@@ -16,7 +16,8 @@ extends Resource
 @export var item_colhido: Item
 @export var quantidade_colhida_minima: int = 2
 @export var quantidade_colhida_maxima: int = 4
-## Vazio vale para qualquer estação. A checagem entra no plano 11.
+## Ids das estações em que a cultura pode ser plantada e crescer (os de
+## SeasonManager.ESTACOES). Vazio vale para qualquer estação.
 @export var estacoes_permitidas: Array[StringName] = []
 ## Quando maior que zero, a planta volta para este estágio ao ser colhida em vez de
 ## sumir. É o que faz tomate render várias colheitas de um plantio só.
@@ -26,6 +27,9 @@ extends Resource
 ## planta cresce até esta escala a cada estágio. Serve para cultura que na vida real é
 ## alta, como o milho.
 @export var escala_da_planta_madura: float = 1.0
+
+func cresce_na_estacao(estacao: StringName) -> bool:
+	return estacoes_permitidas.is_empty() or estacoes_permitidas.has(estacao)
 
 func estagio_maduro() -> int:
 	return estagios_de_crescimento.size() - 1

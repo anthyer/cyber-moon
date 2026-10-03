@@ -14,5 +14,6 @@ nome = "Milho"
 estagios_de_crescimento = Array[Texture2D]([ExtResource("1_j5gph"), ExtResource("2_tyxjc"), ExtResource("3_d6fon")])
 textura_murcha = ExtResource("6_8gc3j")
 item_colhido = ExtResource("4_34h1f")
+estacoes_permitidas = Array[StringName]([&"estiagem", &"colheita"])
 estagio_de_rebrota = 1
 escala_da_planta_madura = 1.4

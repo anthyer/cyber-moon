@@ -14,3 +14,4 @@ nome = "Beterraba"
 estagios_de_crescimento = Array[Texture2D]([ExtResource("1_frcfe"), ExtResource("2_xcjcg"), ExtResource("3_dyeaf")])
 textura_murcha = ExtResource("6_m3occ")
 item_colhido = ExtResource("4_mrpel")
+estacoes_permitidas = Array[StringName]([&"brotacao", &"colheita"])
