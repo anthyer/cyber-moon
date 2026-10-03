@@ -23,10 +23,10 @@ layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -146.0
+offset_left = -176.0
 offset_top = 14.0
 offset_right = -16.0
-offset_bottom = 84.0
+offset_bottom = 104.0
 grow_horizontal = 0
 mouse_filter = 2
 script = ExtResource("1_script")
@@ -81,3 +81,11 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.8, 0.9, 1)
 theme_override_font_sizes/font_size = 13
 text = "Manhã"
+
+[node name="Estacao" type="Label" parent="Painel/Linhas"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.8, 0.9, 1)
+theme_override_font_sizes/font_size = 13
+text = "Brotação, dia 1"
+horizontal_alignment = 1

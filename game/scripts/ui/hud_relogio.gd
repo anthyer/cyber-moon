@@ -1,6 +1,7 @@
 extends Control
 
-## Relógio no canto superior direito: a hora, o número do dia e o período do dia.
+## Relógio no canto superior direito: a hora, o número do dia, o período do dia e a
+## estação com o dia dentro dela.
 ##
 ## Depois da meia-noite a hora fica vermelha. É o aviso de que à 1:00 o personagem cai
 ## de sono onde estiver, com penalidade, e que é hora de ir para a cama.
@@ -22,6 +23,7 @@ const COR_DA_HORA_DE_AVISO: Color = Color(1.0, 0.3, 0.3)
 @onready var rotulo_do_dia: Label = %Dia
 @onready var rotulo_do_periodo: Label = %Periodo
 @onready var bolinha_do_periodo: ColorRect = %Bolinha
+@onready var rotulo_da_estacao: Label = %Estacao
 
 func _ready() -> void:
 	# Processa sempre, mesmo com o jogo pausado, só para saber a hora de sumir, como a
@@ -30,6 +32,7 @@ func _ready() -> void:
 	DayCycleManager.hour_changed.connect(_ao_mudar_hora)
 	DayCycleManager.period_changed.connect(_ao_mudar_periodo)
 	DayCycleManager.day_started.connect(_ao_comecar_dia)
+	SeasonManager.season_changed.connect(_ao_mudar_estacao)
 	_ao_mudar_hora(DayCycleManager.hora_atual)
 	_ao_mudar_periodo(DayCycleManager.periodo_atual())
 	_ao_comecar_dia(DayCycleManager.numero_do_dia)
@@ -51,3 +54,16 @@ func _ao_comecar_dia(numero_do_dia: int) -> void:
 	# O dia novo começa de manhã, e a hora volta ao normal, sem o vermelho de aviso.
 	_ao_mudar_hora(DayCycleManager.hora_atual)
 	_ao_mudar_periodo(DayCycleManager.periodo_atual())
+	_atualizar_estacao()
+
+func _ao_mudar_estacao(_nova: StringName) -> void:
+	_atualizar_estacao()
+
+func _atualizar_estacao() -> void:
+	var estacao: StringName = SeasonManager.estacao_atual()
+	var texto: String = "%s, dia %d" % [SeasonManager.nome_exibido(estacao), SeasonManager.dia_da_estacao()]
+	# O ano só aparece a partir do segundo: no primeiro ano ele não diz nada ao jogador
+	# e só ocupa espaço no painel.
+	if SeasonManager.ano_atual() > 1:
+		texto += " (ano %d)" % SeasonManager.ano_atual()
+	rotulo_da_estacao.text = texto
