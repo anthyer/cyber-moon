@@ -91,6 +91,7 @@ func _montar_secoes() -> void:
 		atalhos.add_child(botao)
 	lista.add_child(atalhos)
 	_novo_botao("Avançar um dia", _avancar_um_dia)
+	_novo_botao("Pular para a próxima estação", _pular_para_a_proxima_estacao)
 	_caixa_congelar = _nova_caixa("Congelar relógio", _ao_marcar_congelar)
 	_novo_botao("Cair de sono agora", _cair_de_sono_agora)
 
@@ -185,6 +186,13 @@ func _ir_para_a_hora(hora: float) -> void:
 	DayCycleManager.definir_hora(hora)
 
 func _avancar_um_dia() -> void:
+	DayCycleManager.avancar_para_o_proximo_dia()
+
+## Pula direto para o primeiro dia da próxima estação. Os dias do meio não acontecem:
+## o contador anda até a véspera e só a última virada roda, então as plantas contam um
+## dia só e a troca de estação dispara pelo caminho normal do day_started.
+func _pular_para_a_proxima_estacao() -> void:
+	DayCycleManager.numero_do_dia += SeasonManager.dias_ate_a_proxima_estacao() - 1
 	DayCycleManager.avancar_para_o_proximo_dia()
 
 func _ao_marcar_congelar(marcado: bool) -> void:
