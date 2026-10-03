@@ -1,7 +1,7 @@
 class_name IluminacaoDoCiclo
 extends Node
 
-## Faz a luz da cena acompanhar a hora do DayCycleManager: a cor e a força do sol, o
+## Faz a luz da cena acompanhar a hora do DayCycleManager, quadro a quadro: a cor e a força do sol, o
 ## ângulo dele cruzando o céu, e o quanto o céu e o ambiente clareiam a cena.
 ##
 ## Os valores vêm de uma tabela de pontos por hora, e entre dois pontos a luz é
@@ -46,18 +46,31 @@ const FOLGA_ANTES_DO_ANOITECER: float = 1.5
 @onready var _luz: DirectionalLight3D = get_node(caminho_da_luz)
 @onready var _ambiente: WorldEnvironment = get_node(caminho_do_ambiente)
 
+## A tabela já deslocada para a estação atual. Só é refeita quando a estação muda, porque
+## a luz é aplicada a cada quadro.
+var _estacao: PerfilEstacao
+var _pontos: Array = []
+
 func _ready() -> void:
-	DayCycleManager.hour_changed.connect(_aplicar_hora)
 	SeasonManager.season_changed.connect(_ao_mudar_estacao)
+	_ao_mudar_estacao(SeasonManager.estacao_atual())
+
+## A luz anda a cada quadro, e não no hour_changed. O sinal sai uma vez por minuto de jogo
+## (quase meio segundo real de dia), e o sol girando aos degraus fazia a sombra andar aos
+## pulos. São só algumas contas por quadro; a sombra já é redesenhada todo quadro de
+## qualquer jeito.
+func _process(_delta: float) -> void:
 	_aplicar_hora(DayCycleManager.hora_atual)
 
 func _ao_mudar_estacao(_nova: StringName) -> void:
+	_estacao = SeasonManager.perfil_atual()
+	_pontos = _pontos_da_estacao(_estacao.hora_do_anoitecer)
 	_aplicar_hora(DayCycleManager.hora_atual)
 
 func _aplicar_hora(hora: float) -> void:
-	var estacao: PerfilEstacao = SeasonManager.perfil_atual()
+	var estacao: PerfilEstacao = _estacao
 	var anoitecer: float = estacao.hora_do_anoitecer
-	var pontos: Array = _pontos_da_estacao(anoitecer)
+	var pontos: Array = _pontos
 	var anterior: Array = pontos[0]
 	var seguinte: Array = pontos[pontos.size() - 1]
 	for indice in pontos.size() - 1:

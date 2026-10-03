@@ -298,7 +298,8 @@ com calma. Nenhum inimigo percebe o jogador a partir do spawn nem da fazenda.
 ## Dia e noite
 
 **Iluminação:** o nó `IluminacaoDoCiclo` (`scripts/core/iluminacao_do_ciclo.gd`) do
-playground escuta `hour_changed` e ajusta a luz direcional `Luz` e o `WorldEnvironment`
+playground lê a hora a cada quadro (e não no `hour_changed`, que sai uma vez por minuto de
+jogo e fazia a sombra andar aos pulos) e ajusta a luz direcional `Luz` e o `WorldEnvironment`
 `Ambiente`: cor e energia do sol, altura e direção dele (nasce no leste, se põe no oeste),
 e quanto o céu e o ambiente clareiam a cena. Os valores vêm de uma tabela de pontos por
 hora, interpolada, então a cena escurece e clareia aos poucos. A noite nunca fica toda
