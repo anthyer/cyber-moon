@@ -82,6 +82,9 @@
 [ext_resource type="PackedScene" path="res://scenes/world/cama.tscn" id="106_cama"]
 [ext_resource type="PackedScene" path="res://scenes/ui/menu_debug.tscn" id="107_menu_debug"]
 
+[ext_resource type="Script" path="res://scripts/world/grama_da_estacao.gd" id="108_grama_estacao"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_aviso.tscn" id="109_hud_aviso"]
+
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ceu"]
@@ -162,6 +165,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="HudStatus" parent="InterfaceHUD" unique_id=569994527 instance=ExtResource("96_hud_status")]
 
 [node name="HudRelogio" parent="InterfaceHUD" instance=ExtResource("104_hud_relogio")]
+
+[node name="HudAviso" parent="InterfaceHUD" instance=ExtResource("109_hud_aviso")]
 
 [node name="MenuPausa" parent="InterfaceHUD" unique_id=2111358796 instance=ExtResource("94_menu_pausa")]
 
@@ -1360,6 +1365,10 @@ perfil = ExtResource("102_sentinela")
 
 [node name="IluminacaoDoCiclo" type="Node" parent="."]
 script = ExtResource("105_iluminacao")
+
+[node name="GramaDaEstacao" type="Node" parent="."]
+script = ExtResource("108_grama_estacao")
+material_da_grama = SubResource("StandardMaterial3D_grama")
 
 [node name="Cama" parent="." instance=ExtResource("106_cama")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, 1)
