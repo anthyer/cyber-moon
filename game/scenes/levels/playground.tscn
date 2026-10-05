@@ -83,6 +83,8 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/menu_debug.tscn" id="107_menu_debug"]
 [ext_resource type="Script" uid="uid://caofjd75jpbvm" path="res://scripts/world/grama_da_estacao.gd" id="108_grama_estacao"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_aviso.tscn" id="109_hud_aviso"]
+[ext_resource type="PackedScene" path="res://scenes/ui/calendario.tscn" id="110_calendario"]
+[ext_resource type="PackedScene" path="res://scenes/world/quadro_calendario.tscn" id="111_quadro"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -168,6 +170,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="HudAviso" parent="InterfaceHUD" unique_id=1369899493 instance=ExtResource("109_hud_aviso")]
 
 [node name="MenuPausa" parent="InterfaceHUD" unique_id=2111358796 instance=ExtResource("94_menu_pausa")]
+
+[node name="Calendario" parent="InterfaceHUD" instance=ExtResource("110_calendario")]
 
 [node name="TelaDeDesmaio" parent="InterfaceHUD" unique_id=2083079390 instance=ExtResource("97_tela_de_desmaio")]
 
@@ -1371,3 +1375,6 @@ material_da_grama = SubResource("StandardMaterial3D_grama")
 
 [node name="Cama" parent="." unique_id=83658758 instance=ExtResource("106_cama")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, 1)
+
+[node name="QuadroCalendario" parent="." instance=ExtResource("111_quadro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 0.6)

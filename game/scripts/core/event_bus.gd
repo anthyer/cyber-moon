@@ -16,3 +16,5 @@ signal damage_dealt(alvo: Node3D, quantidade: int)
 signal enemy_defeated(perfil: PerfilInimigo, posicao: Vector3)
 ## Um aviso curto na tela, como "Tomate não cresce no Apagão". Quem mostra é o HudAviso.
 signal notice_requested(texto: String)
+## Algo no mundo (o quadro de calendário) pediu para abrir a tela do calendário.
+signal calendar_requested

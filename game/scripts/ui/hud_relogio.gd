@@ -50,7 +50,8 @@ func _ao_mudar_periodo(periodo: int) -> void:
 	bolinha_do_periodo.color = CORES_DOS_PERIODOS[periodo]
 
 func _ao_comecar_dia(numero_do_dia: int) -> void:
-	rotulo_do_dia.text = "Dia %d" % numero_do_dia
+	# O dia da semana na frente, porque é ele que diz se hoje é Folga e as lojas fecham.
+	rotulo_do_dia.text = "%s (dia %d)" % [SeasonManager.nome_do_dia_da_semana(), numero_do_dia]
 	# O dia novo começa de manhã, e a hora volta ao normal, sem o vermelho de aviso.
 	_ao_mudar_hora(DayCycleManager.hora_atual)
 	_ao_mudar_periodo(DayCycleManager.periodo_atual())
