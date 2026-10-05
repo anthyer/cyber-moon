@@ -75,14 +75,13 @@
 [ext_resource type="PackedScene" path="res://scenes/combat/inimigo.tscn" id="99_inimigo"]
 [ext_resource type="Resource" path="res://resources/combat/inimigos/drone_rastejador.tres" id="100_drone"]
 [ext_resource type="Resource" path="res://resources/combat/inimigos/ciborgue_operario.tres" id="101_ciborgue"]
-[ext_resource type="Resource" path="res://resources/combat/inimigos/sentinela_pesada.tres" id="102_sentinela"]
+[ext_resource type="Resource" uid="uid://dkudobeaivpk0" path="res://resources/combat/inimigos/sentinela_pesada.tres" id="102_sentinela"]
 [ext_resource type="PackedScene" path="res://scenes/combat/alvo_de_treino.tscn" id="103_alvo_de_treino"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_relogio.tscn" id="104_hud_relogio"]
-[ext_resource type="Script" path="res://scripts/core/iluminacao_do_ciclo.gd" id="105_iluminacao"]
+[ext_resource type="Script" uid="uid://cv4nhxjmbwb1t" path="res://scripts/core/iluminacao_do_ciclo.gd" id="105_iluminacao"]
 [ext_resource type="PackedScene" path="res://scenes/world/cama.tscn" id="106_cama"]
 [ext_resource type="PackedScene" path="res://scenes/ui/menu_debug.tscn" id="107_menu_debug"]
-
-[ext_resource type="Script" path="res://scripts/world/grama_da_estacao.gd" id="108_grama_estacao"]
+[ext_resource type="Script" uid="uid://caofjd75jpbvm" path="res://scripts/world/grama_da_estacao.gd" id="108_grama_estacao"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_aviso.tscn" id="109_hud_aviso"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
@@ -164,15 +163,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="HudStatus" parent="InterfaceHUD" unique_id=569994527 instance=ExtResource("96_hud_status")]
 
-[node name="HudRelogio" parent="InterfaceHUD" instance=ExtResource("104_hud_relogio")]
+[node name="HudRelogio" parent="InterfaceHUD" unique_id=1803889839 instance=ExtResource("104_hud_relogio")]
 
-[node name="HudAviso" parent="InterfaceHUD" instance=ExtResource("109_hud_aviso")]
+[node name="HudAviso" parent="InterfaceHUD" unique_id=1369899493 instance=ExtResource("109_hud_aviso")]
 
 [node name="MenuPausa" parent="InterfaceHUD" unique_id=2111358796 instance=ExtResource("94_menu_pausa")]
 
 [node name="TelaDeDesmaio" parent="InterfaceHUD" unique_id=2083079390 instance=ExtResource("97_tela_de_desmaio")]
 
-[node name="MenuDebug" parent="InterfaceHUD" instance=ExtResource("107_menu_debug")]
+[node name="MenuDebug" parent="InterfaceHUD" unique_id=1710086360 instance=ExtResource("107_menu_debug")]
 
 [node name="building-type-a2" parent="." unique_id=1628838430 instance=ExtResource("7_i1gjs")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -3.41, 0, 2.1330462)
@@ -1363,13 +1362,12 @@ caminho_do_ponto_de_patrulha = NodePath("../PatrulhaCiborgueLeste")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.2, 11)
 perfil = ExtResource("102_sentinela")
 
-[node name="IluminacaoDoCiclo" type="Node" parent="."]
+[node name="IluminacaoDoCiclo" type="Node" parent="." unique_id=663253509]
 script = ExtResource("105_iluminacao")
 
-[node name="GramaDaEstacao" type="Node" parent="."]
+[node name="GramaDaEstacao" type="Node" parent="." unique_id=1823431557]
 script = ExtResource("108_grama_estacao")
 material_da_grama = SubResource("StandardMaterial3D_grama")
 
-[node name="Cama" parent="." instance=ExtResource("106_cama")]
+[node name="Cama" parent="." unique_id=83658758 instance=ExtResource("106_cama")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, 1)
-
