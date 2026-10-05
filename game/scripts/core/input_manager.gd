@@ -80,6 +80,9 @@ func teste_avancar_dia_pressionado() -> bool:
 	return Input.is_action_just_pressed("teste_avancar_dia")
 
 ## Abre e fecha o menu de debug. Só no teclado, de propósito: é ferramenta de teste.
+func abrir_calendario_pressionado() -> bool:
+	return Input.is_action_just_pressed("abrir_calendario")
+
 func menu_debug_pressionado() -> bool:
 	return Input.is_action_just_pressed("menu_debug")
 
