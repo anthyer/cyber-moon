@@ -14,6 +14,11 @@ signal year_changed(novo_ano: int)
 
 const DIAS_POR_ESTACAO: int = 30
 const ESTACOES: Array[StringName] = [&"brotacao", &"estiagem", &"colheita", &"apagao"]
+## A semana do jogo tem 6 dias, e não 7: com 30 dias por estação, o mês fecha em 5
+## semanas certinhas. O último dia é a Folga, quando as lojas fecham.
+const DIAS_POR_SEMANA: int = 6
+const NOMES_DOS_DIAS_DA_SEMANA: Array[String] = ["Primeiro", "Segundo", "Terceiro", "Quarto", "Quinto", "Folga"]
+const DIA_DE_FOLGA: int = 5
 const PASTA_DOS_PERFIS: String = "res://resources/estacoes/"
 
 var _perfis: Dictionary[StringName, PerfilEstacao] = {}
@@ -38,6 +43,13 @@ func estacao_atual() -> StringName:
 ## 1 a 30.
 func dia_da_estacao() -> int:
 	return _dias_passados() % DIAS_POR_ESTACAO + 1
+
+## 0 a 5, onde 5 é a Folga. Toda estação começa num Primeiro.
+func dia_da_semana() -> int:
+	return (dia_da_estacao() - 1) % DIAS_POR_SEMANA
+
+func nome_do_dia_da_semana() -> String:
+	return NOMES_DOS_DIAS_DA_SEMANA[dia_da_semana()]
 
 ## Começa em 1.
 func ano_atual() -> int:
