@@ -12,6 +12,9 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Estação | Season / `SeasonManager`, sinal `season_changed` |
 | Perfil de estação | Season profile / `PerfilEstacao` (classe Resource) |
 | Brotação, Estiagem, Colheita, Apagão | ids `brotacao`, `estiagem`, `colheita`, `apagao` (primavera, verão, outono, inverno) |
+| Calendário | Calendar / `Calendario` (tela), sinal `calendar_requested`, `QuadroCalendario` |
+| Dia da semana, Folga | Weekday / `SeasonManager.dia_da_semana()`, `DIA_DE_FOLGA` |
+| Aniversário | Birthday / `PerfilNpc.estacao_do_aniversario`, `dia_do_aniversario` |
 | Aviso na tela | Notice / sinal `notice_requested`, `HudAviso` |
 | Marco de progresso | Progress milestone / `GameManager.marcos_desbloqueados` |
 | Expansão da cidade | City expansion / sinal `city_expansion_blocked` |

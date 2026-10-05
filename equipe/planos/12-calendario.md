@@ -7,6 +7,30 @@ os aniversários dos NPCs.
 
 **Entrega para:** 16 (presente de aniversário vale mais).
 
+## Revisão de 2026-10-05 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido por teste com entrada simulada: C abre e pausa, o dia de
+hoje fica destacado, esquerda e direita trocam a estação mostrada, C ou Esc fecha sem
+abrir o menu de pausa por cima, e nenhuma das duas telas abre com a outra aberta. A tela
+foi conferida por captura. O quadro foi testado chamando o `interagir()` dele, e não
+andando até ele com o jogador.
+
+**Ajustes ao plano:**
+
+- **Sem botão no controle.** O plano e o `controles.md` davam o Back ao calendário, mas
+  o Back já é o `menu_pausa`. A ação ficou só na tecla C, e o controle abre o calendário
+  pelo quadro (tarefa 7, que deixou de ser opcional por isso).
+- **O quadro pede a tela pelo `EventBus.calendar_requested`**, sinal novo, em vez de
+  conhecer a tela. Ele fica ao lado da cama, porque não existe casa do jogador ainda, e é
+  feito de caixas simples, sem modelo.
+- **Os seis perfis de NPC já foram criados** em `resources/npcs/`, só com id, nome e
+  aniversário, para o calendário ter o que mostrar. O plano 14 completa o resto.
+- **O menu de pausa não abre com o jogo já pausado** por outra tela, e o calendário
+  também não. O `Calendario` precisa vir depois do `MenuPausa` na cena.
+- **O relógio** mostra o dia da semana na linha do dia: "Terceiro (dia 21)".
+- **As setas navegam dentro do ano atual.** Não dá para ver o ano seguinte.
+- **Sem partículas**, porque o plano é anterior à regra. Ficam para o plano 19.
+
 ## Decisões fechadas
 
 **Começa como tela de menu, vira item na casa depois.** O Antonio pediu nessa ordem. O
@@ -94,16 +118,16 @@ O calendário pausa o jogo, igual ao menu de pausa.
 
 ## Tarefas
 
-- [ ] **1.** Adicionar os dois campos de aniversário ao `PerfilNpc` e os métodos de dia
+- [x] **1.** Adicionar os dois campos de aniversário ao `PerfilNpc` e os métodos de dia
   da semana ao `SeasonManager`.
-- [ ] **2.** Adicionar a ação `abrir_calendario` e documentar em `game/docs/entrada.md`.
-- [ ] **3.** Criar `calendario.tscn` com a grade de 6 por 5 e o destaque do dia de hoje.
-- [ ] **4.** Carregar os `.tres` de NPC e listar os aniversários da estação.
-- [ ] **5.** Ligar a navegação entre estações.
-- [ ] **6.** Mostrar o nome do dia da semana no relógio da HUD.
-- [ ] **7.** Opcional: uma `Area3D` chamada `QuadroCalendario` dentro da casa, no
+- [x] **2.** Adicionar a ação `abrir_calendario` e documentar em `game/docs/entrada.md`.
+- [x] **3.** Criar `calendario.tscn` com a grade de 6 por 5 e o destaque do dia de hoje.
+- [x] **4.** Carregar os `.tres` de NPC e listar os aniversários da estação.
+- [x] **5.** Ligar a navegação entre estações.
+- [x] **6.** Mostrar o nome do dia da semana no relógio da HUD.
+- [x] **7.** Opcional: uma `Area3D` chamada `QuadroCalendario` dentro da casa, no
   playground, que abre a mesma tela ao interagir.
-- [ ] **8.** Documentar e commitar.
+- [x] **8.** Documentar e commitar.
 
 ## Critério de pronto
 

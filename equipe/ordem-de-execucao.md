@@ -17,7 +17,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 09 Inimigos
 - [x] 10 Ciclo de dia e noite
 - [x] 11 Estações
-- [ ] 12 Calendário
+- [x] 12 Calendário
 - [ ] 13 Clima
 - [ ] 14 NPCs: rotinas e walk cycle
 - [ ] 15 Sistema de diálogo

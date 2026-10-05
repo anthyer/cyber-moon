@@ -332,6 +332,20 @@ música e chance de chuva (esta, para o clima do plano 13).
 - **Plantio:** veja "Plantio e colheita".
 - **Relógio:** mostra a estação e o dia dentro dela, e o ano a partir do segundo.
 
+## Calendário
+
+A tela `Calendario` (`scenes/ui/calendario.tscn`, no `InterfaceHUD`) mostra o mês da
+estação numa grade de 6 por 5, destaca o dia de hoje e marca os aniversários. A semana do
+jogo tem 6 dias (Primeiro a Quinto e a Folga), e por isso 30 dias fecham em 5 semanas; o
+`SeasonManager` responde `dia_da_semana()` e `nome_do_dia_da_semana()`. Os aniversários
+vêm do `PerfilNpc` (`estacao_do_aniversario` e `dia_do_aniversario`), e a tela lê todo
+`.tres` de `resources/npcs/`, sem lista fixa no código.
+
+Abre com a tecla C ou interagindo com o `QuadroCalendario`
+(`scenes/world/quadro_calendario.tscn`), que só emite `EventBus.calendar_requested`. A
+tela pausa o jogo. Ela precisa vir depois do `MenuPausa` na cena, para o Esc que a fecha
+não abrir o menu no mesmo quadro.
+
 ## Aviso na tela
 
 Qualquer sistema mostra uma frase curta ao jogador emitindo

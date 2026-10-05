@@ -267,6 +267,23 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-05, plano 12
+
+**Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-05".
+
+**Precisa do Antonio:**
+
+- Decidir se o calendário ganha um botão no controle. O Back, que o plano previa, já é o
+  menu de pausa. Hoje o controle só abre o calendário pelo quadro ao lado da cama.
+- Andar até o quadro e interagir, para conferir a posição e o alcance dele.
+
+**Fica para depois:**
+
+- O quadro é feito de caixas, sem modelo. Vai para dentro da casa quando ela existir.
+- Os perfis de NPC só têm id, nome e aniversário. O plano 14 completa.
+- A leitura da pasta de NPCs está na tela do calendário. Quando o plano 14 ou o 16
+  precisarem da mesma lista, ela sobe para um lugar comum.
+
 ### 2026-10-02, plano 11
 
 **Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-02".
