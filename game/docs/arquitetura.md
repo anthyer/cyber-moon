@@ -341,8 +341,9 @@ jogo tem 6 dias (Primeiro a Quinto e a Folga), e por isso 30 dias fecham em 5 se
 vêm do `PerfilNpc` (`estacao_do_aniversario` e `dia_do_aniversario`), e a tela lê todo
 `.tres` de `resources/npcs/`, sem lista fixa no código.
 
-Abre com a tecla C ou interagindo com o `QuadroCalendario`
-(`scenes/world/quadro_calendario.tscn`), que só emite `EventBus.calendar_requested`. A
+Abre só interagindo com o `QuadroCalendario`
+(`scenes/world/quadro_calendario.tscn`), que só emite `EventBus.calendar_requested`. Não
+existe tecla de atalho, por decisão de design; o menu de debug tem um botão para teste. A
 tela pausa o jogo. Ela precisa vir depois do `MenuPausa` na cena, para o Esc que a fecha
 não abrir o menu no mesmo quadro.
 
@@ -357,7 +358,7 @@ novo substitui o anterior em vez de empilhar.
 
 O menu de debug (`scenes/ui/menu_debug.tscn`, script `MenuDebug`, no `InterfaceHUD` do
 playground) abre e fecha com F3 e serve para testar os sistemas sem esperar o jogo:
-trocar a hora, avançar o dia, pular para a próxima estação, congelar o relógio, encher vida e stamina, tomar dano,
+trocar a hora, avançar o dia, pular para a próxima estação, abrir o calendário, congelar o relógio, encher vida e stamina, tomar dano,
 ganhar experiência, ficar invencível, teleportar, molhar o solo e amadurecer as plantas,
 ganhar sementes, pães e armas, soltar sucata, criar e matar inimigos, mostrar os quadros
 por segundo e ligar e desligar a sombra do sol. Ele não pausa o jogo e os botões não

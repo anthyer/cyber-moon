@@ -92,6 +92,7 @@ func _montar_secoes() -> void:
 	lista.add_child(atalhos)
 	_novo_botao("Avançar um dia", _avancar_um_dia)
 	_novo_botao("Pular para a próxima estação", _pular_para_a_proxima_estacao)
+	_novo_botao("Abrir o calendário", _abrir_o_calendario)
 	_caixa_congelar = _nova_caixa("Congelar relógio", _ao_marcar_congelar)
 	_novo_botao("Cair de sono agora", _cair_de_sono_agora)
 
@@ -194,6 +195,10 @@ func _avancar_um_dia() -> void:
 func _pular_para_a_proxima_estacao() -> void:
 	DayCycleManager.numero_do_dia += SeasonManager.dias_ate_a_proxima_estacao() - 1
 	DayCycleManager.avancar_para_o_proximo_dia()
+
+## Pelo mesmo pedido que o quadro de calendário faz, para testar a tela de longe dele.
+func _abrir_o_calendario() -> void:
+	EventBus.calendar_requested.emit()
 
 func _ao_marcar_congelar(marcado: bool) -> void:
 	DayCycleManager.tempo_congelado = marcado

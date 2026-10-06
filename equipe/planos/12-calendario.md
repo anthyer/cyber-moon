@@ -9,17 +9,18 @@ os aniversários dos NPCs.
 
 ## Revisão de 2026-10-05 (vale sobre o resto do plano)
 
-**Situação:** feito. Conferido por teste com entrada simulada: C abre e pausa, o dia de
-hoje fica destacado, esquerda e direita trocam a estação mostrada, C ou Esc fecha sem
+**Situação:** feito. Conferido por teste com entrada simulada: o quadro abre e pausa, o dia de
+hoje fica destacado, esquerda e direita trocam a estação mostrada, Esc fecha sem
 abrir o menu de pausa por cima, e nenhuma das duas telas abre com a outra aberta. A tela
-foi conferida por captura. O quadro foi testado chamando o `interagir()` dele, e não
-andando até ele com o jogador.
+foi conferida por captura. O quadro foi testado andando até ele com o jogador e apertando
+o botão de interagir.
 
 **Ajustes ao plano:**
 
-- **Sem botão no controle.** O plano e o `controles.md` davam o Back ao calendário, mas
-  o Back já é o `menu_pausa`. A ação ficou só na tecla C, e o controle abre o calendário
-  pelo quadro (tarefa 7, que deixou de ser opcional por isso).
+- **Sem tecla e sem botão.** Decisão do Antonio em 2026-10-05: no jogo final o calendário
+  só abre pelo objeto no mundo. A ação `abrir_calendario` chegou a existir na tecla C e
+  foi removida. O quadro (tarefa 7) deixou de ser opcional, e o menu de debug ganhou um
+  botão "Abrir o calendário" para teste.
 - **O quadro pede a tela pelo `EventBus.calendar_requested`**, sinal novo, em vez de
   conhecer a tela. Ele fica ao lado da cama, porque não existe casa do jogador ainda, e é
   feito de caixas simples, sem modelo.

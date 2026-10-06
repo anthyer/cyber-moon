@@ -271,11 +271,8 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-05".
 
-**Precisa do Antonio:**
-
-- Decidir se o calendário ganha um botão no controle. O Back, que o plano previa, já é o
-  menu de pausa. Hoje o controle só abre o calendário pelo quadro ao lado da cama.
-- Andar até o quadro e interagir, para conferir a posição e o alcance dele.
+**Decidido com o Antonio (2026-10-05):** o calendário só abre pelo quadro no mundo, sem
+tecla de atalho. O quadro foi testado andando até ele e interagindo.
 
 **Fica para depois:**
 

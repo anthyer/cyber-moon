@@ -25,7 +25,6 @@ atualizado a cada ação nova que entrar de fato. Este arquivo é o alvo, aquele
 | `soltar_item` | Q | Minecraft (drop), usado também para presentear | novo |
 | `slot_1` a `slot_9` | 1 a 9 | Minecraft (hotbar) | sim (plano 05) |
 | `slot_proximo` / `slot_anterior` | Roda do mouse | Minecraft | sim (plano 05) |
-| `abrir_calendario` | C | Stardew Valley | novo |
 
 ## Controle
 
@@ -44,7 +43,6 @@ posição oeste e o X na posição norte, então a tradução é por posição, 
 | `soltar_item` | L2 (gatilho esquerdo) | eixo | posição livre |
 | `dash` | R1 | 10 | ver nota abaixo |
 | `menu_pausa` | Back / Select | 4 | no painel arcade o Start ficou com o inventário |
-| `abrir_calendario` | nenhum | | o Back já é o `menu_pausa`; no controle, o calendário abre pelo quadro no mundo (plano 12) |
 
 **Cuidado com a enum.** No Godot 4, `9 = LeftShoulder (L1)` e `10 = RightShoulder (R1)`,
 nessa ordem, que é o inverso do palpite intuitivo. Confira contra um bind que já existe

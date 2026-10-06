@@ -4,7 +4,8 @@ extends Control
 ## A tela do calendário: o mês da estação numa grade de 6 colunas por 5 linhas, o dia de
 ## hoje destacado e os aniversários dos NPCs.
 ##
-## Abrir pausa o jogo de verdade, como o menu de pausa, e por isso este nó fica com
+## Abre pelo quadro de calendário no mundo (QuadroCalendario), nunca por tecla. Abrir
+## pausa o jogo de verdade, como o menu de pausa, e por isso este nó fica com
 ## process_mode ALWAYS. As setas trocam a estação mostrada, sem mudar nada no jogo: é só
 ## para olhar os outros meses.
 ##
@@ -40,16 +41,14 @@ func _ready() -> void:
 	botao_proximo.pressed.connect(_mostrar_estacao_vizinha.bind(1))
 	EventBus.calendar_requested.connect(abrir)
 
-## A entrada é lida no _process, pelo InputManager, para responder com o jogo rodando
-## (abrir) e pausado (fechar). Este nó precisa vir depois do MenuPausa na cena: assim, no
-## quadro em que o Esc fecha o calendário, o MenuPausa já rodou, viu o jogo pausado e não
-## abriu por cima.
+## Não existe tecla para abrir: o calendário só abre pelo quadro no mundo, que pede pelo
+## EventBus. Aqui só se lê a entrada com a tela aberta, e por isso com o jogo pausado.
+## Este nó precisa vir depois do MenuPausa na cena: assim, no quadro em que o Esc fecha o
+## calendário, o MenuPausa já rodou, viu o jogo pausado e não abriu por cima.
 func _process(_delta: float) -> void:
 	if not visible:
-		if InputManager.abrir_calendario_pressionado():
-			abrir()
 		return
-	if InputManager.abrir_calendario_pressionado() or Input.is_action_just_pressed(&"ui_cancel"):
+	if Input.is_action_just_pressed(&"ui_cancel"):
 		fechar()
 	elif Input.is_action_just_pressed(&"ui_left"):
 		_mostrar_estacao_vizinha(-1)
