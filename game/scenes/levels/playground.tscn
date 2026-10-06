@@ -89,6 +89,7 @@
 [ext_resource type="Script" path="res://scripts/world/raios_da_tempestade.gd" id="113_raios"]
 [ext_resource type="NavigationMesh" path="res://resources/navigation/playground.tres" id="114_malha"]
 [ext_resource type="Script" path="res://scripts/world/regiao_de_navegacao.gd" id="115_regiao"]
+[ext_resource type="Script" path="res://scripts/npcs/elenco_de_npcs.gd" id="116_elenco"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -1392,3 +1393,53 @@ script = ExtResource("113_raios")
 navigation_mesh = ExtResource("114_malha")
 script = ExtResource("115_regiao")
 limite_do_chao = Rect2(-13.7, -23, 39.8, 36.8)
+
+[node name="PontosDeRotina" type="Node3D" parent="." groups=["pontos_de_rotina"]]
+
+[node name="casa_vitor" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7, 0.3, 5.2)
+
+[node name="casa_marta" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4, 0.3, 5.2)
+
+[node name="casa_kenji" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8, 0.3, 9.0)
+
+[node name="casa_rafa" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8, 0.3, 10.3)
+
+[node name="casa_iara" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.1, 0.3, 9.6)
+
+[node name="casa_sol" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 0.3, 10.6)
+
+[node name="oficina" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 0.3, -8.5)
+
+[node name="mercado" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3, 0.3, -6.2)
+
+[node name="clinica" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3, 0.3, -7.6)
+
+[node name="torre_antena" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0.3, -5.2)
+
+[node name="posto_entrega" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 0.3, -9.5)
+
+[node name="mirante" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5, 0.3, 0.2)
+
+[node name="praca" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7, 0.3, 8.3)
+
+[node name="ponte" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06, 0.3, 6.1)
+
+[node name="beira_rio" type="Marker3D" parent="PontosDeRotina"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0, 0.3, 8.6)
+
+[node name="ElencoDeNpcs" type="Node3D" parent="."]
+script = ExtResource("116_elenco")

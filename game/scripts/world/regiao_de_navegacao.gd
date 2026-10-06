@@ -26,7 +26,10 @@ extends NavigationRegion3D
 ## Com altura maior a malha some debaixo de copa de árvore e de beiral.
 @export var raio_do_agente: float = 0.25
 @export var altura_do_agente: float = 0.75
-@export var degrau_maximo: float = 0.25
+## Os personagens são CharacterBody3D sem lógica de subir degrau, então a malha não pode
+## atravessar um: fica no menor valor que a grade aceita. Rampa continua passando, pela
+## inclinação.
+@export var degrau_maximo: float = 0.125
 @export var inclinacao_maxima: float = 40.0
 
 const CAMADA_MUNDO: int = 1
