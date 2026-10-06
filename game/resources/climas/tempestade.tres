@@ -14,4 +14,5 @@ multiplicador_de_energia = 0.4
 densidade_da_nevoa = 0.035
 cor_da_nevoa = Color(0.4, 0.45, 0.58, 1)
 quantidade_de_gotas = 2000
+npcs_ficam_em_casa = true
 tem_raio = true

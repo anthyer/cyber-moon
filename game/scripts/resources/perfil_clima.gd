@@ -18,6 +18,8 @@ extends Resource
 @export var cor_da_nevoa: Color = Color(0.55, 0.6, 0.7)
 ## Quantas gotas de chuva caem ao mesmo tempo em volta do jogador. Zero é sem chuva.
 @export var quantidade_de_gotas: int = 0
+## Com este clima os NPCs não saem de casa.
+@export var npcs_ficam_em_casa: bool = false
 ## Clarão e trovão de tempos em tempos.
 @export var tem_raio: bool = false
 ## Som em loop enquanto o clima dura, e o som do trovão. Vazio não toca nada.
