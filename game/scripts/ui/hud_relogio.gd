@@ -1,7 +1,7 @@
 extends Control
 
 ## Relógio no canto superior direito: a hora, o número do dia, o período do dia e a
-## estação com o dia dentro dela.
+## estação com o dia dentro dela. Ao lado do período fica o ícone do clima do dia.
 ##
 ## Depois da meia-noite a hora fica vermelha. É o aviso de que à 1:00 o personagem cai
 ## de sono onde estiver, com penalidade, e que é hora de ir para a cama.
@@ -24,6 +24,7 @@ const COR_DA_HORA_DE_AVISO: Color = Color(1.0, 0.3, 0.3)
 @onready var rotulo_do_periodo: Label = %Periodo
 @onready var bolinha_do_periodo: ColorRect = %Bolinha
 @onready var rotulo_da_estacao: Label = %Estacao
+@onready var icone_do_clima: TextureRect = %Clima
 
 func _ready() -> void:
 	# Processa sempre, mesmo com o jogo pausado, só para saber a hora de sumir, como a
@@ -33,6 +34,8 @@ func _ready() -> void:
 	DayCycleManager.period_changed.connect(_ao_mudar_periodo)
 	DayCycleManager.day_started.connect(_ao_comecar_dia)
 	SeasonManager.season_changed.connect(_ao_mudar_estacao)
+	WeatherManager.weather_changed.connect(_ao_mudar_clima)
+	_ao_mudar_clima(WeatherManager.clima_atual)
 	_ao_mudar_hora(DayCycleManager.hora_atual)
 	_ao_mudar_periodo(DayCycleManager.periodo_atual())
 	_ao_comecar_dia(DayCycleManager.numero_do_dia)
@@ -56,6 +59,11 @@ func _ao_comecar_dia(numero_do_dia: int) -> void:
 	_ao_mudar_hora(DayCycleManager.hora_atual)
 	_ao_mudar_periodo(DayCycleManager.periodo_atual())
 	_atualizar_estacao()
+
+func _ao_mudar_clima(_clima: StringName) -> void:
+	var perfil: PerfilClima = WeatherManager.perfil_atual()
+	icone_do_clima.texture = perfil.icone
+	icone_do_clima.tooltip_text = perfil.nome_exibido
 
 func _ao_mudar_estacao(_nova: StringName) -> void:
 	_atualizar_estacao()
