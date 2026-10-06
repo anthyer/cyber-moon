@@ -298,12 +298,17 @@ com calma. Nenhum inimigo percebe o jogador a partir do spawn nem da fazenda.
 ## Dia e noite
 
 **Iluminação:** o nó `IluminacaoDoCiclo` (`scripts/core/iluminacao_do_ciclo.gd`) do
-playground lê a hora a cada quadro (e não no `hour_changed`, que sai uma vez por minuto de
-jogo e fazia a sombra andar aos pulos) e ajusta a luz direcional `Luz` e o `WorldEnvironment`
-`Ambiente`: cor e energia do sol, altura e direção dele (nasce no leste, se põe no oeste),
-e quanto o céu e o ambiente clareiam a cena. Os valores vêm de uma tabela de pontos por
-hora, interpolada, então a cena escurece e clareia aos poucos. A noite nunca fica toda
-preta. A luz é girada por código, e não pela matriz do `.tscn`.
+playground lê a hora a cada quadro e ajusta a luz direcional `Luz` e o `WorldEnvironment`
+`Ambiente`: cor e energia do sol, e quanto o céu e o ambiente clareiam a cena. Os valores
+vêm de uma tabela de pontos por hora, interpolada, então a cena escurece e clareia aos
+poucos. A noite nunca fica toda preta. A luz é girada por código, e não pela matriz do
+`.tscn`.
+
+A direção do sol, que é o que move a sombra, anda em degraus: o dia é dividido em trechos
+de `horas_por_passo_da_sombra` (2 horas de jogo), a sombra fica parada dentro de cada
+trecho, na posição da hora do meio dele, e na virada o sol gira até a posição seguinte em
+`segundos_da_troca_de_sombra` (3 segundos reais). Sombra se arrastando o dia inteiro
+tremia na borda. Na virada do dia o sol pula direto do poente para o nascente.
 
 **Luz do jogador:** uma `OmniLight3D` (`LuzDoJogador`) ciano, de alcance curto, presa ao
 jogador e sempre ligada. De dia não aparece; à noite ilumina só em volta dele. Alcance e
