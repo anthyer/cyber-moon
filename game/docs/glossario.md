@@ -12,6 +12,10 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Estação | Season / `SeasonManager`, sinal `season_changed` |
 | Perfil de estação | Season profile / `PerfilEstacao` (classe Resource) |
 | Brotação, Estiagem, Colheita, Apagão | ids `brotacao`, `estiagem`, `colheita`, `apagao` (primavera, verão, outono, inverno) |
+| Malha de navegação | NavMesh / `RegiaoDeNavegacao`, `NavigationAgent3D` |
+| Rotina, compromisso | Routine, appointment / `PerfilNpc.rotina`, `Compromisso` (classe Resource) |
+| Ponto de rotina | Routine point / `Marker3D` no grupo `pontos_de_rotina` |
+| Elenco | Cast / `ElencoDeNpcs` |
 | Clima | Weather / `WeatherManager`, sinal `weather_changed`, `PerfilClima` (classe Resource) |
 | Sol, Chuva, Tempestade | ids `sol`, `chuva`, `tempestade` |
 | Som de ambiente | Ambience / sinal `ambience_requested`, `AudioManager.tocar_ambiente()` |

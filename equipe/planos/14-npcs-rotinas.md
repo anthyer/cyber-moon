@@ -8,6 +8,53 @@ entre si.
 
 **Entrega para:** 15, 16, 17.
 
+## Revisão de 2026-10-05 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido por teste automático, simulando o dia: os seis nascem em
+casa; às 9:30 cada um está no trabalho, com a pose de trabalhar; às 12:30 quatro estão na
+praça; às 18:30 Vitor e Marta encenam conversa na praça e Iara e Sol na beira do rio; na
+tempestade e na Folga todos voltam para casa. A regra do mais específico foi conferida
+com a Sol (Estiagem troca o rio pela ponte, e o aniversário vence os dois) e com a Iara
+(chuva a deixa em casa). O inimigo, com o jogador atrás de uma casa, contorna e alcança em
+8 segundos; antes ficava parado na parede a quase 5 metros.
+
+**Decisão do Antonio durante a execução:** o mapa atual é um mock e vai ser trocado. Por
+isso nada do mapa ficou fixo em código:
+
+- **Os lugares são marcadores com nome.** `Marker3D` filhos de um nó do grupo
+  `pontos_de_rotina`. A rotina só cita o nome. Mapa novo: reposicionar os marcadores.
+- **A fase não lista os NPCs.** O nó `ElencoDeNpcs` cria um NPC para cada `.tres` de
+  `resources/npcs/`, e cada um nasce na própria casa.
+- **A malha é regenerada por comando, para qualquer fase.** A fase tem um nó
+  `RegiaoDeNavegacao` com os limites do chão; o gerador recebe o caminho da fase. Veja
+  "Navegação" em `game/docs/arquitetura.md`.
+
+**Ajustes ao plano:**
+
+- **A rotina só lista o que é fora de casa.** O campo novo `PerfilNpc.casa` é para onde o
+  NPC vai quando nenhum compromisso serve, e a Folga e a tempestade são regra do próprio
+  `Npc`. A tabela do Vitor no plano tinha as linhas de casa escritas; não precisa.
+- **"Chuva forte" é a tempestade.** Virou o campo `npcs_ficam_em_casa` do `PerfilClima`.
+  Na chuva comum eles saem, a não ser que a rotina diga outra coisa (a Iara).
+- **O aniversário pesa mais** que as outras condições na regra do mais específico, senão
+  empatava com uma exceção de estação.
+- **Os `.tres` são gerados** por `scripts/utils/gerar_npcs.gd`, a partir de uma tabela
+  com a semana de cada um. Continuam editáveis no Inspector.
+- **Degrau.** A malha é gerada com degrau máximo de 0,125, porque os personagens não sobem
+  degrau, e o NPC que ficar 1,5 segundo andando sem sair do lugar pula para o próximo
+  ponto do caminho.
+- **A chegada é medida na horizontal** pelo próprio NPC. Só pelo agente, ele ficava
+  andando no lugar a um palmo do destino.
+- **NPC atravessa NPC.** A máscara de colisão é mundo e jogador, como o plano manda, então
+  eles não se empurram. Cada um para num ponto próprio em volta do marcador.
+- **Casas:** só há quatro casas além da do jogador. Kenji e Rafa dividem a casa geminada,
+  e a Sol mora na barraca à beira do rio.
+- **O inimigo usa a malha na perseguição e na patrulha** (tarefa 6b). No círculo ocioso
+  continua em linha reta, e em fase sem malha também.
+- **Sem interação com o jogador ainda.** `esta_disponivel_para_conversa()` existe, e o
+  `interagir()` entra no plano 15.
+- **Sem partículas**, porque o plano é anterior à regra. Ficam para o plano 19.
+
 ## Nota de 2026-10-01: malha de navegação (NavMesh)
 
 A malha de navegação é o mapeamento de onde os personagens podem andar, o mesmo conceito
@@ -165,23 +212,23 @@ Um balão simples com reticências acima da cabeça vende a ideia. Um `Sprite3D`
 
 ## Tarefas
 
-- [ ] **1.** Criar `compromisso.gd` e ampliar `perfil_npc.gd`.
-- [ ] **2.** Criar `npc.tscn` e `npc.gd` só com o modelo aparecendo e a animação `idle`.
+- [x] **1.** Criar `compromisso.gd` e ampliar `perfil_npc.gd`.
+- [x] **2.** Criar `npc.tscn` e `npc.gd` só com o modelo aparecendo e a animação `idle`.
   Colocar um no playground e ver funcionando.
-- [ ] **3.** Montar os `Marker3D` de destino no mapa.
-- [ ] **4.** Configurar a `NavigationRegion3D` do playground e gerar a malha de
+- [x] **3.** Montar os `Marker3D` de destino no mapa.
+- [x] **4.** Configurar a `NavigationRegion3D` do playground e gerar a malha de
   navegação. Sem isso o `NavigationAgent3D` não anda.
-- [ ] **5.** Implementar `compromisso_atual()` com a regra do mais específico. Verificar
+- [x] **5.** Implementar `compromisso_atual()` com a regra do mais específico. Verificar
   por script headless com horas e dias variados.
-- [ ] **6.** Implementar o andar até o destino com `NavigationAgent3D`, tocando `walk` em
+- [x] **6.** Implementar o andar até o destino com `NavigationAgent3D`, tocando `walk` em
   movimento e a animação do compromisso ao chegar.
-- [ ] **6b.** Fazer o `Inimigo` (plano 09) perseguir pelo `NavigationAgent3D` em vez de
+- [x] **6b.** Fazer o `Inimigo` (plano 09) perseguir pelo `NavigationAgent3D` em vez de
   andar em linha reta, usando a mesma malha. Conferir que ele contorna uma casa para
   chegar no jogador.
-- [ ] **7.** Criar os seis `.tres` de perfil com as rotinas.
-- [ ] **8.** Implementar a regra da Folga e da chuva.
-- [ ] **9.** Implementar a encenação entre NPCs.
-- [ ] **10.** Documentar e commitar.
+- [x] **7.** Criar os seis `.tres` de perfil com as rotinas.
+- [x] **8.** Implementar a regra da Folga e da chuva.
+- [x] **9.** Implementar a encenação entre NPCs.
+- [x] **10.** Documentar e commitar.
 
 ## Critério de pronto
 

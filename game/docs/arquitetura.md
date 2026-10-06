@@ -28,7 +28,7 @@ Conteúdo de jogo é representado por classes `Resource` customizadas, definidas
 - `CustosDeAcao` (`scripts/resources/custos_de_acao.gd`): stamina gasta e experiência ganha por plantar e colher, e a stamina do golpe que acerta um oponente. O balanceamento fica num arquivo só, `resources/status/custos_padrao.tres`. O custo de cada ferramenta fica no `.tres` dela (`custo_de_stamina`, `experiencia_ao_usar`).
 - `Arma` (`scripts/resources/arma.gd`): item da categoria ARMA com tipo (`PUNHO`, `LEVE`, `PESADA`, `DISTANCIA`), dano, alcance, custo de stamina por acerto, velocidade da animação, cooldown, o modelo que aparece na mão e, na arma de distância, o projétil. Os `.tres` ficam em `resources/items/armas/` e são gerados com o catálogo. O punho das mãos vazias é uma `Arma` fora do inventário, em `resources/combat/punho.tres`.
 - `PerfilInimigo` (`scripts/resources/perfil_inimigo.gd`): tudo que diferencia um tipo de inimigo: modelo e cor, vida, velocidade, dano, alcance e intervalo do ataque, raios de percepção e de desistência, comportamento parado, experiência e drop. Os `.tres` ficam em `resources/combat/inimigos/`.
-- `PerfilNpc` (`scripts/resources/perfil_npc.gd`): dados de um NPC.
+- `PerfilNpc` (`scripts/resources/perfil_npc.gd`): dados de um NPC, com a rotina (lista de `Compromisso`). Veja "NPCs".
 - `NoDialogo` (`scripts/resources/no_dialogo.gd`): um nó de uma árvore de diálogo.
 - `BancoDePassos` (`scripts/resources/banco_de_passos.gd`): mapeia tipos de superfície a clipes de áudio para os passos do jogador.
 
@@ -337,6 +337,46 @@ música e chance de chuva (esta, para o clima do plano 13).
   `EventBus.musica_solicitada`.
 - **Plantio:** veja "Plantio e colheita".
 - **Relógio:** mostra a estação e o dia dentro dela, e o ano a partir do segundo.
+
+## Navegação
+
+A malha de navegação (NavMesh) é o mapa de por onde os personagens podem andar. Cada fase
+tem um nó `RegiaoDeNavegacao` (`scripts/world/regiao_de_navegacao.gd`, uma
+`NavigationRegion3D`) que carrega a malha pronta de `resources/navigation/`. NPCs e
+inimigos têm um `NavigationAgent3D`, que devolve o próximo ponto do caminho até o destino.
+
+A malha é calculada da colisão da camada `mundo`, com o tamanho da cápsula dos personagens
+(raio 0,25, altura 0,75) e sem atravessar degrau, porque os personagens não sobem degrau.
+Ela não é refeita com o jogo rodando. **Toda vez que o mapa muda, gere de novo:**
+
+```
+godot --headless --path game res://scenes/utils/gerar_malha_de_navegacao.tscn -- res://scenes/levels/NOME.tscn
+```
+
+Fase nova: pôr um nó `RegiaoDeNavegacao`, ajustar `limite_do_chao` para cobrir o mapa,
+rodar o comando e apontar o `navigation_mesh` da região para o arquivo gerado. Para ver a
+malha em jogo, rode com `--debug-navigation`.
+
+## NPCs
+
+Um NPC é a cena `scenes/npcs/npc.tscn` (`Npc`, um `CharacterBody3D` na camada `npc`), a
+mesma para todos, configurada por um `PerfilNpc`. O perfil tem o modelo, a casa, o
+aniversário e a rotina, que é uma lista de `Compromisso` (`scripts/resources/compromisso.gd`):
+de tal a tal hora, se a estação, o dia da semana, o clima ou o aniversário baterem, ir
+para tal lugar e ficar em tal pose.
+
+- **Escolha:** a cada minuto de jogo o NPC pega o compromisso que serve para o momento.
+  Se mais de um serve, vence o mais específico. Se nenhum serve, ele vai para casa. Na
+  Folga e em clima com `npcs_ficam_em_casa` (a tempestade) todos ficam em casa.
+- **Lugares:** a rotina cita nomes, e a fase tem os `Marker3D` com esses nomes, filhos de
+  um nó do grupo `pontos_de_rotina`. O NPC não conhece o mapa.
+- **Andar:** pela malha de navegação, com `walk`; ao chegar, vira para a frente do
+  marcador e toca a pose do compromisso. Na virada do dia ele já aparece no lugar certo.
+- **Elenco:** o nó `ElencoDeNpcs` da fase cria um NPC para cada `.tres` de
+  `resources/npcs/`. Os `.tres` saem de `scripts/utils/gerar_npcs.gd`, que tem a tabela
+  com a semana de cada um.
+- **Encenação:** dois NPCs parados em `idle` a menos de 3 metros se viram um para o outro
+  e fazem gestos com um balão de conversa. Não é diálogo, que é o plano 15.
 
 ## Clima
 

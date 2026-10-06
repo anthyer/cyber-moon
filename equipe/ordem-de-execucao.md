@@ -19,7 +19,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 11 Estações
 - [x] 12 Calendário
 - [x] 13 Clima
-- [ ] 14 NPCs: rotinas e walk cycle
+- [x] 14 NPCs: rotinas e walk cycle
 - [ ] 15 Sistema de diálogo
 - [ ] 16 Amizade e romance
 - [ ] 17 Comércio e economia

@@ -270,6 +270,27 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-05, plano 14
+
+**Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-05".
+
+**Precisa do Antonio:**
+
+- Jogar um dia olhando os NPCs e dizer se os horários e os lugares agradam. Os horários
+  estão na tabela de `scripts/utils/gerar_npcs.gd`, e os lugares são os marcadores de
+  `PontosDeRotina` no playground.
+- No mapa final: pôr os marcadores com os mesmos nomes, um nó `RegiaoDeNavegacao` e o
+  `ElencoDeNpcs`, e rodar o gerador da malha.
+
+**Fica para depois:**
+
+- A malha não enxerga o que muda com o jogo rodando (um baú posto no chão, no plano 17).
+  O NPC preso pula para o próximo ponto do caminho, que é um remendo.
+- Os inimigos de teste continuam espalhados pelo mapa, alguns perto do caminho dos NPCs.
+  Os dois sistemas não se conhecem.
+- NPC não entra em casa: para na frente da porta.
+- Os modelos são do pacote Kenney, e um deles vem com bengala.
+
 ### 2026-10-05, plano 13
 
 **Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-05".
@@ -401,8 +422,8 @@ Conferida com o jogo carregado, a pedido do Antonio:
 
 **Fica para depois:**
 
-- Inimigo anda em linha reta e encosta em parede. Passa a usar a malha de navegação no
-  plano 14 (ver a entrada "malha de navegação" acima).
+- Inimigo andava em linha reta e encostava em parede. Resolvido no plano 14: ele usa a
+  malha de navegação.
 - Os inimigos não aparecem sozinhos: estão colocados à mão no playground.
 - Todo dano usa o `punch.wav`.
 
