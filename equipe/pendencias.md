@@ -5,6 +5,9 @@ ninguém. É o primeiro arquivo que o Antonio lê quando voltar.
 
 Bernardo: acrescente aqui conforme for executando. Data, o que aconteceu, e por quê.
 
+O que falta de arte e de som (clipe, música, ícone, modelo, animação) fica numa lista só,
+em `assets-pendentes.md`.
+
 ---
 
 ## Deixado pelo Antonio antes de viajar (2026-09-08)

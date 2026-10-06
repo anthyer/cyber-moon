@@ -56,3 +56,6 @@ As features estão descritas uma a uma em `equipe/planos/`, numeradas na ordem d
 dependência. A ordem e o motivo de cada dependência estão em `equipe/ordem-de-execucao.md`.
 Pegue o plano de menor número que ainda não foi feito, siga a skill `executar-plano`,
 e registre em `equipe/pendencias.md` o que ficou de fora.
+
+Asset que ficou faltando (som, música, ícone, modelo, animação) entra também em
+`equipe/assets-pendentes.md`, com o campo do `.tres` onde ele deve ser apontado.
