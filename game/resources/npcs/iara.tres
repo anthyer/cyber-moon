@@ -1,10 +1,50 @@
 [gd_resource type="Resource" script_class="PerfilNpc" format=3]
 
-[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="1_perfil"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_female_b.glb" id="1_dmlvl"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="2_re6eo"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="3_7kb8e"]
+
+[sub_resource type="Resource" id="Resource_7oi37"]
+script = ExtResource("2_re6eo")
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"clinica"
+animacao_parado = &"interact-left"
+
+[sub_resource type="Resource" id="Resource_fldbf"]
+script = ExtResource("2_re6eo")
+hora_inicial = 12.0
+hora_final = 13.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"praca"
+animacao_parado = &"sit"
+
+[sub_resource type="Resource" id="Resource_wo43e"]
+script = ExtResource("2_re6eo")
+hora_inicial = 13.0
+hora_final = 18.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"clinica"
+
+[sub_resource type="Resource" id="Resource_f1oqx"]
+script = ExtResource("2_re6eo")
+hora_inicial = 18.0
+hora_final = 21.0
+destino = &"beira_rio"
+
+[sub_resource type="Resource" id="Resource_dkrk4"]
+script = ExtResource("2_re6eo")
+hora_inicial = 18.0
+hora_final = 21.0
+climas = Array[StringName]([&"chuva"])
+destino = &"casa_iara"
 
 [resource]
-script = ExtResource("1_perfil")
+script = ExtResource("3_7kb8e")
 id = "iara"
 nome_exibido = "Iara Nakamura"
 estacao_do_aniversario = &"apagao"
 dia_do_aniversario = 15
+modelo = ExtResource("1_dmlvl")
+casa = &"casa_iara"
+rotina = Array[ExtResource("2_re6eo")]([SubResource("Resource_7oi37"), SubResource("Resource_fldbf"), SubResource("Resource_wo43e"), SubResource("Resource_f1oqx"), SubResource("Resource_dkrk4")])
+eh_romanceavel = true

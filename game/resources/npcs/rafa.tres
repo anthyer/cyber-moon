@@ -1,10 +1,57 @@
 [gd_resource type="Resource" script_class="PerfilNpc" format=3]
 
-[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="1_perfil"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_male_d.glb" id="1_4dd7l"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="2_gjiy5"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="3_cqxuf"]
+
+[sub_resource type="Resource" id="Resource_lr2wx"]
+script = ExtResource("2_gjiy5")
+hora_inicial = 7.0
+hora_final = 10.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"posto_entrega"
+animacao_parado = &"interact-left"
+
+[sub_resource type="Resource" id="Resource_lkdsd"]
+script = ExtResource("2_gjiy5")
+hora_inicial = 10.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"mercado"
+
+[sub_resource type="Resource" id="Resource_nunht"]
+script = ExtResource("2_gjiy5")
+hora_inicial = 12.0
+hora_final = 13.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"praca"
+
+[sub_resource type="Resource" id="Resource_bobqd"]
+script = ExtResource("2_gjiy5")
+hora_inicial = 13.0
+hora_final = 16.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"clinica"
+
+[sub_resource type="Resource" id="Resource_udx07"]
+script = ExtResource("2_gjiy5")
+hora_inicial = 16.0
+hora_final = 18.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"oficina"
+
+[sub_resource type="Resource" id="Resource_vb1ee"]
+script = ExtResource("2_gjiy5")
+hora_inicial = 18.0
+hora_final = 22.0
+destino = &"ponte"
 
 [resource]
-script = ExtResource("1_perfil")
+script = ExtResource("3_cqxuf")
 id = "rafa"
 nome_exibido = "Rafael Duarte"
 estacao_do_aniversario = &"colheita"
 dia_do_aniversario = 3
+modelo = ExtResource("1_4dd7l")
+casa = &"casa_rafa"
+rotina = Array[ExtResource("2_gjiy5")]([SubResource("Resource_lr2wx"), SubResource("Resource_lkdsd"), SubResource("Resource_nunht"), SubResource("Resource_bobqd"), SubResource("Resource_udx07"), SubResource("Resource_vb1ee")])
+eh_romanceavel = true

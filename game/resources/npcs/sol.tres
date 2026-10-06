@@ -1,10 +1,53 @@
 [gd_resource type="Resource" script_class="PerfilNpc" format=3]
 
-[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="1_perfil"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_female_c.glb" id="1_m4bdh"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="2_wt1mn"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="3_tirgb"]
+
+[sub_resource type="Resource" id="Resource_qwwlc"]
+script = ExtResource("2_wt1mn")
+hora_final = 11.0
+destino = &"mirante"
+
+[sub_resource type="Resource" id="Resource_niunq"]
+script = ExtResource("2_wt1mn")
+hora_inicial = 11.0
+hora_final = 14.0
+destino = &"beira_rio"
+animacao_parado = &"sit"
+
+[sub_resource type="Resource" id="Resource_2126k"]
+script = ExtResource("2_wt1mn")
+hora_inicial = 14.0
+hora_final = 18.0
+destino = &"mirante"
+
+[sub_resource type="Resource" id="Resource_hsypl"]
+script = ExtResource("2_wt1mn")
+hora_inicial = 18.0
+hora_final = 21.0
+destino = &"beira_rio"
+
+[sub_resource type="Resource" id="Resource_4c6ge"]
+script = ExtResource("2_wt1mn")
+hora_inicial = 11.0
+hora_final = 14.0
+estacoes = Array[StringName]([&"estiagem"])
+destino = &"ponte"
+
+[sub_resource type="Resource" id="Resource_66ero"]
+script = ExtResource("2_wt1mn")
+hora_final = 21.0
+apenas_no_aniversario = true
+destino = &"praca"
 
 [resource]
-script = ExtResource("1_perfil")
+script = ExtResource("3_tirgb")
 id = "sol"
 nome_exibido = "Sol Vasques"
 estacao_do_aniversario = &"estiagem"
 dia_do_aniversario = 27
+modelo = ExtResource("1_m4bdh")
+casa = &"casa_sol"
+rotina = Array[ExtResource("2_wt1mn")]([SubResource("Resource_qwwlc"), SubResource("Resource_niunq"), SubResource("Resource_2126k"), SubResource("Resource_hsypl"), SubResource("Resource_4c6ge"), SubResource("Resource_66ero")])
+eh_romanceavel = true

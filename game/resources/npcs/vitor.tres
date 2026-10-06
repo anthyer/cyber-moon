@@ -1,10 +1,43 @@
 [gd_resource type="Resource" script_class="PerfilNpc" format=3]
 
-[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="1_perfil"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_male_b.glb" id="1_8p2lc"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="2_l2xuu"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="3_o22pi"]
+
+[sub_resource type="Resource" id="Resource_7hrn3"]
+script = ExtResource("2_l2xuu")
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"oficina"
+animacao_parado = &"interact-left"
+
+[sub_resource type="Resource" id="Resource_y1fho"]
+script = ExtResource("2_l2xuu")
+hora_inicial = 12.0
+hora_final = 13.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"praca"
+animacao_parado = &"sit"
+
+[sub_resource type="Resource" id="Resource_f10df"]
+script = ExtResource("2_l2xuu")
+hora_inicial = 13.0
+hora_final = 18.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"oficina"
+animacao_parado = &"interact-left"
+
+[sub_resource type="Resource" id="Resource_ouf7b"]
+script = ExtResource("2_l2xuu")
+hora_inicial = 18.0
+hora_final = 22.0
+destino = &"praca"
 
 [resource]
-script = ExtResource("1_perfil")
+script = ExtResource("3_o22pi")
 id = "vitor"
 nome_exibido = "Vitor Alencar"
 estacao_do_aniversario = &"estiagem"
 dia_do_aniversario = 12
+modelo = ExtResource("1_8p2lc")
+casa = &"casa_vitor"
+rotina = Array[ExtResource("2_l2xuu")]([SubResource("Resource_7hrn3"), SubResource("Resource_y1fho"), SubResource("Resource_f10df"), SubResource("Resource_ouf7b")])

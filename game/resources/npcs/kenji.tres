@@ -1,10 +1,52 @@
 [gd_resource type="Resource" script_class="PerfilNpc" format=3]
 
-[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="1_perfil"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_male_c.glb" id="1_wwm6i"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="2_8piqd"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="3_5nl50"]
+
+[sub_resource type="Resource" id="Resource_euxac"]
+script = ExtResource("2_8piqd")
+hora_inicial = 9.0
+hora_final = 13.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"torre_antena"
+animacao_parado = &"interact-left"
+
+[sub_resource type="Resource" id="Resource_n8txf"]
+script = ExtResource("2_8piqd")
+hora_inicial = 13.0
+hora_final = 14.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"praca"
+
+[sub_resource type="Resource" id="Resource_nwihm"]
+script = ExtResource("2_8piqd")
+hora_inicial = 14.0
+hora_final = 19.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"torre_antena"
+animacao_parado = &"interact-left"
+
+[sub_resource type="Resource" id="Resource_4uo7u"]
+script = ExtResource("2_8piqd")
+hora_inicial = 19.0
+hora_final = 23.0
+destino = &"ponte"
+
+[sub_resource type="Resource" id="Resource_amiq1"]
+script = ExtResource("2_8piqd")
+hora_inicial = 14.0
+hora_final = 19.0
+estacoes = Array[StringName]([&"apagao"])
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"mercado"
 
 [resource]
-script = ExtResource("1_perfil")
+script = ExtResource("3_5nl50")
 id = "kenji"
 nome_exibido = "Kenji Moura"
-estacao_do_aniversario = &"brotacao"
 dia_do_aniversario = 9
+modelo = ExtResource("1_wwm6i")
+casa = &"casa_kenji"
+rotina = Array[ExtResource("2_8piqd")]([SubResource("Resource_euxac"), SubResource("Resource_n8txf"), SubResource("Resource_nwihm"), SubResource("Resource_4uo7u"), SubResource("Resource_amiq1")])
+eh_romanceavel = true
