@@ -18,3 +18,5 @@ signal enemy_defeated(perfil: PerfilInimigo, posicao: Vector3)
 signal notice_requested(texto: String)
 ## Algo no mundo (o quadro de calendário) pediu para abrir a tela do calendário.
 signal calendar_requested
+## Som de ambiente em loop, como a chuva. Nulo pede para parar o que estiver tocando.
+signal ambience_requested(fluxo: AudioStream)

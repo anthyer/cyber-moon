@@ -40,6 +40,10 @@ func indice_da_estacao() -> int:
 func estacao_atual() -> StringName:
 	return ESTACOES[indice_da_estacao()]
 
+## A estação em que cai um dia qualquer, por exemplo o de amanhã.
+func estacao_do_dia(numero_do_dia: int) -> StringName:
+	return ESTACOES[int((numero_do_dia - 1) / DIAS_POR_ESTACAO) % ESTACOES.size()]
+
 ## 1 a 30.
 func dia_da_estacao() -> int:
 	return _dias_passados() % DIAS_POR_ESTACAO + 1

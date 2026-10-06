@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PerfilClima" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/perfil_clima.gd" id="1_perfil"]
+[ext_resource type="Texture2D" path="res://assets/textures/icones_clima/sol.png" id="2_icone"]
+
+[resource]
+script = ExtResource("1_perfil")
+id = &"sol"
+nome_exibido = "Sol"
+icone = ExtResource("2_icone")
+

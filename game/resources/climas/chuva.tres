@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PerfilClima" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/perfil_clima.gd" id="1_perfil"]
+[ext_resource type="Texture2D" path="res://assets/textures/icones_clima/chuva.png" id="2_icone"]
+
+[resource]
+script = ExtResource("1_perfil")
+id = &"chuva"
+nome_exibido = "Chuva"
+icone = ExtResource("2_icone")
+molha_o_solo = true
+cor_da_luz = Color(0.72, 0.8, 0.95, 1)
+multiplicador_de_energia = 0.55
+densidade_da_nevoa = 0.02
+quantidade_de_gotas = 800
