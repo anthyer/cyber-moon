@@ -43,6 +43,7 @@ var _margem_inferior_por_cultivo: Dictionary = {}
 func _ready() -> void:
 	DayCycleManager.day_started.connect(_ao_comecar_o_dia)
 	SeasonManager.season_changed.connect(_ao_mudar_estacao)
+	WeatherManager.weather_changed.connect(_ao_mudar_clima)
 
 ## Em célula vazia, ara. Em célula com planta, arranca a planta e mantém a terra arada:
 ## é como o jogador se livra da planta murcha, e também serve para desistir de um
@@ -168,8 +169,19 @@ func avancar_um_dia() -> void:
 		if _estado[celula] == EstadoTile.ARADO_MOLHADO:
 			_definir_estado(celula, EstadoTile.ARADO_SECO)
 
+## A chuva molha depois de o dia virar, e não antes, porque virar o dia seca todo o solo.
+## Por isso a checagem fica aqui, e não só no weather_changed: assim não importa em que
+## ordem os dois sinais chegam.
 func _ao_comecar_o_dia(_numero_do_dia: int) -> void:
 	avancar_um_dia()
+	_molhar_se_estiver_chovendo()
+
+func _ao_mudar_clima(_clima: StringName) -> void:
+	_molhar_se_estiver_chovendo()
+
+func _molhar_se_estiver_chovendo() -> void:
+	if WeatherManager.esta_chovendo():
+		molhar_todo_o_solo()
 
 func aplicar(id_acao: StringName, celula: Vector2i) -> bool:
 	match id_acao:
