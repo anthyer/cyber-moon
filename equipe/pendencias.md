@@ -267,6 +267,25 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-05, plano 13
+
+**Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-05".
+
+**Precisa do Antonio:**
+
+- Arranjar um clipe de chuva em loop e um de trovão, e apontar em
+  `resources/climas/chuva.tres` e `tempestade.tres` (`som_ambiente` e `som_do_trovao`).
+  Sem eles a chuva é muda.
+- Olhar a chuva e a tempestade jogando (botões no F3) e ajustar a energia, a névoa e a
+  quantidade de gotas nos mesmos arquivos.
+
+**Fica para depois:**
+
+- O sol continua fazendo sombra na chuva e na tempestade.
+- O `clima_de_amanha` já é sorteado, mas nada mostra a previsão.
+- O clima não é salvo. Entra no plano 20.
+- NPC ficar em casa na chuva é do plano 14.
+
 ### 2026-10-05, plano 12
 
 **Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-05".

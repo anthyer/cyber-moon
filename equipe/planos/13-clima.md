@@ -6,6 +6,37 @@ visibilidade, e molha todas as plantações sozinha.
 **Depende de:** 10 (o clima é sorteado por dia), 11 (a chance de chuva vem da estação),
 06 (molhar as plantações).
 
+## Revisão de 2026-10-05 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido por teste automático: em 4000 sorteios por estação a
+proporção de chuva e de tempestade bate com a chance do perfil (Brotação 0,34 e 0,07;
+Estiagem 0,14 e 0,03; Colheita 0,25 e 0,05; Apagão 0,10 e 0,02); o amanhecer chuvoso
+deixa o solo arado molhado e o de sol deixa seco; a luz cai para 0,55 na chuva e 0,4 na
+tempestade, com a névoa ligada. Sol, chuva, tempestade e o clarão foram conferidos por
+captura. Na tempestade o jogo rodou na mesma faixa de quadros por segundo do sol.
+
+**Ajustes ao plano:**
+
+- **Sinal em inglês:** `weather_changed`.
+- **Cada clima é um `PerfilClima`** (`resources/climas/*.tres`), em vez de números no
+  código: energia, cor da luz, névoa, quantidade de gotas, se molha o solo, se tem raio,
+  os sons e o ícone.
+- **`CPUParticles3D`, e não `GPUParticles3D`**, como os outros efeitos do jogo (veja
+  "Efeitos de partícula" na arquitetura). A cena ficou em `scenes/effects/chuva.tscn`, e
+  a chuva segue o jogador, não a câmera. As gotas somem perto da câmera, senão passavam
+  enormes na frente da tela.
+- **A chuva molha depois de o dia virar.** Virar o dia seca todo o solo, então a
+  `GradeSolo` molha no fim do próprio `day_started`, além de escutar o `weather_changed`.
+- **O `weather_changed` sai todo dia**, mesmo com o clima repetido.
+- **O primeiro dia do jogo é sempre de sol.**
+- **O clarão é do `IluminacaoDoCiclo`** (`dar_clarao()`), porque é ele quem escreve a
+  energia da luz a cada quadro. Quem decide a hora do raio é o nó `RaiosDaTempestade`.
+- **Som:** sinal novo `EventBus.ambience_requested` e, no `AudioManager`,
+  `tocar_ambiente()` em loop e `tocar_no_ambiente()` para o trovão. Não há clipe de chuva
+  nem de trovão ainda, então nada toca.
+- **Ícones do clima** desenhados em pixel art 16 por 16, no estilo dos ícones de item.
+- **Menu de debug:** botões Sol, Chuva, Tempestade e "Cair um raio agora".
+
 ## Decisões fechadas
 
 **O clima é sorteado no início do dia e não muda no meio.** Clima mudando no meio do dia
@@ -85,16 +116,16 @@ letras se não houver arte.
 
 ## Tarefas
 
-- [ ] **1.** Criar o `WeatherManager`, sortear no `day_started` usando a
+- [x] **1.** Criar o `WeatherManager`, sortear no `day_started` usando a
   `chance_de_chuva` do perfil da estação. Verificar por script headless: rodar 400 dias e
   conferir que a proporção de chuva bate mais ou menos com a chance da estação.
-- [ ] **2.** Molhar o solo arado no amanhecer chuvoso.
-- [ ] **3.** Ligar a iluminação e a névoa ao clima.
-- [ ] **4.** Criar `chuva.tscn` e fazer seguir a câmera.
-- [ ] **5.** Ligar o som de chuva no bus `Ambiente`.
-- [ ] **6.** Implementar o raio e o trovão da tempestade.
-- [ ] **7.** Adicionar o ícone de clima na HUD.
-- [ ] **8.** Documentar e commitar.
+- [x] **2.** Molhar o solo arado no amanhecer chuvoso.
+- [x] **3.** Ligar a iluminação e a névoa ao clima.
+- [x] **4.** Criar `chuva.tscn` e fazer seguir a câmera.
+- [x] **5.** Ligar o som de chuva no bus `Ambiente`.
+- [x] **6.** Implementar o raio e o trovão da tempestade.
+- [x] **7.** Adicionar o ícone de clima na HUD.
+- [x] **8.** Documentar e commitar.
 
 ## Critério de pronto
 

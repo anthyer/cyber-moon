@@ -12,6 +12,9 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Estação | Season / `SeasonManager`, sinal `season_changed` |
 | Perfil de estação | Season profile / `PerfilEstacao` (classe Resource) |
 | Brotação, Estiagem, Colheita, Apagão | ids `brotacao`, `estiagem`, `colheita`, `apagao` (primavera, verão, outono, inverno) |
+| Clima | Weather / `WeatherManager`, sinal `weather_changed`, `PerfilClima` (classe Resource) |
+| Sol, Chuva, Tempestade | ids `sol`, `chuva`, `tempestade` |
+| Som de ambiente | Ambience / sinal `ambience_requested`, `AudioManager.tocar_ambiente()` |
 | Calendário | Calendar / `Calendario` (tela), sinal `calendar_requested`, `QuadroCalendario` |
 | Dia da semana, Folga | Weekday / `SeasonManager.dia_da_semana()`, `DIA_DE_FOLGA` |
 | Aniversário | Birthday / `PerfilNpc.estacao_do_aniversario`, `dia_do_aniversario` |

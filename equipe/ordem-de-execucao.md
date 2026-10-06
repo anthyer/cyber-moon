@@ -18,7 +18,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 10 Ciclo de dia e noite
 - [x] 11 Estações
 - [x] 12 Calendário
-- [ ] 13 Clima
+- [x] 13 Clima
 - [ ] 14 NPCs: rotinas e walk cycle
 - [ ] 15 Sistema de diálogo
 - [ ] 16 Amizade e romance
