@@ -85,6 +85,8 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_aviso.tscn" id="109_hud_aviso"]
 [ext_resource type="PackedScene" path="res://scenes/ui/calendario.tscn" id="110_calendario"]
 [ext_resource type="PackedScene" path="res://scenes/world/quadro_calendario.tscn" id="111_quadro"]
+[ext_resource type="PackedScene" path="res://scenes/effects/chuva.tscn" id="112_chuva"]
+[ext_resource type="Script" path="res://scripts/world/raios_da_tempestade.gd" id="113_raios"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -1378,3 +1380,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1, 0, 5.1)
 
 [node name="QuadroCalendario" parent="." instance=ExtResource("111_quadro")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0, 0, 5.3)
+
+[node name="Chuva" parent="." instance=ExtResource("112_chuva")]
+
+[node name="RaiosDaTempestade" type="Node" parent="."]
+script = ExtResource("113_raios")
