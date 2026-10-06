@@ -61,12 +61,20 @@ var _estacao: PerfilEstacao
 var _pontos: Array = []
 ## Começo do trecho do dia em que a sombra está parada agora. Negativo força a primeira
 ## aplicação.
+## O clima do dia (plano 13): escurece e tinge por cima da estação, e liga a névoa.
+var _clima: PerfilClima
+## Multiplicador extra do clarão do raio. Vale 1 fora do clarão.
+var _clarao: float = 1.0
+var _animacao_do_clarao: Tween
 var _trecho_da_sombra: float = -1.0
 var _troca_de_sombra: Tween
 
 func _ready() -> void:
 	SeasonManager.season_changed.connect(_ao_mudar_estacao)
 	DayCycleManager.day_started.connect(_ao_comecar_o_dia)
+	WeatherManager.weather_changed.connect(_ao_mudar_clima)
+	# O clima primeiro, porque aplicar a estação já calcula a luz com os dois.
+	_ao_mudar_clima(WeatherManager.clima_atual)
 	_ao_mudar_estacao(SeasonManager.estacao_atual())
 
 ## A cor e a força da luz andam a cada quadro, para a cena clarear e escurecer sem degrau.
@@ -81,6 +89,22 @@ func _ao_mudar_estacao(_nova: StringName) -> void:
 	_aplicar_hora(DayCycleManager.hora_atual)
 	_posicionar_o_sol(DayCycleManager.hora_atual, false)
 
+## A névoa não depende da hora, então só é mexida quando o clima muda.
+func _ao_mudar_clima(_novo: StringName) -> void:
+	_clima = WeatherManager.perfil_atual()
+	var ambiente: Environment = _ambiente.environment
+	ambiente.fog_enabled = _clima.densidade_da_nevoa > 0.0
+	ambiente.fog_density = _clima.densidade_da_nevoa
+	ambiente.fog_light_color = _clima.cor_da_nevoa
+
+## O clarão do raio: a luz sobe muito de uma vez e volta em duracao segundos.
+func dar_clarao(intensidade: float = 6.0, duracao: float = 0.25) -> void:
+	if _animacao_do_clarao != null:
+		_animacao_do_clarao.kill()
+	_clarao = intensidade
+	_animacao_do_clarao = create_tween()
+	_animacao_do_clarao.tween_property(self, "_clarao", 1.0, duracao)
+
 ## De um dia para o outro o sol volta do poente para o nascente. Esse giro não é uma troca
 ## de trecho, então a sombra pula direto, sem a transição.
 func _ao_comecar_o_dia(_numero_do_dia: int) -> void:
@@ -88,11 +112,12 @@ func _ao_comecar_o_dia(_numero_do_dia: int) -> void:
 
 func _aplicar_hora(hora: float) -> void:
 	var amostra: Array = _amostrar(hora)
-	_luz.light_color = (amostra[1] as Color) * _estacao.cor_da_luz
-	_luz.light_energy = amostra[2] * _estacao.multiplicador_de_energia
+	var energia: float = _estacao.multiplicador_de_energia * _clima.multiplicador_de_energia * _clarao
+	_luz.light_color = (amostra[1] as Color) * _estacao.cor_da_luz * _clima.cor_da_luz
+	_luz.light_energy = amostra[2] * energia
 	var ambiente: Environment = _ambiente.environment
-	ambiente.ambient_light_energy = amostra[3] * _estacao.multiplicador_de_energia
-	ambiente.background_energy_multiplier = amostra[4]
+	ambiente.ambient_light_energy = amostra[3] * energia
+	ambiente.background_energy_multiplier = amostra[4] * _clima.multiplicador_de_energia * _clarao
 
 	if _trecho_de(hora) != _trecho_da_sombra:
 		_posicionar_o_sol(hora, _trecho_da_sombra >= 0.0)
