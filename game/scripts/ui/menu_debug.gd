@@ -93,6 +93,13 @@ func _montar_secoes() -> void:
 	_novo_botao("Avançar um dia", _avancar_um_dia)
 	_novo_botao("Pular para a próxima estação", _pular_para_a_proxima_estacao)
 	_novo_botao("Abrir o calendário", _abrir_o_calendario)
+	var climas: HBoxContainer = HBoxContainer.new()
+	for clima in WeatherManager.CLIMAS:
+		var botao_do_clima: Button = _novo_botao_solto(WeatherManager.perfil_do_clima(clima).nome_exibido, WeatherManager.definir_clima.bind(clima))
+		botao_do_clima.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		climas.add_child(botao_do_clima)
+	lista.add_child(climas)
+	_novo_botao("Cair um raio agora", _cair_um_raio)
 	_caixa_congelar = _nova_caixa("Congelar relógio", _ao_marcar_congelar)
 	_novo_botao("Cair de sono agora", _cair_de_sono_agora)
 
@@ -199,6 +206,12 @@ func _pular_para_a_proxima_estacao() -> void:
 ## Pelo mesmo pedido que o quadro de calendário faz, para testar a tela de longe dele.
 func _abrir_o_calendario() -> void:
 	EventBus.calendar_requested.emit()
+
+func _cair_um_raio() -> void:
+	var cena: Node = get_tree().current_scene
+	var raios: RaiosDaTempestade = cena.get_node_or_null("RaiosDaTempestade") as RaiosDaTempestade if cena != null else null
+	if raios != null:
+		raios.cair_um_raio()
 
 func _ao_marcar_congelar(marcado: bool) -> void:
 	DayCycleManager.tempo_congelado = marcado
