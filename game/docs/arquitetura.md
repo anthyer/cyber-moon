@@ -386,7 +386,9 @@ em `resources/climas/`). Quem reage escuta `WeatherManager.weather_changed`:
 - **Solo:** no amanhecer com clima que `molha_o_solo`, a `GradeSolo` molha todo o solo
   arado. Ela faz isso no fim do próprio `day_started`, depois de o dia secar o solo.
 - **Luz e névoa:** o `IluminacaoDoCiclo` multiplica a energia e a cor pelo clima, por cima
-  da estação, e liga a névoa do `WorldEnvironment` com a densidade do perfil.
+  da estação, e liga a névoa do `WorldEnvironment` com a densidade do perfil. A sombra do
+  sol fica difusa: mais clara (`opacidade_da_sombra`) e de borda borrada
+  (`desfoque_da_sombra`).
 - **Chuva:** `scenes/effects/chuva.tscn` (`Chuva`), um `CPUParticles3D` com caixa de
   emissão larga que anda junto com o jogador. A quantidade de gotas vem do perfil.
 - **Raio:** o nó `RaiosDaTempestade` sorteia um intervalo de 8 a 20 segundos, pede o

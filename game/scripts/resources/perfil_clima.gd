@@ -13,6 +13,10 @@ extends Resource
 @export var cor_da_luz: Color = Color.WHITE
 ## Multiplica a energia do sol, do ambiente e do céu.
 @export var multiplicador_de_energia: float = 1.0
+## Com o céu fechado a sombra do sol fica difusa: mais clara e de borda borrada. Opacidade
+## 1 é a sombra cheia do dia de sol, e desfoque 1 é a borda padrão.
+@export_range(0.0, 1.0) var opacidade_da_sombra: float = 1.0
+@export var desfoque_da_sombra: float = 1.0
 ## Névoa que encurta o alcance da visão. Zero desliga a névoa.
 @export var densidade_da_nevoa: float = 0.0
 @export var cor_da_nevoa: Color = Color(0.55, 0.6, 0.7)

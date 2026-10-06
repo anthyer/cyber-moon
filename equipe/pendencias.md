@@ -305,7 +305,8 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Fica para depois:**
 
-- O sol continua fazendo sombra na chuva e na tempestade.
+- A sombra do sol fica difusa na chuva e na tempestade (opacidade e desfoque no perfil do
+  clima). Pedido do Antonio em 2026-10-05.
 - O `clima_de_amanha` já é sorteado, mas nada mostra a previsão.
 - O clima não é salvo. Entra no plano 20.
 - NPC ficar em casa na chuva é do plano 14.

@@ -96,6 +96,9 @@ func _ao_mudar_clima(_novo: StringName) -> void:
 	ambiente.fog_enabled = _clima.densidade_da_nevoa > 0.0
 	ambiente.fog_density = _clima.densidade_da_nevoa
 	ambiente.fog_light_color = _clima.cor_da_nevoa
+	# Céu fechado espalha a luz, então a sombra do sol fica fraca e de borda borrada.
+	_luz.shadow_opacity = _clima.opacidade_da_sombra
+	_luz.shadow_blur = _clima.desfoque_da_sombra
 
 ## O clarão do raio: a luz sobe muito de uma vez e volta em duracao segundos.
 func dar_clarao(intensidade: float = 6.0, duracao: float = 0.25) -> void:

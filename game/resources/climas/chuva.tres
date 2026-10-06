@@ -11,5 +11,7 @@ icone = ExtResource("2_icone")
 molha_o_solo = true
 cor_da_luz = Color(0.72, 0.8, 0.95, 1)
 multiplicador_de_energia = 0.55
+opacidade_da_sombra = 0.4
+desfoque_da_sombra = 4.0
 densidade_da_nevoa = 0.02
 quantidade_de_gotas = 800
