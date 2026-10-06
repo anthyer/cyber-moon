@@ -37,6 +37,9 @@ const VELOCIDADE_DO_GIRO_PARADO: float = 0.6
 ## visível.
 const FRACAO_DA_VELOCIDADE_NO_OCIO: float = 0.45
 const DISTANCIA_PARA_CHEGAR_NO_PONTO: float = 0.3
+## O caminho pela malha só é refeito quando o alvo andou mais que isto, para não recalcular
+## a cada quadro atrás de um jogador que se mexe.
+const DISTANCIA_PARA_REFAZER_O_CAMINHO: float = 0.5
 ## Se não houver ponto de patrulha, o inimigo patrulha até este deslocamento a partir de
 ## onde nasceu.
 const PATRULHA_PADRAO: Vector3 = Vector3(4.0, 0.0, 0.0)
@@ -48,6 +51,7 @@ const PATRULHA_PADRAO: Vector3 = Vector3(4.0, 0.0, 0.0)
 @export var velocidade_de_giro: float = 8.0
 
 @onready var _reacao: ReacaoADano = $ReacaoADano
+@onready var _agente: NavigationAgent3D = $Agente
 @onready var _hitbox: Area3D = $HitboxAtaque
 @onready var _forma_da_hitbox: CollisionShape3D = $HitboxAtaque/FormaHitbox
 
@@ -134,7 +138,8 @@ func _processar_ocio(delta: float) -> void:
 		PerfilInimigo.ComportamentoOcioso.CIRCULO:
 			_angulo_do_circulo += velocidade_no_ocio / RAIO_DO_CIRCULO_OCIOSO * delta
 			var alvo: Vector3 = _ponto_de_origem + Vector3(cos(_angulo_do_circulo), 0.0, sin(_angulo_do_circulo)) * RAIO_DO_CIRCULO_OCIOSO
-			_andar_ate(alvo, velocidade_no_ocio, delta)
+			# O círculo é curto e em área aberta: vai em linha reta, sem a malha.
+			_andar_ate(alvo, velocidade_no_ocio, delta, false)
 		PerfilInimigo.ComportamentoOcioso.PATRULHA:
 			var destino: Vector3 = _ponto_de_patrulha if _indo_para_a_patrulha else _ponto_de_origem
 			if _distancia_horizontal(global_position, destino) <= DISTANCIA_PARA_CHEGAR_NO_PONTO:
@@ -256,7 +261,9 @@ func _procurar_jogador() -> void:
 		return
 	_jogador = get_tree().get_first_node_in_group(&"jogador") as Node3D
 
-func _andar_ate(destino: Vector3, velocidade: float, delta: float) -> void:
+## Anda até o destino. Pela malha de navegação ele contorna prédio e cerca em vez de
+## encostar na parede; sem ela, vai em linha reta.
+func _andar_ate(destino: Vector3, velocidade: float, delta: float, pela_malha: bool = true) -> void:
 	var para_o_destino: Vector3 = destino - global_position
 	para_o_destino.y = 0.0
 	if para_o_destino.length() < 0.05:
@@ -264,11 +271,27 @@ func _andar_ate(destino: Vector3, velocidade: float, delta: float) -> void:
 		velocity.z = 0.0
 		_tocar(&"idle")
 		return
-	var direcao: Vector3 = para_o_destino.normalized()
+	var proximo: Vector3 = _proximo_ponto_do_caminho(destino) if pela_malha else destino
+	var direcao: Vector3 = proximo - global_position
+	direcao.y = 0.0
+	direcao = direcao.normalized()
 	velocity.x = direcao.x * velocidade
 	velocity.z = direcao.z * velocidade
-	_virar_para(destino, delta)
+	_virar_para(proximo, delta)
 	_tocar(&"sprint" if velocidade >= 4.0 else &"walk")
+
+## O próximo ponto para onde andar no caminho até o destino, pela malha de navegação da
+## fase (a mesma dos NPCs). Numa fase sem malha, ou com o inimigo fora dela, o agente não
+## devolve caminho, e o inimigo volta a ir em linha reta, como antes.
+func _proximo_ponto_do_caminho(destino: Vector3) -> Vector3:
+	if _agente.target_position.distance_to(destino) > DISTANCIA_PARA_REFAZER_O_CAMINHO:
+		_agente.target_position = destino
+	if _agente.is_navigation_finished():
+		return destino
+	var proximo: Vector3 = _agente.get_next_path_position()
+	if _distancia_horizontal(proximo, global_position) < 0.05:
+		return destino
+	return proximo
 
 func _virar_para(destino: Vector3, delta: float) -> void:
 	var para_o_destino: Vector3 = destino - global_position
