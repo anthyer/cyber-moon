@@ -87,6 +87,8 @@
 [ext_resource type="PackedScene" path="res://scenes/world/quadro_calendario.tscn" id="111_quadro"]
 [ext_resource type="PackedScene" path="res://scenes/effects/chuva.tscn" id="112_chuva"]
 [ext_resource type="Script" path="res://scripts/world/raios_da_tempestade.gd" id="113_raios"]
+[ext_resource type="NavigationMesh" path="res://resources/navigation/playground.tres" id="114_malha"]
+[ext_resource type="Script" path="res://scripts/world/regiao_de_navegacao.gd" id="115_regiao"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -1385,3 +1387,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0, 0, 5.3)
 
 [node name="RaiosDaTempestade" type="Node" parent="."]
 script = ExtResource("113_raios")
+
+[node name="RegiaoDeNavegacao" type="NavigationRegion3D" parent="."]
+navigation_mesh = ExtResource("114_malha")
+script = ExtResource("115_regiao")
+limite_do_chao = Rect2(-13.7, -23, 39.8, 36.8)
