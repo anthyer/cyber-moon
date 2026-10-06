@@ -12,7 +12,6 @@ extends Control
 ## Os aniversários vêm dos .tres de resources/npcs/, lidos da pasta. Uma lista fixa no
 ## código seria esquecida no dia em que alguém criasse um NPC novo.
 
-const PASTA_DOS_NPCS: String = "res://resources/npcs/"
 const TAMANHO_DA_CELULA: Vector2 = Vector2(84.0, 44.0)
 
 const COR_DO_DIA: Color = Color(0.1, 0.13, 0.2, 0.9)
@@ -153,17 +152,6 @@ func _novo_rotulo(texto: String, tamanho: int, cor: Color) -> Label:
 	rotulo.add_theme_color_override(&"font_color", cor)
 	return rotulo
 
-## Lê todo .tres da pasta de NPCs. No jogo exportado o Godot lista os recursos com
-## ".remap" no fim do nome, e o load precisa do nome sem ele.
+## A lista de perfis é a mesma que o elenco usa para pôr os NPCs na fase.
 func _carregar_npcs() -> void:
-	_npcs.clear()
-	var pasta: DirAccess = DirAccess.open(PASTA_DOS_NPCS)
-	if pasta == null:
-		return
-	for arquivo in pasta.get_files():
-		var nome: String = arquivo.trim_suffix(".remap")
-		if not nome.ends_with(".tres"):
-			continue
-		var perfil: PerfilNpc = load(PASTA_DOS_NPCS + nome) as PerfilNpc
-		if perfil != null:
-			_npcs.append(perfil)
+	_npcs = ElencoDeNpcs.carregar_perfis()
