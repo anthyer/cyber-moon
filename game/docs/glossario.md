@@ -12,6 +12,8 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Estação | Season / `SeasonManager`, sinal `season_changed` |
 | Perfil de estação | Season profile / `PerfilEstacao` (classe Resource) |
 | Brotação, Estiagem, Colheita, Apagão | ids `brotacao`, `estiagem`, `colheita`, `apagao` (primavera, verão, outono, inverno) |
+| Diálogo, conversa, fala | Dialogue / `DialogueManager`, `Conversa` e `NoDialogo` (classes Resource), `CaixaDialogo` |
+| Fala do dia | Daily line / `DialogueManager.fala_do_dia()` |
 | Servidor de repasse | Relay server / `backend/servidor_local/`, `NetworkManager` |
 | Chat | Chat / `ChatManager`, `HudChat` |
 | Equipe, sala, anfitrião | Party, room, host / `LobbyManager`, `sou_anfitriao()` |

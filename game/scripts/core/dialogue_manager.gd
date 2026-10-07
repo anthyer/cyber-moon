@@ -18,6 +18,9 @@ const ID_DO_JOGADOR: String = "jogador"
 ## Logo depois de abrir, o avançar é ignorado por este tempo. O mesmo aperto de botão que
 ## começou a conversa ainda está "recém-apertado" e pularia a primeira fala.
 const SEGUNDOS_DE_TRAVA_AO_ABRIR: float = 0.2
+## E logo depois de fechar, o mesmo vale ao contrário: o aperto que encerrou a conversa
+## (F ou Esc) não pode reabri-la nem abrir o menu de pausa.
+const SEGUNDOS_DE_TRAVA_AO_FECHAR: float = 0.2
 
 var em_dialogo: bool = false
 ## O NPC com quem o jogador está falando. Null fora de diálogo.
@@ -27,10 +30,11 @@ var _conversa: Conversa
 var _no_atual: NoDialogo
 var _relogio_estava_congelado: bool = false
 var _aberto_em_ms: int = 0
+var _encerrado_em_ms: int = -100000
 
 ## Começa a conversa do dia com o NPC. Sem falas que sirvam, não acontece nada.
 func iniciar(npc: Npc) -> void:
-	if em_dialogo or npc == null or npc.perfil == null or StatusManager.esta_desmaiado:
+	if em_dialogo or acabou_de_encerrar() or npc == null or npc.perfil == null or StatusManager.esta_desmaiado:
 		return
 	var conversa: Conversa = conversa_de(npc.perfil.id)
 	var fala: NoDialogo = fala_do_dia(npc.perfil.id)
@@ -67,8 +71,14 @@ func encerrar() -> void:
 	interlocutor = null
 	_conversa = null
 	_no_atual = null
+	_encerrado_em_ms = Time.get_ticks_msec()
 	DayCycleManager.tempo_congelado = _relogio_estava_congelado
 	dialogue_ended.emit(npc_id)
+
+## Verdadeiro por um instante depois de a conversa fechar. Quem reage ao mesmo botão que
+## a fecha (o menu de pausa com o Esc, a interação com o F) consulta isto para não agir.
+func acabou_de_encerrar() -> bool:
+	return Time.get_ticks_msec() - _encerrado_em_ms < int(SEGUNDOS_DE_TRAVA_AO_FECHAR * 1000.0)
 
 func conversa_de(npc_id: String) -> Conversa:
 	var caminho: String = PASTA_DAS_CONVERSAS + npc_id + ".tres"

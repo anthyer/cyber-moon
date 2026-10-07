@@ -7,6 +7,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 - `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada`, `item_picked_up(item, quantidade)` (o jogador pegou um item do chão), `crop_planted(celula, cultivo)`, `crop_grown(celula, novo_estagio)`, `crop_withered(celula)`, `crop_removed(celula)`, `damage_dealt(alvo, quantidade)` e `enemy_defeated(perfil, posicao)`.
 - `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): o relógio do jogo. A hora anda sozinha das 6:00 à 1:00 do dia seguinte (5 minutos reais de dia, das 6:00 às 18:00, e 5 de noite, das 18:00 à 1:00), e passa de 24 em vez de voltar a zero (24.5 é 0:30). Sinais: `day_started`, `day_ended`, `hour_changed` (a cada minuto de jogo), `period_changed` e `player_slept(forcado)`. Métodos: `avancar_para_o_proximo_dia()`, `dormir(forcado)`, `periodo_atual()`, `hora_formatada()`, `fracao_do_dia()`. Para com o menu de pausa (pausa junto com a árvore) e com `tempo_congelado`.
 - `WeatherManager` (`scripts/core/weather_manager.gd`): o clima do dia (`sol`, `chuva` ou `tempestade`), sorteado no `day_started` com a `chance_de_chuva` da estação; a tempestade é um quinto dela. Não muda no meio do dia. Sinal `weather_changed(clima)`, emitido todo dia. `clima_atual`, `clima_de_amanha`, `esta_chovendo()`, `perfil_atual()`, `definir_clima(clima)`.
+- `DialogueManager` (`scripts/core/dialogue_manager.gd`): conduz a conversa com um NPC. `iniciar(npc)`, `avancar()`, `encerrar()`, `fala_do_dia(npc_id)`, `em_dialogo`. Veja "Diálogo".
 - `NetworkManager`, `ChatManager`, `LobbyManager` e `DungeonManager`: a conexão, o chat, a equipe e a entrada na dungeon. Veja "Rede" e "Dungeon em equipe".
 - `SeasonManager` (`scripts/core/season_manager.gd`): o calendário. Quatro estações de 30 dias (Brotação, Estiagem, Colheita, Apagão), 120 dias por ano. Não guarda nada: estação, dia da estação e ano são calculados do `numero_do_dia` do `DayCycleManager` a cada pergunta. Sinais `season_changed(nova)` e `year_changed(novo_ano)`, emitidos no `day_started` da virada. Métodos: `estacao_atual()`, `dia_da_estacao()`, `ano_atual()`, `indice_da_estacao()`, `nome_exibido(estacao)`, `perfil_da_estacao(estacao)`, `perfil_atual()`.
 - `InventoryManager` (`scripts/core/inventory_manager.gd`): inventário do jogador em 36 slots, cada um uma `PilhaDeItens` ou `null`. Os índices de 0 a 8 são a barra rápida e de 9 a 35 a matriz de 3 linhas por 9 colunas, a mesma largura da barra rápida. `adicionar_item` devolve o que não coube (inventário cheio), e completa pilhas iguais antes de ocupar o primeiro slot vazio, varrendo a barra rápida antes da matriz. Também guarda o equipamento: os espaços `ARMADURA` e `ACESSORIO` apontam para o índice de um slot, e o item equipado continua ocupando esse slot. Sinais: `inventory_changed` e `equipment_changed(espaco, item)`.
@@ -338,6 +339,24 @@ música e chance de chuva (esta, para o clima do plano 13).
   `EventBus.musica_solicitada`.
 - **Plantio:** veja "Plantio e colheita".
 - **Relógio:** mostra a estação e o dia dentro dela, e o ano a partir do segundo.
+
+## Diálogo
+
+Conversar é interagir com um NPC (`Npc.interagir()`). O `DialogueManager` (autoload) abre
+a `Conversa` dele (`resources/dialogue/<id>.tres`, um Resource com a lista de `NoDialogo`)
+e escolhe a fala do dia: entre as que servem para o relacionamento e a estação, pega a de
+índice `(numero_do_dia + hash do id) % quantidade`. Por isso a fala é a mesma o dia todo e
+muda no dia seguinte, sem sorteio. O relógio para durante a conversa, mas o jogo não pausa.
+
+A tela é a `CaixaDialogo` (`scenes/dialogue/caixa_dialogo.tscn`): a caixa de texto embaixo
+e, atrás, os modelos 3D dos dois personagens num `SubViewport` com mundo próprio. O texto
+aparece letra por letra; o botão de interagir completa a fala e depois avança, e Esc
+encerra. Com `DialogueManager.em_dialogo`, o jogador fica parado, o NPC vira para ele, a
+barra rápida some e o menu de pausa não abre.
+
+As conversas saem de `scripts/utils/gerar_dialogos.gd`, que transcreve
+`equipe/biblioteca-de-dialogos.md`. Para mudar uma fala, edite a biblioteca e rode o
+gerador.
 
 ## Rede
 

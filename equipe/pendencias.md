@@ -270,6 +270,23 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-07, plano 15
+
+**Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-07".
+
+**Precisa do Antonio:**
+
+- Conversar com os seis NPCs e ver se o enquadramento dos modelos atrás da caixa agrada.
+  A câmera e os suportes ficam em `scenes/dialogue/caixa_dialogo.tscn`.
+
+**Fica para depois:**
+
+- Só as falas de "Distante" e as de estação aparecem, até o plano 16 trazer a amizade.
+- Falas de presente, aniversário e buquê entram no plano 16.
+- O modelo do jogador na caixa não mostra o item na mão.
+- No controle, a dica da caixa ainda diz "[F] continuar".
+- Conversar não está disponível dentro da dungeon (não há NPC lá).
+
 ### 2026-10-07, solo arado na chuva fica molhado
 
 **Feito**, a pedido do Antonio. A terra arada com a chuva (ou a tempestade) já caindo

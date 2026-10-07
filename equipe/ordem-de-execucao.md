@@ -20,7 +20,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 12 Calendário
 - [x] 13 Clima
 - [x] 14 NPCs: rotinas e walk cycle
-- [ ] 15 Sistema de diálogo
+- [x] 15 Sistema de diálogo
 - [ ] 16 Amizade e romance
 - [ ] 17 Comércio e economia
 - [ ] 18 Chat entre jogadores (independente dos outros, pode ser feito em paralelo)

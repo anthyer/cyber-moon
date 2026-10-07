@@ -8,6 +8,40 @@ animação de repouso.
 
 **Entrega para:** 16, 17.
 
+## Revisão de 2026-10-07 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido com entrada simulada pelo teclado: F perto do NPC abre a
+caixa; durante a conversa o personagem não anda e o menu não abre; F completa o texto que
+está sendo escrito, e o F seguinte fecha; Esc fecha sem abrir o menu de pausa; o F que
+fecha não reabre a conversa. A fala do Vitor é a mesma duas vezes no dia 1 e muda nos dias
+2 e 3. O relógio para durante a conversa e a barra rápida some. A caixa com os dois
+modelos foi conferida por captura.
+
+**Ajustes ao plano:**
+
+- **Sinais em inglês:** `dialogue_started`, `dialogue_ended` e `line_shown`.
+- **As seis conversas já existem**, e não só uma de teste. `scripts/utils/gerar_dialogos.gd`
+  lê `equipe/biblioteca-de-dialogos.md` e grava `resources/dialogue/<npc>.tres`, com 19
+  falas por NPC (as quatro faixas de relacionamento e as de estação). Mudar uma fala é
+  editar a biblioteca e rodar o gerador.
+- **As falas de presente, aniversário e buquê não foram geradas.** São disparadas por
+  evento, e entram no plano 16.
+- **O relacionamento ainda é o valor inicial do perfil** (`DialogueManager.relacionamento_com`),
+  então todo NPC fala só as falas de "Distante" e as da estação. O plano 16 troca essa
+  função pela consulta ao sistema de amizade.
+- **Dá para conversar com o NPC andando.** Ele para, vira para o jogador, e ao fim retoma
+  o caminho. O plano previa conversar só com ele parado.
+- **Trava de 0,2 segundo ao abrir e ao fechar,** para o mesmo aperto de botão que abre a
+  conversa não pular a primeira fala, e o que fecha não reabrir nem abrir o menu de pausa.
+- **`so_como_continuacao`** é um campo novo do `NoDialogo`, para a fala que só existe como
+  sequência de outra. Nenhuma fala gerada usa ainda.
+- **Clique do mouse também avança**, além do F.
+- **A caixa é um `Control` dentro do `InterfaceHUD`,** e não um `CanvasLayer` próprio. O
+  palco dos modelos usa `own_world_3d`, para a cena do jogo não aparecer nele.
+- **O nome do jogador aparece como "Você"** quando a fala é dele. Nenhuma fala gerada é
+  do jogador ainda.
+- **Sem partículas**, porque o plano é anterior à regra. Ficam para o plano 19.
+
 ## O que o Antonio pediu, literalmente
 
 Caixa com os diálogos na parte inferior da tela. Os modelos 3D dos personagens que estão
@@ -149,19 +183,19 @@ A barra rápida some durante o diálogo, conforme decidido no plano 05.
 
 ## Tarefas
 
-- [ ] **1.** Ampliar `no_dialogo.gd` e criar `conversa.gd`.
-- [ ] **2.** Criar o `DialogueManager` e registrar o autoload.
-- [ ] **3.** Criar `caixa_dialogo.tscn` com o painel de texto, sem os modelos ainda.
+- [x] **1.** Ampliar `no_dialogo.gd` e criar `conversa.gd`.
+- [x] **2.** Criar o `DialogueManager` e registrar o autoload.
+- [x] **3.** Criar `caixa_dialogo.tscn` com o painel de texto, sem os modelos ainda.
   Testar com texto fixo.
-- [ ] **4.** Montar o `SubViewport` com os dois modelos e a câmera. Este é o passo que
+- [x] **4.** Montar o `SubViewport` com os dois modelos e a câmera. Este é o passo que
   vai dar mais trabalho de posicionar, e é de olho.
-- [ ] **5.** Ligar `interagir` ao início do diálogo pela `AreaInteracao`.
-- [ ] **6.** Implementar a escolha da fala do dia com a semente do número do dia.
-- [ ] **7.** Travar o jogador e congelar o relógio durante a conversa.
-- [ ] **8.** Implementar o texto aparecendo letra por letra e o pular.
-- [ ] **9.** Criar uma `Conversa` de teste para um NPC e conversar com ele em dois dias
+- [x] **5.** Ligar `interagir` ao início do diálogo pela `AreaInteracao`.
+- [x] **6.** Implementar a escolha da fala do dia com a semente do número do dia.
+- [x] **7.** Travar o jogador e congelar o relógio durante a conversa.
+- [x] **8.** Implementar o texto aparecendo letra por letra e o pular.
+- [x] **9.** Criar uma `Conversa` de teste para um NPC e conversar com ele em dois dias
   seguidos, confirmando que a fala muda.
-- [ ] **10.** Documentar e commitar.
+- [x] **10.** Documentar e commitar.
 
 ## Critério de pronto
 

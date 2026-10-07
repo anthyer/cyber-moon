@@ -59,7 +59,7 @@ func _process(_delta: float) -> void:
 	if not visible:
 		# Se o jogo já está pausado, outra tela está aberta (o calendário), e o menu não
 		# abre por cima dela. Também não abre no meio de uma conversa.
-		if pediu_menu and not get_tree().paused and not DialogueManager.em_dialogo:
+		if pediu_menu and not get_tree().paused and not DialogueManager.em_dialogo and not DialogueManager.acabou_de_encerrar():
 			abrir()
 		return
 	# ui_cancel é a ação nativa de voltar dos menus do Godot. Com um item seguro, ela
