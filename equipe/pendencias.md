@@ -270,6 +270,20 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-06, próxima tarefa: solo arado na chuva fica molhado
+
+**Pedido do Antonio, ainda não feito** (ele estava testando o multiplayer). É a próxima
+coisa a fazer.
+
+Hoje a chuva molha o solo só no amanhecer: o que já estava arado fica molhado, mas a terra
+arada depois, com a chuva caindo, fica seca até o dia seguinte. O pedido: solo arado
+durante a chuva ou a tempestade fica molhado sozinho depois de um tempinho curto.
+
+Onde mexer: a `GradeSolo` (`game/scripts/farming/grade_solo.gd`). Ela já escuta o
+`weather_changed` e tem `molhar(celula)`. Falta, ao arar com `WeatherManager.esta_chovendo()`,
+marcar a célula para molhar depois de alguns segundos. O tempo deve ser um export, e o
+caso de a chuva parar ou a célula ser desfeita antes do tempo precisa ser tratado.
+
 ### 2026-10-06, planos 21 e 22 (rede, chat e dungeon em coop)
 
 **Feito.** Decisões e ajustes no topo de cada plano, seção "Revisão de 2026-10-06". Como
