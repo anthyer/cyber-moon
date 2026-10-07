@@ -5,6 +5,11 @@ extends Node
 ## controle só porque o stick tremeu.
 const FOLGA_DO_EIXO_DO_CONTROLE: float = 0.5
 
+## Ligado enquanto o jogador digita no chat ou mexe numa tela que não pausa o jogo (o
+## lobby). Com ele ligado, toda pergunta de gameplay responde que nada foi pressionado:
+## as teclas vão para a tela, e o personagem não anda nem ataca.
+var teclado_capturado: bool = false
+
 var _usando_controle: bool = false
 var _posicao_do_mouse: Vector2 = Vector2.ZERO
 var _quadro_do_ultimo_movimento_do_mouse: int = -1000
@@ -39,47 +44,55 @@ func mouse_se_moveu_agora() -> bool:
 	return Engine.get_physics_frames() - _quadro_do_ultimo_movimento_do_mouse <= 1
 
 func obter_direcao_movimento() -> Vector2:
+	if teclado_capturado:
+		return Vector2.ZERO
 	return Input.get_vector("mover_esquerda", "mover_direita", "mover_cima", "mover_baixo")
 
 func correr_pressionado() -> bool:
-	return Input.is_action_pressed("correr")
+	return not teclado_capturado and Input.is_action_pressed("correr")
 
 func interagir_pressionado() -> bool:
-	return Input.is_action_just_pressed("interagir")
+	return not teclado_capturado and Input.is_action_just_pressed("interagir")
 
 func abrir_inventario_pressionado() -> bool:
-	return Input.is_action_just_pressed("abrir_inventario")
+	return not teclado_capturado and Input.is_action_just_pressed("abrir_inventario")
 
 func menu_pausa_pressionado() -> bool:
-	return Input.is_action_just_pressed("menu_pausa")
+	return not teclado_capturado and Input.is_action_just_pressed("menu_pausa")
 
 func dash_pressionado() -> bool:
-	return Input.is_action_just_pressed("dash")
+	return not teclado_capturado and Input.is_action_just_pressed("dash")
 
 func atacar_pressionado() -> bool:
-	return Input.is_action_just_pressed("atacar")
+	return not teclado_capturado and Input.is_action_just_pressed("atacar")
 
 ## Devolve o índice do slot rápido pedido por tecla numérica (0 para a tecla 1), ou -1
 ## quando nenhuma foi pressionada neste quadro. Um método só no lugar de nove quase
 ## iguais.
 func slot_numerico_pressionado() -> int:
+	if teclado_capturado:
+		return -1
 	for indice in 9:
 		if Input.is_action_just_pressed("slot_%d" % (indice + 1)):
 			return indice
 	return -1
 
 func slot_proximo_pressionado() -> bool:
-	return Input.is_action_just_pressed("slot_proximo")
+	return not teclado_capturado and Input.is_action_just_pressed("slot_proximo")
 
 func slot_anterior_pressionado() -> bool:
-	return Input.is_action_just_pressed("slot_anterior")
+	return not teclado_capturado and Input.is_action_just_pressed("slot_anterior")
 
 ## Temporária: avança um dia para testar o crescimento das plantas. Sai quando o plano
 ## 10 trouxer o ciclo de dia automático.
 func teste_avancar_dia_pressionado() -> bool:
-	return Input.is_action_just_pressed("teste_avancar_dia")
+	return not teclado_capturado and Input.is_action_just_pressed("teste_avancar_dia")
+
+## Abre o campo de texto do chat (Enter ou T).
+func abrir_chat_pressionado() -> bool:
+	return not teclado_capturado and Input.is_action_just_pressed("abrir_chat")
 
 ## Abre e fecha o menu de debug. Só no teclado, de propósito: é ferramenta de teste.
 func menu_debug_pressionado() -> bool:
-	return Input.is_action_just_pressed("menu_debug")
+	return not teclado_capturado and Input.is_action_just_pressed("menu_debug")
 
