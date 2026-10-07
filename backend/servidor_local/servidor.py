@@ -24,8 +24,9 @@ MAX_CHAT_LENGTH = 200
 
 # Conexões abertas: id do jogador -> {"socket", "name", "room"}.
 players = {}
-# Salas da dungeon: id da sala -> {"host", "members"}. members é a lista de ids, na ordem
-# em que entraram, com o anfitrião primeiro.
+# Salas da dungeon: id da sala -> {"host", "members", "invited"}. members é a lista de ids,
+# na ordem em que entraram, com o anfitrião primeiro. invited são os ids com convite ainda
+# sem resposta: só quem está ali pode entrar na sala.
 rooms = {}
 
 _player_ids = itertools.count(1)
@@ -107,19 +108,23 @@ async def on_invite(player_id, message):
     room_id = players[player_id]["room"]
     if room_id is None:
         room_id = f"sala{next(_room_ids)}"
-        rooms[room_id] = {"host": player_id, "members": [player_id]}
+        rooms[room_id] = {"host": player_id, "members": [player_id], "invited": set()}
         players[player_id]["room"] = room_id
         await notify_room(room_id)
     # Só o anfitrião convida, para a sala ter um dono só.
     if rooms[room_id]["host"] != player_id:
         return
+    rooms[room_id]["invited"].add(target)
     await send(target, "convite", de=player_id, nome=players[player_id]["name"], sala=room_id)
 
 
 async def on_invite_answer(player_id, message):
     room_id = message.get("sala")
-    if room_id not in rooms:
+    # Só responde quem foi convidado. Sem isso, qualquer jogador que adivinhasse o id da
+    # sala entraria nela e passaria a receber e mandar mensagens da dungeon dos outros.
+    if room_id not in rooms or player_id not in rooms[room_id]["invited"]:
         return
+    rooms[room_id]["invited"].discard(player_id)
     if not message.get("aceita", False):
         await send(rooms[room_id]["host"], "convite_recusado", de=player_id, nome=players[player_id]["name"])
         return

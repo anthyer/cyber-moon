@@ -42,6 +42,22 @@ async def run():
         assert (await receive(ana, "chat"))["texto"] == "oi"
         print("ok: chat chega a todos")
 
+        # Sem convite, ninguém entra numa sala, mesmo sabendo o id dela.
+        async with websockets.connect(URL) as intruso:
+            await send(intruso, "entrar", nome="Intruso")
+            await receive(intruso, "bem_vindo")
+            await send(ana, "convidar", para=beto_id)
+            first_invite = await receive(beto, "convite")
+            await send(intruso, "responder_convite", sala=first_invite["sala"], aceita=True)
+            await send(beto, "responder_convite", sala=first_invite["sala"], aceita=False)
+            assert (await receive(ana, "convite_recusado"))["de"] == beto_id
+            try:
+                await asyncio.wait_for(receive(intruso, "sala_atualizada"), timeout=0.5)
+                raise AssertionError("o intruso entrou na sala sem convite")
+            except asyncio.TimeoutError:
+                pass
+        print("ok: sem convite não entra na sala, e a recusa chega ao anfitrião")
+
         await send(ana, "convidar", para=beto_id)
         invite = await receive(beto, "convite")
         assert invite["de"] == ana_id
