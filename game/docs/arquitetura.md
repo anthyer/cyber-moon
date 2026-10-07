@@ -426,7 +426,8 @@ Cada clima tem um `PerfilClima` (`scripts/resources/perfil_clima.gd`, um `.tres`
 em `resources/climas/`). Quem reage escuta `WeatherManager.weather_changed`:
 
 - **Solo:** no amanhecer com clima que `molha_o_solo`, a `GradeSolo` molha todo o solo
-  arado. Ela faz isso no fim do próprio `day_started`, depois de o dia secar o solo.
+  arado. Ela faz isso no fim do próprio `day_started`, depois de o dia secar o solo. A terra
+  arada com a chuva já caindo molha sozinha depois de `segundos_para_a_chuva_molhar`.
 - **Luz e névoa:** o `IluminacaoDoCiclo` multiplica a energia e a cor pelo clima, por cima
   da estação, e liga a névoa do `WorldEnvironment` com a densidade do perfil. A sombra do
   sol fica difusa: mais clara (`opacidade_da_sombra`) e de borda borrada

@@ -23,6 +23,14 @@ var _plantas: Dictionary = {}
 ## custa caro, então cada cultivo é medido uma vez só.
 var _margem_inferior_por_cultivo: Dictionary = {}
 
+## Terra que ficou seca com a chuva caindo (arada agora, por exemplo) e ainda não
+## molhou: célula para os segundos que faltam.
+var _secas_na_chuva: Dictionary[Vector2i, float] = {}
+
+## Quanto tempo a chuva leva para molhar a terra que foi arada com ela já caindo. Não é
+## na hora, para dar para ver a terra seca virar molhada.
+@export var segundos_para_a_chuva_molhar: float = 3.0
+
 @export var limite: Rect2i = Rect2i(Vector2i(-15, -15), Vector2i(30, 30))
 
 @export_group("Visual da planta")
@@ -182,6 +190,20 @@ func _ao_mudar_clima(_clima: StringName) -> void:
 func _molhar_se_estiver_chovendo() -> void:
 	if WeatherManager.esta_chovendo():
 		molhar_todo_o_solo()
+	else:
+		# Parou de chover: o que ainda estava esperando fica seco.
+		_secas_na_chuva.clear()
+
+## Conta o tempo da terra que ficou seca com a chuva caindo, e a molha quando o tempo
+## acaba. A fila costuma estar vazia, então isto quase nunca faz nada.
+func _process(delta: float) -> void:
+	if _secas_na_chuva.is_empty():
+		return
+	for celula: Vector2i in _secas_na_chuva.keys():
+		_secas_na_chuva[celula] -= delta
+		if _secas_na_chuva[celula] <= 0.0:
+			# molhar() troca o estado, e a troca tira a célula da fila.
+			molhar(celula)
 
 func aplicar(id_acao: StringName, celula: Vector2i) -> bool:
 	match id_acao:
@@ -204,6 +226,12 @@ func _definir_estado(celula: Vector2i, novo_estado: EstadoTile) -> void:
 		_estado.erase(celula)
 	else:
 		_estado[celula] = novo_estado
+	# Toda mudança de estado passa por aqui, então é aqui que a célula entra e sai da fila
+	# da chuva: entra ao ficar seca com chuva, e sai ao molhar ou ao ser desfeita.
+	if novo_estado == EstadoTile.ARADO_SECO and WeatherManager.esta_chovendo():
+		_secas_na_chuva[celula] = segundos_para_a_chuva_molhar
+	else:
+		_secas_na_chuva.erase(celula)
 	_atualizar_variante(celula)
 	_atualizar_variante(celula + Vector2i.LEFT)
 	_atualizar_variante(celula + Vector2i.RIGHT)
