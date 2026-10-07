@@ -1,0 +1,102 @@
+extends Node
+
+## Conduz a conversa com um NPC: escolhe a fala do dia, avança e encerra.
+##
+## Cada NPC tem uma Conversa (resources/dialogue/<id>.tres) com todas as falas dele. A
+## fala do dia é uma só por NPC: falar de novo no mesmo dia repete, e no dia seguinte
+## muda. Durante a conversa o relógio para, mas o jogo não pausa, para os personagens
+## continuarem animados.
+##
+## Este autoload não desenha nada. A tela (CaixaDialogo) escuta os sinais.
+
+signal dialogue_started(npc: Npc)
+signal dialogue_ended(npc_id: String)
+signal line_shown(no: NoDialogo)
+
+const PASTA_DAS_CONVERSAS: String = "res://resources/dialogue/"
+const ID_DO_JOGADOR: String = "jogador"
+## Logo depois de abrir, o avançar é ignorado por este tempo. O mesmo aperto de botão que
+## começou a conversa ainda está "recém-apertado" e pularia a primeira fala.
+const SEGUNDOS_DE_TRAVA_AO_ABRIR: float = 0.2
+
+var em_dialogo: bool = false
+## O NPC com quem o jogador está falando. Null fora de diálogo.
+var interlocutor: Npc
+
+var _conversa: Conversa
+var _no_atual: NoDialogo
+var _relogio_estava_congelado: bool = false
+var _aberto_em_ms: int = 0
+
+## Começa a conversa do dia com o NPC. Sem falas que sirvam, não acontece nada.
+func iniciar(npc: Npc) -> void:
+	if em_dialogo or npc == null or npc.perfil == null or StatusManager.esta_desmaiado:
+		return
+	var conversa: Conversa = conversa_de(npc.perfil.id)
+	var fala: NoDialogo = fala_do_dia(npc.perfil.id)
+	if conversa == null or fala == null:
+		return
+	em_dialogo = true
+	interlocutor = npc
+	_conversa = conversa
+	_aberto_em_ms = Time.get_ticks_msec()
+	# Guarda como o relógio estava, para não soltá-lo ao fim se outro sistema (a dungeon,
+	# o menu de debug) já o tinha parado.
+	_relogio_estava_congelado = DayCycleManager.tempo_congelado
+	DayCycleManager.tempo_congelado = true
+	dialogue_started.emit(npc)
+	_mostrar(fala)
+
+## Passa para a próxima fala, ou encerra quando a atual não tem continuação.
+func avancar() -> void:
+	if not em_dialogo or Time.get_ticks_msec() - _aberto_em_ms < int(SEGUNDOS_DE_TRAVA_AO_ABRIR * 1000.0):
+		return
+	var proximo: NoDialogo = null
+	if not _no_atual.proximos_nos.is_empty():
+		proximo = _conversa.no_por_id(_no_atual.proximos_nos[0])
+	if proximo == null:
+		encerrar()
+	else:
+		_mostrar(proximo)
+
+func encerrar() -> void:
+	if not em_dialogo:
+		return
+	var npc_id: String = interlocutor.perfil.id if is_instance_valid(interlocutor) else ""
+	em_dialogo = false
+	interlocutor = null
+	_conversa = null
+	_no_atual = null
+	DayCycleManager.tempo_congelado = _relogio_estava_congelado
+	dialogue_ended.emit(npc_id)
+
+func conversa_de(npc_id: String) -> Conversa:
+	var caminho: String = PASTA_DAS_CONVERSAS + npc_id + ".tres"
+	if not ResourceLoader.exists(caminho):
+		return null
+	return load(caminho) as Conversa
+
+## A fala que abre a conversa de hoje com este NPC. O número do dia entra na conta no
+## lugar de um sorteio: assim a fala é a mesma o dia inteiro e muda no dia seguinte.
+## Somar o hash do id evita que todos os NPCs troquem de fala em sincronia.
+func fala_do_dia(npc_id: String) -> NoDialogo:
+	var conversa: Conversa = conversa_de(npc_id)
+	if conversa == null:
+		return null
+	var candidatos: Array[NoDialogo] = conversa.candidatos(relacionamento_com(npc_id), SeasonManager.estacao_atual())
+	if candidatos.is_empty():
+		return null
+	var indice: int = (DayCycleManager.numero_do_dia + absi(npc_id.hash())) % candidatos.size()
+	return candidatos[indice]
+
+## Os pontos de relacionamento com o NPC. Por enquanto é o valor inicial do perfil; o
+## plano 16 (amizade) troca esta função pela consulta ao sistema dele.
+func relacionamento_com(npc_id: String) -> int:
+	for perfil in ElencoDeNpcs.carregar_perfis():
+		if perfil.id == npc_id:
+			return perfil.relacionamento_inicial
+	return 0
+
+func _mostrar(no: NoDialogo) -> void:
+	_no_atual = no
+	line_shown.emit(no)

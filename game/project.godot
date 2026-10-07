@@ -32,6 +32,7 @@ NetworkManager="*res://scripts/core/network_manager.gd"
 ChatManager="*res://scripts/core/chat_manager.gd"
 LobbyManager="*res://scripts/core/lobby_manager.gd"
 DungeonManager="*res://scripts/core/dungeon_manager.gd"
+DialogueManager="*res://scripts/core/dialogue_manager.gd"
 
 [display]
 
