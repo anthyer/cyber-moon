@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/coop/jogador_remoto.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_male_a.glb" id="2_modelo"]
+[ext_resource type="PackedScene" path="res://scenes/combat/reacao_a_dano.tscn" id="3_reacao"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_corpo"]
+radius = 0.25
+height = 0.7
+
+[node name="JogadorRemoto" type="AnimatableBody3D"]
+collision_layer = 2
+collision_mask = 0
+sync_to_physics = false
+script = ExtResource("1_script")
+
+[node name="Modelo" parent="." instance=ExtResource("2_modelo")]
+
+[node name="FormaColisao" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+shape = SubResource("CapsuleShape3D_corpo")
+
+[node name="Nome" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+pixel_size = 0.004
+billboard = 1
+no_depth_test = true
+modulate = Color(0.75, 0.97, 1, 1)
+outline_modulate = Color(0.03, 0.04, 0.08, 1)
+text = "Jogador"
+font_size = 40
+outline_size = 10
+
+[node name="ReacaoADano" parent="." instance=ExtResource("3_reacao")]
+forca_do_empurrao = 0.0
+duracao_do_empurrao = 0.0
+caminho_do_modelo = NodePath("../Modelo")

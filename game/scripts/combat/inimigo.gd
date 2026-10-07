@@ -13,13 +13,19 @@ extends CharacterBody3D
 ##   ATACANDO    -> golpe e intervalo terminaram            -> PERSEGUINDO
 ##   qualquer    -> vida chegou a zero                      -> MORRENDO
 ##
-## Anda em linha reta até o jogador, sem desviar de obstáculo. Navegação está fora do
-## escopo do plano 09.
+## Persegue pela malha de navegação da fase, contornando obstáculo (plano 14). Na dungeon
+## em equipe ele pode ser fantoche do inimigo do anfitrião (plano 22); veja a parte de
+## rede no fim do script.
 ##
 ## Na cena, o inimigo (e o jogador) só aceitam a camada mundo como chão de plataforma
 ## (platform_floor_layers = 1). Sem isso, quando um personagem encosta no outro, a
 ## cápsula de um sobe na do outro, a física trata quem está andando como plataforma em
 ## movimento e arremessa quem está em cima.
+
+## Emitido quando o inimigo cai, antes de sumir. A dungeon usa para avisar os outros jogos.
+signal defeated(inimigo: Inimigo)
+## Só no modo fantoche: este jogo acertou o inimigo, e quem tira a vida é o anfitrião.
+signal puppet_hit(numero_na_rede: int, quantidade: int)
 
 enum Estado { OCIOSO, PERSEGUINDO, ATACANDO, MORRENDO }
 
@@ -42,11 +48,24 @@ const DISTANCIA_PARA_CHEGAR_NO_PONTO: float = 0.3
 const DISTANCIA_PARA_REFAZER_O_CAMINHO: float = 0.5
 ## Se não houver ponto de patrulha, o inimigo patrulha até este deslocamento a partir de
 ## onde nasceu.
+const GRUPO_DE_ALVOS: StringName = &"alvos_de_inimigo"
+## De quanto em quanto tempo ele reconsidera quem é o jogador mais perto.
+const SEGUNDOS_ENTRE_ESCOLHAS_DE_ALVO: float = 0.3
+## O fantoche segue a posição que chega pela rede com esta suavidade, porque as
+## mensagens vêm umas 10 vezes por segundo e sem isso ele andaria aos pulos.
+const SUAVIDADE_DO_FANTOCHE: float = 12.0
 const PATRULHA_PADRAO: Vector3 = Vector3(4.0, 0.0, 0.0)
 
 @export var perfil: PerfilInimigo
 ## Segundo ponto da patrulha. O primeiro é onde o inimigo nasceu.
 @export var caminho_do_ponto_de_patrulha: NodePath
+## Na dungeon em equipe, o inimigo é de verdade só no jogo do anfitrião. Nos outros ele é
+## fantoche: não pensa, só mostra o que o anfitrião manda e repassa o golpe que leva.
+var fantoche: bool = false
+## O número deste inimigo na dungeon, igual em todos os jogos. É como as mensagens da
+## rede dizem de qual inimigo estão falando.
+var numero_na_rede: int = -1
+
 @export var gravidade: float = 24.0
 @export var velocidade_de_giro: float = 8.0
 
@@ -71,6 +90,10 @@ var _tempo_do_golpe: float = 0.0
 var _duracao_do_golpe: float = 0.0
 var _golpe_ja_acertou: bool = false
 var _tempo_ate_poder_atacar: float = 0.0
+var _segundos_ate_escolher_alvo: float = 0.0
+## Modo fantoche: para onde ir e para onde olhar, conforme a última mensagem.
+var _posicao_da_rede: Vector3
+var _giro_da_rede: float = 0.0
 
 func _ready() -> void:
 	_ponto_de_origem = global_position
@@ -83,6 +106,7 @@ func _ready() -> void:
 		push_warning("Inimigo sem perfil: %s" % name)
 		return
 	vida_atual = perfil.vida_maxima
+	_posicao_da_rede = position
 	_montar_modelo()
 	_reacao.ligar_modelo(_modelo)
 
@@ -91,7 +115,10 @@ func _physics_process(delta: float) -> void:
 		_aplicar_gravidade(delta)
 		move_and_slide()
 		return
-	_procurar_jogador()
+	if fantoche:
+		_seguir_a_rede(delta)
+		return
+	_procurar_jogador(delta)
 	_tempo_ate_poder_atacar = maxf(_tempo_ate_poder_atacar - delta, 0.0)
 
 	match estado:
@@ -115,6 +142,12 @@ func _physics_process(delta: float) -> void:
 ## contar várias vezes.
 func receber_dano(quantidade: int, origem: Node3D) -> void:
 	if estado == Estado.MORRENDO or not _reacao.pode_levar_dano():
+		return
+	if fantoche:
+		# O clarão aparece na hora, para o golpe ter resposta; a vida quem tira é o
+		# anfitrião, e a nova vida volta na próxima mensagem dele.
+		_reacao.reagir(origem.global_position if origem != null else global_position)
+		puppet_hit.emit(numero_na_rede, quantidade)
 		return
 	vida_atual = maxi(vida_atual - quantidade, 0)
 	var posicao_de_quem_bateu: Vector3 = origem.global_position if origem != null else global_position
@@ -225,6 +258,7 @@ func _morrer() -> void:
 	_animacao.play(&"die")
 	StatusManager.ganhar_experiencia(perfil.experiencia_concedida)
 	EventBus.enemy_defeated.emit(perfil, global_position)
+	defeated.emit(self)
 	await get_tree().create_timer(_animacao.get_animation(&"die").length + 0.6).timeout
 	_soltar_drop()
 	queue_free()
@@ -256,10 +290,54 @@ func _montar_modelo() -> void:
 
 ## O jogador é achado pelo grupo, e não por caminho fixo, para o inimigo funcionar em
 ## qualquer fase.
-func _procurar_jogador() -> void:
-	if _jogador != null and is_instance_valid(_jogador):
+## Em equipe há mais de um jogador (o local e os fantoches dos outros, todos no grupo de
+## alvos), e o inimigo vai atrás do mais perto. A escolha é refeita de tempos em tempos, e
+## não a cada quadro, porque percorrer o grupo todo quadro para cada inimigo é desperdício.
+func _procurar_jogador(delta: float) -> void:
+	_segundos_ate_escolher_alvo -= delta
+	if _jogador != null and is_instance_valid(_jogador) and _segundos_ate_escolher_alvo > 0.0:
 		return
-	_jogador = get_tree().get_first_node_in_group(&"jogador") as Node3D
+	_segundos_ate_escolher_alvo = SEGUNDOS_ENTRE_ESCOLHAS_DE_ALVO
+	var mais_perto: Node3D = null
+	var menor_distancia: float = INF
+	for no in get_tree().get_nodes_in_group(GRUPO_DE_ALVOS):
+		var alvo: Node3D = no as Node3D
+		if alvo == null or alvo.is_queued_for_deletion():
+			continue
+		var distancia: float = _distancia_ate(alvo)
+		if distancia < menor_distancia:
+			menor_distancia = distancia
+			mais_perto = alvo
+	_jogador = mais_perto
+
+# Rede: o inimigo na dungeon em equipe
+
+## O que o anfitrião manda de cada inimigo: número, posição (relativa à dungeon), giro do
+## modelo, animação e vida. Vai como lista, e não dicionário, para a mensagem ficar curta.
+func estado_para_a_rede() -> Array:
+	return [numero_na_rede, snappedf(position.x, 0.01), snappedf(position.y, 0.01), snappedf(position.z, 0.01), snappedf(_modelo.rotation.y, 0.01), String(_animacao.current_animation), vida_atual]
+
+func aplicar_estado_da_rede(dados: Array) -> void:
+	if estado == Estado.MORRENDO:
+		return
+	_posicao_da_rede = Vector3(dados[1], dados[2], dados[3])
+	_giro_da_rede = dados[4]
+	vida_atual = int(dados[6])
+	var clipe: StringName = StringName(dados[5])
+	if clipe != &"" and _animacao.has_animation(clipe):
+		_tocar(clipe)
+
+## O anfitrião avisou que este inimigo caiu. A queda é a mesma do inimigo de verdade:
+## cada jogo ganha a experiência e sorteia o próprio saque.
+func morrer_pela_rede() -> void:
+	if estado != Estado.MORRENDO:
+		vida_atual = 0
+		_morrer()
+
+func _seguir_a_rede(delta: float) -> void:
+	var peso: float = minf(SUAVIDADE_DO_FANTOCHE * delta, 1.0)
+	position = position.lerp(_posicao_da_rede, peso)
+	_modelo.rotation.y = lerp_angle(_modelo.rotation.y, _giro_da_rede, peso)
 
 ## Anda até o destino. Pela malha de navegação ele contorna prédio e cerca em vez de
 ## encostar na parede; sem ela, vai em linha reta.

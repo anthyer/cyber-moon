@@ -66,6 +66,9 @@ var _desmaiado: bool = false
 func _ready() -> void:
 	# Os inimigos acham o jogador por este grupo, sem depender do caminho na cena.
 	add_to_group(&"jogador")
+	# Os inimigos escolhem o alvo mais perto neste grupo, onde também entram os fantoches
+	# dos outros jogadores na dungeon em equipe.
+	add_to_group(&"alvos_de_inimigo")
 	StatusManager.player_fainted.connect(_ao_desmaiar)
 	StatusManager.player_woke_up.connect(_ao_acordar)
 	# O modelo na mão acompanha o item na mão, que muda ao trocar de slot e também ao
