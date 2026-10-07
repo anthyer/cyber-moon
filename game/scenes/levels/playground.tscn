@@ -86,10 +86,14 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/calendario.tscn" id="110_calendario"]
 [ext_resource type="PackedScene" path="res://scenes/world/quadro_calendario.tscn" id="111_quadro"]
 [ext_resource type="PackedScene" path="res://scenes/effects/chuva.tscn" id="112_chuva"]
-[ext_resource type="Script" path="res://scripts/world/raios_da_tempestade.gd" id="113_raios"]
+[ext_resource type="Script" uid="uid://djblb5u1uhcnx" path="res://scripts/world/raios_da_tempestade.gd" id="113_raios"]
 [ext_resource type="NavigationMesh" path="res://resources/navigation/playground.tres" id="114_malha"]
-[ext_resource type="Script" path="res://scripts/world/regiao_de_navegacao.gd" id="115_regiao"]
-[ext_resource type="Script" path="res://scripts/npcs/elenco_de_npcs.gd" id="116_elenco"]
+[ext_resource type="Script" uid="uid://cfvfv0wreh5ku" path="res://scripts/world/regiao_de_navegacao.gd" id="115_regiao"]
+[ext_resource type="Script" uid="uid://btpw0rke3kti3" path="res://scripts/npcs/elenco_de_npcs.gd" id="116_elenco"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_chat.tscn" id="117_hud_chat"]
+[ext_resource type="PackedScene" path="res://scenes/ui/tela_de_lobby.tscn" id="118_lobby"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_convite.tscn" id="119_convite"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="120_portal"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -176,7 +180,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, 0.5, 5.5)
 
 [node name="MenuPausa" parent="InterfaceHUD" unique_id=2111358796 instance=ExtResource("94_menu_pausa")]
 
-[node name="Calendario" parent="InterfaceHUD" instance=ExtResource("110_calendario")]
+[node name="Calendario" parent="InterfaceHUD" unique_id=1169506643 instance=ExtResource("110_calendario")]
+
+[node name="HudChat" parent="InterfaceHUD" instance=ExtResource("117_hud_chat")]
+
+[node name="TelaDeLobby" parent="InterfaceHUD" instance=ExtResource("118_lobby")]
+
+[node name="HudConvite" parent="InterfaceHUD" instance=ExtResource("119_convite")]
 
 [node name="TelaDeDesmaio" parent="InterfaceHUD" unique_id=2083079390 instance=ExtResource("97_tela_de_desmaio")]
 
@@ -1381,65 +1391,68 @@ material_da_grama = SubResource("StandardMaterial3D_grama")
 [node name="Cama" parent="." unique_id=83658758 instance=ExtResource("106_cama")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1, 0, 5.1)
 
-[node name="QuadroCalendario" parent="." instance=ExtResource("111_quadro")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0, 0, 5.3)
+[node name="QuadroCalendario" parent="." unique_id=1867915438 instance=ExtResource("111_quadro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 5.3)
 
-[node name="Chuva" parent="." instance=ExtResource("112_chuva")]
+[node name="Chuva" parent="." unique_id=648562708 instance=ExtResource("112_chuva")]
 
-[node name="RaiosDaTempestade" type="Node" parent="."]
+[node name="RaiosDaTempestade" type="Node" parent="." unique_id=1033105781]
 script = ExtResource("113_raios")
 
-[node name="RegiaoDeNavegacao" type="NavigationRegion3D" parent="."]
+[node name="RegiaoDeNavegacao" type="NavigationRegion3D" parent="." unique_id=70862862]
 navigation_mesh = ExtResource("114_malha")
 script = ExtResource("115_regiao")
 limite_do_chao = Rect2(-13.7, -23, 39.8, 36.8)
 
-[node name="PontosDeRotina" type="Node3D" parent="." groups=["pontos_de_rotina"]]
+[node name="PontosDeRotina" type="Node3D" parent="." unique_id=1530355928 groups=["pontos_de_rotina"]]
 
-[node name="casa_vitor" type="Marker3D" parent="PontosDeRotina"]
+[node name="casa_vitor" type="Marker3D" parent="PontosDeRotina" unique_id=146526719]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7, 0.3, 5.2)
 
-[node name="casa_marta" type="Marker3D" parent="PontosDeRotina"]
+[node name="casa_marta" type="Marker3D" parent="PontosDeRotina" unique_id=1393644973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4, 0.3, 5.2)
 
-[node name="casa_kenji" type="Marker3D" parent="PontosDeRotina"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8, 0.3, 9.0)
+[node name="casa_kenji" type="Marker3D" parent="PontosDeRotina" unique_id=1822505250]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8, 0.3, 9)
 
-[node name="casa_rafa" type="Marker3D" parent="PontosDeRotina"]
+[node name="casa_rafa" type="Marker3D" parent="PontosDeRotina" unique_id=1181345208]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8, 0.3, 10.3)
 
-[node name="casa_iara" type="Marker3D" parent="PontosDeRotina"]
+[node name="casa_iara" type="Marker3D" parent="PontosDeRotina" unique_id=685928989]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.1, 0.3, 9.6)
 
-[node name="casa_sol" type="Marker3D" parent="PontosDeRotina"]
+[node name="casa_sol" type="Marker3D" parent="PontosDeRotina" unique_id=932837585]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8, 0.3, 10.6)
 
-[node name="oficina" type="Marker3D" parent="PontosDeRotina"]
+[node name="oficina" type="Marker3D" parent="PontosDeRotina" unique_id=599205079]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 0.3, -8.5)
 
-[node name="mercado" type="Marker3D" parent="PontosDeRotina"]
+[node name="mercado" type="Marker3D" parent="PontosDeRotina" unique_id=883680970]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3, 0.3, -6.2)
 
-[node name="clinica" type="Marker3D" parent="PontosDeRotina"]
+[node name="clinica" type="Marker3D" parent="PontosDeRotina" unique_id=630911220]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3, 0.3, -7.6)
 
-[node name="torre_antena" type="Marker3D" parent="PontosDeRotina"]
+[node name="torre_antena" type="Marker3D" parent="PontosDeRotina" unique_id=1827850809]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0.3, -5.2)
 
-[node name="posto_entrega" type="Marker3D" parent="PontosDeRotina"]
+[node name="posto_entrega" type="Marker3D" parent="PontosDeRotina" unique_id=1072623553]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 0.3, -9.5)
 
-[node name="mirante" type="Marker3D" parent="PontosDeRotina"]
+[node name="mirante" type="Marker3D" parent="PontosDeRotina" unique_id=24598282]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5, 0.3, 0.2)
 
-[node name="praca" type="Marker3D" parent="PontosDeRotina"]
+[node name="praca" type="Marker3D" parent="PontosDeRotina" unique_id=549526006]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7, 0.3, 8.3)
 
-[node name="ponte" type="Marker3D" parent="PontosDeRotina"]
+[node name="ponte" type="Marker3D" parent="PontosDeRotina" unique_id=329818227]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06, 0.3, 6.1)
 
-[node name="beira_rio" type="Marker3D" parent="PontosDeRotina"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0, 0.3, 8.6)
+[node name="beira_rio" type="Marker3D" parent="PontosDeRotina" unique_id=1469846481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.3, 8.6)
 
-[node name="ElencoDeNpcs" type="Node3D" parent="."]
+[node name="ElencoDeNpcs" type="Node3D" parent="." unique_id=2040114407]
 script = ExtResource("116_elenco")
+
+[node name="PortalDaDungeon" parent="." instance=ExtResource("120_portal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, 0, 8.6)
