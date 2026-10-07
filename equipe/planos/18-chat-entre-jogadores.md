@@ -12,6 +12,43 @@ Não depende de nenhum dos planos 01-17 para funcionar, e pode ser feita em para
 - Preparação do repositório, cena básica do Godot (Playground) e barramento de eventos (`EventBus`).
 - **Front-end Godot (UI e Lógica do Chat):** A criação do painel (`chat.tscn`), do `ChatManager` e dos sinais de `EventBus` já está sendo desenvolvida no lado do cliente. As próximas sprints têm foco exclusivo na infraestrutura AWS (back-end).
 
+## Nota de 2026-10-06: o lado do Godot está pronto, e define o protocolo
+
+O lado do jogo foi feito nos planos 21 (rede e chat) e 22 (dungeon em coop), e roda hoje
+contra um servidor local que imita o API Gateway: `backend/servidor_local/servidor.py`.
+Para rodar e testar, veja `backend/servidor_local/leiame.md`.
+
+**As Lambdas das sprints abaixo precisam falar o protocolo do plano 21**
+(`equipe/planos/21-rede-e-chat.md`, seção "O protocolo"). O servidor local é a referência
+do que cada rota faz, e `backend/servidor_local/testar_protocolo.py` confere todas. O que
+muda em relação ao que está escrito abaixo:
+
+| Ponto | Escrito abaixo | O que o jogo fala hoje |
+|---|---|---|
+| Rota de chat | `sendmessage` | `chat` (campo `texto`); a resposta vai a todos como `chat` (`de`, `nome`, `texto`) |
+| Entrada | o `$connect` só registra o `connection_id` | depois de conectar, o jogo manda `entrar` com o `nome` e espera `bem_vindo` com o `id` e a lista `online` |
+| Presença | não prevista | `jogador_entrou` e `jogador_saiu` para todos os conectados |
+| Salas da dungeon | não previstas | rotas `convidar`, `responder_convite`, `sair_da_sala`, `iniciar_dungeon` e `sala` |
+| Seleção de rota | | o campo `action` da mensagem (`routeSelectionExpression` igual a `$request.body.action`) |
+| No Godot | `chat.tscn` e `ChatManager` em desenvolvimento | feito: `NetworkManager` (conexão), `ChatManager` (histórico), `HudChat` (tela), `LobbyManager` (salas) |
+
+Consequências para as sprints:
+
+- **Sprint 3.** A tabela de conexões guarda também o `nome` e a `sala` de cada conexão, e
+  entra uma tabela de salas (anfitrião, membros e convites sem resposta). Só quem foi
+  convidado pode entrar numa sala; o servidor local já recusa quem não foi.
+- **Sprint 3.** A rota `sala` é só repasse aos outros membros, sem gravar nada: é por ela
+  que passam a posição dos jogadores e dos inimigos, umas 20 mensagens por segundo por
+  jogador. Vale medir o custo antes de deixar ligado.
+- **Sprint 4.** O Antonio quer login com a conta Google no jogo final. No Cognito isso é
+  um provedor de identidade federado no User Pool, em vez de e-mail e senha. O `id` do
+  jogador passa a ser o `sub` do token, e o `nome` vem do perfil.
+- **Trocar para a AWS no jogo** é mudar o `endereco` em
+  `game/resources/rede/configuracao.tres` para a URL `wss://` exportada pelo Pulumi.
+
+Se for melhor mudar algum nome de rota do lado do jogo, é pouca coisa, mas precisa ser
+combinado antes de escrever as Lambdas, e muda junto no servidor local.
+
 ---
 
 ## Sprint 3: Banco de Dados e Lambda
