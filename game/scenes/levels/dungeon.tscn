@@ -1,0 +1,263 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/coop/dungeon.gd" id="1_dungeon"]
+[ext_resource type="Script" path="res://scripts/coop/ponto_de_inimigo.gd" id="2_ponto"]
+[ext_resource type="Resource" path="res://resources/combat/inimigos/drone_rastejador.tres" id="3_drone"]
+[ext_resource type="Resource" path="res://resources/combat/inimigos/ciborgue_operario.tres" id="4_ciborgue"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="5_portal"]
+[ext_resource type="Script" path="res://scripts/world/regiao_de_navegacao.gd" id="6_regiao"]
+[ext_resource type="NavigationMesh" path="res://resources/navigation/dungeon.tres" id="7_malha"]
+
+[sub_resource type="StandardMaterial3D" id="Material_chao"]
+albedo_color = Color(0.2, 0.22, 0.3, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Material_parede"]
+albedo_color = Color(0.12, 0.13, 0.2, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Malha_Chao"]
+material = SubResource("Material_chao")
+size = Vector3(26.0, 1, 26.0)
+
+[sub_resource type="BoxShape3D" id="Forma_Chao"]
+size = Vector3(26.0, 1, 26.0)
+
+[sub_resource type="BoxMesh" id="Malha_ParedeNorte"]
+material = SubResource("Material_parede")
+size = Vector3(26.0, 2.4, 0.6)
+
+[sub_resource type="BoxShape3D" id="Forma_ParedeNorte"]
+size = Vector3(26.0, 2.4, 0.6)
+
+[sub_resource type="BoxMesh" id="Malha_ParedeSul"]
+material = SubResource("Material_parede")
+size = Vector3(26.0, 2.4, 0.6)
+
+[sub_resource type="BoxShape3D" id="Forma_ParedeSul"]
+size = Vector3(26.0, 2.4, 0.6)
+
+[sub_resource type="BoxMesh" id="Malha_ParedeOeste"]
+material = SubResource("Material_parede")
+size = Vector3(0.6, 2.4, 26.0)
+
+[sub_resource type="BoxShape3D" id="Forma_ParedeOeste"]
+size = Vector3(0.6, 2.4, 26.0)
+
+[sub_resource type="BoxMesh" id="Malha_ParedeLeste"]
+material = SubResource("Material_parede")
+size = Vector3(0.6, 2.4, 26.0)
+
+[sub_resource type="BoxShape3D" id="Forma_ParedeLeste"]
+size = Vector3(0.6, 2.4, 26.0)
+
+[sub_resource type="BoxMesh" id="Malha_Pilar1"]
+material = SubResource("Material_parede")
+size = Vector3(1.5, 2.4, 1.5)
+
+[sub_resource type="BoxShape3D" id="Forma_Pilar1"]
+size = Vector3(1.5, 2.4, 1.5)
+
+[sub_resource type="BoxMesh" id="Malha_Pilar2"]
+material = SubResource("Material_parede")
+size = Vector3(1.5, 2.4, 1.5)
+
+[sub_resource type="BoxShape3D" id="Forma_Pilar2"]
+size = Vector3(1.5, 2.4, 1.5)
+
+[sub_resource type="BoxMesh" id="Malha_Pilar3"]
+material = SubResource("Material_parede")
+size = Vector3(1.5, 2.4, 1.5)
+
+[sub_resource type="BoxShape3D" id="Forma_Pilar3"]
+size = Vector3(1.5, 2.4, 1.5)
+
+[sub_resource type="BoxMesh" id="Malha_Pilar4"]
+material = SubResource("Material_parede")
+size = Vector3(1.5, 2.4, 1.5)
+
+[sub_resource type="BoxShape3D" id="Forma_Pilar4"]
+size = Vector3(1.5, 2.4, 1.5)
+
+[sub_resource type="BoxMesh" id="Malha_Muro"]
+material = SubResource("Material_parede")
+size = Vector3(7, 2.4, 0.7)
+
+[sub_resource type="BoxShape3D" id="Forma_Muro"]
+size = Vector3(7, 2.4, 0.7)
+
+[node name="Dungeon" type="Node3D"]
+script = ExtResource("1_dungeon")
+
+[node name="Cenario" type="Node3D" parent="."]
+
+[node name="Chao" type="StaticBody3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+collision_mask = 0
+metadata/superficie = &"pedra"
+
+[node name="Malha" type="MeshInstance3D" parent="Cenario/Chao"]
+mesh = SubResource("Malha_Chao")
+
+[node name="Forma" type="CollisionShape3D" parent="Cenario/Chao"]
+shape = SubResource("Forma_Chao")
+
+[node name="ParedeNorte" type="StaticBody3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -13.0)
+collision_mask = 0
+
+[node name="Malha" type="MeshInstance3D" parent="Cenario/ParedeNorte"]
+mesh = SubResource("Malha_ParedeNorte")
+
+[node name="Forma" type="CollisionShape3D" parent="Cenario/ParedeNorte"]
+shape = SubResource("Forma_ParedeNorte")
+
+[node name="ParedeSul" type="StaticBody3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 13.0)
+collision_mask = 0
+
+[node name="Malha" type="MeshInstance3D" parent="Cenario/ParedeSul"]
+mesh = SubResource("Malha_ParedeSul")
+
+[node name="Forma" type="CollisionShape3D" parent="Cenario/ParedeSul"]
+shape = SubResource("Forma_ParedeSul")
+
+[node name="ParedeOeste" type="StaticBody3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0, 1.2, 0)
+collision_mask = 0
+
+[node name="Malha" type="MeshInstance3D" parent="Cenario/ParedeOeste"]
+mesh = SubResource("Malha_ParedeOeste")
+
+[node name="Forma" type="CollisionShape3D" parent="Cenario/ParedeOeste"]
+shape = SubResource("Forma_ParedeOeste")
+
+[node name="ParedeLeste" type="StaticBody3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0, 1.2, 0)
+collision_mask = 0
+
+[node name="Malha" type="MeshInstance3D" parent="Cenario/ParedeLeste"]
+mesh = SubResource("Malha_ParedeLeste")
+
+[node name="Forma" type="CollisionShape3D" parent="Cenario/ParedeLeste"]
+shape = SubResource("Forma_ParedeLeste")
+
+[node name="Pilar1" type="StaticBody3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.2, 3)
+collision_mask = 0
+
+[node name="Malha" type="MeshInstance3D" parent="Cenario/Pilar1"]
+mesh = SubResource("Malha_Pilar1")
+
+[node name="Forma" type="CollisionShape3D" parent="Cenario/Pilar1"]
+shape = SubResource("Forma_Pilar1")
+
+[node name="Pilar2" type="StaticBody3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.2, 3)
+collision_mask = 0
+
+[node name="Malha" type="MeshInstance3D" parent="Cenario/Pilar2"]
+mesh = SubResource("Malha_Pilar2")
+
+[node name="Forma" type="CollisionShape3D" parent="Cenario/Pilar2"]
+shape = SubResource("Forma_Pilar2")
+
+[node name="Pilar3" type="StaticBody3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.2, -4)
+collision_mask = 0
+
+[node name="Malha" type="MeshInstance3D" parent="Cenario/Pilar3"]
+mesh = SubResource("Malha_Pilar3")
+
+[node name="Forma" type="CollisionShape3D" parent="Cenario/Pilar3"]
+shape = SubResource("Forma_Pilar3")
+
+[node name="Pilar4" type="StaticBody3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.2, -4)
+collision_mask = 0
+
+[node name="Malha" type="MeshInstance3D" parent="Cenario/Pilar4"]
+mesh = SubResource("Malha_Pilar4")
+
+[node name="Forma" type="CollisionShape3D" parent="Cenario/Pilar4"]
+shape = SubResource("Forma_Pilar4")
+
+[node name="Muro" type="StaticBody3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -2)
+collision_mask = 0
+
+[node name="Malha" type="MeshInstance3D" parent="Cenario/Muro"]
+mesh = SubResource("Malha_Muro")
+
+[node name="Forma" type="CollisionShape3D" parent="Cenario/Muro"]
+shape = SubResource("Forma_Muro")
+
+[node name="Luz1" type="OmniLight3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2.0, 6)
+light_color = Color(0.3, 0.95, 1, 1)
+light_energy = 2.0
+omni_range = 9.0
+
+[node name="Luz2" type="OmniLight3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 2.0, 6)
+light_color = Color(1, 0.3, 0.8, 1)
+light_energy = 2.0
+omni_range = 9.0
+
+[node name="Luz3" type="OmniLight3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0, -8)
+light_color = Color(1, 0.45, 0.3, 1)
+light_energy = 2.0
+omni_range = 9.0
+
+[node name="Luz4" type="OmniLight3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2.0, -9)
+light_color = Color(0.3, 0.95, 1, 1)
+light_energy = 2.0
+omni_range = 9.0
+
+[node name="Luz5" type="OmniLight3D" parent="Cenario"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.0, -9)
+light_color = Color(1, 0.3, 0.8, 1)
+light_energy = 2.0
+omni_range = 9.0
+
+[node name="Entrada" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+
+[node name="Saida" parent="." instance=ExtResource("5_portal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.2)
+funcao = 1
+
+[node name="PontosDeInimigo" type="Node3D" parent="."]
+
+[node name="Ponto1" type="Marker3D" parent="PontosDeInimigo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.1, -7)
+script = ExtResource("2_ponto")
+perfil = ExtResource("3_drone")
+
+[node name="Ponto2" type="Marker3D" parent="PontosDeInimigo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.1, -7)
+script = ExtResource("2_ponto")
+perfil = ExtResource("3_drone")
+
+[node name="Ponto3" type="Marker3D" parent="PontosDeInimigo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.1, -9.5)
+script = ExtResource("2_ponto")
+perfil = ExtResource("4_ciborgue")
+
+[node name="Ponto4" type="Marker3D" parent="PontosDeInimigo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.1, -9.5)
+script = ExtResource("2_ponto")
+perfil = ExtResource("4_ciborgue")
+
+[node name="Ponto5" type="Marker3D" parent="PontosDeInimigo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -6)
+script = ExtResource("2_ponto")
+perfil = ExtResource("3_drone")
+
+[node name="RegiaoDeNavegacao" type="NavigationRegion3D" parent="."]
+navigation_mesh = ExtResource("7_malha")
+script = ExtResource("6_regiao")
+arquivo_da_malha = "res://resources/navigation/dungeon.tres"
+limite_do_chao = Rect2(-13, -13, 26, 26)

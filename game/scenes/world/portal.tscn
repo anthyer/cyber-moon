@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/portal.gd" id="1_script"]
+
+[sub_resource type="StandardMaterial3D" id="Material_arco"]
+albedo_color = Color(0.16, 0.18, 0.26, 1)
+roughness = 0.8
+
+[sub_resource type="TorusMesh" id="Malha_arco"]
+material = SubResource("Material_arco")
+inner_radius = 0.55
+outer_radius = 0.75
+rings = 24
+ring_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="Material_luz"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.3, 0.95, 1, 0.55)
+
+[sub_resource type="CylinderMesh" id="Malha_luz"]
+material = SubResource("Material_luz")
+top_radius = 0.55
+bottom_radius = 0.55
+height = 0.04
+radial_segments = 24
+
+[sub_resource type="SphereShape3D" id="Forma_da_area"]
+radius = 0.9
+
+[node name="Portal" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Arco" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.75, 0)
+mesh = SubResource("Malha_arco")
+
+[node name="Luz" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.75, 0)
+mesh = SubResource("Malha_luz")
+
+[node name="Brilho" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0.3)
+light_color = Color(0.3, 0.95, 1, 1)
+light_energy = 1.2
+omni_range = 3.0
+
+[node name="AreaDoPortal" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="FormaDaArea" type="CollisionShape3D" parent="AreaDoPortal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.3)
+shape = SubResource("Forma_da_area")

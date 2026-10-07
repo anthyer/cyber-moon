@@ -20,3 +20,8 @@ signal notice_requested(texto: String)
 signal calendar_requested
 ## Som de ambiente em loop, como a chuva. Nulo pede para parar o que estiver tocando.
 signal ambience_requested(fluxo: AudioStream)
+## O portal da fazenda pediu para abrir a tela de lobby da dungeon.
+signal lobby_requested
+## O jogador entrou ou saiu da dungeon. A luz, a chuva e o relógio reagem.
+signal dungeon_entered
+signal dungeon_left

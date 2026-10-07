@@ -15,6 +15,9 @@ var _jogador: Node3D
 
 func _ready() -> void:
 	WeatherManager.weather_changed.connect(_ao_mudar_clima)
+	# Dentro da dungeon não chove, seja qual for o clima lá fora.
+	EventBus.dungeon_entered.connect(func() -> void: emitting = false)
+	EventBus.dungeon_left.connect(_ao_mudar_clima.bind(&""))
 	_ao_mudar_clima(WeatherManager.clima_atual)
 
 func _process(_delta: float) -> void:
@@ -28,7 +31,7 @@ func _process(_delta: float) -> void:
 
 func _ao_mudar_clima(_clima: StringName) -> void:
 	var gotas: int = WeatherManager.perfil_atual().quantidade_de_gotas
-	if gotas <= 0:
+	if gotas <= 0 or DungeonManager.esta_na_dungeon():
 		emitting = false
 		return
 	# Mudar amount reinicia o emissor, então só troca quando o número muda de verdade.

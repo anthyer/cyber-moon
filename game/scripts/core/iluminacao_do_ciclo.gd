@@ -52,6 +52,13 @@ const HORA_DA_TABELA_QUE_ACOMPANHA_O_ANOITECER: float = DayCycleManager.HORA_ANO
 ## Folga mínima entre o ponto das 15:00 e o anoitecer, para a tarde não escurecer de uma vez.
 const FOLGA_ANTES_DO_ANOITECER: float = 1.5
 
+@export_group("Dungeon")
+## A luz de dentro da dungeon: fraca e fria, para as luzes próprias da cena aparecerem.
+@export var cor_da_luz_na_dungeon: Color = Color(0.55, 0.65, 1.0)
+@export var energia_do_sol_na_dungeon: float = 0.35
+@export var energia_do_ambiente_na_dungeon: float = 0.45
+@export var energia_do_ceu_na_dungeon: float = 0.05
+
 @onready var _luz: DirectionalLight3D = get_node(caminho_da_luz)
 @onready var _ambiente: WorldEnvironment = get_node(caminho_do_ambiente)
 
@@ -59,6 +66,8 @@ const FOLGA_ANTES_DO_ANOITECER: float = 1.5
 ## a luz é aplicada a cada quadro.
 var _estacao: PerfilEstacao
 var _pontos: Array = []
+## Dentro da dungeon não há dia, noite nem clima: a luz fica fixa nos valores abaixo.
+var _na_dungeon: bool = false
 ## Começo do trecho do dia em que a sombra está parada agora. Negativo força a primeira
 ## aplicação.
 ## O clima do dia (plano 13): escurece e tinge por cima da estação, e liga a névoa.
@@ -73,6 +82,8 @@ func _ready() -> void:
 	SeasonManager.season_changed.connect(_ao_mudar_estacao)
 	DayCycleManager.day_started.connect(_ao_comecar_o_dia)
 	WeatherManager.weather_changed.connect(_ao_mudar_clima)
+	EventBus.dungeon_entered.connect(_ao_entrar_na_dungeon)
+	EventBus.dungeon_left.connect(_ao_sair_da_dungeon)
 	# O clima primeiro, porque aplicar a estação já calcula a luz com os dois.
 	_ao_mudar_clima(WeatherManager.clima_atual)
 	_ao_mudar_estacao(SeasonManager.estacao_atual())
@@ -81,6 +92,24 @@ func _ready() -> void:
 ## A direção do sol, que é o que move a sombra, não: ela fica parada por um trecho do dia
 ## e só troca na virada do trecho.
 func _process(_delta: float) -> void:
+	if not _na_dungeon:
+		_aplicar_hora(DayCycleManager.hora_atual)
+
+func _ao_entrar_na_dungeon() -> void:
+	_na_dungeon = true
+	_luz.light_color = cor_da_luz_na_dungeon
+	_luz.light_energy = energia_do_sol_na_dungeon
+	_luz.shadow_opacity = 1.0
+	_luz.shadow_blur = 1.0
+	var ambiente: Environment = _ambiente.environment
+	ambiente.ambient_light_energy = energia_do_ambiente_na_dungeon
+	ambiente.background_energy_multiplier = energia_do_ceu_na_dungeon
+	ambiente.fog_enabled = false
+
+## De volta à fazenda, o clima e a hora são reaplicados do zero.
+func _ao_sair_da_dungeon() -> void:
+	_na_dungeon = false
+	_ao_mudar_clima(WeatherManager.clima_atual)
 	_aplicar_hora(DayCycleManager.hora_atual)
 
 func _ao_mudar_estacao(_nova: StringName) -> void:
@@ -92,6 +121,8 @@ func _ao_mudar_estacao(_nova: StringName) -> void:
 ## A névoa não depende da hora, então só é mexida quando o clima muda.
 func _ao_mudar_clima(_novo: StringName) -> void:
 	_clima = WeatherManager.perfil_atual()
+	if _na_dungeon:
+		return
 	var ambiente: Environment = _ambiente.environment
 	ambiente.fog_enabled = _clima.densidade_da_nevoa > 0.0
 	ambiente.fog_density = _clima.densidade_da_nevoa
@@ -102,6 +133,8 @@ func _ao_mudar_clima(_novo: StringName) -> void:
 
 ## O clarão do raio: a luz sobe muito de uma vez e volta em duracao segundos.
 func dar_clarao(intensidade: float = 6.0, duracao: float = 0.25) -> void:
+	if _na_dungeon:
+		return
 	if _animacao_do_clarao != null:
 		_animacao_do_clarao.kill()
 	_clarao = intensidade
