@@ -35,6 +35,7 @@ pixel art, fundo transparente; modelo em `.glb`. O caminho de importação está
 |---|---|---|---|
 | Ícones dos 30 itens | provisórios | campo `icone` de cada `.tres` em `resources/items/` (trocar o PNG em `assets/textures/icones_itens/` basta) | 03 |
 | Ícones de clima (sol, chuva, tempestade) | provisórios, desenhados no estilo dos itens | `assets/textures/icones_clima/` | 13 |
+| Indicador de conversa em cima do NPC | provisório, um balão branco tingido por código | `assets/textures/efeitos/indicador_de_conversa.png` | 15 |
 | Balão de conversa dos NPCs | provisório, desenhado no estilo dos itens | `assets/textures/efeitos/balao_de_conversa.png` | 14 |
 | Retrato dos seis NPCs | sem retrato | `retrato` em `resources/npcs/*.tres` | 14 e 15 |
 

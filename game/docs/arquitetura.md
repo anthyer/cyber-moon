@@ -354,6 +354,12 @@ aparece letra por letra; o botão de interagir completa a fala e depois avança,
 encerra. Com `DialogueManager.em_dialogo`, o jogador fica parado, o NPC vira para ele, a
 barra rápida some e o menu de pausa não abre.
 
+Quando o jogador chega perto o bastante para conversar, aparece um balão em cima do NPC
+(o nó `Indicador` da cena do NPC). O NPC pergunta à própria área de interação do jogador
+se ele é o alvo, então o balão só aparece quando o botão de interagir abriria a conversa.
+Ele é amarelo enquanto a conversa de hoje ainda não aconteceu, e branco depois
+(`DialogueManager.ja_conversou_hoje(npc_id)`), quando falar de novo só repete.
+
 As conversas saem de `scripts/utils/gerar_dialogos.gd`, que transcreve
 `equipe/biblioteca-de-dialogos.md`. Para mudar uma fala, edite a biblioteca e rode o
 gerador.

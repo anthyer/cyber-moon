@@ -270,6 +270,14 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-07, indicador de conversa
+
+**Feito**, a pedido do Antonio. Um balão aparece em cima do NPC quando o jogador está
+perto o bastante para conversar: amarelo se ainda há fala nova hoje, branco se a conversa
+do dia já aconteceu. Hoje "fala nova" é a única conversa do dia. Quando o plano 16 trouxer
+mais de uma fala por dia (presente, aniversário, evento de amizade), a regra do amarelo
+mora em `DialogueManager.ja_conversou_hoje` e é lá que ela cresce.
+
 ### 2026-10-07, plano 15
 
 **Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-07".

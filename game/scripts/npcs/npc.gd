@@ -29,6 +29,10 @@ const ANIMACOES_EM_LOOP: Array[StringName] = [&"idle", &"walk", &"interact-left"
 ## Andando há este tempo sem sair do lugar, ele está preso em algo que a malha não viu.
 const SEGUNDOS_PARA_DESISTIR: float = 1.5
 const PROGRESSO_MINIMO: float = 0.15
+## O indicador de conversa: amarelo quando ainda há fala nova hoje, branco quando a
+## conversa do dia já aconteceu e falar de novo só repete.
+const COR_DE_FALA_NOVA: Color = Color(1.0, 0.85, 0.2)
+const COR_DE_FALA_REPETIDA: Color = Color(1.0, 1.0, 1.0)
 const GESTOS_DA_CONVERSA: Array[StringName] = [&"emote-yes", &"emote-no"]
 
 @export var perfil: PerfilNpc
@@ -37,6 +41,7 @@ const GESTOS_DA_CONVERSA: Array[StringName] = [&"emote-yes", &"emote-no"]
 
 @onready var _agente: NavigationAgent3D = $Agente
 @onready var _balao: Sprite3D = $Balao
+@onready var _indicador: Sprite3D = $Indicador
 
 var _modelo: Node3D
 var _animacao: AnimationPlayer
@@ -54,6 +59,7 @@ var _segundos_sem_progresso: float = 0.0
 func _ready() -> void:
 	add_to_group(GRUPO)
 	_balao.visible = false
+	_indicador.visible = false
 	if perfil == null:
 		push_warning("Npc sem perfil: %s" % name)
 		return
@@ -64,6 +70,27 @@ func _ready() -> void:
 	# No primeiro quadro a malha de navegação ainda não está pronta, e os marcadores da
 	# fase podem não ter entrado na árvore. Por isso a primeira posição espera um quadro.
 	_aparecer_no_lugar_certo.call_deferred()
+
+## O indicador aparece quando o jogador está perto o bastante para conversar, ou seja,
+## quando este NPC é o alvo que o botão de interagir acionaria. A pergunta vai para a
+## própria área de interação do jogador, para o indicador nunca prometer uma conversa que
+## o botão não abriria.
+func _process(_delta: float) -> void:
+	if perfil == null:
+		return
+	var ao_alcance: bool = not DialogueManager.em_dialogo and _sou_o_alvo_do_jogador()
+	_indicador.visible = ao_alcance
+	if ao_alcance:
+		_indicador.modulate = COR_DE_FALA_REPETIDA if DialogueManager.ja_conversou_hoje(perfil.id) else COR_DE_FALA_NOVA
+		# O balão da encenação entre NPCs ocupa o mesmo lugar: enquanto o indicador
+		# aparece, o balão não é mostrado (veja _encenar_conversa).
+
+func _sou_o_alvo_do_jogador() -> bool:
+	var jogador: Node = get_tree().get_first_node_in_group(&"jogador")
+	if jogador == null:
+		return false
+	var area: AreaDeInteracao = jogador.get_node_or_null("AreaInteracao") as AreaDeInteracao
+	return area != null and area.alvo_mais_proximo() == self
 
 func _physics_process(delta: float) -> void:
 	if perfil == null:
@@ -224,7 +251,7 @@ func _chegar() -> void:
 ## cima, vende a ideia de que o mundo está vivo. O balão aparece enquanto ele "fala".
 func _encenar_conversa(delta: float) -> void:
 	var gesticulando: bool = GESTOS_DA_CONVERSA.has(_animacao.current_animation) and _animacao.is_playing()
-	_balao.visible = gesticulando
+	_balao.visible = gesticulando and not _indicador.visible
 	if not esta_parado_em_idle():
 		return
 	var parceiro: Npc = _parceiro_de_conversa()

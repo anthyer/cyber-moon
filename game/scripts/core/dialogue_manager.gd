@@ -30,6 +30,16 @@ var _conversa: Conversa
 var _no_atual: NoDialogo
 var _relogio_estava_congelado: bool = false
 var _aberto_em_ms: int = 0
+## Ids dos NPCs com quem o jogador já conversou hoje. Esvazia na virada do dia.
+var _conversou_hoje: Dictionary[String, bool] = {}
+
+func _ready() -> void:
+	DayCycleManager.day_started.connect(func(_dia: int) -> void: _conversou_hoje.clear())
+
+## Verdadeiro quando a conversa de hoje com este NPC já aconteceu: falar de novo só
+## repete o que ele já disse. O indicador em cima do NPC usa isto para mudar de cor.
+func ja_conversou_hoje(npc_id: String) -> bool:
+	return _conversou_hoje.has(npc_id)
 var _encerrado_em_ms: int = -100000
 
 ## Começa a conversa do dia com o NPC. Sem falas que sirvam, não acontece nada.
@@ -42,6 +52,7 @@ func iniciar(npc: Npc) -> void:
 		return
 	em_dialogo = true
 	interlocutor = npc
+	_conversou_hoje[npc.perfil.id] = true
 	_conversa = conversa
 	_aberto_em_ms = Time.get_ticks_msec()
 	# Guarda como o relógio estava, para não soltá-lo ao fim se outro sistema (a dungeon,
