@@ -68,7 +68,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if perfil == null:
 		return
-	if _andando:
+	if _em_conversa_com_o_jogador():
+		_ficar_de_frente_para_o_jogador(delta)
+	elif _andando:
 		_andar(delta)
 	else:
 		velocity.x = 0.0
@@ -95,9 +97,29 @@ func ir_para(destino: Vector3) -> void:
 	_segundos_sem_progresso = 0.0
 	_balao.visible = false
 
-## Parado num lugar, e não no meio do caminho. O diálogo (plano 15) só começa assim.
+## Contrato de interação do jogo (ver AreaDeInteracao): o jogador chegou perto e apertou
+## o botão. Abre a conversa do dia. Vale também no meio do caminho: ele para, conversa, e
+## depois segue para onde ia.
+func interagir() -> void:
+	DialogueManager.iniciar(self)
+
+## Parado num lugar, e não no meio do caminho.
 func esta_disponivel_para_conversa() -> bool:
 	return not _andando
+
+func _em_conversa_com_o_jogador() -> bool:
+	return DialogueManager.em_dialogo and DialogueManager.interlocutor == self
+
+## Durante a conversa ele para onde está e vira para o jogador. O destino continua
+## guardado no agente, então ao fim da conversa ele retoma o caminho sozinho.
+func _ficar_de_frente_para_o_jogador(delta: float) -> void:
+	velocity.x = 0.0
+	velocity.z = 0.0
+	_balao.visible = false
+	_tocar(&"idle")
+	var jogador: Node3D = get_tree().get_first_node_in_group(&"jogador") as Node3D
+	if jogador != null:
+		_virar_para(jogador.global_position - global_position, delta)
 
 func esta_parado_em_idle() -> bool:
 	return not _andando and _animacao_parado == &"idle"

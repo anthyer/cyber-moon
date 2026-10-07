@@ -37,7 +37,7 @@ func _ready() -> void:
 	_marcar_selecionado(EquipmentManager.indice_selecionado)
 
 func _process(_delta: float) -> void:
-	visible = not get_tree().paused
+	visible = not get_tree().paused and not DialogueManager.em_dialogo
 
 func _atualizar_slots() -> void:
 	for slot in _slots:

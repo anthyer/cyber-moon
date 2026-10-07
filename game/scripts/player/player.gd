@@ -81,6 +81,13 @@ func _physics_process(delta: float) -> void:
 	if _desmaiado:
 		_cair_parado(delta)
 		return
+	# Conversando, o jogador fica parado: não anda, não ataca e não troca de item. Quem lê
+	# o botão durante a conversa é a caixa de diálogo.
+	if DialogueManager.em_dialogo:
+		_cair_parado(delta)
+		if animation_player.current_animation != "idle":
+			animation_player.play("idle")
+		return
 
 	_tempo_cooldown_restante = max(_tempo_cooldown_restante - delta, 0.0)
 	_tempo_ataque_restante = max(_tempo_ataque_restante - delta, 0.0)
