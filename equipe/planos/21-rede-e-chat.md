@@ -8,6 +8,23 @@ depois trocando o endereço.
 
 **Entrega para:** 22 (dungeon em coop usa a conexão e as salas).
 
+## Revisão de 2026-10-06 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido: o teste do protocolo passa em todas as rotas; um jogo e
+um cliente de teste trocam chat nos dois sentidos; digitar "wasd" no chat não move o
+personagem, e o Esc que fecha o chat não abre o menu de pausa; com o servidor derrubado o
+chat avisa que está offline, e reconecta sozinho quando o servidor volta.
+
+**Ajustes ao plano:**
+
+- **`InputManager.teclado_capturado`** é o nome da trava (o plano dizia `digitando`),
+  porque a tela de lobby também usa.
+- **Ação nova `abrir_chat`**, em Enter e T.
+- **Só quem foi convidado entra numa sala.** O servidor guarda os convites sem resposta;
+  sem isso, quem adivinhasse o id da sala entrava nela.
+- **O `LobbyManager` e as rotas de sala** foram feitos junto, mas pertencem ao plano 22.
+- **Como rodar** está em `backend/servidor_local/leiame.md`.
+
 **Relação com o plano 18:** este plano substitui a parte do Godot do plano 18 (o
 `ChatManager` e a tela de chat). A parte da AWS do plano 18 (API Gateway WebSocket, Lambda,
 DynamoDB, Cognito) continua valendo, e passa a implementar o protocolo descrito aqui.
@@ -74,11 +91,11 @@ entrada e saída de jogador são do plano 22, onde o outro jogador aparece no mu
 
 ## Tarefas
 
-- [ ] **1.** Servidor local em `backend/servidor_local/`, com teste de protocolo.
-- [ ] **2.** `ConfiguracaoDeRede` e `NetworkManager`, com reconexão.
-- [ ] **3.** `ChatManager` e `HudChat`, com o bloqueio de entrada ao digitar.
-- [ ] **4.** Testar com dois jogos conectados ao mesmo servidor.
-- [ ] **5.** Documentar e commitar.
+- [x] **1.** Servidor local em `backend/servidor_local/`, com teste de protocolo.
+- [x] **2.** `ConfiguracaoDeRede` e `NetworkManager`, com reconexão.
+- [x] **3.** `ChatManager` e `HudChat`, com o bloqueio de entrada ao digitar.
+- [x] **4.** Testar com dois jogos conectados ao mesmo servidor.
+- [x] **5.** Documentar e commitar.
 
 ## Critério de pronto
 

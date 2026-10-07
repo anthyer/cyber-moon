@@ -45,6 +45,9 @@ pixel art, fundo transparente; modelo em `.glb`. O caminho de importação está
 | Modelos das armas | bengalas e muleta do pacote de acessibilidade | `modelo` nos `.tres` de `resources/items/armas/`, e refazer o encaixe na mão no gerador do catálogo | 08 |
 | Quadro de calendário | feito de caixas | `scenes/world/quadro_calendario.tscn` | 12 |
 | Modelos dos seis NPCs | personagens do pacote Kenney | `modelo` em `resources/npcs/*.tres` (ou na tabela de `scripts/utils/gerar_npcs.gd`) | 14 |
+| Portal da dungeon | um anel com luz, feito de formas simples | `scenes/world/portal.tscn` | 22 |
+| Cenário da dungeon | sala de caixas | `scenes/levels/dungeon.tscn` | 22 e 23 |
+| Modelo do outro jogador na dungeon | um personagem do pacote Kenney, diferente do local | `scenes/coop/jogador_remoto.tscn` | 22 |
 | Modelo próprio do jogador | personagem do pacote Kenney | `scenes/player/player.tscn` | sem plano |
 | Animação de golpe por tipo de arma | todas usam o soco do pacote Kenney | revisão do combate | 08 |
 | Animação de andar segurando a arma de distância | o braço abaixa a escopeta ao andar | revisão do combate | 08 |

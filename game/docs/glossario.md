@@ -12,6 +12,11 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Estação | Season / `SeasonManager`, sinal `season_changed` |
 | Perfil de estação | Season profile / `PerfilEstacao` (classe Resource) |
 | Brotação, Estiagem, Colheita, Apagão | ids `brotacao`, `estiagem`, `colheita`, `apagao` (primavera, verão, outono, inverno) |
+| Servidor de repasse | Relay server / `backend/servidor_local/`, `NetworkManager` |
+| Chat | Chat / `ChatManager`, `HudChat` |
+| Equipe, sala, anfitrião | Party, room, host / `LobbyManager`, `sou_anfitriao()` |
+| Dungeon | Dungeon / `DungeonManager`, `Dungeon` (cena), sinais `dungeon_entered` e `dungeon_left` |
+| Fantoche | Puppet / `JogadorRemoto`, `Inimigo.fantoche` |
 | Malha de navegação | NavMesh / `RegiaoDeNavegacao`, `NavigationAgent3D` |
 | Rotina, compromisso | Routine, appointment / `PerfilNpc.rotina`, `Compromisso` (classe Resource) |
 | Ponto de rotina | Routine point / `Marker3D` no grupo `pontos_de_rotina` |

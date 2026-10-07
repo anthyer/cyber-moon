@@ -20,6 +20,7 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 | `slot_proximo` | Nenhum | Roda para baixo | Gatilho direito (RT / R2) |
 | `slot_anterior` | Nenhum | Roda para cima | Gatilho esquerdo (LT / L2) |
 | `teste_avancar_dia` | N (atalho de teste: avança um dia na hora, sem penalidade) | Nenhum | Nenhum |
+| `abrir_chat` | Enter ou T (abre o campo do chat; Enter envia, Esc fecha) | Nenhum | Nenhum |
 | `menu_debug` | F3 (abre e fecha o menu de debug; só teclado, é ferramenta de teste) | Nenhum | Nenhum |
 
 O stick esquerdo move o jogador junto com o D-pad. As quatro ações de movimento usam zona morta de 0.2 (as outras ficam em 0.5) para o stick analógico responder a um toque leve; teclado e D-pad não são afetados, porque só valem 0 ou 1.
@@ -34,6 +35,7 @@ O stick esquerdo move o jogador junto com o D-pad. As quatro ações de moviment
 - `atacar` é o botão de usar o item da mão: ferramenta age na célula à frente, semente planta, consumível é comido, e com os cestos, slot vazio ou qualquer outro item ele dá soco.
 - Nos menus, as direções (`ui_up`, `ui_down`, `ui_left`, `ui_right`) respondem às setas, ao D-pad, ao stick esquerdo e também ao WASD, para quem joga no WASD não precisar trocar de mão ao abrir o inventário. Com o menu aberto o jogo está pausado, então as mesmas teclas não movem o personagem.
 - Nos menus, `ui_accept` confirma. Além dos binds padrão do Godot (Enter, Espaço e o botão A), ele também responde ao botão X/West, que é onde chega o botão A do painel arcade; sem isso o painel navegaria no menu sem conseguir confirmar. Com o jogo pausado não há conflito com `atacar`.
+- Com o chat aberto ou a tela de lobby na frente, o `InputManager.teclado_capturado` fica ligado e o personagem não responde a nada. Nenhuma das duas pausa o jogo, porque a rede precisa continuar.
 - O calendário pausa o jogo como o menu de pausa. Esquerda e direita trocam a estação mostrada, e `ui_cancel` (Esc ou B) fecha. Ele não tem tecla de atalho: abre só pelo quadro de calendário no mundo. Com uma das duas telas aberta, a outra não abre.
 - `abrir_inventario` e `menu_pausa` abrem a mesma tela por enquanto, o menu de pausa com o inventário, porque ainda não existe tela de opções. Com o menu aberto, qualquer uma das duas fecha, e o jogo fica pausado de verdade enquanto ele está aberto.
 - Menus e telas de UI usam o sistema nativo de foco dos nós `Control` do Godot, permitindo navegação por teclado ou joystick sem depender do mouse.

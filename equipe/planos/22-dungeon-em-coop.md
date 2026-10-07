@@ -7,6 +7,40 @@ juntos. Entra-se por um portal na fazenda, que abre um lobby para chamar quem es
 
 **Entrega para:** 23 (conteúdo da dungeon: salas, chefes e objetivo).
 
+## Revisão de 2026-10-06 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido com dois jogos de verdade ligados ao servidor local:
+
+- Convite, aceite, e os dois dentro da mesma dungeon, cada um vendo o outro com o nome.
+- No jogo do convidado os inimigos são fantoches e seguem os do anfitrião.
+- O golpe do convidado tira vida no jogo do anfitrião (30, 5, 0) e o inimigo morre para
+  os dois; o convidado ganha a experiência.
+- Os inimigos do anfitrião perseguem e acertam o convidado, que perde vida no jogo dele.
+- O anfitrião sai pela porta: o convidado volta para a fazenda com um aviso.
+- O anfitrião morre: acorda em casa no dia seguinte, o convidado continua lá dentro com os
+  inimigos andando, e quando ele sai a dungeon é apagada no jogo do anfitrião.
+- Sozinho e sem servidor: entrar pelo portal, os inimigos contornam o muro, todos caem,
+  sair, e a fazenda está como antes.
+
+Os golpes do teste foram dados chamando `receber_dano` no inimigo, e não apertando o botão
+de atacar. Falta jogar de verdade com duas pessoas.
+
+**Ajustes ao plano:**
+
+- **O anfitrião que morre continua simulando** enquanto houver parceiro lá dentro. O plano
+  dizia só que quem morre volta sozinho; para o parceiro continuar, o jogo do anfitrião
+  mantém a cena da dungeon viva, longe, até o último sair.
+- **Um script só para o portal** (`Portal`, com a função escolhida no Inspector) em vez de
+  `PortalDaDungeon` e `PortalDeSaida`.
+- **Alvo do inimigo:** grupo novo `alvos_de_inimigo`, com o jogador local e os fantoches.
+  Vale também na fazenda, onde só há o jogador local.
+- **Sem a mensagem de dungeon concluída.** Cada jogo percebe sozinho quando o último
+  inimigo cai, porque a mensagem `morreu` já chega a todos.
+- **A posição trafega relativa à dungeon**, e os inimigos vão como lista para a mensagem
+  ficar curta.
+- **O convite só responde pelo mouse.** No controle ainda não dá.
+- **Menu de debug:** seção Dungeon, com abrir o lobby, entrar sozinho e sair.
+
 ## Decisões fechadas (Antonio, 2026-10-06)
 
 **A dungeon não tem horário nem clima.** O relógio para enquanto o jogador está lá
@@ -84,17 +118,17 @@ Plano escrito depois da regra de partículas, então as ações dele nascem com 
 
 ## Tarefas
 
-- [ ] **1.** `DungeonManager`, a cena da dungeon de teste com malha de navegação, a luz
+- [x] **1.** `DungeonManager`, a cena da dungeon de teste com malha de navegação, a luz
   fixa e o relógio parado. Entrar e sair sozinho.
-- [ ] **2.** Portal na fazenda e saída na dungeon.
-- [ ] **3.** `LobbyManager`, `TelaDeLobby` e `HudConvite`.
-- [ ] **4.** `JogadorRemoto` e o envio do estado do jogador.
-- [ ] **5.** Inimigo com alvo mais próximo, modo fantoche e as mensagens `inimigos`,
+- [x] **2.** Portal na fazenda e saída na dungeon.
+- [x] **3.** `LobbyManager`, `TelaDeLobby` e `HudConvite`.
+- [x] **4.** `JogadorRemoto` e o envio do estado do jogador.
+- [x] **5.** Inimigo com alvo mais próximo, modo fantoche e as mensagens `inimigos`,
   `golpe`, `dano` e `morreu`.
-- [ ] **6.** Saída, morte e queda do anfitrião.
-- [ ] **7.** Testar com dois jogos: os dois veem os mesmos inimigos, os dois causam dano,
+- [x] **6.** Saída, morte e queda do anfitrião.
+- [x] **7.** Testar com dois jogos: os dois veem os mesmos inimigos, os dois causam dano,
   os dois levam dano.
-- [ ] **8.** Documentar e commitar.
+- [x] **8.** Documentar e commitar.
 
 ## Critério de pronto
 

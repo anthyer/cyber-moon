@@ -25,6 +25,7 @@ atualizado a cada ação nova que entrar de fato. Este arquivo é o alvo, aquele
 | `soltar_item` | Q | Minecraft (drop), usado também para presentear | novo |
 | `slot_1` a `slot_9` | 1 a 9 | Minecraft (hotbar) | sim (plano 05) |
 | `slot_proximo` / `slot_anterior` | Roda do mouse | Minecraft | sim (plano 05) |
+| `abrir_chat` | Enter ou T | Minecraft | sim (plano 21) |
 
 ## Controle
 

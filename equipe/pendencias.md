@@ -270,6 +270,29 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-06, planos 21 e 22 (rede, chat e dungeon em coop)
+
+**Feito.** Decisões e ajustes no topo de cada plano, seção "Revisão de 2026-10-06". Como
+rodar o servidor e abrir dois jogos está em `backend/servidor_local/leiame.md`.
+
+**Precisa do Antonio:**
+
+- Jogar a dungeon com duas pessoas de verdade. Os testes foram automáticos, com dois
+  jogos abertos, mas ninguém apertou o botão de atacar neles.
+- Decidir o conteúdo da dungeon (plano 23): salas, chefes, objetivo e recompensa.
+
+**Fica para depois:**
+
+- A AWS: as Lambdas do plano 18 precisam implementar as rotas do plano 21, inclusive as
+  de sala, que o plano 18 não previa.
+- Login com Google e lista de amigos. Hoje é um nome local e a lista de quem está online.
+- O fantoche do outro jogador não mostra a arma na mão nem os tiros.
+- Inimigo de distância (a sentinela) não está na dungeon: o projétil não é transmitido.
+- A experiência de cada inimigo vai para os dois jogadores, não importa quem bateu.
+- Se a conexão do anfitrião cai, a dungeon acaba para os dois.
+- Só dois jogadores foram testados.
+- O portal é um anel provisório no chão, e a dungeon é uma sala de caixas.
+
 ### 2026-10-05, plano 14
 
 **Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-05".
