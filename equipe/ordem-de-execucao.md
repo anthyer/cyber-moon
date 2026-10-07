@@ -24,6 +24,9 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [ ] 16 Amizade e romance
 - [ ] 17 Comércio e economia
 - [ ] 18 Chat entre jogadores (independente dos outros, pode ser feito em paralelo)
+- [ ] 21 Rede e chat (independente; substitui a parte do Godot do plano 18)
+- [ ] 22 Dungeon em coop (depois do 21)
+- [ ] 23 Conteúdo da dungeon: salas, chefes e objetivo (só documentado)
 - [ ] 20 Salvar o jogo (depois dos planos de sistema; obrigatório antes de qualquer entrega jogável)
 - [ ] 19 Partículas no que já existe (depois de todos os planos acima; feature nova, escrita depois deste plano, já nasce com partículas)
 - [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
