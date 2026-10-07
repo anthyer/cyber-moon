@@ -1,0 +1,151 @@
+[gd_resource type="Resource" script_class="Conversa" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/no_dialogo.gd" id="1_26rlw"]
+[ext_resource type="Script" path="res://scripts/resources/conversa.gd" id="2_mlto5"]
+
+[sub_resource type="Resource" id="Resource_wv1li"]
+script = ExtResource("1_26rlw")
+id = "vitor_01"
+falante_id = "vitor"
+texto = "Se veio pedir conserto, entra na fila."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_wcn3x"]
+script = ExtResource("1_26rlw")
+id = "vitor_02"
+falante_id = "vitor"
+texto = "Fazenda nova, é? Boa sorte. O último durou dois meses."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_u3xfs"]
+script = ExtResource("1_26rlw")
+id = "vitor_03"
+falante_id = "vitor"
+texto = "Não mexe nas peças. Cada uma tem dono."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_sn4pt"]
+script = ExtResource("1_26rlw")
+id = "vitor_04"
+falante_id = "vitor"
+texto = "Se achar metal por aí, eu compro. O resto não me interessa."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_7usns"]
+script = ExtResource("1_26rlw")
+id = "vitor_05"
+falante_id = "vitor"
+texto = "Você aguentou mais que eu apostei. Isso é elogio."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_qci1u"]
+script = ExtResource("1_26rlw")
+id = "vitor_06"
+falante_id = "vitor"
+texto = "Peça boa é peça que já foi de alguém. As novas vêm com defeito de fábrica."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_bwjn6"]
+script = ExtResource("1_26rlw")
+id = "vitor_07"
+falante_id = "vitor"
+texto = "A cidade avança um metro por ano. Ninguém mede, mas eu meço."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_cogqn"]
+script = ExtResource("1_26rlw")
+id = "vitor_08"
+falante_id = "vitor"
+texto = "Trouxe sucata? Sempre trouxe. Deixa aí."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_vr7hu"]
+script = ExtResource("1_26rlw")
+id = "vitor_09"
+falante_id = "vitor"
+texto = "Meu pai plantava onde hoje é estacionamento. Aquele ali, o do letreiro azul."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_oop3e"]
+script = ExtResource("1_26rlw")
+id = "vitor_10"
+falante_id = "vitor"
+texto = "Consertei o gerador da clínica três vezes esse ano. A Iara acha que é milagre."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_8a1rc"]
+script = ExtResource("1_26rlw")
+id = "vitor_11"
+falante_id = "vitor"
+texto = "Você trabalha demais. Isso é conselho, não elogio."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_xxc38"]
+script = ExtResource("1_26rlw")
+id = "vitor_12"
+falante_id = "vitor"
+texto = "Guardei um servomotor pensando em você. Não pergunta por quê."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_iaex3"]
+script = ExtResource("1_26rlw")
+id = "vitor_13"
+falante_id = "vitor"
+texto = "Se um dia eu não estiver aqui, a oficina fica com você. Já disse pro Kenji também, mas ele não sabe segurar chave inglesa."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_2ru2o"]
+script = ExtResource("1_26rlw")
+id = "vitor_14"
+falante_id = "vitor"
+texto = "Tem gente que resiste com discurso. Eu resisto consertando o que eles querem que a gente jogue fora."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_w76ga"]
+script = ExtResource("1_26rlw")
+id = "vitor_15"
+falante_id = "vitor"
+texto = "Você me lembra o velho. Ele também não sabia parar."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_ave3k"]
+script = ExtResource("1_26rlw")
+id = "vitor_16"
+falante_id = "vitor"
+texto = "Chuva boa pra planta, ruim pra ferramenta. Cobre o que for de metal."
+estacoes = Array[StringName]([&"brotacao"])
+
+[sub_resource type="Resource" id="Resource_d6di3"]
+script = ExtResource("1_26rlw")
+id = "vitor_17"
+falante_id = "vitor"
+texto = "Nessa época a cidade liga mais máquina. Dá pra ouvir daqui, de noite."
+estacoes = Array[StringName]([&"estiagem"])
+
+[sub_resource type="Resource" id="Resource_y8g5h"]
+script = ExtResource("1_26rlw")
+id = "vitor_18"
+falante_id = "vitor"
+texto = "Melhor época do ano. Todo mundo tem o que fazer e ninguém vem me encher."
+estacoes = Array[StringName]([&"colheita"])
+
+[sub_resource type="Resource" id="Resource_o64ku"]
+script = ExtResource("1_26rlw")
+id = "vitor_19"
+falante_id = "vitor"
+texto = "Racionam energia lá e sobra escuridão pra cá. Todo ano a mesma coisa."
+estacoes = Array[StringName]([&"apagao"])
+
+[resource]
+script = ExtResource("2_mlto5")
+id = &"vitor"
+npc_id = "vitor"
+nos = Array[ExtResource("1_26rlw")]([SubResource("Resource_wv1li"), SubResource("Resource_wcn3x"), SubResource("Resource_u3xfs"), SubResource("Resource_sn4pt"), SubResource("Resource_7usns"), SubResource("Resource_qci1u"), SubResource("Resource_bwjn6"), SubResource("Resource_cogqn"), SubResource("Resource_vr7hu"), SubResource("Resource_oop3e"), SubResource("Resource_8a1rc"), SubResource("Resource_xxc38"), SubResource("Resource_iaex3"), SubResource("Resource_2ru2o"), SubResource("Resource_w76ga"), SubResource("Resource_ave3k"), SubResource("Resource_d6di3"), SubResource("Resource_y8g5h"), SubResource("Resource_o64ku")])

@@ -1,0 +1,151 @@
+[gd_resource type="Resource" script_class="Conversa" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/no_dialogo.gd" id="1_dmbwp"]
+[ext_resource type="Script" path="res://scripts/resources/conversa.gd" id="2_xclnw"]
+
+[sub_resource type="Resource" id="Resource_aqpfw"]
+script = ExtResource("1_dmbwp")
+id = "sol_01"
+falante_id = "sol"
+texto = "Oi. Não precisa puxar assunto por educação."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_xj570"]
+script = ExtResource("1_dmbwp")
+id = "sol_02"
+falante_id = "sol"
+texto = "Eu moro ali em cima. Não é hospitalidade, é aviso pra não subir sem falar."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_oqaxr"]
+script = ExtResource("1_dmbwp")
+id = "sol_03"
+falante_id = "sol"
+texto = "Você planta. Legal. É mais útil que o que eu fazia antes."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_788je"]
+script = ExtResource("1_dmbwp")
+id = "sol_04"
+falante_id = "sol"
+texto = "Se aparecer alguém de terno perguntando de mim, você não me viu."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_2m16j"]
+script = ExtResource("1_dmbwp")
+id = "sol_05"
+falante_id = "sol"
+texto = "Eu desenhava mapa de expansão. Sua fazenda estava num deles, com uma data."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_n7qph"]
+script = ExtResource("1_dmbwp")
+id = "sol_06"
+falante_id = "sol"
+texto = "Não me pergunta a data. Sério."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_esj0t"]
+script = ExtResource("1_dmbwp")
+id = "sol_07"
+falante_id = "sol"
+texto = "Aqui do mirante dá pra ver as duas coisas ao mesmo tempo. É didático e é horrível."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_53dx4"]
+script = ExtResource("1_dmbwp")
+id = "sol_08"
+falante_id = "sol"
+texto = "Você é a primeira pessoa que não me perguntou por que eu saí de lá."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_q4bq5"]
+script = ExtResource("1_dmbwp")
+id = "sol_09"
+falante_id = "sol"
+texto = "Eu tinha um apartamento com vista pra nada e um salário que pagava por isso."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_x8o18"]
+script = ExtResource("1_dmbwp")
+id = "sol_10"
+falante_id = "sol"
+texto = "Recebi uma carta com selo deles semana passada. Não abri. Ainda não."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_0cug7"]
+script = ExtResource("1_dmbwp")
+id = "sol_11"
+falante_id = "sol"
+texto = "Sabe o que eu mais sinto falta? De nada. Isso me assusta um pouco."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_5b6el"]
+script = ExtResource("1_dmbwp")
+id = "sol_12"
+falante_id = "sol"
+texto = "Você me deu tomate uma vez e eu chorei sozinha depois. Não pergunta."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_gpsot"]
+script = ExtResource("1_dmbwp")
+id = "sol_13"
+falante_id = "sol"
+texto = "Eu fugi de um lugar que media tudo e vim parar onde ninguém mede nada. Levei dois anos pra entender que era isso que eu queria."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_bi7qq"]
+script = ExtResource("1_dmbwp")
+id = "sol_14"
+falante_id = "sol"
+texto = "Abri a carta. Era uma oferta de volta. Eu queimei no fogão."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_q58wj"]
+script = ExtResource("1_dmbwp")
+id = "sol_15"
+falante_id = "sol"
+texto = "Eu sei exatamente quanto tempo essa fronteira aguenta. E mesmo assim eu quero ficar."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_cpkdx"]
+script = ExtResource("1_dmbwp")
+id = "sol_16"
+falante_id = "sol"
+texto = "Lá dentro não tem estação. Só temperatura ajustada. Eu tinha esquecido disso."
+estacoes = Array[StringName]([&"brotacao"])
+
+[sub_resource type="Resource" id="Resource_vcadr"]
+script = ExtResource("1_dmbwp")
+id = "sol_17"
+falante_id = "sol"
+texto = "Calor de verdade. Suor de verdade. Ainda me impressiona."
+estacoes = Array[StringName]([&"estiagem"])
+
+[sub_resource type="Resource" id="Resource_gs500"]
+script = ExtResource("1_dmbwp")
+id = "sol_18"
+falante_id = "sol"
+texto = "Essa é a estação que eles mais expandem. Aproveitam que todo mundo tá ocupado."
+estacoes = Array[StringName]([&"colheita"])
+
+[sub_resource type="Resource" id="Resource_fjp1r"]
+script = ExtResource("1_dmbwp")
+id = "sol_19"
+falante_id = "sol"
+texto = "Quando falta luz aqui é porque sobra lá. É literalmente isso."
+estacoes = Array[StringName]([&"apagao"])
+
+[resource]
+script = ExtResource("2_xclnw")
+id = &"sol"
+npc_id = "sol"
+nos = Array[ExtResource("1_dmbwp")]([SubResource("Resource_aqpfw"), SubResource("Resource_xj570"), SubResource("Resource_oqaxr"), SubResource("Resource_788je"), SubResource("Resource_2m16j"), SubResource("Resource_n7qph"), SubResource("Resource_esj0t"), SubResource("Resource_53dx4"), SubResource("Resource_q4bq5"), SubResource("Resource_x8o18"), SubResource("Resource_0cug7"), SubResource("Resource_5b6el"), SubResource("Resource_gpsot"), SubResource("Resource_bi7qq"), SubResource("Resource_q58wj"), SubResource("Resource_cpkdx"), SubResource("Resource_vcadr"), SubResource("Resource_gs500"), SubResource("Resource_fjp1r")])

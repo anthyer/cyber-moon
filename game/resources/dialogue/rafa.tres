@@ -1,0 +1,151 @@
+[gd_resource type="Resource" script_class="Conversa" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/no_dialogo.gd" id="1_i0ndv"]
+[ext_resource type="Script" path="res://scripts/resources/conversa.gd" id="2_rvcqk"]
+
+[sub_resource type="Resource" id="Resource_dy2yc"]
+script = ExtResource("1_i0ndv")
+id = "rafa_01"
+falante_id = "rafa"
+texto = "E aí. Se precisar mandar alguma coisa pra fora, eu levo."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_320jc"]
+script = ExtResource("1_i0ndv")
+id = "rafa_02"
+falante_id = "rafa"
+texto = "Fazenda nova? Anota o endereço direito que eu erro os dois primeiros meses."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_5tiil"]
+script = ExtResource("1_i0ndv")
+id = "rafa_03"
+falante_id = "rafa"
+texto = "Correndo, correndo. Depois eu paro."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_ck7uu"]
+script = ExtResource("1_i0ndv")
+id = "rafa_04"
+falante_id = "rafa"
+texto = "Você não viu um pacote azul por aí, viu? Não? Beleza. Problema meu."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_ehb88"]
+script = ExtResource("1_i0ndv")
+id = "rafa_05"
+falante_id = "rafa"
+texto = "Hoje eu fiz o trajeto do rio duas vezes. Duas. Minhas pernas te odeiam."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_ra0hk"]
+script = ExtResource("1_i0ndv")
+id = "rafa_06"
+falante_id = "rafa"
+texto = "A ponte tá cedendo. Todo mundo sabe e ninguém conserta."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_ny350"]
+script = ExtResource("1_i0ndv")
+id = "rafa_07"
+falante_id = "rafa"
+texto = "Se você quiser mandar produto pra dentro da cidade, dá. Não é legal, mas dá."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_jh3sw"]
+script = ExtResource("1_i0ndv")
+id = "rafa_08"
+falante_id = "rafa"
+texto = "Já vi fazenda que durou trinta anos virar depósito em três meses. Não fica confortável."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_v7prb"]
+script = ExtResource("1_i0ndv")
+id = "rafa_09"
+falante_id = "rafa"
+texto = "Eu conheço cada buraco desse caminho. Fecho o olho e chego."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_8f7wo"]
+script = ExtResource("1_i0ndv")
+id = "rafa_10"
+falante_id = "rafa"
+texto = "Entreguei uma carta pra Sol semana passada. Selo corporativo. Ela não abriu na minha frente."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_3pewy"]
+script = ExtResource("1_i0ndv")
+id = "rafa_11"
+falante_id = "rafa"
+texto = "Meu plano era juntar dinheiro e sair daqui. Faz seis anos que é o plano."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_s6gi7"]
+script = ExtResource("1_i0ndv")
+id = "rafa_12"
+falante_id = "rafa"
+texto = "Guarda um pouco daquele pão pra mim? Eu como correndo, mas eu como."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_7t7bl"]
+script = ExtResource("1_i0ndv")
+id = "rafa_13"
+falante_id = "rafa"
+texto = "Todo dia eu passo por aqui e todo dia eu ando mais devagar nesse trecho. Já reparei."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_1ok3m"]
+script = ExtResource("1_i0ndv")
+id = "rafa_14"
+falante_id = "rafa"
+texto = "Descobri que não quero sair daqui. Quero ter pra onde voltar. É diferente."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_n1ebx"]
+script = ExtResource("1_i0ndv")
+id = "rafa_15"
+falante_id = "rafa"
+texto = "Se um dia eu parar de correr, é aqui que eu paro."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_i4gmq"]
+script = ExtResource("1_i0ndv")
+id = "rafa_16"
+falante_id = "rafa"
+texto = "Lama até o joelho. Adoro e odeio ao mesmo tempo."
+estacoes = Array[StringName]([&"brotacao"])
+
+[sub_resource type="Resource" id="Resource_lgvd6"]
+script = ExtResource("1_i0ndv")
+id = "rafa_17"
+falante_id = "rafa"
+texto = "Dá pra fritar ovo no asfalto da via velha. Já tentei. Funciona."
+estacoes = Array[StringName]([&"estiagem"])
+
+[sub_resource type="Resource" id="Resource_2lfi0"]
+script = ExtResource("1_i0ndv")
+id = "rafa_18"
+falante_id = "rafa"
+texto = "Época boa. Todo mundo manda coisa, e coisa pesada paga mais."
+estacoes = Array[StringName]([&"colheita"])
+
+[sub_resource type="Resource" id="Resource_bfsf0"]
+script = ExtResource("1_i0ndv")
+id = "rafa_19"
+falante_id = "rafa"
+texto = "Escurece às quatro e meia e eu ainda tenho seis entregas. Faz a conta."
+estacoes = Array[StringName]([&"apagao"])
+
+[resource]
+script = ExtResource("2_rvcqk")
+id = &"rafa"
+npc_id = "rafa"
+nos = Array[ExtResource("1_i0ndv")]([SubResource("Resource_dy2yc"), SubResource("Resource_320jc"), SubResource("Resource_5tiil"), SubResource("Resource_ck7uu"), SubResource("Resource_ehb88"), SubResource("Resource_ra0hk"), SubResource("Resource_ny350"), SubResource("Resource_jh3sw"), SubResource("Resource_v7prb"), SubResource("Resource_8f7wo"), SubResource("Resource_3pewy"), SubResource("Resource_s6gi7"), SubResource("Resource_7t7bl"), SubResource("Resource_1ok3m"), SubResource("Resource_n1ebx"), SubResource("Resource_i4gmq"), SubResource("Resource_lgvd6"), SubResource("Resource_2lfi0"), SubResource("Resource_bfsf0")])
