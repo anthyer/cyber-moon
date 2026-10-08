@@ -129,6 +129,12 @@ func _montar_secoes() -> void:
 	_novo_botao("Criar sentinela perto", _criar_inimigo.bind(PERFIL_DA_SENTINELA))
 	_novo_botao("Matar todos os inimigos", _matar_todos_os_inimigos)
 
+	_novo_titulo_de_secao("Amizade")
+	_novo_botao("+1 coração com todos", _dar_um_coracao_a_todos)
+	_novo_botao("Zerar amizades e namoro", _zerar_amizades)
+	_novo_botao("Liberar o presente da semana", func() -> void: RelationshipManager.semana_do_ultimo_presente.clear())
+	_novo_botao("+1 de cada item de presente", _dar_itens_de_presente)
+
 	_novo_titulo_de_secao("Dungeon")
 	_novo_botao("Abrir o lobby", func() -> void: EventBus.lobby_requested.emit())
 	_novo_botao("Entrar sozinho agora", DungeonManager.entrar)
@@ -211,6 +217,24 @@ func _pular_para_a_proxima_estacao() -> void:
 ## Pelo mesmo pedido que o quadro de calendário faz, para testar a tela de longe dele.
 func _abrir_o_calendario() -> void:
 	EventBus.calendar_requested.emit()
+
+# Amizade
+
+func _dar_um_coracao_a_todos() -> void:
+	for perfil in ElencoDeNpcs.carregar_perfis():
+		RelationshipManager.somar_pontos(perfil.id, RelationshipManager.PONTOS_POR_CORACAO)
+
+func _zerar_amizades() -> void:
+	RelationshipManager.namorando = ""
+	for perfil in ElencoDeNpcs.carregar_perfis():
+		RelationshipManager.somar_pontos(perfil.id, -RelationshipManager.PONTOS_MAXIMOS)
+
+## Um de cada item que algum NPC ama, mais o buquê, para testar reação e namoro.
+func _dar_itens_de_presente() -> void:
+	InventoryManager.adicionar_item(load("res://resources/items/especiais/buque.tres") as Item, 1)
+	for perfil in ElencoDeNpcs.carregar_perfis():
+		for item in perfil.itens_amados:
+			InventoryManager.adicionar_item(item, 1)
 
 func _cair_um_raio() -> void:
 	var cena: Node = get_tree().current_scene

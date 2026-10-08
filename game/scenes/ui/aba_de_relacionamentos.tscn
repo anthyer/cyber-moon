@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/aba_de_relacionamentos.gd" id="1_script"]
+
+[node name="AbaDeRelacionamentos" type="VBoxContainer"]
+theme_override_constants/separation = 10
+script = ExtResource("1_script")
+
+[node name="Titulo" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.45, 0.75, 1)
+text = "Relacionamentos"
+
+[node name="ListaDeNpcs" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 12

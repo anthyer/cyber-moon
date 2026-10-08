@@ -1,6 +1,10 @@
 extends Control
 
-## Menu de pausa com o inventário, estilo Rune Factory.
+## Menu de pausa com o inventário, estilo Rune Factory, e a aba de relacionamentos.
+##
+## São duas abas no topo do painel. O inventário é o conteúdo de sempre (os nós Topo e
+## Rodape); os relacionamentos são uma cena própria. Trocar de aba só mostra um e esconde
+## o outro, então nada do inventário é recriado.
 ##
 ## Abrir o menu pausa o jogo de verdade (get_tree().paused). Por isso este nó fica com
 ## process_mode ALWAYS: ele precisa ler a entrada com o jogo rodando, para abrir, e com
@@ -30,6 +34,11 @@ var _espacos_na_tela: Array[Array] = [
 @onready var barra_rapida: GridContainer = %BarraRapida
 @onready var nome_do_item: Label = %NomeDoItem
 @onready var descricao_do_item: Label = %DescricaoDoItem
+@onready var botao_aba_inventario: Button = %BotaoAbaInventario
+@onready var botao_aba_relacionamentos: Button = %BotaoAbaRelacionamentos
+@onready var conteudo_do_inventario: Control = %Topo
+@onready var rodape_do_inventario: Control = %Rodape
+@onready var aba_de_relacionamentos: AbaDeRelacionamentos = %AbaDeRelacionamentos
 
 var _slots_rapidos: Array[SlotInventario] = []
 var _slots_da_matriz: Array[SlotInventario] = []
@@ -44,6 +53,8 @@ func _ready() -> void:
 	visible = false
 	_criar_slots()
 	_ligar_vizinhos_de_foco()
+	botao_aba_inventario.pressed.connect(_mostrar_aba.bind(false))
+	botao_aba_relacionamentos.pressed.connect(_mostrar_aba.bind(true))
 	InventoryManager.inventory_changed.connect(_atualizar_tudo)
 	InventoryManager.equipment_changed.connect(_ao_mudar_equipamento)
 	# O "Equipado" e a marca de equipado dependem do slot selecionado, que muda fora do
@@ -73,8 +84,25 @@ func _process(_delta: float) -> void:
 func abrir() -> void:
 	visible = true
 	get_tree().paused = true
+	# O menu sempre abre no inventário, que é para o que o jogador mais o abre.
+	_mostrar_aba(false)
 	_atualizar_tudo()
 	_slots_rapidos[0].grab_focus()
+
+## Mostra uma aba e esconde a outra. A aba de relacionamentos toma o tamanho que o
+## inventário ocupava, para o painel não mudar de tamanho ao trocar.
+func _mostrar_aba(relacionamentos: bool) -> void:
+	# Um item seguro pelo controle ficaria preso numa aba que não aparece mais.
+	_cancelar_pega()
+	if relacionamentos and conteudo_do_inventario.visible:
+		var separacao: float = float(conteudo_do_inventario.get_parent().get_theme_constant(&"separation"))
+		aba_de_relacionamentos.custom_minimum_size = Vector2(conteudo_do_inventario.size.x, conteudo_do_inventario.size.y + separacao + rodape_do_inventario.size.y)
+	conteudo_do_inventario.visible = not relacionamentos
+	rodape_do_inventario.visible = not relacionamentos
+	aba_de_relacionamentos.visible = relacionamentos
+	# O botão também é marcado aqui, porque abrir o menu troca de aba sem clique.
+	botao_aba_inventario.set_pressed_no_signal(not relacionamentos)
+	botao_aba_relacionamentos.set_pressed_no_signal(relacionamentos)
 
 func fechar() -> void:
 	_cancelar_pega()
@@ -132,6 +160,23 @@ func _ligar_vizinhos_de_foco() -> void:
 		equipamento.focus_neighbor_right = equipamento.get_path_to(_slots_da_matriz[indice * colunas])
 	var primeiro_rapido: SlotInventario = _slots_rapidos[0]
 	primeiro_rapido.focus_neighbor_left = primeiro_rapido.get_path_to(_slots_de_equipamento[ultimo_equipamento])
+
+	# Os botões de aba ficam acima de tudo. Subir da primeira linha da matriz ou do
+	# primeiro equipamento chega neles, e descer deles volta para o inventário. Na aba de
+	# relacionamentos não há nada para focar, então descer não leva a lugar nenhum.
+	for coluna in colunas:
+		var de_cima_da_matriz: SlotInventario = _slots_da_matriz[coluna]
+		de_cima_da_matriz.focus_neighbor_top = de_cima_da_matriz.get_path_to(botao_aba_inventario)
+	var primeiro_equipamento: SlotInventario = _slots_de_equipamento[0]
+	primeiro_equipamento.focus_neighbor_top = primeiro_equipamento.get_path_to(botao_aba_inventario)
+	botao_aba_inventario.focus_neighbor_bottom = botao_aba_inventario.get_path_to(_slots_da_matriz[0])
+	botao_aba_inventario.focus_neighbor_right = botao_aba_inventario.get_path_to(botao_aba_relacionamentos)
+	botao_aba_inventario.focus_neighbor_left = botao_aba_inventario.get_path_to(botao_aba_inventario)
+	botao_aba_inventario.focus_neighbor_top = botao_aba_inventario.get_path_to(botao_aba_inventario)
+	botao_aba_relacionamentos.focus_neighbor_left = botao_aba_relacionamentos.get_path_to(botao_aba_inventario)
+	botao_aba_relacionamentos.focus_neighbor_right = botao_aba_relacionamentos.get_path_to(botao_aba_relacionamentos)
+	botao_aba_relacionamentos.focus_neighbor_top = botao_aba_relacionamentos.get_path_to(botao_aba_relacionamentos)
+	botao_aba_relacionamentos.focus_neighbor_bottom = botao_aba_relacionamentos.get_path_to(_slots_da_matriz[0])
 
 ## Confirmar num slot pega, solta ou desequipa, dependendo do que já está seguro.
 func _ao_acionar_slot(slot: SlotInventario) -> void:
