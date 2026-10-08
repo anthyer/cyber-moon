@@ -29,6 +29,8 @@ const CLIPE_DE_GOLPE_DE_ARMA: String = "attack-melee-right"
 const CLIPE_DE_DISPARO: String = "holding-both-shoot"
 const CLIPE_PARADO_COM_ARMA_DE_DISTANCIA: String = "holding-both"
 ## Altura do plano em que o mouse é projetado, a mesma de onde o tiro sai.
+## A que distância à frente cai o item solto, fora do alcance do ímã de coleta.
+const DISTANCIA_AO_SOLTAR: float = 1.2
 const ALTURA_DA_MIRA_PELO_MOUSE: float = 0.3
 ## Com o mouse em cima do personagem o ângulo fica instável, então a mira não muda.
 const DISTANCIA_MINIMA_DA_MIRA_PELO_MOUSE: float = 0.3
@@ -156,6 +158,9 @@ func _physics_process(delta: float) -> void:
 			if alvo_da_interacao != null:
 				alvo_da_interacao.call(&"interagir")
 
+	if _tempo_dash_restante <= 0.0 and InputManager.soltar_item_pressionado():
+		_soltar_item_da_mao()
+
 	if _tempo_dash_restante <= 0.0 and _tempo_ataque_restante <= 0.0 and _tempo_cooldown_ataque_restante <= 0.0 and InputManager.atacar_pressionado():
 		if _plantar_semente_da_mao(semente_na_mao, celula_alvo):
 			_tocar_animacao_de_interacao()
@@ -276,6 +281,28 @@ func _colher_na_celula(celula: Vector2i) -> bool:
 
 ## Com um consumível na mão, o botão de atacar come uma unidade. Não come quando vida e
 ## stamina já estão cheias, para o item não ser gasto à toa.
+## Solta uma unidade do item da mão. Com um NPC ao alcance, é um presente: quem decide
+## se aceita é o NPC, e o item só sai do inventário se ele aceitar. Sem NPC, o item cai
+## no chão um passo à frente. A mesma ação serve para as duas coisas, como em Stardew.
+## Ferramenta e arma ficam de fora.
+func _soltar_item_da_mao() -> void:
+	var item: Item = EquipmentManager.item_na_mao()
+	if item == null:
+		return
+	# Ferramenta e arma não são soltas nem dadas: perder a enxada num aperto de tecla
+	# errado travaria o jogo do jogador.
+	if item.categoria in [Item.Categoria.FERRAMENTA, Item.Categoria.ARMA]:
+		EventBus.notice_requested.emit("Isso não dá para soltar.")
+		return
+	var npc: Npc = area_interacao.alvo_mais_proximo() as Npc
+	if npc != null:
+		if npc.receber_presente(item):
+			InventoryManager.remover_do_slot(EquipmentManager.indice_selecionado, 1)
+		return
+	var a_frente: Vector3 = Vector3(sin(personagem.rotation.y), 0.0, cos(personagem.rotation.y))
+	if InventoryManager.remover_do_slot(EquipmentManager.indice_selecionado, 1):
+		ItemNoMundo.soltar(item, 1, global_position + a_frente * DISTANCIA_AO_SOLTAR + Vector3.UP * 0.3, get_parent())
+
 func _comer_consumivel_da_mao() -> bool:
 	var consumivel: Consumivel = EquipmentManager.item_na_mao() as Consumivel
 	if consumivel == null or not StatusManager.consumir(consumivel):

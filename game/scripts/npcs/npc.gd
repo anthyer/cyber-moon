@@ -33,6 +33,21 @@ const PROGRESSO_MINIMO: float = 0.15
 ## conversa do dia já aconteceu e falar de novo só repete.
 const COR_DE_FALA_NOVA: Color = Color(1.0, 0.85, 0.2)
 const COR_DE_FALA_REPETIDA: Color = Color(1.0, 1.0, 1.0)
+const ID_DO_BUQUE: StringName = &"buque"
+## A fala de evento da Conversa que responde a cada reação e a cada resposta ao buquê.
+const EVENTOS_POR_REACAO: Dictionary = {
+	RelationshipManager.ResultadoPresente.AMOU: &"amou",
+	RelationshipManager.ResultadoPresente.GOSTOU: &"gostou",
+	RelationshipManager.ResultadoPresente.NEUTRO: &"neutro",
+	RelationshipManager.ResultadoPresente.NAO_GOSTOU: &"nao_gostou",
+	RelationshipManager.ResultadoPresente.ODIOU: &"odiou",
+}
+const EVENTOS_POR_RESPOSTA_AO_BUQUE: Dictionary = {
+	RelationshipManager.ResultadoBuque.ACEITO: &"buque_aceito",
+	RelationshipManager.ResultadoBuque.POUCOS_CORACOES: &"buque_poucos_coracoes",
+	RelationshipManager.ResultadoBuque.NAO_ROMANCEAVEL: &"buque_nao_romanceavel",
+	RelationshipManager.ResultadoBuque.JA_NAMORANDO: &"buque_ja_namorando",
+}
 const GESTOS_DA_CONVERSA: Array[StringName] = [&"emote-yes", &"emote-no"]
 
 @export var perfil: PerfilNpc
@@ -129,6 +144,38 @@ func ir_para(destino: Vector3) -> void:
 ## depois segue para onde ia.
 func interagir() -> void:
 	DialogueManager.iniciar(self)
+
+## O jogador soltou o item da mão perto deste NPC: é um presente. Devolve true quando o
+## item foi aceito e deve sair do inventário. Presente repetido na semana e buquê recusado
+## devolvem false: o item fica com o jogador, porque consumi-lo seria punição sem aviso.
+func receber_presente(item: Item) -> bool:
+	if item == null or perfil == null or DialogueManager.em_dialogo:
+		return false
+	if not item.pode_ser_presente:
+		EventBus.notice_requested.emit("Isso não serve de presente.")
+		return false
+	if item.id == ID_DO_BUQUE:
+		return _receber_buque()
+	var resultado: RelationshipManager.ResultadoPresente = RelationshipManager.presentear(perfil.id, item)
+	if resultado == RelationshipManager.ResultadoPresente.JA_PRESENTEOU_ESTA_SEMANA:
+		DialogueManager.mostrar_fala_de_evento(self, &"ja_presenteou")
+		return false
+	var gostou: bool = resultado in [RelationshipManager.ResultadoPresente.AMOU, RelationshipManager.ResultadoPresente.GOSTOU]
+	var detestou: bool = resultado in [RelationshipManager.ResultadoPresente.NAO_GOSTOU, RelationshipManager.ResultadoPresente.ODIOU]
+	var gesto: StringName = &"emote-yes" if gostou else (&"emote-no" if detestou else &"idle")
+	# No aniversário, o presente de que ele gosta ganha a fala de aniversário no lugar da
+	# reação comum.
+	var evento: StringName = EVENTOS_POR_REACAO[resultado]
+	if gostou and RelationshipManager.e_aniversario_de(perfil.id):
+		evento = &"aniversario"
+	DialogueManager.mostrar_fala_de_evento(self, evento, gesto)
+	return true
+
+func _receber_buque() -> bool:
+	var resposta: RelationshipManager.ResultadoBuque = RelationshipManager.pedir_em_namoro(perfil.id)
+	var aceito: bool = resposta == RelationshipManager.ResultadoBuque.ACEITO
+	DialogueManager.mostrar_fala_de_evento(self, EVENTOS_POR_RESPOSTA_AO_BUQUE[resposta], &"emote-yes" if aceito else &"idle")
+	return aceito
 
 ## Parado num lugar, e não no meio do caminho.
 func esta_disponivel_para_conversa() -> bool:

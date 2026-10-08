@@ -25,6 +25,9 @@ const SEGUNDOS_DE_TRAVA_AO_FECHAR: float = 0.2
 var em_dialogo: bool = false
 ## O NPC com quem o jogador está falando. Null fora de diálogo.
 var interlocutor: Npc
+## Verdadeiro quando o diálogo aberto é a conversa do dia, e falso quando é uma fala de
+## evento (a reação a um presente). Só a conversa do dia conta ponto de amizade.
+var e_conversa_do_dia: bool = false
 
 var _conversa: Conversa
 var _no_atual: NoDialogo
@@ -50,9 +53,28 @@ func iniciar(npc: Npc) -> void:
 	var fala: NoDialogo = fala_do_dia(npc.perfil.id)
 	if conversa == null or fala == null:
 		return
+	_conversou_hoje[npc.perfil.id] = true
+	_abrir(npc, conversa, fala, true)
+
+## Mostra uma fala de evento do NPC (a reação a um presente, a resposta ao buquê), fora do
+## sorteio do dia. Sem a fala escrita na Conversa dele, não acontece nada.
+func mostrar_fala_de_evento(npc: Npc, evento: StringName, animacao: StringName = &"idle") -> void:
+	if em_dialogo or npc == null or npc.perfil == null:
+		return
+	var conversa: Conversa = conversa_de(npc.perfil.id)
+	var texto: String = conversa.fala_de_evento(evento) if conversa != null else ""
+	if texto == "":
+		return
+	var fala: NoDialogo = NoDialogo.new()
+	fala.falante_id = npc.perfil.id
+	fala.texto = texto
+	fala.animacao = animacao
+	_abrir(npc, conversa, fala, false)
+
+func _abrir(npc: Npc, conversa: Conversa, fala: NoDialogo, do_dia: bool) -> void:
 	em_dialogo = true
 	interlocutor = npc
-	_conversou_hoje[npc.perfil.id] = true
+	e_conversa_do_dia = do_dia
 	_conversa = conversa
 	_aberto_em_ms = Time.get_ticks_msec()
 	# Guarda como o relógio estava, para não soltá-lo ao fim se outro sistema (a dungeon,
@@ -110,13 +132,9 @@ func fala_do_dia(npc_id: String) -> NoDialogo:
 	var indice: int = (DayCycleManager.numero_do_dia + absi(npc_id.hash())) % candidatos.size()
 	return candidatos[indice]
 
-## Os pontos de relacionamento com o NPC. Por enquanto é o valor inicial do perfil; o
-## plano 16 (amizade) troca esta função pela consulta ao sistema dele.
+## Os pontos de relacionamento com o NPC, que decidem a faixa de falas dele.
 func relacionamento_com(npc_id: String) -> int:
-	for perfil in ElencoDeNpcs.carregar_perfis():
-		if perfil.id == npc_id:
-			return perfil.relacionamento_inicial
-	return 0
+	return RelationshipManager.pontos_de(npc_id)
 
 func _mostrar(no: NoDialogo) -> void:
 	_no_atual = no
