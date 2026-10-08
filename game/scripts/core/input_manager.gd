@@ -88,6 +88,10 @@ func slot_anterior_pressionado() -> bool:
 func teste_avancar_dia_pressionado() -> bool:
 	return not teclado_capturado and Input.is_action_just_pressed("teste_avancar_dia")
 
+## Solta o item da mão. Perto de um NPC, é dar de presente; longe, o item cai no chão.
+func soltar_item_pressionado() -> bool:
+	return not teclado_capturado and Input.is_action_just_pressed("soltar_item")
+
 ## Abre o campo de texto do chat (Enter ou T).
 func abrir_chat_pressionado() -> bool:
 	return not teclado_capturado and Input.is_action_just_pressed("abrir_chat")
