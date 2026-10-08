@@ -270,6 +270,15 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-07, plano 24 criado: saque e aprimoramento de armas
+
+**Pedido do Antonio, só documentado.** Inimigos soltam materiais, os mais fortes soltam
+melhores, e os materiais aprimoram armas num NPC ferreiro, com tela própria. Está em
+`planos/24-saque-e-aprimoramento-de-armas.md`, com o que já existe, ideias de desenho e
+as decisões que faltam (quem é o ferreiro, quantos níveis, as receitas, e onde mora o
+nível da arma). A melhoria de ferramenta de fazenda, pendente do plano 17, pode ser
+decidida junto.
+
 ### 2026-10-07, plano 17
 
 **Feito**, menos jogar 30 dias para ajustar preços. Decisões e ajustes no topo do plano,
