@@ -14,6 +14,9 @@ extends Resource
 @export var estacao_do_aniversario: StringName = &"brotacao"
 @export var dia_do_aniversario: int = 1
 
+## O que ele vende. Vazio para quem não é comerciante.
+@export var catalogo: CatalogoDeLoja
+
 @export_group("Gostos")
 ## O que ele pensa de cada presente. Item fora das quatro listas é neutro. Cada gosto diz
 ## algo sobre o personagem, e descobrir faz parte do jogo: a interface não mostra.

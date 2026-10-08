@@ -12,38 +12,38 @@
 [ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="10_xmnt6"]
 [ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="11_2mesa"]
 
-[sub_resource type="Resource" id="Resource_sb350"]
+[sub_resource type="Resource" id="Resource_66ero"]
 script = ExtResource("10_xmnt6")
 hora_final = 11.0
 destino = &"mirante"
 
-[sub_resource type="Resource" id="Resource_sy0if"]
+[sub_resource type="Resource" id="Resource_yi54q"]
 script = ExtResource("10_xmnt6")
 hora_inicial = 11.0
 hora_final = 14.0
 destino = &"beira_rio"
 animacao_parado = &"sit"
 
-[sub_resource type="Resource" id="Resource_gfcr2"]
+[sub_resource type="Resource" id="Resource_1il47"]
 script = ExtResource("10_xmnt6")
 hora_inicial = 14.0
 hora_final = 18.0
 destino = &"mirante"
 
-[sub_resource type="Resource" id="Resource_4a14i"]
+[sub_resource type="Resource" id="Resource_rtxhi"]
 script = ExtResource("10_xmnt6")
 hora_inicial = 18.0
 hora_final = 21.0
 destino = &"beira_rio"
 
-[sub_resource type="Resource" id="Resource_f1wem"]
+[sub_resource type="Resource" id="Resource_pj3wv"]
 script = ExtResource("10_xmnt6")
 hora_inicial = 11.0
 hora_final = 14.0
 estacoes = Array[StringName]([&"estiagem"])
 destino = &"ponte"
 
-[sub_resource type="Resource" id="Resource_dm4vo"]
+[sub_resource type="Resource" id="Resource_srr7l"]
 script = ExtResource("10_xmnt6")
 hora_final = 21.0
 apenas_no_aniversario = true
@@ -61,5 +61,5 @@ itens_indesejados = Array[ExtResource("1_66ero")]([ExtResource("4_rtxhi")])
 itens_odiados = Array[ExtResource("1_66ero")]([ExtResource("5_pj3wv")])
 modelo = ExtResource("9_e6wx2")
 casa = &"casa_sol"
-rotina = Array[ExtResource("10_xmnt6")]([SubResource("Resource_sb350"), SubResource("Resource_sy0if"), SubResource("Resource_gfcr2"), SubResource("Resource_4a14i"), SubResource("Resource_f1wem"), SubResource("Resource_dm4vo")])
+rotina = Array[ExtResource("10_xmnt6")]([SubResource("Resource_66ero"), SubResource("Resource_yi54q"), SubResource("Resource_1il47"), SubResource("Resource_rtxhi"), SubResource("Resource_pj3wv"), SubResource("Resource_srr7l")])
 eh_romanceavel = true

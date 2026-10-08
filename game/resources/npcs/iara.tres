@@ -12,13 +12,13 @@
 [ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="10_ythah"]
 [ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="11_e1yvr"]
 
-[sub_resource type="Resource" id="Resource_7pdew"]
+[sub_resource type="Resource" id="Resource_qcsb8"]
 script = ExtResource("10_ythah")
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"clinica"
 animacao_parado = &"interact-left"
 
-[sub_resource type="Resource" id="Resource_7yc06"]
+[sub_resource type="Resource" id="Resource_dsd5f"]
 script = ExtResource("10_ythah")
 hora_inicial = 12.0
 hora_final = 13.0
@@ -26,20 +26,20 @@ dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"praca"
 animacao_parado = &"sit"
 
-[sub_resource type="Resource" id="Resource_jl60x"]
+[sub_resource type="Resource" id="Resource_vwxi3"]
 script = ExtResource("10_ythah")
 hora_inicial = 13.0
 hora_final = 18.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"clinica"
 
-[sub_resource type="Resource" id="Resource_7ayy4"]
+[sub_resource type="Resource" id="Resource_sfqie"]
 script = ExtResource("10_ythah")
 hora_inicial = 18.0
 hora_final = 21.0
 destino = &"beira_rio"
 
-[sub_resource type="Resource" id="Resource_lxws3"]
+[sub_resource type="Resource" id="Resource_28moi"]
 script = ExtResource("10_ythah")
 hora_inicial = 18.0
 hora_final = 21.0
@@ -58,5 +58,5 @@ itens_indesejados = Array[ExtResource("1_qcsb8")]([ExtResource("4_sfqie")])
 itens_odiados = Array[ExtResource("1_qcsb8")]([ExtResource("5_28moi")])
 modelo = ExtResource("9_2ry80")
 casa = &"casa_iara"
-rotina = Array[ExtResource("10_ythah")]([SubResource("Resource_7pdew"), SubResource("Resource_7yc06"), SubResource("Resource_jl60x"), SubResource("Resource_7ayy4"), SubResource("Resource_lxws3")])
+rotina = Array[ExtResource("10_ythah")]([SubResource("Resource_qcsb8"), SubResource("Resource_dsd5f"), SubResource("Resource_vwxi3"), SubResource("Resource_sfqie"), SubResource("Resource_28moi")])
 eh_romanceavel = true

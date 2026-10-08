@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CatalogoDeLoja" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_kj40m"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_cenoura.tres" id="2_uslpd"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_trigo.tres" id="3_r8ef0"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_beterraba.tres" id="4_tbn3e"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_repolho.tres" id="5_8cy4g"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_milho.tres" id="6_i07jd"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_tomate.tres" id="7_2snmp"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/pao_de_trigo.tres" id="8_ybpei"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/sopa_de_legumes.tres" id="9_dg63y"]
+[ext_resource type="Resource" path="res://resources/items/materiais/nutrisolo.tres" id="10_i41bw"]
+[ext_resource type="Resource" path="res://resources/items/especiais/buque.tres" id="11_f6ngl"]
+[ext_resource type="Script" path="res://scripts/resources/catalogo_de_loja.gd" id="12_d5kki"]
+
+[resource]
+script = ExtResource("12_d5kki")
+npc_id = "marta"
+itens = Array[ExtResource("1_kj40m")]([ExtResource("2_uslpd"), ExtResource("3_r8ef0"), ExtResource("4_tbn3e"), ExtResource("5_8cy4g"), ExtResource("6_i07jd"), ExtResource("7_2snmp"), ExtResource("8_ybpei"), ExtResource("9_dg63y"), ExtResource("10_i41bw"), ExtResource("11_f6ngl")])
+marco_necessario = Array[String](["", "", "", "", "", "", "", "", "marco_1", ""])

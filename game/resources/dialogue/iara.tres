@@ -158,7 +158,10 @@ falas_de_evento = Dictionary[StringName, String]({
 &"buque_poucos_coracoes": "Eu gosto de você, mas não desse jeito. Ainda não.",
 &"gostou": "Que gentileza. Vou usar hoje mesmo.",
 &"ja_presenteou": "Você já me deu uma coisa essa semana. Guarda pra próxima.",
+&"loja_fechada_folga": "Hoje é folga. Volta amanhã.",
+&"loja_fechada_horario": "Tô fechando. Aparece entre nove e seis.",
 &"nao_gostou": "Não sei bem o que fazer com isso, mas obrigada.",
 &"neutro": "Obrigada. Deixa na mesa.",
-&"odiou": "Não. Eu não aceito isso. Você tem ideia de quantas pessoas eu vi por causa dessas coisas?"
+&"odiou": "Não. Eu não aceito isso. Você tem ideia de quantas pessoas eu vi por causa dessas coisas?",
+&"sem_credito": "Você não tem o suficiente. Não fio, e você sabe disso."
 })

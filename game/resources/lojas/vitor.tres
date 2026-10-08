@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CatalogoDeLoja" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_wdq5t"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/nanogel.tres" id="2_wv5t4"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/estimulante.tres" id="3_p7t6v"]
+[ext_resource type="Resource" path="res://resources/items/armas/bastao_choque.tres" id="4_16cg3"]
+[ext_resource type="Resource" path="res://resources/items/armas/foice_curva.tres" id="5_mx2pk"]
+[ext_resource type="Resource" path="res://resources/items/armas/espadao_sucata.tres" id="6_32cof"]
+[ext_resource type="Resource" path="res://resources/items/armas/escopeta_serrada.tres" id="7_w3ow2"]
+[ext_resource type="Script" path="res://scripts/resources/catalogo_de_loja.gd" id="8_wgh8m"]
+
+[resource]
+script = ExtResource("8_wgh8m")
+npc_id = "vitor"
+itens = Array[ExtResource("1_wdq5t")]([ExtResource("2_wv5t4"), ExtResource("3_p7t6v"), ExtResource("4_16cg3"), ExtResource("5_mx2pk"), ExtResource("6_32cof"), ExtResource("7_w3ow2")])
+marco_necessario = Array[String](["", "", "", "marco_1", "marco_2", "marco_2"])

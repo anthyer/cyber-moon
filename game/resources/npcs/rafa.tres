@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="10_7h3av"]
 [ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="11_vxo2o"]
 
-[sub_resource type="Resource" id="Resource_j2det"]
+[sub_resource type="Resource" id="Resource_vb1ee"]
 script = ExtResource("10_7h3av")
 hora_inicial = 7.0
 hora_final = 10.0
@@ -20,34 +20,34 @@ dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"posto_entrega"
 animacao_parado = &"interact-left"
 
-[sub_resource type="Resource" id="Resource_2wlbp"]
+[sub_resource type="Resource" id="Resource_m63w5"]
 script = ExtResource("10_7h3av")
 hora_inicial = 10.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"mercado"
 
-[sub_resource type="Resource" id="Resource_qwgrk"]
+[sub_resource type="Resource" id="Resource_p87sg"]
 script = ExtResource("10_7h3av")
 hora_inicial = 12.0
 hora_final = 13.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"praca"
 
-[sub_resource type="Resource" id="Resource_s2ulc"]
+[sub_resource type="Resource" id="Resource_qqr1s"]
 script = ExtResource("10_7h3av")
 hora_inicial = 13.0
 hora_final = 16.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"clinica"
 
-[sub_resource type="Resource" id="Resource_w43vi"]
+[sub_resource type="Resource" id="Resource_4axxr"]
 script = ExtResource("10_7h3av")
 hora_inicial = 16.0
 hora_final = 18.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"oficina"
 
-[sub_resource type="Resource" id="Resource_uf0y7"]
+[sub_resource type="Resource" id="Resource_vopiq"]
 script = ExtResource("10_7h3av")
 hora_inicial = 18.0
 hora_final = 22.0
@@ -65,5 +65,5 @@ itens_indesejados = Array[ExtResource("1_vb1ee")]([ExtResource("4_qqr1s")])
 itens_odiados = Array[ExtResource("1_vb1ee")]([ExtResource("5_4axxr")])
 modelo = ExtResource("9_q3yln")
 casa = &"casa_rafa"
-rotina = Array[ExtResource("10_7h3av")]([SubResource("Resource_j2det"), SubResource("Resource_2wlbp"), SubResource("Resource_qwgrk"), SubResource("Resource_s2ulc"), SubResource("Resource_w43vi"), SubResource("Resource_uf0y7")])
+rotina = Array[ExtResource("10_7h3av")]([SubResource("Resource_vb1ee"), SubResource("Resource_m63w5"), SubResource("Resource_p87sg"), SubResource("Resource_qqr1s"), SubResource("Resource_4axxr"), SubResource("Resource_vopiq")])
 eh_romanceavel = true

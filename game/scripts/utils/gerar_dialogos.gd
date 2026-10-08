@@ -38,6 +38,9 @@ const EVENTOS_POR_ROTULO: Dictionary = {
 	"Buquê recusado, poucos corações": &"buque_poucos_coracoes",
 	"Buquê recusado, não romanceável": &"buque_nao_romanceavel",
 	"Buquê recusado, já namorando": &"buque_ja_namorando",
+	"Loja fechada, Folga": &"loja_fechada_folga",
+	"Loja fechada, fora de horário": &"loja_fechada_horario",
+	"Sem crédito suficiente": &"sem_credito",
 }
 
 func _init() -> void:

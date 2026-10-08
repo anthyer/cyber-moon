@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="11_tpqak"]
 [ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="12_qqw47"]
 
-[sub_resource type="Resource" id="Resource_iah2u"]
+[sub_resource type="Resource" id="Resource_gym55"]
 script = ExtResource("11_tpqak")
 hora_inicial = 9.0
 hora_final = 13.0
@@ -21,14 +21,14 @@ dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"torre_antena"
 animacao_parado = &"interact-left"
 
-[sub_resource type="Resource" id="Resource_c07qk"]
+[sub_resource type="Resource" id="Resource_l14tc"]
 script = ExtResource("11_tpqak")
 hora_inicial = 13.0
 hora_final = 14.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"praca"
 
-[sub_resource type="Resource" id="Resource_jfi1j"]
+[sub_resource type="Resource" id="Resource_8u7cs"]
 script = ExtResource("11_tpqak")
 hora_inicial = 14.0
 hora_final = 19.0
@@ -36,13 +36,13 @@ dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"torre_antena"
 animacao_parado = &"interact-left"
 
-[sub_resource type="Resource" id="Resource_iqno2"]
+[sub_resource type="Resource" id="Resource_n1tij"]
 script = ExtResource("11_tpqak")
 hora_inicial = 19.0
 hora_final = 23.0
 destino = &"ponte"
 
-[sub_resource type="Resource" id="Resource_2vlja"]
+[sub_resource type="Resource" id="Resource_hebcd"]
 script = ExtResource("11_tpqak")
 hora_inicial = 14.0
 hora_final = 19.0
@@ -61,5 +61,5 @@ itens_indesejados = Array[ExtResource("1_gym55")]([ExtResource("4_n1tij"), ExtRe
 itens_odiados = Array[ExtResource("1_gym55")]([ExtResource("6_8p0q7")])
 modelo = ExtResource("10_n7mt5")
 casa = &"casa_kenji"
-rotina = Array[ExtResource("11_tpqak")]([SubResource("Resource_iah2u"), SubResource("Resource_c07qk"), SubResource("Resource_jfi1j"), SubResource("Resource_iqno2"), SubResource("Resource_2vlja")])
+rotina = Array[ExtResource("11_tpqak")]([SubResource("Resource_gym55"), SubResource("Resource_l14tc"), SubResource("Resource_8u7cs"), SubResource("Resource_n1tij"), SubResource("Resource_hebcd")])
 eh_romanceavel = true

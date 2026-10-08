@@ -1,8 +1,11 @@
-extends SceneTree
+extends Node
 
 ## Gera os .tres dos NPCs, com a rotina de cada um, a partir das tabelas abaixo.
 ##
-##     godot --headless --path game --script res://scripts/utils/gerar_npcs.gd
+##     godot --headless --path game res://scenes/utils/gerar_npcs.tscn
+##
+## Roda como cena, e não com --script, porque o catálogo de loja consulta autoloads do
+## jogo, que só existem com o projeto carregado.
 ##
 ## A rotina é dado: mora no .tres e pode ser editada no Inspector. Este script existe
 ## porque escrever dezenas de compromissos à mão no editor é lento e fácil de errar, e a
@@ -99,9 +102,25 @@ const ROTINAS: Dictionary = {
 	],
 }
 
+const PASTA_DAS_LOJAS: String = "res://resources/lojas/"
+## O que cada comerciante vende: id do item e o marco de progressão que o libera (vazio
+## para o que está à venda desde o começo). A Marta vende semente e comida; o Vitor,
+## equipamento e arma. Os catálogos não se sobrepõem, para o jogador aprender aonde ir.
+const CATALOGOS: Dictionary = {
+	"marta": [
+		[&"semente_cenoura", ""], [&"semente_trigo", ""], [&"semente_beterraba", ""], [&"semente_repolho", ""],
+		[&"semente_milho", ""], [&"semente_tomate", ""], [&"pao_de_trigo", ""], [&"sopa_de_legumes", ""],
+		[&"nutrisolo", "marco_1"], [&"buque", ""],
+	],
+	"vitor": [
+		[&"nanogel", ""], [&"estimulante", ""], [&"bastao_choque", ""],
+		[&"foice_curva", "marco_1"], [&"espadao_sucata", "marco_2"], [&"escopeta_serrada", "marco_2"],
+	],
+}
+
 var _itens_por_id: Dictionary = {}
 
-func _init() -> void:
+func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(PASTA_DOS_NPCS)
 	_carregar_itens(PASTA_DOS_ITENS)
 	for linha in ELENCO:
@@ -120,10 +139,12 @@ func _init() -> void:
 		perfil.itens_queridos.assign(_itens(gostos[1]))
 		perfil.itens_indesejados.assign(_itens(gostos[2]))
 		perfil.itens_odiados.assign(_itens(gostos[3]))
+		if CATALOGOS.has(perfil.id):
+			perfil.catalogo = _novo_catalogo(perfil.id)
 		var caminho: String = PASTA_DOS_NPCS + perfil.id + ".tres"
 		var erro: Error = ResourceSaver.save(perfil, caminho)
 		print("%s: %d compromissos (erro %d)" % [caminho, perfil.rotina.size(), erro])
-	quit()
+	get_tree().quit()
 
 ## Percorre a pasta de itens e guarda cada um pelo id, para os gostos acima poderem citar
 ## o id sem saber em que subpasta o item mora.
@@ -144,6 +165,22 @@ func _itens(ids: Array) -> Array[Item]:
 		else:
 			push_error("Item de gosto não encontrado: %s" % id)
 	return lista
+
+## O catálogo é salvo num arquivo próprio, e o perfil aponta para ele.
+func _novo_catalogo(npc_id: String) -> CatalogoDeLoja:
+	var catalogo: CatalogoDeLoja = CatalogoDeLoja.new()
+	catalogo.npc_id = npc_id
+	for linha in CATALOGOS[npc_id]:
+		if not _itens_por_id.has(linha[0]):
+			push_error("Item de catálogo não encontrado: %s" % linha[0])
+			continue
+		catalogo.itens.append(_itens_por_id[linha[0]])
+		catalogo.marco_necessario.append(linha[1])
+	DirAccess.make_dir_recursive_absolute(PASTA_DAS_LOJAS)
+	var caminho: String = PASTA_DAS_LOJAS + npc_id + ".tres"
+	ResourceSaver.save(catalogo, caminho)
+	catalogo.take_over_path(caminho)
+	return catalogo
 
 func _novo_compromisso(item: Array) -> Compromisso:
 	var compromisso: Compromisso = Compromisso.new()
