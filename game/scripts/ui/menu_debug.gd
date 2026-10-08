@@ -25,6 +25,13 @@ const CULTURAS: Array[String] = ["beterraba", "repolho", "cenoura", "milho", "to
 const ARMAS: Array[String] = ["cestos", "foice_curva", "bastao_choque", "espadao_sucata", "escopeta_serrada"]
 const SUCATAS: Array[String] = ["sucata_metal", "placa_queimada", "celula_energia", "fio_optico", "servomotor", "nucleo_sintetico"]
 
+const PASTA_DOS_ITENS: String = "res://resources/items/"
+const COLUNAS_DO_SUBMENU_DE_ITENS: int = 6
+const TAMANHO_DO_BOTAO_DE_ITEM: Vector2 = Vector2(40.0, 40.0)
+const QUANTIDADE_COM_SHIFT: int = 10
+## O nome de cada categoria na ordem do enum Item.Categoria, para os títulos do submenu.
+const NOMES_DAS_CATEGORIAS: Array[String] = ["Recursos", "Sementes", "Colheitas", "Ferramentas", "Armas", "Armaduras", "Consumíveis", "Materiais", "Especiais", "Acessórios"]
+
 const CENA_DO_INIMIGO: String = "res://scenes/combat/inimigo.tscn"
 const PERFIL_DO_DRONE: String = "res://resources/combat/inimigos/drone_rastejador.tres"
 const PERFIL_DO_CIBORGUE: String = "res://resources/combat/inimigos/ciborgue_operario.tres"
@@ -119,6 +126,7 @@ func _montar_secoes() -> void:
 	_novo_botao("+10 de cada semente", _dar_sementes)
 
 	_novo_titulo_de_secao("Itens")
+	_montar_submenu_de_itens()
 	_novo_botao("+5 pães", _dar_paes)
 	_novo_botao("Todas as armas", _dar_todas_as_armas)
 	_novo_botao("Soltar sucata no chão", _soltar_sucata)
@@ -345,6 +353,73 @@ func _soltar_sucata() -> void:
 		var item: Item = load("res://resources/items/sucata/%s.tres" % sucata) as Item
 		if item != null:
 			ItemNoMundo.soltar(item, 1, jogador.global_position + Vector3(1.5, 0.0, 0.0), cena)
+
+## O submenu com todos os itens do jogo: um botão por item, com o ícone dele, agrupados
+## por categoria. Clicar põe um no inventário; com Shift, dez. A lista vem da pasta de
+## itens, então item novo aparece aqui sem mexer neste script.
+func _montar_submenu_de_itens() -> void:
+	var conteudo: VBoxContainer = VBoxContainer.new()
+	conteudo.visible = false
+	var abrir: Button = _novo_botao("Todos os itens (clique dá 1, Shift dá %d)" % QUANTIDADE_COM_SHIFT, func() -> void: conteudo.visible = not conteudo.visible)
+	abrir.toggle_mode = true
+	lista.add_child(conteudo)
+
+	var por_categoria: Dictionary = {}
+	for item in _todos_os_itens(PASTA_DOS_ITENS):
+		if not por_categoria.has(item.categoria):
+			por_categoria[item.categoria] = []
+		por_categoria[item.categoria].append(item)
+	for categoria: int in NOMES_DAS_CATEGORIAS.size():
+		if not por_categoria.has(categoria):
+			continue
+		var titulo: Label = Label.new()
+		titulo.text = NOMES_DAS_CATEGORIAS[categoria]
+		titulo.add_theme_font_size_override(&"font_size", 12)
+		titulo.add_theme_color_override(&"font_color", Color(0.6, 0.66, 0.8))
+		conteudo.add_child(titulo)
+		var grade: GridContainer = GridContainer.new()
+		grade.columns = COLUNAS_DO_SUBMENU_DE_ITENS
+		conteudo.add_child(grade)
+		var itens: Array = por_categoria[categoria]
+		itens.sort_custom(func(a: Item, b: Item) -> bool: return a.nome < b.nome)
+		for item: Item in itens:
+			grade.add_child(_novo_botao_de_item(item))
+
+func _novo_botao_de_item(item: Item) -> Button:
+	var botao: Button = Button.new()
+	botao.focus_mode = Control.FOCUS_NONE
+	botao.custom_minimum_size = TAMANHO_DO_BOTAO_DE_ITEM
+	botao.icon = item.icone
+	botao.expand_icon = true
+	botao.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	# Pixel art: sem isso o ícone de 16 pixels fica borrado ao ser ampliado.
+	botao.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	botao.tooltip_text = item.nome
+	if item.icone == null:
+		botao.text = item.nome.left(3)
+	botao.pressed.connect(_dar_pelo_submenu.bind(item))
+	return botao
+
+func _dar_pelo_submenu(item: Item) -> void:
+	var quantidade: int = QUANTIDADE_COM_SHIFT if Input.is_key_pressed(KEY_SHIFT) else 1
+	var sobra: int = InventoryManager.adicionar_item(item, quantidade)
+	if sobra > 0:
+		EventBus.notice_requested.emit("Inventário cheio.")
+
+## Todos os .tres de Item da pasta e das subpastas. No jogo exportado os arquivos aparecem
+## com ".remap" no fim do nome.
+func _todos_os_itens(pasta: String) -> Array[Item]:
+	var itens: Array[Item] = []
+	for subpasta in DirAccess.get_directories_at(pasta):
+		itens.append_array(_todos_os_itens(pasta + subpasta + "/"))
+	for arquivo in DirAccess.get_files_at(pasta):
+		var nome: String = arquivo.trim_suffix(".remap")
+		if not nome.ends_with(".tres"):
+			continue
+		var item: Item = load(pasta + nome) as Item
+		if item != null:
+			itens.append(item)
+	return itens
 
 func _dar_item(caminho: String, quantidade: int) -> void:
 	var item: Item = load(caminho) as Item

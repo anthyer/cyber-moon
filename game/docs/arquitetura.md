@@ -523,7 +523,7 @@ O menu de debug (`scenes/ui/menu_debug.tscn`, script `MenuDebug`, no `InterfaceH
 playground) abre e fecha com F3 e serve para testar os sistemas sem esperar o jogo:
 trocar a hora, avançar o dia, pular para a próxima estação, abrir o calendário, trocar o clima, cair um raio, abrir o lobby, entrar e sair da dungeon, dar corações e itens de presente, congelar o relógio, encher vida e stamina, tomar dano,
 ganhar experiência, ficar invencível, teleportar, molhar o solo e amadurecer as plantas,
-ganhar sementes, pães e armas, soltar sucata, criar e matar inimigos, mostrar os quadros
+ganhar sementes, pães e armas, ganhar qualquer item por um submenu de ícones, soltar sucata, criar e matar inimigos, mostrar os quadros
 por segundo e ligar e desligar a sombra do sol. Ele não pausa o jogo e os botões não
 pegam foco, então o jogador continua andando com o menu aberto. Tudo que ele mexe é
 procurado na hora do clique, então o menu não quebra numa fase diferente.
