@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InventarioInicial" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/inventario_inicial.gd" id="1_script"]
+[ext_resource type="Resource" path="res://resources/items/armas/cestos.tres" id="2_cestos"]
+[ext_resource type="Resource" path="res://resources/items/ferramentas/enxada.tres" id="3_enxada"]
+[ext_resource type="Resource" path="res://resources/items/ferramentas/regador.tres" id="4_regador"]
+[ext_resource type="Resource" path="res://resources/items/ferramentas/picareta.tres" id="5_picareta"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_cenoura.tres" id="6_cenoura"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_trigo.tres" id="7_trigo"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="8_item"]
+
+[resource]
+script = ExtResource("1_script")
+itens = Array[ExtResource("8_item")]([ExtResource("2_cestos"), ExtResource("3_enxada"), ExtResource("4_regador"), ExtResource("5_picareta"), ExtResource("6_cenoura"), ExtResource("7_trigo")])
+quantidades = Array[int]([1, 1, 1, 1, 5, 5])
+creditos = 500

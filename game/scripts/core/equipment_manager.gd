@@ -9,34 +9,21 @@ extends Node
 
 signal slot_selecionado_alterado(indice: int)
 
-## O que o jogador tem no começo, com a quantidade, nessa ordem, para os slots 1 a 4
-## baterem com as teclas 1 a 4. As armas, as sementes e os pães são estoque de teste até o plano 17, que
-## define o inventário inicial de verdade e leva esta lista para um Resource.
-const ITENS_INICIAIS: Array = [
-	["res://resources/items/armas/cestos.tres", 1],
-	["res://resources/items/ferramentas/enxada.tres", 1],
-	["res://resources/items/ferramentas/regador.tres", 1],
-	["res://resources/items/ferramentas/picareta.tres", 1],
-	["res://resources/items/armas/foice_curva.tres", 1],
-	["res://resources/items/armas/bastao_choque.tres", 1],
-	["res://resources/items/armas/espadao_sucata.tres", 1],
-	["res://resources/items/armas/escopeta_serrada.tres", 1],
-	["res://resources/items/sementes/semente_cenoura.tres", 5],
-	["res://resources/items/sementes/semente_trigo.tres", 5],
-	["res://resources/items/sementes/semente_beterraba.tres", 5],
-	["res://resources/items/sementes/semente_repolho.tres", 5],
-	["res://resources/items/sementes/semente_milho.tres", 5],
-	["res://resources/items/sementes/semente_tomate.tres", 5],
-	["res://resources/items/consumiveis/pao_de_trigo.tres", 3],
-]
+## O que o jogador tem no começo (itens e créditos) fica num Resource, e não aqui. Os
+## quatro primeiros itens são as ferramentas, para caírem nos slots das teclas 1 a 4.
+const CAMINHO_DO_INVENTARIO_INICIAL: String = "res://resources/items/inventario_inicial.tres"
 
 var indice_selecionado: int = 0
 
 func _ready() -> void:
 	# Este autoload vem depois do InventoryManager na lista do project.godot, então o
 	# inventário já existe aqui.
-	for caminho_e_quantidade in ITENS_INICIAIS:
-		InventoryManager.adicionar_item(load(caminho_e_quantidade[0]) as Item, caminho_e_quantidade[1])
+	var inicial: InventarioInicial = load(CAMINHO_DO_INVENTARIO_INICIAL) as InventarioInicial
+	if inicial == null:
+		return
+	for indice in inicial.itens.size():
+		var quantidade: int = inicial.quantidades[indice] if indice < inicial.quantidades.size() else 1
+		InventoryManager.adicionar_item(inicial.itens[indice], quantidade)
 
 func selecionar(indice: int) -> void:
 	if indice < 0 or indice >= InventoryManager.SLOTS_RAPIDOS:

@@ -18,6 +18,9 @@ enum Categoria { RECURSO, SEMENTE, COLHEITA, FERRAMENTA, ARMA, ARMADURA, CONSUMI
 @export var quantidade_maxima_por_pilha: int = 99
 @export var valor_de_venda: int = 1
 @export var pode_ser_presente: bool = true
+## Preço na loja. Zero usa a regra do EconomyManager (o dobro do valor de venda, ou a
+## regra da semente). Preencha só para exceção escrita à mão.
+@export var preco_de_compra: int = 0
 ## Item-chave: de missão, de história, ou qualquer coisa que o jogador não pode perder.
 ## Não pode ser solto, dado, jogado na lixeira, nem some do chão.
 @export var item_chave: bool = false
@@ -27,3 +30,13 @@ enum Categoria { RECURSO, SEMENTE, COLHEITA, FERRAMENTA, ARMA, ARMADURA, CONSUMI
 ## item no chão consultam, para as quatro coisas nunca discordarem.
 func pode_ser_descartado() -> bool:
 	return not item_chave and categoria != Categoria.FERRAMENTA and categoria != Categoria.ARMA
+
+## Pode ir para o baú de venda. Arma pode (é como o jogador se livra de uma); ferramenta
+## de fazenda nunca, porque ela é melhorada, e não vendida; item-chave nunca. Item sem
+## valor também não, para não sumir do baú em troca de nada.
+func pode_ser_vendido() -> bool:
+	return not item_chave and categoria != Categoria.FERRAMENTA and valor_de_venda > 0
+
+## Pode ir para o baú de guardar. Só o item-chave fica de fora.
+func pode_ser_guardado() -> bool:
+	return not item_chave
