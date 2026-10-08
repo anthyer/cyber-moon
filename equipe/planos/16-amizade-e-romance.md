@@ -7,6 +7,49 @@ personagem romanceável, o buquê pede em namoro.
 **Depende de:** 15 (conversar é o que dá ponto), 05 (o presente é o item na mão), 12 (o
 aniversário multiplica o presente).
 
+## Revisão de 2026-10-07 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido por teste automático, com o presente dado pelo teclado:
+
+- 250 pontos dão 1 coração e o teto é 2500 pontos, 10 corações.
+- Conversar dá 20 pontos, e de novo no mesmo dia não dá nada.
+- Q perto do Vitor com um servomotor na mão: +80, o item sai do inventário e ele responde
+  com a fala de "amou". Q de novo na mesma semana: nada muda, o item fica, e ele diz que
+  já ganhou algo.
+- Presente odiado tira 40. Presente amado no aniversário dá 240.
+- Q longe de NPC: o item sai do inventário e aparece no chão.
+- Decaimento: com 540 pontos e a última conversa no dia 10, a Sol fica em 540 no dia 16,
+  cai para 530 no dia 17 e para em 500, o piso do segundo coração.
+- Buquê: recusado pelo Vitor (não romanceável) e pelo Kenji com poucos corações; aceito
+  pelo Kenji com 10; recusado pela Iara com 10 porque o jogador já namora.
+- Com 10 corações a fala do dia do Kenji passa a ser da faixa "Íntimo".
+- A aba de relacionamentos foi conferida por captura.
+
+**Ajustes ao plano:**
+
+- **Sinais em inglês:** `relationship_changed`, `heart_gained` e `dating_started`.
+- **No controle o botão de soltar é o R3** (apertar o analógico direito), e não o L2, que
+  já troca o item da barra rápida desde o plano 05.
+- **Ferramenta e arma não são soltas nem dadas.** Perder a enxada num aperto de tecla
+  errado travaria o jogo. Os outros itens caem no chão um passo à frente.
+- **No aniversário só o presente de que ele gosta vale o triplo.** O de que não gosta
+  não é triplicado, para o aniversário não virar armadilha.
+- **Quem decide se aceita o presente é o NPC** (`Npc.receber_presente`). O jogador só
+  tira o item do inventário quando ele aceita.
+- **As falas de evento ficam na `Conversa`**, no dicionário `falas_de_evento`, e não como
+  `NoDialogo`. As "Falas de sistema" da biblioteca são copiadas para todos os NPCs.
+- **No aniversário, a fala de aniversário substitui a reação comum** quando ele gosta do
+  presente.
+- **`reacao_ao_item` e `resposta_ao_buque`** dizem o que aconteceria sem mexer em nada,
+  para a interface ou um teste poderem perguntar.
+- **Ganhar um coração mostra um aviso na tela.**
+- **O namoro não muda as falas por conta própria.** Quem namora já está com 10 corações,
+  e portanto na faixa "Íntimo".
+- **A transcrição da biblioteca (tarefa 7)** começou no plano 15 e foi completada aqui.
+- **Menu de debug:** seção Amizade, com um coração para todos, zerar, liberar o presente
+  da semana e ganhar os itens amados e um buquê.
+- **Sem partículas**, porque o plano é anterior à regra. Ficam para o plano 19.
+
 ## Decisões fechadas
 
 **Dez corações, 250 pontos cada, 2500 no máximo.** Coração é a unidade que o jogador vê,
@@ -150,18 +193,18 @@ Transcrever aquele arquivo para `.tres` de `Conversa` e `NoDialogo` é a tarefa 
 
 ## Tarefas
 
-- [ ] **1.** Criar o `RelationshipManager` e registrar o autoload. Verificar por script
+- [x] **1.** Criar o `RelationshipManager` e registrar o autoload. Verificar por script
   headless: 250 pontos dá 1 coração, 2500 dá 10, e nunca passa disso.
-- [ ] **2.** Adicionar as quatro listas de gosto ao `PerfilNpc` e preencher nos seis
+- [x] **2.** Adicionar as quatro listas de gosto ao `PerfilNpc` e preencher nos seis
   `.tres`.
-- [ ] **3.** Ligar `registrar_conversa` ao fim do diálogo do plano 15.
-- [ ] **4.** Implementar `soltar_item`: sem NPC perto, cai no chão.
-- [ ] **5.** Implementar presentear, com a reação e o limite semanal.
-- [ ] **6.** Implementar o decaimento no `day_started`.
-- [ ] **7.** Transcrever `equipe/biblioteca-de-dialogos.md` para os `.tres`.
-- [ ] **8.** Implementar o buquê e o namoro.
-- [ ] **9.** Criar a aba de relacionamentos no menu de pausa.
-- [ ] **10.** Documentar e commitar.
+- [x] **3.** Ligar `registrar_conversa` ao fim do diálogo do plano 15.
+- [x] **4.** Implementar `soltar_item`: sem NPC perto, cai no chão.
+- [x] **5.** Implementar presentear, com a reação e o limite semanal.
+- [x] **6.** Implementar o decaimento no `day_started`.
+- [x] **7.** Transcrever `equipe/biblioteca-de-dialogos.md` para os `.tres`.
+- [x] **8.** Implementar o buquê e o namoro.
+- [x] **9.** Criar a aba de relacionamentos no menu de pausa.
+- [x] **10.** Documentar e commitar.
 
 ## Critério de pronto
 

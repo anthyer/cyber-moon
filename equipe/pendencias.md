@@ -270,6 +270,27 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-07, plano 16
+
+**Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-07".
+
+**Precisa do Antonio:**
+
+- Confirmar o R3 como botão de soltar e presentear no controle. O plano previa o L2, que
+  está ocupado. No painel arcade pode não existir esse botão.
+- Jogar e sentir o ritmo: são cerca de 72 dias de jogo até 10 corações com um NPC.
+
+**Fica para depois:**
+
+- O indicador amarelo em cima do NPC considera só a conversa do dia. Ele ainda não avisa
+  que dá para presentear, nem que é aniversário.
+- A amizade não é salva. Entra no plano 20.
+- Nenhum item diz na descrição quem gosta dele, e a aba não mostra os gostos: descobrir é
+  de propósito.
+- Eventos de coração (cena especial ao atingir certos corações) estão em
+  `sugestoes-de-features.md`.
+- O buquê ainda não tem onde ser comprado. É do plano 17.
+
 ### 2026-10-07, indicador de conversa
 
 **Feito**, a pedido do Antonio. Um balão aparece em cima do NPC quando o jogador está

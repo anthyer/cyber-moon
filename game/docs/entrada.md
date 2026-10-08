@@ -20,6 +20,7 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 | `slot_proximo` | Nenhum | Roda para baixo | Gatilho direito (RT / R2) |
 | `slot_anterior` | Nenhum | Roda para cima | Gatilho esquerdo (LT / L2) |
 | `teste_avancar_dia` | N (atalho de teste: avança um dia na hora, sem penalidade) | Nenhum | Nenhum |
+| `soltar_item` | Q (solta o item da mão; perto de um NPC, dá de presente) | Nenhum | R3 (apertar o analógico direito) |
 | `abrir_chat` | Enter ou T (abre o campo do chat; Enter envia, Esc fecha) | Nenhum | Nenhum |
 | `menu_debug` | F3 (abre e fecha o menu de debug; só teclado, é ferramenta de teste) | Nenhum | Nenhum |
 

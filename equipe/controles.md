@@ -22,7 +22,7 @@ atualizado a cada ação nova que entrar de fato. Este arquivo é o alvo, aquele
 | `interagir` | F | conversar, abrir baú, colher | sim (plano 04) |
 | `abrir_inventario` | E | Minecraft | sim (plano 04) |
 | `menu_pausa` | Esc | Minecraft | sim (plano 04) |
-| `soltar_item` | Q | Minecraft (drop), usado também para presentear | novo |
+| `soltar_item` | Q | Minecraft (drop), usado também para presentear | sim (plano 16) |
 | `slot_1` a `slot_9` | 1 a 9 | Minecraft (hotbar) | sim (plano 05) |
 | `slot_proximo` / `slot_anterior` | Roda do mouse | Minecraft | sim (plano 05) |
 | `abrir_chat` | Enter ou T | Minecraft | sim (plano 21) |
@@ -41,7 +41,7 @@ posição oeste e o X na posição norte, então a tradução é por posição, 
 | `abrir_inventario` | Y (norte) | 3 | igual hoje |
 | `slot_anterior` | LT / L2 (gatilho esquerdo) | eixo 4 | decisão do Antonio no plano 05 |
 | `slot_proximo` | RT / R2 (gatilho direito) | eixo 5 | decisão do Antonio no plano 05 |
-| `soltar_item` | L2 (gatilho esquerdo) | eixo | posição livre |
+| `soltar_item` | R3 (analógico direito) | 8 | o L2 previsto já troca o item da barra rápida (plano 05) |
 | `dash` | R1 | 10 | ver nota abaixo |
 | `menu_pausa` | Back / Select | 4 | no painel arcade o Start ficou com o inventário |
 

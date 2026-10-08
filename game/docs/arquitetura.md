@@ -7,6 +7,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 - `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada`, `item_picked_up(item, quantidade)` (o jogador pegou um item do chão), `crop_planted(celula, cultivo)`, `crop_grown(celula, novo_estagio)`, `crop_withered(celula)`, `crop_removed(celula)`, `damage_dealt(alvo, quantidade)` e `enemy_defeated(perfil, posicao)`.
 - `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): o relógio do jogo. A hora anda sozinha das 6:00 à 1:00 do dia seguinte (5 minutos reais de dia, das 6:00 às 18:00, e 5 de noite, das 18:00 à 1:00), e passa de 24 em vez de voltar a zero (24.5 é 0:30). Sinais: `day_started`, `day_ended`, `hour_changed` (a cada minuto de jogo), `period_changed` e `player_slept(forcado)`. Métodos: `avancar_para_o_proximo_dia()`, `dormir(forcado)`, `periodo_atual()`, `hora_formatada()`, `fracao_do_dia()`. Para com o menu de pausa (pausa junto com a árvore) e com `tempo_congelado`.
 - `WeatherManager` (`scripts/core/weather_manager.gd`): o clima do dia (`sol`, `chuva` ou `tempestade`), sorteado no `day_started` com a `chance_de_chuva` da estação; a tempestade é um quinto dela. Não muda no meio do dia. Sinal `weather_changed(clima)`, emitido todo dia. `clima_atual`, `clima_de_amanha`, `esta_chovendo()`, `perfil_atual()`, `definir_clima(clima)`.
+- `RelationshipManager` (`scripts/core/relationship_manager.gd`): a amizade com cada NPC. `coracoes(npc_id)`, `pontos_de(npc_id)`, `presentear(npc_id, item)`, `pode_presentear(npc_id)`, `pedir_em_namoro(npc_id)`. Veja "Amizade e romance".
 - `DialogueManager` (`scripts/core/dialogue_manager.gd`): conduz a conversa com um NPC. `iniciar(npc)`, `avancar()`, `encerrar()`, `fala_do_dia(npc_id)`, `em_dialogo`. Veja "Diálogo".
 - `NetworkManager`, `ChatManager`, `LobbyManager` e `DungeonManager`: a conexão, o chat, a equipe e a entrada na dungeon. Veja "Rede" e "Dungeon em equipe".
 - `SeasonManager` (`scripts/core/season_manager.gd`): o calendário. Quatro estações de 30 dias (Brotação, Estiagem, Colheita, Apagão), 120 dias por ano. Não guarda nada: estação, dia da estação e ano são calculados do `numero_do_dia` do `DayCycleManager` a cada pergunta. Sinais `season_changed(nova)` e `year_changed(novo_ano)`, emitidos no `day_started` da virada. Métodos: `estacao_atual()`, `dia_da_estacao()`, `ano_atual()`, `indice_da_estacao()`, `nome_exibido(estacao)`, `perfil_da_estacao(estacao)`, `perfil_atual()`.
@@ -364,6 +365,35 @@ As conversas saem de `scripts/utils/gerar_dialogos.gd`, que transcreve
 `equipe/biblioteca-de-dialogos.md`. Para mudar uma fala, edite a biblioteca e rode o
 gerador.
 
+## Amizade e romance
+
+O `RelationshipManager` (autoload) guarda os pontos com cada NPC. O jogador vê corações:
+250 pontos por coração, dez no máximo. Os números (conversa, presente, decaimento) estão
+em `equipe/planos/16-amizade-e-romance.md`.
+
+- **Conversar:** a conversa do dia dá ponto uma vez por dia. A fala de reação a um
+  presente também passa pelo `DialogueManager`, mas não conta
+  (`DialogueManager.e_conversa_do_dia`).
+- **Presentear:** soltar o item da mão (`soltar_item`) com um NPC ao alcance. O jogador
+  chama `Npc.receber_presente(item)`, e só tira o item do inventário se o NPC aceitar. A
+  reação vem das quatro listas de gosto do `PerfilNpc`; item fora delas é neutro. Um
+  presente por semana do jogo. Sem NPC por perto, o item cai no chão.
+- **Faixas de fala:** os pontos decidem quais falas do dia o NPC usa
+  (`NoDialogo.relacionamento_minimo` e `maximo`).
+- **Falas de evento:** a reação a cada tipo de presente, o aniversário e as respostas ao
+  buquê ficam em `Conversa.falas_de_evento`, e saem por
+  `DialogueManager.mostrar_fala_de_evento`.
+- **Decaimento:** depois de 7 dias sem conversar, perde um pouco por dia, até o piso do
+  coração em que está.
+- **Namoro:** o buquê é aceito por NPC romanceável, com dez corações, se o jogador não
+  namora ninguém. Recusado, o buquê não é consumido.
+- **Interface:** a aba Relacionamentos do menu de pausa (`AbaDeRelacionamentos`) mostra os
+  corações, o aniversário, e se ainda dá para presentear e conversar. Os gostos não
+  aparecem.
+
+Os gostos saem da tabela de `scripts/utils/gerar_npcs.gd`, e as falas de evento, de
+`scripts/utils/gerar_dialogos.gd`.
+
 ## Rede
 
 O jogo conversa com um servidor de repasse por WebSocket, em JSON. O servidor não simula
@@ -491,7 +521,7 @@ novo substitui o anterior em vez de empilhar.
 
 O menu de debug (`scenes/ui/menu_debug.tscn`, script `MenuDebug`, no `InterfaceHUD` do
 playground) abre e fecha com F3 e serve para testar os sistemas sem esperar o jogo:
-trocar a hora, avançar o dia, pular para a próxima estação, abrir o calendário, trocar o clima, cair um raio, abrir o lobby, entrar e sair da dungeon, congelar o relógio, encher vida e stamina, tomar dano,
+trocar a hora, avançar o dia, pular para a próxima estação, abrir o calendário, trocar o clima, cair um raio, abrir o lobby, entrar e sair da dungeon, dar corações e itens de presente, congelar o relógio, encher vida e stamina, tomar dano,
 ganhar experiência, ficar invencível, teleportar, molhar o solo e amadurecer as plantas,
 ganhar sementes, pães e armas, soltar sucata, criar e matar inimigos, mostrar os quadros
 por segundo e ligar e desligar a sombra do sol. Ele não pausa o jogo e os botões não
