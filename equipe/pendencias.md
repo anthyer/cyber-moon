@@ -286,8 +286,12 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 **Fica para depois:**
 
 - Marcar `item_chave` nos itens de missão quando eles existirem.
-- Como arma não pode ser jogada fora, o jogador não tem como se livrar de uma arma que
-  não quer. Vender, no plano 17, pode ser a saída.
+- Arma não pode ser jogada fora nem solta. Decidido com o Antonio em 2026-10-07: ela sai
+  do inventário indo para o baú de guardar ou sendo vendida no baú de venda, os dois do
+  plano 17.
+- Ferramenta de fazenda nunca é vendida: é melhorada, trocada por uma versão melhor, e
+  pode ser guardada em baú. A tabela do que cada tipo de item pode fazer está na nota do
+  topo do plano 17. Falta definir os níveis de cada ferramenta.
 
 ### 2026-10-07, plano 16
 

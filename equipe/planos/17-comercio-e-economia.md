@@ -19,13 +19,28 @@ entrega" e na tarefa 5. O que precisa valer ao executar:
 
 - **A venda acontece na virada do dia**, seja dormindo na cama, caindo de sono ou
   desmaiando. É o `day_ended`, que os três caminhos disparam.
-- **O que não pode ser perdido não entra no baú.** Item-chave e ferramenta ficam de fora,
-  pela mesma regra `Item.pode_ser_descartado()` da lixeira (ver a entrada de 2026-10-07
-  em `pendencias.md`).
-- **Arma pode ser vendida.** É a saída para a arma que o jogador não quer mais, já que
-  ela não pode ser solta nem jogada na lixeira. Isso pede uma exceção à regra acima só
-  para o baú de venda, ou separar "pode vender" de "pode descartar" no `Item`. Decidir ao
-  executar, de preferência com um campo próprio.
+- **O que cada tipo de item pode fazer** (especificação do Antonio):
+
+  | Item | Baú de guardar | Baú de venda | Lixeira e soltar |
+  |---|---|---|---|
+  | Comum (colheita, recurso, semente, consumível, material) | sim | sim | sim |
+  | Arma | sim | sim | não |
+  | Ferramenta de fazenda | sim | nunca | não |
+  | Item-chave | não | nunca | não |
+
+- **Arma sai do inventário por dois caminhos:** ou vai para o baú de guardar, ou é
+  vendida. Ela continua sem poder ser solta nem jogada na lixeira.
+- **Ferramenta de fazenda nunca é vendida.** Ela é melhorada: o jogador troca a que tem
+  por uma versão melhor. Pode ser guardada no baú.
+- **Isso separa três perguntas no `Item`**, que hoje têm uma resposta só
+  (`pode_ser_descartado()`): pode descartar (lixeira e soltar), pode vender (baú de
+  venda) e pode guardar (baú de guardar). Ao executar, criar `pode_ser_vendido()` e
+  `pode_ser_guardado()` ao lado da que já existe, cada uma seguindo a tabela acima.
+- **Melhoria de ferramenta é escopo novo.** O plano 17 já tem o Vitor vendendo
+  equipamento; a troca da ferramenta por uma versão melhor entra ali, como compra que
+  substitui a antiga em vez de somar. Falta definir quantos níveis cada ferramenta tem e
+  o que cada nível melhora (área, custo de stamina, velocidade). Decidir antes de
+  executar.
 - **O resultado aparece ao acordar**, como o plano já prevê.
 
 ## Decisões fechadas
