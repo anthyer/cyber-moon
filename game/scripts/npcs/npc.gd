@@ -172,6 +172,11 @@ func receber_presente(item: Item) -> bool:
 	return true
 
 func _receber_buque() -> bool:
+	# Outro buquê para quem já é o namorado não é pedido nenhum. A fala de recusa "você já
+	# tem alguém" não faria sentido vinda dele, então só um aviso, e o buquê fica.
+	if RelationshipManager.esta_namorando(perfil.id):
+		EventBus.notice_requested.emit("Vocês já estão namorando.")
+		return false
 	var resposta: RelationshipManager.ResultadoBuque = RelationshipManager.pedir_em_namoro(perfil.id)
 	var aceito: bool = resposta == RelationshipManager.ResultadoBuque.ACEITO
 	DialogueManager.mostrar_fala_de_evento(self, EVENTOS_POR_RESPOSTA_AO_BUQUE[resposta], &"emote-yes" if aceito else &"idle")
