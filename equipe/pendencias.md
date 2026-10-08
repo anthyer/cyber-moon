@@ -270,6 +270,15 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-07, plano 25 criado: personas e diálogos
+
+**Pedido do Antonio, só documentado.** Revisar as personalidades dos seis NPCs com fichas
+de persona feitas por boas práticas, e fazer as falas variarem com a personalidade, o
+clima, o dia da semana, a estação, as datas e as situações especiais. Está em
+`planos/25-personas-e-dialogos.md`, com o modelo da ficha, a matriz do que deve mudar a
+fala, o que precisa mudar no sistema e as decisões que faltam (tom, quantidade de falas,
+quem escreve).
+
 ### 2026-10-07, plano 20
 
 **Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-07".

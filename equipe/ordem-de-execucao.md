@@ -27,6 +27,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 21 Rede e chat (independente; substitui a parte do Godot do plano 18)
 - [x] 22 Dungeon em coop (depois do 21)
 - [ ] 23 Conteúdo da dungeon: salas, chefes e objetivo (só documentado)
+- [ ] 25 Revisão das personas e dos diálogos (só documentado; o Antonio pediu como próximo depois do 20)
 - [ ] 24 Saque por força do inimigo e aprimoramento de armas no ferreiro (só documentado; depende de decisões)
 - [x] 20 Salvar o jogo (depois dos planos de sistema; obrigatório antes de qualquer entrega jogável)
 - [ ] 19 Partículas no que já existe (depois de todos os planos acima; feature nova, escrita depois deste plano, já nasce com partículas)
