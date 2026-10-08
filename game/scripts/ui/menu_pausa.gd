@@ -33,6 +33,7 @@ var _espacos_na_tela: Array[Array] = [
 @onready var matriz: GridContainer = %Matriz
 @onready var barra_rapida: GridContainer = %BarraRapida
 @onready var nome_do_item: Label = %NomeDoItem
+@onready var lixeira: LixeiraDoInventario = %Lixeira
 @onready var descricao_do_item: Label = %DescricaoDoItem
 @onready var botao_aba_inventario: Button = %BotaoAbaInventario
 @onready var botao_aba_relacionamentos: Button = %BotaoAbaRelacionamentos
@@ -52,6 +53,9 @@ var _slot_focado: SlotInventario = null
 func _ready() -> void:
 	visible = false
 	_criar_slots()
+	lixeira.descarte_pedido.connect(_descartar)
+	lixeira.acionada.connect(_ao_acionar_lixeira)
+	lixeira.focus_entered.connect(_ao_focar_lixeira)
 	_ligar_vizinhos_de_foco()
 	botao_aba_inventario.pressed.connect(_mostrar_aba.bind(false))
 	botao_aba_relacionamentos.pressed.connect(_mostrar_aba.bind(true))
@@ -158,8 +162,15 @@ func _ligar_vizinhos_de_foco() -> void:
 	for indice in _slots_de_equipamento.size():
 		var equipamento: SlotInventario = _slots_de_equipamento[indice]
 		equipamento.focus_neighbor_right = equipamento.get_path_to(_slots_da_matriz[indice * colunas])
+	# A lixeira fica embaixo dos espaços de equipamento, à esquerda da barra rápida.
+	var ultimo_slot_de_equipamento: SlotInventario = _slots_de_equipamento[ultimo_equipamento]
+	ultimo_slot_de_equipamento.focus_neighbor_bottom = ultimo_slot_de_equipamento.get_path_to(lixeira)
+	lixeira.focus_neighbor_top = lixeira.get_path_to(ultimo_slot_de_equipamento)
+	lixeira.focus_neighbor_right = lixeira.get_path_to(_slots_rapidos[0])
+	lixeira.focus_neighbor_left = lixeira.get_path_to(lixeira)
+	lixeira.focus_neighbor_bottom = lixeira.get_path_to(lixeira)
 	var primeiro_rapido: SlotInventario = _slots_rapidos[0]
-	primeiro_rapido.focus_neighbor_left = primeiro_rapido.get_path_to(_slots_de_equipamento[ultimo_equipamento])
+	primeiro_rapido.focus_neighbor_left = primeiro_rapido.get_path_to(lixeira)
 
 	# Os botões de aba ficam acima de tudo. Subir da primeira linha da matriz ou do
 	# primeiro equipamento chega neles, e descer deles volta para o inventário. Na aba de
@@ -201,6 +212,36 @@ func _ao_acionar_slot(slot: SlotInventario) -> void:
 	if _slot_segurado != slot:
 		SlotInventario.transferir(_slot_segurado.indice_mostrado(), -1, slot)
 	_cancelar_pega()
+
+## Joga fora, para sempre, tudo que está no slot. Item-chave, ferramenta e arma não vão:
+## o jogador não pode perder por engano o que não tem como conseguir de novo. O motivo
+## aparece no rodapé, porque os avisos da tela ficam escondidos com o menu aberto.
+func _descartar(indice: int) -> void:
+	var pilha: PilhaDeItens = InventoryManager.slot_em(indice)
+	if pilha == null or pilha.esta_vazia():
+		return
+	if not pilha.item.pode_ser_descartado():
+		nome_do_item.text = pilha.item.nome
+		descricao_do_item.text = "Isso não pode ser jogado fora."
+		return
+	var nome: String = pilha.item.nome
+	var quantidade: int = pilha.quantidade
+	InventoryManager.remover_do_slot(indice, quantidade)
+	nome_do_item.text = "Lixeira"
+	descricao_do_item.text = "%s (%d) jogado fora." % [nome, quantidade]
+
+## Pelo controle: com um item seguro, confirmar na lixeira joga ele fora.
+func _ao_acionar_lixeira() -> void:
+	if _slot_segurado == null:
+		return
+	var indice: int = _slot_segurado.indice_mostrado()
+	_cancelar_pega()
+	_descartar(indice)
+
+func _ao_focar_lixeira() -> void:
+	_slot_focado = null
+	nome_do_item.text = "Lixeira"
+	descricao_do_item.text = "O que for solto aqui é apagado para sempre."
 
 func _cancelar_pega() -> void:
 	if _slot_segurado != null:

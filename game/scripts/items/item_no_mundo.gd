@@ -35,6 +35,12 @@ const ESPERA_AO_SOLTAR: float = 0.6
 ## Altura do centro do peito do personagem, a partir dos pés. O personagem da Kenney tem
 ## 0,67 m: o corpo vai até 0,38 m e o ombro fica em 0,29 m, medidos no jogo rodando.
 ## Se o modelo do jogador mudar, este número precisa ser medido de novo.
+## Quanto tempo um item solto fica no chão antes de sumir, e por quantos segundos ele
+## pisca antes disso, avisando. Sem prazo, o mapa enche de item esquecido.
+const SEGUNDOS_NO_CHAO_AO_SOLTAR: float = 300.0
+const SEGUNDOS_PISCANDO: float = 10.0
+const PISCADAS_POR_SEGUNDO: float = 4.0
+
 const ALTURA_DO_PEITO_DO_JOGADOR: float = 0.28
 
 @export var item: Item
@@ -62,6 +68,11 @@ const ALTURA_DO_PEITO_DO_JOGADOR: float = 0.28
 ## Segundos antes de o item poder ser atraído. A cena colocada no mapa começa em 0; o
 ## soltar() usa ESPERA_AO_SOLTAR.
 @export var espera_para_atrair: float = 0.0
+
+## Segundos até o item sumir do chão. Zero é nunca: é o padrão da cena colocada no mapa à
+## mão. O soltar() usa SEGUNDOS_NO_CHAO_AO_SOLTAR. Item-chave, ferramenta e arma nunca
+## somem, seja qual for este valor (Item.pode_ser_descartado).
+@export var segundos_ate_sumir: float = 0.0
 
 @onready var visual: Sprite3D = $Visual
 @onready var area_de_atracao: Area3D = $AreaDeAtracao
@@ -102,6 +113,8 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	_tempo += delta
+	if _contar_o_prazo(delta):
+		return
 	rotate_y(velocidade_de_giro * delta)
 	# Enquanto voa até o jogador, a flutuação para, senão o item chega acima ou abaixo
 	# do peito dependendo do momento em que foi puxado.
@@ -109,6 +122,20 @@ func _process(delta: float) -> void:
 		visual.position.y = _altura_inicial_do_visual
 		return
 	visual.position.y = _altura_inicial_do_visual + sin(_tempo * velocidade_da_flutuacao) * altura_da_flutuacao
+
+## Conta o tempo do item no chão, pisca nos últimos segundos e o apaga no fim. Devolve
+## true quando o item sumiu. Voando até o jogador ele não some: já foi pego.
+func _contar_o_prazo(delta: float) -> bool:
+	if segundos_ate_sumir <= 0.0 or _jogador_alvo != null or item == null or not item.pode_ser_descartado():
+		visual.visible = true
+		return false
+	segundos_ate_sumir -= delta
+	if segundos_ate_sumir <= 0.0:
+		queue_free()
+		return true
+	if segundos_ate_sumir <= SEGUNDOS_PISCANDO:
+		visual.visible = fmod(segundos_ate_sumir * PISCADAS_POR_SEGUNDO, 1.0) < 0.5
+	return false
 
 ## As cópias são filhas do Visual para acompanharem a flutuação e o giro sem código
 ## extra. Criadas depois da textura, para herdarem o ícone certo no duplicate().
@@ -136,6 +163,7 @@ static func soltar(item_solto: Item, quantidade_solta: int, posicao: Vector3, pa
 		randf_range(-ESPALHAMENTO_AO_SOLTAR, ESPALHAMENTO_AO_SOLTAR)
 	)
 	instancia.espera_para_atrair = ESPERA_AO_SOLTAR
+	instancia.segundos_ate_sumir = SEGUNDOS_NO_CHAO_AO_SOLTAR
 	pai.add_child(instancia)
 	instancia.global_position = posicao + empurrao
 	return instancia

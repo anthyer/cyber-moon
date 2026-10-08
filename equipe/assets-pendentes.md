@@ -33,6 +33,7 @@ pixel art, fundo transparente; modelo em `.glb`. O caminho de importação está
 
 | O que falta | Hoje | Onde apontar | Plano |
 |---|---|---|---|
+| Ícone da lixeira do inventário | provisório, desenhado no estilo dos itens | `assets/textures/icones_itens/lixeira.png` | avulso |
 | Ícones dos 30 itens | provisórios | campo `icone` de cada `.tres` em `resources/items/` (trocar o PNG em `assets/textures/icones_itens/` basta) | 03 |
 | Ícones de clima (sol, chuva, tempestade) | provisórios, desenhados no estilo dos itens | `assets/textures/icones_clima/` | 13 |
 | Indicador de conversa em cima do NPC | provisório, um balão branco tingido por código | `assets/textures/efeitos/indicador_de_conversa.png` | 15 |

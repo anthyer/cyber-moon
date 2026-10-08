@@ -18,3 +18,12 @@ enum Categoria { RECURSO, SEMENTE, COLHEITA, FERRAMENTA, ARMA, ARMADURA, CONSUMI
 @export var quantidade_maxima_por_pilha: int = 99
 @export var valor_de_venda: int = 1
 @export var pode_ser_presente: bool = true
+## Item-chave: de missão, de história, ou qualquer coisa que o jogador não pode perder.
+## Não pode ser solto, dado, jogado na lixeira, nem some do chão.
+@export var item_chave: bool = false
+
+## Falso para o que o jogador nunca pode perder por conta própria: item-chave, ferramenta
+## e arma. É a regra única que soltar, presentear, a lixeira do inventário e o sumiço do
+## item no chão consultam, para as quatro coisas nunca discordarem.
+func pode_ser_descartado() -> bool:
+	return not item_chave and categoria != Categoria.FERRAMENTA and categoria != Categoria.ARMA

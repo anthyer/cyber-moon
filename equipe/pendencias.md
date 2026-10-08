@@ -270,6 +270,25 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-07, lixeira, item no chão com prazo e item-chave
+
+**Feito**, a pedido do Antonio.
+
+- **Lixeira no inventário.** Arrastar um slot para ela, ou pegar com o controle e
+  confirmar nela, apaga a pilha inteira para sempre. Não pede confirmação.
+- **Item solto some do chão** depois de 300 segundos (meio dia de jogo), piscando nos
+  últimos 10. Vale para o que nasce com `ItemNoMundo.soltar()`: colheita, saque de inimigo
+  e item largado. Item colocado à mão numa cena não some.
+- **Item-chave** (`Item.item_chave`) não pode ser solto, dado, jogado na lixeira, nem some
+  do chão. O mesmo vale para ferramenta e arma. A regra é uma só,
+  `Item.pode_ser_descartado()`. Nenhum item está marcado como chave ainda.
+
+**Fica para depois:**
+
+- Marcar `item_chave` nos itens de missão quando eles existirem.
+- Como arma não pode ser jogada fora, o jogador não tem como se livrar de uma arma que
+  não quer. Vender, no plano 17, pode ser a saída.
+
 ### 2026-10-07, plano 16
 
 **Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-07".

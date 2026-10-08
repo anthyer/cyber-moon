@@ -79,6 +79,11 @@ fica para colher, conversar e abrir baú (planos 06, 15 e 17).
 detecta o corpo de colisão e sobe pela árvore até o primeiro ancestral com esse método.
 O jogador não conhece o tipo do alvo; NPC, planta e baú decidem sozinhos o que fazer.
 
+O item solto pelo jogo (`ItemNoMundo.soltar()`) some do chão depois de
+`SEGUNDOS_NO_CHAO_AO_SOLTAR` (300), piscando nos últimos segundos. O item colocado à mão
+numa cena tem `segundos_ate_sumir` zero e não some. Item-chave, ferramenta e arma nunca
+somem.
+
 ## Camadas de física
 
 O jogo usa 8 camadas de colisão 3D, nomeadas no `project.godot`:
@@ -121,6 +126,11 @@ equipamento equipa, se a categoria servir.
 O primeiro espaço da coluna, "Equipado", não é um equipamento guardado: é uma janela
 para o slot rápido selecionado. Ele mostra o item na mão, e soltar um item nele leva o
 item para o slot selecionado.
+
+A lixeira (`LixeiraDoInventario`) apaga para sempre a pilha solta nela, pelo mouse ou pelo
+controle. O que o jogador não pode perder por conta própria é decidido num lugar só,
+`Item.pode_ser_descartado()`: falso para item-chave (`item_chave`), ferramenta e arma. A
+lixeira, o soltar da mão, o presente e o sumiço do item no chão consultam essa função.
 
 ## Barra de acesso rápido
 

@@ -151,7 +151,7 @@ func interagir() -> void:
 func receber_presente(item: Item) -> bool:
 	if item == null or perfil == null or DialogueManager.em_dialogo:
 		return false
-	if not item.pode_ser_presente:
+	if not item.pode_ser_presente or not item.pode_ser_descartado():
 		EventBus.notice_requested.emit("Isso não serve de presente.")
 		return false
 	if item.id == ID_DO_BUQUE:

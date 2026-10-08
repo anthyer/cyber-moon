@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/ui/menu_pausa.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/ui/barras_de_status.tscn" id="2_barras_de_status"]
+[ext_resource type="Script" path="res://scripts/ui/lixeira_do_inventario.gd" id="90_lixeira"]
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/lixeira.png" id="91_icone_lixeira"]
 [ext_resource type="PackedScene" path="res://scenes/ui/aba_de_relacionamentos.tscn" id="3_aba_de_relacionamentos"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_abas"]
@@ -102,6 +104,40 @@ theme_override_constants/separation = 8
 
 [node name="BarrasDeStatus" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda" instance=ExtResource("2_barras_de_status")]
 layout_mode = 2
+
+[node name="LinhaDaLixeira" type="HBoxContainer" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="RotuloDaLixeira" type="Label" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda/LinhaDaLixeira"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "Lixeira"
+vertical_alignment = 1
+
+[node name="Lixeira" type="Panel" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda/LinhaDaLixeira"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+focus_mode = 2
+script = ExtResource("90_lixeira")
+
+[node name="Icone" type="TextureRect" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda/LinhaDaLixeira/Lixeira"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("91_icone_lixeira")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ColunaDireita" type="VBoxContainer" parent="Centro/Painel/Margem/Colunas/Topo"]
 layout_mode = 2

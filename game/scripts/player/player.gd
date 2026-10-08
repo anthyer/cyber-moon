@@ -284,14 +284,14 @@ func _colher_na_celula(celula: Vector2i) -> bool:
 ## Solta uma unidade do item da mão. Com um NPC ao alcance, é um presente: quem decide
 ## se aceita é o NPC, e o item só sai do inventário se ele aceitar. Sem NPC, o item cai
 ## no chão um passo à frente. A mesma ação serve para as duas coisas, como em Stardew.
-## Ferramenta e arma ficam de fora.
+## Item-chave, ferramenta e arma ficam de fora (Item.pode_ser_descartado).
 func _soltar_item_da_mao() -> void:
 	var item: Item = EquipmentManager.item_na_mao()
 	if item == null:
 		return
-	# Ferramenta e arma não são soltas nem dadas: perder a enxada num aperto de tecla
-	# errado travaria o jogo do jogador.
-	if item.categoria in [Item.Categoria.FERRAMENTA, Item.Categoria.ARMA]:
+	# Item-chave, ferramenta e arma não são soltos nem dados: perder a enxada num aperto
+	# de tecla errado travaria o jogo do jogador.
+	if not item.pode_ser_descartado():
 		EventBus.notice_requested.emit("Isso não dá para soltar.")
 		return
 	var npc: Npc = area_interacao.alvo_mais_proximo() as Npc
