@@ -382,7 +382,9 @@ O `EconomyManager` (autoload) guarda os créditos, que são um número e não um
 
 - **Comprar:** cara a cara. Depois da conversa do dia com um comerciante (NPC com
   `PerfilNpc.catalogo`), a loja abre se estiver no horário e não for Folga; fechada, ele
-  diz por quê. O preço é `EconomyManager.preco_de_compra(item)`: o dobro do valor de
+  diz por quê. Enquanto atende, ele mostra uma banquinha em cima da cabeça (o nó
+  `IndicadorDeLoja` da cena do NPC), visível de longe e através de parede. O preço é
+  `EconomyManager.preco_de_compra(item)`: o dobro do valor de
   venda, com a semente custando 60 por cento da colheita que dá, e `Item.preco_de_compra`
   para exceção escrita à mão.
 - **Vender:** pelo baú de venda. O `Bau` com a função VENDER é recolhido no `day_ended`

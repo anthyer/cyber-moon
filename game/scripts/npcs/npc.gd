@@ -31,6 +31,8 @@ const SEGUNDOS_PARA_DESISTIR: float = 1.5
 const PROGRESSO_MINIMO: float = 0.15
 ## O indicador de conversa: amarelo quando ainda há fala nova hoje, branco quando a
 ## conversa do dia já aconteceu e falar de novo só repete.
+const ALTURA_DA_LOJA: float = 1.15
+const ALTURA_DA_LOJA_COM_BALAO: float = 1.55
 const COR_DE_FALA_NOVA: Color = Color(1.0, 0.85, 0.2)
 const COR_DE_FALA_REPETIDA: Color = Color(1.0, 1.0, 1.0)
 const ID_DO_BUQUE: StringName = &"buque"
@@ -57,6 +59,7 @@ const GESTOS_DA_CONVERSA: Array[StringName] = [&"emote-yes", &"emote-no"]
 @onready var _agente: NavigationAgent3D = $Agente
 @onready var _balao: Sprite3D = $Balao
 @onready var _indicador: Sprite3D = $Indicador
+@onready var _indicador_de_loja: Sprite3D = $IndicadorDeLoja
 
 var _modelo: Node3D
 var _animacao: AnimationPlayer
@@ -75,6 +78,7 @@ func _ready() -> void:
 	add_to_group(GRUPO)
 	_balao.visible = false
 	_indicador.visible = false
+	_indicador_de_loja.visible = false
 	if perfil == null:
 		push_warning("Npc sem perfil: %s" % name)
 		return
@@ -97,6 +101,12 @@ func _process(_delta: float) -> void:
 		return
 	var ao_alcance: bool = not DialogueManager.em_dialogo and _sou_o_alvo_do_jogador()
 	_indicador.visible = ao_alcance
+	# O comerciante mostra a banquinha em cima da cabeça enquanto está atendendo (no
+	# horário, fora da Folga), de longe, para o jogador saber quem vende e achar a pessoa.
+	# Com o balão de conversa aparecendo, a banquinha sobe para os dois caberem.
+	var atendendo: bool = perfil.catalogo != null and perfil.catalogo.esta_aberta() and not DialogueManager.em_dialogo
+	_indicador_de_loja.visible = atendendo
+	_indicador_de_loja.position.y = ALTURA_DA_LOJA_COM_BALAO if ao_alcance else ALTURA_DA_LOJA
 	if ao_alcance:
 		_indicador.modulate = COR_DE_FALA_REPETIDA if DialogueManager.ja_conversou_hoje(perfil.id) else COR_DE_FALA_NOVA
 		# O balão da encenação entre NPCs ocupa o mesmo lugar: enquanto o indicador

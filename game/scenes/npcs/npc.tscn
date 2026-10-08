@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/npcs/npc.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/textures/efeitos/balao_de_conversa.png" id="2_balao"]
 [ext_resource type="Texture2D" path="res://assets/textures/efeitos/indicador_de_conversa.png" id="3_indicador"]
+[ext_resource type="Texture2D" path="res://assets/textures/efeitos/indicador_de_loja.png" id="4_loja"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_corpo"]
 radius = 0.25
@@ -43,3 +44,12 @@ billboard = 1
 no_depth_test = true
 texture_filter = 0
 texture = ExtResource("3_indicador")
+
+[node name="IndicadorDeLoja" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+visible = false
+pixel_size = 0.028
+billboard = 1
+no_depth_test = true
+texture_filter = 0
+texture = ExtResource("4_loja")
