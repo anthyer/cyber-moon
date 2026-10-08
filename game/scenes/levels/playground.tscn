@@ -72,10 +72,6 @@
 [ext_resource type="Script" uid="uid://8b1tkhec1j1h" path="res://scripts/utils/atalhos_de_teste.gd" id="95_atalhos_de_teste"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_status.tscn" id="96_hud_status"]
 [ext_resource type="PackedScene" path="res://scenes/ui/tela_de_desmaio.tscn" id="97_tela_de_desmaio"]
-[ext_resource type="PackedScene" path="res://scenes/combat/inimigo.tscn" id="99_inimigo"]
-[ext_resource type="Resource" path="res://resources/combat/inimigos/drone_rastejador.tres" id="100_drone"]
-[ext_resource type="Resource" path="res://resources/combat/inimigos/ciborgue_operario.tres" id="101_ciborgue"]
-[ext_resource type="Resource" uid="uid://dkudobeaivpk0" path="res://resources/combat/inimigos/sentinela_pesada.tres" id="102_sentinela"]
 [ext_resource type="PackedScene" path="res://scenes/combat/alvo_de_treino.tscn" id="103_alvo_de_treino"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_relogio.tscn" id="104_hud_relogio"]
 [ext_resource type="Script" uid="uid://cv4nhxjmbwb1t" path="res://scripts/core/iluminacao_do_ciclo.gd" id="105_iluminacao"]
@@ -1330,40 +1326,6 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 23.27676, 0, -13.726708)
 [node name="AtalhosDeTeste" type="Node" parent="." unique_id=1078968794]
 script = ExtResource("95_atalhos_de_teste")
 
-[node name="AreaDeTeste" type="Node3D" parent="." unique_id=1622162799]
-
-[node name="PatrulhaCiborgue1" type="Marker3D" parent="AreaDeTeste" unique_id=1560307670]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -15)
-
-[node name="PatrulhaCiborgue2" type="Marker3D" parent="AreaDeTeste" unique_id=521477248]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -14.5)
-
-[node name="Drone1" parent="AreaDeTeste" unique_id=1472172892 instance=ExtResource("99_inimigo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, -15)
-perfil = ExtResource("100_drone")
-
-[node name="Drone2" parent="AreaDeTeste" unique_id=567137542 instance=ExtResource("99_inimigo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.2, -15)
-perfil = ExtResource("100_drone")
-
-[node name="Drone3" parent="AreaDeTeste" unique_id=1790948991 instance=ExtResource("99_inimigo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.2, -15)
-perfil = ExtResource("100_drone")
-
-[node name="Ciborgue1" parent="AreaDeTeste" unique_id=410790053 instance=ExtResource("99_inimigo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.2, -15)
-perfil = ExtResource("101_ciborgue")
-caminho_do_ponto_de_patrulha = NodePath("../PatrulhaCiborgue1")
-
-[node name="Ciborgue2" parent="AreaDeTeste" unique_id=1932375944 instance=ExtResource("99_inimigo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.2, -14.5)
-perfil = ExtResource("101_ciborgue")
-caminho_do_ponto_de_patrulha = NodePath("../PatrulhaCiborgue2")
-
-[node name="Sentinela" parent="AreaDeTeste" unique_id=225702903 instance=ExtResource("99_inimigo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0.2, -15)
-perfil = ExtResource("102_sentinela")
-
 [node name="AlvosDeTreino" type="Node3D" parent="." unique_id=1413596224]
 
 [node name="AlvoDeTreino1" parent="AlvosDeTreino" unique_id=991539069 instance=ExtResource("103_alvo_de_treino")]
@@ -1374,28 +1336,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2.6)
 
 [node name="AlvoDeTreino3" parent="AlvosDeTreino" unique_id=1350509185 instance=ExtResource("103_alvo_de_treino")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 6)
-
-[node name="InimigosEspalhados" type="Node3D" parent="." unique_id=786968949]
-
-[node name="PatrulhaCiborgueLeste" type="Marker3D" parent="InimigosEspalhados" unique_id=2072637454]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 6)
-
-[node name="DroneLeste" parent="InimigosEspalhados" unique_id=237660945 instance=ExtResource("99_inimigo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0.2, -4)
-perfil = ExtResource("100_drone")
-
-[node name="DroneOeste" parent="InimigosEspalhados" unique_id=910345997 instance=ExtResource("99_inimigo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.2, -4)
-perfil = ExtResource("100_drone")
-
-[node name="CiborgueLeste" parent="InimigosEspalhados" unique_id=1237985181 instance=ExtResource("99_inimigo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0.2, 6)
-perfil = ExtResource("101_ciborgue")
-caminho_do_ponto_de_patrulha = NodePath("../PatrulhaCiborgueLeste")
-
-[node name="SentinelaOeste" parent="InimigosEspalhados" unique_id=402147276 instance=ExtResource("99_inimigo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.2, 11)
-perfil = ExtResource("102_sentinela")
 
 [node name="IluminacaoDoCiclo" type="Node" parent="." unique_id=663253509]
 script = ExtResource("105_iluminacao")

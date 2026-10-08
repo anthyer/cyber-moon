@@ -270,6 +270,14 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-07, inimigos de teste saíram da fazenda
+
+**Feito**, a pedido do Antonio, para não atrapalhar o playtest. Os dez inimigos de teste
+do playground (`AreaDeTeste` e `InimigosEspalhados`) foram removidos. Os três alvos de
+treino ficaram, porque não atacam. Para lutar: a dungeon (portal na frente da casa) ou os
+botões "Criar drone, ciborgue e sentinela perto" do menu de debug. O botão "Ir para a
+área de inimigos" do debug ainda leva ao lugar onde eles ficavam, agora vazio.
+
 ### 2026-10-07, plano 24 criado: saque e aprimoramento de armas
 
 **Pedido do Antonio, só documentado.** Inimigos soltam materiais, os mais fortes soltam
