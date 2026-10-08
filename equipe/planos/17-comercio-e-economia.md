@@ -10,6 +10,24 @@ diálogo).
 É o último plano de propósito: ele só faz sentido quando os números dos outros sistemas
 já existem.
 
+## Nota de 2026-10-07: baú de venda confirmado pelo Antonio
+
+O Antonio pediu, de novo e com as próprias palavras, o que este plano chama de caixa de
+entrega: um baú de venda na fazenda, onde o jogador coloca os itens; ao dormir, eles são
+vendidos e o dinheiro vai para a conta dele. Está no escopo, nas seções "A caixa de
+entrega" e na tarefa 5. O que precisa valer ao executar:
+
+- **A venda acontece na virada do dia**, seja dormindo na cama, caindo de sono ou
+  desmaiando. É o `day_ended`, que os três caminhos disparam.
+- **O que não pode ser perdido não entra no baú.** Item-chave e ferramenta ficam de fora,
+  pela mesma regra `Item.pode_ser_descartado()` da lixeira (ver a entrada de 2026-10-07
+  em `pendencias.md`).
+- **Arma pode ser vendida.** É a saída para a arma que o jogador não quer mais, já que
+  ela não pode ser solta nem jogada na lixeira. Isso pede uma exceção à regra acima só
+  para o baú de venda, ou separar "pode vender" de "pode descartar" no `Item`. Decidir ao
+  executar, de preferência com um campo próprio.
+- **O resultado aparece ao acordar**, como o plano já prevê.
+
 ## Decisões fechadas
 
 **A moeda é o crédito, e não ocupa slot.** Um número no `EconomyManager`, mostrado na
