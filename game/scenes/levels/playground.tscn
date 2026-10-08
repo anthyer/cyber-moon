@@ -95,6 +95,11 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_convite.tscn" id="119_convite"]
 [ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="120_portal"]
 [ext_resource type="PackedScene" path="res://scenes/dialogue/caixa_dialogo.tscn" id="121_dialogo"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_creditos.tscn" id="122_creditos"]
+[ext_resource type="PackedScene" path="res://scenes/ui/tela_de_bau.tscn" id="123_tela_bau"]
+[ext_resource type="PackedScene" path="res://scenes/ui/tela_de_loja.tscn" id="124_tela_loja"]
+[ext_resource type="PackedScene" path="res://scenes/ui/resumo_de_vendas.tscn" id="125_resumo"]
+[ext_resource type="PackedScene" path="res://scenes/items/bau.tscn" id="126_bau"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -177,11 +182,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, 0.5, 5.5)
 
 [node name="HudRelogio" parent="InterfaceHUD" unique_id=1803889839 instance=ExtResource("104_hud_relogio")]
 
+[node name="HudCreditos" parent="InterfaceHUD" instance=ExtResource("122_creditos")]
+
 [node name="HudAviso" parent="InterfaceHUD" unique_id=1369899493 instance=ExtResource("109_hud_aviso")]
 
 [node name="MenuPausa" parent="InterfaceHUD" unique_id=2111358796 instance=ExtResource("94_menu_pausa")]
 
 [node name="Calendario" parent="InterfaceHUD" unique_id=1169506643 instance=ExtResource("110_calendario")]
+
+[node name="TelaDeBau" parent="InterfaceHUD" instance=ExtResource("123_tela_bau")]
+
+[node name="TelaDeLoja" parent="InterfaceHUD" instance=ExtResource("124_tela_loja")]
+
+[node name="ResumoDeVendas" parent="InterfaceHUD" instance=ExtResource("125_resumo")]
 
 [node name="CaixaDialogo" parent="InterfaceHUD" instance=ExtResource("121_dialogo")]
 
@@ -1459,3 +1472,10 @@ script = ExtResource("116_elenco")
 
 [node name="PortalDaDungeon" parent="." instance=ExtResource("120_portal")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, 0, 8.6)
+
+[node name="BauDeGuardar" parent="." instance=ExtResource("126_bau")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1, 0, 5.6)
+
+[node name="BauDeVenda" parent="." instance=ExtResource("126_bau")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 5.5)
+funcao = 1

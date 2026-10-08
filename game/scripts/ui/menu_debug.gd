@@ -137,6 +137,13 @@ func _montar_secoes() -> void:
 	_novo_botao("Criar sentinela perto", _criar_inimigo.bind(PERFIL_DA_SENTINELA))
 	_novo_botao("Matar todos os inimigos", _matar_todos_os_inimigos)
 
+	_novo_titulo_de_secao("Economia")
+	_novo_botao("+1000 créditos", func() -> void: EconomyManager.receber(1000))
+	_novo_botao("Zerar créditos", func() -> void: EconomyManager.gastar(EconomyManager.creditos))
+	_novo_botao("Contar +2000 em vendas (marcos)", _contar_vendas)
+	_novo_botao("Abrir a loja da Marta", _abrir_loja.bind("marta"))
+	_novo_botao("Abrir a loja do Vitor", _abrir_loja.bind("vitor"))
+
 	_novo_titulo_de_secao("Amizade")
 	_novo_botao("+1 coração com todos", _dar_um_coracao_a_todos)
 	_novo_botao("Zerar amizades e namoro", _zerar_amizades)
@@ -225,6 +232,19 @@ func _pular_para_a_proxima_estacao() -> void:
 ## Pelo mesmo pedido que o quadro de calendário faz, para testar a tela de longe dele.
 func _abrir_o_calendario() -> void:
 	EventBus.calendar_requested.emit()
+
+# Economia
+
+## Soma ao total vendido sem dar créditos, para testar o desbloqueio dos marcos.
+func _contar_vendas() -> void:
+	EconomyManager.total_vendido += 2000
+	EconomyManager._conferir_marcos()
+
+## Abre a loja direto, sem conversar e sem olhar o horário.
+func _abrir_loja(npc_id: String) -> void:
+	var perfil: PerfilNpc = RelationshipManager.perfil_de(npc_id)
+	if perfil != null and perfil.catalogo != null:
+		EventBus.shop_requested.emit(perfil)
 
 # Amizade
 
