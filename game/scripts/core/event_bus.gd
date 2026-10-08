@@ -29,3 +29,5 @@ signal dungeon_left
 signal shop_requested(perfil: PerfilNpc)
 ## O jogador interagiu com um baú, de guardar ou de venda.
 signal chest_requested(bau: Bau)
+## Um jogo salvo acabou de ser carregado. Quem mostra estado na tela se atualiza aqui.
+signal game_loaded

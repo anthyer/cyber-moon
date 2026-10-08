@@ -104,3 +104,24 @@ func devolver_ao_inventario(indice_no_container: int) -> bool:
 		slots[indice_no_container] = null
 	changed.emit()
 	return sobra == 0
+
+## O conteúdo no mesmo formato do inventário: cada slot é {"id", "quantidade"} ou null.
+func exportar_estado() -> Dictionary:
+	var lista: Array = []
+	for pilha in slots:
+		if pilha == null or pilha.esta_vazia():
+			lista.append(null)
+		else:
+			lista.append({"id": String(pilha.item.id), "quantidade": pilha.quantidade})
+	return {"slots": lista}
+
+func importar_estado(dados: Dictionary) -> void:
+	var lista: Array = dados.get("slots", [])
+	for indice in slots.size():
+		slots[indice] = null
+		if indice >= lista.size() or lista[indice] == null:
+			continue
+		var item: Item = CatalogoDeItens.por_id(StringName(lista[indice].get("id", "")))
+		if item != null:
+			slots[indice] = PilhaDeItens.new(item, int(lista[indice].get("quantidade", 1)))
+	changed.emit()

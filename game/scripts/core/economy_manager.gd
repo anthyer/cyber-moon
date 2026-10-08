@@ -107,3 +107,13 @@ func _conferir_marcos() -> void:
 		if total_vendido >= MARCOS_POR_TOTAL_VENDIDO[marco] and not GameManager.marco_esta_desbloqueado(marco):
 			GameManager.desbloquear_marco(marco)
 			EventBus.notice_requested.emit("Marco alcançado: as lojas têm novidades.")
+
+# Save
+
+func exportar_estado() -> Dictionary:
+	return {"creditos": creditos, "total_vendido": total_vendido}
+
+func importar_estado(dados: Dictionary) -> void:
+	creditos = int(dados.get("creditos", creditos))
+	total_vendido = int(dados.get("total_vendido", 0))
+	credits_changed.emit(creditos)

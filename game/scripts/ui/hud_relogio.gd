@@ -34,6 +34,7 @@ func _ready() -> void:
 	DayCycleManager.period_changed.connect(_ao_mudar_periodo)
 	DayCycleManager.day_started.connect(_ao_comecar_dia)
 	SeasonManager.season_changed.connect(_ao_mudar_estacao)
+	EventBus.game_loaded.connect(func() -> void: _ao_comecar_dia(DayCycleManager.numero_do_dia))
 	WeatherManager.weather_changed.connect(_ao_mudar_clima)
 	_ao_mudar_clima(WeatherManager.clima_atual)
 	_ao_mudar_hora(DayCycleManager.hora_atual)

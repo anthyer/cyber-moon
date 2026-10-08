@@ -139,3 +139,15 @@ func relacionamento_com(npc_id: String) -> int:
 func _mostrar(no: NoDialogo) -> void:
 	_no_atual = no
 	line_shown.emit(no)
+
+# Save
+
+## Só quem já conversou hoje. Sem isso, carregar o jogo no meio do dia deixaria o balão
+## amarelo de volta em cima de quem já falou.
+func exportar_estado() -> Dictionary:
+	return {"conversou_hoje": _conversou_hoje.keys()}
+
+func importar_estado(dados: Dictionary) -> void:
+	_conversou_hoje.clear()
+	for npc_id: String in dados.get("conversou_hoje", []):
+		_conversou_hoje[npc_id] = true

@@ -21,8 +21,12 @@ Com o servidor rodando, abra o jogo duas vezes, cada um com um nome:
 
 ```
 godot --path game -- --nome=Ana
-godot --path game -- --nome=Beto
+godot --path game -- --nome=Beto --sem-save
 ```
+
+O `--sem-save` no segundo evita que os dois jogos gravem no mesmo arquivo de save. Com o
+Godot instalado pelo Flatpak, o comando é `flatpak run org.godotengine.Godot` no lugar de
+`godot`.
 
 Num deles, vá até o portal na frente da casa, interaja, convide o outro e entre na
 dungeon. O chat abre com Enter ou T.

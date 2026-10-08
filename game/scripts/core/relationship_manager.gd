@@ -166,3 +166,30 @@ func _semana_atual() -> int:
 func _nome_de(npc_id: String) -> String:
 	var perfil: PerfilNpc = perfil_de(npc_id)
 	return perfil.nome_exibido if perfil != null else npc_id
+
+# Save
+
+func exportar_estado() -> Dictionary:
+	return {
+		"pontos": pontos,
+		"dia_da_ultima_conversa": dia_da_ultima_conversa,
+		"semana_do_ultimo_presente": semana_do_ultimo_presente,
+		"namorando": namorando,
+	}
+
+## O JSON devolve todo número como float, então cada valor é convertido de volta.
+func importar_estado(dados: Dictionary) -> void:
+	pontos.clear()
+	dia_da_ultima_conversa.clear()
+	semana_do_ultimo_presente.clear()
+	for npc_id: String in dados.get("pontos", {}):
+		pontos[npc_id] = clampi(int(dados["pontos"][npc_id]), 0, PONTOS_MAXIMOS)
+	for npc_id: String in dados.get("dia_da_ultima_conversa", {}):
+		dia_da_ultima_conversa[npc_id] = int(dados["dia_da_ultima_conversa"][npc_id])
+	for npc_id: String in dados.get("semana_do_ultimo_presente", {}):
+		semana_do_ultimo_presente[npc_id] = int(dados["semana_do_ultimo_presente"][npc_id])
+	namorando = String(dados.get("namorando", ""))
+	if not _perfis.has(namorando):
+		namorando = ""
+	for npc_id: String in _perfis:
+		relationship_changed.emit(npc_id, pontos_de(npc_id), coracoes(npc_id))

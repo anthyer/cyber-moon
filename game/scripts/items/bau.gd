@@ -25,6 +25,7 @@ var nome_exibido: String = "Baú"
 
 func _ready() -> void:
 	conteudo = ContainerDeItens.new(total_de_slots)
+	add_to_group(SaveManager.GRUPO_DOS_SALVAVEIS)
 	if e_de_venda():
 		nome_exibido = "Baú de venda"
 		# A etiqueta na frente da caixa diz qual é qual, e o de venda ganha outra cor.
@@ -54,3 +55,15 @@ func _ao_terminar_o_dia(_numero_do_dia: int) -> void:
 		return
 	EconomyManager.vender(conteudo.pilhas())
 	conteudo.esvaziar()
+
+# Save
+
+## Cada baú é salvo pelo nome do nó na fase, que precisa ser único entre os baús.
+func chave_de_save() -> String:
+	return "bau_" + String(name)
+
+func exportar_estado() -> Dictionary:
+	return conteudo.exportar_estado()
+
+func importar_estado(dados: Dictionary) -> void:
+	conteudo.importar_estado(dados)

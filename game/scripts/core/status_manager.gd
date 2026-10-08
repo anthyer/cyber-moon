@@ -181,3 +181,27 @@ func _ao_comecar_o_dia(_numero_do_dia: int) -> void:
 	stamina_atual = stamina_maxima() * fracao_de_stamina
 	health_changed.emit(vida_atual, vida_maxima())
 	stamina_changed.emit(stamina_atual, stamina_maxima())
+
+# Save
+
+func exportar_estado() -> Dictionary:
+	return {
+		"nivel": nivel,
+		"experiencia": experiencia,
+		"vida_atual": vida_atual,
+		"stamina_atual": stamina_atual,
+		"desmaiou_ontem": desmaiou_ontem,
+	}
+
+## O jogo nunca é salvo com o jogador caído, então ele sempre volta de pé.
+func importar_estado(dados: Dictionary) -> void:
+	nivel = clampi(int(dados.get("nivel", 1)), 1, NIVEL_MAXIMO)
+	experiencia = int(dados.get("experiencia", 0))
+	vida_atual = clampi(int(dados.get("vida_atual", vida_maxima())), 1, vida_maxima())
+	stamina_atual = clampf(float(dados.get("stamina_atual", stamina_maxima())), 0.0, stamina_maxima())
+	desmaiou_ontem = bool(dados.get("desmaiou_ontem", false))
+	esta_desmaiado = false
+	level_changed.emit(nivel)
+	experience_changed.emit(experiencia, experiencia_para_o_proximo_nivel())
+	health_changed.emit(vida_atual, vida_maxima())
+	stamina_changed.emit(stamina_atual, stamina_maxima())

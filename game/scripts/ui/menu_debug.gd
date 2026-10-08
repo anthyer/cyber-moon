@@ -25,7 +25,6 @@ const CULTURAS: Array[String] = ["beterraba", "repolho", "cenoura", "milho", "to
 const ARMAS: Array[String] = ["cestos", "foice_curva", "bastao_choque", "espadao_sucata", "escopeta_serrada"]
 const SUCATAS: Array[String] = ["sucata_metal", "placa_queimada", "celula_energia", "fio_optico", "servomotor", "nucleo_sintetico"]
 
-const PASTA_DOS_ITENS: String = "res://resources/items/"
 const COLUNAS_DO_SUBMENU_DE_ITENS: int = 6
 const TAMANHO_DO_BOTAO_DE_ITEM: Vector2 = Vector2(40.0, 40.0)
 const QUANTIDADE_COM_SHIFT: int = 10
@@ -136,6 +135,11 @@ func _montar_secoes() -> void:
 	_novo_botao("Criar ciborgue perto", _criar_inimigo.bind(PERFIL_DO_CIBORGUE))
 	_novo_botao("Criar sentinela perto", _criar_inimigo.bind(PERFIL_DA_SENTINELA))
 	_novo_botao("Matar todos os inimigos", _matar_todos_os_inimigos)
+
+	_novo_titulo_de_secao("Save")
+	_novo_botao("Salvar agora", func() -> void: SaveManager.salvar_jogo())
+	_novo_botao("Carregar agora", func() -> void: SaveManager.carregar_jogo())
+	_novo_botao("Apagar o save (jogo novo ao reabrir)", SaveManager.apagar_save)
 
 	_novo_titulo_de_secao("Economia")
 	_novo_botao("+1000 créditos", func() -> void: EconomyManager.receber(1000))
@@ -375,8 +379,8 @@ func _soltar_sucata() -> void:
 			ItemNoMundo.soltar(item, 1, jogador.global_position + Vector3(1.5, 0.0, 0.0), cena)
 
 ## O submenu com todos os itens do jogo: um botão por item, com o ícone dele, agrupados
-## por categoria. Clicar põe um no inventário; com Shift, dez. A lista vem da pasta de
-## itens, então item novo aparece aqui sem mexer neste script.
+## por categoria. Clicar põe um no inventário; com Shift, dez. A lista vem do
+## CatalogoDeItens, então item novo aparece aqui sem mexer neste script.
 func _montar_submenu_de_itens() -> void:
 	var conteudo: VBoxContainer = VBoxContainer.new()
 	conteudo.visible = false
@@ -385,7 +389,7 @@ func _montar_submenu_de_itens() -> void:
 	lista.add_child(conteudo)
 
 	var por_categoria: Dictionary = {}
-	for item in _todos_os_itens(PASTA_DOS_ITENS):
+	for item in CatalogoDeItens.todos():
 		if not por_categoria.has(item.categoria):
 			por_categoria[item.categoria] = []
 		por_categoria[item.categoria].append(item)
@@ -425,21 +429,6 @@ func _dar_pelo_submenu(item: Item) -> void:
 	var sobra: int = InventoryManager.adicionar_item(item, quantidade)
 	if sobra > 0:
 		EventBus.notice_requested.emit("Inventário cheio.")
-
-## Todos os .tres de Item da pasta e das subpastas. No jogo exportado os arquivos aparecem
-## com ".remap" no fim do nome.
-func _todos_os_itens(pasta: String) -> Array[Item]:
-	var itens: Array[Item] = []
-	for subpasta in DirAccess.get_directories_at(pasta):
-		itens.append_array(_todos_os_itens(pasta + subpasta + "/"))
-	for arquivo in DirAccess.get_files_at(pasta):
-		var nome: String = arquivo.trim_suffix(".remap")
-		if not nome.ends_with(".tres"):
-			continue
-		var item: Item = load(pasta + nome) as Item
-		if item != null:
-			itens.append(item)
-	return itens
 
 func _dar_item(caminho: String, quantidade: int) -> void:
 	var item: Item = load(caminho) as Item

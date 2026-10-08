@@ -376,6 +376,29 @@ As conversas saem de `scripts/utils/gerar_dialogos.gd`, que transcreve
 `equipe/biblioteca-de-dialogos.md`. Para mudar uma fala, edite a biblioteca e rode o
 gerador.
 
+## Save
+
+O `SaveManager` grava o jogo inteiro num JSON em `user://save_game.json`, com uma chave
+`versao`. Ele não conhece o interior de ninguém: cada sistema tem
+`exportar_estado() -> Dictionary` e `importar_estado(dados)`, e o `SaveManager` só junta um
+dicionário por sistema.
+
+- **Autoloads:** estão numa lista no `SaveManager`, na ordem em que são importados (o dia
+  antes de quem depende dele, o inventário antes de quem aponta para os slots).
+- **Nós da fase:** entram pelo grupo `salvaveis` e dizem a própria chave com
+  `chave_de_save()`. Hoje são a `GradeSolo`, o jogador e cada `Bau`.
+- **Item é salvo pelo id**, e o `CatalogoDeItens` o acha de volta. Mudar um item de pasta
+  não quebra o save.
+- **Quem importa usa valor padrão para o que faltar**, então um save de versão antiga
+  abre num jogo mais novo.
+- **Quando:** salva no começo de cada dia e ao fechar a janela; carrega ao abrir, se
+  houver save. `-- --sem-save` na linha de comando desliga os dois.
+- **Depois de carregar** sai `EventBus.game_loaded`, e quem mostra estado na tela se
+  atualiza. Carregar não emite `day_started`.
+
+Sistema novo com estado: escreva os dois métodos e ponha o autoload na lista, ou o nó no
+grupo.
+
 ## Economia
 
 O `EconomyManager` (autoload) guarda os créditos, que são um número e não um item.
@@ -560,7 +583,7 @@ novo substitui o anterior em vez de empilhar.
 
 O menu de debug (`scenes/ui/menu_debug.tscn`, script `MenuDebug`, no `InterfaceHUD` do
 playground) abre e fecha com F3 e serve para testar os sistemas sem esperar o jogo:
-trocar a hora, avançar o dia, pular para a próxima estação, abrir o calendário, trocar o clima, cair um raio, abrir o lobby, entrar e sair da dungeon, dar corações e itens de presente, dar créditos e abrir as lojas, congelar o relógio, encher vida e stamina, tomar dano,
+trocar a hora, avançar o dia, pular para a próxima estação, abrir o calendário, trocar o clima, cair um raio, abrir o lobby, entrar e sair da dungeon, dar corações e itens de presente, dar créditos e abrir as lojas, salvar, carregar e apagar o save, congelar o relógio, encher vida e stamina, tomar dano,
 ganhar experiência, ficar invencível, teleportar, molhar o solo e amadurecer as plantas,
 ganhar sementes, pães e armas, ganhar qualquer item por um submenu de ícones, soltar sucata, criar e matar inimigos, mostrar os quadros
 por segundo e ligar e desligar a sombra do sol. Ele não pausa o jogo e os botões não

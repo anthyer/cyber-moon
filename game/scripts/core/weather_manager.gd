@@ -68,3 +68,15 @@ func _ao_comecar_o_dia(numero_do_dia: int) -> void:
 func _anunciar() -> void:
 	weather_changed.emit(clima_atual)
 	EventBus.ambience_requested.emit(perfil_atual().som_ambiente)
+
+# Save
+
+func exportar_estado() -> Dictionary:
+	return {"clima_atual": String(clima_atual), "clima_de_amanha": String(clima_de_amanha)}
+
+func importar_estado(dados: Dictionary) -> void:
+	var atual: StringName = StringName(dados.get("clima_atual", "sol"))
+	var amanha: StringName = StringName(dados.get("clima_de_amanha", "sol"))
+	clima_atual = atual if _perfis.has(atual) else &"sol"
+	clima_de_amanha = amanha if _perfis.has(amanha) else &"sol"
+	_anunciar()

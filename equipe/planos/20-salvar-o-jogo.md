@@ -12,6 +12,43 @@ e entra quando o sistema dele entrar.
 2026-10-02: fica documentado agora e é feito depois, na ordem de
 `ordem-de-execucao.md`.
 
+## Revisão de 2026-10-07 (vale sobre o resto do plano)
+
+**Situação:** feito. Conferido em duas execuções separadas do jogo. A primeira montou um
+estado bem diferente do inicial e salvou; a segunda abriu o jogo e conferiu o que foi
+carregado sozinho: o dia 41 às 15:30, a Estiagem no relógio, a chuva, o nível, a vida e a
+stamina, 12 tomates no slot 20, o slot selecionado, os créditos e o total vendido, o
+`marco_1`, os 10 corações e o namoro com o Kenji, o presente da semana da Marta, a
+conversa do dia com o Vitor, o milho no estágio 2 com 1 dia contado, o tomate murcho, o
+solo molhado, a picareta e os 7 servomotores no baú, e a posição do jogador. Também
+conferido: jogo novo sem save começa no dia 1 com 500 créditos; virar o dia cria o save e
+mostra "Jogo salvo."; um save antigo só com o dia carrega e o resto fica no padrão; um
+arquivo corrompido é ignorado e o jogo segue.
+
+**Ajustes ao plano:**
+
+- **O jogo salva quando o dia começa**, seja dormindo na cama, caindo de sono ou
+  desmaiando, e também ao fechar a janela. O plano dizia "ao dormir na cama e ao sair pelo
+  menu"; não existe opção de sair no menu, e salvar em toda virada de dia é mais simples
+  de explicar.
+- **Os nós da fase entram pelo grupo `salvaveis`** e dizem a própria chave com
+  `chave_de_save()`. Hoje são a grade de solo, o jogador e os baús. Os autoloads ficam
+  numa lista no `SaveManager`, na ordem em que são importados.
+- **`EventBus.game_loaded`** avisa quem mostra estado na tela (o relógio, a estação e a
+  grama, os NPCs) depois de carregar. Carregar não emite `day_started`, para as plantas
+  não crescerem de novo.
+- **A estação não é salva**, porque sai do número do dia.
+- **Dentro da dungeon a posição não é salva.** Ao carregar, o jogador nasce no ponto de
+  spawn.
+- **Itens no chão e inimigos não são salvos**, como o plano já previa.
+- **`--sem-save`** na linha de comando ignora o save e não grava nada. É para teste e para
+  abrir dois jogos na mesma máquina.
+- **O `CatalogoDeItens`** é uma classe com funções estáticas, e o submenu de itens do menu
+  de debug passou a usá-la.
+- **Partículas:** o brilho verde em volta do jogador ao salvar reusa a cena da poeira de
+  passo, com outra cor e mais partículas.
+- **Menu de debug:** seção Save, com salvar, carregar e apagar.
+
 ## Contexto
 
 Cada sistema guarda o próprio estado no autoload ou no nó dele, e nenhum sabe salvar.
@@ -71,17 +108,17 @@ deu certo, e é a única ação visível deste plano.
 
 ## Tarefas
 
-- [ ] **1.** Criar o `CatalogoDeItens` e conferir que acha todo `.tres` de item pelo `id`.
-- [ ] **2.** `exportar_estado()` e `importar_estado()` em cada sistema da tabela. Testar
+- [x] **1.** Criar o `CatalogoDeItens` e conferir que acha todo `.tres` de item pelo `id`.
+- [x] **2.** `exportar_estado()` e `importar_estado()` em cada sistema da tabela. Testar
   cada um isolado por script: exportar, mudar o estado, importar e comparar.
-- [ ] **3.** Reescrever o `SaveManager` juntando os sistemas, com a chave `versao`.
-- [ ] **4.** Salvar ao dormir na cama e ao sair pelo menu. Carregar ao abrir o jogo, se
+- [x] **3.** Reescrever o `SaveManager` juntando os sistemas, com a chave `versao`.
+- [x] **4.** Salvar ao dormir na cama e ao sair pelo menu. Carregar ao abrir o jogo, se
   houver save.
-- [ ] **5.** Efeito de partículas e aviso na tela ao salvar.
-- [ ] **6.** Botão no menu de debug (F3): salvar agora, carregar agora e apagar o save.
-- [ ] **7.** Testar o ciclo inteiro: plantar, colher, encher o inventário, dormir, fechar o
+- [x] **5.** Efeito de partículas e aviso na tela ao salvar.
+- [x] **6.** Botão no menu de debug (F3): salvar agora, carregar agora e apagar o save.
+- [x] **7.** Testar o ciclo inteiro: plantar, colher, encher o inventário, dormir, fechar o
   jogo, abrir de novo e conferir tudo.
-- [ ] **8.** Documentar e commitar.
+- [x] **8.** Documentar e commitar.
 
 ## Critério de pronto
 

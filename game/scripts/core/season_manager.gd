@@ -32,6 +32,7 @@ func _ready() -> void:
 	_indice_anunciado = indice_da_estacao()
 	_ano_anunciado = ano_atual()
 	DayCycleManager.day_started.connect(_ao_comecar_o_dia)
+	EventBus.game_loaded.connect(_ao_carregar_o_jogo)
 
 ## 0 a 3, na ordem de ESTACOES.
 func indice_da_estacao() -> int:
@@ -89,3 +90,11 @@ func _ao_comecar_o_dia(_numero_do_dia: int) -> void:
 	if ano != _ano_anunciado:
 		_ano_anunciado = ano
 		year_changed.emit(ano)
+
+## A estação sai do número do dia, então não tem nada próprio no save. Depois de carregar
+## só é preciso avisar quem depende dela (a luz, a grama, o relógio), sem tocar a música
+## de virada, porque a estação não virou.
+func _ao_carregar_o_jogo() -> void:
+	_indice_anunciado = indice_da_estacao()
+	_ano_anunciado = ano_atual()
+	season_changed.emit(estacao_atual())

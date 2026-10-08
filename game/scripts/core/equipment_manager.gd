@@ -47,3 +47,12 @@ func item_na_mao() -> Item:
 ## semente, slot vazio). O player usa isso para decidir entre usar ferramenta e socar.
 func ferramenta_na_mao() -> Ferramenta:
 	return item_na_mao() as Ferramenta
+
+# Save
+
+func exportar_estado() -> Dictionary:
+	return {"indice_selecionado": indice_selecionado}
+
+func importar_estado(dados: Dictionary) -> void:
+	indice_selecionado = clampi(int(dados.get("indice_selecionado", 0)), 0, InventoryManager.SLOTS_RAPIDOS - 1)
+	slot_selecionado_alterado.emit(indice_selecionado)

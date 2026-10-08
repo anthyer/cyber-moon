@@ -88,6 +88,8 @@ func _ready() -> void:
 		DialogueManager.dialogue_ended.connect(_ao_terminar_dialogo)
 	DayCycleManager.day_started.connect(_ao_comecar_o_dia)
 	WeatherManager.weather_changed.connect(_ao_mudar_clima)
+	# Jogo carregado: a hora mudou de uma vez, e ele aparece onde a rotina manda.
+	EventBus.game_loaded.connect(_conferir_a_rotina.bind(true))
 	# No primeiro quadro a malha de navegação ainda não está pronta, e os marcadores da
 	# fase podem não ter entrado na árvore. Por isso a primeira posição espera um quadro.
 	_aparecer_no_lugar_certo.call_deferred()

@@ -114,3 +114,18 @@ func _anunciar_mudancas() -> void:
 	if periodo != _periodo_anunciado:
 		_periodo_anunciado = periodo
 		period_changed.emit(periodo)
+
+# Save
+
+func exportar_estado() -> Dictionary:
+	return {"numero_do_dia": numero_do_dia, "hora_atual": hora_atual}
+
+## Não emite day_started: carregar não é virar o dia, e as plantas não podem crescer de
+## novo. Só a hora e o período são anunciados, para a luz e o relógio acompanharem.
+func importar_estado(dados: Dictionary) -> void:
+	numero_do_dia = int(dados.get("numero_do_dia", 1))
+	hora_atual = clampf(float(dados.get("hora_atual", HORA_INICIO_DIA)), HORA_INICIO_DIA, HORA_LIMITE - 0.01)
+	_dormindo = false
+	_minuto_anunciado = -1
+	_anunciar_mudancas()
+	period_changed.emit(periodo_atual())

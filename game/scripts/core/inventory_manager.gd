@@ -192,3 +192,40 @@ func _trocar_ponteiros_de_equipamento(indice_a: int, indice_b: int) -> void:
 			_equipados[espaco] = indice_b
 		elif _equipados[espaco] == indice_b:
 			_equipados[espaco] = indice_a
+
+# Save
+
+## Cada slot vira {"id", "quantidade"}, ou null quando está vazio. O item é guardado pelo
+## id, e o CatalogoDeItens o acha de volta ao carregar.
+func exportar_estado() -> Dictionary:
+	var lista: Array = []
+	for pilha in slots:
+		if pilha == null or pilha.esta_vazia():
+			lista.append(null)
+		else:
+			lista.append({"id": String(pilha.item.id), "quantidade": pilha.quantidade})
+	var equipados: Dictionary = {}
+	for espaco: int in _equipados:
+		equipados[str(espaco)] = _equipados[espaco]
+	return {"slots": lista, "equipados": equipados}
+
+## Sem a chave "slots" (save antigo, ou jogo novo), o inventário fica como está: com os
+## itens iniciais. Item que não existe mais no jogo é descartado em silêncio.
+func importar_estado(dados: Dictionary) -> void:
+	if not dados.has("slots"):
+		return
+	var lista: Array = dados["slots"]
+	for indice in TOTAL_DE_SLOTS:
+		slots[indice] = null
+		if indice >= lista.size() or lista[indice] == null:
+			continue
+		var item: Item = CatalogoDeItens.por_id(StringName(lista[indice].get("id", "")))
+		if item != null:
+			slots[indice] = PilhaDeItens.new(item, int(lista[indice].get("quantidade", 1)))
+	var equipados: Dictionary = dados.get("equipados", {})
+	for espaco: int in _equipados:
+		var indice_equipado_salvo: int = int(equipados.get(str(espaco), -1))
+		var pilha: PilhaDeItens = slot_em(indice_equipado_salvo)
+		_equipados[espaco] = indice_equipado_salvo if pilha != null and aceita(espaco, pilha.item) else -1
+		equipment_changed.emit(espaco, pilha.item if _equipados[espaco] != -1 else null)
+	inventory_changed.emit()

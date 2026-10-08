@@ -270,6 +270,27 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-07, plano 20
+
+**Feito.** Decisões e ajustes no topo do plano, seção "Revisão de 2026-10-07".
+
+**Precisa do Antonio:**
+
+- **Saber que agora o jogo lembra.** Abrir o jogo continua de onde parou. Para começar do
+  zero: F3, seção Save, "Apagar o save", e reabrir. Ou abrir com `-- --sem-save`.
+- Decidir se o menu de pausa ganha "Salvar e sair" e "Novo jogo". Hoje não há tela de
+  título nem opção de sair.
+
+**Fica para depois:**
+
+- Um jogo salvo só. Vários espaços de save pedem uma tela a mais.
+- Dois jogos abertos na mesma máquina dividem o mesmo arquivo. No teste do multiplayer,
+  abra o segundo com `-- --sem-save`.
+- O plano 24 (nível de arma) vai mudar o que o inventário salva. O arquivo tem versão
+  para isso: quando chegar, o save antigo carrega com as armas no nível inicial.
+- Quem escrever um sistema novo com estado precisa dar a ele `exportar_estado` e
+  `importar_estado` e pôr na lista do `SaveManager`, ou no grupo `salvaveis`.
+
 ### 2026-10-07, inimigos de teste saíram da fazenda
 
 **Feito**, a pedido do Antonio, para não atrapalhar o playtest. Os dez inimigos de teste

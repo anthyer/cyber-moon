@@ -13,3 +13,14 @@ func desbloquear_marco(id_do_marco: String) -> void:
 
 func marco_esta_desbloqueado(id_do_marco: String) -> bool:
 	return marcos_desbloqueados.has(id_do_marco)
+
+# Save
+
+func exportar_estado() -> Dictionary:
+	return {"fase_atual": fase_atual, "marcos_desbloqueados": marcos_desbloqueados}
+
+func importar_estado(dados: Dictionary) -> void:
+	fase_atual = int(dados.get("fase_atual", FaseDaHistoria.INICIO)) as FaseDaHistoria
+	marcos_desbloqueados.clear()
+	for marco: String in dados.get("marcos_desbloqueados", []):
+		marcos_desbloqueados.append(marco)

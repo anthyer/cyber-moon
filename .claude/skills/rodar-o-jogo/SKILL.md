@@ -101,3 +101,10 @@ não quatro). Resolver: apague `game/.godot/imported/*.glb-*` e rode o `--import
 
 Nunca afirme que algo passou sem ter rodado e lido a saída. Se rodou e falhou, diga que
 falhou e mostre a saída. Se pulou uma verificação, diga que pulou.
+
+## Save durante teste
+
+O jogo carrega o save ao abrir e grava a cada virada de dia. Num teste automático isso
+contamina o resultado (o teste começa do estado salvo) e estraga o save de quem joga.
+Rode todo teste com `-- --sem-save` no fim do comando. Para testar o próprio save, grave
+com `SaveManager.salvar_jogo()` e apague o arquivo no fim.

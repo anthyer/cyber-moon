@@ -71,6 +71,7 @@ func _ready() -> void:
 	# Os inimigos escolhem o alvo mais perto neste grupo, onde também entram os fantoches
 	# dos outros jogadores na dungeon em equipe.
 	add_to_group(&"alvos_de_inimigo")
+	add_to_group(SaveManager.GRUPO_DOS_SALVAVEIS)
 	StatusManager.player_fainted.connect(_ao_desmaiar)
 	StatusManager.player_woke_up.connect(_ao_acordar)
 	# O modelo na mão acompanha o item na mão, que muda ao trocar de slot e também ao
@@ -511,3 +512,23 @@ func _tentar_subir_degrau(dir_plana_esperada: Vector3) -> void:
 	## acumulada não desfaça imediatamente a subida no próximo move_and_slide().
 	global_position.y = melhor_alvo + 0.02
 	velocity.y = maxf(velocity.y, 0.0)
+
+# Save
+
+func chave_de_save() -> String:
+	return "jogador"
+
+## Dentro da dungeon a posição não é guardada: a dungeon não existe ao carregar, e o
+## jogador volta para o ponto de spawn.
+func exportar_estado() -> Dictionary:
+	if DungeonManager.esta_na_dungeon():
+		return {}
+	return {"posicao": [global_position.x, global_position.y, global_position.z], "giro": personagem.rotation.y}
+
+func importar_estado(dados: Dictionary) -> void:
+	if not dados.has("posicao"):
+		return
+	var p: Array = dados["posicao"]
+	global_position = Vector3(p[0], p[1], p[2])
+	velocity = Vector3.ZERO
+	personagem.rotation.y = float(dados.get("giro", 0.0))
