@@ -270,6 +270,29 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-07, plano 17
+
+**Feito**, menos jogar 30 dias para ajustar preços. Decisões e ajustes no topo do plano,
+seção "Revisão de 2026-10-07".
+
+**Precisa do Antonio:**
+
+- Definir a melhoria de ferramenta: quantos níveis cada uma tem e o que cada nível
+  melhora. Não foi feita.
+- Jogar uma estação e dizer se o dinheiro entra rápido ou devagar demais. Vai junto do
+  balanceamento final.
+- Conferir a posição dos dois baús na frente da casa.
+
+**Fica para depois:**
+
+- Baú comprável e colocado pelo jogador. Hoje são dois, postos à mão no playground.
+- A expansão da grade de solo no `marco_2`, e o que o `marco_3` faz.
+- Fabricação: os materiais processados (chapa reciclada, biocombustível, composto
+  orgânico) ainda não têm como ser feitos.
+- A sucata dos inimigos só vira dinheiro pelo baú de venda. O Vitor não compra direto.
+- Os créditos, o total vendido e o conteúdo dos baús não são salvos. Entram no plano 20.
+- O jogador não começa mais com armas. Para testar combate, use o menu de debug.
+
 ### 2026-10-07, lixeira, item no chão com prazo e item-chave
 
 **Feito**, a pedido do Antonio.

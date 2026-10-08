@@ -12,6 +12,10 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Estação | Season / `SeasonManager`, sinal `season_changed` |
 | Perfil de estação | Season profile / `PerfilEstacao` (classe Resource) |
 | Brotação, Estiagem, Colheita, Apagão | ids `brotacao`, `estiagem`, `colheita`, `apagao` (primavera, verão, outono, inverno) |
+| Crédito, economia | Credits / `EconomyManager`, sinais `credits_changed` e `sale_completed` |
+| Loja, catálogo | Shop / `CatalogoDeLoja` (classe Resource), `TelaDeLoja`, sinal `shop_requested` |
+| Baú de guardar, baú de venda | Storage chest, shipping chest / `Bau`, `ContainerDeItens`, `TelaDeBau` |
+| Marco | Milestone / `GameManager.desbloquear_marco()` |
 | Amizade, corações | Relationship, hearts / `RelationshipManager`, sinais `relationship_changed` e `heart_gained` |
 | Presentear | Gift / `Npc.receber_presente()`, ação `soltar_item` |
 | Gostos | Likes / `PerfilNpc.itens_amados`, `itens_queridos`, `itens_indesejados`, `itens_odiados` |

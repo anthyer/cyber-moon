@@ -22,7 +22,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 14 NPCs: rotinas e walk cycle
 - [x] 15 Sistema de diálogo
 - [x] 16 Amizade e romance
-- [ ] 17 Comércio e economia
+- [x] 17 Comércio e economia
 - [ ] 18 Chat entre jogadores (independente dos outros, pode ser feito em paralelo)
 - [x] 21 Rede e chat (independente; substitui a parte do Godot do plano 18)
 - [x] 22 Dungeon em coop (depois do 21)

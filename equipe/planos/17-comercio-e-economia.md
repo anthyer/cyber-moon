@@ -10,6 +10,51 @@ diálogo).
 É o último plano de propósito: ele só faz sentido quando os números dos outros sistemas
 já existem.
 
+## Revisão de 2026-10-07 (vale sobre o resto do plano)
+
+**Situação:** feito, menos a tarefa 10 (jogar 30 dias e ajustar preços), que é de jogar e
+fica com o balanceamento final. Conferido por teste automático:
+
+- O jogo começa com 500 créditos, os cestos, as três ferramentas e 5 sementes de cenoura
+  e 5 de trigo.
+- Preços de compra: semente de cenoura 15, de trigo 12, de tomate 18 (60 por cento da
+  colheita); pão 60 e bastão de choque 240 (o dobro da venda).
+- Conversar com a Marta às 7:00 rende a fala "Tô fechando", sem tela. Às 10:00, a loja
+  abre depois da conversa. Na Folga a loja está fechada.
+- Comprar 5 sementes de tomate leva de 500 para 410 créditos e põe as 5 no inventário.
+  Sem crédito a compra é recusada e nada muda.
+- O baú de venda aceita cenoura e foice e recusa a enxada; o de guardar aceita os três.
+- Com 10 cenouras e uma foice no baú de venda, virar o dia rende 310 créditos e esvazia o
+  baú. O que está no baú de guardar continua lá, e volta ao inventário.
+- Passar de 2000 vendidos desbloqueia o `marco_1`, e o catálogo do Vitor vai de 3 para 4
+  itens.
+- A loja, a tela de baú, o saldo na HUD e o resumo de vendas foram conferidos por captura.
+
+**Ajustes ao plano:**
+
+- **Sinais em inglês:** `credits_changed` e `sale_completed`.
+- **Um script de baú só** (`Bau`, com a função GUARDAR ou VENDER), e não um baú e uma
+  `CaixaDeEntrega` separados. O de venda se chama "Baú de venda", como o Antonio chamou.
+- **`ContainerDeItens` é uma classe nova, ao lado do `InventoryManager`.** O inventário
+  não foi reescrito em cima dela, para não mexer no que os planos 04 a 16 já usam.
+- **Na tela de baú não se arrasta:** um clique (ou confirmar, no controle) manda a pilha
+  inteira para o outro lado.
+- **A loja abre depois da conversa do dia** com o comerciante. Fechada, ele diz por quê.
+- **O que cada item pode fazer** virou três funções do `Item`: `pode_ser_descartado()`,
+  `pode_ser_vendido()` e `pode_ser_guardado()`, seguindo a tabela da nota abaixo.
+- **`Item.preco_de_compra`** permite escrever um preço à mão; zero usa a regra.
+- **O inventário inicial é um Resource** (`resources/items/inventario_inicial.tres`). As
+  armas, os pães e as outras sementes saíram do começo do jogo; o menu de debug as dá.
+- **O gerador de NPCs roda como cena** (`scenes/utils/gerar_npcs.tscn`), porque o catálogo
+  consulta autoloads. Os catálogos saem da tabela dele, em `resources/lojas/`.
+- **A Marta vende o buquê** e, depois do `marco_1`, o nutrisolo. O Vitor vende nanogel,
+  estimulante e bastão de choque; a foice entra no `marco_1`, o espadão e a escopeta no
+  `marco_2`.
+- **Fora do que o plano pedia e não feito:** o baú comprável com o Vitor (colocar baú no
+  mundo é outro sistema), a expansão da grade de solo no `marco_2`, e a melhoria de
+  ferramenta, que espera a definição dos níveis.
+- **Sem partículas**, porque o plano é anterior à regra. Ficam para o plano 19.
+
 ## Nota de 2026-10-07: baú de venda confirmado pelo Antonio
 
 O Antonio pediu, de novo e com as próprias palavras, o que este plano chama de caixa de
@@ -177,17 +222,17 @@ Uma instância na fazenda, colocada à mão, chamada `CaixaDeEntrega`.
 
 ## Tarefas
 
-- [ ] **1.** Criar o `EconomyManager` e a HUD de créditos.
-- [ ] **2.** Dar ao jogador o inventário inicial (as sementes) e os 500 créditos.
-- [ ] **3.** Extrair `ContainerDeItens` se o plano 04 não extraiu, e criar o baú.
-- [ ] **4.** Criar a tela de baú reusando o slot do plano 04. Colocar um baú em casa.
-- [ ] **5.** Criar a caixa de entrega e o processamento no `day_ended`.
-- [ ] **6.** Criar `catalogo_de_loja.gd` e os dois catálogos.
-- [ ] **7.** Criar a tela de loja, aberta pelo diálogo com Marta e Vitor.
-- [ ] **8.** Implementar horário e Folga.
-- [ ] **9.** Ligar os três marcos ao `GameManager`, emitindo `city_expansion_blocked`.
+- [x] **1.** Criar o `EconomyManager` e a HUD de créditos.
+- [x] **2.** Dar ao jogador o inventário inicial (as sementes) e os 500 créditos.
+- [x] **3.** Extrair `ContainerDeItens` se o plano 04 não extraiu, e criar o baú.
+- [x] **4.** Criar a tela de baú reusando o slot do plano 04. Colocar um baú em casa.
+- [x] **5.** Criar a caixa de entrega e o processamento no `day_ended`.
+- [x] **6.** Criar `catalogo_de_loja.gd` e os dois catálogos.
+- [x] **7.** Criar a tela de loja, aberta pelo diálogo com Marta e Vitor.
+- [x] **8.** Implementar horário e Folga.
+- [x] **9.** Ligar os três marcos ao `GameManager`, emitindo `city_expansion_blocked`.
 - [ ] **10.** Jogar 30 dias seguidos e conferir o ritmo econômico. Ajustar preços.
-- [ ] **11.** Documentar e commitar.
+- [x] **11.** Documentar e commitar.
 
 ## Critério de pronto
 
