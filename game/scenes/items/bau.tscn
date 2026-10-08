@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/items/bau.gd" id="1_script"]
+
+[sub_resource type="StandardMaterial3D" id="Material_caixa"]
+albedo_color = Color(0.5, 0.36, 0.24, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Malha_caixa"]
+material = SubResource("Material_caixa")
+size = Vector3(0.7, 0.45, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="Material_tampa"]
+albedo_color = Color(0.36, 0.26, 0.18, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Malha_tampa"]
+material = SubResource("Material_tampa")
+size = Vector3(0.74, 0.1, 0.54)
+
+[sub_resource type="BoxShape3D" id="Forma_do_corpo"]
+size = Vector3(0.7, 0.55, 0.5)
+
+[sub_resource type="SphereShape3D" id="Forma_da_area"]
+radius = 0.75
+
+[node name="Bau" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Caixa" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, 0)
+mesh = SubResource("Malha_caixa")
+
+[node name="Tampa" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("Malha_tampa")
+
+[node name="Corpo" type="StaticBody3D" parent="."]
+collision_mask = 0
+metadata/superficie = &"madeira"
+
+[node name="Forma" type="CollisionShape3D" parent="Corpo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.275, 0)
+shape = SubResource("Forma_do_corpo")
+
+[node name="AreaDoBau" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="FormaDaArea" type="CollisionShape3D" parent="AreaDoBau"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("Forma_da_area")
+
+[node name="Etiqueta" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28, 0.255)
+pixel_size = 0.003
+modulate = Color(0.95, 0.9, 0.75, 1)
+text = "Baú"
+font_size = 26
+outline_size = 4

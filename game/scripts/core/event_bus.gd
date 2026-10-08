@@ -25,3 +25,7 @@ signal lobby_requested
 ## O jogador entrou ou saiu da dungeon. A luz, a chuva e o relógio reagem.
 signal dungeon_entered
 signal dungeon_left
+## O jogador conversou com um comerciante que está com a loja aberta.
+signal shop_requested(perfil: PerfilNpc)
+## O jogador interagiu com um baú, de guardar ou de venda.
+signal chest_requested(bau: Bau)
