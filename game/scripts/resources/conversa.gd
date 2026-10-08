@@ -7,6 +7,14 @@ extends Resource
 @export var id: StringName = &""
 @export var npc_id: String = ""
 @export var nos: Array[NoDialogo] = []
+## Falas disparadas por evento, e não sorteadas no dia: a reação a cada tipo de presente
+## (amou, gostou, neutro, nao_gostou, odiou), o aniversario, o presente repetido na semana
+## (ja_presenteou) e as respostas ao buquê (buque_aceito, buque_poucos_coracoes,
+## buque_nao_romanceavel, buque_ja_namorando).
+@export var falas_de_evento: Dictionary[StringName, String] = {}
+
+func fala_de_evento(evento: StringName) -> String:
+	return falas_de_evento.get(evento, "")
 
 func no_por_id(id_do_no: String) -> NoDialogo:
 	for no in nos:

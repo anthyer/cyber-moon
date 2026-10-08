@@ -1,53 +1,65 @@
 [gd_resource type="Resource" script_class="PerfilNpc" format=3]
 
-[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_female_c.glb" id="1_m4bdh"]
-[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="2_wt1mn"]
-[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="3_tirgb"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_66ero"]
+[ext_resource type="Resource" path="res://resources/items/sucata/nucleo_sintetico.tres" id="2_yi54q"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/tomate.tres" id="3_1il47"]
+[ext_resource type="Resource" path="res://resources/items/recursos/minerio_cobre.tres" id="4_rtxhi"]
+[ext_resource type="Resource" path="res://resources/items/materiais/chapa_reciclada.tres" id="5_pj3wv"]
+[ext_resource type="Resource" path="res://resources/items/sucata/celula_energia.tres" id="6_srr7l"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/pao_de_trigo.tres" id="7_sr41b"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/milho.tres" id="8_4of5b"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_female_c.glb" id="9_e6wx2"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="10_xmnt6"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="11_2mesa"]
 
-[sub_resource type="Resource" id="Resource_qwwlc"]
-script = ExtResource("2_wt1mn")
+[sub_resource type="Resource" id="Resource_sb350"]
+script = ExtResource("10_xmnt6")
 hora_final = 11.0
 destino = &"mirante"
 
-[sub_resource type="Resource" id="Resource_niunq"]
-script = ExtResource("2_wt1mn")
+[sub_resource type="Resource" id="Resource_sy0if"]
+script = ExtResource("10_xmnt6")
 hora_inicial = 11.0
 hora_final = 14.0
 destino = &"beira_rio"
 animacao_parado = &"sit"
 
-[sub_resource type="Resource" id="Resource_2126k"]
-script = ExtResource("2_wt1mn")
+[sub_resource type="Resource" id="Resource_gfcr2"]
+script = ExtResource("10_xmnt6")
 hora_inicial = 14.0
 hora_final = 18.0
 destino = &"mirante"
 
-[sub_resource type="Resource" id="Resource_hsypl"]
-script = ExtResource("2_wt1mn")
+[sub_resource type="Resource" id="Resource_4a14i"]
+script = ExtResource("10_xmnt6")
 hora_inicial = 18.0
 hora_final = 21.0
 destino = &"beira_rio"
 
-[sub_resource type="Resource" id="Resource_4c6ge"]
-script = ExtResource("2_wt1mn")
+[sub_resource type="Resource" id="Resource_f1wem"]
+script = ExtResource("10_xmnt6")
 hora_inicial = 11.0
 hora_final = 14.0
 estacoes = Array[StringName]([&"estiagem"])
 destino = &"ponte"
 
-[sub_resource type="Resource" id="Resource_66ero"]
-script = ExtResource("2_wt1mn")
+[sub_resource type="Resource" id="Resource_dm4vo"]
+script = ExtResource("10_xmnt6")
 hora_final = 21.0
 apenas_no_aniversario = true
 destino = &"praca"
 
 [resource]
-script = ExtResource("3_tirgb")
+script = ExtResource("11_2mesa")
 id = "sol"
 nome_exibido = "Sol Vasques"
 estacao_do_aniversario = &"estiagem"
 dia_do_aniversario = 27
-modelo = ExtResource("1_m4bdh")
+itens_amados = Array[ExtResource("1_66ero")]([ExtResource("2_yi54q"), ExtResource("3_1il47")])
+itens_queridos = Array[ExtResource("1_66ero")]([ExtResource("6_srr7l"), ExtResource("7_sr41b"), ExtResource("8_4of5b")])
+itens_indesejados = Array[ExtResource("1_66ero")]([ExtResource("4_rtxhi")])
+itens_odiados = Array[ExtResource("1_66ero")]([ExtResource("5_pj3wv")])
+modelo = ExtResource("9_e6wx2")
 casa = &"casa_sol"
-rotina = Array[ExtResource("2_wt1mn")]([SubResource("Resource_qwwlc"), SubResource("Resource_niunq"), SubResource("Resource_2126k"), SubResource("Resource_hsypl"), SubResource("Resource_4c6ge"), SubResource("Resource_66ero")])
+rotina = Array[ExtResource("10_xmnt6")]([SubResource("Resource_sb350"), SubResource("Resource_sy0if"), SubResource("Resource_gfcr2"), SubResource("Resource_4a14i"), SubResource("Resource_f1wem"), SubResource("Resource_dm4vo")])
 eh_romanceavel = true

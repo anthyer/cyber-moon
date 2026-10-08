@@ -149,3 +149,16 @@ script = ExtResource("2_e0cag")
 id = &"iara"
 npc_id = "iara"
 nos = Array[ExtResource("1_38c5c")]([SubResource("Resource_ou3hd"), SubResource("Resource_8h8rv"), SubResource("Resource_d13ld"), SubResource("Resource_yk6kv"), SubResource("Resource_yxjtv"), SubResource("Resource_7arcg"), SubResource("Resource_ctwku"), SubResource("Resource_kswt4"), SubResource("Resource_u41ah"), SubResource("Resource_y3w8e"), SubResource("Resource_vgnhh"), SubResource("Resource_xlntx"), SubResource("Resource_jqxal"), SubResource("Resource_7kupv"), SubResource("Resource_7ac8b"), SubResource("Resource_ntoo8"), SubResource("Resource_yuqw0"), SubResource("Resource_ioix8"), SubResource("Resource_sikiv")])
+falas_de_evento = Dictionary[StringName, String]({
+&"amou": "Nanogel de verdade? Isso vai salvar alguém essa semana. Obrigada, de coração.",
+&"aniversario": "Eu tinha esquecido que era hoje. Trabalhando desde as seis. Obrigada por lembrar por mim.",
+&"buque_aceito": "Eu passo o dia cuidando de todo mundo e nunca me perguntei quem cuidaria de mim. Você perguntou primeiro.",
+&"buque_ja_namorando": "Você já tem alguém. E essa pessoa não merece isso.",
+&"buque_nao_romanceavel": "Ah, que gentileza. Mas eu vou colocar num vaso e fingir que você não quis dizer nada com isso.",
+&"buque_poucos_coracoes": "Eu gosto de você, mas não desse jeito. Ainda não.",
+&"gostou": "Que gentileza. Vou usar hoje mesmo.",
+&"ja_presenteou": "Você já me deu uma coisa essa semana. Guarda pra próxima.",
+&"nao_gostou": "Não sei bem o que fazer com isso, mas obrigada.",
+&"neutro": "Obrigada. Deixa na mesa.",
+&"odiou": "Não. Eu não aceito isso. Você tem ideia de quantas pessoas eu vi por causa dessas coisas?"
+})

@@ -1,50 +1,62 @@
 [gd_resource type="Resource" script_class="PerfilNpc" format=3]
 
-[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_female_b.glb" id="1_dmlvl"]
-[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="2_re6eo"]
-[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="3_7kb8e"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_qcsb8"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/nanogel.tres" id="2_dsd5f"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/sopa_de_legumes.tres" id="3_vwxi3"]
+[ext_resource type="Resource" path="res://resources/items/sucata/sucata_metal.tres" id="4_sfqie"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/estimulante.tres" id="5_28moi"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/beterraba.tres" id="6_jyk56"]
+[ext_resource type="Resource" path="res://resources/items/recursos/fibra.tres" id="7_yn2fn"]
+[ext_resource type="Resource" path="res://resources/items/materiais/composto_organico.tres" id="8_tcr64"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_female_b.glb" id="9_2ry80"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="10_ythah"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="11_e1yvr"]
 
-[sub_resource type="Resource" id="Resource_7oi37"]
-script = ExtResource("2_re6eo")
+[sub_resource type="Resource" id="Resource_7pdew"]
+script = ExtResource("10_ythah")
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"clinica"
 animacao_parado = &"interact-left"
 
-[sub_resource type="Resource" id="Resource_fldbf"]
-script = ExtResource("2_re6eo")
+[sub_resource type="Resource" id="Resource_7yc06"]
+script = ExtResource("10_ythah")
 hora_inicial = 12.0
 hora_final = 13.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"praca"
 animacao_parado = &"sit"
 
-[sub_resource type="Resource" id="Resource_wo43e"]
-script = ExtResource("2_re6eo")
+[sub_resource type="Resource" id="Resource_jl60x"]
+script = ExtResource("10_ythah")
 hora_inicial = 13.0
 hora_final = 18.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"clinica"
 
-[sub_resource type="Resource" id="Resource_f1oqx"]
-script = ExtResource("2_re6eo")
+[sub_resource type="Resource" id="Resource_7ayy4"]
+script = ExtResource("10_ythah")
 hora_inicial = 18.0
 hora_final = 21.0
 destino = &"beira_rio"
 
-[sub_resource type="Resource" id="Resource_dkrk4"]
-script = ExtResource("2_re6eo")
+[sub_resource type="Resource" id="Resource_lxws3"]
+script = ExtResource("10_ythah")
 hora_inicial = 18.0
 hora_final = 21.0
 climas = Array[StringName]([&"chuva"])
 destino = &"casa_iara"
 
 [resource]
-script = ExtResource("3_7kb8e")
+script = ExtResource("11_e1yvr")
 id = "iara"
 nome_exibido = "Iara Nakamura"
 estacao_do_aniversario = &"apagao"
 dia_do_aniversario = 15
-modelo = ExtResource("1_dmlvl")
+itens_amados = Array[ExtResource("1_qcsb8")]([ExtResource("2_dsd5f"), ExtResource("3_vwxi3")])
+itens_queridos = Array[ExtResource("1_qcsb8")]([ExtResource("6_jyk56"), ExtResource("7_yn2fn"), ExtResource("8_tcr64")])
+itens_indesejados = Array[ExtResource("1_qcsb8")]([ExtResource("4_sfqie")])
+itens_odiados = Array[ExtResource("1_qcsb8")]([ExtResource("5_28moi")])
+modelo = ExtResource("9_2ry80")
 casa = &"casa_iara"
-rotina = Array[ExtResource("2_re6eo")]([SubResource("Resource_7oi37"), SubResource("Resource_fldbf"), SubResource("Resource_wo43e"), SubResource("Resource_f1oqx"), SubResource("Resource_dkrk4")])
+rotina = Array[ExtResource("10_ythah")]([SubResource("Resource_7pdew"), SubResource("Resource_7yc06"), SubResource("Resource_jl60x"), SubResource("Resource_7ayy4"), SubResource("Resource_lxws3")])
 eh_romanceavel = true

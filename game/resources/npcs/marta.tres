@@ -1,40 +1,53 @@
 [gd_resource type="Resource" script_class="PerfilNpc" format=3]
 
-[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_female_a.glb" id="1_ckvbf"]
-[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="2_kx4dm"]
-[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="3_h4he5"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_rwt0h"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/sopa_de_legumes.tres" id="2_nyb0j"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/repolho.tres" id="3_kmvwp"]
+[ext_resource type="Resource" path="res://resources/items/sucata/sucata_metal.tres" id="4_16oio"]
+[ext_resource type="Resource" path="res://resources/items/sucata/placa_queimada.tres" id="5_awhjv"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/cenoura.tres" id="6_kuhae"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/beterraba.tres" id="7_hcad3"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/tomate.tres" id="8_mk2lu"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/trigo.tres" id="9_52xh0"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_female_a.glb" id="10_r4jso"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="11_gmms2"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="12_3v5ka"]
 
-[sub_resource type="Resource" id="Resource_ll0wq"]
-script = ExtResource("2_kx4dm")
+[sub_resource type="Resource" id="Resource_l7y2t"]
+script = ExtResource("11_gmms2")
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"mercado"
 
-[sub_resource type="Resource" id="Resource_x4x2q"]
-script = ExtResource("2_kx4dm")
+[sub_resource type="Resource" id="Resource_scfrg"]
+script = ExtResource("11_gmms2")
 hora_inicial = 12.0
 hora_final = 13.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"praca"
 
-[sub_resource type="Resource" id="Resource_yumor"]
-script = ExtResource("2_kx4dm")
+[sub_resource type="Resource" id="Resource_jd2lv"]
+script = ExtResource("11_gmms2")
 hora_inicial = 13.0
 hora_final = 18.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"mercado"
 
-[sub_resource type="Resource" id="Resource_qslv1"]
-script = ExtResource("2_kx4dm")
+[sub_resource type="Resource" id="Resource_ulke5"]
+script = ExtResource("11_gmms2")
 hora_inicial = 18.0
 hora_final = 20.0
 destino = &"praca"
 
 [resource]
-script = ExtResource("3_h4he5")
+script = ExtResource("12_3v5ka")
 id = "marta"
 nome_exibido = "Marta Bueno"
 estacao_do_aniversario = &"colheita"
 dia_do_aniversario = 20
-modelo = ExtResource("1_ckvbf")
+itens_amados = Array[ExtResource("1_rwt0h")]([ExtResource("2_nyb0j"), ExtResource("3_kmvwp")])
+itens_queridos = Array[ExtResource("1_rwt0h")]([ExtResource("6_kuhae"), ExtResource("7_hcad3"), ExtResource("8_mk2lu"), ExtResource("9_52xh0")])
+itens_indesejados = Array[ExtResource("1_rwt0h")]([ExtResource("4_16oio")])
+itens_odiados = Array[ExtResource("1_rwt0h")]([ExtResource("5_awhjv")])
+modelo = ExtResource("10_r4jso")
 casa = &"casa_marta"
-rotina = Array[ExtResource("2_kx4dm")]([SubResource("Resource_ll0wq"), SubResource("Resource_x4x2q"), SubResource("Resource_yumor"), SubResource("Resource_qslv1")])
+rotina = Array[ExtResource("11_gmms2")]([SubResource("Resource_l7y2t"), SubResource("Resource_scfrg"), SubResource("Resource_jd2lv"), SubResource("Resource_ulke5")])

@@ -1,43 +1,55 @@
 [gd_resource type="Resource" script_class="PerfilNpc" format=3]
 
-[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_male_b.glb" id="1_8p2lc"]
-[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="2_l2xuu"]
-[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="3_o22pi"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_ulde4"]
+[ext_resource type="Resource" path="res://resources/items/sucata/servomotor.tres" id="2_wkb6f"]
+[ext_resource type="Resource" path="res://resources/items/materiais/chapa_reciclada.tres" id="3_40sxp"]
+[ext_resource type="Resource" path="res://resources/items/especiais/buque.tres" id="4_pcc01"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/nanogel.tres" id="5_ka2rj"]
+[ext_resource type="Resource" path="res://resources/items/sucata/sucata_metal.tres" id="6_88udr"]
+[ext_resource type="Resource" path="res://resources/items/recursos/minerio_ferro.tres" id="7_vefap"]
+[ext_resource type="Resource" path="res://resources/items/sucata/placa_queimada.tres" id="8_ijeod"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_male_b.glb" id="9_drbp7"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="10_vpaj2"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="11_eomiu"]
 
-[sub_resource type="Resource" id="Resource_7hrn3"]
-script = ExtResource("2_l2xuu")
+[sub_resource type="Resource" id="Resource_7ilp4"]
+script = ExtResource("10_vpaj2")
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"oficina"
 animacao_parado = &"interact-left"
 
-[sub_resource type="Resource" id="Resource_y1fho"]
-script = ExtResource("2_l2xuu")
+[sub_resource type="Resource" id="Resource_ovsm4"]
+script = ExtResource("10_vpaj2")
 hora_inicial = 12.0
 hora_final = 13.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"praca"
 animacao_parado = &"sit"
 
-[sub_resource type="Resource" id="Resource_f10df"]
-script = ExtResource("2_l2xuu")
+[sub_resource type="Resource" id="Resource_oy38e"]
+script = ExtResource("10_vpaj2")
 hora_inicial = 13.0
 hora_final = 18.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"oficina"
 animacao_parado = &"interact-left"
 
-[sub_resource type="Resource" id="Resource_ouf7b"]
-script = ExtResource("2_l2xuu")
+[sub_resource type="Resource" id="Resource_37o70"]
+script = ExtResource("10_vpaj2")
 hora_inicial = 18.0
 hora_final = 22.0
 destino = &"praca"
 
 [resource]
-script = ExtResource("3_o22pi")
+script = ExtResource("11_eomiu")
 id = "vitor"
 nome_exibido = "Vitor Alencar"
 estacao_do_aniversario = &"estiagem"
 dia_do_aniversario = 12
-modelo = ExtResource("1_8p2lc")
+itens_amados = Array[ExtResource("1_ulde4")]([ExtResource("2_wkb6f"), ExtResource("3_40sxp")])
+itens_queridos = Array[ExtResource("1_ulde4")]([ExtResource("6_88udr"), ExtResource("7_vefap"), ExtResource("8_ijeod")])
+itens_indesejados = Array[ExtResource("1_ulde4")]([ExtResource("4_pcc01")])
+itens_odiados = Array[ExtResource("1_ulde4")]([ExtResource("5_ka2rj")])
+modelo = ExtResource("9_drbp7")
 casa = &"casa_vitor"
-rotina = Array[ExtResource("2_l2xuu")]([SubResource("Resource_7hrn3"), SubResource("Resource_y1fho"), SubResource("Resource_f10df"), SubResource("Resource_ouf7b")])
+rotina = Array[ExtResource("10_vpaj2")]([SubResource("Resource_7ilp4"), SubResource("Resource_ovsm4"), SubResource("Resource_oy38e"), SubResource("Resource_37o70")])

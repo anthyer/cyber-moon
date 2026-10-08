@@ -149,3 +149,16 @@ script = ExtResource("2_rvcqk")
 id = &"rafa"
 npc_id = "rafa"
 nos = Array[ExtResource("1_i0ndv")]([SubResource("Resource_dy2yc"), SubResource("Resource_320jc"), SubResource("Resource_5tiil"), SubResource("Resource_ck7uu"), SubResource("Resource_ehb88"), SubResource("Resource_ra0hk"), SubResource("Resource_ny350"), SubResource("Resource_jh3sw"), SubResource("Resource_v7prb"), SubResource("Resource_8f7wo"), SubResource("Resource_3pewy"), SubResource("Resource_s6gi7"), SubResource("Resource_7t7bl"), SubResource("Resource_1ok3m"), SubResource("Resource_n1ebx"), SubResource("Resource_i4gmq"), SubResource("Resource_lgvd6"), SubResource("Resource_2lfi0"), SubResource("Resource_bfsf0")])
+falas_de_evento = Dictionary[StringName, String]({
+&"amou": "Combustível de verdade? Cara, você acabou de me dar duas horas de vida por dia.",
+&"aniversario": "Ninguém lembra do meu aniversário porque eu nunca fico parado tempo o bastante. Você lembrou.",
+&"buque_aceito": "Eu corri esse caminho mil vezes procurando um motivo pra desacelerar. Achei.",
+&"buque_ja_namorando": "Você já tem alguém. E essa pessoa não merece isso.",
+&"buque_nao_romanceavel": "Ah, que gentileza. Mas eu vou colocar num vaso e fingir que você não quis dizer nada com isso.",
+&"buque_poucos_coracoes": "Eu gosto de você, mas não desse jeito. Ainda não.",
+&"gostou": "Isso salva o meu dia, sério.",
+&"ja_presenteou": "Você já me deu uma coisa essa semana. Guarda pra próxima.",
+&"nao_gostou": "Peso. É isso que isso é. Peso.",
+&"neutro": "Valeu. Ponho na mochila.",
+&"odiou": "Sucata? Eu carrego coisa o dia inteiro e você me dá mais peso?"
+})

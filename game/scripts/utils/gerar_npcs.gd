@@ -15,7 +15,22 @@ extends SceneTree
 const PASTA_DOS_NPCS: String = "res://resources/npcs/"
 const PASTA_DOS_MODELOS: String = "res://assets/models/kenney_mini_characters/"
 
+const PASTA_DOS_ITENS: String = "res://resources/items/"
 const DIAS_DE_TRABALHO: Array[int] = [0, 1, 2, 3, 4]
+
+## O que cada um ama, gosta, não gosta e odeia ganhar, pelos ids dos itens. Item fora das
+## listas é neutro. Cada gosto conta algo do personagem: a Iara odeia estimulante porque é
+## médica e vê o estrago que ele faz; a Sol odeia chapa reciclada porque é feita da sucata
+## da corporação de onde ela fugiu; o Vitor odeia nanogel porque não confia em remédio da
+## cidade.
+const GOSTOS: Dictionary = {
+	"vitor": [[&"servomotor", &"chapa_reciclada"], [&"sucata_metal", &"minerio_ferro", &"placa_queimada"], [&"buque"], [&"nanogel"]],
+	"kenji": [[&"nucleo_sintetico", &"fio_optico"], [&"celula_energia", &"placa_queimada", &"estimulante"], [&"pedra", &"fibra"], [&"composto_organico"]],
+	"rafa": [[&"biocombustivel", &"estimulante"], [&"pao_de_trigo", &"milho", &"celula_energia"], [&"pedra"], [&"sucata_metal"]],
+	"marta": [[&"sopa_de_legumes", &"repolho"], [&"cenoura", &"beterraba", &"tomate", &"trigo"], [&"sucata_metal"], [&"placa_queimada"]],
+	"iara": [[&"nanogel", &"sopa_de_legumes"], [&"beterraba", &"fibra", &"composto_organico"], [&"sucata_metal"], [&"estimulante"]],
+	"sol": [[&"nucleo_sintetico", &"tomate"], [&"celula_energia", &"pao_de_trigo", &"milho"], [&"minerio_cobre"], [&"chapa_reciclada"]],
+}
 
 ## id, nome, modelo, estação e dia do aniversário, casa, romanceável.
 const ELENCO: Array = [
@@ -84,8 +99,11 @@ const ROTINAS: Dictionary = {
 	],
 }
 
+var _itens_por_id: Dictionary = {}
+
 func _init() -> void:
 	DirAccess.make_dir_recursive_absolute(PASTA_DOS_NPCS)
+	_carregar_itens(PASTA_DOS_ITENS)
 	for linha in ELENCO:
 		var perfil: PerfilNpc = PerfilNpc.new()
 		perfil.id = linha[0]
@@ -97,10 +115,35 @@ func _init() -> void:
 		perfil.eh_romanceavel = linha[6]
 		for item in ROTINAS[perfil.id]:
 			perfil.rotina.append(_novo_compromisso(item))
+		var gostos: Array = GOSTOS[perfil.id]
+		perfil.itens_amados.assign(_itens(gostos[0]))
+		perfil.itens_queridos.assign(_itens(gostos[1]))
+		perfil.itens_indesejados.assign(_itens(gostos[2]))
+		perfil.itens_odiados.assign(_itens(gostos[3]))
 		var caminho: String = PASTA_DOS_NPCS + perfil.id + ".tres"
 		var erro: Error = ResourceSaver.save(perfil, caminho)
 		print("%s: %d compromissos (erro %d)" % [caminho, perfil.rotina.size(), erro])
 	quit()
+
+## Percorre a pasta de itens e guarda cada um pelo id, para os gostos acima poderem citar
+## o id sem saber em que subpasta o item mora.
+func _carregar_itens(pasta: String) -> void:
+	for subpasta in DirAccess.get_directories_at(pasta):
+		_carregar_itens(pasta + subpasta + "/")
+	for arquivo in DirAccess.get_files_at(pasta):
+		if arquivo.ends_with(".tres"):
+			var item: Item = load(pasta + arquivo) as Item
+			if item != null:
+				_itens_por_id[item.id] = item
+
+func _itens(ids: Array) -> Array[Item]:
+	var lista: Array[Item] = []
+	for id: StringName in ids:
+		if _itens_por_id.has(id):
+			lista.append(_itens_por_id[id])
+		else:
+			push_error("Item de gosto não encontrado: %s" % id)
+	return lista
 
 func _novo_compromisso(item: Array) -> Compromisso:
 	var compromisso: Compromisso = Compromisso.new()

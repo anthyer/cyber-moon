@@ -1,40 +1,49 @@
 [gd_resource type="Resource" script_class="PerfilNpc" format=3]
 
-[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_male_c.glb" id="1_wwm6i"]
-[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="2_8piqd"]
-[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="3_5nl50"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_gym55"]
+[ext_resource type="Resource" path="res://resources/items/sucata/nucleo_sintetico.tres" id="2_l14tc"]
+[ext_resource type="Resource" path="res://resources/items/sucata/fio_optico.tres" id="3_8u7cs"]
+[ext_resource type="Resource" path="res://resources/items/recursos/pedra.tres" id="4_n1tij"]
+[ext_resource type="Resource" path="res://resources/items/recursos/fibra.tres" id="5_hebcd"]
+[ext_resource type="Resource" path="res://resources/items/materiais/composto_organico.tres" id="6_8p0q7"]
+[ext_resource type="Resource" path="res://resources/items/sucata/celula_energia.tres" id="7_dq4dx"]
+[ext_resource type="Resource" path="res://resources/items/sucata/placa_queimada.tres" id="8_aysu2"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/estimulante.tres" id="9_ldbng"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_mini_characters/character_male_c.glb" id="10_n7mt5"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="11_tpqak"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="12_qqw47"]
 
-[sub_resource type="Resource" id="Resource_euxac"]
-script = ExtResource("2_8piqd")
+[sub_resource type="Resource" id="Resource_iah2u"]
+script = ExtResource("11_tpqak")
 hora_inicial = 9.0
 hora_final = 13.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"torre_antena"
 animacao_parado = &"interact-left"
 
-[sub_resource type="Resource" id="Resource_n8txf"]
-script = ExtResource("2_8piqd")
+[sub_resource type="Resource" id="Resource_c07qk"]
+script = ExtResource("11_tpqak")
 hora_inicial = 13.0
 hora_final = 14.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"praca"
 
-[sub_resource type="Resource" id="Resource_nwihm"]
-script = ExtResource("2_8piqd")
+[sub_resource type="Resource" id="Resource_jfi1j"]
+script = ExtResource("11_tpqak")
 hora_inicial = 14.0
 hora_final = 19.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"torre_antena"
 animacao_parado = &"interact-left"
 
-[sub_resource type="Resource" id="Resource_4uo7u"]
-script = ExtResource("2_8piqd")
+[sub_resource type="Resource" id="Resource_iqno2"]
+script = ExtResource("11_tpqak")
 hora_inicial = 19.0
 hora_final = 23.0
 destino = &"ponte"
 
-[sub_resource type="Resource" id="Resource_amiq1"]
-script = ExtResource("2_8piqd")
+[sub_resource type="Resource" id="Resource_2vlja"]
+script = ExtResource("11_tpqak")
 hora_inicial = 14.0
 hora_final = 19.0
 estacoes = Array[StringName]([&"apagao"])
@@ -42,11 +51,15 @@ dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"mercado"
 
 [resource]
-script = ExtResource("3_5nl50")
+script = ExtResource("12_qqw47")
 id = "kenji"
 nome_exibido = "Kenji Moura"
 dia_do_aniversario = 9
-modelo = ExtResource("1_wwm6i")
+itens_amados = Array[ExtResource("1_gym55")]([ExtResource("2_l14tc"), ExtResource("3_8u7cs")])
+itens_queridos = Array[ExtResource("1_gym55")]([ExtResource("7_dq4dx"), ExtResource("8_aysu2"), ExtResource("9_ldbng")])
+itens_indesejados = Array[ExtResource("1_gym55")]([ExtResource("4_n1tij"), ExtResource("5_hebcd")])
+itens_odiados = Array[ExtResource("1_gym55")]([ExtResource("6_8p0q7")])
+modelo = ExtResource("10_n7mt5")
 casa = &"casa_kenji"
-rotina = Array[ExtResource("2_8piqd")]([SubResource("Resource_euxac"), SubResource("Resource_n8txf"), SubResource("Resource_nwihm"), SubResource("Resource_4uo7u"), SubResource("Resource_amiq1")])
+rotina = Array[ExtResource("11_tpqak")]([SubResource("Resource_iah2u"), SubResource("Resource_c07qk"), SubResource("Resource_jfi1j"), SubResource("Resource_iqno2"), SubResource("Resource_2vlja")])
 eh_romanceavel = true
