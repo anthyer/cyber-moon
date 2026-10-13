@@ -270,6 +270,28 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-13, plano 25
+
+**Feito como proposta.** Decisões, entregas e a história nova de cada personagem estão no
+topo do plano, seção "Revisão de 2026-10-13".
+
+**Precisa do Antonio:**
+
+- Ler as seis fichas em `equipe/personas/` e dizer o que não é o personagem que ele tinha
+  na cabeça. A seção "História nova que as fichas criaram", no plano, lista o que foi
+  inventado.
+- Ler as falas de cada um em sequência, em `equipe/biblioteca-de-dialogos.md` (é a tarefa
+  7 do plano, a única aberta). Para mudar uma fala: editar a biblioteca e rodar o gerador.
+- A Marta trata o jogador como "minha filha" numa reação a presente. O modelo do jogador é
+  feminino, mas as outras falas não marcam gênero. Decidir se fica.
+
+**Fica para depois:**
+
+- Em 60 dias no nível "distante", o Vitor usou 14 falas diferentes. A variedade cresce
+  com a amizade, porque muitas falas de situação pedem "conhecido" ou mais.
+- Fala com escolha de resposta, e eventos de coração.
+- O balão amarelo em cima do NPC continua valendo só para a conversa do dia.
+
 ### 2026-10-07, plano 25 criado: personas e diálogos
 
 **Pedido do Antonio, só documentado.** Revisar as personalidades dos seis NPCs com fichas

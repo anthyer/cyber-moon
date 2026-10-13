@@ -356,9 +356,26 @@ música e chance de chuva (esta, para o clima do plano 13).
 
 Conversar é interagir com um NPC (`Npc.interagir()`). O `DialogueManager` (autoload) abre
 a `Conversa` dele (`resources/dialogue/<id>.tres`, um Resource com a lista de `NoDialogo`)
-e escolhe a fala do dia: entre as que servem para o relacionamento e a estação, pega a de
-índice `(numero_do_dia + hash do id) % quantidade`. Por isso a fala é a mesma o dia todo e
-muda no dia seguinte, sem sorteio. O relógio para durante a conversa, mas o jogo não pausa.
+e escolhe a fala do dia. O relógio para durante a conversa, mas o jogo não pausa.
+
+Cada `NoDialogo` tem condições: a faixa de amizade, a estação, se o NPC namora o jogador,
+e uma lista de situações pelo nome (o clima, o dia da semana, a hora, o lugar, uma data,
+algo que aconteceu com o jogador). `DialogueManager.situacoes_atuais(npc_id)` é o único
+lugar que pergunta aos outros sistemas quais situações valem agora. A escolha:
+
+1. Ficam as falas em que todas as condições valem.
+2. Saem as que foram ditas nos últimos 6 dias, se sobrar alguma; a de `uma_vez` sai para
+   sempre depois de dita.
+3. Vence a de maior `especificidade()`, que soma o peso de cada condição: o que aconteceu
+   com o jogador pesa mais que o clima, que pesa mais que a faixa de amizade.
+4. No empate, o número do dia escolhe, no lugar de um sorteio.
+
+A fala escolhida vale o dia inteiro: falar de novo repete a mesma, e ela não muda se
+começar a chover. A memória do que foi dito entra no save.
+
+O texto dos personagens mora em `equipe/`: a ficha de cada um em `equipe/personas/`, e as
+falas em `equipe/biblioteca-de-dialogos.md`. O guia `equipe/personas/leiame.md` tem o
+formato e a tabela de condições com os pesos.
 
 A tela é a `CaixaDialogo` (`scenes/dialogue/caixa_dialogo.tscn`): a caixa de texto embaixo
 e, atrás, os modelos 3D dos dois personagens num `SubViewport` com mundo próprio. O texto
@@ -373,8 +390,8 @@ Ele é amarelo enquanto a conversa de hoje ainda não aconteceu, e branco depois
 (`DialogueManager.ja_conversou_hoje(npc_id)`), quando falar de novo só repete.
 
 As conversas saem de `scripts/utils/gerar_dialogos.gd`, que transcreve
-`equipe/biblioteca-de-dialogos.md`. Para mudar uma fala, edite a biblioteca e rode o
-gerador.
+`equipe/biblioteca-de-dialogos.md` e recusa condição que o jogo não conhece. Para mudar
+uma fala, edite a biblioteca e rode o gerador.
 
 ## Save
 

@@ -10,6 +10,71 @@ especiais.
 **Situação:** só documentado. Pedido do Antonio em 2026-10-07, para ser o próximo depois
 do plano 20.
 
+## Revisão de 2026-10-13 (vale sobre o resto do plano)
+
+**Situação:** feito, esperando a leitura do Antonio. As fichas e as falas são proposta:
+ele revisa, aponta o que não soa certo, e o texto é ajustado.
+
+**Decisões do Antonio (2026-10-13):** tom acolhedor com fundo amargo; os seis mantidos e
+aprofundados; cerca de 50 falas do dia por personagem; a fala de situação especial entra
+no lugar da fala do dia; só quem namora o jogador ganha falas de namoro; um personagem
+pode citar outro, com moderação.
+
+**O que foi entregue:**
+
+- **O guia** (`equipe/personas/leiame.md`): tom, mundo, laços entre os seis, o modelo da
+  ficha, as regras de escrita, o formato da biblioteca e a tabela de condições.
+- **Seis fichas de persona** (`equipe/personas/<id>.md`), com as onze seções do guia.
+- **A biblioteca revisada:** 332 falas do dia (52 para o Vitor e a Marta, 57 para os
+  outros quatro), contra 114 antes. Cada um tem 5 falas por faixa de amizade, 5 de namoro
+  (os romanceáveis), 4 de estação e 28 de situação.
+- **O sistema:** a fala passou a ter condições de clima, clima de ontem, dia da semana,
+  hora, lugar, datas e situações do jogador, além da amizade e da estação. Entre as que
+  servem, vence a de maior peso. Uma fala dita fica 6 dias sem voltar quando há outra, e
+  a fala escolhida vale o dia inteiro.
+
+**Conferido por teste automático:** o primeiro encontro vence tudo; "desmaiou ontem" vence
+a fala comum na Iara e no Vitor; a tempestade e a chuva trazem a fala do clima; no
+aniversário do Vitor ele comenta o próprio dia e o Kenji comenta o dele; a fala de quem
+vê o jogador namorando outro é dita uma vez e não volta; a fala não muda no meio do dia
+se começar a chover; em 60 dias de conversa diária com o Vitor nenhuma fala se repetiu
+dentro de 6 dias. O gerador recusa condição que o jogo não conhece.
+
+**Ajustes ao plano:**
+
+- **Os pesos das condições não são todos iguais.** O plano dizia "a mais específica
+  vence" contando condições. Contando, "desmaiou ontem" empatava com a fala comum de
+  amizade. Agora cada tipo de condição tem um peso (a tabela está no guia).
+- **Falas de condição duradoura são ditas uma vez só** (`uma_vez`): as de
+  `namorando_outro` e as dos marcos. Sem isso voltariam toda semana para sempre.
+- **O id da fala sai do texto dela**, e não da posição na biblioteca, porque a memória do
+  que já foi dito é guardada por id e entra no save.
+- **Quatro falas antigas da Marta foram reescritas** porque contradiziam o jogo: citava
+  "ano passado" para quem acabou de chegar, dizia que nunca fecha (fecha na Folga), que
+  vende fiado (não vende) e que compra a colheita (vender é pelo baú).
+- **A Sol mora na barraca na beira do rio** e passa o dia no mirante. A apresentação
+  antiga dizia que ela morava no mirante.
+- **Ficou de fora:** falas que só fazem sentido quando o NPC está em casa (`[folga]`,
+  `[tempestade]`) dependem da regra do plano 14 de todos ficarem em casa nesses dias.
+
+**História nova que as fichas criaram, para o Antonio conferir:**
+
+- **Vitor:** o pai perdeu a terra para um estacionamento e definhou. Ele guarda um caderno
+  com a medida do avanço da cidade, ano a ano. Chama o Kenji de "o moleque".
+- **Kenji:** a mãe está viva e veio com ele para a vila quando ele tinha 16 anos. Ele
+  escuta a rede da corporação procurando o nome dela em algum registro. A rede dele liga
+  31 casas, de graça. Gosta de estimulante e esconde isso da Iara.
+- **Rafa:** foi criado pela avó. Na primeira semana de trabalho entregou doze avisos de
+  despejo sem saber, um deles para ela. Toma estimulante para aguentar a rota.
+- **Marta:** o marido morreu menos de um ano depois de perderem a terra, no mesmo
+  estacionamento do pai do Vitor. Tem uma filha que mora na cidade e liga no aniversário
+  perguntando se ela já vendeu a loja. Todo ano o Rafa entrega um pacote da filha sem
+  dizer de quem é.
+- **Iara:** nasceu na vila, estudou na cidade com bolsa da corporação e voltou. A clínica
+  estava fechada desde a morte do médico antigo.
+- **Sol:** sabe a data em que a fazenda do jogador está marcada num mapa de expansão, e
+  nunca diz o número. A carta com selo corporativo é o único fato concreto de enredo.
+
 ## O que o Antonio pediu
 
 Um plano de revisão das personalidades dos personagens e dos seus diálogos, que devem
@@ -112,15 +177,15 @@ comemorando o aniversário), o efeito nasce junto.
 
 ## Tarefas (rascunho, a fechar depois das decisões)
 
-- [ ] **1.** Escrever as seis fichas de persona e passar pelos dois testes.
-- [ ] **2.** Revisar as falas que já existem contra as fichas.
-- [ ] **3.** Ampliar o `NoDialogo` e a escolha da fala para os eixos novos.
-- [ ] **4.** O lugar que decide as situações que valem agora, e a memória do que já foi
+- [x] **1.** Escrever as seis fichas de persona e passar pelos dois testes.
+- [x] **2.** Revisar as falas que já existem contra as fichas.
+- [x] **3.** Ampliar o `NoDialogo` e a escolha da fala para os eixos novos.
+- [x] **4.** O lugar que decide as situações que valem agora, e a memória do que já foi
   dito uma vez.
-- [ ] **5.** Escrever as falas novas na biblioteca, por personagem.
-- [ ] **6.** Atualizar o gerador e gerar.
+- [x] **5.** Escrever as falas novas na biblioteca, por personagem.
+- [x] **6.** Atualizar o gerador e gerar.
 - [ ] **7.** Ler todas as falas de cada personagem em sequência, em voz alta.
-- [ ] **8.** Documentar e commitar.
+- [x] **8.** Documentar e commitar.
 
 ## Fora de escopo
 
