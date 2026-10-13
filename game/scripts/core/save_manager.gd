@@ -104,6 +104,7 @@ func _autoloads_salvos() -> Dictionary:
 		"economia": EconomyManager,
 		"amizade": RelationshipManager,
 		"dialogo": DialogueManager,
+		"dungeon": DungeonManager,
 	}
 
 ## Os nós da fase só existem depois de a cena entrar na árvore, o que acontece depois do

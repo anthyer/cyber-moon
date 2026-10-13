@@ -62,6 +62,13 @@ func pontos_de(npc_id: String) -> int:
 func coracoes(npc_id: String) -> int:
 	return mini(int(pontos_de(npc_id) / PONTOS_POR_CORACAO), CORACOES_MAXIMOS)
 
+## Falso até a primeira conversa do jogador com este NPC.
+func ja_conversou_com(npc_id: String) -> bool:
+	return dia_da_ultima_conversa.has(npc_id)
+
+func dias_sem_conversar_com(npc_id: String) -> int:
+	return DayCycleManager.numero_do_dia - dia_da_ultima_conversa.get(npc_id, 1)
+
 func esta_namorando(npc_id: String) -> bool:
 	return namorando != "" and namorando == npc_id
 

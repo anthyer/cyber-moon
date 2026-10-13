@@ -17,6 +17,10 @@ const POSICAO_DA_DUNGEON: Vector3 = Vector3(0.0, 0.0, 400.0)
 const CENA_DO_SOPRO: PackedScene = preload("res://scenes/effects/poeira_de_passo.tscn")
 const COR_DO_SOPRO: Color = Color(0.3, 0.95, 1.0)
 
+## O número do dia da última vez que o jogador entrou na dungeon, para as falas que
+## comentam que ele acabou de sair de lá. Zero quando nunca entrou.
+var dia_da_ultima_visita: int = 0
+
 var _dungeon: Dungeon
 var _jogador_dentro: bool = false
 var _posicao_de_volta: Vector3
@@ -51,6 +55,7 @@ func entrar() -> void:
 	_soltar_sopro(jogador.global_position)
 	_dungeon.jogador_local = jogador
 	_jogador_dentro = true
+	dia_da_ultima_visita = DayCycleManager.numero_do_dia
 	_apagar_ao_acordar = false
 	DayCycleManager.tempo_congelado = true
 	EventBus.dungeon_entered.emit()
@@ -135,3 +140,11 @@ func _jogador() -> CharacterBody3D:
 
 func _soltar_sopro(posicao: Vector3) -> void:
 	EfeitoDeParticulas.soltar(CENA_DO_SOPRO, posicao + Vector3.UP * 0.4, COR_DO_SOPRO, 16, get_tree().current_scene)
+
+# Save
+
+func exportar_estado() -> Dictionary:
+	return {"dia_da_ultima_visita": dia_da_ultima_visita}
+
+func importar_estado(dados: Dictionary) -> void:
+	dia_da_ultima_visita = int(dados.get("dia_da_ultima_visita", 0))

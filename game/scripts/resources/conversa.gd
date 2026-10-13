@@ -22,10 +22,10 @@ func no_por_id(id_do_no: String) -> NoDialogo:
 			return no
 	return null
 
-## As falas que podem abrir o diálogo de hoje.
-func candidatos(relacionamento: int, estacao: StringName) -> Array[NoDialogo]:
+## As falas que podem abrir o diálogo agora: as que passam em todas as condições.
+func candidatos(relacionamento: int, estacao: StringName, situacoes_ativas: Dictionary, namorando: bool) -> Array[NoDialogo]:
 	var lista: Array[NoDialogo] = []
 	for no in nos:
-		if no.serve_para(relacionamento, estacao):
+		if no.serve_para(relacionamento, estacao, situacoes_ativas, namorando):
 			lista.append(no)
 	return lista

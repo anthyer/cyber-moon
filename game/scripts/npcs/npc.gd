@@ -208,6 +208,13 @@ func _receber_buque() -> bool:
 	DialogueManager.mostrar_fala_de_evento(self, EVENTOS_POR_RESPOSTA_AO_BUQUE[resposta], &"emote-yes" if aceito else &"idle")
 	return aceito
 
+## O nome do ponto de rotina em que ele está parado, ou "casa" quando é a casa dele. Vazio
+## enquanto anda de um lugar para outro. As falas com a condição "em:<ponto>" usam isto.
+func lugar_atual() -> StringName:
+	if _andando or perfil == null:
+		return &""
+	return &"casa" if _destino == perfil.casa else _destino
+
 ## Parado num lugar, e não no meio do caminho.
 func esta_disponivel_para_conversa() -> bool:
 	return not _andando

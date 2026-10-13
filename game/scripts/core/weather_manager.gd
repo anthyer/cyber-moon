@@ -19,6 +19,8 @@ const DIVISOR_DA_TEMPESTADE: float = 5.0
 ## O primeiro dia do jogo é sempre de sol.
 var clima_atual: StringName = &"sol"
 var clima_de_amanha: StringName = &"sol"
+## O clima do dia anterior, para as falas que comentam a chuva de ontem.
+var clima_de_ontem: StringName = &"sol"
 
 var _perfis: Dictionary[StringName, PerfilClima] = {}
 
@@ -61,6 +63,7 @@ func definir_clima(clima: StringName) -> void:
 ## O sinal sai todo dia, mesmo se o clima repetir, porque quem escuta (a GradeSolo molhando
 ## o solo) precisa agir a cada amanhecer chuvoso.
 func _ao_comecar_o_dia(numero_do_dia: int) -> void:
+	clima_de_ontem = clima_atual
 	clima_atual = clima_de_amanha
 	clima_de_amanha = sortear_clima_do_dia(numero_do_dia + 1)
 	_anunciar()
@@ -72,11 +75,13 @@ func _anunciar() -> void:
 # Save
 
 func exportar_estado() -> Dictionary:
-	return {"clima_atual": String(clima_atual), "clima_de_amanha": String(clima_de_amanha)}
+	return {"clima_atual": String(clima_atual), "clima_de_amanha": String(clima_de_amanha), "clima_de_ontem": String(clima_de_ontem)}
 
 func importar_estado(dados: Dictionary) -> void:
 	var atual: StringName = StringName(dados.get("clima_atual", "sol"))
 	var amanha: StringName = StringName(dados.get("clima_de_amanha", "sol"))
 	clima_atual = atual if _perfis.has(atual) else &"sol"
 	clima_de_amanha = amanha if _perfis.has(amanha) else &"sol"
+	var ontem: StringName = StringName(dados.get("clima_de_ontem", "sol"))
+	clima_de_ontem = ontem if _perfis.has(ontem) else &"sol"
 	_anunciar()
