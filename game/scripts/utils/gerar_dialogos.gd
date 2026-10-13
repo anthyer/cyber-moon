@@ -8,8 +8,9 @@ extends SceneTree
 ## o formato do jogo, para ninguém copiar duzentas falas à mão. Para mudar uma fala,
 ## edite a biblioteca e rode de novo: os .tres são sobrescritos.
 ##
-## As falas do dia a dia (as quatro faixas de relacionamento e as de estação) viram
-## NoDialogo. As de presente, de aniversário e de buquê são disparadas por evento, e vão
+## As falas do dia a dia (as faixas de relacionamento, as de namoro, as de estação e as de
+## situação, com as condições entre colchetes) viram NoDialogo. O formato da biblioteca e
+## a lista de condições estão em equipe/personas/leiame.md. As de presente, de aniversário e de buquê são disparadas por evento, e vão
 ## para o dicionário falas_de_evento da Conversa. As "Falas de sistema" do fim da
 ## biblioteca valem para todos, e são copiadas para a Conversa de cada NPC.
 
@@ -28,6 +29,26 @@ const ESTACOES_POR_NOME: Dictionary = {
 	"Brotação": &"brotacao", "Estiagem": &"estiagem", "Colheita": &"colheita", "Apagão": &"apagao",
 }
 const SECAO_DE_ESTACAO: String = "Por estação"
+const SECAO_DE_NAMORO: String = "Namorando"
+const SECAO_DE_SITUACOES: String = "Situações"
+## O "+" no fim da faixa quer dizer "desta faixa para cima".
+const SUFIXO_PARA_CIMA: String = "+"
+## A faixa escrita como condição, entre colchetes, para o nome dela em FAIXAS.
+const FAIXAS_POR_CONDICAO: Dictionary = {
+	"distante": "Distante", "conhecido": "Conhecido", "amigo": "Amigo", "intimo": "Íntimo",
+}
+const ESTACOES_POR_CONDICAO: Array[StringName] = [&"brotacao", &"estiagem", &"colheita", &"apagao"]
+## As situações que o DialogueManager sabe avaliar. Uma condição fora desta lista é erro
+## de digitação na biblioteca: a fala nunca apareceria no jogo, então o gerador avisa.
+const SITUACOES_CONHECIDAS: Array[String] = [
+	"sol", "chuva", "tempestade", "choveu_ontem", "tempestade_ontem",
+	"trabalho", "folga", "vespera_de_folga", "manha", "tarde", "noite",
+	"aniversario", "primeiro_dia_da_estacao", "ultimo_dia_da_estacao", "primeiro_dia_do_ano",
+	"primeiro_encontro", "sumido", "desmaiou_ontem", "vida_baixa", "saiu_da_dungeon",
+	"namorando_outro", "marco_1", "marco_2", "marco_3",
+]
+## Situações com um complemento depois dos dois pontos, e os complementos aceitos.
+const LUGARES: Array[String] = ["praca", "oficina", "mercado", "clinica", "torre_antena", "posto_entrega", "mirante", "ponte", "beira_rio", "casa"]
 const SECAO_DE_PRESENTE: String = "Presente"
 const SECAO_DE_SISTEMA: String = "Falas de sistema"
 ## Rótulo na biblioteca para a chave em Conversa.falas_de_evento.
@@ -133,6 +154,9 @@ func _novo_no(conversa: Conversa, secao: String, texto: String) -> NoDialogo:
 		no.relacionamento_minimo = FAIXAS[secao][0]
 		no.relacionamento_maximo = FAIXAS[secao][1]
 		no.texto = texto
+	elif secao == SECAO_DE_NAMORO:
+		no.so_namorando = true
+		no.texto = texto
 	elif secao == SECAO_DE_ESTACAO:
 		# "Brotação: Chuva boa pra planta..." vale só naquela estação, em qualquer faixa.
 		var nome_da_estacao: String = texto.get_slice(":", 0)
@@ -140,15 +164,59 @@ func _novo_no(conversa: Conversa, secao: String, texto: String) -> NoDialogo:
 			return null
 		no.estacoes.append(ESTACOES_POR_NOME[nome_da_estacao])
 		no.texto = texto.substr(nome_da_estacao.length() + 1).strip_edges()
+	elif secao == SECAO_DE_SITUACOES:
+		# "[chuva, amigo+] Fala." tem as condições entre colchetes, antes do texto.
+		if not texto.begins_with("[") or not texto.contains("]"):
+			push_error("Fala de situação sem condições entre colchetes: %s" % texto)
+			return null
+		var fim: int = texto.find("]")
+		for condicao in texto.substr(1, fim - 1).split(","):
+			_aplicar_condicao(no, condicao.strip_edges())
+		no.texto = texto.substr(fim + 1).strip_edges()
 	else:
 		return null
-	no.id = "%s_%02d" % [conversa.npc_id, conversa.nos.size() + 1]
 	conversa.nos.append(no)
 	return no
+
+## Traduz uma condição escrita na biblioteca para o campo certo da fala. Faixa de amizade,
+## estação, namoro e "uma_vez" têm campo próprio; todo o resto é uma situação pelo nome.
+func _aplicar_condicao(no: NoDialogo, condicao: String) -> void:
+	var para_cima: bool = condicao.ends_with(SUFIXO_PARA_CIMA)
+	var base: String = condicao.trim_suffix(SUFIXO_PARA_CIMA)
+	if FAIXAS_POR_CONDICAO.has(base):
+		var faixa: Array = FAIXAS[FAIXAS_POR_CONDICAO[base]]
+		no.relacionamento_minimo = faixa[0]
+		no.relacionamento_maximo = NoDialogo.RELACIONAMENTO_SEM_TETO if para_cima else faixa[1]
+	elif ESTACOES_POR_CONDICAO.has(StringName(condicao)):
+		no.estacoes.append(StringName(condicao))
+	elif condicao == "namorando":
+		no.so_namorando = true
+	elif condicao == "uma_vez":
+		no.uma_vez = true
+	elif condicao != "":
+		if not _situacao_existe(condicao):
+			push_error("Condição desconhecida na biblioteca: [%s] (fala de %s)" % [condicao, no.falante_id])
+		no.situacoes.append(StringName(condicao))
+
+func _situacao_existe(condicao: String) -> bool:
+	if SITUACOES_CONHECIDAS.has(condicao):
+		return true
+	if condicao.begins_with("em:"):
+		return LUGARES.has(condicao.trim_prefix("em:"))
+	if condicao.begins_with("aniversario_de:"):
+		return IDS_POR_NOME.values().has(condicao.trim_prefix("aniversario_de:"))
+	return false
+
+## O id da fala sai do texto dela, e não da posição na biblioteca. A memória do que já foi
+## dito é guardada por id, e assim reordenar ou acrescentar falas não a embaralha.
+func _dar_ids(conversa: Conversa) -> void:
+	for no in conversa.nos:
+		no.id = "%s_%s" % [conversa.npc_id, no.texto.md5_text().left(8)]
 
 func _salvar(conversa: Conversa) -> void:
 	if conversa == null:
 		return
+	_dar_ids(conversa)
 	var caminho: String = PASTA_DAS_CONVERSAS + conversa.npc_id + ".tres"
 	var erro: Error = ResourceSaver.save(conversa, caminho)
 	print("%s: %d falas (erro %d)" % [caminho, conversa.nos.size(), erro])

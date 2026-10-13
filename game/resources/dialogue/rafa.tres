@@ -5,150 +5,433 @@
 
 [sub_resource type="Resource" id="Resource_dy2yc"]
 script = ExtResource("1_i0ndv")
-id = "rafa_01"
+id = "rafa_58de6f9d"
 falante_id = "rafa"
 texto = "E aí. Se precisar mandar alguma coisa pra fora, eu levo."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_320jc"]
 script = ExtResource("1_i0ndv")
-id = "rafa_02"
+id = "rafa_50bb2413"
 falante_id = "rafa"
 texto = "Fazenda nova? Anota o endereço direito que eu erro os dois primeiros meses."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_5tiil"]
 script = ExtResource("1_i0ndv")
-id = "rafa_03"
+id = "rafa_11401d2b"
 falante_id = "rafa"
 texto = "Correndo, correndo. Depois eu paro."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_ck7uu"]
 script = ExtResource("1_i0ndv")
-id = "rafa_04"
+id = "rafa_5601ecee"
 falante_id = "rafa"
 texto = "Você não viu um pacote azul por aí, viu? Não? Beleza. Problema meu."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_ehb88"]
 script = ExtResource("1_i0ndv")
-id = "rafa_05"
+id = "rafa_2bbc332f"
+falante_id = "rafa"
+texto = "Se chegar caixa pra você, eu deixo na porta. Se não tiver ninguém, eu deixo na porta do mesmo jeito."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_ra0hk"]
+script = ExtResource("1_i0ndv")
+id = "rafa_8b8ed19e"
 falante_id = "rafa"
 texto = "Hoje eu fiz o trajeto do rio duas vezes. Duas. Minhas pernas te odeiam."
 relacionamento_minimo = 750
 relacionamento_maximo = 1499
 
-[sub_resource type="Resource" id="Resource_ra0hk"]
+[sub_resource type="Resource" id="Resource_ny350"]
 script = ExtResource("1_i0ndv")
-id = "rafa_06"
+id = "rafa_2d6e5bd8"
 falante_id = "rafa"
 texto = "A ponte tá cedendo. Todo mundo sabe e ninguém conserta."
 relacionamento_minimo = 750
 relacionamento_maximo = 1499
 
-[sub_resource type="Resource" id="Resource_ny350"]
+[sub_resource type="Resource" id="Resource_jh3sw"]
 script = ExtResource("1_i0ndv")
-id = "rafa_07"
+id = "rafa_23c1fdca"
 falante_id = "rafa"
 texto = "Se você quiser mandar produto pra dentro da cidade, dá. Não é legal, mas dá."
 relacionamento_minimo = 750
 relacionamento_maximo = 1499
 
-[sub_resource type="Resource" id="Resource_jh3sw"]
+[sub_resource type="Resource" id="Resource_v7prb"]
 script = ExtResource("1_i0ndv")
-id = "rafa_08"
+id = "rafa_d92ccaea"
 falante_id = "rafa"
 texto = "Já vi fazenda que durou trinta anos virar depósito em três meses. Não fica confortável."
 relacionamento_minimo = 750
 relacionamento_maximo = 1499
 
-[sub_resource type="Resource" id="Resource_v7prb"]
+[sub_resource type="Resource" id="Resource_8f7wo"]
 script = ExtResource("1_i0ndv")
-id = "rafa_09"
+id = "rafa_ffc28c86"
+falante_id = "rafa"
+texto = "A Marta separa um pão pra mim todo dia e finge que sobrou. Eu finjo que acredito."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_3pewy"]
+script = ExtResource("1_i0ndv")
+id = "rafa_e0f4a6e9"
 falante_id = "rafa"
 texto = "Eu conheço cada buraco desse caminho. Fecho o olho e chego."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
-[sub_resource type="Resource" id="Resource_8f7wo"]
+[sub_resource type="Resource" id="Resource_s6gi7"]
 script = ExtResource("1_i0ndv")
-id = "rafa_10"
+id = "rafa_4c379386"
 falante_id = "rafa"
 texto = "Entreguei uma carta pra Sol semana passada. Selo corporativo. Ela não abriu na minha frente."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
-[sub_resource type="Resource" id="Resource_3pewy"]
+[sub_resource type="Resource" id="Resource_7t7bl"]
 script = ExtResource("1_i0ndv")
-id = "rafa_11"
+id = "rafa_7daa7c95"
 falante_id = "rafa"
 texto = "Meu plano era juntar dinheiro e sair daqui. Faz seis anos que é o plano."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
-[sub_resource type="Resource" id="Resource_s6gi7"]
+[sub_resource type="Resource" id="Resource_1ok3m"]
 script = ExtResource("1_i0ndv")
-id = "rafa_12"
+id = "rafa_348604cf"
 falante_id = "rafa"
 texto = "Guarda um pouco daquele pão pra mim? Eu como correndo, mas eu como."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
-[sub_resource type="Resource" id="Resource_7t7bl"]
+[sub_resource type="Resource" id="Resource_n1ebx"]
 script = ExtResource("1_i0ndv")
-id = "rafa_13"
+id = "rafa_75165f07"
+falante_id = "rafa"
+texto = "A Iara diz que estimulante me mata antes dos quarenta. Eu digo que sem ele eu não chego no fim da rota. A gente empata."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_i4gmq"]
+script = ExtResource("1_i0ndv")
+id = "rafa_f333ebf2"
 falante_id = "rafa"
 texto = "Todo dia eu passo por aqui e todo dia eu ando mais devagar nesse trecho. Já reparei."
 relacionamento_minimo = 2500
 
-[sub_resource type="Resource" id="Resource_1ok3m"]
+[sub_resource type="Resource" id="Resource_lgvd6"]
 script = ExtResource("1_i0ndv")
-id = "rafa_14"
+id = "rafa_6649b9c7"
 falante_id = "rafa"
 texto = "Descobri que não quero sair daqui. Quero ter pra onde voltar. É diferente."
 relacionamento_minimo = 2500
 
-[sub_resource type="Resource" id="Resource_n1ebx"]
+[sub_resource type="Resource" id="Resource_2lfi0"]
 script = ExtResource("1_i0ndv")
-id = "rafa_15"
+id = "rafa_ac8482e1"
 falante_id = "rafa"
 texto = "Se um dia eu parar de correr, é aqui que eu paro."
 relacionamento_minimo = 2500
 
-[sub_resource type="Resource" id="Resource_i4gmq"]
+[sub_resource type="Resource" id="Resource_bfsf0"]
 script = ExtResource("1_i0ndv")
-id = "rafa_16"
+id = "rafa_104aac91"
+falante_id = "rafa"
+texto = "Na minha primeira semana de trabalho eu entreguei doze envelopes iguais. Eram avisos de despejo. Um era pra minha avó."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_k20ey"]
+script = ExtResource("1_i0ndv")
+id = "rafa_85c4fb87"
+falante_id = "rafa"
+texto = "Eu sei o que tem em metade das caixas dessa vila e nunca contei pra ninguém. Pra você eu contava."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_u3l35"]
+script = ExtResource("1_i0ndv")
+id = "rafa_71fd88b2"
+falante_id = "rafa"
+texto = "Mudei a rota. Agora a última entrega do dia é sempre pro seu lado. Coincidência nenhuma."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_ahhbk"]
+script = ExtResource("1_i0ndv")
+id = "rafa_2cd46b6c"
+falante_id = "rafa"
+texto = "Hoje eu andei. Andei mesmo, devagar, o trecho todo. Achei estranho e gostei."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_8eslt"]
+script = ExtResource("1_i0ndv")
+id = "rafa_a945688d"
+falante_id = "rafa"
+texto = "Sobrou espaço na mochila e eu trouxe uma coisa pra você. Não é encomenda. É minha."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_g4wms"]
+script = ExtResource("1_i0ndv")
+id = "rafa_bc84a216"
+falante_id = "rafa"
+texto = "Eu ainda guardo dinheiro, sabia? Só não é mais pra ir embora."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_f4nev"]
+script = ExtResource("1_i0ndv")
+id = "rafa_a5df1226"
+falante_id = "rafa"
+texto = "Se eu atrasar, me espera. Eu sempre chego, só nunca na hora."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_es8p3"]
+script = ExtResource("1_i0ndv")
+id = "rafa_8814eb0b"
 falante_id = "rafa"
 texto = "Lama até o joelho. Adoro e odeio ao mesmo tempo."
 estacoes = Array[StringName]([&"brotacao"])
 
-[sub_resource type="Resource" id="Resource_lgvd6"]
+[sub_resource type="Resource" id="Resource_wv66v"]
 script = ExtResource("1_i0ndv")
-id = "rafa_17"
+id = "rafa_97e8cb38"
 falante_id = "rafa"
 texto = "Dá pra fritar ovo no asfalto da via velha. Já tentei. Funciona."
 estacoes = Array[StringName]([&"estiagem"])
 
-[sub_resource type="Resource" id="Resource_2lfi0"]
+[sub_resource type="Resource" id="Resource_nhiec"]
 script = ExtResource("1_i0ndv")
-id = "rafa_18"
+id = "rafa_98ec587c"
 falante_id = "rafa"
 texto = "Época boa. Todo mundo manda coisa, e coisa pesada paga mais."
 estacoes = Array[StringName]([&"colheita"])
 
-[sub_resource type="Resource" id="Resource_bfsf0"]
+[sub_resource type="Resource" id="Resource_rm7b3"]
 script = ExtResource("1_i0ndv")
-id = "rafa_19"
+id = "rafa_5e000c58"
 falante_id = "rafa"
 texto = "Escurece às quatro e meia e eu ainda tenho seis entregas. Faz a conta."
 estacoes = Array[StringName]([&"apagao"])
+
+[sub_resource type="Resource" id="Resource_kv10y"]
+script = ExtResource("1_i0ndv")
+id = "rafa_3be185d1"
+falante_id = "rafa"
+texto = "Opa, gente nova. Rafa, entregador. Me fala onde fica a sua porta que amanhã eu já erro o caminho."
+situacoes = Array[StringName]([&"primeiro_encontro"])
+
+[sub_resource type="Resource" id="Resource_f03uh"]
+script = ExtResource("1_i0ndv")
+id = "rafa_adfc770d"
+falante_id = "rafa"
+texto = "Olha quem apareceu. Eu passei na sua porta umas cinco vezes. Não que eu tenha contado. Foram cinco."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_g8alb"]
+script = ExtResource("1_i0ndv")
+id = "rafa_cad61977"
+falante_id = "rafa"
+texto = "Fiquei sabendo que você apagou ontem. Aqui notícia corre mais que eu. Vai com calma hoje."
+situacoes = Array[StringName]([&"desmaiou_ontem"])
+
+[sub_resource type="Resource" id="Resource_4klbq"]
+script = ExtResource("1_i0ndv")
+id = "rafa_dfcf3668"
+falante_id = "rafa"
+texto = "Você tá com cara de pacote que caiu do caminhão. Passa na clínica antes de qualquer coisa."
+situacoes = Array[StringName]([&"vida_baixa"])
+
+[sub_resource type="Resource" id="Resource_q41ki"]
+script = ExtResource("1_i0ndv")
+id = "rafa_6bcf80ae"
+falante_id = "rafa"
+texto = "Você veio daquele buraco, né? Eu não entrego lá embaixo nem por taxa dobrada."
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_2khg5"]
+script = ExtResource("1_i0ndv")
+id = "rafa_d8c09aa4"
+falante_id = "rafa"
+texto = "Chuva é desconto de frete que ninguém me pediu. Chego molhado e chego igual."
+situacoes = Array[StringName]([&"chuva"])
+
+[sub_resource type="Resource" id="Resource_aoyqk"]
+script = ExtResource("1_i0ndv")
+id = "rafa_41bcf85c"
+falante_id = "rafa"
+texto = "Com chuva eu levo o dobro do tempo e escuto o dobro de reclamação. Você pelo menos não reclama."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"chuva"])
+
+[sub_resource type="Resource" id="Resource_7k1ti"]
+script = ExtResource("1_i0ndv")
+id = "rafa_602084ae"
+falante_id = "rafa"
+texto = "Hoje não tem entrega. Nem eu sou tão doido. Fica em casa também."
+situacoes = Array[StringName]([&"tempestade"])
+
+[sub_resource type="Resource" id="Resource_3dgog"]
+script = ExtResource("1_i0ndv")
+id = "rafa_8aa5a3ec"
+falante_id = "rafa"
+texto = "A tempestade de ontem levou um pedaço da grade da ponte. Agora tá cedendo e sem grade. Tá ótimo."
+situacoes = Array[StringName]([&"tempestade_ontem"])
+
+[sub_resource type="Resource" id="Resource_7wqmy"]
+script = ExtResource("1_i0ndv")
+id = "rafa_51b33252"
+falante_id = "rafa"
+texto = "Folga. Minhas pernas não sabem o que fazer paradas, então eu fico aqui olhando pra elas."
+situacoes = Array[StringName]([&"folga"])
+
+[sub_resource type="Resource" id="Resource_2edts"]
+script = ExtResource("1_i0ndv")
+id = "rafa_f916f95d"
+falante_id = "rafa"
+texto = "Na Folga eu escuto o Kenji falando com as máquinas através da parede. É quase companhia."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"folga"])
+
+[sub_resource type="Resource" id="Resource_d3j18"]
+script = ExtResource("1_i0ndv")
+id = "rafa_7f6dd0b5"
+falante_id = "rafa"
+texto = "Amanhã é Folga, então hoje todo mundo lembra que precisava mandar alguma coisa. Todo mundo."
+situacoes = Array[StringName]([&"vespera_de_folga"])
+
+[sub_resource type="Resource" id="Resource_ox8nr"]
+script = ExtResource("1_i0ndv")
+id = "rafa_bf189a8f"
+falante_id = "rafa"
+texto = "Cedo assim eu ainda sou simpático. Aproveita, lá pelas quatro eu só resmungo."
+situacoes = Array[StringName]([&"manha"])
+
+[sub_resource type="Resource" id="Resource_yq0vh"]
+script = ExtResource("1_i0ndv")
+id = "rafa_9f6568fb"
+falante_id = "rafa"
+texto = "A essa hora eu já larguei a mochila. Sem ela eu fico meio torto, repara."
+situacoes = Array[StringName]([&"noite"])
+
+[sub_resource type="Resource" id="Resource_lkl7p"]
+script = ExtResource("1_i0ndv")
+id = "rafa_ca4c6b24"
+falante_id = "rafa"
+texto = "Eu paro aqui todo fim de dia. É o único lugar da rota onde ninguém tá esperando nada de mim."
+situacoes = Array[StringName]([&"em:ponte"])
+
+[sub_resource type="Resource" id="Resource_ywvuk"]
+script = ExtResource("1_i0ndv")
+id = "rafa_5722ed79"
+falante_id = "rafa"
+texto = "Trouxe a caixa da Iara. Ela confere item por item e eu finjo que não tô com pressa."
+situacoes = Array[StringName]([&"em:clinica"])
+
+[sub_resource type="Resource" id="Resource_60u2w"]
+script = ExtResource("1_i0ndv")
+id = "rafa_8ec36647"
+falante_id = "rafa"
+texto = "A Marta recebe a mercadoria, reclama do preço e me dá comida. Nessa ordem, todo dia."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"em:mercado"])
+
+[sub_resource type="Resource" id="Resource_v3lak"]
+script = ExtResource("1_i0ndv")
+id = "rafa_49f13148"
+falante_id = "rafa"
+texto = "Hoje eu faço anos. Vou comemorar fazendo as mesmas entregas, só que assobiando."
+situacoes = Array[StringName]([&"aniversario"])
+
+[sub_resource type="Resource" id="Resource_rbmwy"]
+script = ExtResource("1_i0ndv")
+id = "rafa_6aa73ea0"
+falante_id = "rafa"
+texto = "O Kenji faz anos hoje. Vou bater na parede dele três vezes, que é o nosso parabéns."
+situacoes = Array[StringName]([&"aniversario_de:kenji"])
+
+[sub_resource type="Resource" id="Resource_5jk7m"]
+script = ExtResource("1_i0ndv")
+id = "rafa_17f8a8b7"
+falante_id = "rafa"
+texto = "Aniversário da Marta. Ela diz que parou de contar, mas todo ano nesse dia eu entrego um pacote pra ela. Não digo de quem é."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"aniversario_de:marta"])
+
+[sub_resource type="Resource" id="Resource_m55op"]
+script = ExtResource("1_i0ndv")
+id = "rafa_03cc828c"
+falante_id = "rafa"
+texto = "Começou a Colheita. A partir de hoje minha mochila pesa o dobro e eu ganho o dobro. Uma coisa paga a outra."
+estacoes = Array[StringName]([&"colheita"])
+situacoes = Array[StringName]([&"primeiro_dia_da_estacao"])
+
+[sub_resource type="Resource" id="Resource_ss8yg"]
+script = ExtResource("1_i0ndv")
+id = "rafa_a4018811"
+falante_id = "rafa"
+texto = "Primeiro dia de Apagão. Daqui pra frente eu faço metade da rota no escuro. Ainda bem que eu decorei os buracos."
+estacoes = Array[StringName]([&"apagao"])
+situacoes = Array[StringName]([&"primeiro_dia_da_estacao"])
+
+[sub_resource type="Resource" id="Resource_y4smw"]
+script = ExtResource("1_i0ndv")
+id = "rafa_e3bbc4c5"
+falante_id = "rafa"
+texto = "Ano novo. Mesmo trajeto, mesma mochila, mesma ponte cedendo. Feliz ano novo."
+situacoes = Array[StringName]([&"primeiro_dia_do_ano"])
+
+[sub_resource type="Resource" id="Resource_gs66u"]
+script = ExtResource("1_i0ndv")
+id = "rafa_5eb755d0"
+falante_id = "rafa"
+texto = "Tão falando da sua fazenda lá do outro lado. Eu escuto nas filas. Falam bem, e isso lá é raro."
+situacoes = Array[StringName]([&"marco_1"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_mr3we"]
+script = ExtResource("1_i0ndv")
+id = "rafa_e8370312"
+falante_id = "rafa"
+texto = "Hoje me perguntaram na cidade quem é que produz tanto aqui fora. Eu disse que não sabia. Eu sei mentir quando precisa."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"marco_2"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_aatsg"]
+script = ExtResource("1_i0ndv")
+id = "rafa_07fee388"
+falante_id = "rafa"
+texto = "Fiquei sabendo de você. Notícia boa corre também. Fico feliz, de verdade."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"namorando_outro"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_hnej1"]
+script = ExtResource("1_i0ndv")
+id = "rafa_c8d13b0f"
+falante_id = "rafa"
+texto = "Nessa época, de noite, dá pra ver a cidade inteira acesa daqui. Eu entrego lá dentro todo dia e de longe ainda acho bonito. Isso me irrita."
+relacionamento_minimo = 1500
+estacoes = Array[StringName]([&"apagao"])
+situacoes = Array[StringName]([&"noite"])
+
+[sub_resource type="Resource" id="Resource_x4ue5"]
+script = ExtResource("1_i0ndv")
+id = "rafa_46570bd3"
+falante_id = "rafa"
+texto = "Minha avó me trazia aqui pra ver a água. Naquele tempo a ponte não rangia. Ou rangia e eu não ouvia."
+relacionamento_minimo = 2500
+situacoes = Array[StringName]([&"em:ponte", &"noite"])
 
 [resource]
 script = ExtResource("2_rvcqk")
 id = &"rafa"
 npc_id = "rafa"
-nos = Array[ExtResource("1_i0ndv")]([SubResource("Resource_dy2yc"), SubResource("Resource_320jc"), SubResource("Resource_5tiil"), SubResource("Resource_ck7uu"), SubResource("Resource_ehb88"), SubResource("Resource_ra0hk"), SubResource("Resource_ny350"), SubResource("Resource_jh3sw"), SubResource("Resource_v7prb"), SubResource("Resource_8f7wo"), SubResource("Resource_3pewy"), SubResource("Resource_s6gi7"), SubResource("Resource_7t7bl"), SubResource("Resource_1ok3m"), SubResource("Resource_n1ebx"), SubResource("Resource_i4gmq"), SubResource("Resource_lgvd6"), SubResource("Resource_2lfi0"), SubResource("Resource_bfsf0")])
+nos = Array[ExtResource("1_i0ndv")]([SubResource("Resource_dy2yc"), SubResource("Resource_320jc"), SubResource("Resource_5tiil"), SubResource("Resource_ck7uu"), SubResource("Resource_ehb88"), SubResource("Resource_ra0hk"), SubResource("Resource_ny350"), SubResource("Resource_jh3sw"), SubResource("Resource_v7prb"), SubResource("Resource_8f7wo"), SubResource("Resource_3pewy"), SubResource("Resource_s6gi7"), SubResource("Resource_7t7bl"), SubResource("Resource_1ok3m"), SubResource("Resource_n1ebx"), SubResource("Resource_i4gmq"), SubResource("Resource_lgvd6"), SubResource("Resource_2lfi0"), SubResource("Resource_bfsf0"), SubResource("Resource_k20ey"), SubResource("Resource_u3l35"), SubResource("Resource_ahhbk"), SubResource("Resource_8eslt"), SubResource("Resource_g4wms"), SubResource("Resource_f4nev"), SubResource("Resource_es8p3"), SubResource("Resource_wv66v"), SubResource("Resource_nhiec"), SubResource("Resource_rm7b3"), SubResource("Resource_kv10y"), SubResource("Resource_f03uh"), SubResource("Resource_g8alb"), SubResource("Resource_4klbq"), SubResource("Resource_q41ki"), SubResource("Resource_2khg5"), SubResource("Resource_aoyqk"), SubResource("Resource_7k1ti"), SubResource("Resource_3dgog"), SubResource("Resource_7wqmy"), SubResource("Resource_2edts"), SubResource("Resource_d3j18"), SubResource("Resource_ox8nr"), SubResource("Resource_yq0vh"), SubResource("Resource_lkl7p"), SubResource("Resource_ywvuk"), SubResource("Resource_60u2w"), SubResource("Resource_v3lak"), SubResource("Resource_rbmwy"), SubResource("Resource_5jk7m"), SubResource("Resource_m55op"), SubResource("Resource_ss8yg"), SubResource("Resource_y4smw"), SubResource("Resource_gs66u"), SubResource("Resource_mr3we"), SubResource("Resource_aatsg"), SubResource("Resource_hnej1"), SubResource("Resource_x4ue5")])
 falas_de_evento = Dictionary[StringName, String]({
 &"amou": "Combustível de verdade? Cara, você acabou de me dar duas horas de vida por dia.",
 &"aniversario": "Ninguém lembra do meu aniversário porque eu nunca fico parado tempo o bastante. Você lembrou.",

@@ -5,150 +5,430 @@
 
 [sub_resource type="Resource" id="Resource_ou3hd"]
 script = ExtResource("1_38c5c")
-id = "iara_01"
+id = "iara_d7572613"
 falante_id = "iara"
 texto = "Bom dia. Se estiver machucado, entra. Se não, também entra, mas espera."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_8h8rv"]
 script = ExtResource("1_38c5c")
-id = "iara_02"
+id = "iara_60b32f35"
 falante_id = "iara"
 texto = "Você é novo aqui. Aparece pra um exame antes de precisar."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_d13ld"]
 script = ExtResource("1_38c5c")
-id = "iara_03"
+id = "iara_0110a0ca"
 falante_id = "iara"
 texto = "Bebe água. É o conselho médico mais ignorado do mundo."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_yk6kv"]
 script = ExtResource("1_38c5c")
-id = "iara_04"
+id = "iara_bffe4ce5"
 falante_id = "iara"
 texto = "Não tenho anestésico essa semana. Tenta não se cortar."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_yxjtv"]
 script = ExtResource("1_38c5c")
-id = "iara_05"
+id = "iara_3e3d78e9"
+falante_id = "iara"
+texto = "A clínica é a porta com a luz acesa. Se a luz estiver apagada, bate mesmo assim."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_7arcg"]
+script = ExtResource("1_38c5c")
+id = "iara_da34fb80"
 falante_id = "iara"
 texto = "Atendi doze pessoas hoje. Três pagaram. É uma média boa."
 relacionamento_minimo = 750
 relacionamento_maximo = 1499
 
-[sub_resource type="Resource" id="Resource_7arcg"]
+[sub_resource type="Resource" id="Resource_ctwku"]
 script = ExtResource("1_38c5c")
-id = "iara_06"
+id = "iara_f76bab6a"
 falante_id = "iara"
 texto = "Suas mãos estão calejadas. Isso é bom sinal, quer dizer que você usa elas."
 relacionamento_minimo = 750
 relacionamento_maximo = 1499
 
-[sub_resource type="Resource" id="Resource_ctwku"]
+[sub_resource type="Resource" id="Resource_kswt4"]
 script = ExtResource("1_38c5c")
-id = "iara_07"
+id = "iara_fc9f75f3"
 falante_id = "iara"
 texto = "O Vitor conserta o gerador daqui de graça e finge que foi de passagem."
 relacionamento_minimo = 750
 relacionamento_maximo = 1499
 
-[sub_resource type="Resource" id="Resource_kswt4"]
+[sub_resource type="Resource" id="Resource_u41ah"]
 script = ExtResource("1_38c5c")
-id = "iara_08"
+id = "iara_abf41ec9"
 falante_id = "iara"
 texto = "Você dorme quanto por noite? Não responde. Já sei pela sua cara."
 relacionamento_minimo = 750
 relacionamento_maximo = 1499
 
-[sub_resource type="Resource" id="Resource_u41ah"]
+[sub_resource type="Resource" id="Resource_y3w8e"]
 script = ExtResource("1_38c5c")
-id = "iara_09"
+id = "iara_0debf909"
+falante_id = "iara"
+texto = "Metade do que eu uso de curativo vem da terra. Fibra, composto. O resto eu espero chegar."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_vgnhh"]
+script = ExtResource("1_38c5c")
+id = "iara_aca6f770"
 falante_id = "iara"
 texto = "Estudei na cidade. Voltei porque lá eu tratava executivo e aqui eu trato gente."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
-[sub_resource type="Resource" id="Resource_y3w8e"]
+[sub_resource type="Resource" id="Resource_xlntx"]
 script = ExtResource("1_38c5c")
-id = "iara_10"
+id = "iara_d2bbad84"
 falante_id = "iara"
 texto = "Perdi um paciente mês passado. Chegou tarde demais. Eu ainda penso nisso todo dia."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
-[sub_resource type="Resource" id="Resource_vgnhh"]
+[sub_resource type="Resource" id="Resource_jqxal"]
 script = ExtResource("1_38c5c")
-id = "iara_11"
+id = "iara_fa903386"
 falante_id = "iara"
 texto = "Trouxe beterraba? Você lembrou. É a única coisa que eu consigo comer quando tô cansada."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
-[sub_resource type="Resource" id="Resource_xlntx"]
+[sub_resource type="Resource" id="Resource_7kupv"]
 script = ExtResource("1_38c5c")
-id = "iara_12"
+id = "iara_65444ca2"
 falante_id = "iara"
 texto = "Quando você aparece aqui sem estar machucado, o meu dia melhora."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
-[sub_resource type="Resource" id="Resource_jqxal"]
+[sub_resource type="Resource" id="Resource_7ac8b"]
 script = ExtResource("1_38c5c")
-id = "iara_13"
+id = "iara_667d4ed9"
+falante_id = "iara"
+texto = "A Marta manda comida quando percebe que eu não almocei. Ela sempre percebe."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_ntoo8"]
+script = ExtResource("1_38c5c")
+id = "iara_c7ddcb3f"
 falante_id = "iara"
 texto = "Eu cuido de todo mundo. Você é a única pessoa que pergunta como eu estou."
 relacionamento_minimo = 2500
 
-[sub_resource type="Resource" id="Resource_7kupv"]
+[sub_resource type="Resource" id="Resource_yuqw0"]
 script = ExtResource("1_38c5c")
-id = "iara_14"
+id = "iara_471e9d33"
 falante_id = "iara"
 texto = "Tem uma janela na clínica que dá pra sua fazenda. Eu olho mais do que devia."
 relacionamento_minimo = 2500
 
-[sub_resource type="Resource" id="Resource_7ac8b"]
+[sub_resource type="Resource" id="Resource_ioix8"]
 script = ExtResource("1_38c5c")
-id = "iara_15"
+id = "iara_eedd564e"
 falante_id = "iara"
 texto = "Se eu pudesse escolher um lugar pra cansar, era esse. Perto de você."
 relacionamento_minimo = 2500
 
-[sub_resource type="Resource" id="Resource_ntoo8"]
+[sub_resource type="Resource" id="Resource_sikiv"]
 script = ExtResource("1_38c5c")
-id = "iara_16"
+id = "iara_9f72aa9b"
+falante_id = "iara"
+texto = "Eu receito descanso o dia inteiro e não sei descansar. Com você eu quase consigo."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_synaf"]
+script = ExtResource("1_38c5c")
+id = "iara_c5d0d6d0"
+falante_id = "iara"
+texto = "Tenho medo de um dia estar cansada demais na hora errada. Nunca falei isso em voz alta."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_oxhiu"]
+script = ExtResource("1_38c5c")
+id = "iara_f508be37"
+falante_id = "iara"
+texto = "Senta aqui. Hoje eu não sou médica de ninguém por dez minutos."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_to74s"]
+script = ExtResource("1_38c5c")
+id = "iara_6fe63846"
+falante_id = "iara"
+texto = "Eu sei quantas horas você dormiu só de olhar. E agora eu me importo com o número."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_6hptc"]
+script = ExtResource("1_38c5c")
+id = "iara_75a92c69"
+falante_id = "iara"
+texto = "Deixei a maleta em casa. Você não imagina o que isso significa pra mim."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_8yt5s"]
+script = ExtResource("1_38c5c")
+id = "iara_4ce0a3d8"
+falante_id = "iara"
+texto = "Você me pergunta como eu estou e espera a resposta. Ainda tô me acostumando."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_wwkww"]
+script = ExtResource("1_38c5c")
+id = "iara_eec579c7"
+falante_id = "iara"
+texto = "Olhei pela janela da clínica hoje e a sua luz tava acesa. Trabalhei melhor depois."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_sfpdp"]
+script = ExtResource("1_38c5c")
+id = "iara_a9b17e3b"
 falante_id = "iara"
 texto = "Época de alergia. Metade da vila passa aqui espirrando."
 estacoes = Array[StringName]([&"brotacao"])
 
-[sub_resource type="Resource" id="Resource_yuqw0"]
+[sub_resource type="Resource" id="Resource_c0bci"]
 script = ExtResource("1_38c5c")
-id = "iara_17"
+id = "iara_b0705ebc"
 falante_id = "iara"
 texto = "Insolação, desidratação, queimadura. Todo ano igual."
 estacoes = Array[StringName]([&"estiagem"])
 
-[sub_resource type="Resource" id="Resource_ioix8"]
+[sub_resource type="Resource" id="Resource_8u2sj"]
 script = ExtResource("1_38c5c")
-id = "iara_18"
+id = "iara_fca823b1"
 falante_id = "iara"
 texto = "Todo mundo se machuca colhendo com pressa. Vai devagar, por favor."
 estacoes = Array[StringName]([&"colheita"])
 
-[sub_resource type="Resource" id="Resource_sikiv"]
+[sub_resource type="Resource" id="Resource_fxksu"]
 script = ExtResource("1_38c5c")
-id = "iara_19"
+id = "iara_03213b40"
 falante_id = "iara"
 texto = "Frio e pouca comida. É a estação que mais me dá trabalho."
 estacoes = Array[StringName]([&"apagao"])
+
+[sub_resource type="Resource" id="Resource_dwr5t"]
+script = ExtResource("1_38c5c")
+id = "iara_69fe5d3e"
+falante_id = "iara"
+texto = "Você é quem pegou a fazenda. Iara, da clínica. Espero te conhecer bem antes de te atender."
+situacoes = Array[StringName]([&"primeiro_encontro"])
+
+[sub_resource type="Resource" id="Resource_vph6s"]
+script = ExtResource("1_38c5c")
+id = "iara_c0947b48"
+falante_id = "iara"
+texto = "Faz dias que eu não te vejo. Deixa eu olhar pra você primeiro. Inteiro. Bom."
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_22yvt"]
+script = ExtResource("1_38c5c")
+id = "iara_63c1c9ac"
+falante_id = "iara"
+texto = "Você sumiu. Eu conferi a lista de quem passou na clínica só pra ter certeza de que você não tava nela."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_3ek6r"]
+script = ExtResource("1_38c5c")
+id = "iara_d6d0fb47"
+falante_id = "iara"
+texto = "Me contaram que você caiu ontem. Quanto você dormiu, quanto comeu e quanto trabalhou? Faz a conta comigo."
+situacoes = Array[StringName]([&"desmaiou_ontem"])
+
+[sub_resource type="Resource" id="Resource_10yp3"]
+script = ExtResource("1_38c5c")
+id = "iara_c1d55b7f"
+falante_id = "iara"
+texto = "Você desmaiou ontem e hoje tá de pé como se nada. Senta. Isso não é pedido de médica, é pedido meu."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"desmaiou_ontem"])
+
+[sub_resource type="Resource" id="Resource_r0u6q"]
+script = ExtResource("1_38c5c")
+id = "iara_71831404"
+falante_id = "iara"
+texto = "Para. Senta aí. Você tá machucado e tá fingindo que não."
+situacoes = Array[StringName]([&"vida_baixa"])
+
+[sub_resource type="Resource" id="Resource_h2xgm"]
+script = ExtResource("1_38c5c")
+id = "iara_ab13376f"
+falante_id = "iara"
+texto = "Mostra os braços. As mãos também. Quem volta de lá sempre acha que não foi nada."
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_tbegs"]
+script = ExtResource("1_38c5c")
+id = "iara_a3d35020"
+falante_id = "iara"
+texto = "Com chuva eu não desço pro rio. Fico em casa pensando em quem vai escorregar."
+situacoes = Array[StringName]([&"chuva"])
+
+[sub_resource type="Resource" id="Resource_jnphd"]
+script = ExtResource("1_38c5c")
+id = "iara_e17470e1"
+falante_id = "iara"
+texto = "Eu gosto de chuva. É o único dia em que eu tenho desculpa pra ficar parada."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"chuva", &"noite"])
+
+[sub_resource type="Resource" id="Resource_f60y5"]
+script = ExtResource("1_38c5c")
+id = "iara_e4c77008"
+falante_id = "iara"
+texto = "Raio e gerador velho não combinam. Deixei a maleta do lado da porta."
+situacoes = Array[StringName]([&"tempestade"])
+
+[sub_resource type="Resource" id="Resource_rfx36"]
+script = ExtResource("1_38c5c")
+id = "iara_cf09ddaa"
+falante_id = "iara"
+texto = "Depois da tempestade de ontem eu esperava a clínica cheia. Veio pouca gente. Ainda bem."
+situacoes = Array[StringName]([&"tempestade_ontem"])
+
+[sub_resource type="Resource" id="Resource_gmnk1"]
+script = ExtResource("1_38c5c")
+id = "iara_5bf0675a"
+falante_id = "iara"
+texto = "Hoje é Folga, mas se for urgente você bate. Eu atendo de pijama mesmo."
+situacoes = Array[StringName]([&"folga"])
+
+[sub_resource type="Resource" id="Resource_vtnau"]
+script = ExtResource("1_38c5c")
+id = "iara_7346370c"
+falante_id = "iara"
+texto = "Passei a manhã arrumando a maleta. É o meu jeito de descansar, não ri."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"folga"])
+
+[sub_resource type="Resource" id="Resource_6wfy3"]
+script = ExtResource("1_38c5c")
+id = "iara_c08554b7"
+falante_id = "iara"
+texto = "Amanhã é Folga. Hoje todo mundo lembra da dor que tava guardando a semana inteira."
+situacoes = Array[StringName]([&"vespera_de_folga"])
+
+[sub_resource type="Resource" id="Resource_i802k"]
+script = ExtResource("1_38c5c")
+id = "iara_45aca6f9"
+falante_id = "iara"
+texto = "Já tem três pessoas na espera e o dia nem esquentou. Fala rápido, mas fala."
+situacoes = Array[StringName]([&"manha", &"em:clinica"])
+
+[sub_resource type="Resource" id="Resource_xw3ou"]
+script = ExtResource("1_38c5c")
+id = "iara_d9d74a8a"
+falante_id = "iara"
+texto = "A essa hora eu devia mandar você dormir. Vou mandar: vai dormir."
+situacoes = Array[StringName]([&"noite"])
+
+[sub_resource type="Resource" id="Resource_hfln3"]
+script = ExtResource("1_38c5c")
+id = "iara_7b4c936a"
+falante_id = "iara"
+texto = "Eu venho pro rio no fim do dia. Aqui ninguém me chama de doutora."
+situacoes = Array[StringName]([&"em:beira_rio"])
+
+[sub_resource type="Resource" id="Resource_hencm"]
+script = ExtResource("1_38c5c")
+id = "iara_fb8abdc3"
+falante_id = "iara"
+texto = "A Sol e eu ficamos aqui sem falar quase nada. É a melhor conversa do meu dia."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"em:beira_rio"])
+
+[sub_resource type="Resource" id="Resource_hu8i2"]
+script = ExtResource("1_38c5c")
+id = "iara_6020938b"
+falante_id = "iara"
+texto = "Meu almoço dura o que demora pra alguém precisar de mim. Hoje durou bastante."
+situacoes = Array[StringName]([&"em:praca"])
+
+[sub_resource type="Resource" id="Resource_koour"]
+script = ExtResource("1_38c5c")
+id = "iara_d788b5e9"
+falante_id = "iara"
+texto = "É meu aniversário e eu só lembrei porque o calendário da clínica avisou. Trabalhando desde as seis, como sempre."
+situacoes = Array[StringName]([&"aniversario"])
+
+[sub_resource type="Resource" id="Resource_lypdh"]
+script = ExtResource("1_38c5c")
+id = "iara_cd2ae40f"
+falante_id = "iara"
+texto = "Hoje o Vitor faz anos. Vou levar um bolo, e ele vai dizer que não come doce. Ele come."
+situacoes = Array[StringName]([&"aniversario_de:vitor"])
+
+[sub_resource type="Resource" id="Resource_lvqg7"]
+script = ExtResource("1_38c5c")
+id = "iara_b6b961ed"
+falante_id = "iara"
+texto = "É aniversário da Sol. Ela não contou pra ninguém, então eu vou só sentar do lado dela hoje."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"aniversario_de:sol"])
+
+[sub_resource type="Resource" id="Resource_o7205"]
+script = ExtResource("1_38c5c")
+id = "iara_6dc43168"
+falante_id = "iara"
+texto = "Começou o Apagão. Se agasalha, come direito e não espera piorar pra me procurar. Por favor."
+estacoes = Array[StringName]([&"apagao"])
+situacoes = Array[StringName]([&"primeiro_dia_da_estacao"])
+
+[sub_resource type="Resource" id="Resource_fo0rt"]
+script = ExtResource("1_38c5c")
+id = "iara_0664c429"
+falante_id = "iara"
+texto = "Ano novo. Meu pedido é o mesmo de sempre: que todo mundo chegue a tempo."
+situacoes = Array[StringName]([&"primeiro_dia_do_ano"])
+
+[sub_resource type="Resource" id="Resource_ys1lq"]
+script = ExtResource("1_38c5c")
+id = "iara_b3662529"
+falante_id = "iara"
+texto = "No Apagão a clínica fica no escuro às cinco. Eu atendo com lanterna e torço pro gerador do Vitor aguentar."
+relacionamento_minimo = 1500
+estacoes = Array[StringName]([&"apagao"])
+situacoes = Array[StringName]([&"noite"])
+
+[sub_resource type="Resource" id="Resource_b0nlp"]
+script = ExtResource("1_38c5c")
+id = "iara_05d3dab4"
+falante_id = "iara"
+texto = "Sua fazenda tá rendendo. Dá pra ver, a vila tá comendo melhor. Isso é remédio também."
+situacoes = Array[StringName]([&"marco_1"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_o30an"]
+script = ExtResource("1_38c5c")
+id = "iara_6bc2537e"
+falante_id = "iara"
+texto = "Chegou um lote inteiro de nanogel essa semana. Alguém pagou sem deixar nome. Eu tenho um palpite."
+situacoes = Array[StringName]([&"marco_2"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_ku1i3"]
+script = ExtResource("1_38c5c")
+id = "iara_770386c1"
+falante_id = "iara"
+texto = "Soube de vocês. Fico feliz, de verdade. Só não esquece de dormir."
+situacoes = Array[StringName]([&"namorando_outro"])
+uma_vez = true
 
 [resource]
 script = ExtResource("2_e0cag")
 id = &"iara"
 npc_id = "iara"
-nos = Array[ExtResource("1_38c5c")]([SubResource("Resource_ou3hd"), SubResource("Resource_8h8rv"), SubResource("Resource_d13ld"), SubResource("Resource_yk6kv"), SubResource("Resource_yxjtv"), SubResource("Resource_7arcg"), SubResource("Resource_ctwku"), SubResource("Resource_kswt4"), SubResource("Resource_u41ah"), SubResource("Resource_y3w8e"), SubResource("Resource_vgnhh"), SubResource("Resource_xlntx"), SubResource("Resource_jqxal"), SubResource("Resource_7kupv"), SubResource("Resource_7ac8b"), SubResource("Resource_ntoo8"), SubResource("Resource_yuqw0"), SubResource("Resource_ioix8"), SubResource("Resource_sikiv")])
+nos = Array[ExtResource("1_38c5c")]([SubResource("Resource_ou3hd"), SubResource("Resource_8h8rv"), SubResource("Resource_d13ld"), SubResource("Resource_yk6kv"), SubResource("Resource_yxjtv"), SubResource("Resource_7arcg"), SubResource("Resource_ctwku"), SubResource("Resource_kswt4"), SubResource("Resource_u41ah"), SubResource("Resource_y3w8e"), SubResource("Resource_vgnhh"), SubResource("Resource_xlntx"), SubResource("Resource_jqxal"), SubResource("Resource_7kupv"), SubResource("Resource_7ac8b"), SubResource("Resource_ntoo8"), SubResource("Resource_yuqw0"), SubResource("Resource_ioix8"), SubResource("Resource_sikiv"), SubResource("Resource_synaf"), SubResource("Resource_oxhiu"), SubResource("Resource_to74s"), SubResource("Resource_6hptc"), SubResource("Resource_8yt5s"), SubResource("Resource_wwkww"), SubResource("Resource_sfpdp"), SubResource("Resource_c0bci"), SubResource("Resource_8u2sj"), SubResource("Resource_fxksu"), SubResource("Resource_dwr5t"), SubResource("Resource_vph6s"), SubResource("Resource_22yvt"), SubResource("Resource_3ek6r"), SubResource("Resource_10yp3"), SubResource("Resource_r0u6q"), SubResource("Resource_h2xgm"), SubResource("Resource_tbegs"), SubResource("Resource_jnphd"), SubResource("Resource_f60y5"), SubResource("Resource_rfx36"), SubResource("Resource_gmnk1"), SubResource("Resource_vtnau"), SubResource("Resource_6wfy3"), SubResource("Resource_i802k"), SubResource("Resource_xw3ou"), SubResource("Resource_hfln3"), SubResource("Resource_hencm"), SubResource("Resource_hu8i2"), SubResource("Resource_koour"), SubResource("Resource_lypdh"), SubResource("Resource_lvqg7"), SubResource("Resource_o7205"), SubResource("Resource_fo0rt"), SubResource("Resource_ys1lq"), SubResource("Resource_b0nlp"), SubResource("Resource_o30an"), SubResource("Resource_ku1i3")])
 falas_de_evento = Dictionary[StringName, String]({
 &"amou": "Nanogel de verdade? Isso vai salvar alguém essa semana. Obrigada, de coração.",
 &"aniversario": "Eu tinha esquecido que era hoje. Trabalhando desde as seis. Obrigada por lembrar por mim.",

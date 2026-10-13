@@ -5,150 +5,431 @@
 
 [sub_resource type="Resource" id="Resource_gbr0x"]
 script = ExtResource("1_u5ben")
-id = "kenji_01"
+id = "kenji_4a2b2392"
 falante_id = "kenji"
 texto = "Opa, você é da fazenda nova, né? Legal, legal. Eu sou o Kenji. Da antena."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_vapok"]
 script = ExtResource("1_u5ben")
-id = "kenji_02"
+id = "kenji_364aa4f0"
 falante_id = "kenji"
 texto = "Se a sua energia oscilar, não é a cidade. É eu testando coisa."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_asfdy"]
 script = ExtResource("1_u5ben")
-id = "kenji_03"
+id = "kenji_2a7a2f26"
 falante_id = "kenji"
 texto = "Você tem fio óptico? Não? Beleza. Se achar, avisa."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_eqamy"]
 script = ExtResource("1_u5ben")
-id = "kenji_04"
+id = "kenji_e57780a3"
 falante_id = "kenji"
 texto = "Desculpa, tô no meio de uma coisa. Depois a gente conversa direito."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_qfp2p"]
 script = ExtResource("1_u5ben")
-id = "kenji_05"
+id = "kenji_b63f02b1"
+falante_id = "kenji"
+texto = "Aquela torre ali fui eu que subi. Sozinho. Demorou onze meses e caiu duas vezes."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_l870r"]
+script = ExtResource("1_u5ben")
+id = "kenji_a1f73325"
 falante_id = "kenji"
 texto = "A antena caiu de novo. Terceira vez esse mês. Eu juro que dessa vez foi vento."
 relacionamento_minimo = 750
 relacionamento_maximo = 1499
 
-[sub_resource type="Resource" id="Resource_l870r"]
+[sub_resource type="Resource" id="Resource_rc5i5"]
 script = ExtResource("1_u5ben")
-id = "kenji_06"
+id = "kenji_4d944dc1"
 falante_id = "kenji"
 texto = "Sabia que dá pra ouvir a rede da corporação daqui? Não que eu ouça. Mas dá."
 relacionamento_minimo = 750
 relacionamento_maximo = 1499
 
-[sub_resource type="Resource" id="Resource_rc5i5"]
+[sub_resource type="Resource" id="Resource_gdcu4"]
 script = ExtResource("1_u5ben")
-id = "kenji_07"
+id = "kenji_8b36f59b"
 falante_id = "kenji"
 texto = "O Vitor diz que eu não sei segurar chave inglesa. Ele tem razão, mas não fala pra ele."
 relacionamento_minimo = 750
 relacionamento_maximo = 1499
 
-[sub_resource type="Resource" id="Resource_gdcu4"]
+[sub_resource type="Resource" id="Resource_4as1o"]
 script = ExtResource("1_u5ben")
-id = "kenji_08"
+id = "kenji_dde07f79"
 falante_id = "kenji"
 texto = "Você planta aquelas coisas verdes? Como é que sabe qual é qual?"
 relacionamento_minimo = 750
 relacionamento_maximo = 1499
 
-[sub_resource type="Resource" id="Resource_4as1o"]
+[sub_resource type="Resource" id="Resource_etqtr"]
 script = ExtResource("1_u5ben")
-id = "kenji_09"
+id = "kenji_eaf6d458"
+falante_id = "kenji"
+texto = "Liguei mais uma casa na rede ontem. São trinta e uma. Não cobro, não. Rede é de quem usa."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_uydo1"]
+script = ExtResource("1_u5ben")
+id = "kenji_c6b5e4e3"
 falante_id = "kenji"
 texto = "Montei um repetidor com peça que o Vitor ia jogar fora. Funciona melhor que o oficial."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
-[sub_resource type="Resource" id="Resource_etqtr"]
+[sub_resource type="Resource" id="Resource_77hxw"]
 script = ExtResource("1_u5ben")
-id = "kenji_10"
+id = "kenji_28d31641"
 falante_id = "kenji"
 texto = "Minha mãe trabalhou lá dentro. Dezoito anos. Saiu com um crachá e nenhum documento."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
-[sub_resource type="Resource" id="Resource_uydo1"]
+[sub_resource type="Resource" id="Resource_q433g"]
 script = ExtResource("1_u5ben")
-id = "kenji_11"
+id = "kenji_bfe8c67f"
 falante_id = "kenji"
 texto = "Às vezes eu subo na torre só pra ver a fronteira. Daqui parece que a gente tá ganhando."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
-[sub_resource type="Resource" id="Resource_77hxw"]
+[sub_resource type="Resource" id="Resource_vl32o"]
 script = ExtResource("1_u5ben")
-id = "kenji_12"
+id = "kenji_d7c74181"
 falante_id = "kenji"
 texto = "Se eu sumir uns dias, é porque tô rastreando uma coisa. Não se preocupa. Muito."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
-[sub_resource type="Resource" id="Resource_q433g"]
+[sub_resource type="Resource" id="Resource_7ikgs"]
 script = ExtResource("1_u5ben")
-id = "kenji_13"
+id = "kenji_5ff7d821"
+falante_id = "kenji"
+texto = "O Vitor fala que as peças iam pro lixo. Eu sei que não iam. Nunca falei que sei."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_ngedk"]
+script = ExtResource("1_u5ben")
+id = "kenji_2d2f3b0d"
 falante_id = "kenji"
 texto = "Eu construí uma antena pra falar com o mundo inteiro e a única pessoa com quem eu quero falar mora a dez minutos daqui."
 relacionamento_minimo = 2500
 
-[sub_resource type="Resource" id="Resource_vl32o"]
+[sub_resource type="Resource" id="Resource_6bor4"]
 script = ExtResource("1_u5ben")
-id = "kenji_14"
+id = "kenji_78717978"
 falante_id = "kenji"
 texto = "Deixei um canal aberto só pra você. Frequência 88.2. Não conta pra ninguém."
 relacionamento_minimo = 2500
 
-[sub_resource type="Resource" id="Resource_7ikgs"]
+[sub_resource type="Resource" id="Resource_lb5lm"]
 script = ExtResource("1_u5ben")
-id = "kenji_15"
+id = "kenji_35d59ed5"
 falante_id = "kenji"
 texto = "Você é a única pessoa que me escuta falar de rede por mais de dois minutos."
 relacionamento_minimo = 2500
 
-[sub_resource type="Resource" id="Resource_ngedk"]
+[sub_resource type="Resource" id="Resource_bumwy"]
 script = ExtResource("1_u5ben")
-id = "kenji_16"
+id = "kenji_62633296"
+falante_id = "kenji"
+texto = "Eu escuto a rede deles, sim. Procuro o nome da minha mãe em algum registro. Faz anos, e nunca achei."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_ncq2d"]
+script = ExtResource("1_u5ben")
+id = "kenji_a254210b"
+falante_id = "kenji"
+texto = "Meu medo é a antena cair e ninguém notar. Com você por perto eu penso menos nisso."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_hajfw"]
+script = ExtResource("1_u5ben")
+id = "kenji_88df7e3e"
+falante_id = "kenji"
+texto = "Parei de escutar a rede dos outros de noite. Fico no 88.2. É mais silencioso e eu gosto mais."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_nw0rx"]
+script = ExtResource("1_u5ben")
+id = "kenji_2e167835"
+falante_id = "kenji"
+texto = "Fiz as contas. Da torre até a sua porteira são dez minutos andando. Correndo dá seis. Eu testei."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_3lbjy"]
+script = ExtResource("1_u5ben")
+id = "kenji_04d842e5"
+falante_id = "kenji"
+texto = "Contei de você pra minha mãe. Ela perguntou se você come direito. Eu falei que mais do que eu."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_lgiku"]
+script = ExtResource("1_u5ben")
+id = "kenji_72c47b2c"
+falante_id = "kenji"
+texto = "Antes eu pedia desculpa toda vez que falava demais. Com você eu esqueço de pedir."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_031jj"]
+script = ExtResource("1_u5ben")
+id = "kenji_8efe2604"
+falante_id = "kenji"
+texto = "Um dia eu te levo lá em cima na torre. De noite. Dá pra ver a sua fazenda inteira acesa."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_61tvt"]
+script = ExtResource("1_u5ben")
+id = "kenji_173a0f06"
 falante_id = "kenji"
 texto = "Umidade mata equipamento. Mas o cheiro compensa."
 estacoes = Array[StringName]([&"brotacao"])
 
-[sub_resource type="Resource" id="Resource_6bor4"]
+[sub_resource type="Resource" id="Resource_2u57b"]
 script = ExtResource("1_u5ben")
-id = "kenji_17"
+id = "kenji_4cf1e8d1"
 falante_id = "kenji"
 texto = "A torre esquenta tanto que eu já queimei a mão duas vezes."
 estacoes = Array[StringName]([&"estiagem"])
 
-[sub_resource type="Resource" id="Resource_lb5lm"]
+[sub_resource type="Resource" id="Resource_ke04e"]
 script = ExtResource("1_u5ben")
-id = "kenji_18"
+id = "kenji_08c8db22"
 falante_id = "kenji"
 texto = "Todo ano nessa época a interferência aumenta. Deve ser a colheita da cidade."
 estacoes = Array[StringName]([&"colheita"])
 
-[sub_resource type="Resource" id="Resource_bumwy"]
+[sub_resource type="Resource" id="Resource_nt2le"]
 script = ExtResource("1_u5ben")
-id = "kenji_19"
+id = "kenji_8eb83073"
 falante_id = "kenji"
 texto = "Menos energia lá, menos ruído aqui. É a melhor época pra escutar longe."
 estacoes = Array[StringName]([&"apagao"])
+
+[sub_resource type="Resource" id="Resource_cywb1"]
+script = ExtResource("1_u5ben")
+id = "kenji_dba58fe4"
+falante_id = "kenji"
+texto = "Opa! Fazenda nova, né? Eu vi a luz acender lá do alto. Kenji. Sou eu que cuido da antena. Desculpa, já falei demais."
+situacoes = Array[StringName]([&"primeiro_encontro"])
+
+[sub_resource type="Resource" id="Resource_0vxrb"]
+script = ExtResource("1_u5ben")
+id = "kenji_36ae44ce"
+falante_id = "kenji"
+texto = "Sete dias. Eu contei. Não que eu fique contando. Tá tudo bem com você?"
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_rf8gd"]
+script = ExtResource("1_u5ben")
+id = "kenji_1f47cf45"
+falante_id = "kenji"
+texto = "O 88.2 ficou mudo a semana inteira. Eu deixei ligado mesmo assim."
+relacionamento_minimo = 2500
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_ixfiq"]
+script = ExtResource("1_u5ben")
+id = "kenji_ffd58958"
+falante_id = "kenji"
+texto = "Me falaram que você caiu ontem. Caiu mesmo? Você dormiu? Eu sei que não sou a pessoa certa pra perguntar isso, mas você dormiu?"
+situacoes = Array[StringName]([&"desmaiou_ontem"])
+
+[sub_resource type="Resource" id="Resource_ml5p6"]
+script = ExtResource("1_u5ben")
+id = "kenji_6dae1481"
+falante_id = "kenji"
+texto = "Você tá péssimo. Desculpa. Quer dizer, tá machucado. Vai na Iara, vai. Eu só sei consertar coisa que tem fio."
+situacoes = Array[StringName]([&"vida_baixa"])
+
+[sub_resource type="Resource" id="Resource_amoyj"]
+script = ExtResource("1_u5ben")
+id = "kenji_22ed9f02"
+falante_id = "kenji"
+texto = "Você foi lá embaixo? E aí, tem sinal? Não, espera. Primeiro: você tá inteiro?"
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_tysm8"]
+script = ExtResource("1_u5ben")
+id = "kenji_0ac3b51f"
+falante_id = "kenji"
+texto = "Chuva. Cobri tudo com lona, mas lona não é a mesma coisa que telhado, né."
+situacoes = Array[StringName]([&"chuva"])
+
+[sub_resource type="Resource" id="Resource_0koqt"]
+script = ExtResource("1_u5ben")
+id = "kenji_4fdb8a26"
+falante_id = "kenji"
+texto = "Tá ouvindo esse chiado? É água em conector. Eu vou achar qual. São quarenta e dois conectores."
+situacoes = Array[StringName]([&"chuva", &"em:torre_antena"])
+
+[sub_resource type="Resource" id="Resource_ah1v3"]
+script = ExtResource("1_u5ben")
+id = "kenji_2c220376"
+falante_id = "kenji"
+texto = "Contei catorze raios desde cedo. Nenhum na torre. Ainda. Eu não tô nervoso."
+situacoes = Array[StringName]([&"tempestade"])
+
+[sub_resource type="Resource" id="Resource_p64tm"]
+script = ExtResource("1_u5ben")
+id = "kenji_62dd876c"
+falante_id = "kenji"
+texto = "A torre aguentou ontem! Balançou, mas aguentou. Perdi só duas hastes. Só duas."
+situacoes = Array[StringName]([&"tempestade_ontem"])
+
+[sub_resource type="Resource" id="Resource_3d06r"]
+script = ExtResource("1_u5ben")
+id = "kenji_acc75bd2"
+falante_id = "kenji"
+texto = "Folga. Eu nunca sei o que fazer na Folga. Desmontei o rádio de casa. Agora preciso montar."
+situacoes = Array[StringName]([&"folga"])
+
+[sub_resource type="Resource" id="Resource_xk84k"]
+script = ExtResource("1_u5ben")
+id = "kenji_8acd9f27"
+falante_id = "kenji"
+texto = "O Rafa mora aqui do lado. Na Folga ele dorme até o meio-dia e eu escuto pela parede. Parede fina."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"folga"])
+
+[sub_resource type="Resource" id="Resource_ucvkn"]
+script = ExtResource("1_u5ben")
+id = "kenji_8ba95ae8"
+falante_id = "kenji"
+texto = "Amanhã é Folga e a rede fica comigo sozinho. Se cair, cai até eu acordar."
+situacoes = Array[StringName]([&"vespera_de_folga"])
+
+[sub_resource type="Resource" id="Resource_xjka0"]
+script = ExtResource("1_u5ben")
+id = "kenji_39447efc"
+falante_id = "kenji"
+texto = "Bom dia. É dia ainda? Eu dormi umas três horas, então pra mim tá meio embaralhado."
+situacoes = Array[StringName]([&"manha"])
+
+[sub_resource type="Resource" id="Resource_jjv2r"]
+script = ExtResource("1_u5ben")
+id = "kenji_000df21a"
+falante_id = "kenji"
+texto = "O sinal pega melhor aqui na ponte que em casa. Ninguém sabe por quê. Eu tenho quatro teorias."
+situacoes = Array[StringName]([&"noite", &"em:ponte"])
+
+[sub_resource type="Resource" id="Resource_3mtsh"]
+script = ExtResource("1_u5ben")
+id = "kenji_e25a06cd"
+falante_id = "kenji"
+texto = "O Rafa vem pra cá descansar as pernas e eu venho falar. Ele não escuta metade. É um bom arranjo."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"em:ponte"])
+
+[sub_resource type="Resource" id="Resource_5jn4p"]
+script = ExtResource("1_u5ben")
+id = "kenji_97f42b39"
+falante_id = "kenji"
+texto = "De tarde a torre fica sem energia, aí eu venho pra cá. A Marta acha que é pela comida. É pela comida também."
+estacoes = Array[StringName]([&"apagao"])
+situacoes = Array[StringName]([&"em:mercado"])
+
+[sub_resource type="Resource" id="Resource_2ymal"]
+script = ExtResource("1_u5ben")
+id = "kenji_b48d4bdc"
+falante_id = "kenji"
+texto = "Hoje é o meu aniversário, olha só. Eu só lembrei porque o relógio da torre avisa. Fui eu que programei e esqueci."
+situacoes = Array[StringName]([&"aniversario"])
+
+[sub_resource type="Resource" id="Resource_8emfy"]
+script = ExtResource("1_u5ben")
+id = "kenji_463eed8f"
+falante_id = "kenji"
+texto = "Hoje é aniversário do Vitor. Eu consertei um alicate dele faz três semanas pra dar hoje. Ainda tá na minha mochila."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"aniversario_de:vitor"])
+
+[sub_resource type="Resource" id="Resource_t501l"]
+script = ExtResource("1_u5ben")
+id = "kenji_e2a797fb"
+falante_id = "kenji"
+texto = "O Rafa faz anos hoje. Melhorei o rádio dele sem ele pedir. Agora pega a fronteira inteira. Ele vai achar que quebrou."
+situacoes = Array[StringName]([&"aniversario_de:rafa"])
+
+[sub_resource type="Resource" id="Resource_dx76h"]
+script = ExtResource("1_u5ben")
+id = "kenji_704777fe"
+falante_id = "kenji"
+texto = "Estação nova, tabela de interferência nova. Eu refaço tudo hoje. Tudo. Vai levar o dia."
+situacoes = Array[StringName]([&"primeiro_dia_da_estacao"])
+
+[sub_resource type="Resource" id="Resource_dbvii"]
+script = ExtResource("1_u5ben")
+id = "kenji_77af39ea"
+falante_id = "kenji"
+texto = "Começou o Apagão. Escuta. Não, sério, escuta. Tá ouvindo o silêncio? É o ruído deles caindo."
+estacoes = Array[StringName]([&"apagao"])
+situacoes = Array[StringName]([&"primeiro_dia_da_estacao"])
+
+[sub_resource type="Resource" id="Resource_tkiaf"]
+script = ExtResource("1_u5ben")
+id = "kenji_48487806"
+falante_id = "kenji"
+texto = "Ano novo. A rede fez um ano inteiro sem ficar mais de dois dias fora. Ninguém comemora isso. Eu comemoro."
+situacoes = Array[StringName]([&"primeiro_dia_do_ano"])
+
+[sub_resource type="Resource" id="Resource_4cw5k"]
+script = ExtResource("1_u5ben")
+id = "kenji_5e755c83"
+falante_id = "kenji"
+texto = "Passou mensagem sobre a sua fazenda na rede ontem. Três vilas perguntando o que você planta. Você tá famoso em onda curta."
+situacoes = Array[StringName]([&"marco_1"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_3euch"]
+script = ExtResource("1_u5ben")
+id = "kenji_1c4f5d45"
+falante_id = "kenji"
+texto = "Sabe quanto dado de venda passa pela rede? Bastante. E o seu nome tá em quase tudo. Eu não fico olhando. Mas tá."
+situacoes = Array[StringName]([&"marco_2"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_10ai7"]
+script = ExtResource("1_u5ben")
+id = "kenji_fb51be1c"
+falante_id = "kenji"
+texto = "Ah, fiquei sabendo de vocês. Legal. Legal mesmo. Tô feliz por você, de verdade."
+situacoes = Array[StringName]([&"namorando_outro"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_jnm6m"]
+script = ExtResource("1_u5ben")
+id = "kenji_c46e3404"
+falante_id = "kenji"
+texto = "Em noite de Apagão dá pra pegar rádio de vila que eu nem sabia que existia. Tem mais gente do nosso lado do que parece."
+relacionamento_minimo = 1500
+estacoes = Array[StringName]([&"apagao"])
+situacoes = Array[StringName]([&"noite"])
+
+[sub_resource type="Resource" id="Resource_8431s"]
+script = ExtResource("1_u5ben")
+id = "kenji_ef1f16e0"
+falante_id = "kenji"
+texto = "Eu devia tá bravo com essa umidade toda. Mas olha esse cheiro. Lá dentro da cidade não chove, sabia? Eles filtram."
+relacionamento_minimo = 750
+estacoes = Array[StringName]([&"brotacao"])
+situacoes = Array[StringName]([&"chuva"])
 
 [resource]
 script = ExtResource("2_ln8ox")
 id = &"kenji"
 npc_id = "kenji"
-nos = Array[ExtResource("1_u5ben")]([SubResource("Resource_gbr0x"), SubResource("Resource_vapok"), SubResource("Resource_asfdy"), SubResource("Resource_eqamy"), SubResource("Resource_qfp2p"), SubResource("Resource_l870r"), SubResource("Resource_rc5i5"), SubResource("Resource_gdcu4"), SubResource("Resource_4as1o"), SubResource("Resource_etqtr"), SubResource("Resource_uydo1"), SubResource("Resource_77hxw"), SubResource("Resource_q433g"), SubResource("Resource_vl32o"), SubResource("Resource_7ikgs"), SubResource("Resource_ngedk"), SubResource("Resource_6bor4"), SubResource("Resource_lb5lm"), SubResource("Resource_bumwy")])
+nos = Array[ExtResource("1_u5ben")]([SubResource("Resource_gbr0x"), SubResource("Resource_vapok"), SubResource("Resource_asfdy"), SubResource("Resource_eqamy"), SubResource("Resource_qfp2p"), SubResource("Resource_l870r"), SubResource("Resource_rc5i5"), SubResource("Resource_gdcu4"), SubResource("Resource_4as1o"), SubResource("Resource_etqtr"), SubResource("Resource_uydo1"), SubResource("Resource_77hxw"), SubResource("Resource_q433g"), SubResource("Resource_vl32o"), SubResource("Resource_7ikgs"), SubResource("Resource_ngedk"), SubResource("Resource_6bor4"), SubResource("Resource_lb5lm"), SubResource("Resource_bumwy"), SubResource("Resource_ncq2d"), SubResource("Resource_hajfw"), SubResource("Resource_nw0rx"), SubResource("Resource_3lbjy"), SubResource("Resource_lgiku"), SubResource("Resource_031jj"), SubResource("Resource_61tvt"), SubResource("Resource_2u57b"), SubResource("Resource_ke04e"), SubResource("Resource_nt2le"), SubResource("Resource_cywb1"), SubResource("Resource_0vxrb"), SubResource("Resource_rf8gd"), SubResource("Resource_ixfiq"), SubResource("Resource_ml5p6"), SubResource("Resource_amoyj"), SubResource("Resource_tysm8"), SubResource("Resource_0koqt"), SubResource("Resource_ah1v3"), SubResource("Resource_p64tm"), SubResource("Resource_3d06r"), SubResource("Resource_xk84k"), SubResource("Resource_ucvkn"), SubResource("Resource_xjka0"), SubResource("Resource_jjv2r"), SubResource("Resource_3mtsh"), SubResource("Resource_5jn4p"), SubResource("Resource_2ymal"), SubResource("Resource_8emfy"), SubResource("Resource_t501l"), SubResource("Resource_dx76h"), SubResource("Resource_dbvii"), SubResource("Resource_tkiaf"), SubResource("Resource_4cw5k"), SubResource("Resource_3euch"), SubResource("Resource_10ai7"), SubResource("Resource_jnm6m"), SubResource("Resource_8431s")])
 falas_de_evento = Dictionary[StringName, String]({
 &"amou": "Não. Não, não, não. Isso é um núcleo de verdade? Você tem noção do que dá pra fazer com isso?",
 &"aniversario": "É hoje? É hoje. Eu tinha esquecido e você não. Isso diz alguma coisa.",
