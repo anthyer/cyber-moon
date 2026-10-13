@@ -148,5 +148,21 @@ Exemplos:
 - [aniversario_de:kenji, conhecido+] O moleque faz anos hoje. Não conta que eu lembrei.
 ```
 
+**Qual fala vence.** Cada condição tem um peso, e a fala de maior soma é a do dia:
+
+| Peso | Condições |
+|---|---|
+| 1 | a faixa de amizade, a estação, os marcos |
+| 2 | o ambiente: clima, dia da semana, hora, lugar; e `namorando` |
+| 3 | o mundo: clima de ontem, datas do calendário, aniversário de outro |
+| 4 | o jogador: `sumido`, `desmaiou_ontem`, `vida_baixa`, `saiu_da_dungeon`, `namorando_outro` |
+| 8 | o momento único: `primeiro_encontro` e `aniversario` |
+
+Uma fala dita fica seis dias sem voltar quando há outra que sirva, e aí a escolha desce
+para a seguinte. Por isso uma fala só de `[chuva]` não é repetida em toda chuva.
+
+Condição que vale por muito tempo pede `uma_vez`: as falas de `namorando_outro` e de
+`marco_1` e `marco_2` são ditas uma vez só, senão voltariam toda semana para sempre.
+
 Não é para cobrir toda combinação. É para cada personagem ter fala nos cruzamentos que
 dizem algo sobre ele.
