@@ -23,7 +23,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 15 Sistema de diálogo
 - [x] 16 Amizade e romance
 - [x] 17 Comércio e economia
-- [ ] 18 Chat entre jogadores (independente dos outros, pode ser feito em paralelo)
+- [ ] 18 Chat entre jogadores na AWS (independente dos outros, pode ser feito em paralelo; plano revisado em 2026-10-13: sprints 3 e 4 a fazer, sprint 5 de CI e CD fica para depois)
 - [x] 21 Rede e chat (independente; substitui a parte do Godot do plano 18)
 - [x] 22 Dungeon em coop (depois do 21)
 - [ ] 23 Conteúdo da dungeon: salas, chefes e objetivo (só documentado)

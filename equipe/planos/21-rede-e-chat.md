@@ -54,13 +54,14 @@ rota (é o `routeSelectionExpression` do API Gateway). Do servidor para o jogo, 
 
 | Do jogo (`action`) | Campos | O servidor responde ou repassa |
 |---|---|---|
-| `entrar` | `nome` | a quem entrou: `bem_vindo` (`id`, `online`); aos outros: `jogador_entrou` |
+| `entrar` | `nome` | a quem entrou: `bem_vindo` (`id`, `nome`, `online`); aos outros: `jogador_entrou` |
 | `chat` | `texto` | a todos, inclusive quem mandou: `chat` (`de`, `nome`, `texto`) |
 | `convidar` | `para` | ao convidado: `convite` (`de`, `nome`, `sala`). Cria a sala se quem convida não tem uma |
 | `responder_convite` | `sala`, `aceita` | aos membros: `sala_atualizada`; se recusou, ao anfitrião: `convite_recusado` |
 | `sair_da_sala` | | aos membros: `sala_atualizada`, ou `sala_encerrada` se quem saiu era o anfitrião |
 | `iniciar_dungeon` | | aos membros: `dungeon_iniciada` (só o anfitrião pode) |
 | `sala` | `dados` | aos outros membros da sala: `sala` (`de`, `dados`), sem olhar o conteúdo |
+| `ping` | | nada. Só mantém a conexão em uso (acrescentada em 2026-10-13, com o plano 18) |
 
 Quando alguém desconecta, os outros recebem `jogador_saiu`, e a sala dele é tratada como
 em `sair_da_sala`. A rota `sala` é o canal do jogo: o plano 22 define o que vai em `dados`.
@@ -74,7 +75,8 @@ em `sair_da_sala`. A rota `sala` é o canal do jogo: o plano 22 define o que vai
 - `ChatManager` (autoload): o histórico do chat e o `enviar(texto)`. Sinal
   `message_added`. Guarda o histórico para a tela não perder as mensagens.
 - `ConfiguracaoDeRede` (Resource, `resources/rede/configuracao.tres`): o endereço do
-  servidor. Trocar para a AWS é trocar este arquivo.
+  servidor local (`endereco`), o da AWS (`endereco_na_nuvem`, que só vale no jogo
+  exportado para a Web) e o intervalo do `ping` (`segundos_entre_pings`).
 - `HudChat` (`scenes/ui/hud_chat.tscn`): o histórico no canto e o campo de texto. Enter
   abre e envia, Esc fecha. Enquanto o jogador digita, o personagem não anda.
 - `InputManager.digitando`: enquanto verdadeiro, toda pergunta de gameplay responde que

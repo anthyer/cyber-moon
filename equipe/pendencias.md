@@ -270,6 +270,36 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-13, plano 18 revisado e o jogo preparado para a AWS
+
+**Feito.** O plano 18 (chat na AWS com Pulumi) foi revisado contra o jogo e o servidor
+local, e reescrito. O que mudou e por quê está no topo dele, na seção "Revisão de
+2026-10-13". Do lado do jogo entraram duas coisas que o plano exige: o `ping`, que o
+`NetworkManager` manda depois de 5 minutos sem enviar nada (o API Gateway fecha conexão
+parada há 10), e o campo `endereco_na_nuvem` na `ConfiguracaoDeRede`, que só vale no jogo
+exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota nova.
+
+**Bernardo, antes de começar:**
+
+- Nada do plano 18 foi executado na AWS. O stack `prod` do Pulumi está com zero recursos
+  e o `dev` não existe. O plano manda criar o `dev` e trabalhar nele.
+- Comece pela sprint 3. A sprint 4 liga por três chaves de configuração, uma de cada vez.
+  A sprint 5 (testes, CI e CD) está marcada como futura e não é para fazer agora.
+- A VPC da sprint 4 usa NAT, que é cobrado por hora ligado. Ligue para demonstrar e
+  desligue depois. Se preferir outro desenho, mude na seção "Decisões desta revisão".
+- Confira se `cyber-moon.negoci.online` está delegado no DNS de `negoci.online`. Sem
+  isso o SES não verifica o domínio (tarefa 4.1).
+
+**Fica para depois:**
+
+- O login no jogo (tarefa 4.5 do plano 18) pede um plano próprio em `equipe/planos/`.
+  Enquanto ele não existir, a chave `exigir_login` fica desligada.
+- O `endereco_na_nuvem` está vazio. Preencher com o `wss_url` depois do primeiro
+  `pulumi up`. Não foi testado num jogo exportado, porque falta o preset de exportação
+  para a Web.
+- Login com a conta Google, pedido do Antonio para o jogo final.
+- Publicar o jogo na Web (CloudFront na frente do bucket) e a sprint 5 inteira.
+
 ### 2026-10-13, plano 24
 
 **Feito.** Decisões, números propostos e ajustes no topo do plano.
