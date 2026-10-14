@@ -37,6 +37,10 @@ var _segundos_restantes: float = SEGUNDOS_DE_VIDA
 var _distancia_percorrida: float = 0.0
 
 ## Cria o projétil já configurado, coloca no pai e posiciona na origem.
+## Verdadeiro no tiro que o convidado vê na dungeon em equipe: ele voa e some igual, mas
+## não tira vida. O dano de verdade vem do tiro do anfitrião, pela rede.
+var so_desenho: bool = false
+
 static func disparar(cena: PackedScene, origem: Vector3, direcao_do_tiro: Vector3, arma: Arma, dono_do_tiro: Node3D, estado_do_disparo: Dictionary, pai: Node) -> Projetil:
 	var projetil: Projetil = cena.instantiate() as Projetil
 	projetil.dano = UpgradeManager.dano_de(arma)
@@ -93,7 +97,7 @@ func _ao_acertar(corpo: Node3D) -> void:
 	if _eh_do_dono(corpo):
 		return
 	var alvo: Node = _alvo_que_leva_dano(corpo)
-	if alvo != null:
+	if alvo != null and not so_desenho:
 		alvo.call(&"receber_dano", dano, dono)
 		if custo_de_stamina > 0.0 and not disparo.get(&"stamina_cobrada", false):
 			# Com pouca stamina o tiro ainda acerta, e cobra só o que o jogador tem.

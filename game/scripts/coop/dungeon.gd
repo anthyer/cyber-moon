@@ -13,8 +13,13 @@ extends Node3D
 
 ## Não sobrou jogador nenhum na dungeon, nem local nem remoto.
 signal emptied
+## Uma mensagem da sala que este script não trata. As peças da dungeon (chefe, objetivo
+## paralelo) trocam os próprios avisos por aqui, com enviar_evento e este sinal.
+signal event_received(de: String, tipo: String, campos: Dictionary)
+## Um inimigo desta dungeon caiu, neste jogo. As salas contam por aqui.
+signal enemy_defeated(inimigo: Inimigo)
 
-const CENA_DO_INIMIGO: PackedScene = preload("res://scenes/combat/inimigo.tscn")
+const GRUPO: StringName = &"dungeon"
 const CENA_DO_JOGADOR_REMOTO: PackedScene = preload("res://scenes/coop/jogador_remoto.tscn")
 const ENVIOS_DO_JOGADOR_POR_SEGUNDO: float = 12.0
 const ENVIOS_DOS_INIMIGOS_POR_SEGUNDO: float = 10.0
@@ -25,8 +30,10 @@ const ESPACO_ENTRE_JOGADORES: float = 1.2
 ## que morreu segue simulando de longe).
 var jogador_local: CharacterBody3D
 
+## Qual dungeon é esta. Quem preenche é o DungeonManager, antes de a cena entrar na árvore.
+var definicao: DefinicaoDeDungeon
+
 @onready var _entrada: Marker3D = $Entrada
-@onready var _pontos_de_inimigo: Node3D = $PontosDeInimigo
 
 ## Decidido uma vez, ao criar a dungeon. Sozinho, o jogo é o próprio anfitrião.
 var _sou_anfitriao: bool = true
@@ -38,6 +45,7 @@ var _segundos_ate_enviar_o_jogador: float = 0.0
 var _segundos_ate_enviar_os_inimigos: float = 0.0
 
 func _ready() -> void:
+	add_to_group(GRUPO)
 	_sou_anfitriao = LobbyManager.sou_anfitriao()
 	LobbyManager.room_message.connect(_ao_receber)
 	LobbyManager.room_changed.connect(_ao_mudar_a_equipe)
@@ -65,24 +73,77 @@ func tem_jogadores_remotos() -> bool:
 func inimigos_vivos() -> int:
 	return _inimigos.size()
 
-## Um inimigo por PontoDeInimigo da cena. O número dele na rede é a ordem do ponto, que é
-## a mesma em todos os jogos porque a cena é a mesma.
+## Verdadeiro no jogo que manda nos inimigos: o do anfitrião, ou o de quem joga sozinho.
+func sou_anfitriao() -> bool:
+	return _sou_anfitriao
+
+## Quantos jogadores começaram esta dungeon. Os chefes têm mais vida em equipe.
+func numero_de_jogadores() -> int:
+	return maxi(LobbyManager.membros.size(), 1)
+
+## Os jogadores que estão aqui dentro agora, neste jogo: o local e os fantoches dos outros.
+func jogadores_presentes() -> Array[Node3D]:
+	var lista: Array[Node3D] = []
+	if jogador_local != null:
+		lista.append(jogador_local)
+	for id: String in _remotos:
+		lista.append(_remotos[id])
+	return lista
+
+func inimigo_de_numero(numero: int) -> Inimigo:
+	return _inimigos.get(numero, null)
+
+## Manda um aviso das peças da dungeon aos outros jogos. Sozinho, não faz nada.
+func enviar_evento(tipo: String, campos: Dictionary = {}) -> void:
+	LobbyManager.enviar_para_a_sala(tipo, campos)
+
+## Um inimigo de distância atirou. Só o anfitrião avisa; os outros jogos desenham o tiro.
+func avisar_disparo(inimigo: Inimigo, origem: Vector3, direcoes: Array[Vector3]) -> void:
+	if not _sou_anfitriao or not LobbyManager.esta_em_sala():
+		return
+	var na_dungeon: Vector3 = to_local(origem)
+	var lista: Array = []
+	for direcao in direcoes:
+		lista.append([snappedf(direcao.x, 0.001), snappedf(direcao.z, 0.001)])
+	enviar_evento("tiro", {
+		"inimigo": inimigo.numero_na_rede,
+		"o": [snappedf(na_dungeon.x, 0.01), snappedf(na_dungeon.y, 0.01), snappedf(na_dungeon.z, 0.01)],
+		"d": lista,
+	})
+
+## Um inimigo por PontoDeInimigo da cena, em qualquer lugar dela. O número dele na rede é
+## a ordem do ponto na árvore, que é a mesma em todos os jogos porque a cena é a mesma. O
+## ponto que está dentro de uma SalaDeDungeon entrega o inimigo à sala, que o deixa
+## adormecido até ser ativada.
 func _criar_inimigos() -> void:
 	var numero: int = 0
-	for no in _pontos_de_inimigo.get_children():
+	for no in find_children("*", "Marker3D", true, false):
 		var ponto: PontoDeInimigo = no as PontoDeInimigo
-		if ponto == null or ponto.perfil == null:
+		if ponto == null:
 			continue
-		var inimigo: Inimigo = CENA_DO_INIMIGO.instantiate() as Inimigo
-		inimigo.perfil = ponto.perfil
+		var inimigo: Inimigo = ponto.criar_inimigo()
+		if inimigo == null:
+			continue
 		inimigo.numero_na_rede = numero
 		inimigo.fantoche = not _sou_anfitriao
-		inimigo.position = ponto.position
 		inimigo.defeated.connect(_ao_derrotar)
 		inimigo.puppet_hit.connect(_ao_acertar_um_fantoche)
 		add_child(inimigo)
+		inimigo.global_position = ponto.global_position
 		_inimigos[numero] = inimigo
+		var sala: Node = _sala_de(ponto)
+		if sala != null:
+			sala.call(&"adotar_inimigo", inimigo)
 		numero += 1
+
+## A SalaDeDungeon acima do ponto na árvore, ou null quando ele não está em sala nenhuma.
+func _sala_de(no: Node) -> Node:
+	var pai: Node = no.get_parent()
+	while pai != null and pai != self:
+		if pai.has_method(&"adotar_inimigo"):
+			return pai
+		pai = pai.get_parent()
+	return null
 
 # O que este jogo envia
 
@@ -117,8 +178,7 @@ func _ao_derrotar(inimigo: Inimigo) -> void:
 	_inimigos.erase(inimigo.numero_na_rede)
 	if _sou_anfitriao:
 		LobbyManager.enviar_para_a_sala("morreu", {"inimigo": inimigo.numero_na_rede})
-	if _inimigos.is_empty():
-		EventBus.notice_requested.emit("Todos os inimigos caíram. A saída está aberta.")
+	enemy_defeated.emit(inimigo)
 
 # O que este jogo recebe
 
@@ -145,8 +205,18 @@ func _ao_receber(de: String, tipo: String, campos: Dictionary) -> void:
 			var morto: Inimigo = _inimigos.get(int(campos["inimigo"]), null)
 			if not _sou_anfitriao and morto != null:
 				morto.morrer_pela_rede()
+		"tiro":
+			var atirador: Inimigo = _inimigos.get(int(campos["inimigo"]), null)
+			if not _sou_anfitriao and atirador != null:
+				var o: Array = campos["o"]
+				var direcoes: Array[Vector3] = []
+				for d: Array in campos["d"]:
+					direcoes.append(Vector3(d[0], 0.0, d[1]))
+				atirador.mostrar_disparo_da_rede(to_global(Vector3(o[0], o[1], o[2])), direcoes)
 		"saiu":
 			_tirar_remoto(de)
+		_:
+			event_received.emit(de, tipo, campos)
 
 ## Quem saiu da equipe sem avisar (a conexão caiu) também some da dungeon.
 func _ao_mudar_a_equipe() -> void:

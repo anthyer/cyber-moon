@@ -47,6 +47,16 @@ const EFEITOS: Dictionary = {
 	# Saque e aprimoramento (plano 24)
 	&"saque_raro": [SUBIDA, Color(1.0, 0.75, 0.2), 14, 0.2],
 	&"aprimorar": [ESTOURO, Color(1.0, 0.7, 0.25), 24, 0.5],
+	# Dungeon. Nada de vermelho aqui também: chefe caindo solta faísca clara.
+	&"sala_limpa": [SUBIDA, Color(0.4, 0.95, 1.0), 14, 0.3],
+	&"porta_abre": [SOPRO, Color(0.7, 0.72, 0.8), 14, 0.1],
+	&"chefe_desperta": [ESTOURO, Color(0.95, 0.5, 0.95), 18, 0.8],
+	&"chefe_muda_de_fase": [ESTOURO, Color(1.0, 0.85, 0.3), 26, 0.9],
+	&"ataque_de_chefe": [ESTOURO, Color(1.0, 0.8, 0.3), 16, 0.15],
+	&"chefe_cai": [ESTOURO, Color(1.0, 0.97, 0.8), 34, 0.8],
+	&"objetivo_progresso": [ESTOURO, Color(0.5, 1.0, 0.6), 8, 0.5],
+	&"objetivo_cumprido": [SUBIDA, Color(0.5, 1.0, 0.6), 16, 0.3],
+	&"recompensa": [SUBIDA, Color(1.0, 0.85, 0.35), 22, 0.4],
 }
 
 const ID_DO_BASTAO_DE_CHOQUE: StringName = &"bastao_choque"
@@ -96,6 +106,16 @@ func _ready() -> void:
 	# Saque e aprimoramento.
 	EventBus.rare_loot_dropped.connect(func(posicao: Vector3, cor: Color) -> void: _soltar(posicao, &"saque_raro", cor))
 	UpgradeManager.item_upgraded.connect(func(_item: Item, _nivel: int) -> void: _aprimoramentos_a_mostrar += 1)
+	# Dungeon.
+	EventBus.dungeon_room_cleared.connect(_soltar.bind(&"sala_limpa"))
+	EventBus.dungeon_door_opened.connect(_soltar.bind(&"porta_abre"))
+	EventBus.boss_engaged.connect(func(chefe: Node3D) -> void: _soltar(chefe.global_position, &"chefe_desperta"))
+	EventBus.boss_phase_changed.connect(func(chefe: Node3D, _fase: int) -> void: _soltar(chefe.global_position, &"chefe_muda_de_fase"))
+	EventBus.boss_attack_landed.connect(func(posicao: Vector3, _raio: float, cor: Color) -> void: _soltar(posicao, &"ataque_de_chefe", cor))
+	EventBus.boss_defeated.connect(func(chefe: Node3D) -> void: _soltar(chefe.global_position, &"chefe_cai"))
+	EventBus.dungeon_objective_progress.connect(_soltar.bind(&"objetivo_progresso"))
+	EventBus.dungeon_objective_changed.connect(_ao_mudar_objetivo)
+	EventBus.dungeon_reward_claimed.connect(_soltar.bind(&"recompensa"))
 
 ## Este nó para junto com o jogo. O aprimoramento acontece na tela do ferreiro, que pausa
 ## o jogo, então as faíscas esperam aqui e saem quando a tela fecha.
@@ -115,6 +135,10 @@ func _soltar(posicao: Vector3, acao: StringName, cor: Color = Color.TRANSPARENT)
 	var efeito: Array = EFEITOS[acao]
 	var cor_usada: Color = efeito[1] if cor == Color.TRANSPARENT else cor
 	EfeitoDeParticulas.soltar(efeito[0], posicao + Vector3.UP * efeito[3], cor_usada, efeito[2], fase)
+
+func _ao_mudar_objetivo(_texto: String, concluido: bool) -> void:
+	if concluido:
+		_no_jogador(&"objetivo_cumprido")
 
 func _na_celula(celula: Vector2i, acao: StringName) -> void:
 	if _grade != null:

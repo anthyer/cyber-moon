@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/aviso_de_ataque.gd" id="1_script"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_circulo"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 0.01
+radial_segments = 40
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_faixa"]
+size = Vector3(1, 0.01, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_marca"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.75, 0.2, 0.5)
+
+[node name="AvisoDeAtaque" type="Node3D"]
+script = ExtResource("1_script")
+malha_do_circulo = SubResource("CylinderMesh_circulo")
+malha_da_faixa = SubResource("BoxMesh_faixa")
+material_da_marca = SubResource("StandardMaterial3D_marca")
+
+[node name="Contorno" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+
+[node name="Enchimento" type="MeshInstance3D" parent="."]
+cast_shadow = 0

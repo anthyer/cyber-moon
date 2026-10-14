@@ -1,8 +1,8 @@
 class_name TelaDeLobby
 extends Control
 
-## O lobby da dungeon: quem está na equipe, quem está online para ser chamado, e o botão
-## de entrar. Abre pelo portal da fazenda, que pede pelo EventBus.
+## O lobby da dungeon: quem está na equipe, quem está online para ser chamado, qual
+## dungeon, e o botão de entrar. Abre pelo portal da fazenda, que pede pelo EventBus.
 ##
 ## Diferente do calendário e do inventário, esta tela NÃO pausa o jogo. Pausar pararia a
 ## árvore, e a rede precisa continuar andando para o convite ir e a resposta voltar. No
@@ -15,10 +15,13 @@ extends Control
 const COR_DO_TEXTO: Color = Color(0.92, 0.95, 1.0)
 const COR_DO_TEXTO_APAGADO: Color = Color(0.6, 0.66, 0.8)
 const COR_DO_ANFITRIAO: Color = Color(0.2, 0.95, 1.0)
+const TAMANHO_DA_DESCRICAO: int = 12
+const LARGURA_DA_DESCRICAO: float = 380.0
 
 @onready var rotulo_de_status: Label = %Status
 @onready var lista_da_equipe: VBoxContainer = %ListaDaEquipe
 @onready var lista_de_online: VBoxContainer = %ListaDeOnline
+@onready var lista_de_dungeons: VBoxContainer = %ListaDeDungeons
 @onready var botao_entrar: Button = %BotaoEntrar
 @onready var rotulo_de_espera: Label = %Espera
 @onready var botao_sair_da_equipe: Button = %BotaoSairDaEquipe
@@ -27,6 +30,9 @@ const COR_DO_ANFITRIAO: Color = Color(0.2, 0.95, 1.0)
 ## Quem já recebeu convite desde a última mudança da sala. O servidor não avisa que o
 ## convite chegou, então é a tela que lembra, para o botão não ser clicado duas vezes.
 var _convidados: Dictionary[String, bool] = {}
+## O id da dungeon escolhida. Vazio até a tela abrir, quando vira a última liberada. Fica
+## guardado entre os redesenhos, porque a lista de botões é refeita a cada um.
+var _dungeon_escolhida: StringName = &""
 
 func _ready() -> void:
 	visible = false
@@ -37,7 +43,7 @@ func _ready() -> void:
 	LobbyManager.room_changed.connect(_ao_mudar_a_sala)
 	LobbyManager.room_closed.connect(_ao_mudar_a_sala)
 	LobbyManager.invite_declined.connect(_ao_recusarem_o_convite)
-	LobbyManager.dungeon_started.connect(fechar)
+	LobbyManager.dungeon_started.connect(fechar.unbind(1))
 	NetworkManager.connected.connect(_redesenhar)
 	NetworkManager.disconnected.connect(_redesenhar)
 	NetworkManager.player_joined.connect(_ao_mudar_quem_esta_online)
@@ -53,6 +59,9 @@ func abrir() -> void:
 		return
 	visible = true
 	InputManager.teclado_capturado = true
+	# Cada vez que a tela abre, a escolha volta para a última dungeon liberada: é a que
+	# o jogador mais provavelmente quer, e uma liberada desde a última vez já aparece.
+	_dungeon_escolhida = _ultima_liberada()
 	_redesenhar()
 
 func fechar() -> void:
@@ -63,7 +72,7 @@ func fechar() -> void:
 	get_viewport().gui_release_focus()
 
 func _ao_pedir_para_entrar() -> void:
-	LobbyManager.iniciar()
+	LobbyManager.iniciar(String(_dungeon_escolhida))
 
 func _ao_sair_da_equipe() -> void:
 	LobbyManager.sair()
@@ -98,6 +107,7 @@ func _redesenhar() -> void:
 		rotulo_de_status.text = "Offline: dá para entrar sozinho"
 	_redesenhar_equipe()
 	_redesenhar_online()
+	_redesenhar_dungeons()
 
 	var sou_anfitriao: bool = LobbyManager.sou_anfitriao()
 	botao_entrar.visible = sou_anfitriao
@@ -150,6 +160,50 @@ func _nova_linha_de_online(id: String, nome: String) -> HBoxContainer:
 			botao.pressed.connect(_ao_convidar.bind(id))
 		linha.add_child(botao)
 	return linha
+
+## Um botão por dungeon, na ordem do DungeonManager. A liberada é um botão de alternar,
+## num grupo, para só uma ficar marcada. A trancada fica desabilitada e diz o que falta.
+## Quem escolhe é o anfitrião: o convidado vê a lista, mas com os botões desabilitados.
+func _redesenhar_dungeons() -> void:
+	_esvaziar(lista_de_dungeons)
+	var grupo: ButtonGroup = ButtonGroup.new()
+	var pode_escolher: bool = LobbyManager.sou_anfitriao()
+	for definicao in DungeonManager.definicoes():
+		var liberada: bool = DungeonManager.esta_liberada(definicao)
+		var botao: Button = Button.new()
+		botao.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		botao.text = definicao.nome
+		if DungeonManager.chefe_ja_foi_vencido(definicao.id):
+			botao.text += " (chefe vencido)"
+		botao.toggle_mode = true
+		botao.button_group = grupo
+		botao.disabled = not liberada or not pode_escolher
+		botao.set_pressed_no_signal(liberada and definicao.id == _dungeon_escolhida)
+		botao.pressed.connect(_ao_escolher_dungeon.bind(definicao.id))
+		lista_de_dungeons.add_child(botao)
+		var texto: String = definicao.descricao
+		if not liberada:
+			var anterior: DefinicaoDeDungeon = DungeonManager.definicao_de(definicao.requer)
+			texto = "Trancada: vença o chefe de %s" % (anterior.nome if anterior != null else "outra dungeon")
+		if texto != "":
+			var descricao: Label = _novo_rotulo(texto, COR_DO_TEXTO_APAGADO)
+			descricao.add_theme_font_size_override(&"font_size", TAMANHO_DA_DESCRICAO)
+			descricao.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			descricao.custom_minimum_size = Vector2(LARGURA_DA_DESCRICAO, 0.0)
+			lista_de_dungeons.add_child(descricao)
+
+## Só guarda a escolha. A lista não é redesenhada aqui, para o foco não sair do botão que
+## acabou de ser apertado; o grupo de botões já cuida de desmarcar o outro.
+func _ao_escolher_dungeon(id: StringName) -> void:
+	_dungeon_escolhida = id
+
+## O id da última dungeon liberada, na ordem do lobby, ou vazio quando não há nenhuma.
+func _ultima_liberada() -> StringName:
+	var ultima: StringName = &""
+	for definicao in DungeonManager.definicoes():
+		if DungeonManager.esta_liberada(definicao):
+			ultima = definicao.id
+	return ultima
 
 func _esta_na_equipe(id: String) -> bool:
 	for membro: Dictionary in LobbyManager.membros:

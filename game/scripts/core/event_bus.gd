@@ -41,3 +41,14 @@ signal rare_loot_dropped(posicao: Vector3, cor: Color)
 ## O comerciante que também é ferreiro oferece os dois serviços; a escolha pede um deles.
 signal services_requested(perfil: PerfilNpc)
 signal forge_requested(perfil: PerfilNpc)
+## Dungeon (plano 23). Emitidos para quem mostra algo na tela: a barra do chefe, a linha
+## do objetivo paralelo e os efeitos de partícula.
+signal dungeon_room_cleared(posicao: Vector3)
+signal dungeon_door_opened(posicao: Vector3)
+signal boss_engaged(chefe: Node3D)
+signal boss_phase_changed(chefe: Node3D, fase: int)
+signal boss_attack_landed(posicao: Vector3, raio: float, cor: Color)
+signal boss_defeated(chefe: Node3D)
+signal dungeon_objective_changed(texto: String, concluido: bool)
+signal dungeon_objective_progress(posicao: Vector3)
+signal dungeon_reward_claimed(posicao: Vector3)

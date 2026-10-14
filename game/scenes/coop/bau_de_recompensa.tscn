@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/coop/bau_de_recompensa.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/movel_bau_de_recompensa.glb" id="2_modelo"]
+
+[sub_resource type="BoxShape3D" id="Forma_do_corpo"]
+size = Vector3(0.9, 0.62, 0.6)
+
+[sub_resource type="SphereShape3D" id="Forma_da_area"]
+radius = 0.9
+
+[node name="BauDeRecompensa" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Modelo" parent="." instance=ExtResource("2_modelo")]
+
+[node name="Corpo" type="StaticBody3D" parent="."]
+collision_mask = 0
+metadata/superficie = &"metal"
+
+[node name="Forma" type="CollisionShape3D" parent="Corpo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31, 0)
+shape = SubResource("Forma_do_corpo")
+
+[node name="AreaDoBau" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="FormaDaArea" type="CollisionShape3D" parent="AreaDoBau"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("Forma_da_area")

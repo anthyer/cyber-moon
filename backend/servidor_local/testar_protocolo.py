@@ -74,8 +74,9 @@ async def run():
         print("ok: convite e sala com os dois")
 
         await send(beto, "iniciar_dungeon")
-        await send(ana, "iniciar_dungeon")
-        assert (await receive(beto, "dungeon_iniciada"))["anfitriao"] == ana_id
+        await send(ana, "iniciar_dungeon", dungeon="galeria")
+        started = await receive(beto, "dungeon_iniciada")
+        assert started["anfitriao"] == ana_id and started["dungeon"] == "galeria", started
         print("ok: só o anfitrião inicia a dungeon")
 
         await send(beto, "sala", dados={"tipo": "golpe", "inimigo": 3, "dano": 10})

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/coop/objetivos/ponto_de_defesa.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/movel_antena_pirata.glb" id="2_modelo"]
+[ext_resource type="Script" path="res://scripts/combat/maquina_animada.gd" id="3_maquina"]
+
+[sub_resource type="BoxShape3D" id="Forma_da_base"]
+size = Vector3(0.7, 0.4, 0.7)
+
+[node name="PontoDeDefesa" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Modelo" parent="." instance=ExtResource("2_modelo")]
+
+[node name="MaquinaAnimada" type="Node" parent="Modelo"]
+script = ExtResource("3_maquina")
+voltas_por_segundo = 0.2
+
+[node name="Corpo" type="StaticBody3D" parent="."]
+collision_mask = 0
+metadata/superficie = &"metal"
+
+[node name="Forma" type="CollisionShape3D" parent="Corpo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("Forma_da_base")
+
+[node name="Brilho" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_color = Color(0.4, 1, 0.6, 1)
+light_energy = 0.8
+omni_range = 3.5

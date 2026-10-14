@@ -15,7 +15,8 @@ signal invite_declined(nome: String)
 ## A sala acabou porque o anfitrião saiu ou caiu.
 signal room_closed
 ## Hora de entrar na dungeon. Chega para todos os membros, e também para quem está sozinho.
-signal dungeon_started
+## O id é o da DefinicaoDeDungeon escolhida pelo anfitrião.
+signal dungeon_started(dungeon_id: String)
 signal room_message(de: String, tipo: String, campos: Dictionary)
 
 ## Id da sala. Vazio quando o jogador não está em nenhuma.
@@ -72,13 +73,13 @@ func sair() -> void:
 
 ## Começa a dungeon. Em sala, o servidor avisa todos os membros (inclusive este jogo).
 ## Sozinho ou offline, começa na hora.
-func iniciar() -> void:
+func iniciar(dungeon_id: String = "") -> void:
 	if not sou_anfitriao():
 		return
 	if sala != "" and NetworkManager.esta_conectado():
-		NetworkManager.enviar("iniciar_dungeon")
+		NetworkManager.enviar("iniciar_dungeon", {"dungeon": dungeon_id})
 	else:
-		dungeon_started.emit()
+		dungeon_started.emit(dungeon_id)
 
 ## Manda uma mensagem do jogo aos outros membros da sala. Sem sala, não faz nada.
 func enviar_para_a_sala(tipo: String, campos: Dictionary = {}) -> void:
@@ -107,7 +108,7 @@ func _ao_receber(tipo: String, dados: Dictionary) -> void:
 			room_changed.emit()
 		"dungeon_iniciada":
 			_guardar_sala(dados)
-			dungeon_started.emit()
+			dungeon_started.emit(String(dados.get("dungeon", "")))
 		"sala":
 			var campos: Dictionary = dados["dados"]
 			room_message.emit(dados["de"], campos.get("tipo", ""), campos)

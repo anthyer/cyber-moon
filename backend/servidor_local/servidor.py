@@ -138,12 +138,14 @@ async def on_leave_room(player_id, _message):
     await leave_room(player_id)
 
 
-async def on_start_dungeon(player_id, _message):
+async def on_start_dungeon(player_id, message):
     room_id = players[player_id]["room"]
     if room_id is None or rooms[room_id]["host"] != player_id:
         return
+    # O anfitrião escolhe qual dungeon. O servidor só repassa o id, sem saber o que é.
+    dungeon = str(message.get("dungeon", ""))[:MAX_NAME_LENGTH * 2]
     for member in rooms[room_id]["members"]:
-        await send(member, "dungeon_iniciada", **room_summary(room_id))
+        await send(member, "dungeon_iniciada", dungeon=dungeon, **room_summary(room_id))
 
 
 async def on_room_message(player_id, message):

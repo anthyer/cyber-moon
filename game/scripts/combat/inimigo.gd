@@ -50,12 +50,19 @@ const DISTANCIA_PARA_REFAZER_O_CAMINHO: float = 0.5
 ## onde nasceu.
 const CAMINHO_DAS_FAIXAS_DE_MATERIAL: String = "res://resources/combat/faixas_de_material.tres"
 const GRUPO_DE_ALVOS: StringName = &"alvos_de_inimigo"
+## O grupo de todo inimigo vivo. Quem usa é o cenário, para saber quem está escondido
+## atrás de uma peça alta.
+const GRUPO: StringName = &"inimigos"
 ## De quanto em quanto tempo ele reconsidera quem é o jogador mais perto.
 const SEGUNDOS_ENTRE_ESCOLHAS_DE_ALVO: float = 0.3
 ## O fantoche segue a posição que chega pela rede com esta suavidade, porque as
 ## mensagens vêm umas 10 vezes por segundo e sem isso ele andaria aos pulos.
 const SUAVIDADE_DO_FANTOCHE: float = 12.0
 const PATRULHA_PADRAO: Vector3 = Vector3(4.0, 0.0, 0.0)
+## O modelo sem esqueleto (a máquina dos chefes) não tem clipe de onde tirar a duração do
+## golpe e da queda. Nesse caso valem estes tempos fixos.
+const DURACAO_DO_GOLPE_SEM_ANIMACAO: float = 0.6
+const DURACAO_DA_QUEDA_SEM_ANIMACAO: float = 1.0
 
 @export var perfil: PerfilInimigo
 ## Segundo ponto da patrulha. O primeiro é onde o inimigo nasceu.
@@ -66,6 +73,9 @@ var fantoche: bool = false
 ## O número deste inimigo na dungeon, igual em todos os jogos. É como as mensagens da
 ## rede dizem de qual inimigo estão falando.
 var numero_na_rede: int = -1
+## Na dungeon, os inimigos de uma sala ficam adormecidos até a sala ser ativada: não
+## percebem nem perseguem ninguém. Sem isso eles sentiriam o jogador através da parede.
+var adormecido: bool = false
 
 @export var gravidade: float = 24.0
 @export var velocidade_de_giro: float = 8.0
@@ -80,6 +90,8 @@ var vida_atual: int = 0
 
 var _modelo: Node3D
 var _animacao: AnimationPlayer
+## Só existe quando o modelo é uma máquina de malha rígida, sem AnimationPlayer.
+var _maquina: MaquinaAnimada
 var _jogador: Node3D
 
 var _ponto_de_origem: Vector3
@@ -97,6 +109,7 @@ var _posicao_da_rede: Vector3
 var _giro_da_rede: float = 0.0
 
 func _ready() -> void:
+	add_to_group(GRUPO)
 	_ponto_de_origem = global_position
 	_ponto_de_patrulha = _ponto_de_origem + PATRULHA_PADRAO
 	var marcador: Node3D = get_node_or_null(caminho_do_ponto_de_patrulha) as Node3D
@@ -118,6 +131,12 @@ func _physics_process(delta: float) -> void:
 		return
 	if fantoche:
 		_seguir_a_rede(delta)
+		return
+	if adormecido:
+		velocity.x = 0.0
+		velocity.z = 0.0
+		_aplicar_gravidade(delta)
+		move_and_slide()
 		return
 	_procurar_jogador(delta)
 	_tempo_ate_poder_atacar = maxf(_tempo_ate_poder_atacar - delta, 0.0)
@@ -202,8 +221,12 @@ func _processar_perseguicao(delta: float) -> void:
 
 func _comecar_golpe() -> void:
 	estado = Estado.ATACANDO
-	_animacao.play(perfil.animacao_de_ataque, -1.0, perfil.velocidade_da_animacao_de_ataque)
-	_duracao_do_golpe = _animacao.get_animation(perfil.animacao_de_ataque).length / perfil.velocidade_da_animacao_de_ataque
+	_duracao_do_golpe = DURACAO_DO_GOLPE_SEM_ANIMACAO
+	if _animacao != null:
+		_animacao.play(perfil.animacao_de_ataque, -1.0, perfil.velocidade_da_animacao_de_ataque)
+		_duracao_do_golpe = _animacao.get_animation(perfil.animacao_de_ataque).length / perfil.velocidade_da_animacao_de_ataque
+	if _maquina != null:
+		_maquina.golpear(_duracao_do_golpe)
 	_tempo_do_golpe = 0.0
 	_golpe_ja_acertou = false
 	# O golpe sai virado para o jogador. Sem isso, o giro suave ainda não terminou quando
@@ -242,11 +265,26 @@ func _disparar() -> void:
 	var origem: Vector3 = global_position + centro * DISTANCIA_DA_BOCA_DO_TIRO + Vector3.UP * ALTURA_DO_GOLPE
 	var quantidade: int = maxi(perfil.projeteis_por_disparo, 1)
 	var meia_abertura: float = deg_to_rad(perfil.abertura_do_cone_em_graus) * 0.5
+	var direcoes: Array[Vector3] = []
 	for indice in quantidade:
 		var direcao: Vector3 = centro
 		if quantidade > 1:
 			direcao = centro.rotated(Vector3.UP, lerpf(-meia_abertura, meia_abertura, float(indice) / float(quantidade - 1)))
+		direcoes.append(direcao)
 		Projetil.disparar_de_inimigo(perfil.projetil, origem, direcao, perfil.dano, perfil.velocidade_do_projetil, perfil.alcance_do_projetil, perfil.cor, self, get_parent())
+	# Na dungeon em equipe o convidado precisa ver o tiro vindo para poder desviar.
+	var dungeon: Dungeon = get_parent() as Dungeon
+	if dungeon != null:
+		dungeon.avisar_disparo(self, origem, direcoes)
+
+## O anfitrião avisou que este inimigo atirou. O fantoche solta os mesmos projéteis, só
+## de desenho: quem tira vida é o tiro do anfitrião.
+func mostrar_disparo_da_rede(origem: Vector3, direcoes: Array[Vector3]) -> void:
+	if perfil == null or perfil.projetil == null:
+		return
+	for direcao in direcoes:
+		var projetil: Projetil = Projetil.disparar_de_inimigo(perfil.projetil, origem, direcao, perfil.dano, perfil.velocidade_do_projetil, perfil.alcance_do_projetil, perfil.cor, self, get_parent())
+		projetil.so_desenho = true
 
 func _morrer() -> void:
 	estado = Estado.MORRENDO
@@ -256,13 +294,28 @@ func _morrer() -> void:
 	# senão o corpo atravessa o chão com a gravidade e some do mapa.
 	collision_layer = 0
 	collision_mask = CAMADA_MUNDO
-	_animacao.play(&"die")
+	var duracao_da_queda: float = DURACAO_DA_QUEDA_SEM_ANIMACAO
+	if _maquina != null:
+		_maquina.parar()
+		_derrubar_maquina(duracao_da_queda)
+	if _animacao != null:
+		_animacao.play(&"die")
+		duracao_da_queda = _animacao.get_animation(&"die").length
 	StatusManager.ganhar_experiencia(perfil.experiencia_concedida)
 	EventBus.enemy_defeated.emit(perfil, global_position)
 	defeated.emit(self)
-	await get_tree().create_timer(_animacao.get_animation(&"die").length + 0.6).timeout
+	await get_tree().create_timer(duracao_da_queda + 0.6).timeout
 	_soltar_drop()
 	queue_free()
+
+## A queda de uma máquina sem animação: ela tomba para o lado, encolhe e afunda. O Chefe
+## tem a própria queda, mais demorada, e por isso não passa por aqui.
+func _derrubar_maquina(duracao: float) -> void:
+	if self is Chefe:
+		return
+	var queda: Tween = create_tween().set_parallel(true)
+	queda.tween_property(_modelo, "rotation:z", 1.2, duracao * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	queda.tween_property(_modelo, "scale", _modelo.scale * 0.2, duracao).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 ## Um sorteio só: primeiro tenta o raro, depois o incomum, depois o comum. O item sai da
 ## faixa sorteada. Material incomum ou raro avisa pelo EventBus, para ganhar um brilho.
@@ -293,6 +346,8 @@ func _montar_modelo() -> void:
 	_modelo.name = "Modelo"
 	add_child(_modelo)
 	for malha in _modelo.find_children("*", "MeshInstance3D", true, false):
+		if not perfil.tingir_modelo:
+			break
 		var instancia: MeshInstance3D = malha as MeshInstance3D
 		for superficie in instancia.mesh.get_surface_count():
 			var original: Material = instancia.get_active_material(superficie)
@@ -300,8 +355,15 @@ func _montar_modelo() -> void:
 				var tingido: StandardMaterial3D = (original as StandardMaterial3D).duplicate() as StandardMaterial3D
 				tingido.albedo_color = tingido.albedo_color * perfil.cor
 				instancia.set_surface_override_material(superficie, tingido)
+	# O modelo dos chefes é uma malha rígida, sem AnimationPlayer. Aí _animacao fica nula e
+	# quem anima é o código do Chefe.
 	var animacoes: Array[Node] = _modelo.find_children("*", "AnimationPlayer", true, false)
-	_animacao = animacoes[0] as AnimationPlayer
+	if not animacoes.is_empty():
+		_animacao = animacoes[0] as AnimationPlayer
+	else:
+		_maquina = MaquinaAnimada.new()
+		_maquina.name = "MaquinaAnimada"
+		_modelo.add_child(_maquina)
 	_tocar(&"idle")
 
 ## O jogador é achado pelo grupo, e não por caminho fixo, para o inimigo funcionar em
@@ -331,7 +393,7 @@ func _procurar_jogador(delta: float) -> void:
 ## O que o anfitrião manda de cada inimigo: número, posição (relativa à dungeon), giro do
 ## modelo, animação e vida. Vai como lista, e não dicionário, para a mensagem ficar curta.
 func estado_para_a_rede() -> Array:
-	return [numero_na_rede, snappedf(position.x, 0.01), snappedf(position.y, 0.01), snappedf(position.z, 0.01), snappedf(_modelo.rotation.y, 0.01), String(_animacao.current_animation), vida_atual]
+	return [numero_na_rede, snappedf(position.x, 0.01), snappedf(position.y, 0.01), snappedf(position.z, 0.01), snappedf(_modelo.rotation.y, 0.01), _clipe_atual(), vida_atual]
 
 func aplicar_estado_da_rede(dados: Array) -> void:
 	if estado == Estado.MORRENDO:
@@ -340,7 +402,7 @@ func aplicar_estado_da_rede(dados: Array) -> void:
 	_giro_da_rede = dados[4]
 	vida_atual = int(dados[6])
 	var clipe: StringName = StringName(dados[5])
-	if clipe != &"" and _animacao.has_animation(clipe):
+	if clipe != &"" and _animacao != null and _animacao.has_animation(clipe):
 		_tocar(clipe)
 
 ## O anfitrião avisou que este inimigo caiu. A queda é a mesma do inimigo de verdade:
@@ -398,8 +460,16 @@ func _direcao_do_modelo() -> Vector3:
 	return Vector3(sin(_modelo.rotation.y), 0.0, cos(_modelo.rotation.y))
 
 func _tocar(clipe: StringName) -> void:
+	if _animacao == null:
+		return
 	if _animacao.current_animation != clipe:
 		_animacao.play(clipe)
+
+## O nome do clipe que está tocando, ou vazio no modelo sem esqueleto.
+func _clipe_atual() -> String:
+	if _animacao == null:
+		return ""
+	return String(_animacao.current_animation)
 
 func _distancia_ate(alvo: Node3D) -> float:
 	return _distancia_horizontal(global_position, alvo.global_position)

@@ -31,7 +31,7 @@ func _ready() -> void:
 	LobbyManager.room_closed.connect(_esquecer_o_convite)
 	# O convite também pode ser respondido por outro caminho; entrando na equipe ou na
 	# dungeon, o painel não tem mais o que perguntar.
-	LobbyManager.dungeon_started.connect(_esquecer_o_convite)
+	LobbyManager.dungeon_started.connect(_esquecer_o_convite.unbind(1))
 
 func _process(delta: float) -> void:
 	painel.visible = _ha_convite and not get_tree().paused

@@ -19,6 +19,9 @@ enum ComportamentoOcioso {
 ## Modelo placeholder, tingido com a cor abaixo para não ser confundido com NPC.
 @export var modelo: PackedScene
 @export var cor: Color = Color.WHITE
+## Falso para o inimigo que tem modelo próprio, já pintado. A cor continua valendo para o
+## projétil dele, mas o modelo não é tingido.
+@export var tingir_modelo: bool = true
 
 @export_group("Combate")
 @export var vida_maxima: int = 50
