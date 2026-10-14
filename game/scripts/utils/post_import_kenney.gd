@@ -29,6 +29,10 @@ const TRECHOS_SEM_COLISAO: Array[String] = [
 	"character", "animal", "aid_",
 	"grass", "flower", "mushroom", "plant_", "crops_",
 	"mulch", "mound", "mark_", "mark-",
+	# Pacote cyber_moon_dungeons: inimigos e chefes (viram filhos de CharacterBody3D),
+	# peças cuja colisão é da cena que as usa (porta, baú, gerador, antena) e enfeite de
+	# chão que o jogador atravessa.
+	"inimigo_", "chefe_", "movel_", "enfeite_",
 ]
 
 ## Peças planas de chão (estrada, calçada, caminho de pedra, piso). Elas não projetam

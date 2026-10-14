@@ -41,3 +41,11 @@ A maior parte da arte do jogo vem de pacotes prontos da Kenney, que chegam como 
     's|^import_script/path=""$|import_script/path="res://scripts/utils/post_import_kenney.gd"|' {} +
   ```
 
+## Pacote próprio
+
+Os modelos feitos pela equipe ficam em `assets/models/cyber_moon_dungeons/`, com a
+paleta em `textures/colormap.png` e o mesmo script de importação dos pacotes da Kenney.
+Eles são construídos no Blender por script (`equipe/ferramentas/blender/`), já no tamanho
+do jogo, e entram na cena com escala 1. O estilo, as medidas e o passo a passo estão em
+`docs/biblia_3d.md`. Modelo editado a partir de um pacote da Kenney é salvo ali como
+modelo separado, com outro nome; o original não é alterado.

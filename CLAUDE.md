@@ -19,6 +19,7 @@ Leia antes de mexer em código, na ordem de relevância para a tarefa:
 - `game/docs/arquitetura.md`: os autoloads e o modelo de dados como Resources.
 - `game/docs/entrada.md`: o Input Map e a regra de passar tudo pelo `InputManager`.
 - `game/docs/pipeline_de_assets.md`: como assets brutos viram assets do projeto.
+- `game/docs/biblia_3d.md`: o estilo dos modelos 3D e como modelar peça nova no Blender.
 - `game/docs/glossario.md`: termo de design em português para nome técnico em inglês.
 - `equipe/controles.md`: o mapa de controles alvo, baseado em Minecraft e Rune Factory 4.
 

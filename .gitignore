@@ -8,3 +8,6 @@ android/
 # Pacotes brutos de assets, baixados localmente e nao versionados; ver
 # game/docs/pipeline_de_assets.md para o fluxo de extracao para game/assets/
 game/_import/*.zip
+
+# Cache do Python dos scripts de ferramenta
+__pycache__/
