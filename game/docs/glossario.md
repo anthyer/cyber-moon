@@ -24,6 +24,7 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Namoro | Dating / `RelationshipManager.pedir_em_namoro()`, sinal `dating_started` |
 | Fala de evento | Event line / `Conversa.falas_de_evento` |
 | Diálogo, conversa, fala | Dialogue / `DialogueManager`, `Conversa` e `NoDialogo` (classes Resource), `CaixaDialogo` |
+| Efeito de partícula | Particle effect / `EfeitoDeParticulas.soltar()`, `EfeitosDoJogo` |
 | Persona | Persona / fichas em `equipe/personas/` |
 | Situação (condição de fala) | Dialogue condition / `NoDialogo.situacoes`, `DialogueManager.situacoes_atuais()` |
 | Fala do dia | Daily line / `DialogueManager.fala_do_dia()` |

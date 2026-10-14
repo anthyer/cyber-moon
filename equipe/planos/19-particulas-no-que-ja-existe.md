@@ -10,6 +10,44 @@ para ser executado **depois dos planos que já existem**, por decisão do Antoni
 
 **Entrega para:** ninguém. É acabamento.
 
+## Revisão de 2026-10-13 (vale sobre o resto do plano)
+
+**Situação:** feito. Cada ação foi disparada por teste e o efeito contado na cena: um
+efeito por ação, na cor e na quantidade da tabela, e nenhum sobrando depois de 2
+segundos. Arar, molhar, subir de nível, inimigo caindo e dano no jogador foram conferidos
+por captura. O ajuste fino de tamanho e cor (tarefa 6) é de olho, e fica com o Antonio.
+
+**Um defeito antigo apareceu e foi corrigido.** O efeito começava a emitir antes de ser
+posto no lugar, e as partículas ficam onde nascem. A maior parte nascia na origem do
+mapa, longe da ação. Isso valia para a poeira dos passos desde que ela foi feita: só a
+parte emitida depois do primeiro quadro aparecia no pé do jogador. Agora
+`EfeitoDeParticulas.soltar` posiciona antes de adicionar à cena.
+
+**Ajustes ao plano:**
+
+- **Três cenas novas:** `estouro` (para todos os lados), `jorro` (cai) e `subida_lenta`.
+  Com a poeira de passo, que faz o papel do sopro, são as quatro do plano.
+- **As partículas ficaram maiores que as da poeira** (0,11 contra 0,045). No tamanho da
+  poeira, a esta distância de câmera, elas tinham um pixel.
+- **A tabela de efeitos fica no `EfeitosDoJogo`:** para cada ação, a cena, a cor, a
+  quantidade e a altura.
+- **Teto de 8 efeitos novos por quadro,** e nada é solto a mais de 22 metros do jogador.
+  Na virada do dia dezenas de plantas crescem e todo o solo muda de uma vez.
+- **Sinais novos, só para quem mostra efeito:** `projectile_impacted`, `player_dashed` e
+  `item_consumed`. O `crop_harvested` ganhou a célula. O alvo de treino passou a emitir
+  `damage_dealt`.
+- **O golpe que acerta usa o `damage_dealt`,** e não um gancho no `AtaqueDoJogador`. Serve
+  para o jogador, os inimigos e os alvos de treino de uma vez. A faísca é ciano quando o
+  item na mão é o bastão de choque.
+- **Dos planos 09 a 17 entraram:** inimigo levando dano e caindo (na cor do perfil),
+  troca de estação (folhas na cor da grama nova), ganhar um coração e começar a namorar
+  (sobre o NPC), e alcançar um marco.
+- **Não entraram:** comprar e vender (a loja pausa o jogo, e a venda acontece com a tela
+  escura do sono), e o raio da tempestade, que já tem o clarão. A chuva, o salvar e a
+  entrada na dungeon já tinham efeito próprio.
+- **Subir de nível não solta efeito ao carregar um save,** que também emite
+  `level_changed`.
+
 ## Contexto
 
 O sistema de partículas já existe e está descrito em `game/docs/arquitetura.md`, seção
@@ -82,17 +120,17 @@ reagindo a presente, compra e venda. Levante a lista olhando o que cada plano en
 
 ## Tarefas
 
-- [ ] **1.** Criar as cenas de efeito que faltam (jorro, estouro, subida lenta), no
+- [x] **1.** Criar as cenas de efeito que faltam (jorro, estouro, subida lenta), no
   molde da `poeira_de_passo.tscn`.
-- [ ] **2.** Criar o `EfeitosDoJogo` e instanciar na fase. Ligar os sinais da fazenda.
+- [x] **2.** Criar o `EfeitosDoJogo` e instanciar na fase. Ligar os sinais da fazenda.
   Conferir cada efeito no jogo, um por um.
-- [ ] **3.** Completar os sinais que não levam posição. `crop_harvested`, por exemplo,
+- [x] **3.** Completar os sinais que não levam posição. `crop_harvested`, por exemplo,
   leva o cultivo e a quantidade, mas não a célula.
-- [ ] **4.** Efeitos de combate e de status.
-- [ ] **5.** Levantar e fazer os efeitos dos planos 09 a 17 que já estiverem prontos.
+- [x] **4.** Efeitos de combate e de status.
+- [x] **5.** Levantar e fazer os efeitos dos planos 09 a 17 que já estiverem prontos.
 - [ ] **6.** Ajustar tamanho, cor e quantidade olhando o jogo na câmera normal. Este
   passo é de olho.
-- [ ] **7.** Documentar e commitar.
+- [x] **7.** Documentar e commitar.
 
 ## Critério de pronto
 

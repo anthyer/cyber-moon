@@ -30,7 +30,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 25 Revisão das personas e dos diálogos (proposta entregue; falta a leitura do Antonio)
 - [ ] 24 Saque por força do inimigo e aprimoramento de armas no ferreiro (só documentado; depende de decisões)
 - [x] 20 Salvar o jogo (depois dos planos de sistema; obrigatório antes de qualquer entrega jogável)
-- [ ] 19 Partículas no que já existe (depois de todos os planos acima; feature nova, escrita depois deste plano, já nasce com partículas)
+- [x] 19 Partículas no que já existe (depois de todos os planos acima; feature nova, escrita depois deste plano, já nasce com partículas)
 - [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
 
 ## Por que essa ordem

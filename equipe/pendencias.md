@@ -270,6 +270,24 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-13, plano 19
+
+**Feito**, menos o ajuste de olho. Decisões e ajustes no topo do plano, seção "Revisão de
+2026-10-13".
+
+**Precisa do Antonio:**
+
+- Jogar e dizer se os efeitos estão grandes, pequenos ou na cor errada. A tabela fica em
+  `game/scripts/effects/efeitos_do_jogo.gd` (cor e quantidade por ação), e o tamanho da
+  partícula em cada cena de `game/scenes/effects/`.
+- A poeira dos passos mudou: antes quase toda ela nascia longe do jogador, por um defeito.
+  Agora aparece inteira no pé, e pode parecer mais forte do que era.
+
+**Fica para depois:**
+
+- Efeito de compra e de venda.
+- Tremor de câmera e pausa no acerto, que são outra família de efeito.
+
 ### 2026-10-13, plano 25
 
 **Feito como proposta.** Decisões, entregas e a história nova de cada personagem estão no

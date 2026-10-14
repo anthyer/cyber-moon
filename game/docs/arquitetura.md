@@ -262,11 +262,25 @@ em qualquer máquina. Cada efeito é uma cena pequena em `scenes/effects/` com o
 `EfeitoDeParticulas` (`scripts/effects/efeito_de_particulas.gd`): ela dispara uma vez e
 se apaga sozinha. Quem quer um efeito chama
 `EfeitoDeParticulas.soltar(cena, posicao, cor, quantidade, pai)`, com a fase como pai,
-para as partículas ficarem onde nasceram.
+para as partículas ficarem onde nasceram. A posição entra antes de o efeito ir para a
+árvore, porque ele começa a emitir no `_ready`.
 
-O primeiro efeito é a poeira do passo (`poeira_de_passo.tscn`): a cada passada, o
-`passos_do_jogador.gd` solta uns quadradinhos na cor da superfície sob o pé. As cores
-ficam no `BancoDePassos`, junto dos sons (`cor_da_poeira_por_superficie`).
+São quatro cenas, uma por tipo de movimento: `poeira_de_passo` (sopro para cima),
+`estouro` (para todos os lados), `jorro` (cai) e `subida_lenta`. A cor e a quantidade
+mudam por ação.
+
+O nó `EfeitosDoJogo` (`scripts/effects/efeitos_do_jogo.gd`), posto na fase, escuta os
+sinais que os sistemas já emitem (arar, molhar, colher, dano, inimigo caindo, subir de
+nível, troca de estação, ganhar coração) e solta o efeito no lugar certo. A tabela
+`EFEITOS` dele diz, para cada ação, a cena, a cor, a quantidade e a altura. Os sistemas
+não sabem que partículas existem: tirar o nó da fase tira os efeitos sem quebrar nada.
+Quando falta o dado no sinal, acrescenta-se o parâmetro ou um sinal novo no `EventBus`,
+em vez de dar ao sistema uma referência ao nó de efeitos. Há um teto de efeitos novos por
+quadro, para a virada do dia não soltar centenas de uma vez.
+
+A poeira do passo é a exceção: o `passos_do_jogador.gd` a solta direto, na cor da
+superfície sob o pé (as cores ficam no `BancoDePassos`). Efeito de feature nova segue a
+regra do `CLAUDE.md`: nasce junto com a feature.
 
 ## Inimigos
 

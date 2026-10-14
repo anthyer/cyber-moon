@@ -36,10 +36,10 @@ Leia antes de mexer em código, na ordem de relevância para a tarefa:
   direto em código de gameplay.
 - Código precisa ser legível por um estudante que vai defender o projeto numa
   apresentação. Prefira nome claro e estrutura explícita a one-liner esperto.
-- Feature nova já nasce com efeito de partículas nas ações que ela cria. Vale para todo
-  plano escrito a partir de agora. Os planos 01 a 18 foram escritos sem isso e são
-  cobertos de uma vez pelo plano 19, que roda depois deles. O sistema está descrito em
-  `game/docs/arquitetura.md`, seção "Efeitos de partícula".
+- Feature nova já nasce com efeito de partículas nas ações que ela cria. O jeito é emitir
+  um sinal e acrescentar a ação na tabela do `EfeitosDoJogo`; o sistema não conhece o nó
+  de efeitos. Está descrito em `game/docs/arquitetura.md`, seção "Efeitos de partícula".
+  Os planos 01 a 18 foram escritos sem isso e foram cobertos pelo plano 19.
 
 ## Skills deste repositório
 
