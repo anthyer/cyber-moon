@@ -270,6 +270,13 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-13, plano 24 decidido
+
+As decisões do plano 24 foram fechadas com o Antonio e estão no topo do plano: o Vitor é
+o ferreiro; armas e ferramentas são únicas; três níveis; materiais e créditos; as seis
+sucatas em três faixas; ferramenta aprimorada na mesma tela, com a área maior saindo ao
+segurar o botão. Isso também resolve a melhoria de ferramenta, pendente do plano 17.
+
 ### 2026-10-13, plano 19
 
 **Feito**, menos o ajuste de olho. Decisões e ajustes no topo do plano, seção "Revisão de

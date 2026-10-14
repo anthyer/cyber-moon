@@ -6,8 +6,67 @@ esses materiais servem para aprimorar as armas com um NPC ferreiro, numa tela pr
 **Depende de:** 09 (inimigos e saque), 08 (armas), 15 (o ferreiro é um NPC com quem se
 conversa), 17 (créditos, se o aprimoramento também custar dinheiro).
 
-**Situação:** só documentado. Pedido do Antonio em 2026-10-07, para entrar na lista do
-que fazer.
+**Situação:** decidido e pronto para executar. Pedido do Antonio em 2026-10-07; decisões
+fechadas em 2026-10-13.
+
+## Decisões fechadas com o Antonio (2026-10-13)
+
+As perguntas da seção "O que precisa ser decidido antes de executar" foram respondidas. O
+que vale:
+
+**O ferreiro é o Vitor.** Depois da conversa do dia, ele oferece a loja ou a bancada de
+aprimorar. Vale o mesmo horário da loja.
+
+**Armas e ferramentas são únicas.** O jogador tem no máximo uma de cada. A loja não vende
+uma arma que ele já tem. Por isso o nível é do item do jogador: não existem duas foices
+com níveis diferentes. Vender a arma aprimorada perde o nível, e comprar de novo começa
+do 1. O nível acompanha o item no baú de guardar.
+
+**Três níveis por arma, e só o dano muda.** Sugestão de partida: nível 2 dá 25 por cento
+a mais de dano, e nível 3 dá 50 por cento.
+
+**O aprimoramento custa materiais e créditos.**
+
+**Os materiais são as seis sucatas que já existem**, em três faixas:
+
+| Faixa | Itens |
+|---|---|
+| Comum | `sucata_metal`, `placa_queimada` |
+| Incomum | `celula_energia`, `fio_optico` |
+| Rara | `servomotor`, `nucleo_sintetico` |
+
+**O inimigo solta da faixa dele, com chance de subir.** O drone solta comum; o ciborgue,
+comum ou incomum; a sentinela, incomum e às vezes raro. Os chefes e subchefes da dungeon
+(plano 23) soltam raro. Cada `PerfilInimigo` tem a própria tabela de chances.
+
+**Na dungeon em equipe o saque continua individual.**
+
+**As ferramentas de fazenda são aprimoradas na mesma tela**, com materiais e créditos.
+Elas nunca são vendidas nem trocadas: só aprimoradas. Cada nível aumenta a área:
+
+| Nível | Área máxima |
+|---|---|
+| 1 | 1 quadrado |
+| 2 | 3 em linha, à frente |
+| 3 | 3 por 3 |
+
+**A área maior sai segurando o botão.** Um toque faz um quadrado só, porque às vezes se
+quer arar um quadrado mesmo. Segurando, a marcação no chão cresce em etapas até o máximo
+do nível, e a ação acontece ao soltar. Dá para soltar no meio e fazer a área
+intermediária. É o esquema do Rune Factory.
+
+**A área maior custa menos stamina por quadrado** do que fazer um por vez (por exemplo, 9
+quadrados pelo preço de 5). Aprimorar poupa tempo e stamina.
+
+**O que isso muda no desenho técnico:** como cada arma e cada ferramenta é única, o nível
+pode ficar num lugar só, por id do item (um dicionário num autoload, salvo no plano 20),
+e não em cada pilha do inventário. A seção "O nível mora no item do jogador" abaixo
+descrevia o caso mais difícil, que não é mais necessário.
+
+**Ainda em aberto, para definir ao executar:** a receita exata de cada nível (quanto de
+cada material e quantos créditos), os números das tabelas de saque, e o tempo de cada
+etapa ao segurar o botão. São valores de balanceamento, e saem como proposta para ajustar
+jogando.
 
 ## O que o Antonio pediu
 
