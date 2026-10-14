@@ -63,6 +63,11 @@ func menu_pausa_pressionado() -> bool:
 func dash_pressionado() -> bool:
 	return not teclado_capturado and Input.is_action_just_pressed("dash")
 
+## Verdadeiro enquanto o botão de atacar está apertado. Serve para carregar a área da
+## ferramenta aprimorada.
+func atacar_segurado() -> bool:
+	return not teclado_capturado and Input.is_action_pressed("atacar")
+
 func atacar_pressionado() -> bool:
 	return not teclado_capturado and Input.is_action_just_pressed("atacar")
 

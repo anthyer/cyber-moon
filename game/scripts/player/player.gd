@@ -64,6 +64,11 @@ var _mirando_pelo_mouse: bool = false
 
 ## Entre cair e acordar o jogador não responde a nenhum comando.
 var _desmaiado: bool = false
+## Verdadeiro entre apertar e soltar o botão com uma ferramenta aprimorada na mão.
+var _carregando_ferramenta: bool = false
+var _segundos_de_carga: float = 0.0
+## As cópias do indicador de alvo que marcam os outros quadrados da área.
+var _marcadores_extras: Array[MeshInstance3D] = []
 
 func _ready() -> void:
 	# Os inimigos acham o jogador por este grupo, sem depender do caminho na cena.
@@ -121,12 +126,22 @@ func _physics_process(delta: float) -> void:
 	# usar ferramenta, plantar semente ou colher planta madura.
 	var tem_celula_alvo: bool = grade_solo != null and (ferramenta_equipada != null or semente_na_mao != null or tem_planta_madura_no_alvo)
 
-	if indicador_alvo != null:
-		indicador_alvo.visible = tem_celula_alvo and grade_solo.limite.has_point(celula_alvo)
-		if indicador_alvo.visible:
-			var posicao_local: Vector3 = grade_solo.map_to_local(Vector3i(celula_alvo.x, 0, celula_alvo.y))
-			indicador_alvo.global_position = grade_solo.global_transform * posicao_local
-			indicador_alvo.global_position.y += 0.01
+	# Carregando a ferramenta aprimorada: a área cresce em etapas enquanto o botão fica
+	# apertado, e a marcação no chão mostra onde a ação vai cair ao soltar.
+	var celulas_marcadas: Array[Vector2i] = []
+	if _carregando_ferramenta:
+		if ferramenta_equipada == null or grade_solo == null:
+			_carregando_ferramenta = false
+		else:
+			_segundos_de_carga += delta
+			celulas_marcadas = _celulas_da_area(celula_alvo, _etapa_da_carga(ferramenta_equipada))
+			if not InputManager.atacar_segurado():
+				_carregando_ferramenta = false
+				if _usar_ferramenta_na_area(ferramenta_equipada, celulas_marcadas, _etapa_da_carga(ferramenta_equipada)):
+					_tocar_animacao_de_interacao()
+	if not _carregando_ferramenta and tem_celula_alvo:
+		celulas_marcadas = [celula_alvo]
+	_mostrar_marcacao(celulas_marcadas)
 
 	if _tempo_dash_restante <= 0.0 and _dash_liberado_pelo_golpe() and _tempo_cooldown_restante <= 0.0 and InputManager.dash_pressionado():
 		# O dash vai para onde o direcional aponta, e só usa a frente do personagem
@@ -169,8 +184,14 @@ func _physics_process(delta: float) -> void:
 		elif _comer_consumivel_da_mao():
 			_tocar_animacao_de_interacao()
 		elif ferramenta_equipada != null:
-			if _usar_ferramenta(ferramenta_equipada, celula_alvo):
-				_tocar_animacao_de_interacao()
+			# A ferramenta no nível 1 age na hora, como sempre. A aprimorada age ao soltar
+			# o botão: um toque faz um quadrado só, e segurar aumenta a área.
+			if UpgradeManager.etapa_maxima_de_area(ferramenta_equipada) <= 0:
+				if _usar_ferramenta(ferramenta_equipada, celula_alvo):
+					_tocar_animacao_de_interacao()
+			elif not _carregando_ferramenta:
+				_carregando_ferramenta = true
+				_segundos_de_carga = 0.0
 		else:
 			_atacar_com(_arma_em_uso())
 
@@ -186,6 +207,10 @@ func _physics_process(delta: float) -> void:
 		velocity.z = 0.0
 	else:
 		var entrada: Vector2 = InputManager.obter_direcao_movimento()
+		# Carregando a ferramenta, o personagem fica parado e virado para onde estava, para
+		# a área marcada não sair do lugar.
+		if _carregando_ferramenta:
+			entrada = Vector2.ZERO
 		var direcao: Vector3 = Vector3(entrada.x, 0.0, entrada.y)
 
 		if direcao != Vector3.ZERO and _indice_combo != 0:
@@ -257,6 +282,78 @@ func _usar_ferramenta(ferramenta: Ferramenta, celula: Vector2i) -> bool:
 	StatusManager.gastar_stamina(ferramenta.custo_de_stamina)
 	return true
 
+## Em que etapa de área a carga está: 0 é um quadrado, 1 é três em linha, 2 é três por
+## três. Cresce com o tempo segurando o botão, até o máximo que o nível da ferramenta dá.
+func _etapa_da_carga(ferramenta: Ferramenta) -> int:
+	var por_tempo: int = int(_segundos_de_carga / UpgradeManager.tabela().segundos_por_etapa_de_carga)
+	return mini(por_tempo, UpgradeManager.etapa_maxima_de_area(ferramenta))
+
+## Os quadrados de cada etapa, a partir do quadrado à frente. A linha e o bloco crescem
+## para longe do jogador, na direção em que ele olha.
+func _celulas_da_area(celula: Vector2i, etapa: int) -> Array[Vector2i]:
+	var frente: Vector2i = _frente_na_grade()
+	var celulas: Array[Vector2i] = []
+	match etapa:
+		0:
+			celulas.append(celula)
+		1:
+			for passo in 3:
+				celulas.append(celula + frente * passo)
+		_:
+			var lado: Vector2i = Vector2i(frente.y, frente.x)
+			for passo in 3:
+				for desvio in [-1, 0, 1]:
+					celulas.append(celula + frente * passo + lado * desvio)
+	return celulas
+
+## A frente do personagem arredondada para uma das quatro direções da grade. Na grade, o
+## x da célula é o x do mundo e o y da célula é o z.
+func _frente_na_grade() -> Vector2i:
+	var frente: Vector2 = Vector2(sin(personagem.rotation.y), cos(personagem.rotation.y))
+	if absf(frente.x) > absf(frente.y):
+		return Vector2i(signi(roundi(frente.x)), 0)
+	return Vector2i(0, signi(roundi(frente.y)))
+
+## Usa a ferramenta em todos os quadrados da área. A área maior custa menos stamina por
+## quadrado do que fazer um por vez (o fator de cada etapa está na tabela de
+## aprimoramento), e nunca mais do que os quadrados em que ela teve efeito custariam
+## sozinhos. Sem stamina para a área, não faz nada.
+func _usar_ferramenta_na_area(ferramenta: Ferramenta, celulas: Array[Vector2i], etapa: int) -> bool:
+	if grade_solo == null or celulas.is_empty():
+		return false
+	var fatores: Array[float] = UpgradeManager.tabela().fator_de_stamina_por_etapa
+	var custo_da_area: float = ferramenta.custo_de_stamina * fatores[clampi(etapa, 0, fatores.size() - 1)]
+	if not StatusManager.tem_stamina(custo_da_area):
+		return false
+	var com_efeito: int = 0
+	for celula in celulas:
+		if grade_solo.aplicar(ferramenta.id_acao, celula):
+			com_efeito += 1
+	if com_efeito == 0:
+		return false
+	AudioManager.tocar_sfx(ferramenta.som_de_uso, global_position)
+	StatusManager.ganhar_experiencia(ferramenta.experiencia_ao_usar * com_efeito)
+	StatusManager.gastar_stamina(minf(custo_da_area, ferramenta.custo_de_stamina * com_efeito))
+	return true
+
+## Põe um marcador em cada quadrado da lista e esconde os que sobram. O primeiro é o
+## indicador de alvo da cena; os outros são cópias dele, criadas quando fazem falta.
+func _mostrar_marcacao(celulas: Array[Vector2i]) -> void:
+	if indicador_alvo == null or grade_solo == null:
+		return
+	var marcadores: Array[MeshInstance3D] = [indicador_alvo]
+	marcadores.append_array(_marcadores_extras)
+	while marcadores.size() < celulas.size():
+		var copia: MeshInstance3D = indicador_alvo.duplicate() as MeshInstance3D
+		indicador_alvo.get_parent().add_child(copia)
+		_marcadores_extras.append(copia)
+		marcadores.append(copia)
+	for indice in marcadores.size():
+		var marcador: MeshInstance3D = marcadores[indice]
+		marcador.visible = indice < celulas.size() and grade_solo.limite.has_point(celulas[indice])
+		if marcador.visible:
+			marcador.global_position = grade_solo.centro_da_celula_no_mundo(celulas[indice]) + Vector3.UP * 0.01
+
 ## Planta a semente do slot selecionado na célula à frente e gasta uma unidade dela.
 ## Retorna false quando não há semente na mão ou a célula não aceita plantio, e aí o
 ## botão de atacar segue para o soco.
@@ -316,8 +413,8 @@ func _ao_desmaiar(_motivo: StatusManager.Motivo) -> void:
 	_desmaiado = true
 	_tempo_dash_restante = 0.0
 	_indice_combo = 0
-	if indicador_alvo != null:
-		indicador_alvo.visible = false
+	_carregando_ferramenta = false
+	_mostrar_marcacao([])
 	animation_player.play(CLIPE_DE_QUEDA)
 
 ## Acorda em casa, de pé. Sem o ponto de spawn na cena, acorda onde caiu.
