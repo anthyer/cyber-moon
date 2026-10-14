@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="DefinicaoDeDungeon" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/definicao_de_dungeon.gd" id="1_script"]
+[ext_resource type="Resource" path="res://resources/items/especiais/trofeu_da_colheitadeira.tres" id="2_trofeu"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"biodomo"
+nome = "Biodomo Abandonado"
+descricao = "A estufa de pesquisa que a corporação largou. O mato tomou conta, e as máquinas de jardinagem continuam podando. Objetivo paralelo: resgatar as quatro caixas de sementes nativas."
+ordem = 2
+cena = "res://scenes/levels/dungeon_biodomo.tscn"
+requer = &"galeria"
+creditos = 450
+materiais_raros = 3
+creditos_do_objetivo = 200
+materiais_raros_do_objetivo = 1
+trofeu = ExtResource("2_trofeu")

@@ -89,6 +89,8 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_chat.tscn" id="117_hud_chat"]
 [ext_resource type="PackedScene" path="res://scenes/ui/tela_de_lobby.tscn" id="118_lobby"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_convite.tscn" id="119_convite"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_de_dungeon.tscn" id="130_hud_dungeon"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_do_chefe.tscn" id="131_hud_chefe"]
 [ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="120_portal"]
 [ext_resource type="PackedScene" path="res://scenes/dialogue/caixa_dialogo.tscn" id="121_dialogo"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_creditos.tscn" id="122_creditos"]
@@ -182,6 +184,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, 0.5, 5.5)
 [node name="HudRelogio" parent="InterfaceHUD" unique_id=1803889839 instance=ExtResource("104_hud_relogio")]
 
 [node name="HudCreditos" parent="InterfaceHUD" instance=ExtResource("122_creditos")]
+
+[node name="HudDeDungeon" parent="InterfaceHUD" instance=ExtResource("130_hud_dungeon")]
+
+[node name="HudDoChefe" parent="InterfaceHUD" instance=ExtResource("131_hud_chefe")]
 
 [node name="HudAviso" parent="InterfaceHUD" unique_id=1369899493 instance=ExtResource("109_hud_aviso")]
 

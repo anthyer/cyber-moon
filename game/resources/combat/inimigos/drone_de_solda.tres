@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="PerfilInimigo" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/perfil_inimigo.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/inimigo_drone_de_solda.glb" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = &"drone_de_solda"
+nome = "Drone de solda"
+modelo = ExtResource("2")
+tingir_modelo = false
+cor = Color(1.0, 0.8, 0.25, 1)
+vida_maxima = 36
+velocidade = 3.6
+dano = 7
+alcance_de_ataque = 1.1
+intervalo_entre_ataques = 1.2
+raio_de_percepcao = 9.0
+raio_de_desistencia = 14.0
+comportamento_ocioso = 0
+experiencia_concedida = 22
+chance_de_material_comum = 0.6

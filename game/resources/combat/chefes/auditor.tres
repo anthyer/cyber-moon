@@ -1,0 +1,78 @@
+[gd_resource type="Resource" script_class="PerfilChefe" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/perfil_chefe.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/chefe_auditor.glb" id="2"]
+[ext_resource type="Script" path="res://scripts/resources/ataque_de_chefe.gd" id="3"]
+
+[sub_resource type="Resource" id="Ataque_0"]
+script = ExtResource("3")
+id = &"corte_de_custos"
+nome = "Corte de custos"
+forma = 2
+dano = 30
+raio = 1.2
+comprimento = 10.0
+segundos_de_aviso = 1.0
+cor = Color(0.35, 0.9, 1.0, 1)
+
+[sub_resource type="Resource" id="Ataque_1"]
+script = ExtResource("3")
+id = &"auditoria"
+nome = "Auditoria"
+forma = 1
+dano = 26
+raio = 2.2
+segundos_de_aviso = 0.9
+cor = Color(0.95, 0.45, 0.95, 1)
+
+[sub_resource type="Resource" id="Ataque_2"]
+script = ExtResource("3")
+id = &"demissao_em_massa"
+nome = "Demissão em massa"
+forma = 3
+dano = 22
+raio = 1.3
+quantidade = 9
+espalhamento = 5.0
+segundos_de_aviso = 1.0
+cor = Color(1.0, 0.8, 0.25, 1)
+so_na_fase_2 = true
+
+[sub_resource type="Resource" id="Ataque_3"]
+script = ExtResource("3")
+id = &"fechamento"
+nome = "Fechamento"
+forma = 0
+dano = 28
+raio = 4.0
+segundos_de_aviso = 1.3
+cor = Color(0.66, 0.47, 0.95, 1)
+so_na_fase_2 = true
+
+[resource]
+script = ExtResource("1")
+id = &"auditor"
+nome = "Auditor"
+modelo = ExtResource("2")
+tingir_modelo = false
+titulo = "O Auditor, Fechamento de Contas"
+eh_chefe_final = true
+escala = 2.6
+ataques = Array[ExtResource("3")]([SubResource("Ataque_0"), SubResource("Ataque_1"), SubResource("Ataque_2"), SubResource("Ataque_3")])
+intervalo_entre_ataques_especiais = 2.6
+fracao_de_vida_da_fase_2 = 0.5
+multiplicador_de_velocidade_na_fase_2 = 1.5
+multiplicador_de_intervalo_na_fase_2 = 0.55
+raio_de_percepcao = 14.0
+raio_de_desistencia = 40.0
+comportamento_ocioso = 2
+cor = Color(0.95, 0.45, 0.95, 1)
+vida_maxima = 1400
+velocidade = 3.0
+dano = 24
+alcance_de_ataque = 2.2
+intervalo_entre_ataques = 1.5
+experiencia_concedida = 700
+chance_de_material_comum = 0.0
+chance_de_material_incomum = 0.2
+chance_de_material_raro = 0.8

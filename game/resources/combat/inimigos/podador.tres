@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="PerfilInimigo" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/perfil_inimigo.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/inimigo_podador.glb" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = &"podador"
+nome = "Podador"
+modelo = ExtResource("2")
+tingir_modelo = false
+cor = Color(0.95, 0.45, 0.95, 1)
+vida_maxima = 46
+velocidade = 4.2
+dano = 9
+alcance_de_ataque = 1.1
+intervalo_entre_ataques = 1.0
+raio_de_percepcao = 9.5
+raio_de_desistencia = 14.0
+comportamento_ocioso = 0
+experiencia_concedida = 30
+chance_de_material_comum = 0.5
+chance_de_material_incomum = 0.15

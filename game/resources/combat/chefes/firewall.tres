@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="PerfilChefe" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/perfil_chefe.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/chefe_firewall.glb" id="2"]
+[ext_resource type="Script" path="res://scripts/resources/ataque_de_chefe.gd" id="3"]
+
+[sub_resource type="Resource" id="Ataque_0"]
+script = ExtResource("3")
+id = &"pulso"
+nome = "Pulso de bloqueio"
+forma = 0
+dano = 22
+raio = 3.0
+segundos_de_aviso = 1.0
+cor = Color(0.35, 0.9, 1.0, 1)
+
+[sub_resource type="Resource" id="Ataque_1"]
+script = ExtResource("3")
+id = &"quarentena"
+nome = "Quarentena"
+forma = 3
+dano = 18
+raio = 1.3
+quantidade = 5
+espalhamento = 3.5
+segundos_de_aviso = 1.0
+cor = Color(1.0, 0.8, 0.25, 1)
+
+[resource]
+script = ExtResource("1")
+id = &"firewall"
+nome = "Firewall"
+modelo = ExtResource("2")
+tingir_modelo = false
+titulo = "Firewall, Acesso Negado"
+eh_chefe_final = false
+escala = 1.8
+ataques = Array[ExtResource("3")]([SubResource("Ataque_0"), SubResource("Ataque_1")])
+intervalo_entre_ataques_especiais = 2.8
+fracao_de_vida_da_fase_2 = 0.0
+raio_de_percepcao = 14.0
+raio_de_desistencia = 40.0
+comportamento_ocioso = 2
+cor = Color(0.35, 0.9, 1.0, 1)
+vida_maxima = 650
+velocidade = 2.8
+dano = 18
+alcance_de_ataque = 1.7
+intervalo_entre_ataques = 1.5
+experiencia_concedida = 260
+chance_de_material_comum = 0.0
+chance_de_material_incomum = 0.5
+chance_de_material_raro = 0.5

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="DefinicaoDeDungeon" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/definicao_de_dungeon.gd" id="1_script"]
+[ext_resource type="Resource" path="res://resources/items/especiais/trofeu_do_auditor.tres" id="2_trofeu"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"torre"
+nome = "Torre de Retransmissão"
+descricao = "A central de dados da corporação, no alto da cidade. Servidor, neon e segurança armada. Objetivo paralelo: proteger a antena pirata do Kenji enquanto ela transmite."
+ordem = 3
+cena = "res://scenes/levels/dungeon_torre.tscn"
+requer = &"biodomo"
+creditos = 650
+materiais_raros = 4
+creditos_do_objetivo = 300
+materiais_raros_do_objetivo = 2
+trofeu = ExtResource("2_trofeu")
