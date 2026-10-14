@@ -36,6 +36,7 @@ Leia antes de mexer em código, na ordem de relevância para a tarefa:
   direto em código de gameplay.
 - Código precisa ser legível por um estudante que vai defender o projeto numa
   apresentação. Prefira nome claro e estrutura explícita a one-liner esperto.
+- O jogo não tem sangue. Nenhum efeito de dano é vermelho, no jogador ou no inimigo.
 - Feature nova já nasce com efeito de partículas nas ações que ela cria. O jeito é emitir
   um sinal e acrescentar a ação na tabela do `EfeitosDoJogo`; o sistema não conhece o nó
   de efeitos. Está descrito em `game/docs/arquitetura.md`, seção "Efeitos de partícula".

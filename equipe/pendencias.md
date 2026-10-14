@@ -300,6 +300,14 @@ exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota
 - Login com a conta Google, pedido do Antonio para o jogo final.
 - Publicar o jogo na Web (CloudFront na frente do bucket) e a sprint 5 inteira.
 
+### 2026-10-13, sem sangue
+
+**Decisão do Antonio:** o jogo não pode ter sangue, então as partículas de dano não são
+vermelhas, nem no jogador nem no inimigo. O dano no jogador passou de vermelho para
+branco, e o inimigo que cai solta faísca de metal numa cor fixa, em vez da cor do perfil
+(o drone é avermelhado). A regra está no `CLAUDE.md` e na arquitetura. A barra de vida
+continua vermelha, por ser interface.
+
 ### 2026-10-13, plano 24
 
 **Feito.** Decisões, números propostos e ajustes no topo do plano.

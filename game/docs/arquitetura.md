@@ -279,6 +279,10 @@ Quando falta o dado no sinal, acrescenta-se o parâmetro ou um sinal novo no `Ev
 em vez de dar ao sistema uma referência ao nó de efeitos. Há um teto de efeitos novos por
 quadro, para a virada do dia não soltar centenas de uma vez.
 
+**O jogo não tem sangue.** Nenhum efeito de dano é vermelho, nem no jogador nem no
+inimigo: o golpe solta faísca clara, e o inimigo que cai solta faísca de metal, numa cor
+fixa (e não na cor do perfil, porque o drone é avermelhado).
+
 A poeira do passo é a exceção: o `passos_do_jogador.gd` a solta direto, na cor da
 superfície sob o pé (as cores ficam no `BancoDePassos`). Efeito de feature nova segue a
 regra do `CLAUDE.md`: nasce junto com a feature.

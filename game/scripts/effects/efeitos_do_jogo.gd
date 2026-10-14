@@ -28,12 +28,13 @@ const EFEITOS: Dictionary = {
 	&"arrancar": [ESTOURO, Color(0.4, 0.7, 0.3), 10, 0.25],
 	&"colher": [SUBIDA, Color(0.5, 0.9, 0.4), 12, 0.25],
 	&"coletar": [ESTOURO, Color(1.0, 0.95, 0.6), 6, 0.3],
-	# Combate e status
+	# Combate e status. O jogo não tem sangue: nenhum efeito de dano é vermelho, nem no
+	# jogador nem no inimigo. O golpe solta faísca clara, como metal batendo.
 	&"acerto": [ESTOURO, Color(1.0, 0.85, 0.4), 10, 0.35],
 	&"acerto_eletrico": [ESTOURO, Color(0.3, 0.95, 1.0), 14, 0.35],
-	&"dano_no_jogador": [ESTOURO, Color(1.0, 0.3, 0.3), 10, 0.35],
+	&"dano_no_jogador": [ESTOURO, Color(1.0, 1.0, 1.0), 10, 0.35],
 	&"impacto_de_projetil": [ESTOURO, Color(1.0, 0.9, 0.5), 6, 0.0],
-	&"inimigo_caiu": [ESTOURO, Color(1.0, 1.0, 1.0), 22, 0.3],
+	&"inimigo_caiu": [ESTOURO, Color(0.8, 0.88, 1.0), 22, 0.3],
 	&"dash": [SOPRO, Color(0.85, 0.85, 0.8), 10, 0.05],
 	&"comer": [SUBIDA, Color(0.5, 1.0, 0.6), 10, 0.3],
 	&"subir_de_nivel": [SUBIDA, Color(1.0, 0.85, 0.3), 26, 0.2],
@@ -131,8 +132,8 @@ func _no_npc(npc_id: String, acao: StringName) -> void:
 			_soltar(npc.global_position, acao)
 			return
 
-## Quem levou o golpe decide a cor: vermelho no jogador; nos outros, a faísca é elétrica
-## quando o golpe veio do bastão de choque.
+## Quem levou o golpe decide a cor: branca no jogador; nos outros, a faísca é amarela, ou
+## elétrica quando o golpe veio do bastão de choque. Nunca vermelha: o jogo não tem sangue.
 func _ao_causar_dano(alvo: Node3D, _quantidade: int) -> void:
 	if alvo == null or not is_instance_valid(alvo):
 		return
@@ -143,8 +144,10 @@ func _ao_causar_dano(alvo: Node3D, _quantidade: int) -> void:
 	var eletrico: bool = na_mao != null and na_mao.id == ID_DO_BASTAO_DE_CHOQUE
 	_soltar(alvo.global_position, &"acerto_eletrico" if eletrico else &"acerto")
 
-func _ao_cair_inimigo(perfil: PerfilInimigo, posicao: Vector3) -> void:
-	_soltar(posicao, &"inimigo_caiu", perfil.cor if perfil != null else Color.TRANSPARENT)
+## A cor é fixa, de metal, e não a do perfil do inimigo: o drone é avermelhado, e o
+## estouro dele pareceria sangue.
+func _ao_cair_inimigo(_perfil: PerfilInimigo, posicao: Vector3) -> void:
+	_soltar(posicao, &"inimigo_caiu")
 
 func _ao_mudar_nivel(novo_nivel: int) -> void:
 	if novo_nivel > _nivel_conhecido:
