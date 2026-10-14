@@ -26,6 +26,7 @@ var nome_exibido: String = "Baú"
 func _ready() -> void:
 	conteudo = ContainerDeItens.new(total_de_slots)
 	add_to_group(SaveManager.GRUPO_DOS_SALVAVEIS)
+	add_to_group(UpgradeManager.GRUPO_DOS_BAUS)
 	if e_de_venda():
 		nome_exibido = "Baú de venda"
 		# A etiqueta na frente da caixa diz qual é qual, e o de venda ganha outra cor.

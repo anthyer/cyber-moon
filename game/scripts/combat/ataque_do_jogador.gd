@@ -276,7 +276,7 @@ func _acertar_quem_esta_na_area() -> void:
 		if alvo == null or alvo == dono or _ja_atingidos.has(alvo):
 			continue
 		_ja_atingidos.append(alvo)
-		alvo.call(&"receber_dano", _arma_do_golpe.dano, dono)
+		alvo.call(&"receber_dano", UpgradeManager.dano_de(_arma_do_golpe), dono)
 		_cobrar_stamina_do_acerto()
 
 ## O golpe só gasta stamina quando acerta um oponente, e uma vez só, mesmo que pegue

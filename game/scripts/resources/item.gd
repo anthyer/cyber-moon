@@ -31,6 +31,11 @@ enum Categoria { RECURSO, SEMENTE, COLHEITA, FERRAMENTA, ARMA, ARMADURA, CONSUMI
 func pode_ser_descartado() -> bool:
 	return not item_chave and categoria != Categoria.FERRAMENTA and categoria != Categoria.ARMA
 
+## Arma e ferramenta são únicas: o jogador tem no máximo uma de cada, e é ela que sobe de
+## nível no ferreiro. A loja não vende a que ele já tem.
+func e_unico() -> bool:
+	return categoria == Categoria.FERRAMENTA or categoria == Categoria.ARMA
+
 ## Pode ir para o baú de venda. Arma pode (é como o jogador se livra de uma); ferramenta
 ## de fazenda nunca, porque ela é melhorada, e não vendida; item-chave nunca. Item sem
 ## valor também não, para não sumir do baú em troca de nada.

@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="TabelaDeAprimoramento" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/tabela_de_aprimoramento.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/resources/receita_de_aprimoramento.gd" id="2_receita"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="3_item"]
+[ext_resource type="Resource" path="res://resources/items/sucata/sucata_metal.tres" id="sucata_metal"]
+[ext_resource type="Resource" path="res://resources/items/sucata/placa_queimada.tres" id="placa_queimada"]
+[ext_resource type="Resource" path="res://resources/items/sucata/celula_energia.tres" id="celula_energia"]
+[ext_resource type="Resource" path="res://resources/items/sucata/fio_optico.tres" id="fio_optico"]
+[ext_resource type="Resource" path="res://resources/items/sucata/servomotor.tres" id="servomotor"]
+[ext_resource type="Resource" path="res://resources/items/sucata/nucleo_sintetico.tres" id="nucleo_sintetico"]
+
+[sub_resource type="Resource" id="arma_2"]
+script = ExtResource("2_receita")
+materiais = Array[ExtResource("3_item")]([ExtResource("sucata_metal"), ExtResource("placa_queimada"), ExtResource("celula_energia")])
+quantidades = Array[int]([4, 2, 2])
+creditos = 50
+creditos_por_valor_de_venda = 1.0
+
+[sub_resource type="Resource" id="arma_3"]
+script = ExtResource("2_receita")
+materiais = Array[ExtResource("3_item")]([ExtResource("fio_optico"), ExtResource("servomotor"), ExtResource("nucleo_sintetico")])
+quantidades = Array[int]([3, 2, 1])
+creditos = 150
+creditos_por_valor_de_venda = 2.5
+
+[sub_resource type="Resource" id="ferramenta_2"]
+script = ExtResource("2_receita")
+materiais = Array[ExtResource("3_item")]([ExtResource("sucata_metal"), ExtResource("placa_queimada")])
+quantidades = Array[int]([6, 3])
+creditos = 150
+
+[sub_resource type="Resource" id="ferramenta_3"]
+script = ExtResource("2_receita")
+materiais = Array[ExtResource("3_item")]([ExtResource("celula_energia"), ExtResource("fio_optico"), ExtResource("servomotor")])
+quantidades = Array[int]([4, 2, 2])
+creditos = 500
+
+[resource]
+script = ExtResource("1_script")
+receitas_de_arma = Array[ExtResource("2_receita")]([SubResource("arma_2"), SubResource("arma_3")])
+receitas_de_ferramenta = Array[ExtResource("2_receita")]([SubResource("ferramenta_2"), SubResource("ferramenta_3")])

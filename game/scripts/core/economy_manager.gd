@@ -11,6 +11,8 @@ extends Node
 signal credits_changed(saldo: int)
 ## O baú de venda foi recolhido. Não é emitido quando não havia nada nele.
 signal sale_completed(total: int, itens: int)
+## Um por tipo de item vendido. Quem guarda algo por item (o nível da arma) escuta.
+signal item_sold(item: Item)
 
 const CAMINHO_DO_INVENTARIO_INICIAL: String = "res://resources/items/inventario_inicial.tres"
 ## Comprar custa o dobro do que o item vale na venda: produzir sempre rende mais que
@@ -66,6 +68,10 @@ func preco_de_compra(item: Item) -> int:
 func comprar(item: Item, quantidade: int) -> bool:
 	if item == null or quantidade <= 0:
 		return false
+	# Arma e ferramenta são únicas: não dá para comprar a segunda.
+	if item.e_unico() and (quantidade > 1 or UpgradeManager.jogador_possui(item)):
+		ultimo_motivo_de_recusa = "Você já tem uma." if UpgradeManager.jogador_possui(item) else "Só dá para ter uma."
+		return false
 	var total: int = preco_de_compra(item) * quantidade
 	if not pode_pagar(total):
 		ultimo_motivo_de_recusa = "Créditos insuficientes."
@@ -96,6 +102,7 @@ func vender(pilhas: Array[PilhaDeItens]) -> int:
 	var unidades: int = 0
 	for pilha in pilhas:
 		unidades += pilha.quantidade
+		item_sold.emit(pilha.item)
 	total_vendido += total
 	receber(total)
 	sale_completed.emit(total, unidades)

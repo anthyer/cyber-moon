@@ -19,8 +19,12 @@ func itens_disponiveis() -> Array[Item]:
 	var lista: Array[Item] = []
 	for indice in itens.size():
 		var marco: String = marco_necessario[indice] if indice < marco_necessario.size() else ""
-		if marco == "" or GameManager.marco_esta_desbloqueado(marco):
-			lista.append(itens[indice])
+		if marco != "" and not GameManager.marco_esta_desbloqueado(marco):
+			continue
+		# Arma e ferramenta são únicas: a que o jogador já tem some da prateleira.
+		if itens[indice].e_unico() and UpgradeManager.jogador_possui(itens[indice]):
+			continue
+		lista.append(itens[indice])
 	return lista
 
 func e_folga() -> bool:

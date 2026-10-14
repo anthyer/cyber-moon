@@ -39,7 +39,7 @@ var _distancia_percorrida: float = 0.0
 ## Cria o projétil já configurado, coloca no pai e posiciona na origem.
 static func disparar(cena: PackedScene, origem: Vector3, direcao_do_tiro: Vector3, arma: Arma, dono_do_tiro: Node3D, estado_do_disparo: Dictionary, pai: Node) -> Projetil:
 	var projetil: Projetil = cena.instantiate() as Projetil
-	projetil.dano = arma.dano
+	projetil.dano = UpgradeManager.dano_de(arma)
 	projetil.velocidade = arma.velocidade_do_projetil
 	projetil.alcance = arma.alcance
 	projetil.direcao = direcao_do_tiro

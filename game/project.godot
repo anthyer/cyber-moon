@@ -35,6 +35,7 @@ DungeonManager="*res://scripts/core/dungeon_manager.gd"
 DialogueManager="*res://scripts/core/dialogue_manager.gd"
 RelationshipManager="*res://scripts/core/relationship_manager.gd"
 EconomyManager="*res://scripts/core/economy_manager.gd"
+UpgradeManager="*res://scripts/core/upgrade_manager.gd"
 
 [display]
 
