@@ -300,6 +300,15 @@ exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota
 - Login com a conta Google, pedido do Antonio para o jogo final.
 - Publicar o jogo na Web (CloudFront na frente do bucket) e a sprint 5 inteira.
 
+### 2026-10-13, plano 23 decidido
+
+As decisões do plano 23 foram fechadas com o Antonio e estão no topo do plano: três
+dungeons diferentes, jogáveis em mock; salas fixas; a seguinte abre vencendo o chefe da
+anterior; um objetivo paralelo diferente em cada uma; chefes únicos com ataques
+anunciados e duas fases; recompensa grande uma vez por dia; mais vida para os chefes em
+equipe. A arte espera o MCP do Blender, e cada dungeon ganha um documento de descrição.
+Ainda não executado.
+
 ### 2026-10-13, sem sangue
 
 **Decisão do Antonio:** o jogo não pode ter sangue, então as partículas de dano não são
