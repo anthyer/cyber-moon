@@ -42,6 +42,13 @@ async def run():
         assert (await receive(ana, "chat"))["texto"] == "oi"
         print("ok: chat chega a todos")
 
+        # O ping não tem resposta: a mensagem seguinte chega normalmente depois dele.
+        await send(ana, "ping")
+        await send(ana, "chat", texto="depois do ping")
+        assert (await receive(beto, "chat"))["texto"] == "depois do ping"
+        await receive(ana, "chat")
+        print("ok: ping não responde nem atrapalha")
+
         # Sem convite, ninguém entra numa sala, mesmo sabendo o id dela.
         async with websockets.connect(URL) as intruso:
             await send(intruso, "entrar", nome="Intruso")

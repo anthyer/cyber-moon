@@ -522,8 +522,15 @@ que o API Gateway WebSocket da AWS faz, e por isso o servidor local
 `equipe/planos/21-rede-e-chat.md`, e o endereço em `resources/rede/configuracao.tres`
 (`ConfiguracaoDeRede`). Sem servidor, o jogo funciona offline.
 
+A configuração tem dois endereços. `endereco` é o servidor local, usado no
+desenvolvimento. `endereco_na_nuvem` é o do API Gateway da AWS (plano 18), e só vale no
+jogo exportado para a Web, quando está preenchido. Assim, apontar o jogo publicado para a
+nuvem não muda nada para quem desenvolve na própria máquina.
+
 - `NetworkManager` (autoload): só a conexão e a lista de quem está online. Reconecta
-  sozinho. Entrega toda mensagem pelo sinal `message_received(tipo, dados)`.
+  sozinho. Entrega toda mensagem pelo sinal `message_received(tipo, dados)`. Depois de
+  `segundos_entre_pings` sem enviar nada, manda a ação `ping`, porque o API Gateway fecha
+  a conexão que fica 10 minutos parada.
 - `ChatManager` (autoload): o histórico do chat e o `enviar(texto)`. A tela é o `HudChat`.
 - `LobbyManager` (autoload): a equipe da dungeon (a sala do servidor), os convites, e o
   canal de mensagens da sala (`enviar_para_a_sala` e o sinal `room_message`).

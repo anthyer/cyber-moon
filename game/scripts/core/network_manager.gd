@@ -38,13 +38,14 @@ var _socket: WebSocketPeer = WebSocketPeer.new()
 var _quer_estar_conectado: bool = false
 var _socket_aberto: bool = false
 var _segundos_ate_tentar_de_novo: float = 0.0
+var _segundos_desde_o_ultimo_envio: float = 0.0
 
 func _ready() -> void:
 	# A rede continua andando com o jogo pausado: o chat e os convites não param porque o
 	# jogador abriu o inventário.
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_configuracao = load(CAMINHO_DA_CONFIGURACAO) as ConfiguracaoDeRede
-	_endereco = _configuracao.endereco
+	_endereco = _endereco_da_configuracao()
 	meu_nome = _carregar_nome()
 	for argumento in OS.get_cmdline_user_args():
 		if argumento.begins_with(ARGUMENTO_DO_NOME):
@@ -65,6 +66,7 @@ func _process(delta: float) -> void:
 				enviar("entrar", {"nome": meu_nome})
 			while _socket.get_available_packet_count() > 0:
 				_receber(_socket.get_packet().get_string_from_utf8())
+			_manter_a_conexao_viva(delta)
 		WebSocketPeer.STATE_CLOSED:
 			_ao_cair()
 			_segundos_ate_tentar_de_novo -= delta
@@ -99,14 +101,32 @@ func enviar(acao: String, campos: Dictionary = {}) -> void:
 	var mensagem: Dictionary = campos.duplicate()
 	mensagem["action"] = acao
 	_socket.send_text(JSON.stringify(mensagem))
+	_segundos_desde_o_ultimo_envio = 0.0
 
 func nome_de(id: String) -> String:
 	if id == meu_id:
 		return meu_nome
 	return online.get(id, "?")
 
+## No navegador não há servidor local nem argumento de linha de comando: vale o endereço
+## da nuvem, quando ele está preenchido.
+func _endereco_da_configuracao() -> String:
+	if OS.has_feature("web") and _configuracao.endereco_na_nuvem != "":
+		return _configuracao.endereco_na_nuvem
+	return _configuracao.endereco
+
+## Quem fica muito tempo sem enviar nada (parado na fazenda, sem falar no chat) manda um
+## ping, para o servidor não fechar a conexão por falta de uso.
+func _manter_a_conexao_viva(delta: float) -> void:
+	if _configuracao.segundos_entre_pings <= 0.0:
+		return
+	_segundos_desde_o_ultimo_envio += delta
+	if _segundos_desde_o_ultimo_envio >= _configuracao.segundos_entre_pings:
+		enviar("ping")
+
 func _abrir_socket() -> void:
 	_segundos_ate_tentar_de_novo = _configuracao.segundos_entre_tentativas
+	_segundos_desde_o_ultimo_envio = 0.0
 	_socket = WebSocketPeer.new()
 	_socket.connect_to_url(_endereco)
 

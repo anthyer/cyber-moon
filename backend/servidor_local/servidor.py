@@ -156,6 +156,10 @@ async def on_room_message(player_id, message):
             await send(member, "sala", de=player_id, dados=message.get("dados", {}))
 
 
+async def on_ping(_player_id, _message):
+    """Não faz nada. O jogo manda para a conexão não ficar parada e ser fechada na AWS."""
+
+
 # As rotas, como no API Gateway: o campo "action" da mensagem escolhe a função.
 ROUTES = {
     "entrar": on_enter,
@@ -165,6 +169,7 @@ ROUTES = {
     "sair_da_sala": on_leave_room,
     "iniciar_dungeon": on_start_dungeon,
     "sala": on_room_message,
+    "ping": on_ping,
 }
 
 
