@@ -41,3 +41,14 @@ python3 backend/servidor_local/testar_protocolo.py
 ```
 
 Sobe um servidor numa porta própria, conecta dois clientes e confere cada rota.
+
+## Testar contra a AWS (Nuvem)
+
+Para rodar o jogo conectado à infraestrutura serverless na AWS em vez do servidor local,
+veja o passo a passo em `pulumi-start-aws/README.md`. A sintaxe é a mesma, substituindo
+o endereço pela URL `wss://` exportada pelo Pulumi:
+
+```bash
+godot --path game -- --nome=Ana --servidor="<wss_url>"
+```
+

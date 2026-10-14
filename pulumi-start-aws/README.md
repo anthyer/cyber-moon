@@ -22,14 +22,43 @@ pulumi stack init anthyer-ifsc/dev
 pulumi up
 ```
 
-O comando exporta `wss_url`. Para testar o jogo contra a AWS (desktop):
+O comando exporta `wss_url`. Para pegar a URL a qualquer momento:
 
 ```bash
-godot --path game -- --nome=Ana --servidor=<wss_url>
+pulumi stack output wss_url
 ```
 
-Para o jogo exportado para a Web, preencher `endereco_na_nuvem` em
-`game/resources/rede/configuracao.tres` com o mesmo endereco.
+## Como rodar e testar a conexao no Godot
+
+Com a URL em maos (algo como `wss://...amazonaws.com/dev`), abra dois terminais na raiz do repositorio:
+
+### Jogador 1 (Ana)
+```bash
+godot --path game -- --nome=Ana --servidor="<wss_url>"
+```
+
+### Jogador 2 (Beto)
+Abra uma segunda janela em outro terminal. O parametro `--sem-save` evita que ambos gravem no mesmo save local:
+```bash
+godot --path game -- --nome=Beto --sem-save --servidor="<wss_url>"
+```
+
+*(Caso use o Godot instalado via Flatpak, troque `godot` por `flatpak run org.godotengine.Godot` ou `/var/lib/flatpak/exports/bin/org.godotengine.Godot`)*.
+
+### Como testar dentro do jogo
+1. **Chat global:**
+   - Pressione **Enter** ou **T** para abrir o chat.
+   - Digite uma mensagem e aperte **Enter** para enviar. A mensagem aparece nas duas telas em menos de 300 ms.
+   - Pressione **Esc** para fechar o chat sem enviar. Enquanto o chat esta aberto, as teclas de movimento (WASD) ficam travadas para nao movimentar o personagem.
+2. **Lobby e Dungeon Coop:**
+   - Va com um dos jogadores ate o portal em frente a casa da fazenda e aperte **E** para interagir.
+   - Na tela do lobby, o outro jogador aparecera na lista de online.
+   - Clique em **Convidar**. O outro jogador recebera o convite na tela.
+   - Apos aceitar, ambos estarao na mesma sala e o anfitriao pode clicar em **Iniciar Dungeon**.
+   - As posicoes e golpes dentro da dungeon sao repassados em tempo real pela rota `sala` do API Gateway.
+
+### Configuracao alternativa (fixar no arquivo)
+Se preferir nao digitar `--servidor` toda vez, edite `game/resources/rede/configuracao.tres` no editor do Godot ou em texto e preencha o campo `endereco` ou `endereco_na_nuvem` com o `wss_url`.
 
 ## Chaves de configuracao (sprint 4)
 
