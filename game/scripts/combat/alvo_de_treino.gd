@@ -24,6 +24,7 @@ const SEGUNDOS_DO_TRANCO: float = 0.12
 func receber_dano(quantidade: int, _origem: Node3D) -> void:
 	dano_total += quantidade
 	atingido.emit(quantidade)
+	EventBus.damage_dealt.emit(self, quantidade)
 	_dar_tranco()
 	_mostrar_numero(quantidade)
 

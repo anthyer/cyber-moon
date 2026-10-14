@@ -1,6 +1,7 @@
 extends Node
 
-signal crop_harvested(cultivo: Cultivo, quantidade: int)
+## A célula entrou no fim para o efeito de colheita saber onde aparecer.
+signal crop_harvested(cultivo: Cultivo, quantidade: int, celula: Vector2i)
 signal city_expansion_blocked(id_do_marco: String)
 signal npc_relationship_changed(id_do_npc: String, novo_valor: int)
 signal tile_plowed(celula: Vector2i)
@@ -31,3 +32,8 @@ signal shop_requested(perfil: PerfilNpc)
 signal chest_requested(bau: Bau)
 ## Um jogo salvo acabou de ser carregado. Quem mostra estado na tela se atualiza aqui.
 signal game_loaded
+## Momentos que só existem para quem mostra algo na tela (o EfeitosDoJogo): onde um
+## projétil bateu, onde o jogador começou um dash, e o que ele comeu.
+signal projectile_impacted(posicao: Vector3)
+signal player_dashed(posicao: Vector3)
+signal item_consumed(consumivel: Consumivel)

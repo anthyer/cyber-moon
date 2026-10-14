@@ -127,7 +127,7 @@ func colher(celula: Vector2i) -> bool:
 	var cultivo: Cultivo = planta.cultivo
 	var quantidade: int = randi_range(cultivo.quantidade_colhida_minima, cultivo.quantidade_colhida_maxima)
 	if cultivo.item_colhido != null:
-		ItemNoMundo.soltar(cultivo.item_colhido, quantidade, _centro_da_celula_no_mundo(celula), get_parent())
+		ItemNoMundo.soltar(cultivo.item_colhido, quantidade, centro_da_celula_no_mundo(celula), get_parent())
 
 	if cultivo.estagio_de_rebrota > 0:
 		planta.estagio = cultivo.estagio_de_rebrota
@@ -135,7 +135,7 @@ func colher(celula: Vector2i) -> bool:
 		_atualizar_visual_da_planta(planta)
 	else:
 		_tirar_planta(celula)
-	EventBus.crop_harvested.emit(cultivo, quantidade)
+	EventBus.crop_harvested.emit(cultivo, quantidade, celula)
 	return true
 
 ## A estação virou: toda planta viva cuja cultura não serve para a estação nova murcha,
@@ -260,7 +260,8 @@ func _atualizar_variante(celula: Vector2i) -> void:
 		push_error("GradeSolo: item de MeshLibrary nao encontrado: %s" % nome_item)
 	set_cell_item(Vector3i(celula.x, 0, celula.y), indice_item)
 
-func _centro_da_celula_no_mundo(celula: Vector2i) -> Vector3:
+## Onde fica o meio da célula no mundo. Serve também a quem mostra efeito na célula.
+func centro_da_celula_no_mundo(celula: Vector2i) -> Vector3:
 	return to_global(map_to_local(Vector3i(celula.x, 0, celula.y)))
 
 ## Monta as fileiras de sprites da planta na célula. Os sprites não usam billboard: ficam

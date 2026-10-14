@@ -142,6 +142,7 @@ func _physics_process(delta: float) -> void:
 		_tempo_ataque_restante = 0.0
 		_tempo_movimento_travado_ataque_restante = 0.0
 		_tempo_dash_restante = duracao_dash
+		EventBus.player_dashed.emit(global_position)
 		_tempo_cooldown_restante = cooldown_dash + duracao_dash
 		_indice_combo = 0
 		_tempo_janela_combo_restante = 0.0

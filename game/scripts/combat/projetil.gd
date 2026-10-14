@@ -99,6 +99,7 @@ func _ao_acertar(corpo: Node3D) -> void:
 			# Com pouca stamina o tiro ainda acerta, e cobra só o que o jogador tem.
 			disparo[&"stamina_cobrada"] = true
 			StatusManager.gastar_stamina(minf(custo_de_stamina, StatusManager.stamina_atual))
+	EventBus.projectile_impacted.emit(global_position)
 	queue_free()
 
 func _eh_do_dono(no: Node) -> bool:

@@ -127,6 +127,7 @@ func consumir(consumivel: Consumivel) -> bool:
 		return false
 	curar(consumivel.recupera_vida)
 	recuperar_stamina(consumivel.recupera_stamina)
+	EventBus.item_consumed.emit(consumivel)
 	return true
 
 ## Subir de nível aumenta os dois máximos, e o jogador ganha na hora os pontos que o

@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/effects/efeito_de_particulas.gd" id="1_script"]
+
+[sub_resource type="StandardMaterial3D" id="Material_particula"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="Malha_particula"]
+material = SubResource("Material_particula")
+size = Vector3(0.06, 0.14, 0.06)
+
+[sub_resource type="Curve" id="Curva_de_tamanho"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Jorro" type="CPUParticles3D"]
+emitting = false
+amount = 14
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.6
+mesh = SubResource("Malha_particula")
+emission_shape = 3
+emission_box_extents = Vector3(0.3, 0.05, 0.3)
+direction = Vector3(0, -1, 0)
+spread = 12.0
+gravity = Vector3(0, -9, 0)
+initial_velocity_min = 0.6
+initial_velocity_max = 1.4
+scale_amount_min = 0.7
+scale_amount_max = 1.2
+scale_amount_curve = SubResource("Curva_de_tamanho")
+script = ExtResource("1_script")

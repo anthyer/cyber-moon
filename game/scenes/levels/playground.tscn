@@ -96,6 +96,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/tela_de_loja.tscn" id="124_tela_loja"]
 [ext_resource type="PackedScene" path="res://scenes/ui/resumo_de_vendas.tscn" id="125_resumo"]
 [ext_resource type="PackedScene" path="res://scenes/items/bau.tscn" id="126_bau"]
+[ext_resource type="Script" path="res://scripts/effects/efeitos_do_jogo.gd" id="127_efeitos"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -1419,3 +1420,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1, 0, 5.6)
 [node name="BauDeVenda" parent="." instance=ExtResource("126_bau")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 5.5)
 funcao = 1
+
+[node name="EfeitosDoJogo" type="Node" parent="."]
+script = ExtResource("127_efeitos")
