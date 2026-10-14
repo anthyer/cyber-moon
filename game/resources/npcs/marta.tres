@@ -14,26 +14,26 @@
 [ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="11_gmms2"]
 [ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="12_3v5ka"]
 
-[sub_resource type="Resource" id="Resource_kmvwp"]
+[sub_resource type="Resource" id="Resource_nyb0j"]
 script = ExtResource("11_gmms2")
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"mercado"
 
-[sub_resource type="Resource" id="Resource_16oio"]
+[sub_resource type="Resource" id="Resource_kmvwp"]
 script = ExtResource("11_gmms2")
 hora_inicial = 12.0
 hora_final = 13.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"praca"
 
-[sub_resource type="Resource" id="Resource_awhjv"]
+[sub_resource type="Resource" id="Resource_16oio"]
 script = ExtResource("11_gmms2")
 hora_inicial = 13.0
 hora_final = 18.0
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"mercado"
 
-[sub_resource type="Resource" id="Resource_kuhae"]
+[sub_resource type="Resource" id="Resource_awhjv"]
 script = ExtResource("11_gmms2")
 hora_inicial = 18.0
 hora_final = 20.0
@@ -52,4 +52,4 @@ itens_indesejados = Array[ExtResource("1_rwt0h")]([ExtResource("4_16oio")])
 itens_odiados = Array[ExtResource("1_rwt0h")]([ExtResource("5_awhjv")])
 modelo = ExtResource("10_r4jso")
 casa = &"casa_marta"
-rotina = Array[ExtResource("11_gmms2")]([SubResource("Resource_kmvwp"), SubResource("Resource_16oio"), SubResource("Resource_awhjv"), SubResource("Resource_kuhae")])
+rotina = Array[ExtResource("11_gmms2")]([SubResource("Resource_nyb0j"), SubResource("Resource_kmvwp"), SubResource("Resource_16oio"), SubResource("Resource_awhjv")])

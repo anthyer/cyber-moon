@@ -43,13 +43,16 @@ const EFEITOS: Dictionary = {
 	&"coracao": [SUBIDA, Color(1.0, 0.45, 0.75), 12, 0.9],
 	&"namoro": [SUBIDA, Color(1.0, 0.45, 0.75), 28, 0.9],
 	&"marco": [SUBIDA, Color(0.3, 0.95, 1.0), 26, 0.3],
+	# Saque e aprimoramento (plano 24)
+	&"saque_raro": [SUBIDA, Color(1.0, 0.75, 0.2), 14, 0.2],
+	&"aprimorar": [ESTOURO, Color(1.0, 0.7, 0.25), 24, 0.5],
 }
 
 const ID_DO_BASTAO_DE_CHOQUE: StringName = &"bastao_choque"
 ## O teto de efeitos novos por quadro. Na virada do dia dezenas de plantas crescem e todo
 ## o solo seca ou molha de uma vez; sem teto, seriam centenas de emissores no mesmo
 ## quadro. O que passar do teto simplesmente não aparece.
-const MAXIMO_POR_QUADRO: int = 8
+const MAXIMO_POR_QUADRO: int = 10
 ## Efeito mais longe que isto do jogador não é solto: não seria visto.
 const DISTANCIA_MAXIMA: float = 22.0
 
@@ -61,6 +64,7 @@ var _soltos_neste_quadro: int = 0
 ## Para o estouro de subir de nível só aparecer quando o nível sobe, e não ao carregar um
 ## jogo salvo, que também emite level_changed.
 var _nivel_conhecido: int = 1
+var _aprimoramentos_a_mostrar: int = 0
 
 func _ready() -> void:
 	_nivel_conhecido = StatusManager.nivel
@@ -88,9 +92,17 @@ func _ready() -> void:
 	RelationshipManager.dating_started.connect(_no_npc.bind(&"namoro"))
 	EventBus.city_expansion_blocked.connect(func(_marco: String) -> void: _no_jogador(&"marco"))
 	EventBus.game_loaded.connect(func() -> void: _nivel_conhecido = StatusManager.nivel)
+	# Saque e aprimoramento.
+	EventBus.rare_loot_dropped.connect(func(posicao: Vector3, cor: Color) -> void: _soltar(posicao, &"saque_raro", cor))
+	UpgradeManager.item_upgraded.connect(func(_item: Item, _nivel: int) -> void: _aprimoramentos_a_mostrar += 1)
 
+## Este nó para junto com o jogo. O aprimoramento acontece na tela do ferreiro, que pausa
+## o jogo, então as faíscas esperam aqui e saem quando a tela fecha.
 func _process(_delta: float) -> void:
 	_soltos_neste_quadro = 0
+	if _aprimoramentos_a_mostrar > 0:
+		_aprimoramentos_a_mostrar = 0
+		_no_jogador(&"aprimorar")
 
 ## Solta o efeito de uma ação num ponto do mundo. A cor pode ser trocada por quem chama,
 ## quando ela depende de algo do jogo (a cor do inimigo, a da estação).

@@ -165,7 +165,10 @@ func _ao_terminar_dialogo(npc_id: String) -> void:
 	if npc_id != perfil.id or not DialogueManager.e_conversa_do_dia:
 		return
 	if perfil.catalogo.esta_aberta():
-		EventBus.shop_requested.emit(perfil)
+		if perfil.eh_ferreiro:
+			EventBus.services_requested.emit(perfil)
+		else:
+			EventBus.shop_requested.emit(perfil)
 	elif perfil.catalogo.e_folga():
 		DialogueManager.mostrar_fala_de_evento(self, &"loja_fechada_folga")
 	else:

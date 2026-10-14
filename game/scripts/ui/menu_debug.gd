@@ -136,6 +136,12 @@ func _montar_secoes() -> void:
 	_novo_botao("Criar sentinela perto", _criar_inimigo.bind(PERFIL_DA_SENTINELA))
 	_novo_botao("Matar todos os inimigos", _matar_todos_os_inimigos)
 
+	_novo_titulo_de_secao("Aprimoramento")
+	_novo_botao("+10 de cada sucata", _dar_sucatas)
+	_novo_botao("Subir um nível de tudo que tenho", _subir_um_nivel_de_tudo)
+	_novo_botao("Voltar tudo ao nível 1", func() -> void: UpgradeManager.niveis.clear())
+	_novo_botao("Abrir a bancada do Vitor", func() -> void: EventBus.forge_requested.emit(RelationshipManager.perfil_de("vitor")))
+
 	_novo_titulo_de_secao("Save")
 	_novo_botao("Salvar agora", func() -> void: SaveManager.salvar_jogo())
 	_novo_botao("Carregar agora", func() -> void: SaveManager.carregar_jogo())
@@ -236,6 +242,19 @@ func _pular_para_a_proxima_estacao() -> void:
 ## Pelo mesmo pedido que o quadro de calendário faz, para testar a tela de longe dele.
 func _abrir_o_calendario() -> void:
 	EventBus.calendar_requested.emit()
+
+# Aprimoramento
+
+func _dar_sucatas() -> void:
+	for nome in SUCATAS:
+		_dar_item("res://resources/items/sucata/%s.tres" % nome, 10)
+
+## Sobe o nível sem cobrar material nem crédito, para testar o efeito de cada nível.
+func _subir_um_nivel_de_tudo() -> void:
+	for item in UpgradeManager.itens_aprimoraveis_do_jogador():
+		var novo: int = mini(UpgradeManager.nivel_de(item) + 1, UpgradeManager.NIVEL_MAXIMO)
+		UpgradeManager.niveis[item.id] = novo
+		UpgradeManager.item_upgraded.emit(item, novo)
 
 # Economia
 

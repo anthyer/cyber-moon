@@ -37,3 +37,7 @@ signal game_loaded
 signal projectile_impacted(posicao: Vector3)
 signal player_dashed(posicao: Vector3)
 signal item_consumed(consumivel: Consumivel)
+signal rare_loot_dropped(posicao: Vector3, cor: Color)
+## O comerciante que também é ferreiro oferece os dois serviços; a escolha pede um deles.
+signal services_requested(perfil: PerfilNpc)
+signal forge_requested(perfil: PerfilNpc)

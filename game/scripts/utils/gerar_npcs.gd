@@ -118,6 +118,9 @@ const CATALOGOS: Dictionary = {
 	],
 }
 
+## Quem, além de vender, aprimora armas e ferramentas.
+const FERREIROS: Array[String] = ["vitor"]
+
 var _itens_por_id: Dictionary = {}
 
 func _ready() -> void:
@@ -141,6 +144,7 @@ func _ready() -> void:
 		perfil.itens_odiados.assign(_itens(gostos[3]))
 		if CATALOGOS.has(perfil.id):
 			perfil.catalogo = _novo_catalogo(perfil.id)
+		perfil.eh_ferreiro = FERREIROS.has(perfil.id)
 		var caminho: String = PASTA_DOS_NPCS + perfil.id + ".tres"
 		var erro: Error = ResourceSaver.save(perfil, caminho)
 		print("%s: %d compromissos (erro %d)" % [caminho, perfil.rotina.size(), erro])

@@ -97,6 +97,8 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/resumo_de_vendas.tscn" id="125_resumo"]
 [ext_resource type="PackedScene" path="res://scenes/items/bau.tscn" id="126_bau"]
 [ext_resource type="Script" path="res://scripts/effects/efeitos_do_jogo.gd" id="127_efeitos"]
+[ext_resource type="PackedScene" path="res://scenes/ui/menu_de_servicos.tscn" id="128_servicos"]
+[ext_resource type="PackedScene" path="res://scenes/ui/tela_de_aprimoramento.tscn" id="129_aprimoramento"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_chao"]
 
@@ -190,6 +192,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, 0.5, 5.5)
 [node name="TelaDeBau" parent="InterfaceHUD" instance=ExtResource("123_tela_bau")]
 
 [node name="TelaDeLoja" parent="InterfaceHUD" instance=ExtResource("124_tela_loja")]
+
+[node name="MenuDeServicos" parent="InterfaceHUD" instance=ExtResource("128_servicos")]
+
+[node name="TelaDeAprimoramento" parent="InterfaceHUD" instance=ExtResource("129_aprimoramento")]
 
 [node name="ResumoDeVendas" parent="InterfaceHUD" instance=ExtResource("125_resumo")]
 

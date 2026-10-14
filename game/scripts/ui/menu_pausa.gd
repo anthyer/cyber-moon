@@ -268,6 +268,10 @@ func _mostrar_descricao(slot: SlotInventario) -> void:
 	var pilha: PilhaDeItens = slot.pilha_mostrada()
 	if pilha != null and not pilha.esta_vazia():
 		nome_do_item.text = pilha.item.nome
+		# Arma e ferramenta mostram o nível e o que ele dá.
+		if UpgradeManager.pode_ser_aprimorado(pilha.item):
+			var nivel: int = UpgradeManager.nivel_de(pilha.item)
+			nome_do_item.text = "%s (nível %d, %s)" % [pilha.item.nome, nivel, UpgradeManager.descricao_do_nivel(pilha.item, nivel).to_lower()]
 		descricao_do_item.text = pilha.item.descricao
 		return
 	if slot.eh_espaco_de_equipamento():

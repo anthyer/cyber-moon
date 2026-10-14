@@ -13,13 +13,13 @@
 [ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="10_vpaj2"]
 [ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="11_eomiu"]
 
-[sub_resource type="Resource" id="Resource_40sxp"]
+[sub_resource type="Resource" id="Resource_wkb6f"]
 script = ExtResource("10_vpaj2")
 dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"oficina"
 animacao_parado = &"interact-left"
 
-[sub_resource type="Resource" id="Resource_pcc01"]
+[sub_resource type="Resource" id="Resource_40sxp"]
 script = ExtResource("10_vpaj2")
 hora_inicial = 12.0
 hora_final = 13.0
@@ -27,7 +27,7 @@ dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"praca"
 animacao_parado = &"sit"
 
-[sub_resource type="Resource" id="Resource_ka2rj"]
+[sub_resource type="Resource" id="Resource_pcc01"]
 script = ExtResource("10_vpaj2")
 hora_inicial = 13.0
 hora_final = 18.0
@@ -35,7 +35,7 @@ dias_da_semana = Array[int]([0, 1, 2, 3, 4])
 destino = &"oficina"
 animacao_parado = &"interact-left"
 
-[sub_resource type="Resource" id="Resource_88udr"]
+[sub_resource type="Resource" id="Resource_ka2rj"]
 script = ExtResource("10_vpaj2")
 hora_inicial = 18.0
 hora_final = 22.0
@@ -48,10 +48,11 @@ nome_exibido = "Vitor Alencar"
 estacao_do_aniversario = &"estiagem"
 dia_do_aniversario = 12
 catalogo = ExtResource("1_wkb6f")
+eh_ferreiro = true
 itens_amados = Array[ExtResource("1_ulde4")]([ExtResource("2_wkb6f"), ExtResource("3_40sxp")])
 itens_queridos = Array[ExtResource("1_ulde4")]([ExtResource("6_88udr"), ExtResource("7_vefap"), ExtResource("8_ijeod")])
 itens_indesejados = Array[ExtResource("1_ulde4")]([ExtResource("4_pcc01")])
 itens_odiados = Array[ExtResource("1_ulde4")]([ExtResource("5_ka2rj")])
 modelo = ExtResource("9_drbp7")
 casa = &"casa_vitor"
-rotina = Array[ExtResource("10_vpaj2")]([SubResource("Resource_40sxp"), SubResource("Resource_pcc01"), SubResource("Resource_ka2rj"), SubResource("Resource_88udr")])
+rotina = Array[ExtResource("10_vpaj2")]([SubResource("Resource_wkb6f"), SubResource("Resource_40sxp"), SubResource("Resource_pcc01"), SubResource("Resource_ka2rj")])

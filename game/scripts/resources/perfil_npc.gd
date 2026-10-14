@@ -16,6 +16,9 @@ extends Resource
 
 ## O que ele vende. Vazio para quem não é comerciante.
 @export var catalogo: CatalogoDeLoja
+## O comerciante que também aprimora armas e ferramentas. Depois da conversa ele oferece
+## a loja ou a bancada.
+@export var eh_ferreiro: bool = false
 
 @export_group("Gostos")
 ## O que ele pensa de cada presente. Item fora das quatro listas é neutro. Cada gosto diz
