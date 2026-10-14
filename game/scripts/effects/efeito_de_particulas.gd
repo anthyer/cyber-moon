@@ -19,6 +19,10 @@ static func soltar(cena: PackedScene, posicao: Vector3, cor: Color, quantidade: 
 	var efeito: EfeitoDeParticulas = cena.instantiate() as EfeitoDeParticulas
 	efeito.color = cor
 	efeito.amount = quantidade
+	# A posição entra antes de o efeito ir para a árvore. Ele começa a emitir no _ready, e
+	# as partículas ficam onde nascem: posicionando depois, a maior parte nasceria na
+	# origem do pai, longe da ação.
+	var pai_3d: Node3D = pai as Node3D
+	efeito.position = pai_3d.to_local(posicao) if pai_3d != null else posicao
 	pai.add_child(efeito)
-	efeito.global_position = posicao
 	return efeito
