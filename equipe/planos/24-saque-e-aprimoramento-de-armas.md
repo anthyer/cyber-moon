@@ -6,8 +6,64 @@ esses materiais servem para aprimorar as armas com um NPC ferreiro, numa tela pr
 **Depende de:** 09 (inimigos e saque), 08 (armas), 15 (o ferreiro é um NPC com quem se
 conversa), 17 (créditos, se o aprimoramento também custar dinheiro).
 
-**Situação:** decidido e pronto para executar. Pedido do Antonio em 2026-10-07; decisões
+**Situação:** feito em 2026-10-13. Pedido do Antonio em 2026-10-07; decisões
 fechadas em 2026-10-13.
+
+## Revisão de 2026-10-13 (vale sobre o resto do plano)
+
+**Situação:** feito. Os números (receitas, chances de saque, tempo de carga) são proposta
+para ajustar jogando. Conferido por teste automático:
+
+- 200 sentinelas soltaram material nas três faixas, perto das chances do perfil, com o
+  brilho de aviso nos incomuns e raros.
+- O bastão de choque vai de dano 20 a 25 e a 30. Sem material o aprimoramento é recusado;
+  com material ele consome a sucata e os créditos. No nível 3 não há mais receita.
+- Com o bastão no inventário, o Vitor não o vende e comprar de novo é recusado ("Você já
+  tem uma."). Vendido pelo baú de venda, o nível volta a 1 e o Vitor volta a vender.
+- A enxada no nível 1 ara um quadrado no toque. No nível 3: um quadrado no toque, 3 em
+  linha segurando 0,6 s e 3 por 3 segurando 1,2 s, com a marcação no chão acompanhando. Os
+  9 quadrados custaram 10 de stamina, contra 18 feitos um por um.
+- O menu de serviços e a bancada do Vitor abrem e pausam o jogo. A bancada e a marcação
+  de 3 por 3 foram conferidas por captura.
+
+**Números propostos:**
+
+| | Materiais | Créditos |
+|---|---|---|
+| Arma, nível 2 | 4 sucata de metal, 2 placa queimada, 2 célula de energia | 50 mais o valor de venda da arma |
+| Arma, nível 3 | 3 fio óptico, 2 servomotor, 1 núcleo sintético | 150 mais 2,5 vezes o valor de venda |
+| Ferramenta, nível 2 | 6 sucata de metal, 3 placa queimada | 150 |
+| Ferramenta, nível 3 | 4 célula de energia, 2 fio óptico, 2 servomotor | 500 |
+
+| Inimigo | Comum | Incomum | Raro | Nada |
+|---|---|---|---|---|
+| Drone | 60% | | | 40% |
+| Ciborgue | 45% | 25% | | 30% |
+| Sentinela | 20% | 50% | 20% | 10% |
+
+Dano por nível: 1, 1,25 e 1,5 vezes. Stamina por etapa de área: 1, 2 e 5 vezes o custo de
+um quadrado. Tempo por etapa ao segurar: 0,45 s. Tudo em
+`game/resources/combat/aprimoramento.tres`, e as chances em cada perfil de inimigo.
+
+**Ajustes ao plano:**
+
+- **O nível fica no `UpgradeManager`, por id do item,** e não em cada pilha do inventário.
+  Só é possível porque arma e ferramenta são únicas.
+- **`Item.e_unico()`** diz o que é único (arma e ferramenta). A loja esconde o que o
+  jogador já tem, no inventário ou em baú, e a compra é recusada.
+- **A ferramenta no nível 1 age ao apertar, como antes.** A aprimorada age ao soltar, para
+  dar tempo de segurar.
+- **Carregando a ferramenta, o personagem fica parado.**
+- **A área nunca custa mais stamina** do que os quadrados em que ela teve efeito custariam
+  sozinhos.
+- **O Vitor oferece a escolha** num menu pequeno depois da conversa: Loja, Aprimorar ou
+  Sair.
+- **Os cestos também são aprimoráveis,** porque são uma arma.
+- **As faíscas do aprimoramento saem quando a bancada fecha,** porque a tela pausa o jogo.
+- **Menu de debug:** seção Aprimoramento, com sucata, subir e zerar níveis e abrir a
+  bancada.
+- **Não feito:** a arma aprimorada não vale mais na venda. O saque dos chefes e subchefes
+  depende do plano 23.
 
 ## Decisões fechadas com o Antonio (2026-10-13)
 
@@ -128,12 +184,12 @@ no ferreiro (faíscas).
 
 ## Tarefas (rascunho, a fechar depois das decisões)
 
-- [ ] **1.** Tabela de saque no `PerfilInimigo`, com faixas de raridade.
-- [ ] **2.** Onde mora o nível da arma, e o inventário e o combate lendo dele.
-- [ ] **3.** As receitas de aprimoramento como `Resource`.
-- [ ] **4.** O ferreiro e a tela de aprimorar.
-- [ ] **5.** Partículas do saque raro e do aprimoramento.
-- [ ] **6.** Documentar e commitar.
+- [x] **1.** Tabela de saque no `PerfilInimigo`, com faixas de raridade.
+- [x] **2.** Onde mora o nível da arma, e o inventário e o combate lendo dele.
+- [x] **3.** As receitas de aprimoramento como `Resource`.
+- [x] **4.** O ferreiro e a tela de aprimorar.
+- [x] **5.** Partículas do saque raro e do aprimoramento.
+- [x] **6.** Documentar e commitar.
 
 ## Fora de escopo
 

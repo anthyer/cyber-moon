@@ -12,6 +12,10 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Estação | Season / `SeasonManager`, sinal `season_changed` |
 | Perfil de estação | Season profile / `PerfilEstacao` (classe Resource) |
 | Brotação, Estiagem, Colheita, Apagão | ids `brotacao`, `estiagem`, `colheita`, `apagao` (primavera, verão, outono, inverno) |
+| Saque, faixa de material | Loot / `FaixasDeMaterial`, `PerfilInimigo.chance_de_material_*` |
+| Aprimorar, nível | Upgrade / `UpgradeManager`, `ReceitaDeAprimoramento`, `TabelaDeAprimoramento` |
+| Ferreiro, bancada | Blacksmith / `PerfilNpc.eh_ferreiro`, `MenuDeServicos`, `TelaDeAprimoramento` |
+| Item único | Unique item / `Item.e_unico()` |
 | Salvar, carregar | Save, load / `SaveManager`, `exportar_estado()` e `importar_estado()`, grupo `salvaveis`, sinal `game_loaded` |
 | Catálogo de itens | Item catalog / `CatalogoDeItens.por_id()` |
 | Crédito, economia | Credits / `EconomyManager`, sinais `credits_changed` e `sale_completed` |

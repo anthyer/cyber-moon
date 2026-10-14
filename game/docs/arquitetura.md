@@ -7,6 +7,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 - `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada`, `item_picked_up(item, quantidade)` (o jogador pegou um item do chão), `crop_planted(celula, cultivo)`, `crop_grown(celula, novo_estagio)`, `crop_withered(celula)`, `crop_removed(celula)`, `damage_dealt(alvo, quantidade)` e `enemy_defeated(perfil, posicao)`.
 - `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): o relógio do jogo. A hora anda sozinha das 6:00 à 1:00 do dia seguinte (5 minutos reais de dia, das 6:00 às 18:00, e 5 de noite, das 18:00 à 1:00), e passa de 24 em vez de voltar a zero (24.5 é 0:30). Sinais: `day_started`, `day_ended`, `hour_changed` (a cada minuto de jogo), `period_changed` e `player_slept(forcado)`. Métodos: `avancar_para_o_proximo_dia()`, `dormir(forcado)`, `periodo_atual()`, `hora_formatada()`, `fracao_do_dia()`. Para com o menu de pausa (pausa junto com a árvore) e com `tempo_congelado`.
 - `WeatherManager` (`scripts/core/weather_manager.gd`): o clima do dia (`sol`, `chuva` ou `tempestade`), sorteado no `day_started` com a `chance_de_chuva` da estação; a tempestade é um quinto dela. Não muda no meio do dia. Sinal `weather_changed(clima)`, emitido todo dia. `clima_atual`, `clima_de_amanha`, `esta_chovendo()`, `perfil_atual()`, `definir_clima(clima)`.
+- `UpgradeManager` (`scripts/core/upgrade_manager.gd`): o nível das armas e ferramentas. `nivel_de(item)`, `aprimorar(item)`, `dano_de(arma)`, `etapa_maxima_de_area(ferramenta)`. Veja "Saque e aprimoramento".
 - `EconomyManager` (`scripts/core/economy_manager.gd`): os créditos. `creditos`, `comprar(item, quantidade)`, `vender(pilhas)`, `preco_de_compra(item)`. Veja "Economia".
 - `RelationshipManager` (`scripts/core/relationship_manager.gd`): a amizade com cada NPC. `coracoes(npc_id)`, `pontos_de(npc_id)`, `presentear(npc_id, item)`, `pode_presentear(npc_id)`, `pedir_em_namoro(npc_id)`. Veja "Amizade e romance".
 - `DialogueManager` (`scripts/core/dialogue_manager.gd`): conduz a conversa com um NPC. `iniciar(npc)`, `avancar()`, `encerrar()`, `fala_do_dia(npc_id)`, `em_dialogo`. Veja "Diálogo".
@@ -407,6 +408,31 @@ As conversas saem de `scripts/utils/gerar_dialogos.gd`, que transcreve
 `equipe/biblioteca-de-dialogos.md` e recusa condição que o jogo não conhece. Para mudar
 uma fala, edite a biblioteca e rode o gerador.
 
+## Saque e aprimoramento
+
+**Saque.** Cada `PerfilInimigo` tem a chance de soltar um material de cada faixa (comum,
+incomum, raro). Um sorteio só decide a faixa, e o item sai da lista dela em
+`resources/combat/faixas_de_material.tres` (`FaixasDeMaterial`). Inimigo mais forte tem
+mais chance nas faixas de cima.
+
+**Único.** Arma e ferramenta são únicas (`Item.e_unico()`): o jogador tem no máximo uma de
+cada. A loja esconde a que ele já tem e recusa a segunda.
+
+**Níveis.** O `UpgradeManager` (autoload) guarda o nível de cada arma e ferramenta, pelo
+id do item, de 1 a 3. Subir custa uma `ReceitaDeAprimoramento` (materiais e créditos), da
+`TabelaDeAprimoramento` em `resources/combat/aprimoramento.tres`. Na arma, o nível
+multiplica o dano (`UpgradeManager.dano_de(arma)`, usado no golpe e no projétil). Vender a
+arma apaga o nível dela.
+
+**Ferramenta com área.** O nível da ferramenta é o máximo de área que ela alcança: um
+quadrado, três em linha, três por três. No nível 1 ela age ao apertar. Aprimorada, age ao
+soltar: um toque faz um quadrado, e segurar faz a marcação crescer em etapas até o máximo
+do nível (`player.gd`, `_celulas_da_area` e `_usar_ferramenta_na_area`). A área maior
+custa menos stamina por quadrado.
+
+**Ferreiro.** O comerciante com `PerfilNpc.eh_ferreiro` (o Vitor) oferece, depois da
+conversa, o `MenuDeServicos`: a loja ou a bancada (`TelaDeAprimoramento`).
+
 ## Save
 
 O `SaveManager` grava o jogo inteiro num JSON em `user://save_game.json`, com uma chave
@@ -614,7 +640,7 @@ novo substitui o anterior em vez de empilhar.
 
 O menu de debug (`scenes/ui/menu_debug.tscn`, script `MenuDebug`, no `InterfaceHUD` do
 playground) abre e fecha com F3 e serve para testar os sistemas sem esperar o jogo:
-trocar a hora, avançar o dia, pular para a próxima estação, abrir o calendário, trocar o clima, cair um raio, abrir o lobby, entrar e sair da dungeon, dar corações e itens de presente, dar créditos e abrir as lojas, salvar, carregar e apagar o save, congelar o relógio, encher vida e stamina, tomar dano,
+trocar a hora, avançar o dia, pular para a próxima estação, abrir o calendário, trocar o clima, cair um raio, abrir o lobby, entrar e sair da dungeon, dar corações e itens de presente, dar créditos e abrir as lojas, salvar, carregar e apagar o save, dar sucata e subir níveis, congelar o relógio, encher vida e stamina, tomar dano,
 ganhar experiência, ficar invencível, teleportar, molhar o solo e amadurecer as plantas,
 ganhar sementes, pães e armas, ganhar qualquer item por um submenu de ícones, soltar sucata, criar e matar inimigos, mostrar os quadros
 por segundo e ligar e desligar a sombra do sol. Ele não pausa o jogo e os botões não

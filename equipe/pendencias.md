@@ -270,6 +270,24 @@ pesado demais, aceitando que as sombras do cenário não acompanham o sol.
 
 **Menu de debug (F3)** criado para testar os recursos. Ação de teste nova entra nele.
 
+### 2026-10-13, plano 24
+
+**Feito.** Decisões, números propostos e ajustes no topo do plano.
+
+**Precisa do Antonio:**
+
+- Jogar e ajustar os números: as receitas e os tempos em
+  `game/resources/combat/aprimoramento.tres`, e as chances de saque em cada perfil de
+  `game/resources/combat/inimigos/`.
+- Sentir o segurar da ferramenta: 0,45 s por etapa pode ser lento ou rápido demais.
+
+**Fica para depois:**
+
+- A arma aprimorada vende pelo mesmo preço da comum, e vender perde o nível.
+- O saque raro dos chefes e subchefes entra com o plano 23.
+- O menu de debug "Todas as armas" não dá a que o jogador já tem.
+- O fantoche do outro jogador na dungeon não mostra o nível da arma.
+
 ### 2026-10-13, plano 24 decidido
 
 As decisões do plano 24 foram fechadas com o Antonio e estão no topo do plano: o Vitor é

@@ -28,7 +28,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 22 Dungeon em coop (depois do 21)
 - [ ] 23 Conteúdo da dungeon: salas, chefes e objetivo (só documentado)
 - [x] 25 Revisão das personas e dos diálogos (proposta entregue; falta a leitura do Antonio)
-- [ ] 24 Saque por força do inimigo e aprimoramento de armas e ferramentas no ferreiro (decidido em 2026-10-13; pronto para executar)
+- [x] 24 Saque por força do inimigo e aprimoramento de armas e ferramentas no ferreiro
 - [x] 20 Salvar o jogo (depois dos planos de sistema; obrigatório antes de qualquer entrega jogável)
 - [x] 19 Partículas no que já existe (depois de todos os planos acima; feature nova, escrita depois deste plano, já nasce com partículas)
 - [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
