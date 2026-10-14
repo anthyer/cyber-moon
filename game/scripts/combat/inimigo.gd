@@ -48,6 +48,7 @@ const DISTANCIA_PARA_CHEGAR_NO_PONTO: float = 0.3
 const DISTANCIA_PARA_REFAZER_O_CAMINHO: float = 0.5
 ## Se não houver ponto de patrulha, o inimigo patrulha até este deslocamento a partir de
 ## onde nasceu.
+const CAMINHO_DAS_FAIXAS_DE_MATERIAL: String = "res://resources/combat/faixas_de_material.tres"
 const GRUPO_DE_ALVOS: StringName = &"alvos_de_inimigo"
 ## De quanto em quanto tempo ele reconsidera quem é o jogador mais perto.
 const SEGUNDOS_ENTRE_ESCOLHAS_DE_ALVO: float = 0.3
@@ -263,11 +264,26 @@ func _morrer() -> void:
 	_soltar_drop()
 	queue_free()
 
+## Um sorteio só: primeiro tenta o raro, depois o incomum, depois o comum. O item sai da
+## faixa sorteada. Material incomum ou raro avisa pelo EventBus, para ganhar um brilho.
 func _soltar_drop() -> void:
-	if perfil.itens_dropados.is_empty() or randf() > perfil.chance_de_drop:
+	var sorteio: float = randf()
+	var faixa: FaixasDeMaterial.Faixa
+	if sorteio < perfil.chance_de_material_raro:
+		faixa = FaixasDeMaterial.Faixa.RARO
+	elif sorteio < perfil.chance_de_material_raro + perfil.chance_de_material_incomum:
+		faixa = FaixasDeMaterial.Faixa.INCOMUM
+	elif sorteio < perfil.chance_de_material_raro + perfil.chance_de_material_incomum + perfil.chance_de_material_comum:
+		faixa = FaixasDeMaterial.Faixa.COMUM
+	else:
 		return
-	var item: Item = perfil.itens_dropados.pick_random()
-	ItemNoMundo.soltar(item, 1, global_position, get_parent())
+	var faixas: FaixasDeMaterial = load(CAMINHO_DAS_FAIXAS_DE_MATERIAL) as FaixasDeMaterial
+	var itens: Array[Item] = faixas.itens_da_faixa(faixa) if faixas != null else []
+	if itens.is_empty():
+		return
+	ItemNoMundo.soltar(itens.pick_random(), 1, global_position, get_parent())
+	if faixa != FaixasDeMaterial.Faixa.COMUM:
+		EventBus.rare_loot_dropped.emit(global_position, faixas.cor_da_faixa(faixa))
 
 ## Instancia o modelo do perfil e tinge todas as superfícies com a cor do tipo. Tingir
 ## sobrescreve uma cópia do material em cada superfície, sem mexer no .glb, que é o

@@ -26,4 +26,6 @@ abertura_do_cone_em_graus = 30.0
 raio_de_desistencia = 14.0
 comportamento_ocioso = 2
 experiencia_concedida = 60
-itens_dropados = Array[ExtResource("1_nrkau")]([ExtResource("3"), ExtResource("4")])
+chance_de_material_comum = 0.2
+chance_de_material_incomum = 0.5
+chance_de_material_raro = 0.2

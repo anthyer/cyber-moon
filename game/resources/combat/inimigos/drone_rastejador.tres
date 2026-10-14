@@ -21,4 +21,4 @@ raio_de_percepcao = 9.0
 raio_de_desistencia = 14.0
 comportamento_ocioso = 0
 experiencia_concedida = 20
-itens_dropados = Array[Resource]([ExtResource("3")])
+chance_de_material_comum = 0.6

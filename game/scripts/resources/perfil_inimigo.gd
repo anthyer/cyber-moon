@@ -50,6 +50,10 @@ enum ComportamentoOcioso {
 
 @export_group("Recompensa")
 @export var experiencia_concedida: int = 30
-## Ao morrer, solta um destes itens, sorteado, com a chance abaixo.
-@export var itens_dropados: Array[Item] = []
-@export_range(0.0, 1.0) var chance_de_drop: float = 0.6
+## A chance de soltar um material de cada faixa ao morrer. Um sorteio só decide: ou cai
+## um raro, ou um incomum, ou um comum, ou nada. A soma das três não deve passar de 1.
+## Inimigo mais forte tem mais chance nas faixas de cima. Os itens de cada faixa estão em
+## resources/combat/faixas_de_material.tres.
+@export_range(0.0, 1.0) var chance_de_material_comum: float = 0.5
+@export_range(0.0, 1.0) var chance_de_material_incomum: float = 0.0
+@export_range(0.0, 1.0) var chance_de_material_raro: float = 0.0
