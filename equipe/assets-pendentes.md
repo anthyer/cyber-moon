@@ -28,6 +28,11 @@ pixel art, fundo transparente; modelo em `.glb`. O caminho de importação está
 | Passo em metal | usa o de concreto | idem | 02 |
 | Passo em pedra | usa o de concreto | idem | 02 |
 | Passo em terra | usa o de grama | idem | 02 |
+| Música das dungeons (uma por tema) | toca a música da estação | a definir: hoje a dungeon não troca de música | 23 |
+| Porta de dungeon abrindo | mudo | a definir junto dos sons de dungeon; o sinal é `EventBus.dungeon_door_opened` | 23 |
+| Aviso e impacto de ataque de chefe | mudo | idem; os sinais são `EventBus.boss_engaged` e `boss_attack_landed` | 23 |
+| Chefe mudando de fase e caindo | usa `punch.wav` do dano | idem; `EventBus.boss_phase_changed` e `boss_defeated` | 23 |
+| Baú de recompensa abrindo | mudo | idem; `EventBus.dungeon_reward_claimed` | 23 |
 
 ## Arte 2D
 
@@ -35,6 +40,7 @@ pixel art, fundo transparente; modelo em `.glb`. O caminho de importação está
 |---|---|---|---|
 | Ícone da lixeira do inventário | provisório, desenhado no estilo dos itens | `assets/textures/icones_itens/lixeira.png` | avulso |
 | Ícones dos 30 itens | provisórios | campo `icone` de cada `.tres` em `resources/items/` (trocar o PNG em `assets/textures/icones_itens/` basta) | 03 |
+| Ícones dos três troféus de chefe | provisórios, desenhados no estilo dos itens por `equipe/ferramentas/gerar_icones_de_trofeu.py` | `icone` em `resources/items/especiais/trofeu_*.tres` | 23 |
 | Ícones de clima (sol, chuva, tempestade) | provisórios, desenhados no estilo dos itens | `assets/textures/icones_clima/` | 13 |
 | Ícone de loja aberta em cima do comerciante | provisório, uma banquinha desenhada no estilo dos itens | `assets/textures/efeitos/indicador_de_loja.png` | 17 |
 | Indicador de conversa em cima do NPC | provisório, um balão branco tingido por código | `assets/textures/efeitos/indicador_de_conversa.png` | 15 |
@@ -50,7 +56,8 @@ pixel art, fundo transparente; modelo em `.glb`. O caminho de importação está
 | Modelos dos seis NPCs | personagens do pacote Kenney | `modelo` em `resources/npcs/*.tres` (ou na tabela de `scripts/utils/gerar_npcs.gd`) | 14 |
 | Baú (de guardar e de venda) | caixa feita de formas simples, com etiqueta de texto | `scenes/items/bau.tscn` | 17 |
 | Portal da dungeon | um anel com luz, feito de formas simples | `scenes/world/portal.tscn` | 22 |
-| Cenário da dungeon | sala de caixas | `scenes/levels/dungeon.tscn` | 22 e 23 |
+| Animação de andar dos inimigos das dungeons | são máquinas de malha rígida: deslizam, flutuam ou giram, sem passo | um esqueleto e clipes nos `.glb` de `assets/models/cyber_moon_dungeons/inimigo_*` e `chefe_*`; o `Inimigo` já toca clipe quando o modelo tem `AnimationPlayer` | 23 |
+| Vidro de verdade na estufa | face azul opaca, como as janelas dos prédios | `parede_de_estufa` em `equipe/ferramentas/blender/modelos/biodomo.py` | 23 |
 | Modelo do outro jogador na dungeon | um personagem do pacote Kenney, diferente do local | `scenes/coop/jogador_remoto.tscn` | 22 |
 | Modelo próprio do jogador | personagem do pacote Kenney | `scenes/player/player.tscn` | sem plano |
 | Animação de golpe por tipo de arma | todas usam o soco do pacote Kenney | revisão do combate | 08 |

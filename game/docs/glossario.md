@@ -88,3 +88,15 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Cair de sono | Forced sleep / `DayCycleManager.dormir(true)`, `StatusManager.Motivo.SONO` |
 | Cama | Bed / `Cama` (cena e classe), dormir sem penalidade |
 | Luz do jogador | Player light / `OmniLight3D` `LuzDoJogador` |
+| Definição de dungeon | Dungeon definition / `DefinicaoDeDungeon` (classe Resource), um `.tres` por dungeon em `resources/dungeons/` |
+| Sala de dungeon | Dungeon room / `SalaDeDungeon`, acorda os inimigos dela e abre a porta quando fica limpa |
+| Porta de dungeon | Dungeon door / `PortaDeDungeon`, na camada de física `porta` |
+| Subchefe e chefe | Miniboss and boss / `Chefe` (cena e classe, filha de `Inimigo`), configurado por `PerfilChefe` |
+| Ataque anunciado | Telegraphed attack / `AtaqueDeChefe` (classe Resource) e `AvisoDeAtaque` (a marca no chão) |
+| Segunda fase | Second phase / `Chefe.fase`, sinal `EventBus.boss_phase_changed` |
+| Objetivo paralelo | Side objective / `ObjetivoParalelo` e as filhas `ObjetivoDeGeradores`, `ObjetivoDeResgate`, `ObjetivoDeDefesa` |
+| Baú de recompensa | Reward chest / `BauDeRecompensa`, paga pelo `DungeonManager.receber_recompensa` |
+| Troféu de chefe | Boss trophy / `Item` com `item_chave`, em `resources/items/especiais/trofeu_*.tres` |
+| Máquina animada | Code-driven machine / `MaquinaAnimada`, mexe as partes de um modelo sem esqueleto pelo nome delas |
+| Cobertura translúcida | See-through cover / `CoberturaTranslucida`, deixa translúcida a peça que esconde o jogador |
+| Paleta de cores | Colormap / `colormap.png`, a textura única de cada pacote de modelos |

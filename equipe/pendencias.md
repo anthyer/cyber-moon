@@ -528,6 +528,37 @@ fica molhada sozinha depois de 3 segundos. O tempo é o export
 `segundos_para_a_chuva_molhar` da `GradeSolo`. Se a chuva para ou a terra é desfeita
 antes do tempo, ela não molha.
 
+### 2026-10-13, plano 23 (conteúdo das dungeons)
+
+**Feito.** As três dungeons, descritas em `equipe/dungeons/`. Decisões e testes na seção
+"Revisão de 2026-10-13" do plano. O guia dos modelos é `game/docs/biblia_3d.md`.
+
+**Precisa do Antonio:**
+
+- Jogar as três dungeons com a mão, sozinho e em dupla. Os testes foram por script: dizem
+  que funciona, não dizem se a luta está boa nem se o chefe está difícil na medida.
+- Olhar os chefes e os inimigos e dizer se a cara está agressiva o bastante. Os modelos
+  saem de `equipe/ferramentas/blender/modelos/` e são rápidos de mexer.
+- Ler as três descrições e os nomes (Zelador, Compactador, Enxertador, Colheitadeira,
+  Firewall, O Auditor). A história de cada dungeon foi escrita na execução.
+
+**Fica para depois:**
+
+- Balanceamento. Vida, dano e recompensa são ponto de partida. O Auditor na segunda fase
+  derruba um jogador de nível 1 em poucos segundos; a aposta é que ninguém chega lá no
+  nível 1.
+- A dungeon é iluminada pelo sol da fazenda, porque fica na mesma fase. De noite ela
+  escurece junto. Falta decidir se a dungeon tem luz própria fixa.
+- Sem som próprio: porta, marca de ataque, chefe e baú estão mudos ou usam o som de
+  dano. Está em `equipe/assets-pendentes.md`.
+- Os inimigos não têm animação de andar; deslizam, flutuam ou giram.
+- O convidado vê na tela de lobby a dungeon que ele marcou, não a que o anfitrião
+  escolheu. Só o início leva a escolha certa.
+- Um chefe grande entre a câmera e o jogador pode cobrir o jogador. A translucidez vale
+  só para o cenário, não para inimigo.
+- O troféu não tem uso além de liberar a dungeon seguinte e ficar no inventário.
+- As cenas são geradas por script: ajuste feito no editor se perde ao gerar de novo.
+
 ### 2026-10-06, planos 21 e 22 (rede, chat e dungeon em coop)
 
 **Feito.** Decisões e ajustes no topo de cada plano, seção "Revisão de 2026-10-06". Como
@@ -546,10 +577,11 @@ rodar o servidor e abrir dois jogos está em `backend/servidor_local/leiame.md`.
 - Login com Google e lista de amigos. Hoje é um nome local e a lista de quem está online.
 - O fantoche do outro jogador não mostra a arma na mão nem os tiros.
 - Inimigo de distância (a sentinela) não está na dungeon: o projétil não é transmitido.
+  (Resolvido no plano 23: o tiro passou a ser transmitido.)
 - A experiência de cada inimigo vai para os dois jogadores, não importa quem bateu.
 - Se a conexão do anfitrião cai, a dungeon acaba para os dois.
 - Só dois jogadores foram testados.
-- O portal é um anel provisório no chão, e a dungeon é uma sala de caixas.
+- O portal é um anel provisório no chão. (A sala de caixas foi trocada no plano 23.)
 
 ### 2026-10-05, plano 14
 

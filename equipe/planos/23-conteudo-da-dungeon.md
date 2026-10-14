@@ -5,8 +5,55 @@ salas, subchefes, um chefe e um objetivo.
 
 **Depende de:** 22.
 
-**Situação:** decidido em 2026-10-13, ainda não executado. O esqueleto do coop (plano 22)
-está pronto.
+**Situação:** feito em 2026-10-13. As três dungeons estão jogáveis, sozinho e em dupla.
+A descrição de cada uma está em `equipe/dungeons/`.
+
+## Revisão de 2026-10-13 (execução)
+
+**O que foi entregue**
+
+- Três dungeons: Galeria de Manutenção, Biodomo Abandonado e Torre de Retransmissão.
+  Cada uma com cinco salas, dois inimigos próprios, subchefe, chefe com duas fases,
+  objetivo paralelo, baú de recompensa e troféu.
+- A base em código: `DefinicaoDeDungeon`, `SalaDeDungeon`, `PortaDeDungeon`, `Chefe` com
+  `PerfilChefe` e `AtaqueDeChefe`, `AvisoDeAtaque`, os três `ObjetivoParalelo`,
+  `BauDeRecompensa`, `HudDeDungeon`, `HudDoChefe` e a escolha da dungeon no lobby.
+- Um pacote de 63 modelos próprios (`assets/models/cyber_moon_dungeons/`), feitos no
+  Blender no estilo dos pacotes do jogo, com o guia em `game/docs/biblia_3d.md`.
+- `CoberturaTranslucida`: a peça alta que esconde o jogador ou um inimigo fica
+  translúcida.
+- Partículas em sala limpa, porta, chefe (aparecer, atacar, mudar de fase, cair),
+  objetivo e recompensa, na tabela do `EfeitosDoJogo`.
+
+**Decisões tomadas na execução**
+
+- **Os inimigos são máquinas de malha rígida.** O Antonio pediu inimigos no tema de cada
+  dungeon e chefes de cara mais agressiva. Máquina não precisa de esqueleto: as partes
+  são animadas por código pelo nome (`MaquinaAnimada`). Os três inimigos antigos (drone
+  rastejador, ciborgue operário, sentinela pesada) continuam existindo, fora das dungeons.
+- **As salas ficam em fila, de oeste para leste.** A câmera olha do sul para o norte;
+  com parede alta só ao norte e mureta ao sul, nada cobre o jogador. Uma sala ao norte
+  da outra ficaria com um pedaço escondido atrás da parede.
+- **As cenas são geradas por script** (`equipe/ferramentas/gerar_dungeons.py`), a partir
+  de uma descrição curta. Montar à mão quatrocentos nós por dungeon era erro na certa, e
+  o número do inimigo na rede depende de a cena ser idêntica nos dois jogos.
+- **O objetivo de resgate não falha.** Caixa que ficou para trás só não conta. Os outros
+  dois falham (gerador de pé quando o chefe cai; antena destruída).
+- **Destruir os geradores tira um quarto da vida do chefe**, além de melhorar o baú. É o
+  que faz o objetivo valer a pena durante a luta, e não só depois.
+- **O tiro de inimigo passou a ser transmitido.** Era uma pendência do plano 22, e duas
+  das três dungeons têm inimigo de distância. O convidado vê o tiro (só o desenho); o
+  dano continua vindo do jogo do anfitrião.
+- **A dungeon de teste do plano 22 foi apagada** (`scenes/levels/dungeon.tscn`).
+
+**Como foi testado**
+
+- Sozinho, as três dungeons do começo ao fim por script: salas limpam, portas abrem, o
+  chefe ataca e muda de fase, o baú paga, a seguinte é liberada.
+- Em dupla, com dois jogos e o servidor local: vida do chefe 60% maior, salas, portas,
+  objetivo, marcas de ataque, troca de fase, tiros e recompensa iguais nos dois lados.
+- Por captura de tela: cada sala das três dungeons, a translucidez e as lutas de chefe.
+- Ninguém jogou com a mão. O que os testes não dizem é se a luta está gostosa.
 
 ## Decisões fechadas com o Antonio (2026-10-13)
 

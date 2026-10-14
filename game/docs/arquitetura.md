@@ -544,7 +544,7 @@ nuvem não muda nada para quem desenvolve na própria máquina.
 ## Dungeon em equipe
 
 O multiplayer existe só na dungeon; a fazenda é de um jogador. A dungeon não é troca de
-cena: o `DungeonManager` cria `scenes/levels/dungeon.tscn` longe da fazenda, na mesma
+cena: o `DungeonManager` cria a cena da dungeon escolhida longe da fazenda, na mesma
 fase, e leva o jogador. O relógio para, e `EventBus.dungeon_entered` e `dungeon_left`
 fazem a luz ficar fixa e a chuva sumir. Ao sair, a cena é apagada e a fazenda está intacta.
 
@@ -564,6 +564,63 @@ O script `Dungeon` cria os inimigos nos `PontoDeInimigo` da cena e faz o envio e
 aplicação das mensagens, listadas em `equipe/planos/22-dungeon-em-coop.md`. Quem morre
 volta sozinho para a fazenda; se o anfitrião morre, o jogo dele continua simulando até o
 parceiro sair.
+
+## Conteúdo das dungeons
+
+São três dungeons, descritas uma a uma em `equipe/dungeons/`. O que muda entre elas é
+dado, não código.
+
+**Dados.** Cada dungeon é um `DefinicaoDeDungeon` em `resources/dungeons/`: nome, cena,
+ordem, qual dungeon precisa ter sido vencida para esta abrir, e a recompensa. O
+`DungeonManager` lê a pasta, guarda quais chefes já caíram e em que dia saiu a última
+recompensa (as duas coisas vão para o save), e responde `esta_liberada`,
+`pode_receber_recompensa` e `receber_recompensa`. O lobby lista as definições, e
+`LobbyManager.iniciar(id)` leva a equipe para a escolhida.
+
+**Salas.** A cena de uma dungeon tem um `SalaDeDungeon` por sala, com os
+`PontoDeInimigo` dentro. A `Dungeon` cria os inimigos e entrega cada um à sala do ponto
+dele. Inimigo de sala que ainda não acordou fica `adormecido`. Derrubar o último
+inimigo da sala abre as `PortaDeDungeon` dela e acorda as salas seguintes. Nada disso
+passa pela rede: a queda de cada inimigo já é igual nos dois jogos, então a sala fica
+limpa em cada jogo por conta própria.
+
+**Chefes.** `Chefe` é filho de `Inimigo`, e `PerfilChefe` é filho de `PerfilInimigo`. O
+perfil traz uma lista de `AtaqueDeChefe`. O chefe sorteia um ataque, cria uma ou mais
+marcas no chão (`AvisoDeAtaque`), fica parado enquanto elas enchem e só então o dano cai
+em quem estiver dentro. Com metade da vida o chefe final entra na fase 2: mais rápido,
+menos intervalo e os ataques marcados `so_na_fase_2`. O anfitrião decide o ataque e a
+fase e avisa pela sala (`aviso_de_chefe`, `fase_de_chefe`); o convidado só desenha as
+marcas. Em equipe a vida cresce `vida_a_mais_por_jogador` por jogador além do primeiro.
+
+**Tiro.** Quando um inimigo de distância atira, o anfitrião manda `tiro` pela sala e o
+convidado solta os mesmos projéteis com `Projetil.so_desenho`: voam e somem igual, mas
+não tiram vida. O dano continua vindo do tiro do anfitrião, pela mensagem `dano`.
+
+**Máquinas.** Os inimigos das dungeons são modelos de malha rígida, sem
+`AnimationPlayer`. Quando o `Inimigo` não acha animação no modelo, cria um
+`MaquinaAnimada`, que mexe as partes pelo nome dado no Blender (`Gira...`, `Flutua...`,
+`Braco...`). A convenção está em `docs/biblia_3d.md`.
+
+**Objetivo paralelo.** Um nó `ObjetivoParalelo` por dungeon, no grupo
+`objetivo_paralelo`. As três filhas são `ObjetivoDeGeradores` (destruir os alvos antes de
+o chefe cair), `ObjetivoDeResgate` (pegar as peças) e `ObjetivoDeDefesa` (o ponto perde
+vida enquanto há inimigo acordado perto). O alvo avisa o objetivo por sinal, e é o
+objetivo que fala com a rede. A tela ouve `EventBus.dungeon_objective_changed`.
+
+**Recompensa.** O `BauDeRecompensa` aparece quando o chefe final cai. Ao abrir, pergunta
+ao `DungeonManager`, que paga uma vez por dia e dá o troféu só na primeira vitória.
+
+**Câmera.** A câmera olha do sul para o norte e não gira. As cenas são montadas para
+ela: parede alta só ao norte, mureta ao sul, salas em fila de oeste para leste. Peça
+alta no meio da sala leva um `CoberturaTranslucida`, que troca o material dela por uma
+cópia translúcida enquanto a linha da câmera até o jogador (ou até um inimigo) cruza a
+peça. A propriedade `transparency` do Godot não serve, porque o renderizador
+Compatibility a ignora.
+
+**Montagem das cenas.** As três cenas são geradas por
+`equipe/ferramentas/gerar_dungeons.py` a partir de uma descrição curta de cada dungeon
+(salas, inimigos, decoração, objetivo). O script reescreve a cena inteira; para mudar
+uma dungeon, mude a descrição e gere de novo, depois refaça a malha de navegação.
 
 ## Navegação
 

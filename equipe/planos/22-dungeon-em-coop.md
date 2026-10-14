@@ -141,7 +141,8 @@ Plano escrito depois da regra de partículas, então as ações dele nascem com 
 ## Fora de escopo
 
 - **Chefes, subchefes, várias salas e objetivo.** É o plano 23.
-- **Inimigo de distância na dungeon.** O projétil não é transmitido ainda.
+- **Inimigo de distância na dungeon.** O projétil não é transmitido ainda. (Feito no
+  plano 23.)
 - **Ver a arma e o tiro do outro jogador.** O fantoche mostra só o corpo e a animação.
 - **Reviver o parceiro e ajustar a dificuldade pelo número de jogadores.**
 - **Mais de dois jogadores.** O protocolo aceita, mas só dois foram testados.

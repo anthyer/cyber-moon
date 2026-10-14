@@ -26,7 +26,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [ ] 18 Chat entre jogadores na AWS (independente dos outros, pode ser feito em paralelo; plano revisado em 2026-10-13: sprints 3 e 4 a fazer, sprint 5 de CI e CD fica para depois)
 - [x] 21 Rede e chat (independente; substitui a parte do Godot do plano 18)
 - [x] 22 Dungeon em coop (depois do 21)
-- [ ] 23 Conteúdo da dungeon: três dungeons com salas, subchefe, chefe e objetivo paralelo (decidido em 2026-10-13; pronto para executar, em mock)
+- [x] 23 Conteúdo da dungeon: três dungeons com salas, subchefe, chefe e objetivo paralelo (descrição de cada uma em `equipe/dungeons/`)
 - [x] 25 Revisão das personas e dos diálogos (proposta entregue; falta a leitura do Antonio)
 - [x] 24 Saque por força do inimigo e aprimoramento de armas e ferramentas no ferreiro
 - [x] 20 Salvar o jogo (depois dos planos de sistema; obrigatório antes de qualquer entrega jogável)
