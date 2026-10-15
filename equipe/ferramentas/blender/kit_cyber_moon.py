@@ -27,6 +27,7 @@ na cena com escala 1. A referência é o personagem, que tem 0,66 de altura.
 import json
 import math
 import os
+import shutil
 import struct
 
 import bmesh
@@ -274,6 +275,11 @@ class Modelo:
         """Transforma um grupo de vértices devolvido por uma primitiva."""
         bmesh.ops.transform(self.bm, matrix=_matriz(pos, rot, escala), verts=vertices)
 
+    def escalar_tudo(self, fator):
+        """Aumenta ou diminui o modelo inteiro a partir da origem. Serve para acertar a
+        escala depois de comparar com o boneco de referência na foto."""
+        bmesh.ops.scale(self.bm, vec=Vector((fator, fator, fator)), verts=list(self.bm.verts))
+
     def repintar(self, vertices, cor, degrade=False, brilho=False):
         self._pintar(self._faces_dos_vertices(vertices), cor, degrade, brilho)
 
@@ -378,6 +384,21 @@ def contar_triangulos(objeto):
         if parte.type == "MESH":
             total += sum(len(poligono.vertices) - 2 for poligono in parte.data.polygons)
     return total
+
+
+def usar_pacote(nome):
+    """Troca a pasta para onde os modelos são exportados.
+
+    Cada conjunto de modelos é um pacote, como os da Kenney: `cyber_moon_dungeons` para as
+    dungeons, `cyber_moon_mundo` para o mapa mundi e a fazenda. A paleta é a mesma em
+    todos e é copiada para a pasta `textures/` do pacote novo na primeira vez.
+    """
+    global PASTA_DO_PACOTE
+    PASTA_DO_PACOTE = os.path.join(RAIZ_DO_REPOSITORIO, "game", "assets", "models", nome)
+    destino = os.path.join(PASTA_DO_PACOTE, "textures", "colormap.png")
+    if not os.path.exists(destino):
+        os.makedirs(os.path.dirname(destino), exist_ok=True)
+        shutil.copyfile(CAMINHO_DA_PALETA, destino)
 
 
 def exportar(objeto, nome_do_arquivo):

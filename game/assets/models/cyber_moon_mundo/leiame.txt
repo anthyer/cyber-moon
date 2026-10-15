@@ -1,0 +1,18 @@
+Pacote cyber_moon_mundo
+
+Modelos feitos para o mapa mundi e a fazenda do Cyber Moon, no estilo dos pacotes de cidade da Kenney.
+
+Origem
+- Os modelos novos foram modelados no Blender pelos scripts de
+  equipe/ferramentas/blender/modelos/. Para refazer ou mudar um modelo, mude o script e
+  rode de novo; nao edite o .glb a mao.
+- Os modelos editados partem de pecas da Kenney (kenney_city_kit_industrial,
+  kenney_city_kit_commercial e kenney_nature_kit), que sao CC0. Cada um diz de onde veio
+  no comentario da funcao que o constroi.
+- textures/colormap.png e a paleta do kenney_city_kit_industrial, sem alteracao.
+
+Escala
+- Diferente dos pacotes da Kenney, que entram na cena com escala 4, este pacote ja esta
+  no tamanho do jogo e entra com escala 1.
+
+O guia de estilo esta em game/docs/biblia_3d.md.
