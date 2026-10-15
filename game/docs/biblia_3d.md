@@ -188,6 +188,24 @@ e a paleta do pacote na cor:
 - **Mancha de chão** (terra batida, areia clara) é um contorno irregular de espessura
   quase zero, rente ao chão, para quebrar o plano de areia sem custo.
 
+### Água (shader toon)
+
+A água do canal, do reservatório e do laguinho da fazenda não é modelo: é um plano com o
+shader `assets/shaders/agua_toon.gdshader`, posto pelo gerador do mapa. Ele desenha duas
+cores chapadas que andam devagar, riscos finos de reflexo em parte da água (a emenda de
+um ruído celular), espuma ondulando na beira e luz em degraus (`diffuse_toon`), com um
+pouco de brilho próprio. Não usa textura nem leitura de profundidade, que o renderizador
+Compatibility não garante. O plano é de 1 por 1 esticado pela escala do nó: é pela escala
+que o shader sabe a largura da espuma em metros.
+
+### Verde e objetos de uso
+
+- **Palmeira**: tronco em gomos alternando `marrom` e `ferrugem`, levemente curvo, com sete
+  folhas caídas de três gomos cada. É o verde que combina com deserto.
+- **Grama, flores e juncos** seguem o capim: folhas largas de prisma, nunca cone fino.
+- **Objetos de uso** (feira, banco, máquina de venda, carro velho, vagonete, feno, varal)
+  têm uma cor forte e o resto neutro, como as máquinas das dungeons.
+
 ### Construções do mundo
 
 - **Viaduto, comporta, letreiro e outdoor** são as peças altas do mapa e ficam no norte.
@@ -342,6 +360,15 @@ Em ordem de quanto tempo custaram.
     letreiro somados a um galpão do kit industrial ficaram escondidos atrás dele. Quando a
     peça editada é mais de metade acessório, modelar do zero sai mais rápido e mais certo
     (foi o caso da oficina das motoqueiras).
+
+15. **Borda baixa não segura o personagem.** A cápsula tem a ponta arredondada e sobe
+    numa borda de 0,3. A água agora tem uma parede invisível por cima, e a borda de
+    concreto é só desenho.
+16. **Rede de linhas inteira vira piso de pedra.** O primeiro shader de água mostrava todas
+    as emendas do ruído celular, e a água parecia um mosaico. Linha fina, mostrada só em
+    parte da água por uma máscara, é que lê como reflexo.
+17. **Luz própria escrita à mão escurece.** O `light()` customizado deixava a água
+    azul-marinho de manhã. O `diffuse_toon` do Godot dá o degrau sem esse problema.
 
 ## O que ainda não foi feito
 

@@ -592,6 +592,9 @@ parte, em z = 400.
 - **Deserto espalhado.** `EspalhadorDeObjetos` põe cópias de um modelo numa área, com
   semente fixa, desenhadas num `MultiMeshInstance3D` (uma chamada de desenho para todas) e
   com um cilindro de colisão por cópia. Áreas livres (estrada, praça, canal) ficam vazias.
+- **Água.** Canal, reservatório e laguinho são planos com o shader toon de água, com uma
+  parede invisível por cima (a borda de concreto sozinha não segura a cápsula do
+  personagem). Nas pontes e no píer a parede tem um vão.
 - **Montagem.** As duas cenas saem de `equipe/ferramentas/gerar_mapas.py`, que reescreve a
   cena inteira. Depois de mudar o mundo, refaça a malha de navegação dele.
 

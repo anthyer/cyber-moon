@@ -47,6 +47,21 @@ bastante") e os dois mapas estão no jogo. Detalhes na revisão logo abaixo.
   desce do viaduto chega na praça entre o mercado e o canal.
 - **Calendário, cama e baús ficam na fazenda**, na varanda e na frente do galpão.
 
+**Segunda passada (2026-10-15), a pedido do Antonio:** "o mapa ainda tá meio vaziozão",
+"mais verde na fazenda", "não deve dar pra andar na água" e "um shader toon pra ela".
+
+- Fazenda: chão verde, palmeiras atrás da casa e na porteira, pomar na cerca do sul,
+  laguinho com juncos no canto oeste, grama, flores, arbustos, cerca viva, varal, feno,
+  bancada e carrinho de mão.
+- Mundo: feira, bancos e palmeiras na praça, postes na avenida, máquinas de venda, carros
+  abandonados, placas, oásis de palmeiras e juncos em volta do reservatório, barco no
+  píer, vagonete e trilho na pedreira, toldo e mesa no acampamento, e o deserto mais
+  cheio (cactos, arbusto seco, bola de feno).
+- A água ganhou o shader `assets/shaders/agua_toon.gdshader` e uma parede invisível por
+  cima. Testado: andar em direção ao canal e ao reservatório para na beira; o píer passa.
+- 23 modelos novos (`verde.py` e `utensilios.py`). Quadros por segundo depois disso: perto
+  de 100 na fazenda e de 85 a 90 no mundo.
+
 **Como foi testado (por script, com captura de tela)**
 
 - Arar dentro do talhão funciona; fora, e no talhão ainda não liberado, não.
