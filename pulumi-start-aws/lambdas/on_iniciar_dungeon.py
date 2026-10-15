@@ -14,9 +14,13 @@ def handler(event, context):
         # Só o anfitrião inicia.
         return utils.OK
 
+    # O anfitrião escolhe qual dungeon. A Lambda só repassa o id, sem saber o que é,
+    # igual ao servidor local (backend/servidor_local/servidor.py).
+    dungeon = str(utils.read_body(event).get('dungeon', ''))[:utils.MAX_NAME_LENGTH * 2]
+
     api = utils.api_client(event)
     summary = utils.room_summary(room)
     for member in room['membros']:
-        utils.send(api, member, 'dungeon_iniciada', **summary)
+        utils.send(api, member, 'dungeon_iniciada', dungeon=dungeon, **summary)
 
     return utils.OK
