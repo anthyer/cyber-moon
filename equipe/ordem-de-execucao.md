@@ -31,7 +31,11 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 24 Saque por força do inimigo e aprimoramento de armas e ferramentas no ferreiro
 - [x] 20 Salvar o jogo (depois dos planos de sistema; obrigatório antes de qualquer entrega jogável)
 - [x] 19 Partículas no que já existe (depois de todos os planos acima; feature nova, escrita depois deste plano, já nasce com partículas)
-- [ ] 26 Mapa mundi (deserto rural cyberpunk) e mapa da fazenda com talhões (depois de acertar o multiplayer; só documentado)
+- [ ] 26 Mapa mundi (deserto rural cyberpunk) e mapa da fazenda com talhões (em execução; manchas aprovadas em 2026-10-14)
+- [ ] 27 As dungeons na história e nos itens coletados (só registrado)
+- [ ] 28 Destaque do que se vai interagir (só registrado)
+- [ ] 29 Ajuda para mirar no solo arado com semente e regador (depois do 26; só registrado)
+- [ ] 30 Mais personagens e os existentes no tema, editados no Blender (só registrado)
 - [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
 
 ## Por que essa ordem
