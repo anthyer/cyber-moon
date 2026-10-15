@@ -350,7 +350,7 @@ func _mostrar_marcacao(celulas: Array[Vector2i]) -> void:
 		marcadores.append(copia)
 	for indice in marcadores.size():
 		var marcador: MeshInstance3D = marcadores[indice]
-		marcador.visible = indice < celulas.size() and grade_solo.limite.has_point(celulas[indice])
+		marcador.visible = indice < celulas.size() and grade_solo.eh_cultivavel(celulas[indice])
 		if marcador.visible:
 			marcador.global_position = grade_solo.centro_da_celula_no_mundo(celulas[indice]) + Vector3.UP * 0.01
 

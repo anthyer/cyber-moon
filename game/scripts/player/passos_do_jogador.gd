@@ -117,7 +117,7 @@ func _parar_passo() -> void:
 ## para o raio acertar. Depois vale o nome do modelo sob o pé e, por último, a
 ## metadata gravada na importação.
 func _superficie_sob_o_pe() -> StringName:
-	var grade_solo: GridMap = get_node_or_null(^"../../GradeSolo") as GridMap
+	var grade_solo: GridMap = get_tree().get_first_node_in_group(GradeSolo.GRUPO) as GridMap
 	if grade_solo != null:
 		var ponto_local: Vector3 = grade_solo.to_local(get_parent().global_position)
 		var celula: Vector3i = grade_solo.local_to_map(ponto_local)

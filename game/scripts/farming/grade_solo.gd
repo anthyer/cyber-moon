@@ -1,6 +1,10 @@
 class_name GradeSolo
 extends GridMap
 
+## O grupo da grade de solo da fazenda. Quem precisa dela (os passos, o debug) acha por aqui,
+## sem depender de onde ela está na árvore.
+const GRUPO: StringName = &"grade_de_solo"
+
 enum EstadoTile { VAZIO, ARADO_SECO, ARADO_MOLHADO }
 
 ## Uma planta em cima de uma célula. É classe interna, e não Resource, porque é estado
@@ -31,7 +35,6 @@ var _secas_na_chuva: Dictionary[Vector2i, float] = {}
 ## na hora, para dar para ver a terra seca virar molhada.
 @export var segundos_para_a_chuva_molhar: float = 3.0
 
-@export var limite: Rect2i = Rect2i(Vector2i(-15, -15), Vector2i(30, 30))
 
 @export_group("Visual da planta")
 ## Tamanho de um pixel da textura no mundo. Com 0.03, a planta de 16 pixels fica com
@@ -49,6 +52,7 @@ var _secas_na_chuva: Dictionary[Vector2i, float] = {}
 @export var fileiras_por_celula: int = 2
 
 func _ready() -> void:
+	add_to_group(GRUPO)
 	DayCycleManager.day_started.connect(_ao_comecar_o_dia)
 	SeasonManager.season_changed.connect(_ao_mudar_estacao)
 	WeatherManager.weather_changed.connect(_ao_mudar_clima)
@@ -58,7 +62,7 @@ func _ready() -> void:
 ## é como o jogador se livra da planta murcha, e também serve para desistir de um
 ## plantio.
 func arar(celula: Vector2i) -> bool:
-	if not limite.has_point(celula):
+	if not eh_cultivavel(celula):
 		return false
 	if _plantas.has(celula):
 		_tirar_planta(celula)
@@ -71,7 +75,7 @@ func arar(celula: Vector2i) -> bool:
 	return true
 
 func molhar(celula: Vector2i) -> bool:
-	if not limite.has_point(celula):
+	if not eh_cultivavel(celula):
 		return false
 	if _estado.get(celula, EstadoTile.VAZIO) != EstadoTile.ARADO_SECO:
 		return false
@@ -80,7 +84,7 @@ func molhar(celula: Vector2i) -> bool:
 	return true
 
 func remover(celula: Vector2i) -> bool:
-	if not limite.has_point(celula):
+	if not eh_cultivavel(celula):
 		return false
 	if _estado.get(celula, EstadoTile.VAZIO) == EstadoTile.VAZIO:
 		return false
@@ -216,6 +220,15 @@ func aplicar(id_acao: StringName, celula: Vector2i) -> bool:
 			return remover(celula)
 		_:
 			return false
+
+## Verdadeiro se a célula está dentro de algum talhão liberado. Só ali o solo aceita
+## enxada, regador e picareta; fora dos talhões a fazenda é chão comum.
+func eh_cultivavel(celula: Vector2i) -> bool:
+	for no in get_tree().get_nodes_in_group(TalhaoDeCultivo.GRUPO):
+		var talhao: TalhaoDeCultivo = no as TalhaoDeCultivo
+		if talhao != null and talhao.liberado and talhao.celulas_na_grade(self).has_point(celula):
+			return true
+	return false
 
 func obter_celula_alvo(posicao_jogador: Vector3, rotacao_y: float) -> Vector2i:
 	var direcao := Vector3(sin(rotacao_y), 0.0, cos(rotacao_y))
@@ -380,11 +393,16 @@ func importar_estado(dados: Dictionary) -> void:
 	for celula: Vector2i in _estado.keys():
 		_definir_estado(celula, EstadoTile.VAZIO)
 	_secas_na_chuva.clear()
+	# Terra fora dos talhões só existe em save de antes do mapa da fazenda (plano 26), quando
+	# se arava em qualquer lugar. Ela não é carregada: o lugar dela agora é chão comum.
 	var celulas: Dictionary = dados.get("celulas", {})
 	for chave: String in celulas:
-		_definir_estado(_celula_do_texto(chave), int(celulas[chave]) as EstadoTile)
+		if eh_cultivavel(_celula_do_texto(chave)):
+			_definir_estado(_celula_do_texto(chave), int(celulas[chave]) as EstadoTile)
 	var plantas: Dictionary = dados.get("plantas", {})
 	for chave: String in plantas:
+		if not eh_cultivavel(_celula_do_texto(chave)):
+			continue
 		var salvo: Dictionary = plantas[chave]
 		var caminho: String = PASTA_DOS_CULTIVOS + String(salvo.get("cultivo", "")) + ".tres"
 		if not ResourceLoader.exists(caminho):
