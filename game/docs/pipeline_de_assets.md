@@ -43,7 +43,8 @@ A maior parte da arte do jogo vem de pacotes prontos da Kenney, que chegam como 
 
 ## Pacote próprio
 
-Os modelos feitos pela equipe ficam em `assets/models/cyber_moon_dungeons/`, com a
+Os modelos feitos pela equipe ficam em `assets/models/cyber_moon_dungeons/` (dungeons) e
+`assets/models/cyber_moon_mundo/` (mapa mundi e fazenda), cada um com a
 paleta em `textures/colormap.png` e o mesmo script de importação dos pacotes da Kenney.
 Eles são construídos no Blender por script (`equipe/ferramentas/blender/`), já no tamanho
 do jogo, e entram na cena com escala 1. O estilo, as medidas e o passo a passo estão em

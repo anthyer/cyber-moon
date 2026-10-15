@@ -7,9 +7,56 @@
 **Depende de:** acertar o multiplayer primeiro (decisão do Antonio, 2026-10-14). Também
 usa o pacote e o kit de modelagem do plano 23 (`game/docs/biblia_3d.md`).
 
-**Situação:** só documentado, em 2026-10-14. Nada foi feito ainda. O primeiro passo,
-quando o plano começar, é o mapa de manchas (tarefa 1), para o Antonio aprovar a
-divisão das áreas antes de qualquer modelagem.
+**Situação:** feito em 2026-10-14. As manchas foram aprovadas pelo Antonio ("Gostei
+bastante") e os dois mapas estão no jogo. Detalhes na revisão logo abaixo.
+
+## Revisão de 2026-10-14 (execução)
+
+**O que foi entregue**
+
+- **Dois mapas na mesma cena.** `scenes/levels/fazenda.tscn` e `scenes/levels/mundo.tscn`
+  ficam dentro do `playground.tscn` (nó `Mapas`), longe um do outro. Só um fica ativo:
+  o outro fica invisível e parado. O `MapManager` (autoload novo) troca, e o mapa ativo
+  vai para o save. A porteira (`PassagemDeMapa`) faz a troca andando.
+- **Talhões.** `TalhaoDeCultivo` marca onde a enxada funciona; a `GradeSolo` recusa arar
+  fora deles. Três talhões liberados (256 células) e três tracejados para depois.
+- **O mundo**, seguindo as manchas: viaduto com Night City ao fundo, vila com praça e
+  letreiro, canal com pontes e comportas, reservatório com píer, Badlands com mesas de
+  pedra e pedreira, acampamento das motoqueiras, fazendas solares e a porteira.
+- **As dungeons ganharam entrada no mundo**: o alçapão da Galeria perto do ponto de
+  ônibus (aberto desde o primeiro dia), as ruínas do Biodomo entre os painéis solares e o
+  elevador da Torre ao lado do viaduto. A entrada abre o lobby com a dungeon já escolhida;
+  entrada trancada avisa qual chefe falta vencer.
+- **46 modelos novos** no pacote `assets/models/cyber_moon_mundo/` (scripts em
+  `equipe/ferramentas/blender/modelos/deserto.py`, `mundo.py` e `fazenda.py`).
+- **`EspalhadorDeObjetos`**: cacto, pedra e capim em MultiMesh, com colisão de cilindro.
+- As cenas saem de `equipe/ferramentas/gerar_mapas.py`, como as dungeons.
+
+**Decisões tomadas na execução**
+
+- **Os dois mapas ficam carregados, um parado.** Trocar de cena exigiria guardar e
+  restaurar o estado da fazenda à mão (plantas, baús). Com o mapa parado e invisível, ele
+  não custa desenho nem processamento, o save continua achando os nós, e a planta cresce na
+  virada do dia mesmo com o jogador no mundo. O custo é a memória dos dois, que é pequena.
+- **O NPC reaparece onde a rotina manda** quando o mundo volta a ficar ativo
+  (`EventBus.map_changed`), em vez de continuar de onde parou.
+- **Acordar é sempre na fazenda.** Desmaiar no mundo ou na dungeon leva para casa.
+- **Save de antes do plano 26** leva o jogador para a frente de casa, e a terra arada fora
+  dos talhões não é carregada.
+- **A oficina do Vitor** foi para o outro lado do canal, perto da casa dele; a avenida que
+  desce do viaduto chega na praça entre o mercado e o canal.
+- **Calendário, cama e baús ficam na fazenda**, na varanda e na frente do galpão.
+
+**Como foi testado (por script, com captura de tela)**
+
+- Arar dentro do talhão funciona; fora, e no talhão ainda não liberado, não.
+- Atravessar a porteira leva ao mundo, e a porteira do mundo leva de volta.
+- Entrar na dungeon pelo mundo e sair devolve o jogador ao mesmo ponto do mundo.
+- Desmaiar no mundo acorda na fazenda.
+- As seis casas, o mercado, a clínica e os pontos de rotina recebem os NPCs.
+- Quadros por segundo no notebook do Antonio (janela 1280 por 720): perto de 105 na
+  fazenda, de 90 a 100 no mundo, com 110 a 135 chamadas de desenho. A versão web não foi
+  medida.
 
 ## O pedido do Antonio (2026-10-14)
 
@@ -176,18 +223,18 @@ por 30 (`scripts/farming/grade_solo.gd`). A ideia:
 
 ## Tarefas
 
-- [x] **1.** (Rascunho em `equipe/mapas/manchas.html`, 2026-10-14; falta o Antonio aprovar.) Mapa de manchas em HTML: cada área como uma mancha colorida, com nome, marco,
+- [x] **1.** (Em `equipe/mapas/manchas.html`, aprovado em 2026-10-14.) Mapa de manchas em HTML: cada área como uma mancha colorida, com nome, marco,
   tamanho aproximado e por onde se liga às outras; o mapa da fazenda ao lado, com os
   talhões. Mostrar ao Antonio antes de seguir.
-- [ ] **2.** Medir o orçamento: uma cena de teste com o tamanho do mapa e a densidade
+- [x] **2.** (Medido no notebook; a web fica pendente.) Medir o orçamento: uma cena de teste com o tamanho do mapa e a densidade
   pensada, nos dois alvos (notebook e web).
-- [ ] **3.** Talhões na `GradeSolo` e o fim do arar global.
-- [ ] **4.** Cena do mapa da fazenda e a transição para o mundo.
-- [ ] **5.** Assets novos do deserto no Blender, registrando o estilo na bíblia de 3D.
-- [ ] **6.** Cena do mapa mundi, área por área, com MultiMesh na repetição.
-- [ ] **7.** Mover NPCs, lojas, portal e camas para os mapas novos; refazer as malhas de
+- [x] **3.** Talhões na `GradeSolo` e o fim do arar global.
+- [x] **4.** Cena do mapa da fazenda e a transição para o mundo.
+- [x] **5.** Assets novos do deserto no Blender, registrando o estilo na bíblia de 3D.
+- [x] **6.** Cena do mapa mundi, área por área, com MultiMesh na repetição.
+- [x] **7.** Mover NPCs, lojas, portal e camas para os mapas novos; refazer as malhas de
   navegação.
-- [ ] **8.** Partículas do que for novo, testes e documentação.
+- [x] **8.** Partículas do que for novo, testes e documentação.
 
 ## Partículas
 

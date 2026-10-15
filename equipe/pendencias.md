@@ -300,6 +300,32 @@ exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota
 - Login com a conta Google, pedido do Antonio para o jogo final.
 - Publicar o jogo na Web (CloudFront na frente do bucket) e a sprint 5 inteira.
 
+### 2026-10-14, plano 26 (mapa mundi e mapa da fazenda)
+
+**Feito.** Os dois mapas, os talhões e as entradas das dungeons no mundo. Decisões e
+testes na seção "Revisão de 2026-10-14" do plano 26.
+
+**Precisa do Antonio:**
+
+- Andar pelos dois mapas com a mão e dizer o que mudar: distâncias, onde está vazio
+  demais, onde está cheio. Os testes foram por script e por foto.
+- Decidir quantos talhões a fazenda começa e como libera os outros (hoje são três
+  liberados e três trancados, sem jeito de liberar).
+
+**Fica para depois:**
+
+- Medir a versão web. No notebook roda entre 90 e 110 quadros por segundo.
+- As casas dos NPCs, o mercado, a clínica e a oficina do Vitor são prédios da Kenney sem
+  mudança (telhado verde, fachada de subúrbio). O plano 30 é a hora de dar a eles a cara
+  do deserto.
+- O mundo é iluminado pelo mesmo sol do dia e da noite. As luzes de neon e de poste
+  ficam acesas de dia também.
+- A cama fica na varanda, do lado de fora da casa, porque a casa é um modelo fechado.
+- Sem som na porteira e nos lugares novos.
+- A pedreira é um grupo de rochas, sem mineração ainda.
+- O menu de debug ganhou "Ir para a praça da vila"; "Ir para a área de inimigos" agora
+  leva aos alvos de treino, no acampamento.
+
 ### 2026-10-13, plano 23 decidido
 
 As decisões do plano 23 foram fechadas com o Antonio e estão no topo do plano: três

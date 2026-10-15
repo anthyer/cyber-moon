@@ -544,7 +544,7 @@ nuvem não muda nada para quem desenvolve na própria máquina.
 ## Dungeon em equipe
 
 O multiplayer existe só na dungeon; a fazenda é de um jogador. A dungeon não é troca de
-cena: o `DungeonManager` cria a cena da dungeon escolhida longe da fazenda, na mesma
+cena: o `DungeonManager` cria a cena da dungeon escolhida longe dos mapas, na mesma
 fase, e leva o jogador. O relógio para, e `EventBus.dungeon_entered` e `dungeon_left`
 fazem a luz ficar fixa e a chuva sumir. Ao sair, a cena é apagada e a fazenda está intacta.
 
@@ -564,6 +564,36 @@ O script `Dungeon` cria os inimigos nos `PontoDeInimigo` da cena e faz o envio e
 aplicação das mensagens, listadas em `equipe/planos/22-dungeon-em-coop.md`. Quem morre
 volta sozinho para a fazenda; se o anfitrião morre, o jogo dele continua simulando até o
 parceiro sair.
+
+## Mapas: fazenda e mundo
+
+O jogo tem dois mapas, a fazenda e o mundo em volta da vila (plano 26). Os dois estão
+dentro da cena principal (`playground.tscn`, nó `Mapas`) o tempo todo, em lugares
+distantes: a fazenda em x = -300, o mundo na origem. A dungeon continua sendo criada à
+parte, em z = 400.
+
+- **`Mapa`** é o nó raiz de cada mapa, com um `id` (`fazenda` ou `mundo`). Só um fica
+  ativo; o outro fica invisível e com o processamento desligado. Parado, ele não custa
+  desenho nem lógica, mas continua na árvore: o save acha os nós dele pelo grupo, a
+  `GradeSolo` faz a planta crescer na virada do dia, e nada precisa ser guardado à mão.
+- **`MapManager`** (autoload) liga um mapa e desliga o outro, leva o jogador até o
+  marcador de chegada e emite `EventBus.map_changed`. O mapa ativo vai para o save. Ao
+  acordar (dormindo ou desmaiado), a fazenda volta a ser o mapa ativo.
+- **`PassagemDeMapa`** é a porteira: uma área que, quando o jogador entra, chama
+  `MapManager.ir_para(mapa, chegada)`.
+- **NPCs** moram no mundo. Quando o mundo volta a ficar ativo, cada um aparece onde a
+  rotina manda naquela hora, em vez de seguir de onde parou.
+- **Talhões.** A `GradeSolo` só aceita enxada, regador e picareta dentro de um
+  `TalhaoDeCultivo` liberado (`eh_cultivavel`). O talhão é um nó no canto noroeste da área,
+  com o tamanho em células.
+- **Entradas de dungeon.** Cada dungeon tem uma `entrada_de_dungeon.tscn` no mundo (o
+  `Portal` com `dungeon_id`). Ela abre o lobby com a dungeon já escolhida; trancada, avisa
+  qual chefe falta vencer.
+- **Deserto espalhado.** `EspalhadorDeObjetos` põe cópias de um modelo numa área, com
+  semente fixa, desenhadas num `MultiMeshInstance3D` (uma chamada de desenho para todas) e
+  com um cilindro de colisão por cópia. Áreas livres (estrada, praça, canal) ficam vazias.
+- **Montagem.** As duas cenas saem de `equipe/ferramentas/gerar_mapas.py`, que reescreve a
+  cena inteira. Depois de mudar o mundo, refaça a malha de navegação dele.
 
 ## Conteúdo das dungeons
 

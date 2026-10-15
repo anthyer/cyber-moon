@@ -100,3 +100,9 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Máquina animada | Code-driven machine / `MaquinaAnimada`, mexe as partes de um modelo sem esqueleto pelo nome delas |
 | Cobertura translúcida | See-through cover / `CoberturaTranslucida`, deixa translúcida a peça que esconde o jogador |
 | Paleta de cores | Colormap / `colormap.png`, a textura única de cada pacote de modelos |
+| Mapa (fazenda, mundo) | Map / `Mapa` (nó raiz de cada mapa), trocado pelo `MapManager` |
+| Mapa mundi | World map / `scenes/levels/mundo.tscn` |
+| Porteira | Map passage / `PassagemDeMapa`, a área que leva de um mapa ao outro |
+| Talhão | Farm plot / `TalhaoDeCultivo`, onde a enxada funciona |
+| Entrada de dungeon | Dungeon entrance / `Portal` com `dungeon_id`, em `scenes/world/entrada_de_dungeon.tscn` |
+| Espalhador | Scatter / `EspalhadorDeObjetos`, cópias em MultiMesh |

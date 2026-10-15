@@ -28,6 +28,7 @@ o que importa é a silhueta e duas ou três cores, não o detalhe.
 | `kenney_mini_characters` | pessoas (jogador, NPCs) com esqueleto e animações | paleta própria | 1 |
 | `kenney_cube_pets` | animais em cubo, com esqueleto | paleta própria | 1 |
 | `cyber_moon_dungeons` | cenário, objetos, inimigos e chefes das dungeons | paleta do industrial | 1 |
+| `cyber_moon_mundo` | deserto, vila, canal, viaduto, acampamento e fazenda | paleta do industrial | 1 |
 
 Cada pacote de cidade tem **a sua** `colormap.png`. Os arquivos têm o mesmo desenho
 geral, mas não são iguais: a UV de um modelo do pacote comercial aponta para outra cor
@@ -171,6 +172,32 @@ O projeto não tem pacote de veículo. As ruas são placas de 1 por 1 (4 por 4 n
 a faixa pintada como volume fino. Se um dia entrar carro, a referência é a mesma dos
 prédios: caixa chanfrada, janela de `azul_claro`, roda de cilindro de 8 lados `grafite`.
 
+### Deserto (cactos, rochas, mesas de pedra)
+
+O deserto do mapa mundi segue o Nature Kit na forma (sólido facetado, sem detalhe fino)
+e a paleta do pacote na cor:
+
+- **Cacto** é `verde`, com espinho `creme` e uma flor `magenta` ou `rosa` no alto. O alto
+  tem cerca de 2 de altura, três personagens; o redondo e a palma ficam abaixo de 1.
+- **Mesa de pedra** é feita de camadas de contorno irregular (11 pontos, extrudados na
+  vertical), alternando `ferrugem` e `salmao` e com o topo `pessego`. Camadas de caixa
+  chanfrada pareciam almofadas empilhadas: o contorno irregular é o que dá cara de rocha.
+- **Rochas** são as do Nature Kit repintadas de `ferrugem` e `pessego`.
+- **Capim** é um leque de folhas largas (prismas de três pontos) em amarelo, creme e
+  pêssego. Com folha fina, de cone de três lados, parecia graveto solto.
+- **Mancha de chão** (terra batida, areia clara) é um contorno irregular de espessura
+  quase zero, rente ao chão, para quebrar o plano de areia sem custo.
+
+### Construções do mundo
+
+- **Viaduto, comporta, letreiro e outdoor** são as peças altas do mapa e ficam no norte.
+- **Neon** de rua segue as cores das dungeons: `magenta` e `azul_claro` nas faixas,
+  `amarelo` na luz de poste e nas sinalizações.
+- **Água** é uma face `azul` com um ou dois riscos `azul_claro`, rente ao chão. O canal e o
+  reservatório "afundam" só na aparência: as bordas sobem 0,3 e seguram o jogador.
+- **Casa da fazenda e galpão** usam barro claro (`creme`, `pessego`) e chapa
+  (`cinza_metal`, `ferrugem`), com painel solar `indigo` e caixa d'água `azul`.
+
 ### Inimigos e chefes das dungeons (máquinas)
 
 São **malha rígida, sem esqueleto**, de propósito: máquina não dobra, e isso dispensa
@@ -303,10 +330,23 @@ Em ordem de quanto tempo custaram.
 10. **Cada pacote tem a sua paleta.** A UV de um modelo de outro pacote cai em outra cor.
     Não reaproveite UV entre pacotes; repinte.
 
+11. **Água abaixo do chão some.** O chão do mapa é um plano de areia; a água do canal,
+    modelada 0,2 abaixo, ficava escondida debaixo dele. A água agora fica um fio acima do
+    chão, e a borda alta é que faz o canal parecer fundo.
+12. **Escala de prédio da Kenney no mapa grande.** Em escala 3 as casas da vila sumiam no
+    mapa de 160 por 110. Em escala 4 (a mesma do playground antigo) elas leem como
+    prédio. Medida pela foto de cima e pela câmera do jogo.
+13. **Moto do tamanho certo.** Modelada no tamanho "real", ela ficou menor que o
+    personagem, que tem cabeça grande; ampliada em 1,6 virou carro. 1,3 é a medida.
+14. **Prédio da Kenney editado pode não ter a frente onde se espera.** A porta e o
+    letreiro somados a um galpão do kit industrial ficaram escondidos atrás dele. Quando a
+    peça editada é mais de metade acessório, modelar do zero sai mais rápido e mais certo
+    (foi o caso da oficina das motoqueiras).
+
 ## O que ainda não foi feito
 
-- O pacote próprio não tem pessoa nem animal. Se precisar, a decisão registrada acima é
-  usar os da Kenney.
+- O pacote próprio não tem pessoa nem animal. O plano 30 vai editar os personagens da
+  Kenney no Blender, mantendo o esqueleto.
 - Não há modelo com transparência de verdade (vidro). O vidro da estufa é uma face
   `azul_palido` opaca, como as janelas dos prédios.
 - Os inimigos não têm animação de andar: deslizam, flutuam ou rodam. Para máquina com
