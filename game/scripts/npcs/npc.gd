@@ -90,6 +90,9 @@ func _ready() -> void:
 	WeatherManager.weather_changed.connect(_ao_mudar_clima)
 	# Jogo carregado: a hora mudou de uma vez, e ele aparece onde a rotina manda.
 	EventBus.game_loaded.connect(_conferir_a_rotina.bind(true))
+	# O mundo ficou parado enquanto o jogador estava na fazenda; ao voltar, cada NPC já
+	# aparece onde a rotina manda agora, em vez de seguir de onde parou.
+	EventBus.map_changed.connect(func(_mapa_id: StringName) -> void: _conferir_a_rotina(true))
 	# No primeiro quadro a malha de navegação ainda não está pronta, e os marcadores da
 	# fase podem não ter entrado na árvore. Por isso a primeira posição espera um quadro.
 	_aparecer_no_lugar_certo.call_deferred()

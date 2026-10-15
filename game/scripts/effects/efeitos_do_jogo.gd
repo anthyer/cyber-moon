@@ -57,6 +57,8 @@ const EFEITOS: Dictionary = {
 	&"objetivo_progresso": [ESTOURO, Color(0.5, 1.0, 0.6), 8, 0.5],
 	&"objetivo_cumprido": [SUBIDA, Color(0.5, 1.0, 0.6), 16, 0.3],
 	&"recompensa": [SUBIDA, Color(1.0, 0.85, 0.35), 22, 0.4],
+	# Mapas.
+	&"trocar_de_mapa": [SOPRO, Color(0.86, 0.74, 0.55), 14, 0.3],
 }
 
 const ID_DO_BASTAO_DE_CHOQUE: StringName = &"bastao_choque"
@@ -116,6 +118,7 @@ func _ready() -> void:
 	EventBus.dungeon_objective_progress.connect(_soltar.bind(&"objetivo_progresso"))
 	EventBus.dungeon_objective_changed.connect(_ao_mudar_objetivo)
 	EventBus.dungeon_reward_claimed.connect(_soltar.bind(&"recompensa"))
+	EventBus.map_changed.connect(func(_mapa_id: StringName) -> void: _no_jogador(&"trocar_de_mapa"))
 
 ## Este nó para junto com o jogo. O aprimoramento acontece na tela do ferreiro, que pausa
 ## o jogo, então as faíscas esperam aqui e saem quando a tela fecha.

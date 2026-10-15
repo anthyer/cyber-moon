@@ -54,14 +54,22 @@ func _process(_delta: float) -> void:
 		fechar()
 
 ## Não abre por cima de uma tela que pausou o jogo, nem com o jogador caído.
-func abrir() -> void:
+## Vindo da entrada de uma dungeon, a escolha já é a dela. Entrada de dungeon ainda
+## trancada não abre a tela: avisa o que falta para abrir.
+func abrir(dungeon_id: StringName = &"") -> void:
 	if visible or get_tree().paused or StatusManager.esta_desmaiado:
+		return
+	var definicao: DefinicaoDeDungeon = DungeonManager.definicao_de(dungeon_id) if dungeon_id != &"" else null
+	if definicao != null and not DungeonManager.esta_liberada(definicao):
+		var anterior: DefinicaoDeDungeon = DungeonManager.definicao_de(definicao.requer)
+		var falta: String = anterior.nome if anterior != null else "a dungeon anterior"
+		EventBus.notice_requested.emit("A entrada de %s está trancada. Vença o chefe de %s primeiro." % [definicao.nome, falta])
 		return
 	visible = true
 	InputManager.teclado_capturado = true
-	# Cada vez que a tela abre, a escolha volta para a última dungeon liberada: é a que
-	# o jogador mais provavelmente quer, e uma liberada desde a última vez já aparece.
-	_dungeon_escolhida = _ultima_liberada()
+	# Sem entrada definida (o menu de debug), a escolha volta para a última dungeon
+	# liberada: é a que o jogador mais provavelmente quer.
+	_dungeon_escolhida = definicao.id if definicao != null else _ultima_liberada()
 	_redesenhar()
 
 func fechar() -> void:

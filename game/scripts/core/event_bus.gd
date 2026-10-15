@@ -21,8 +21,10 @@ signal notice_requested(texto: String)
 signal calendar_requested
 ## Som de ambiente em loop, como a chuva. Nulo pede para parar o que estiver tocando.
 signal ambience_requested(fluxo: AudioStream)
-## O portal da fazenda pediu para abrir a tela de lobby da dungeon.
-signal lobby_requested
+## A entrada de uma dungeon pediu para abrir a tela de lobby, com essa dungeon escolhida.
+signal lobby_requested(dungeon_id: StringName)
+## O mapa ativo trocou (fazenda ou mundo). Os NPCs do mapa que voltou se reposicionam.
+signal map_changed(mapa_id: StringName)
 ## O jogador entrou ou saiu da dungeon. A luz, a chuva e o relógio reagem.
 signal dungeon_entered
 signal dungeon_left

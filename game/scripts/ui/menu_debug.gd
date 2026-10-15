@@ -17,8 +17,6 @@ extends Control
 const HORA_MINIMA: float = 6.0
 const HORA_MAXIMA: float = 25.0
 const INTERVALO_DO_CONTADOR_DE_QUADROS: float = 0.25
-## Onde o jogador vai ao pedir a área de inimigos: a faixa livre em z = -15 do playground.
-const POSICAO_DA_AREA_DE_INIMIGOS: Vector3 = Vector3(0.0, 0.3, -15.0)
 const DISTANCIA_DO_INIMIGO_CRIADO: float = 6.0
 
 const CULTURAS: Array[String] = ["beterraba", "repolho", "cenoura", "milho", "tomate", "trigo"]
@@ -117,7 +115,8 @@ func _montar_secoes() -> void:
 	_novo_botao("+100 de experiência", _ganhar_experiencia)
 	_caixa_invencivel = _nova_caixa("Invencível", _ao_marcar_invencivel)
 	_novo_botao("Voltar para casa", _voltar_para_casa)
-	_novo_botao("Ir para a área de inimigos", _ir_para_a_area_de_inimigos)
+	_novo_botao("Ir para os alvos de treino", _ir_para_a_area_de_inimigos)
+	_novo_botao("Ir para a praça da vila", _ir_para_a_praca)
 
 	_novo_titulo_de_secao("Fazenda")
 	_novo_botao("Molhar todo o solo", _molhar_todo_o_solo)
@@ -161,7 +160,7 @@ func _montar_secoes() -> void:
 	_novo_botao("+1 de cada item de presente", _dar_itens_de_presente)
 
 	_novo_titulo_de_secao("Dungeon")
-	_novo_botao("Abrir o lobby", func() -> void: EventBus.lobby_requested.emit())
+	_novo_botao("Abrir o lobby", func() -> void: EventBus.lobby_requested.emit(&""))
 	_novo_botao("Entrar sozinho agora", DungeonManager.entrar)
 	_novo_botao("Sair da dungeon", DungeonManager.sair)
 
@@ -333,19 +332,13 @@ func _ao_marcar_invencivel(marcado: bool) -> void:
 	StatusManager.invencivel_para_teste = marcado
 
 func _voltar_para_casa() -> void:
-	var jogador: Node3D = _jogador()
-	if jogador == null:
-		return
-	var cena: Node = get_tree().current_scene
-	var ponto_de_spawn: Node3D = cena.get_node_or_null("PontoDeSpawn") as Node3D if cena != null else null
-	# Sem ponto de spawn na fase, volta para a origem, que é onde o jogador nasce.
-	var destino: Vector3 = ponto_de_spawn.global_position if ponto_de_spawn != null else Vector3(0.0, 0.5, 0.0)
-	_teleportar(jogador, destino)
+	MapManager.ir_para(&"fazenda", &"PontoDeSpawn")
 
 func _ir_para_a_area_de_inimigos() -> void:
-	var jogador: Node3D = _jogador()
-	if jogador != null:
-		_teleportar(jogador, POSICAO_DA_AREA_DE_INIMIGOS)
+	MapManager.ir_para(&"mundo", &"AlvosDeTreino")
+
+func _ir_para_a_praca() -> void:
+	MapManager.ir_para(&"mundo", &"praca")
 
 ## Zera a velocidade junto, senão um empurrão ou queda em andamento continua depois do
 ## teleporte.

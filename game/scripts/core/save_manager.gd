@@ -106,6 +106,8 @@ func _autoloads_salvos() -> Dictionary:
 		"dialogo": DialogueManager,
 		"dungeon": DungeonManager,
 		"aprimoramento": UpgradeManager,
+		# Depois de todos: o mapa ativo é ligado antes de o jogador receber a posição dele.
+		"mapa": MapManager,
 	}
 
 ## Os nós da fase só existem depois de a cena entrar na árvore, o que acontece depois do
