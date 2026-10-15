@@ -176,7 +176,7 @@ por 30 (`scripts/farming/grade_solo.gd`). A ideia:
 
 ## Tarefas
 
-- [ ] **1.** Mapa de manchas em HTML: cada área como uma mancha colorida, com nome, marco,
+- [x] **1.** (Rascunho em `equipe/mapas/manchas.html`, 2026-10-14; falta o Antonio aprovar.) Mapa de manchas em HTML: cada área como uma mancha colorida, com nome, marco,
   tamanho aproximado e por onde se liga às outras; o mapa da fazenda ao lado, com os
   talhões. Mostrar ao Antonio antes de seguir.
 - [ ] **2.** Medir o orçamento: uma cena de teste com o tamanho do mapa e a densidade

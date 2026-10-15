@@ -1,0 +1,423 @@
+<title>Manchas do Cyber Moon</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Instrument+Sans:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: uma prancheta escura de fim de tarde no deserto. Cada mapa é um papel de
+   areia aberto sobre ela, com a ficha da área ao lado. Visual único (escuro) de propósito. */
+:root {
+  --noite: #1c1830;
+  --prancheta: #252040;
+  --linha: #3a3360;
+  --areia-texto: #f1e6d6;
+  --apagado: #a99fbd;
+  --sol: #ff9f5a;
+  --neon: #ff6fd8;
+  --papel: #dcbd8d;
+  --display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --corpo: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --dado: "JetBrains Mono", ui-monospace, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--noite);
+  color: var(--areia-texto);
+  font-family: var(--corpo);
+  font-size: 15px;
+  line-height: 1.55;
+  padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-width: 1240px; margin: 0 auto; display: grid; gap: 40px; }
+header { display: grid; gap: 10px; max-width: 70ch; }
+.selo {
+  font-family: var(--dado); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--sol);
+}
+h1 {
+  font-family: var(--display); font-weight: 800; font-size: clamp(40px, 7vw, 76px);
+  line-height: .92; margin: 0; letter-spacing: .01em; text-wrap: balance;
+}
+h1 em { font-style: normal; color: var(--sol); }
+h2 {
+  font-family: var(--display); font-weight: 800; font-size: clamp(28px, 4vw, 40px);
+  margin: 0; line-height: 1; text-wrap: balance;
+}
+h3 { font-family: var(--display); font-weight: 600; font-size: 24px; margin: 0; line-height: 1.05; }
+p { margin: 0; }
+.apagado { color: var(--apagado); }
+
+.mapa { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; align-items: start; }
+@media (max-width: 900px) { .mapa { grid-template-columns: minmax(0, 1fr); } }
+.cabeca-do-mapa { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; justify-content: space-between; }
+.papel {
+  background: var(--prancheta); border: 1px solid var(--linha); border-radius: 6px;
+  padding: 10px; display: grid; gap: 8px; min-width: 0;
+}
+canvas { display: block; width: 100%; height: auto; border-radius: 3px; cursor: crosshair; touch-action: manipulation; }
+.regua { font-family: var(--dado); font-size: 12px; color: var(--apagado); display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.regua b { color: var(--areia-texto); font-weight: 600; }
+
+.ficha {
+  position: sticky; top: calc(16px + env(safe-area-inset-top, 0px));
+  background: var(--prancheta); border: 1px solid var(--linha); border-radius: 6px;
+  padding: 18px; display: grid; gap: 12px; min-width: 0;
+}
+.ficha .faixa { height: 6px; border-radius: 3px; }
+.ficha dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 12px; margin: 0; font-size: 14px; }
+.ficha dt { font-family: var(--dado); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--apagado); padding-top: 3px; }
+.ficha dd { margin: 0; }
+.dica { font-size: 13px; color: var(--apagado); }
+
+.lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.item {
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+  background: transparent; border: 1px solid var(--linha); border-radius: 6px;
+  padding: 12px 14px; display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 4px 10px;
+}
+.item:hover, .item[aria-pressed="true"] { border-color: var(--sol); background: var(--prancheta); }
+.item:focus-visible { outline: 2px solid var(--neon); outline-offset: 2px; }
+.item .cor { width: 14px; height: 14px; border-radius: 50%; margin-top: 4px; }
+.item strong { font-weight: 600; }
+.item span.medida { grid-column: 2; font-family: var(--dado); font-size: 12px; color: var(--apagado); }
+
+.regras { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.regra { border-top: 2px solid var(--sol); padding-top: 10px; display: grid; gap: 6px; }
+.regra h4 { margin: 0; font-family: var(--dado); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--sol); }
+.regra p { font-size: 14px; color: var(--areia-texto); max-width: 60ch; }
+footer { font-size: 13px; color: var(--apagado); max-width: 70ch; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<main>
+  <header>
+    <span class="selo">Plano 26 · rascunho de manchas · 14 out 2026</span>
+    <h1>O deserto em volta da <em>Cyber Moon</em></h1>
+    <p class="apagado">Cada mancha é uma área do jogo, no tamanho que ela teria. Toque numa mancha (ou num nome da lista) para ver o que tem nela, o marco que a identifica e por onde ela se liga às outras. Nada aqui é definitivo: é o papel para riscar antes de modelar.</p>
+  </header>
+
+  <section class="mapa" aria-labelledby="titulo-mundo">
+    <div class="papel">
+      <div class="cabeca-do-mapa">
+        <h2 id="titulo-mundo">Mapa mundi</h2>
+        <span class="regua"><span>tamanho <b>160 × 110</b></span><span>correndo de ponta a ponta <b>≈ 27 s</b></span></span>
+      </div>
+      <canvas id="mundo" width="1600" height="1100" aria-label="Mapa de manchas do mundo"></canvas>
+      <div class="regua"><span>norte em cima · a câmera do jogo olha do sul</span><span>quadrado da grade = <b>10 × 10</b> (3 s andando)</span></div>
+    </div>
+    <aside class="ficha" id="ficha-mundo" aria-live="polite"></aside>
+  </section>
+  <div class="lista" id="lista-mundo"></div>
+
+  <section class="mapa" aria-labelledby="titulo-fazenda">
+    <div class="papel">
+      <div class="cabeca-do-mapa">
+        <h2 id="titulo-fazenda">Mapa da fazenda</h2>
+        <span class="regua"><span>tamanho <b>50 × 40</b></span><span>uma cena separada do mundo</span></span>
+      </div>
+      <canvas id="fazenda" width="1250" height="1000" aria-label="Mapa de manchas da fazenda"></canvas>
+      <div class="regua"><span>talhão cheio = já dá para arar · tracejado = libera depois</span><span>quadrado da grade = <b>5 × 5</b></span></div>
+    </div>
+    <aside class="ficha" id="ficha-fazenda" aria-live="polite"></aside>
+  </section>
+  <div class="lista" id="lista-fazenda"></div>
+
+  <section aria-labelledby="titulo-regras" style="display:grid;gap:16px">
+    <h2 id="titulo-regras">Regras que o desenho segue</h2>
+    <div class="regras">
+      <div class="regra"><h4>Alto ao norte</h4><p>A câmera olha do sul para o norte. Viaduto, mesas de pedra e prédios ficam em cima ou nos lados; ao sul, só o reservatório e coisa baixa. Nada alto entre a câmera e o jogador.</p></div>
+      <div class="regra"><h4>Chão aberto entre os marcos</h4><p>O deserto é leve por natureza. Os objetos se juntam em volta de cada marco e o caminho entre eles é areia lisa, com cacto e pedra espalhados em grupos (MultiMesh).</p></div>
+      <div class="regra"><h4>A água organiza</h4><p>O canal da corporação faz o papel do rio da referência: corta a vila, cria as pontes e liga a serra ao reservatório. E conta a história: a água tem dono.</p></div>
+      <div class="regra"><h4>As dungeons ganham lugar</h4><p>A Galeria é um alçapão de serviço debaixo do viaduto, o Biodomo são as ruínas entre os painéis solares, e a Torre fica na cidade, no horizonte.</p></div>
+      <div class="regra"><h4>Dois mapas, duas cenas</h4><p>Fazenda e mundo nunca estão carregados juntos. A porteira faz a troca. Cada mapa tem a própria malha de navegação.</p></div>
+      <div class="regra"><h4>Só se ara no talhão</h4><p>O arar global sai. A enxada só funciona dentro dos talhões da fazenda, que têm chão de terra visível. Os tracejados liberam depois.</p></div>
+    </div>
+  </section>
+
+  <footer>Rascunho para conversa. Tamanhos em unidades do jogo (o personagem tem 0,66 de altura, anda a 3 por segundo e corre a 6). Referência analisada no plano 26: o mapa de vila de jogo de fazenda em pixel art.</footer>
+</main>
+
+<script>
+// Cada área: centro (x, y), raios (rx, ry) em unidades do mapa, e a ficha.
+// O formato é uma mancha irregular gerada a partir desses números, igual toda vez.
+const MUNDO = {
+  largura: 160, altura: 110, grade: 10, chao: "#dcbd8d",
+  areas: [
+    { id: "rodovia", nome: "Rodovia elevada", cor: "#8f88a8", forma: "faixa", x: 0, y: 0, w: 160, h: 13,
+      medida: "160 × 13, na borda norte", marco: "Ponto de ônibus debaixo do viaduto, e o alçapão da Galeria de Manutenção",
+      tem: "Viaduto em módulos de concreto, pilares, outdoors de neon e a silhueta de Night City atrás.",
+      altura: "Alta. Fica no norte justamente por isso.", densidade: "Média, só em volta do ponto de ônibus",
+      liga: "Desce para a vila pela rua principal; a leste, sobe a rampa que leva à Torre (no horizonte)." },
+    { id: "vila", nome: "Vila", cor: "#c7b2ec", x: 80, y: 56, rx: 26, ry: 22,
+      medida: "≈ 52 × 44, um terço da largura", marco: "Letreiro de neon gigante na praça e o poço com bomba solar",
+      tem: "Praça, mercado, ferreiro, clínica, bar de beira de estrada e as casas dos NPCs. Menos prédios e maiores que na referência.",
+      altura: "Prédios de dois andares no lado norte da praça; lojas baixas no lado sul.", densidade: "A maior do mapa, concentrada na praça",
+      liga: "Ponte sobre o canal para o leste; estrada de terra para a porteira da fazenda; rua para o viaduto." },
+    { id: "canal", nome: "Canal da corporação", cor: "#69b6ff", forma: "canal",
+      pontos: [[92, 13], [90, 30], [84, 44], [78, 60], [75, 78], [70, 92]], largura: 5,
+      medida: "≈ 90 de comprimento, 5 de largura", marco: "A comporta principal, vigiada por um drone parado",
+      tem: "Aqueduto de concreto com água, três pontes e duas comportas.",
+      altura: "Baixo, abaixo do nível do chão.", densidade: "Baixa: peças de canal em fila",
+      liga: "Corta a vila de norte a sul e termina no reservatório." },
+    { id: "badlands", nome: "Badlands", cor: "#e08d5c", x: 136, y: 36, rx: 22, ry: 20,
+      medida: "≈ 44 × 40, nordeste", marco: "A pedreira, onde se pega minério",
+      tem: "Mesas de pedra de topo chato, cactos grandes, a mina com trilho e vagonete.",
+      altura: "Alta: as mesas de pedra fecham a borda leste e norte.", densidade: "Baixa: pedra e cacto em grupos",
+      liga: "Trilha de terra para a vila e para o acampamento ao sul." },
+    { id: "acampamento", nome: "Acampamento das motoqueiras", cor: "#f5b843", x: 138, y: 80, rx: 18, ry: 13,
+      medida: "≈ 36 × 26, leste", marco: "A oficina das motoqueiras, com a rampa de saltos",
+      tem: "Ferro-velho, trailers, fogueira, motos, pilha de pneus, grafite e faixa de aviso.",
+      altura: "Média: trailers e contêineres de um andar.", densidade: "Média, em roda da fogueira",
+      liga: "Estrada de terra até a ponte leste da vila." },
+    { id: "solar", nome: "Fazendas solares", cor: "#8fd6a9", x: 30, y: 52, rx: 20, ry: 18,
+      medida: "≈ 40 × 36, oeste", marco: "O cata-vento quebrado; perto dele, as ruínas do Biodomo Abandonado",
+      tem: "Fileiras de painéis solares e cata-ventos da corporação, metade abandonada, cerca caída.",
+      altura: "Média; cata-ventos altos só na borda oeste.", densidade: "Baixa: painéis em MultiMesh",
+      liga: "Estrada de terra para a vila e para a porteira da fazenda." },
+    { id: "reservatorio", nome: "Reservatório", cor: "#3f86d8", x: 68, y: 101, rx: 30, ry: 8,
+      medida: "≈ 60 × 16, borda sul", marco: "O píer de pesca e a casa de bombas",
+      tem: "Lago artificial onde o canal deságua, margem de concreto, píer de madeira e barcos velhos.",
+      altura: "Plano. Fica no sul porque não cobre nada.", densidade: "Baixa",
+      liga: "Margem norte ligada à vila; o canal entra pelo meio." },
+    { id: "porteira", nome: "Saída para a fazenda", cor: "#b98757", x: 12, y: 20, rx: 9, ry: 7,
+      medida: "≈ 18 × 14, noroeste", marco: "A porteira com a placa da fazenda",
+      tem: "Estrada de terra, porteira, caixa de correio e uma caixa d'água.",
+      altura: "Baixa.", densidade: "Baixa",
+      liga: "Troca para o mapa da fazenda. Estrada para a vila e para as fazendas solares." },
+  ],
+  marcos: [
+    { x: 96, y: 15, nome: "Galeria", tipo: "dungeon" },
+    { x: 24, y: 47, nome: "Biodomo", tipo: "dungeon" },
+    { x: 130, y: 4, nome: "Torre", tipo: "dungeon" },
+    { x: 80, y: 56, nome: "praça", tipo: "marco" },
+    { x: 140, y: 30, nome: "pedreira", tipo: "marco" },
+    { x: 140, y: 82, nome: "oficina", tipo: "marco" },
+    { x: 60, y: 100, nome: "píer", tipo: "marco" },
+  ],
+  estradas: [
+    [[8, 20], [30, 26], [56, 46], [80, 56]],
+    [[80, 56], [82, 34], [86, 14]],
+    [[80, 56], [104, 62], [124, 76], [138, 80]],
+    [[80, 56], [110, 46], [128, 38]],
+    [[30, 26], [30, 52]],
+    [[78, 66], [66, 92]],
+  ],
+};
+
+const FAZENDA = {
+  largura: 50, altura: 40, grade: 5, chao: "#d7b583",
+  areas: [
+    { id: "casa", nome: "Casa", cor: "#c7b2ec", forma: "retangulo", x: 19, y: 3, w: 12, h: 8,
+      medida: "12 × 8, no norte", marco: "A casa do jogador, com a cama",
+      tem: "Casa de um andar com varanda. Fica no norte porque é a peça mais alta da fazenda.",
+      altura: "Alta: por isso no norte.", densidade: "não se aplica", liga: "Varanda dá para o pátio." },
+    { id: "galpao", nome: "Galpão e baú", cor: "#9e97b8", forma: "retangulo", x: 34, y: 4, w: 9, h: 6,
+      medida: "9 × 6", marco: "O baú de guardar e o de venda",
+      tem: "Galpão de chapa com os baús, a bancada e as ferramentas penduradas.",
+      altura: "Média.", densidade: "não se aplica", liga: "Ao lado da casa, de frente para o pátio." },
+    { id: "agua", nome: "Caixa d'água", cor: "#69b6ff", forma: "retangulo", x: 7, y: 4, w: 6, h: 6,
+      medida: "6 × 6", marco: "A caixa d'água com bomba solar",
+      tem: "Onde o regador enche. Torre de caixa d'água do kit industrial.",
+      altura: "Alta, mas no canto norte.", densidade: "não se aplica", liga: "Perto dos talhões do oeste." },
+    { id: "patio", nome: "Pátio", cor: "#e9d2a5", forma: "retangulo", x: 6, y: 12, w: 38, h: 4,
+      medida: "38 × 4", marco: "nenhum",
+      tem: "Chão batido entre as construções e os talhões. É por onde se anda.",
+      altura: "Plano.", densidade: "Baixa", liga: "Liga a casa, os talhões e a porteira." },
+    { id: "t1", nome: "Talhão 1", cor: "#7d4f33", forma: "retangulo", x: 6, y: 18, w: 11, h: 8, talhao: true,
+      medida: "11 × 8 = 88 células", marco: "nenhum", tem: "Terra arável desde o começo do jogo.",
+      altura: "Plano.", densidade: "não se aplica", liga: "Pátio ao norte." },
+    { id: "t2", nome: "Talhão 2", cor: "#7d4f33", forma: "retangulo", x: 20, y: 18, w: 11, h: 8, talhao: true,
+      medida: "11 × 8 = 88 células", marco: "nenhum", tem: "Terra arável desde o começo do jogo.",
+      altura: "Plano.", densidade: "não se aplica", liga: "Pátio ao norte." },
+    { id: "t3", nome: "Talhão 3", cor: "#7d4f33", forma: "retangulo", x: 34, y: 18, w: 10, h: 8, talhao: true,
+      medida: "10 × 8 = 80 células", marco: "nenhum", tem: "Terra arável desde o começo do jogo.",
+      altura: "Plano.", densidade: "não se aplica", liga: "Pátio ao norte, porteira a leste." },
+    { id: "t4", nome: "Talhões a liberar", cor: "#7d4f33", forma: "retangulo", x: 6, y: 29, w: 38, h: 7, talhao: true, futuro: true,
+      medida: "38 × 7, três talhões", marco: "nenhum", tem: "Terra que libera depois (comprando terreno ou por aprimoramento, a decidir).",
+      altura: "Plano.", densidade: "não se aplica", liga: "Abaixo dos talhões do começo." },
+    { id: "porteira-f", nome: "Porteira para o mundo", cor: "#b98757", forma: "retangulo", x: 46, y: 18, w: 4, h: 8,
+      medida: "4 × 8, borda leste", marco: "A porteira",
+      tem: "Troca para o mapa mundi, chegando na saída da fazenda, a noroeste da vila.",
+      altura: "Baixa.", densidade: "não se aplica", liga: "Mapa mundi." },
+  ],
+  marcos: [],
+  estradas: [[[44, 14], [48, 22]]],
+};
+
+// Gerador simples de números pseudoaleatórios: a mesma mancha sai igual sempre.
+function sementeDe(texto) {
+  let h = 2166136261;
+  for (const c of texto) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
+  return () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 10000) / 10000; };
+}
+
+function caminhoDaArea(area, escala) {
+  const p = new Path2D();
+  if (area.forma === "faixa" || area.forma === "retangulo") {
+    p.rect(area.x * escala, area.y * escala, area.w * escala, area.h * escala);
+    return p;
+  }
+  if (area.forma === "canal") {
+    const meia = area.largura / 2;
+    const ida = area.pontos.map(([x, y]) => [x + meia, y]);
+    const volta = area.pontos.slice().reverse().map(([x, y]) => [x - meia, y]);
+    const todos = ida.concat(volta);
+    p.moveTo(todos[0][0] * escala, todos[0][1] * escala);
+    for (const [x, y] of todos.slice(1)) p.lineTo(x * escala, y * escala);
+    p.closePath();
+    return p;
+  }
+  const sorteio = sementeDe(area.id);
+  const pontos = 28;
+  const fases = [sorteio() * 6.28, sorteio() * 6.28, sorteio() * 6.28];
+  for (let i = 0; i <= pontos; i++) {
+    const a = (i / pontos) * Math.PI * 2;
+    const tremor = 1 + 0.08 * Math.sin(a * 3 + fases[0]) + 0.05 * Math.sin(a * 5 + fases[1]) + 0.03 * Math.sin(a * 7 + fases[2]);
+    const x = (area.x + Math.cos(a) * area.rx * tremor) * escala;
+    const y = (area.y + Math.sin(a) * area.ry * tremor) * escala;
+    i === 0 ? p.moveTo(x, y) : p.lineTo(x, y);
+  }
+  p.closePath();
+  return p;
+}
+
+function montarMapa(mapa, idCanvas, idFicha, idLista) {
+  const canvas = document.getElementById(idCanvas);
+  const ctx = canvas.getContext("2d");
+  const escala = canvas.width / mapa.largura;
+  const caminhos = mapa.areas.map((area) => ({ area, caminho: caminhoDaArea(area, escala) }));
+  let escolhida = mapa.areas[1] ?? mapa.areas[0];
+
+  function desenhar() {
+    ctx.fillStyle = mapa.chao;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Grão de areia, sempre o mesmo.
+    const grao = sementeDe(idCanvas);
+    ctx.fillStyle = "rgba(120, 82, 44, 0.12)";
+    for (let i = 0; i < 2600; i++) ctx.fillRect(grao() * canvas.width, grao() * canvas.height, 2, 2);
+    // Grade.
+    ctx.strokeStyle = "rgba(60, 40, 30, 0.13)";
+    ctx.lineWidth = 1;
+    for (let x = 0; x <= mapa.largura; x += mapa.grade) { ctx.beginPath(); ctx.moveTo(x * escala, 0); ctx.lineTo(x * escala, canvas.height); ctx.stroke(); }
+    for (let y = 0; y <= mapa.altura; y += mapa.grade) { ctx.beginPath(); ctx.moveTo(0, y * escala); ctx.lineTo(canvas.width, y * escala); ctx.stroke(); }
+    // Silhueta da cidade além do viaduto, só no mundo.
+    if (idCanvas === "mundo") {
+      ctx.fillStyle = "rgba(37, 32, 64, 0.85)";
+      const predio = sementeDe("cidade");
+      for (let x = 0; x < mapa.largura; x += 4 + predio() * 5) {
+        const alt = 3 + predio() * 7;
+        ctx.fillRect(x * escala, 0, (2.5 + predio() * 3) * escala, alt * escala * 0.55);
+      }
+    }
+    // Estradas.
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+    for (const estrada of mapa.estradas) {
+      ctx.strokeStyle = "rgba(110, 76, 48, 0.55)"; ctx.lineWidth = 2.6 * escala;
+      ctx.beginPath(); estrada.forEach(([x, y], i) => i ? ctx.lineTo(x * escala, y * escala) : ctx.moveTo(x * escala, y * escala)); ctx.stroke();
+      ctx.strokeStyle = "rgba(240, 220, 180, 0.6)"; ctx.lineWidth = 0.35 * escala; ctx.setLineDash([1.2 * escala, 1.2 * escala]);
+      ctx.stroke(); ctx.setLineDash([]);
+    }
+    // Manchas.
+    for (const { area, caminho } of caminhos) {
+      ctx.save();
+      ctx.globalAlpha = area.futuro ? 0.35 : 0.82;
+      ctx.fillStyle = area.cor;
+      ctx.fill(caminho);
+      ctx.restore();
+      if (area.talhao) {
+        ctx.save(); ctx.clip(caminho);
+        ctx.strokeStyle = "rgba(40, 22, 12, 0.35)"; ctx.lineWidth = 0.25 * escala;
+        for (let y = area.y + 1; y < area.y + area.h; y += 1) { ctx.beginPath(); ctx.moveTo(area.x * escala, y * escala); ctx.lineTo((area.x + area.w) * escala, y * escala); ctx.stroke(); }
+        ctx.restore();
+      }
+      ctx.lineWidth = area === escolhida ? 0.6 * escala : 0.22 * escala;
+      ctx.strokeStyle = area === escolhida ? "#ff6fd8" : "rgba(40, 28, 40, 0.55)";
+      if (area.futuro) ctx.setLineDash([1.2 * escala, 0.8 * escala]);
+      ctx.stroke(caminho);
+      ctx.setLineDash([]);
+    }
+    // Nomes das áreas.
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    for (const { area } of caminhos) {
+      const cx = area.forma === "canal" ? area.pontos[2][0] + 6 : area.forma ? area.x + area.w / 2 : area.x;
+      const cy = area.forma === "canal" ? area.pontos[2][1] : area.forma ? area.y + area.h / 2 : area.y - (area.ry ?? 0) * 0.45;
+      const tamanho = Math.max(18, escala * (idCanvas === "mundo" ? 2.6 : 1.7));
+      ctx.font = `800 ${tamanho}px "Big Shoulders Display", "Arial Narrow", sans-serif`;
+      ctx.fillStyle = "#231c33";
+      ctx.fillText(area.nome.toUpperCase(), cx * escala, cy * escala);
+    }
+    // Marcos e entradas das dungeons.
+    for (const marco of mapa.marcos) {
+      const x = marco.x * escala, y = marco.y * escala;
+      ctx.beginPath();
+      if (marco.tipo === "dungeon") {
+        ctx.moveTo(x, y - 1.6 * escala); ctx.lineTo(x + 1.6 * escala, y); ctx.lineTo(x, y + 1.6 * escala); ctx.lineTo(x - 1.6 * escala, y); ctx.closePath();
+        ctx.fillStyle = "#ff6fd8";
+      } else {
+        ctx.arc(x, y, 0.9 * escala, 0, Math.PI * 2);
+        ctx.fillStyle = "#ff9f5a";
+      }
+      ctx.fill(); ctx.lineWidth = 3; ctx.strokeStyle = "#231c33"; ctx.stroke();
+      ctx.font = `600 ${Math.max(15, escala * 1.6)}px "JetBrains Mono", ui-monospace, monospace`;
+      ctx.textAlign = "left"; ctx.fillStyle = "#231c33";
+      ctx.fillText(marco.tipo === "dungeon" ? `▸ ${marco.nome}` : marco.nome, x + 2.2 * escala, y);
+      ctx.textAlign = "center";
+    }
+    // Seta da câmera, no canto de baixo.
+    ctx.save();
+    ctx.translate(canvas.width - 4 * escala * (idCanvas === "mundo" ? 1 : 0.5), canvas.height - 4 * escala * (idCanvas === "mundo" ? 1 : 0.5));
+    ctx.fillStyle = "#231c33";
+    ctx.font = `600 ${Math.max(14, escala * 1.4)}px "JetBrains Mono", ui-monospace, monospace`;
+    ctx.textAlign = "right"; ctx.fillText("câmera ↑", 0, 0);
+    ctx.restore();
+  }
+
+  function preencherFicha(area) {
+    const ficha = document.getElementById(idFicha);
+    ficha.innerHTML = "";
+    const faixa = document.createElement("div"); faixa.className = "faixa"; faixa.style.background = area.cor;
+    const titulo = document.createElement("h3"); titulo.textContent = area.nome;
+    const dl = document.createElement("dl");
+    for (const [rotulo, valor] of [["Tamanho", area.medida], ["Marco", area.marco], ["Tem", area.tem], ["Altura", area.altura], ["Densidade", area.densidade], ["Liga com", area.liga]]) {
+      const dt = document.createElement("dt"); dt.textContent = rotulo;
+      const dd = document.createElement("dd"); dd.textContent = valor;
+      dl.append(dt, dd);
+    }
+    const dica = document.createElement("p"); dica.className = "dica"; dica.textContent = "Toque em outra mancha para trocar.";
+    ficha.append(faixa, titulo, dl, dica);
+    document.querySelectorAll(`#${idLista} .item`).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.id === area.id)));
+  }
+
+  function escolher(area) { escolhida = area; desenhar(); preencherFicha(area); }
+
+  const lista = document.getElementById(idLista);
+  for (const area of mapa.areas) {
+    const botao = document.createElement("button");
+    botao.className = "item"; botao.type = "button"; botao.dataset.id = area.id; botao.setAttribute("aria-pressed", "false");
+    const cor = document.createElement("span"); cor.className = "cor"; cor.style.background = area.cor;
+    const nome = document.createElement("strong"); nome.textContent = area.nome;
+    const medida = document.createElement("span"); medida.className = "medida"; medida.textContent = area.medida;
+    botao.append(cor, nome, medida);
+    botao.addEventListener("click", () => escolher(area));
+    lista.append(botao);
+  }
+
+  canvas.addEventListener("click", (evento) => {
+    const caixa = canvas.getBoundingClientRect();
+    const x = (evento.clientX - caixa.left) * (canvas.width / caixa.width);
+    const y = (evento.clientY - caixa.top) * (canvas.height / caixa.height);
+    // De trás para frente: a mancha desenhada por cima ganha.
+    for (const { area, caminho } of caminhos.slice().reverse()) {
+      if (ctx.isPointInPath(caminho, x, y)) { escolher(area); return; }
+    }
+  });
+
+  escolher(escolhida);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(desenhar);
+}
+
+montarMapa(MUNDO, "mundo", "ficha-mundo", "lista-mundo");
+montarMapa(FAZENDA, "fazenda", "ficha-fazenda", "lista-fazenda");
+</script>
