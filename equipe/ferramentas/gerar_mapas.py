@@ -52,7 +52,7 @@ CORES = {
     "terra_batida": (0.73, 0.55, 0.38),
     "asfalto": (0.29, 0.29, 0.35),
     "praca": (0.62, 0.61, 0.68),
-    "terra_da_fazenda": (0.72, 0.62, 0.42),
+    "terra_da_fazenda": (0.5, 0.66, 0.36),
     "talhao": (0.45, 0.31, 0.21),
     "talhao_futuro": (0.6, 0.47, 0.34),
     "agua": (0.26, 0.5, 0.86),
@@ -219,6 +219,26 @@ class Montador:
             "position": vetor(cx, 1.5, cz), "collision_mask": "0"})
         self.c.no("Forma", "CollisionShape3D", pai=corpo, propriedades={"shape": forma})
 
+    def agua(self, nome, x1, z1, x2, z2, pai=".", y=0.025):
+        """Um plano de água com o shader toon, de (x1, z1) a (x2, z2).
+
+        O plano tem 1 por 1 e é esticado pela escala do nó, que é como o shader sabe o
+        tamanho em metros para desenhar a espuma da beira.
+        """
+        if not hasattr(self, "_malha_da_agua"):
+            material = self.c.sub("ShaderMaterial", {
+                "shader": self.c.recurso("Shader", "res://assets/shaders/agua_toon.gdshader")})
+            self._malha_da_agua = self.c.sub("PlaneMesh", {"material": material, "size": "Vector2(1, 1)"})
+        return self.c.no(nome, "MeshInstance3D", pai=pai, propriedades={
+            "position": vetor((x1 + x2) / 2, y, (z1 + z2) / 2),
+            "scale": vetor(x2 - x1, 1, z2 - z1),
+            "mesh": self._malha_da_agua, "cast_shadow": "0"})
+
+    def bloqueio(self, nome, x1, z1, x2, z2, pai="."):
+        """Parede invisível em cima da água, de (x1, z1) a (x2, z2). A borda baixa de
+        concreto sozinha não segura: a cápsula do personagem sobe nela."""
+        self.parede(nome, (x1 + x2) / 2, (z1 + z2) / 2, x2 - x1, z2 - z1, pai=pai)
+
     def marcador(self, nome, x, z, graus=0.0, pai="."):
         propriedades = {"position": vetor(x, 0, z)}
         if graus:
@@ -347,6 +367,47 @@ def montar_fazenda():
     m.parede("LadoDaPassagemNorte", 53, 19.2, 5, 1, pai="Limites")
     m.parede("LadoDaPassagemSul", 53, 24.8, 5, 1, pai="Limites")
 
+    # O verde: a fazenda é um oásis no meio do deserto. Palmeiras atrás da casa (o norte
+    # pode ser alto), o pomar na cerca do sul com cobertura translúcida, o laguinho no
+    # canto oeste, grama, flores e arbustos onde não se planta nem se anda muito.
+    c.no("Verde", "Node3D")
+    for x in (3, 15, 30.5, 45):
+        m.peca("Palmeira", MUNDO_PACOTE + "palmeira.glb", x, 2.4, graus=x * 37, pai="Verde")
+    for x in (47.5,):
+        for z in (17.5, 27):
+            m.peca("Palmeira", MUNDO_PACOTE + "palmeira.glb", x, z, graus=z * 53, pai="Verde", cobre=True)
+    for x in (4, 11, 18, 25, 32, 39, 46):
+        m.peca("ArvoreFrutifera", MUNDO_PACOTE + "arvore_frutifera.glb", x, 38.3, graus=x * 29, pai="Verde", cobre=True)
+    for x, z in ((1.6, 17), (1.6, 27), (1.6, 33), (48.6, 33), (48.6, 37)):
+        m.peca("CercaViva", MUNDO_PACOTE + "cerca_viva.glb", x, z, graus=90, pai="Verde")
+    m.agua("Laguinho", 1.0, 11.0, 4.6, 15.4, pai="Verde")
+    m.bloqueio("BloqueioDoLaguinho", 1.0, 11.0, 4.6, 15.4, pai="Verde")
+    for x, z in ((0.8, 10.6), (4.9, 11.2), (5.0, 15.0), (2.4, 15.8), (0.7, 15.6)):
+        m.peca("Juncos", MUNDO_PACOTE + "enfeite_juncos.glb", x, z, graus=x * 80, pai="Verde")
+    for x, z in ((5.3, 13.0), (3.8, 16.4)):
+        m.peca("Pedras", MUNDO_PACOTE + "pedras_do_deserto.glb", x, z, escala=0.7, pai="Verde")
+    livres_da_fazenda = [(x - 0.6, z - 0.6, w + 1.2, d + 1.2) for (x, z, w, d, _l) in TALHOES] + [
+        (15, 1, 18, 10.5), (31, 2, 11, 10), (6, 1, 8, 8), (3, 11, 44, 4.5), (0.5, 10.5, 4.8, 5.5),
+        (43, 14, 8, 11), (31.5, 20.5, 2.2, 3)]
+    m.espalhador("Grama", MUNDO_PACOTE + "enfeite_tufo_de_grama.glb", 25, 20, 49, 39, 170, 31, distancia=1.0,
+                 sombra=False, livres=livres_da_fazenda, escala=(0.9, 1.5), pai="Verde")
+    m.espalhador("Flores", MUNDO_PACOTE + "enfeite_flores.glb", 25, 20, 49, 39, 40, 32, distancia=1.6,
+                 sombra=False, livres=livres_da_fazenda, pai="Verde")
+    m.espalhador("Arbustos", MUNDO_PACOTE + "arbusto_do_oasis.glb", 25, 20, 49, 39, 16, 33, distancia=4.0,
+                 raio=0.45, altura=0.8, livres=livres_da_fazenda, escala=(0.8, 1.2), pai="Verde")
+    for x, z in ((8, 9.5), (11, 9.2), (39.5, 11.4), (12.6, 16.4), (29.8, 16.4)):
+        m.peca("FloresDoCanteiro", MUNDO_PACOTE + "enfeite_flores.glb", x, z, graus=x * 41, pai="Verde")
+
+    # As coisas de uso, perto da casa e do galpão.
+    c.no("Utensilios", "Node3D")
+    m.peca("Varal", MUNDO_PACOTE + "varal.glb", 13.5, 9.6, pai="Utensilios")
+    m.peca("Bancada", MUNDO_PACOTE + "bancada_de_ferramentas.glb", 42.2, 6.5, graus=-90, pai="Utensilios")
+    m.peca("Feno", MUNDO_PACOTE + "fardo_de_feno.glb", 41.8, 10.4, graus=10, pai="Utensilios")
+    m.peca("Feno", MUNDO_PACOTE + "fardo_de_feno.glb", 42.4, 11.2, graus=-15, pai="Utensilios")
+    m.peca("Feno", MUNDO_PACOTE + "fardo_de_feno.glb", 42.0, 10.75, graus=80, y=0.5, pai="Utensilios")
+    m.peca("CarrinhoDeMao", MUNDO_PACOTE + "carrinho_de_mao.glb", 18.4, 16.6, graus=70, pai="Utensilios")
+    m.peca("Barril", DUNGEON_PACOTE + "barril.glb", 11.6, 6.5, pai="Utensilios")
+
     # O deserto do lado de fora da cerca, só para a borda não ser um corte seco.
     c.no("Deserto", "Node3D")
     m.espalhador("CactosDoNorte", MUNDO_PACOTE + "cacto_redondo.glb", 25, -8, 60, 12, 14, 21, distancia=3.0, pai="Deserto")
@@ -403,6 +464,9 @@ def montar_mundo():
     m.faixa("CaminhoDasCasas", [(96, 46), (96, 78)], 2.0, "terra_batida", pai="Estradas")
     m.faixa("CaminhoDoSul", [(60, 72), (82, 72)], 2.0, "terra_batida", pai="Estradas")
 
+    for x, z, graus in ((32, 31.5, 30), (101, 26.2, 0), (105, 58.5, -40), (71.6, 66, 90)):
+        m.peca("Placa", MUNDO_PACOTE + "placa_de_estrada.glb", x, z, graus=graus, pai="Estradas")
+
     # -- viaduto e cidade ao fundo (o norte pode ser alto)
     c.no("Viaduto", "Node3D")
     for x in range(4, 160, 8):
@@ -444,10 +508,29 @@ def montar_mundo():
         else:
             m.peca("Trecho", MUNDO_PACOTE + "canal_reto.glb", X_DO_CANAL, z, pai="Canal")
     m.peca("CabecaDoCanal", MUNDO_PACOTE + "casa_de_bombas.glb", X_DO_CANAL, 13.6, graus=180, pai="Canal")
+    # A água do canal é um plano só, de ponta a ponta, e passa debaixo das pontes. O
+    # bloqueio fica só entre as pontes: em cima delas o jogador atravessa.
+    m.agua("Agua", X_DO_CANAL - 1.3, 14.0, X_DO_CANAL + 1.3, 92.0, pai="Canal")
+    for z1, z2 in ((14.0, 22.0), (26.0, 54.0), (58.0, 92.0)):
+        m.bloqueio("Bloqueio", X_DO_CANAL - 1.3, z1, X_DO_CANAL + 1.3, z2, pai="Canal")
 
     # -- reservatório, na borda sul (plano, não cobre nada)
     c.no("Reservatorio", "Node3D")
-    m.chao("Agua", 74, 99, 44, 14, "agua", pai="Reservatorio", y=0.02)
+    m.agua("Agua", 52.0, 92.0, 96.0, 106.0, pai="Reservatorio")
+    # O píer (x de 61 a 63, até z = 99,6) fica fora do bloqueio.
+    m.bloqueio("Bloqueio", 52.0, 92.0, 61.0, 106.0, pai="Reservatorio")
+    m.bloqueio("Bloqueio", 63.0, 92.0, 96.0, 106.0, pai="Reservatorio")
+    m.bloqueio("Bloqueio", 61.0, 99.8, 63.0, 106.0, pai="Reservatorio")
+    m.peca("Barco", MUNDO_PACOTE + "barco_velho.glb", 64.6, 95.5, graus=8, pai="Reservatorio")
+    # O oásis em volta da água: palmeiras, juncos e grama.
+    for x, z in ((53.5, 89), (57.5, 88.5), (79, 89), (83.5, 88.6), (99, 96), (99.5, 102.5), (49, 96.5), (48.5, 103)):
+        m.peca("Palmeira", MUNDO_PACOTE + "palmeira.glb", x, z, graus=x * 31, pai="Reservatorio", cobre=True)
+    m.espalhador("Juncos", MUNDO_PACOTE + "enfeite_juncos.glb", 74, 90, 42, 2.4, 22, 41, distancia=1.2, sombra=False,
+                 livres=[(60, 88, 4, 4), (68.5, 86, 3, 6), (88, 86, 4, 6)], pai="Reservatorio")
+    m.espalhador("Grama", MUNDO_PACOTE + "enfeite_tufo_de_grama.glb", 74, 87.5, 50, 4, 40, 42, distancia=1.0,
+                 sombra=False, livres=[(68.5, 84, 3, 8), (88, 84, 4, 8)], pai="Reservatorio")
+    m.espalhador("Arbustos", MUNDO_PACOTE + "arbusto_do_oasis.glb", 74, 87, 52, 3, 8, 43, distancia=4.0,
+                 raio=0.45, altura=0.8, livres=[(60, 84, 4, 8), (68.5, 84, 3, 8), (88, 84, 4, 8)], pai="Reservatorio")
     for x in range(54, 96, 4):
         if x in (62, 90):
             continue
@@ -490,6 +573,25 @@ def montar_mundo():
     )
     for nome, modelo, x, z, graus in casas:
         m.peca(nome, SUBURBANO + modelo + ".glb", x, z, graus=graus, escala=ESCALA_KENNEY, pai="Vila")
+    # A feira e os bancos da praça, a máquina de venda, o carro abandonado.
+    for x in (65.5, 69.0, 77.0, 80.5):
+        m.peca("Barraca", MUNDO_PACOTE + "barraca_de_feira.glb", x, 51.3, pai="Vila")
+    for x, z, graus in ((70.0, 59.5, 0), (76.0, 59.5, 0), (70.0, 54.5, 180), (76.0, 54.5, 180)):
+        m.peca("Banco", MUNDO_PACOTE + "banco_de_praca.glb", x, z, graus=graus + 180, pai="Vila")
+    for x in (66.5, 79.5):
+        m.peca("Palmeira", MUNDO_PACOTE + "palmeira.glb", x, 61.8, graus=x * 13, pai="Vila", cobre=True)
+    m.peca("Maquina", MUNDO_PACOTE + "maquina_de_venda.glb", 62.0, 46.5, pai="Vila")
+    m.peca("Maquina", MUNDO_PACOTE + "maquina_de_venda.glb", 77.6, 14.4, pai="Vila")
+    m.peca("CarroVelho", MUNDO_PACOTE + "carro_velho.glb", 55.5, 60.5, graus=80, pai="Vila")
+    m.peca("CarroVelho", MUNDO_PACOTE + "carro_velho.glb", 105.5, 57.0, graus=-20, pai="Vila")
+    for x, z in ((61, 67), (61, 61), (67, 71.5), (73, 71.5), (79, 71.5), (97.5, 43.5), (97.5, 66)):
+        m.peca("Arbusto", MUNDO_PACOTE + "arbusto_do_oasis.glb", x, z, graus=x * 11, escala=0.8, pai="Vila")
+    for z in (20, 28, 36):
+        m.peca("PosteDaAvenida", MUNDO_PACOTE + "poste_de_luz.glb", 77.3, z, graus=-90, pai="Vila")
+    m.espalhador("FloresDaVila", MUNDO_PACOTE + "enfeite_flores.glb", 80, 58, 50, 44, 26, 44, distancia=2.0,
+                 sombra=False, livres=[(62, 48, 22, 16), (78, 12, 4, 36), (86, 13, 8, 82), (52, 38, 14, 10),
+                                       (63, 36, 12, 10), (95, 44, 10, 34), (54, 58, 10, 10), (59, 70, 22, 10)],
+                 pai="Vila")
     m.peca("AntenaDoKenji", DUNGEON_PACOTE + "movel_antena_pirata.glb", 108, 22, escala=1.4, pai="Vila", gira=True)
     for x, z in ((96, 70), (104, 40)):
         m.peca("Barril", DUNGEON_PACOTE + "barril.glb", x, z, pai="Vila")
@@ -501,6 +603,8 @@ def montar_mundo():
             m.peca("Paineis", INDUSTRIAL + "solar_panel_landscape_group.glb", x, z, escala=ESCALA_KENNEY, pai="Solar")
     for x, z in ((12, 50), (42, 52)):
         m.peca("CataVento", MUNDO_PACOTE + "cata_vento_enferrujado.glb", x, z, pai="Solar", cobre=True)
+    for x, z in ((46.5, 46), (10, 57)):
+        m.peca("Transformador", DUNGEON_PACOTE + "bateria_de_reserva.glb", x, z, graus=90, pai="Solar")
     for x, z in ((40, 30), (16, 74)):
         m.peca("CataVentoNovo", INDUSTRIAL + "windmill.glb", x, z, escala=4.0, pai="Solar", cobre=True)
 
@@ -513,7 +617,12 @@ def montar_mundo():
     for x, z in ((138, 32), (142, 35), (135, 36), (140, 39)):
         m.peca("RochaDaPedreira", MUNDO_PACOTE + "rocha_do_deserto.glb", x, z, graus=sorteio.uniform(0, 360),
                escala=1.4, pai="Badlands")
-    m.peca("CarrinhoDaPedreira", DUNGEON_PACOTE + "caixote_de_metal.glb", 134, 31, graus=20, pai="Badlands")
+    for x in (126, 130, 134):
+        m.peca("Trilho", MUNDO_PACOTE + "enfeite_trilho.glb", x, 33.5, graus=90, pai="Badlands")
+    m.peca("Vagonete", MUNDO_PACOTE + "vagonete.glb", 131, 33.5, graus=90, pai="Badlands")
+    m.peca("Caixote", DUNGEON_PACOTE + "caixote_de_metal.glb", 125, 31.6, graus=20, pai="Badlands")
+    m.peca("Caixote", DUNGEON_PACOTE + "caixote_de_metal.glb", 125.6, 31.0, graus=-10, y=0.46, pai="Badlands")
+    m.peca("CarroVelho", MUNDO_PACOTE + "carro_velho.glb", 112, 52, graus=35, pai="Badlands")
 
     # -- acampamento das motoqueiras (leste)
     c.no("Acampamento", "Node3D")
@@ -528,6 +637,12 @@ def montar_mundo():
     m.peca("Muro", MUNDO_PACOTE + "muro_grafitado.glb", 129, 68.5, pai="Acampamento")
     m.peca("Muro", MUNDO_PACOTE + "muro_grafitado.glb", 151, 68.5, pai="Acampamento")
     m.peca("Fogueira", NATUREZA + "campfire_stones.glb", 140, 82, escala=3.0, pai="Acampamento")
+    m.peca("Toldo", MUNDO_PACOTE + "toldo_de_lona.glb", 133, 76.5, graus=-10, pai="Acampamento")
+    m.peca("Mesa", MUNDO_PACOTE + "mesa_de_acampamento.glb", 133, 76.8, graus=-10, pai="Acampamento")
+    for x, z in ((156, 78), (156.7, 78.8), (122.5, 80)):
+        m.peca("Tambor", DUNGEON_PACOTE + "barril_de_aviso.glb", x, z, pai="Acampamento")
+    m.peca("CarroVelho", MUNDO_PACOTE + "carro_velho.glb", 124, 89, graus=60, pai="Acampamento")
+    m.peca("Maquina", MUNDO_PACOTE + "maquina_de_venda.glb", 146.5, 72.4, pai="Acampamento")
     m.luz("LuzDaFogueira", 140, 1.4, 82, (1.0, 0.6, 0.3), alcance=8.0, energia=1.5, pai="Acampamento")
     c.no("AlvosDeTreino", "Node3D", pai="Acampamento")
     for x in (148, 150.5, 153):
@@ -542,18 +657,22 @@ def montar_mundo():
 
     # -- deserto espalhado (o que dá vida ao chão aberto)
     c.no("Deserto", "Node3D")
-    m.espalhador("CactosAltos", MUNDO_PACOTE + "cacto_alto.glb", 80, 62, 156, 92, 46, 3, distancia=6.0,
+    m.espalhador("CactosAltos", MUNDO_PACOTE + "cacto_alto.glb", 80, 62, 156, 92, 70, 3, distancia=5.0,
                  raio=0.3, altura=2.0, livres=LIVRES, pai="Deserto")
-    m.espalhador("CactosRedondos", MUNDO_PACOTE + "cacto_redondo.glb", 80, 62, 156, 92, 60, 4, distancia=3.0,
+    m.espalhador("CactosRedondos", MUNDO_PACOTE + "cacto_redondo.glb", 80, 62, 156, 92, 90, 4, distancia=2.5,
                  raio=0.32, altura=0.5, livres=LIVRES, pai="Deserto")
-    m.espalhador("Palmas", MUNDO_PACOTE + "cacto_de_raquete.glb", 80, 62, 156, 92, 40, 5, distancia=3.0,
+    m.espalhador("Palmas", MUNDO_PACOTE + "cacto_de_raquete.glb", 80, 62, 156, 92, 60, 5, distancia=2.5,
                  raio=0.3, altura=0.9, livres=LIVRES, pai="Deserto")
-    m.espalhador("Rochas", MUNDO_PACOTE + "rocha_do_deserto.glb", 80, 62, 156, 92, 30, 6, distancia=5.0,
+    m.espalhador("Rochas", MUNDO_PACOTE + "rocha_do_deserto.glb", 80, 62, 156, 92, 45, 6, distancia=4.0,
                  raio=0.9, altura=0.6, livres=LIVRES, escala=(0.7, 1.5), pai="Deserto")
     m.espalhador("Pedras", MUNDO_PACOTE + "pedras_do_deserto.glb", 80, 62, 156, 92, 50, 7, distancia=3.0,
                  livres=LIVRES, sombra=False, some=40.0, pai="Deserto")
-    m.espalhador("Capim", MUNDO_PACOTE + "enfeite_capim_seco.glb", 80, 62, 156, 92, 160, 8, distancia=1.8,
+    m.espalhador("Capim", MUNDO_PACOTE + "enfeite_capim_seco.glb", 80, 62, 156, 92, 320, 8, distancia=1.4,
                  livres=LIVRES[:1] + LIVRES[3:5], sombra=False, some=35.0, pai="Deserto")
+    m.espalhador("ArbustosSecos", MUNDO_PACOTE + "arbusto_seco.glb", 80, 62, 156, 92, 70, 11, distancia=3.0,
+                 livres=LIVRES, sombra=False, some=45.0, pai="Deserto")
+    m.espalhador("BolasDeFeno", MUNDO_PACOTE + "enfeite_bola_de_feno.glb", 80, 62, 156, 92, 14, 12, distancia=10.0,
+                 livres=LIVRES, pai="Deserto")
     m.espalhador("Caveiras", MUNDO_PACOTE + "enfeite_caveira_de_boi.glb", 120, 50, 70, 60, 5, 9, distancia=12.0,
                  livres=LIVRES, sombra=False, pai="Deserto")
     m.espalhador("CactosDasBadlands", MUNDO_PACOTE + "cacto_alto.glb", 138, 40, 40, 36, 16, 10, distancia=4.0,

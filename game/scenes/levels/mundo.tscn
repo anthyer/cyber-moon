@@ -4,66 +4,86 @@
 [ext_resource type="Script" path="res://scripts/world/espalhador_de_objetos.gd" id="r2"]
 [ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_mancha_de_terra.glb" id="r3"]
 [ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_mancha_de_areia.glb" id="r4"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/viaduto_modulo.glb" id="r5"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/predio_de_fundo.glb" id="r6"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/ponto_de_onibus.glb" id="r7"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/outdoor_neon.glb" id="r8"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/poste_de_luz.glb" id="r9"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/entrada_da_galeria.glb" id="r10"]
-[ext_resource type="PackedScene" path="res://scenes/world/entrada_de_dungeon.tscn" id="r11"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/entrada_da_torre.glb" id="r12"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/entrada_do_biodomo.glb" id="r13"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/canal_reto.glb" id="r14"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/canal_ponte.glb" id="r15"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/canal_comporta.glb" id="r16"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/casa_de_bombas.glb" id="r17"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/reservatorio_borda.glb" id="r18"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/reservatorio_quina.glb" id="r19"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/pier_de_madeira.glb" id="r20"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/letreiro_da_vila.glb" id="r21"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/bomba_solar.glb" id="r22"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/bar_de_beira_de_estrada.glb" id="r23"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_commercial/building_c.glb" id="r24"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_industrial/building_b.glb" id="r25"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_commercial/building_e.glb" id="r26"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_suburban/building_type_c.glb" id="r27"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_suburban/building_type_f.glb" id="r28"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_suburban/building_type_h.glb" id="r29"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_suburban/building_type_k.glb" id="r30"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_suburban/building_type_l.glb" id="r31"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_suburban/building_type_b.glb" id="r32"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/movel_antena_pirata.glb" id="r33"]
-[ext_resource type="Script" path="res://scripts/combat/maquina_animada.gd" id="r34"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/barril.glb" id="r35"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_industrial/solar_panel_landscape_group.glb" id="r36"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cata_vento_enferrujado.glb" id="r37"]
-[ext_resource type="Script" path="res://scripts/world/cobertura_translucida.gd" id="r38"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_industrial/windmill.glb" id="r39"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/mesa_de_pedra_grande.glb" id="r40"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/mesa_de_pedra_media.glb" id="r41"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/rocha_do_deserto.glb" id="r42"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/caixote_de_metal.glb" id="r43"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/oficina_das_motoqueiras.glb" id="r44"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/trailer.glb" id="r45"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/moto.glb" id="r46"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/rampa_de_salto.glb" id="r47"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/pilha_de_pneus.glb" id="r48"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/muro_grafitado.glb" id="r49"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_nature_kit/campfire_stones.glb" id="r50"]
-[ext_resource type="PackedScene" path="res://scenes/combat/alvo_de_treino.tscn" id="r51"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/porteira_da_fazenda.glb" id="r52"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/caixa_de_correio.glb" id="r53"]
-[ext_resource type="Script" path="res://scripts/world/passagem_de_mapa.gd" id="r54"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_alto.glb" id="r55"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_redondo.glb" id="r56"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_de_raquete.glb" id="r57"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/pedras_do_deserto.glb" id="r58"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_capim_seco.glb" id="r59"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_caveira_de_boi.glb" id="r60"]
-[ext_resource type="Script" path="res://scripts/npcs/elenco_de_npcs.gd" id="r61"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cerca_de_arame.glb" id="r62"]
-[ext_resource type="NavigationMesh" path="res://resources/navigation/mundo.tres" id="r63"]
-[ext_resource type="Script" path="res://scripts/world/regiao_de_navegacao.gd" id="r64"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/placa_de_estrada.glb" id="r5"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/viaduto_modulo.glb" id="r6"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/predio_de_fundo.glb" id="r7"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/ponto_de_onibus.glb" id="r8"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/outdoor_neon.glb" id="r9"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/poste_de_luz.glb" id="r10"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/entrada_da_galeria.glb" id="r11"]
+[ext_resource type="PackedScene" path="res://scenes/world/entrada_de_dungeon.tscn" id="r12"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/entrada_da_torre.glb" id="r13"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/entrada_do_biodomo.glb" id="r14"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/canal_reto.glb" id="r15"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/canal_ponte.glb" id="r16"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/canal_comporta.glb" id="r17"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/casa_de_bombas.glb" id="r18"]
+[ext_resource type="Shader" path="res://assets/shaders/agua_toon.gdshader" id="r19"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/barco_velho.glb" id="r20"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/palmeira.glb" id="r21"]
+[ext_resource type="Script" path="res://scripts/world/cobertura_translucida.gd" id="r22"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_juncos.glb" id="r23"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_tufo_de_grama.glb" id="r24"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/arbusto_do_oasis.glb" id="r25"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/reservatorio_borda.glb" id="r26"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/reservatorio_quina.glb" id="r27"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/pier_de_madeira.glb" id="r28"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/letreiro_da_vila.glb" id="r29"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/bomba_solar.glb" id="r30"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/bar_de_beira_de_estrada.glb" id="r31"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_commercial/building_c.glb" id="r32"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_industrial/building_b.glb" id="r33"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_commercial/building_e.glb" id="r34"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_suburban/building_type_c.glb" id="r35"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_suburban/building_type_f.glb" id="r36"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_suburban/building_type_h.glb" id="r37"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_suburban/building_type_k.glb" id="r38"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_suburban/building_type_l.glb" id="r39"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_suburban/building_type_b.glb" id="r40"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/barraca_de_feira.glb" id="r41"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/banco_de_praca.glb" id="r42"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/maquina_de_venda.glb" id="r43"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/carro_velho.glb" id="r44"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_flores.glb" id="r45"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/movel_antena_pirata.glb" id="r46"]
+[ext_resource type="Script" path="res://scripts/combat/maquina_animada.gd" id="r47"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/barril.glb" id="r48"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_industrial/solar_panel_landscape_group.glb" id="r49"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cata_vento_enferrujado.glb" id="r50"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/bateria_de_reserva.glb" id="r51"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_city_kit_industrial/windmill.glb" id="r52"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/mesa_de_pedra_grande.glb" id="r53"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/mesa_de_pedra_media.glb" id="r54"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/rocha_do_deserto.glb" id="r55"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_trilho.glb" id="r56"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/vagonete.glb" id="r57"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/caixote_de_metal.glb" id="r58"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/oficina_das_motoqueiras.glb" id="r59"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/trailer.glb" id="r60"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/moto.glb" id="r61"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/rampa_de_salto.glb" id="r62"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/pilha_de_pneus.glb" id="r63"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/muro_grafitado.glb" id="r64"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_nature_kit/campfire_stones.glb" id="r65"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/toldo_de_lona.glb" id="r66"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/mesa_de_acampamento.glb" id="r67"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/barril_de_aviso.glb" id="r68"]
+[ext_resource type="PackedScene" path="res://scenes/combat/alvo_de_treino.tscn" id="r69"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/porteira_da_fazenda.glb" id="r70"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/caixa_de_correio.glb" id="r71"]
+[ext_resource type="Script" path="res://scripts/world/passagem_de_mapa.gd" id="r72"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_alto.glb" id="r73"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_redondo.glb" id="r74"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_de_raquete.glb" id="r75"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/pedras_do_deserto.glb" id="r76"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_capim_seco.glb" id="r77"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/arbusto_seco.glb" id="r78"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_bola_de_feno.glb" id="r79"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_caveira_de_boi.glb" id="r80"]
+[ext_resource type="Script" path="res://scripts/npcs/elenco_de_npcs.gd" id="r81"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cerca_de_arame.glb" id="r82"]
+[ext_resource type="NavigationMesh" path="res://resources/navigation/mundo.tres" id="r83"]
+[ext_resource type="Script" path="res://scripts/world/regiao_de_navegacao.gd" id="r84"]
 
 [sub_resource type="StandardMaterial3D" id="s1"]
 albedo_color = Color(0.85, 0.73, 0.55, 1)
@@ -141,47 +161,64 @@ size = Vector2(33.0, 2.0)
 material = SubResource("s6")
 size = Vector2(23.0, 2.0)
 
-[sub_resource type="StandardMaterial3D" id="s20"]
-albedo_color = Color(0.26, 0.5, 0.86, 1)
-roughness = 1.0
+[sub_resource type="ShaderMaterial" id="s20"]
+shader = ExtResource("r19")
 
 [sub_resource type="PlaneMesh" id="s21"]
 material = SubResource("s20")
-size = Vector2(44, 14)
+size = Vector2(1, 1)
 
-[sub_resource type="StandardMaterial3D" id="s22"]
+[sub_resource type="BoxShape3D" id="s22"]
+size = Vector3(2.6, 3.0, 8.0)
+
+[sub_resource type="BoxShape3D" id="s23"]
+size = Vector3(2.6, 3.0, 28.0)
+
+[sub_resource type="BoxShape3D" id="s24"]
+size = Vector3(2.6, 3.0, 34.0)
+
+[sub_resource type="BoxShape3D" id="s25"]
+size = Vector3(9.0, 3.0, 14.0)
+
+[sub_resource type="BoxShape3D" id="s26"]
+size = Vector3(33.0, 3.0, 14.0)
+
+[sub_resource type="BoxShape3D" id="s27"]
+size = Vector3(2.0, 3.0, 6.2)
+
+[sub_resource type="StandardMaterial3D" id="s28"]
 albedo_color = Color(0.62, 0.61, 0.68, 1)
 roughness = 1.0
 
-[sub_resource type="PlaneMesh" id="s23"]
-material = SubResource("s22")
+[sub_resource type="PlaneMesh" id="s29"]
+material = SubResource("s28")
 size = Vector2(18, 13)
 
-[sub_resource type="BoxShape3D" id="s24"]
+[sub_resource type="BoxShape3D" id="s30"]
 size = Vector3(2.0, 3.0, 5.0)
 
-[sub_resource type="BoxShape3D" id="s25"]
-size = Vector3(164, 3.0, 1)
-
-[sub_resource type="BoxShape3D" id="s26"]
-size = Vector3(164, 3.0, 1)
-
-[sub_resource type="BoxShape3D" id="s27"]
-size = Vector3(1, 3.0, 102)
-
-[sub_resource type="BoxShape3D" id="s28"]
-size = Vector3(1, 3.0, 11.5)
-
-[sub_resource type="BoxShape3D" id="s29"]
-size = Vector3(1, 3.0, 88.5)
-
-[sub_resource type="BoxShape3D" id="s30"]
-size = Vector3(1, 3.0, 8)
-
 [sub_resource type="BoxShape3D" id="s31"]
-size = Vector3(5, 3.0, 1)
+size = Vector3(164, 3.0, 1)
 
 [sub_resource type="BoxShape3D" id="s32"]
+size = Vector3(164, 3.0, 1)
+
+[sub_resource type="BoxShape3D" id="s33"]
+size = Vector3(1, 3.0, 102)
+
+[sub_resource type="BoxShape3D" id="s34"]
+size = Vector3(1, 3.0, 11.5)
+
+[sub_resource type="BoxShape3D" id="s35"]
+size = Vector3(1, 3.0, 88.5)
+
+[sub_resource type="BoxShape3D" id="s36"]
+size = Vector3(1, 3.0, 8)
+
+[sub_resource type="BoxShape3D" id="s37"]
+size = Vector3(5, 3.0, 1)
+
+[sub_resource type="BoxShape3D" id="s38"]
 size = Vector3(5, 3.0, 1)
 
 [node name="Mundo" type="Node3D"]
@@ -320,150 +357,165 @@ rotation = Vector3(0, -0.0, 0)
 mesh = SubResource("s19")
 cast_shadow = 0
 
+[node name="Placa" parent="Estradas" instance=ExtResource("r5")]
+position = Vector3(32, 0.0, 31.5)
+rotation = Vector3(0, 0.5236, 0)
+
+[node name="Placa2" parent="Estradas" instance=ExtResource("r5")]
+position = Vector3(101, 0.0, 26.2)
+
+[node name="Placa3" parent="Estradas" instance=ExtResource("r5")]
+position = Vector3(105, 0.0, 58.5)
+rotation = Vector3(0, -0.6981, 0)
+
+[node name="Placa4" parent="Estradas" instance=ExtResource("r5")]
+position = Vector3(71.6, 0.0, 66)
+rotation = Vector3(0, 1.5708, 0)
+
 [node name="Viaduto" type="Node3D" parent="."]
 
-[node name="Modulo" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(4, 0.0, 7.0)
 
-[node name="Modulo2" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo2" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(12, 0.0, 7.0)
 
-[node name="Modulo3" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo3" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(20, 0.0, 7.0)
 
-[node name="Modulo4" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo4" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(28, 0.0, 7.0)
 
-[node name="Modulo5" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo5" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(36, 0.0, 7.0)
 
-[node name="Modulo6" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo6" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(44, 0.0, 7.0)
 
-[node name="Modulo7" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo7" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(52, 0.0, 7.0)
 
-[node name="Modulo8" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo8" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(60, 0.0, 7.0)
 
-[node name="Modulo9" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo9" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(68, 0.0, 7.0)
 
-[node name="Modulo10" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo10" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(76, 0.0, 7.0)
 
-[node name="Modulo11" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo11" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(84, 0.0, 7.0)
 
-[node name="Modulo12" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo12" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(92, 0.0, 7.0)
 
-[node name="Modulo13" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo13" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(100, 0.0, 7.0)
 
-[node name="Modulo14" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo14" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(108, 0.0, 7.0)
 
-[node name="Modulo15" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo15" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(116, 0.0, 7.0)
 
-[node name="Modulo16" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo16" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(124, 0.0, 7.0)
 
-[node name="Modulo17" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo17" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(132, 0.0, 7.0)
 
-[node name="Modulo18" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo18" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(140, 0.0, 7.0)
 
-[node name="Modulo19" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo19" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(148, 0.0, 7.0)
 
-[node name="Modulo20" parent="Viaduto" instance=ExtResource("r5")]
+[node name="Modulo20" parent="Viaduto" instance=ExtResource("r6")]
 position = Vector3(156, 0.0, 7.0)
 
-[node name="Predio" parent="Viaduto" instance=ExtResource("r6")]
+[node name="Predio" parent="Viaduto" instance=ExtResource("r7")]
 position = Vector3(4.811, 0.0, -7.8206)
 scale = Vector3(2.4967, 2.4967, 2.4967)
 
-[node name="Predio2" parent="Viaduto" instance=ExtResource("r6")]
+[node name="Predio2" parent="Viaduto" instance=ExtResource("r7")]
 position = Vector3(17.227, 0.0, -10.1053)
 scale = Vector3(2.3209, 2.3209, 2.3209)
 
-[node name="Predio3" parent="Viaduto" instance=ExtResource("r6")]
+[node name="Predio3" parent="Viaduto" instance=ExtResource("r7")]
 position = Vector3(30.1669, 0.0, -9.7336)
 scale = Vector3(2.5173, 2.5173, 2.5173)
 
-[node name="Predio4" parent="Viaduto" instance=ExtResource("r6")]
+[node name="Predio4" parent="Viaduto" instance=ExtResource("r7")]
 position = Vector3(45.5418, 0.0, -10.8149)
 scale = Vector3(2.2033, 2.2033, 2.2033)
 
-[node name="Predio5" parent="Viaduto" instance=ExtResource("r6")]
+[node name="Predio5" parent="Viaduto" instance=ExtResource("r7")]
 position = Vector3(57.6366, 0.0, -10.3766)
 scale = Vector3(2.7841, 2.7841, 2.7841)
 
-[node name="Predio6" parent="Viaduto" instance=ExtResource("r6")]
+[node name="Predio6" parent="Viaduto" instance=ExtResource("r7")]
 position = Vector3(72.887, 0.0, -7.1152)
 scale = Vector3(2.5436, 2.5436, 2.5436)
 
-[node name="Predio7" parent="Viaduto" instance=ExtResource("r6")]
+[node name="Predio7" parent="Viaduto" instance=ExtResource("r7")]
 position = Vector3(82.8891, 0.0, -7.5176)
 scale = Vector3(2.7255, 2.7255, 2.7255)
 
-[node name="Predio8" parent="Viaduto" instance=ExtResource("r6")]
+[node name="Predio8" parent="Viaduto" instance=ExtResource("r7")]
 position = Vector3(98.3554, 0.0, -10.8267)
 scale = Vector3(2.3169, 2.3169, 2.3169)
 
-[node name="Predio9" parent="Viaduto" instance=ExtResource("r6")]
+[node name="Predio9" parent="Viaduto" instance=ExtResource("r7")]
 position = Vector3(111.3108, 0.0, -7.1232)
 scale = Vector3(2.0371, 2.0371, 2.0371)
 
-[node name="Predio10" parent="Viaduto" instance=ExtResource("r6")]
+[node name="Predio10" parent="Viaduto" instance=ExtResource("r7")]
 position = Vector3(122.1738, 0.0, -9.174)
 scale = Vector3(2.7622, 2.7622, 2.7622)
 
-[node name="Predio11" parent="Viaduto" instance=ExtResource("r6")]
+[node name="Predio11" parent="Viaduto" instance=ExtResource("r7")]
 position = Vector3(134.1753, 0.0, -7.0308)
 scale = Vector3(1.7492, 1.7492, 1.7492)
 
-[node name="Predio12" parent="Viaduto" instance=ExtResource("r6")]
+[node name="Predio12" parent="Viaduto" instance=ExtResource("r7")]
 position = Vector3(149.2445, 0.0, -10.2638)
 scale = Vector3(2.3202, 2.3202, 2.3202)
 
-[node name="PontoDeOnibus" parent="Viaduto" instance=ExtResource("r7")]
+[node name="PontoDeOnibus" parent="Viaduto" instance=ExtResource("r8")]
 position = Vector3(74, 0.0, 15.2)
 
-[node name="Outdoor" parent="Viaduto" instance=ExtResource("r8")]
+[node name="Outdoor" parent="Viaduto" instance=ExtResource("r9")]
 position = Vector3(40, 0.0, 15.5)
 
-[node name="Outdoor2" parent="Viaduto" instance=ExtResource("r8")]
+[node name="Outdoor2" parent="Viaduto" instance=ExtResource("r9")]
 position = Vector3(118, 0.0, 15.5)
 
-[node name="Poste" parent="Viaduto" instance=ExtResource("r9")]
+[node name="Poste" parent="Viaduto" instance=ExtResource("r10")]
 position = Vector3(10, 0.0, 15.0)
 
-[node name="Poste2" parent="Viaduto" instance=ExtResource("r9")]
+[node name="Poste2" parent="Viaduto" instance=ExtResource("r10")]
 position = Vector3(28, 0.0, 15.0)
 
-[node name="Poste3" parent="Viaduto" instance=ExtResource("r9")]
+[node name="Poste3" parent="Viaduto" instance=ExtResource("r10")]
 position = Vector3(46, 0.0, 15.0)
 
-[node name="Poste4" parent="Viaduto" instance=ExtResource("r9")]
+[node name="Poste4" parent="Viaduto" instance=ExtResource("r10")]
 position = Vector3(64, 0.0, 15.0)
 
-[node name="Poste5" parent="Viaduto" instance=ExtResource("r9")]
+[node name="Poste5" parent="Viaduto" instance=ExtResource("r10")]
 position = Vector3(82, 0.0, 15.0)
 
-[node name="Poste6" parent="Viaduto" instance=ExtResource("r9")]
+[node name="Poste6" parent="Viaduto" instance=ExtResource("r10")]
 position = Vector3(100, 0.0, 15.0)
 
-[node name="Poste7" parent="Viaduto" instance=ExtResource("r9")]
+[node name="Poste7" parent="Viaduto" instance=ExtResource("r10")]
 position = Vector3(118, 0.0, 15.0)
 
-[node name="Poste8" parent="Viaduto" instance=ExtResource("r9")]
+[node name="Poste8" parent="Viaduto" instance=ExtResource("r10")]
 position = Vector3(136, 0.0, 15.0)
 
-[node name="Poste9" parent="Viaduto" instance=ExtResource("r9")]
+[node name="Poste9" parent="Viaduto" instance=ExtResource("r10")]
 position = Vector3(154, 0.0, 15.0)
 
 [node name="LuzDoPonto" type="OmniLight3D" parent="Viaduto"]
@@ -478,10 +530,10 @@ shadow_enabled = false
 [node name="Galeria" type="Node3D" parent="Entradas"]
 position = Vector3(100, 0, 17.5)
 
-[node name="Modelo" parent="Entradas/Galeria" instance=ExtResource("r10")]
+[node name="Modelo" parent="Entradas/Galeria" instance=ExtResource("r11")]
 position = Vector3(0, 0.0, 0)
 
-[node name="Acesso" parent="Entradas/Galeria" instance=ExtResource("r11")]
+[node name="Acesso" parent="Entradas/Galeria" instance=ExtResource("r12")]
 position = Vector3(0, 0.0, 2.4)
 dungeon_id = &"galeria"
 
@@ -495,10 +547,10 @@ shadow_enabled = false
 [node name="Torre" type="Node3D" parent="Entradas"]
 position = Vector3(130, 0, 16.5)
 
-[node name="Modelo" parent="Entradas/Torre" instance=ExtResource("r12")]
+[node name="Modelo" parent="Entradas/Torre" instance=ExtResource("r13")]
 position = Vector3(0, 0.0, 0)
 
-[node name="Acesso" parent="Entradas/Torre" instance=ExtResource("r11")]
+[node name="Acesso" parent="Entradas/Torre" instance=ExtResource("r12")]
 position = Vector3(0, 0.0, 2.4)
 dungeon_id = &"torre"
 
@@ -512,10 +564,10 @@ shadow_enabled = false
 [node name="Biodomo" type="Node3D" parent="Entradas"]
 position = Vector3(25, 0, 50)
 
-[node name="Modelo" parent="Entradas/Biodomo" instance=ExtResource("r13")]
+[node name="Modelo" parent="Entradas/Biodomo" instance=ExtResource("r14")]
 position = Vector3(0, 0.0, 0)
 
-[node name="Acesso" parent="Entradas/Biodomo" instance=ExtResource("r11")]
+[node name="Acesso" parent="Entradas/Biodomo" instance=ExtResource("r12")]
 position = Vector3(0, 0.0, 2.9)
 dungeon_id = &"biodomo"
 
@@ -528,184 +580,341 @@ shadow_enabled = false
 
 [node name="Canal" type="Node3D" parent="."]
 
-[node name="Trecho" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 16)
 
-[node name="Trecho2" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho2" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 20)
 
-[node name="Ponte" parent="Canal" instance=ExtResource("r15")]
+[node name="Ponte" parent="Canal" instance=ExtResource("r16")]
 position = Vector3(90.0, 0.0, 24)
 
-[node name="Trecho3" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho3" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 28)
 
-[node name="Trecho4" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho4" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 32)
 
-[node name="Comporta" parent="Canal" instance=ExtResource("r16")]
+[node name="Comporta" parent="Canal" instance=ExtResource("r17")]
 position = Vector3(90.0, 0.0, 36)
 
-[node name="Trecho5" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho5" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 40)
 
-[node name="Trecho6" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho6" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 44)
 
-[node name="Trecho7" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho7" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 48)
 
-[node name="Trecho8" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho8" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 52)
 
-[node name="Ponte2" parent="Canal" instance=ExtResource("r15")]
+[node name="Ponte2" parent="Canal" instance=ExtResource("r16")]
 position = Vector3(90.0, 0.0, 56)
 
-[node name="Trecho9" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho9" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 60)
 
-[node name="Trecho10" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho10" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 64)
 
-[node name="Trecho11" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho11" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 68)
 
-[node name="Comporta2" parent="Canal" instance=ExtResource("r16")]
+[node name="Comporta2" parent="Canal" instance=ExtResource("r17")]
 position = Vector3(90.0, 0.0, 72)
 
-[node name="Trecho12" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho12" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 76)
 
-[node name="Trecho13" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho13" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 80)
 
-[node name="Trecho14" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho14" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 84)
 
-[node name="Trecho15" parent="Canal" instance=ExtResource("r14")]
+[node name="Trecho15" parent="Canal" instance=ExtResource("r15")]
 position = Vector3(90.0, 0.0, 88)
 
-[node name="CabecaDoCanal" parent="Canal" instance=ExtResource("r17")]
+[node name="CabecaDoCanal" parent="Canal" instance=ExtResource("r18")]
 position = Vector3(90.0, 0.0, 13.6)
 rotation = Vector3(0, 3.1416, 0)
+
+[node name="Agua" type="MeshInstance3D" parent="Canal"]
+position = Vector3(90.0, 0.025, 53.0)
+scale = Vector3(2.6, 1, 78.0)
+mesh = SubResource("s21")
+cast_shadow = 0
+
+[node name="Bloqueio" type="StaticBody3D" parent="Canal"]
+position = Vector3(90.0, 1.5, 18.0)
+collision_mask = 0
+
+[node name="Forma" type="CollisionShape3D" parent="Canal/Bloqueio"]
+shape = SubResource("s22")
+
+[node name="Bloqueio2" type="StaticBody3D" parent="Canal"]
+position = Vector3(90.0, 1.5, 40.0)
+collision_mask = 0
+
+[node name="Forma" type="CollisionShape3D" parent="Canal/Bloqueio2"]
+shape = SubResource("s23")
+
+[node name="Bloqueio3" type="StaticBody3D" parent="Canal"]
+position = Vector3(90.0, 1.5, 75.0)
+collision_mask = 0
+
+[node name="Forma" type="CollisionShape3D" parent="Canal/Bloqueio3"]
+shape = SubResource("s24")
 
 [node name="Reservatorio" type="Node3D" parent="."]
 
 [node name="Agua" type="MeshInstance3D" parent="Reservatorio"]
-position = Vector3(74, 0.02, 99)
+position = Vector3(74.0, 0.025, 99.0)
+scale = Vector3(44.0, 1, 14.0)
 mesh = SubResource("s21")
 cast_shadow = 0
 
-[node name="BordaNorte" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="Bloqueio" type="StaticBody3D" parent="Reservatorio"]
+position = Vector3(56.5, 1.5, 99.0)
+collision_mask = 0
+
+[node name="Forma" type="CollisionShape3D" parent="Reservatorio/Bloqueio"]
+shape = SubResource("s25")
+
+[node name="Bloqueio2" type="StaticBody3D" parent="Reservatorio"]
+position = Vector3(79.5, 1.5, 99.0)
+collision_mask = 0
+
+[node name="Forma" type="CollisionShape3D" parent="Reservatorio/Bloqueio2"]
+shape = SubResource("s26")
+
+[node name="Bloqueio3" type="StaticBody3D" parent="Reservatorio"]
+position = Vector3(62.0, 1.5, 102.9)
+collision_mask = 0
+
+[node name="Forma" type="CollisionShape3D" parent="Reservatorio/Bloqueio3"]
+shape = SubResource("s27")
+
+[node name="Barco" parent="Reservatorio" instance=ExtResource("r20")]
+position = Vector3(64.6, 0.0, 95.5)
+rotation = Vector3(0, 0.1396, 0)
+
+[node name="Palmeira" parent="Reservatorio" instance=ExtResource("r21")]
+position = Vector3(53.5, 0.0, 89)
+rotation = Vector3(0, 28.9463, 0)
+
+[node name="Cobertura" type="Node" parent="Reservatorio/Palmeira"]
+script = ExtResource("r22")
+
+[node name="Palmeira2" parent="Reservatorio" instance=ExtResource("r21")]
+position = Vector3(57.5, 0.0, 88.5)
+rotation = Vector3(0, 31.1105, 0)
+
+[node name="Cobertura" type="Node" parent="Reservatorio/Palmeira2"]
+script = ExtResource("r22")
+
+[node name="Palmeira3" parent="Reservatorio" instance=ExtResource("r21")]
+position = Vector3(79, 0.0, 89)
+rotation = Vector3(0, 42.7431, 0)
+
+[node name="Cobertura" type="Node" parent="Reservatorio/Palmeira3"]
+script = ExtResource("r22")
+
+[node name="Palmeira4" parent="Reservatorio" instance=ExtResource("r21")]
+position = Vector3(83.5, 0.0, 88.6)
+rotation = Vector3(0, 45.1778, 0)
+
+[node name="Cobertura" type="Node" parent="Reservatorio/Palmeira4"]
+script = ExtResource("r22")
+
+[node name="Palmeira5" parent="Reservatorio" instance=ExtResource("r21")]
+position = Vector3(99, 0.0, 96)
+rotation = Vector3(0, 53.5642, 0)
+
+[node name="Cobertura" type="Node" parent="Reservatorio/Palmeira5"]
+script = ExtResource("r22")
+
+[node name="Palmeira6" parent="Reservatorio" instance=ExtResource("r21")]
+position = Vector3(99.5, 0.0, 102.5)
+rotation = Vector3(0, 53.8347, 0)
+
+[node name="Cobertura" type="Node" parent="Reservatorio/Palmeira6"]
+script = ExtResource("r22")
+
+[node name="Palmeira7" parent="Reservatorio" instance=ExtResource("r21")]
+position = Vector3(49, 0.0, 96.5)
+rotation = Vector3(0, 26.5116, 0)
+
+[node name="Cobertura" type="Node" parent="Reservatorio/Palmeira7"]
+script = ExtResource("r22")
+
+[node name="Palmeira8" parent="Reservatorio" instance=ExtResource("r21")]
+position = Vector3(48.5, 0.0, 103)
+rotation = Vector3(0, 26.241, 0)
+
+[node name="Cobertura" type="Node" parent="Reservatorio/Palmeira8"]
+script = ExtResource("r22")
+
+[node name="Juncos" type="Node3D" parent="Reservatorio"]
+position = Vector3(74, 0, 90)
+script = ExtResource("r2")
+modelo = ExtResource("r23")
+quantidade = 22
+tamanho_da_area = Vector2(42, 2.4)
+semente = 41
+escala_minima = 0.85
+escala_maxima = 1.2
+distancia_minima = 1.2
+areas_livres = Array[Rect2]([Rect2(-14, -2, 4, 4), Rect2(-5.5, -4, 3, 6), Rect2(14, -4, 4, 6)])
+raio_da_colisao = 0.0
+altura_da_colisao = 1.5
+projeta_sombra = false
+some_a_partir_de = 0.0
+
+[node name="Grama" type="Node3D" parent="Reservatorio"]
+position = Vector3(74, 0, 87.5)
+script = ExtResource("r2")
+modelo = ExtResource("r24")
+quantidade = 40
+tamanho_da_area = Vector2(50, 4)
+semente = 42
+escala_minima = 0.85
+escala_maxima = 1.2
+distancia_minima = 1.0
+areas_livres = Array[Rect2]([Rect2(-5.5, -3.5, 3, 8), Rect2(14, -3.5, 4, 8)])
+raio_da_colisao = 0.0
+altura_da_colisao = 1.5
+projeta_sombra = false
+some_a_partir_de = 0.0
+
+[node name="Arbustos" type="Node3D" parent="Reservatorio"]
+position = Vector3(74, 0, 87)
+script = ExtResource("r2")
+modelo = ExtResource("r25")
+quantidade = 8
+tamanho_da_area = Vector2(52, 3)
+semente = 43
+escala_minima = 0.85
+escala_maxima = 1.2
+distancia_minima = 4.0
+areas_livres = Array[Rect2]([Rect2(-14, -3, 4, 8), Rect2(-5.5, -3, 3, 8), Rect2(14, -3, 4, 8)])
+raio_da_colisao = 0.45
+altura_da_colisao = 0.8
+projeta_sombra = true
+some_a_partir_de = 0.0
+
+[node name="BordaNorte" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(54, 0.0, 91.75)
 rotation = Vector3(0, 3.1416, 0)
 
-[node name="BordaSul" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaSul" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(54, 0.0, 106.25)
 
-[node name="BordaNorte2" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaNorte2" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(58, 0.0, 91.75)
 rotation = Vector3(0, 3.1416, 0)
 
-[node name="BordaSul2" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaSul2" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(58, 0.0, 106.25)
 
-[node name="BordaNorte3" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaNorte3" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(66, 0.0, 91.75)
 rotation = Vector3(0, 3.1416, 0)
 
-[node name="BordaSul3" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaSul3" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(66, 0.0, 106.25)
 
-[node name="BordaNorte4" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaNorte4" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(70, 0.0, 91.75)
 rotation = Vector3(0, 3.1416, 0)
 
-[node name="BordaSul4" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaSul4" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(70, 0.0, 106.25)
 
-[node name="BordaNorte5" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaNorte5" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(74, 0.0, 91.75)
 rotation = Vector3(0, 3.1416, 0)
 
-[node name="BordaSul5" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaSul5" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(74, 0.0, 106.25)
 
-[node name="BordaNorte6" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaNorte6" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(78, 0.0, 91.75)
 rotation = Vector3(0, 3.1416, 0)
 
-[node name="BordaSul6" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaSul6" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(78, 0.0, 106.25)
 
-[node name="BordaNorte7" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaNorte7" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(82, 0.0, 91.75)
 rotation = Vector3(0, 3.1416, 0)
 
-[node name="BordaSul7" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaSul7" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(82, 0.0, 106.25)
 
-[node name="BordaNorte8" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaNorte8" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(86, 0.0, 91.75)
 rotation = Vector3(0, 3.1416, 0)
 
-[node name="BordaSul8" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaSul8" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(86, 0.0, 106.25)
 
-[node name="BordaNorte9" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaNorte9" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(94, 0.0, 91.75)
 rotation = Vector3(0, 3.1416, 0)
 
-[node name="BordaSul9" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaSul9" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(94, 0.0, 106.25)
 
-[node name="BordaSul10" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaSul10" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(62, 0.0, 106.25)
 
-[node name="BordaSul11" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaSul11" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(90, 0.0, 106.25)
 
-[node name="BordaOeste" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaOeste" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(51.75, 0.0, 94)
 rotation = Vector3(0, -1.5708, 0)
 
-[node name="BordaLeste" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaLeste" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(96.25, 0.0, 94)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="BordaOeste2" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaOeste2" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(51.75, 0.0, 98)
 rotation = Vector3(0, -1.5708, 0)
 
-[node name="BordaLeste2" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaLeste2" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(96.25, 0.0, 98)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="BordaOeste3" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaOeste3" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(51.75, 0.0, 102)
 rotation = Vector3(0, -1.5708, 0)
 
-[node name="BordaLeste3" parent="Reservatorio" instance=ExtResource("r18")]
+[node name="BordaLeste3" parent="Reservatorio" instance=ExtResource("r26")]
 position = Vector3(96.25, 0.0, 102)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Quina" parent="Reservatorio" instance=ExtResource("r19")]
+[node name="Quina" parent="Reservatorio" instance=ExtResource("r27")]
 position = Vector3(51.75, 0.0, 91.75)
 
-[node name="Quina2" parent="Reservatorio" instance=ExtResource("r19")]
+[node name="Quina2" parent="Reservatorio" instance=ExtResource("r27")]
 position = Vector3(96.25, 0.0, 91.75)
 
-[node name="Quina3" parent="Reservatorio" instance=ExtResource("r19")]
+[node name="Quina3" parent="Reservatorio" instance=ExtResource("r27")]
 position = Vector3(51.75, 0.0, 106.25)
 
-[node name="Quina4" parent="Reservatorio" instance=ExtResource("r19")]
+[node name="Quina4" parent="Reservatorio" instance=ExtResource("r27")]
 position = Vector3(96.25, 0.0, 106.25)
 
-[node name="Pier" parent="Reservatorio" instance=ExtResource("r20")]
+[node name="Pier" parent="Reservatorio" instance=ExtResource("r28")]
 position = Vector3(62, 0.0, 91.5)
 rotation = Vector3(0, 3.1416, 0)
 
-[node name="CasaDeBombas" parent="Reservatorio" instance=ExtResource("r17")]
+[node name="CasaDeBombas" parent="Reservatorio" instance=ExtResource("r18")]
 position = Vector3(100, 0.0, 89)
 rotation = Vector3(0, -1.5708, 0)
 
@@ -713,25 +922,25 @@ rotation = Vector3(0, -1.5708, 0)
 
 [node name="Praca" type="MeshInstance3D" parent="Vila"]
 position = Vector3(73, 0.006, 56)
-mesh = SubResource("s23")
+mesh = SubResource("s29")
 cast_shadow = 0
 
-[node name="Letreiro" parent="Vila" instance=ExtResource("r21")]
+[node name="Letreiro" parent="Vila" instance=ExtResource("r29")]
 position = Vector3(73, 0.0, 47.5)
 
-[node name="Poco" parent="Vila" instance=ExtResource("r22")]
+[node name="Poco" parent="Vila" instance=ExtResource("r30")]
 position = Vector3(73, 0.0, 57)
 
-[node name="Poste" parent="Vila" instance=ExtResource("r9")]
+[node name="Poste" parent="Vila" instance=ExtResource("r10")]
 position = Vector3(64.5, 0.0, 50)
 
-[node name="Poste2" parent="Vila" instance=ExtResource("r9")]
+[node name="Poste2" parent="Vila" instance=ExtResource("r10")]
 position = Vector3(81.5, 0.0, 50)
 
-[node name="Poste3" parent="Vila" instance=ExtResource("r9")]
+[node name="Poste3" parent="Vila" instance=ExtResource("r10")]
 position = Vector3(64.5, 0.0, 62)
 
-[node name="Poste4" parent="Vila" instance=ExtResource("r9")]
+[node name="Poste4" parent="Vila" instance=ExtResource("r10")]
 position = Vector3(81.5, 0.0, 62)
 
 [node name="LuzDaPraca" type="OmniLight3D" parent="Vila"]
@@ -741,7 +950,7 @@ light_energy = 1.2
 omni_range = 12.0
 shadow_enabled = false
 
-[node name="Bar" parent="Vila" instance=ExtResource("r23")]
+[node name="Bar" parent="Vila" instance=ExtResource("r31")]
 position = Vector3(59, 0.0, 43)
 
 [node name="LuzDoBar" type="OmniLight3D" parent="Vila"]
@@ -751,312 +960,487 @@ light_energy = 1.2
 omni_range = 7.0
 shadow_enabled = false
 
-[node name="Mercado" parent="Vila" instance=ExtResource("r24")]
+[node name="Mercado" parent="Vila" instance=ExtResource("r32")]
 position = Vector3(68, 0.0, 41.5)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="OficinaDoVitor" parent="Vila" instance=ExtResource("r25")]
+[node name="OficinaDoVitor" parent="Vila" instance=ExtResource("r33")]
 position = Vector3(102, 0.0, 74)
 rotation = Vector3(0, -1.5708, 0)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Clinica" parent="Vila" instance=ExtResource("r26")]
+[node name="Clinica" parent="Vila" instance=ExtResource("r34")]
 position = Vector3(58, 0.0, 55)
 rotation = Vector3(0, 1.5708, 0)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="CasaDaMarta" parent="Vila" instance=ExtResource("r27")]
+[node name="CasaDaMarta" parent="Vila" instance=ExtResource("r35")]
 position = Vector3(58, 0.0, 64)
 rotation = Vector3(0, 1.5708, 0)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="CasaDaIara" parent="Vila" instance=ExtResource("r28")]
+[node name="CasaDaIara" parent="Vila" instance=ExtResource("r36")]
 position = Vector3(64, 0.0, 75)
 rotation = Vector3(0, 3.1416, 0)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="CasaDaSol" parent="Vila" instance=ExtResource("r29")]
+[node name="CasaDaSol" parent="Vila" instance=ExtResource("r37")]
 position = Vector3(76, 0.0, 75)
 rotation = Vector3(0, 3.1416, 0)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="CasaDoKenji" parent="Vila" instance=ExtResource("r30")]
+[node name="CasaDoKenji" parent="Vila" instance=ExtResource("r38")]
 position = Vector3(100, 0.0, 46)
 rotation = Vector3(0, -1.5708, 0)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="CasaDoRafa" parent="Vila" instance=ExtResource("r31")]
+[node name="CasaDoRafa" parent="Vila" instance=ExtResource("r39")]
 position = Vector3(100, 0.0, 51)
 rotation = Vector3(0, -1.5708, 0)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="CasaDoVitor" parent="Vila" instance=ExtResource("r32")]
+[node name="CasaDoVitor" parent="Vila" instance=ExtResource("r40")]
 position = Vector3(100, 0.0, 63)
 rotation = Vector3(0, -1.5708, 0)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="AntenaDoKenji" parent="Vila" instance=ExtResource("r33")]
+[node name="Barraca" parent="Vila" instance=ExtResource("r41")]
+position = Vector3(65.5, 0.0, 51.3)
+
+[node name="Barraca2" parent="Vila" instance=ExtResource("r41")]
+position = Vector3(69.0, 0.0, 51.3)
+
+[node name="Barraca3" parent="Vila" instance=ExtResource("r41")]
+position = Vector3(77.0, 0.0, 51.3)
+
+[node name="Barraca4" parent="Vila" instance=ExtResource("r41")]
+position = Vector3(80.5, 0.0, 51.3)
+
+[node name="Banco" parent="Vila" instance=ExtResource("r42")]
+position = Vector3(70.0, 0.0, 59.5)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="Banco2" parent="Vila" instance=ExtResource("r42")]
+position = Vector3(76.0, 0.0, 59.5)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="Banco3" parent="Vila" instance=ExtResource("r42")]
+position = Vector3(70.0, 0.0, 54.5)
+rotation = Vector3(0, 6.2832, 0)
+
+[node name="Banco4" parent="Vila" instance=ExtResource("r42")]
+position = Vector3(76.0, 0.0, 54.5)
+rotation = Vector3(0, 6.2832, 0)
+
+[node name="Palmeira" parent="Vila" instance=ExtResource("r21")]
+position = Vector3(66.5, 0.0, 61.8)
+rotation = Vector3(0, 15.0884, 0)
+
+[node name="Cobertura" type="Node" parent="Vila/Palmeira"]
+script = ExtResource("r22")
+
+[node name="Palmeira2" parent="Vila" instance=ExtResource("r21")]
+position = Vector3(79.5, 0.0, 61.8)
+rotation = Vector3(0, 18.038, 0)
+
+[node name="Cobertura" type="Node" parent="Vila/Palmeira2"]
+script = ExtResource("r22")
+
+[node name="Maquina" parent="Vila" instance=ExtResource("r43")]
+position = Vector3(62.0, 0.0, 46.5)
+
+[node name="Maquina2" parent="Vila" instance=ExtResource("r43")]
+position = Vector3(77.6, 0.0, 14.4)
+
+[node name="CarroVelho" parent="Vila" instance=ExtResource("r44")]
+position = Vector3(55.5, 0.0, 60.5)
+rotation = Vector3(0, 1.3963, 0)
+
+[node name="CarroVelho2" parent="Vila" instance=ExtResource("r44")]
+position = Vector3(105.5, 0.0, 57.0)
+rotation = Vector3(0, -0.3491, 0)
+
+[node name="Arbusto" parent="Vila" instance=ExtResource("r25")]
+position = Vector3(61, 0.0, 67)
+rotation = Vector3(0, 11.7112, 0)
+scale = Vector3(0.8, 0.8, 0.8)
+
+[node name="Arbusto2" parent="Vila" instance=ExtResource("r25")]
+position = Vector3(61, 0.0, 61)
+rotation = Vector3(0, 11.7112, 0)
+scale = Vector3(0.8, 0.8, 0.8)
+
+[node name="Arbusto3" parent="Vila" instance=ExtResource("r25")]
+position = Vector3(67, 0.0, 71.5)
+rotation = Vector3(0, 12.8631, 0)
+scale = Vector3(0.8, 0.8, 0.8)
+
+[node name="Arbusto4" parent="Vila" instance=ExtResource("r25")]
+position = Vector3(73, 0.0, 71.5)
+rotation = Vector3(0, 14.015, 0)
+scale = Vector3(0.8, 0.8, 0.8)
+
+[node name="Arbusto5" parent="Vila" instance=ExtResource("r25")]
+position = Vector3(79, 0.0, 71.5)
+rotation = Vector3(0, 15.1669, 0)
+scale = Vector3(0.8, 0.8, 0.8)
+
+[node name="Arbusto6" parent="Vila" instance=ExtResource("r25")]
+position = Vector3(97.5, 0.0, 43.5)
+rotation = Vector3(0, 18.7187, 0)
+scale = Vector3(0.8, 0.8, 0.8)
+
+[node name="Arbusto7" parent="Vila" instance=ExtResource("r25")]
+position = Vector3(97.5, 0.0, 66)
+rotation = Vector3(0, 18.7187, 0)
+scale = Vector3(0.8, 0.8, 0.8)
+
+[node name="PosteDaAvenida" parent="Vila" instance=ExtResource("r10")]
+position = Vector3(77.3, 0.0, 20)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="PosteDaAvenida2" parent="Vila" instance=ExtResource("r10")]
+position = Vector3(77.3, 0.0, 28)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="PosteDaAvenida3" parent="Vila" instance=ExtResource("r10")]
+position = Vector3(77.3, 0.0, 36)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="FloresDaVila" type="Node3D" parent="Vila"]
+position = Vector3(80, 0, 58)
+script = ExtResource("r2")
+modelo = ExtResource("r45")
+quantidade = 26
+tamanho_da_area = Vector2(50, 44)
+semente = 44
+escala_minima = 0.85
+escala_maxima = 1.2
+distancia_minima = 2.0
+areas_livres = Array[Rect2]([Rect2(-18, -10, 22, 16), Rect2(-2, -46, 4, 36), Rect2(6, -45, 8, 82), Rect2(-28, -20, 14, 10), Rect2(-17, -22, 12, 10), Rect2(15, -14, 10, 34), Rect2(-26, 0, 10, 10), Rect2(-21, 12, 22, 10)])
+raio_da_colisao = 0.0
+altura_da_colisao = 1.5
+projeta_sombra = false
+some_a_partir_de = 0.0
+
+[node name="AntenaDoKenji" parent="Vila" instance=ExtResource("r46")]
 position = Vector3(108, 0.0, 22)
 scale = Vector3(1.4, 1.4, 1.4)
 
 [node name="MaquinaAnimada" type="Node" parent="Vila/AntenaDoKenji"]
-script = ExtResource("r34")
+script = ExtResource("r47")
 voltas_por_segundo = 0.25
 
-[node name="Barril" parent="Vila" instance=ExtResource("r35")]
+[node name="Barril" parent="Vila" instance=ExtResource("r48")]
 position = Vector3(96, 0.0, 70)
 
-[node name="Barril2" parent="Vila" instance=ExtResource("r35")]
+[node name="Barril2" parent="Vila" instance=ExtResource("r48")]
 position = Vector3(104, 0.0, 40)
 
 [node name="Solar" type="Node3D" parent="."]
 
-[node name="Paineis" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(12, 0.0, 34)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis2" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis2" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(17, 0.0, 34)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis3" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis3" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(22, 0.0, 34)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis4" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis4" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(27, 0.0, 34)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis5" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis5" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(32, 0.0, 34)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis6" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis6" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(37, 0.0, 34)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis7" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis7" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(42, 0.0, 34)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis8" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis8" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(12, 0.0, 40)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis9" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis9" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(17, 0.0, 40)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis10" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis10" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(22, 0.0, 40)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis11" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis11" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(27, 0.0, 40)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis12" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis12" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(32, 0.0, 40)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis13" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis13" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(37, 0.0, 40)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis14" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis14" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(42, 0.0, 40)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis15" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis15" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(12, 0.0, 62)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis16" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis16" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(17, 0.0, 62)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis17" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis17" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(22, 0.0, 62)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis18" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis18" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(27, 0.0, 62)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis19" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis19" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(32, 0.0, 62)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis20" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis20" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(37, 0.0, 62)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis21" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis21" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(42, 0.0, 62)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis22" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis22" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(12, 0.0, 68)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis23" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis23" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(17, 0.0, 68)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis24" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis24" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(22, 0.0, 68)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis25" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis25" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(27, 0.0, 68)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis26" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis26" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(32, 0.0, 68)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis27" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis27" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(37, 0.0, 68)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="Paineis28" parent="Solar" instance=ExtResource("r36")]
+[node name="Paineis28" parent="Solar" instance=ExtResource("r49")]
 position = Vector3(42, 0.0, 68)
 scale = Vector3(4.0, 4.0, 4.0)
 
-[node name="CataVento" parent="Solar" instance=ExtResource("r37")]
+[node name="CataVento" parent="Solar" instance=ExtResource("r50")]
 position = Vector3(12, 0.0, 50)
 
 [node name="Cobertura" type="Node" parent="Solar/CataVento"]
-script = ExtResource("r38")
+script = ExtResource("r22")
 
-[node name="CataVento2" parent="Solar" instance=ExtResource("r37")]
+[node name="CataVento2" parent="Solar" instance=ExtResource("r50")]
 position = Vector3(42, 0.0, 52)
 
 [node name="Cobertura" type="Node" parent="Solar/CataVento2"]
-script = ExtResource("r38")
+script = ExtResource("r22")
 
-[node name="CataVentoNovo" parent="Solar" instance=ExtResource("r39")]
+[node name="Transformador" parent="Solar" instance=ExtResource("r51")]
+position = Vector3(46.5, 0.0, 46)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Transformador2" parent="Solar" instance=ExtResource("r51")]
+position = Vector3(10, 0.0, 57)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="CataVentoNovo" parent="Solar" instance=ExtResource("r52")]
 position = Vector3(40, 0.0, 30)
 scale = Vector3(4.0, 4.0, 4.0)
 
 [node name="Cobertura" type="Node" parent="Solar/CataVentoNovo"]
-script = ExtResource("r38")
+script = ExtResource("r22")
 
-[node name="CataVentoNovo2" parent="Solar" instance=ExtResource("r39")]
+[node name="CataVentoNovo2" parent="Solar" instance=ExtResource("r52")]
 position = Vector3(16, 0.0, 74)
 scale = Vector3(4.0, 4.0, 4.0)
 
 [node name="Cobertura" type="Node" parent="Solar/CataVentoNovo2"]
-script = ExtResource("r38")
+script = ExtResource("r22")
 
 [node name="Badlands" type="Node3D" parent="."]
 
-[node name="MesaGrande" parent="Badlands" instance=ExtResource("r40")]
+[node name="MesaGrande" parent="Badlands" instance=ExtResource("r53")]
 position = Vector3(148, 0.0, 22)
 rotation = Vector3(0, 0.1745, 0)
 
-[node name="MesaGrande2" parent="Badlands" instance=ExtResource("r40")]
+[node name="MesaGrande2" parent="Badlands" instance=ExtResource("r53")]
 position = Vector3(132, 0.0, 19)
 rotation = Vector3(0, -0.2618, 0)
 
-[node name="MesaGrande3" parent="Badlands" instance=ExtResource("r40")]
+[node name="MesaGrande3" parent="Badlands" instance=ExtResource("r53")]
 position = Vector3(156, 0.0, 40)
 rotation = Vector3(0, 1.3963, 0)
 
-[node name="MesaMedia" parent="Badlands" instance=ExtResource("r41")]
+[node name="MesaMedia" parent="Badlands" instance=ExtResource("r54")]
 position = Vector3(120, 0.0, 44)
 rotation = Vector3(0, 0.5236, 0)
 
 [node name="Cobertura" type="Node" parent="Badlands/MesaMedia"]
-script = ExtResource("r38")
+script = ExtResource("r22")
 
-[node name="MesaMedia2" parent="Badlands" instance=ExtResource("r41")]
+[node name="MesaMedia2" parent="Badlands" instance=ExtResource("r54")]
 position = Vector3(152, 0.0, 54)
 rotation = Vector3(0, -0.3491, 0)
 
 [node name="Cobertura" type="Node" parent="Badlands/MesaMedia2"]
-script = ExtResource("r38")
+script = ExtResource("r22")
 
-[node name="MesaMedia3" parent="Badlands" instance=ExtResource("r41")]
+[node name="MesaMedia3" parent="Badlands" instance=ExtResource("r54")]
 position = Vector3(114, 0.0, 18)
 
 [node name="Cobertura" type="Node" parent="Badlands/MesaMedia3"]
-script = ExtResource("r38")
+script = ExtResource("r22")
 
-[node name="RochaDaPedreira" parent="Badlands" instance=ExtResource("r42")]
+[node name="RochaDaPedreira" parent="Badlands" instance=ExtResource("r55")]
 position = Vector3(138, 0.0, 32)
 rotation = Vector3(0, 5.3479, 0)
 scale = Vector3(1.4, 1.4, 1.4)
 
-[node name="RochaDaPedreira2" parent="Badlands" instance=ExtResource("r42")]
+[node name="RochaDaPedreira2" parent="Badlands" instance=ExtResource("r55")]
 position = Vector3(142, 0.0, 35)
 rotation = Vector3(0, 2.6606, 0)
 scale = Vector3(1.4, 1.4, 1.4)
 
-[node name="RochaDaPedreira3" parent="Badlands" instance=ExtResource("r42")]
+[node name="RochaDaPedreira3" parent="Badlands" instance=ExtResource("r55")]
 position = Vector3(135, 0.0, 36)
 rotation = Vector3(0, 5.324, 0)
 scale = Vector3(1.4, 1.4, 1.4)
 
-[node name="RochaDaPedreira4" parent="Badlands" instance=ExtResource("r42")]
+[node name="RochaDaPedreira4" parent="Badlands" instance=ExtResource("r55")]
 position = Vector3(140, 0.0, 39)
 rotation = Vector3(0, 1.2612, 0)
 scale = Vector3(1.4, 1.4, 1.4)
 
-[node name="CarrinhoDaPedreira" parent="Badlands" instance=ExtResource("r43")]
-position = Vector3(134, 0.0, 31)
+[node name="Trilho" parent="Badlands" instance=ExtResource("r56")]
+position = Vector3(126, 0.0, 33.5)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Trilho2" parent="Badlands" instance=ExtResource("r56")]
+position = Vector3(130, 0.0, 33.5)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Trilho3" parent="Badlands" instance=ExtResource("r56")]
+position = Vector3(134, 0.0, 33.5)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Vagonete" parent="Badlands" instance=ExtResource("r57")]
+position = Vector3(131, 0.0, 33.5)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Caixote" parent="Badlands" instance=ExtResource("r58")]
+position = Vector3(125, 0.0, 31.6)
 rotation = Vector3(0, 0.3491, 0)
+
+[node name="Caixote2" parent="Badlands" instance=ExtResource("r58")]
+position = Vector3(125.6, 0.46, 31.0)
+rotation = Vector3(0, -0.1745, 0)
+
+[node name="CarroVelho" parent="Badlands" instance=ExtResource("r44")]
+position = Vector3(112, 0.0, 52)
+rotation = Vector3(0, 0.6109, 0)
 
 [node name="Acampamento" type="Node3D" parent="."]
 
-[node name="Oficina" parent="Acampamento" instance=ExtResource("r44")]
+[node name="Oficina" parent="Acampamento" instance=ExtResource("r59")]
 position = Vector3(140, 0.0, 70)
 
-[node name="Trailer" parent="Acampamento" instance=ExtResource("r45")]
+[node name="Trailer" parent="Acampamento" instance=ExtResource("r60")]
 position = Vector3(127, 0.0, 82)
 rotation = Vector3(0, 0.3491, 0)
 
-[node name="Trailer2" parent="Acampamento" instance=ExtResource("r45")]
+[node name="Trailer2" parent="Acampamento" instance=ExtResource("r60")]
 position = Vector3(153, 0.0, 84)
 rotation = Vector3(0, -0.5236, 0)
 
-[node name="Moto" parent="Acampamento" instance=ExtResource("r46")]
+[node name="Moto" parent="Acampamento" instance=ExtResource("r61")]
 position = Vector3(134.5, 0.0, 78.5)
 rotation = Vector3(0, 1.3963, 0)
 
-[node name="Moto2" parent="Acampamento" instance=ExtResource("r46")]
+[node name="Moto2" parent="Acampamento" instance=ExtResource("r61")]
 position = Vector3(136.2, 0.0, 79)
 rotation = Vector3(0, 1.7453, 0)
 
-[node name="Moto3" parent="Acampamento" instance=ExtResource("r46")]
+[node name="Moto3" parent="Acampamento" instance=ExtResource("r61")]
 position = Vector3(146, 0.0, 77)
 rotation = Vector3(0, -1.2217, 0)
 
-[node name="Rampa" parent="Acampamento" instance=ExtResource("r47")]
+[node name="Rampa" parent="Acampamento" instance=ExtResource("r62")]
 position = Vector3(146, 0.0, 90)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Pneus" parent="Acampamento" instance=ExtResource("r48")]
+[node name="Pneus" parent="Acampamento" instance=ExtResource("r63")]
 position = Vector3(124, 0.0, 72)
 rotation = Vector3(0, 5.5348, 0)
 
-[node name="Pneus2" parent="Acampamento" instance=ExtResource("r48")]
+[node name="Pneus2" parent="Acampamento" instance=ExtResource("r63")]
 position = Vector3(157, 0.0, 73)
 rotation = Vector3(0, 1.5742, 0)
 
-[node name="Pneus3" parent="Acampamento" instance=ExtResource("r48")]
+[node name="Pneus3" parent="Acampamento" instance=ExtResource("r63")]
 position = Vector3(132, 0.0, 90)
 rotation = Vector3(0, 5.9046, 0)
 
-[node name="Muro" parent="Acampamento" instance=ExtResource("r49")]
+[node name="Muro" parent="Acampamento" instance=ExtResource("r64")]
 position = Vector3(129, 0.0, 68.5)
 
-[node name="Muro2" parent="Acampamento" instance=ExtResource("r49")]
+[node name="Muro2" parent="Acampamento" instance=ExtResource("r64")]
 position = Vector3(151, 0.0, 68.5)
 
-[node name="Fogueira" parent="Acampamento" instance=ExtResource("r50")]
+[node name="Fogueira" parent="Acampamento" instance=ExtResource("r65")]
 position = Vector3(140, 0.0, 82)
 scale = Vector3(3.0, 3.0, 3.0)
+
+[node name="Toldo" parent="Acampamento" instance=ExtResource("r66")]
+position = Vector3(133, 0.0, 76.5)
+rotation = Vector3(0, -0.1745, 0)
+
+[node name="Mesa" parent="Acampamento" instance=ExtResource("r67")]
+position = Vector3(133, 0.0, 76.8)
+rotation = Vector3(0, -0.1745, 0)
+
+[node name="Tambor" parent="Acampamento" instance=ExtResource("r68")]
+position = Vector3(156, 0.0, 78)
+
+[node name="Tambor2" parent="Acampamento" instance=ExtResource("r68")]
+position = Vector3(156.7, 0.0, 78.8)
+
+[node name="Tambor3" parent="Acampamento" instance=ExtResource("r68")]
+position = Vector3(122.5, 0.0, 80)
+
+[node name="CarroVelho" parent="Acampamento" instance=ExtResource("r44")]
+position = Vector3(124, 0.0, 89)
+rotation = Vector3(0, 1.0472, 0)
+
+[node name="Maquina" parent="Acampamento" instance=ExtResource("r43")]
+position = Vector3(146.5, 0.0, 72.4)
 
 [node name="LuzDaFogueira" type="OmniLight3D" parent="Acampamento"]
 position = Vector3(140, 1.4, 82)
@@ -1067,22 +1451,22 @@ shadow_enabled = false
 
 [node name="AlvosDeTreino" type="Node3D" parent="Acampamento"]
 
-[node name="AlvoDeTreino" parent="Acampamento/AlvosDeTreino" instance=ExtResource("r51")]
+[node name="AlvoDeTreino" parent="Acampamento/AlvosDeTreino" instance=ExtResource("r69")]
 position = Vector3(148, 0.0, 79)
 
-[node name="AlvoDeTreino2" parent="Acampamento/AlvosDeTreino" instance=ExtResource("r51")]
+[node name="AlvoDeTreino2" parent="Acampamento/AlvosDeTreino" instance=ExtResource("r69")]
 position = Vector3(150.5, 0.0, 79)
 
-[node name="AlvoDeTreino3" parent="Acampamento/AlvosDeTreino" instance=ExtResource("r51")]
+[node name="AlvoDeTreino3" parent="Acampamento/AlvosDeTreino" instance=ExtResource("r69")]
 position = Vector3(153, 0.0, 79)
 
 [node name="SaidaDaFazenda" type="Node3D" parent="."]
 
-[node name="Porteira" parent="SaidaDaFazenda" instance=ExtResource("r52")]
+[node name="Porteira" parent="SaidaDaFazenda" instance=ExtResource("r70")]
 position = Vector3(0.5, 0.0, 22)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="CaixaDeCorreio" parent="SaidaDaFazenda" instance=ExtResource("r53")]
+[node name="CaixaDeCorreio" parent="SaidaDaFazenda" instance=ExtResource("r71")]
 position = Vector3(4, 0.0, 25.5)
 
 [node name="ChegadaDaFazenda" type="Marker3D" parent="SaidaDaFazenda"]
@@ -1091,25 +1475,25 @@ rotation = Vector3(0, 1.5708, 0)
 
 [node name="PassagemParaAFazenda" type="Area3D" parent="SaidaDaFazenda"]
 position = Vector3(-2.5, 1.5, 22)
-script = ExtResource("r54")
+script = ExtResource("r72")
 mapa_de_destino = &"fazenda"
 chegada = &"ChegadaDaPorteira"
 
 [node name="Forma" type="CollisionShape3D" parent="SaidaDaFazenda/PassagemParaAFazenda"]
-shape = SubResource("s24")
+shape = SubResource("s30")
 
 [node name="Deserto" type="Node3D" parent="."]
 
 [node name="CactosAltos" type="Node3D" parent="Deserto"]
 position = Vector3(80, 0, 62)
 script = ExtResource("r2")
-modelo = ExtResource("r55")
-quantidade = 46
+modelo = ExtResource("r73")
+quantidade = 70
 tamanho_da_area = Vector2(156, 92)
 semente = 3
 escala_minima = 0.85
 escala_maxima = 1.2
-distancia_minima = 6.0
+distancia_minima = 5.0
 areas_livres = Array[Rect2]([Rect2(-3, -49, 6, 30), Rect2(-26, -28, 52, 48), Rect2(6, -49, 8, 82), Rect2(-32, 26, 52, 22), Rect2(-72, -32, 42, 44), Rect2(-80, -45, 34, 12), Rect2(38, 0, 42, 36), Rect2(14, -42, 50, 8)])
 raio_da_colisao = 0.3
 altura_da_colisao = 2.0
@@ -1119,13 +1503,13 @@ some_a_partir_de = 0.0
 [node name="CactosRedondos" type="Node3D" parent="Deserto"]
 position = Vector3(80, 0, 62)
 script = ExtResource("r2")
-modelo = ExtResource("r56")
-quantidade = 60
+modelo = ExtResource("r74")
+quantidade = 90
 tamanho_da_area = Vector2(156, 92)
 semente = 4
 escala_minima = 0.85
 escala_maxima = 1.2
-distancia_minima = 3.0
+distancia_minima = 2.5
 areas_livres = Array[Rect2]([Rect2(-3, -49, 6, 30), Rect2(-26, -28, 52, 48), Rect2(6, -49, 8, 82), Rect2(-32, 26, 52, 22), Rect2(-72, -32, 42, 44), Rect2(-80, -45, 34, 12), Rect2(38, 0, 42, 36), Rect2(14, -42, 50, 8)])
 raio_da_colisao = 0.32
 altura_da_colisao = 0.5
@@ -1135,13 +1519,13 @@ some_a_partir_de = 0.0
 [node name="Palmas" type="Node3D" parent="Deserto"]
 position = Vector3(80, 0, 62)
 script = ExtResource("r2")
-modelo = ExtResource("r57")
-quantidade = 40
+modelo = ExtResource("r75")
+quantidade = 60
 tamanho_da_area = Vector2(156, 92)
 semente = 5
 escala_minima = 0.85
 escala_maxima = 1.2
-distancia_minima = 3.0
+distancia_minima = 2.5
 areas_livres = Array[Rect2]([Rect2(-3, -49, 6, 30), Rect2(-26, -28, 52, 48), Rect2(6, -49, 8, 82), Rect2(-32, 26, 52, 22), Rect2(-72, -32, 42, 44), Rect2(-80, -45, 34, 12), Rect2(38, 0, 42, 36), Rect2(14, -42, 50, 8)])
 raio_da_colisao = 0.3
 altura_da_colisao = 0.9
@@ -1151,13 +1535,13 @@ some_a_partir_de = 0.0
 [node name="Rochas" type="Node3D" parent="Deserto"]
 position = Vector3(80, 0, 62)
 script = ExtResource("r2")
-modelo = ExtResource("r42")
-quantidade = 30
+modelo = ExtResource("r55")
+quantidade = 45
 tamanho_da_area = Vector2(156, 92)
 semente = 6
 escala_minima = 0.7
 escala_maxima = 1.5
-distancia_minima = 5.0
+distancia_minima = 4.0
 areas_livres = Array[Rect2]([Rect2(-3, -49, 6, 30), Rect2(-26, -28, 52, 48), Rect2(6, -49, 8, 82), Rect2(-32, 26, 52, 22), Rect2(-72, -32, 42, 44), Rect2(-80, -45, 34, 12), Rect2(38, 0, 42, 36), Rect2(14, -42, 50, 8)])
 raio_da_colisao = 0.9
 altura_da_colisao = 0.6
@@ -1167,7 +1551,7 @@ some_a_partir_de = 0.0
 [node name="Pedras" type="Node3D" parent="Deserto"]
 position = Vector3(80, 0, 62)
 script = ExtResource("r2")
-modelo = ExtResource("r58")
+modelo = ExtResource("r76")
 quantidade = 50
 tamanho_da_area = Vector2(156, 92)
 semente = 7
@@ -1183,23 +1567,55 @@ some_a_partir_de = 40.0
 [node name="Capim" type="Node3D" parent="Deserto"]
 position = Vector3(80, 0, 62)
 script = ExtResource("r2")
-modelo = ExtResource("r59")
-quantidade = 160
+modelo = ExtResource("r77")
+quantidade = 320
 tamanho_da_area = Vector2(156, 92)
 semente = 8
 escala_minima = 0.85
 escala_maxima = 1.2
-distancia_minima = 1.8
+distancia_minima = 1.4
 areas_livres = Array[Rect2]([Rect2(6, -49, 8, 82), Rect2(-32, 26, 52, 22)])
 raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 35.0
 
+[node name="ArbustosSecos" type="Node3D" parent="Deserto"]
+position = Vector3(80, 0, 62)
+script = ExtResource("r2")
+modelo = ExtResource("r78")
+quantidade = 70
+tamanho_da_area = Vector2(156, 92)
+semente = 11
+escala_minima = 0.85
+escala_maxima = 1.2
+distancia_minima = 3.0
+areas_livres = Array[Rect2]([Rect2(-3, -49, 6, 30), Rect2(-26, -28, 52, 48), Rect2(6, -49, 8, 82), Rect2(-32, 26, 52, 22), Rect2(-72, -32, 42, 44), Rect2(-80, -45, 34, 12), Rect2(38, 0, 42, 36), Rect2(14, -42, 50, 8)])
+raio_da_colisao = 0.0
+altura_da_colisao = 1.5
+projeta_sombra = false
+some_a_partir_de = 45.0
+
+[node name="BolasDeFeno" type="Node3D" parent="Deserto"]
+position = Vector3(80, 0, 62)
+script = ExtResource("r2")
+modelo = ExtResource("r79")
+quantidade = 14
+tamanho_da_area = Vector2(156, 92)
+semente = 12
+escala_minima = 0.85
+escala_maxima = 1.2
+distancia_minima = 10.0
+areas_livres = Array[Rect2]([Rect2(-3, -49, 6, 30), Rect2(-26, -28, 52, 48), Rect2(6, -49, 8, 82), Rect2(-32, 26, 52, 22), Rect2(-72, -32, 42, 44), Rect2(-80, -45, 34, 12), Rect2(38, 0, 42, 36), Rect2(14, -42, 50, 8)])
+raio_da_colisao = 0.0
+altura_da_colisao = 1.5
+projeta_sombra = true
+some_a_partir_de = 0.0
+
 [node name="Caveiras" type="Node3D" parent="Deserto"]
 position = Vector3(120, 0, 50)
 script = ExtResource("r2")
-modelo = ExtResource("r60")
+modelo = ExtResource("r80")
 quantidade = 5
 tamanho_da_area = Vector2(70, 60)
 semente = 9
@@ -1215,7 +1631,7 @@ some_a_partir_de = 0.0
 [node name="CactosDasBadlands" type="Node3D" parent="Deserto"]
 position = Vector3(138, 0, 40)
 script = ExtResource("r2")
-modelo = ExtResource("r55")
+modelo = ExtResource("r73")
 quantidade = 16
 tamanho_da_area = Vector2(40, 36)
 semente = 10
@@ -1284,7 +1700,7 @@ position = Vector3(70, 0, 89.5)
 rotation = Vector3(0, 3.1416, 0)
 
 [node name="ElencoDeNpcs" type="Node3D" parent="."]
-script = ExtResource("r61")
+script = ExtResource("r81")
 
 [node name="Limites" type="Node3D" parent="."]
 
@@ -1293,220 +1709,220 @@ position = Vector3(80, 1.5, 9.6)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/Norte"]
-shape = SubResource("s25")
+shape = SubResource("s31")
 
 [node name="Sul" type="StaticBody3D" parent="Limites"]
 position = Vector3(80, 1.5, 110.6)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/Sul"]
-shape = SubResource("s26")
+shape = SubResource("s32")
 
 [node name="Leste" type="StaticBody3D" parent="Limites"]
 position = Vector3(160.6, 1.5, 60)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/Leste"]
-shape = SubResource("s27")
+shape = SubResource("s33")
 
 [node name="OesteDeCima" type="StaticBody3D" parent="Limites"]
 position = Vector3(-0.6, 1.5, 15.25)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/OesteDeCima"]
-shape = SubResource("s28")
+shape = SubResource("s34")
 
 [node name="OesteDeBaixo" type="StaticBody3D" parent="Limites"]
 position = Vector3(-0.6, 1.5, 67.25)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/OesteDeBaixo"]
-shape = SubResource("s29")
+shape = SubResource("s35")
 
 [node name="AtrasDaPassagem" type="StaticBody3D" parent="Limites"]
 position = Vector3(-5.5, 1.5, 22)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/AtrasDaPassagem"]
-shape = SubResource("s30")
+shape = SubResource("s36")
 
 [node name="LadoDaPassagemNorte" type="StaticBody3D" parent="Limites"]
 position = Vector3(-3, 1.5, 19.2)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/LadoDaPassagemNorte"]
-shape = SubResource("s31")
+shape = SubResource("s37")
 
 [node name="LadoDaPassagemSul" type="StaticBody3D" parent="Limites"]
 position = Vector3(-3, 1.5, 24.8)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/LadoDaPassagemSul"]
-shape = SubResource("s32")
+shape = SubResource("s38")
 
-[node name="Cerca" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 30)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca2" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca2" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 34)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca3" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca3" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 38)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca4" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca4" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 42)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca5" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca5" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 46)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca6" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca6" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 50)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca7" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca7" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 54)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca8" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca8" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 58)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca9" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca9" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 62)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca10" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca10" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 66)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca11" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca11" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 70)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca12" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca12" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 74)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca13" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca13" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 78)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca14" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca14" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 82)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca15" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca15" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 86)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca16" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca16" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 90)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca17" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca17" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 94)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca18" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca18" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 98)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca19" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca19" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 102)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca20" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca20" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(-0.2, 0.0, 106)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca21" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca21" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(2, 0.0, 110)
 
-[node name="Cerca22" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca22" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(6, 0.0, 110)
 
-[node name="Cerca23" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca23" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(10, 0.0, 110)
 
-[node name="Cerca24" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca24" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(14, 0.0, 110)
 
-[node name="Cerca25" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca25" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(18, 0.0, 110)
 
-[node name="Cerca26" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca26" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(22, 0.0, 110)
 
-[node name="Cerca27" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca27" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(26, 0.0, 110)
 
-[node name="Cerca28" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca28" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(30, 0.0, 110)
 
-[node name="Cerca29" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca29" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(34, 0.0, 110)
 
-[node name="Cerca30" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca30" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(38, 0.0, 110)
 
-[node name="Cerca31" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca31" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(42, 0.0, 110)
 
-[node name="Cerca32" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca32" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(46, 0.0, 110)
 
-[node name="Cerca33" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca33" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(102, 0.0, 110)
 
-[node name="Cerca34" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca34" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(106, 0.0, 110)
 
-[node name="Cerca35" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca35" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(110, 0.0, 110)
 
-[node name="Cerca36" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca36" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(114, 0.0, 110)
 
-[node name="Cerca37" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca37" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(118, 0.0, 110)
 
-[node name="Cerca38" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca38" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(122, 0.0, 110)
 
-[node name="Cerca39" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca39" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(126, 0.0, 110)
 
-[node name="Cerca40" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca40" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(130, 0.0, 110)
 
-[node name="Cerca41" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca41" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(134, 0.0, 110)
 
-[node name="Cerca42" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca42" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(138, 0.0, 110)
 
-[node name="Cerca43" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca43" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(142, 0.0, 110)
 
-[node name="Cerca44" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca44" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(146, 0.0, 110)
 
-[node name="Cerca45" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca45" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(150, 0.0, 110)
 
-[node name="Cerca46" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca46" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(154, 0.0, 110)
 
-[node name="Cerca47" parent="Limites" instance=ExtResource("r62")]
+[node name="Cerca47" parent="Limites" instance=ExtResource("r82")]
 position = Vector3(158, 0.0, 110)
 
 [node name="RegiaoDeNavegacao" type="NavigationRegion3D" parent="."]
-navigation_mesh = ExtResource("r63")
-script = ExtResource("r64")
+navigation_mesh = ExtResource("r83")
+script = ExtResource("r84")
 arquivo_da_malha = "res://resources/navigation/mundo.tres"
 limite_do_chao = Rect2(0, 10, 160, 100)

@@ -17,13 +17,28 @@
 [ext_resource type="PackedScene" path="res://scenes/world/quadro_calendario.tscn" id="r15"]
 [ext_resource type="PackedScene" path="res://scenes/items/bau.tscn" id="r16"]
 [ext_resource type="Script" path="res://scripts/world/passagem_de_mapa.gd" id="r17"]
-[ext_resource type="Script" path="res://scripts/world/espalhador_de_objetos.gd" id="r18"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_redondo.glb" id="r19"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_alto.glb" id="r20"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_capim_seco.glb" id="r21"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/palmeira.glb" id="r18"]
+[ext_resource type="Script" path="res://scripts/world/cobertura_translucida.gd" id="r19"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/arvore_frutifera.glb" id="r20"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cerca_viva.glb" id="r21"]
+[ext_resource type="Shader" path="res://assets/shaders/agua_toon.gdshader" id="r22"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_juncos.glb" id="r23"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/pedras_do_deserto.glb" id="r24"]
+[ext_resource type="Script" path="res://scripts/world/espalhador_de_objetos.gd" id="r25"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_tufo_de_grama.glb" id="r26"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_flores.glb" id="r27"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/arbusto_do_oasis.glb" id="r28"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/varal.glb" id="r29"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/bancada_de_ferramentas.glb" id="r30"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/fardo_de_feno.glb" id="r31"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/carrinho_de_mao.glb" id="r32"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/barril.glb" id="r33"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_redondo.glb" id="r34"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_alto.glb" id="r35"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_capim_seco.glb" id="r36"]
 
 [sub_resource type="StandardMaterial3D" id="s1"]
-albedo_color = Color(0.72, 0.62, 0.42, 1)
+albedo_color = Color(0.5, 0.66, 0.36, 1)
 roughness = 1.0
 
 [sub_resource type="StandardMaterial3D" id="s2"]
@@ -120,6 +135,16 @@ size = Vector3(5, 3.0, 1)
 
 [sub_resource type="BoxShape3D" id="s27"]
 size = Vector3(5, 3.0, 1)
+
+[sub_resource type="ShaderMaterial" id="s28"]
+shader = ExtResource("r22")
+
+[sub_resource type="PlaneMesh" id="s29"]
+material = SubResource("s28")
+size = Vector2(1, 1)
+
+[sub_resource type="BoxShape3D" id="s30"]
+size = Vector3(3.6, 3.0, 4.4)
 
 [node name="Fazenda" type="Node3D"]
 script = ExtResource("r1")
@@ -890,12 +915,250 @@ collision_mask = 0
 [node name="Forma" type="CollisionShape3D" parent="Limites/LadoDaPassagemSul"]
 shape = SubResource("s27")
 
+[node name="Verde" type="Node3D" parent="."]
+
+[node name="Palmeira" parent="Verde" instance=ExtResource("r18")]
+position = Vector3(3, 0.0, 2.4)
+rotation = Vector3(0, 1.9373, 0)
+
+[node name="Palmeira2" parent="Verde" instance=ExtResource("r18")]
+position = Vector3(15, 0.0, 2.4)
+rotation = Vector3(0, 9.6866, 0)
+
+[node name="Palmeira3" parent="Verde" instance=ExtResource("r18")]
+position = Vector3(30.5, 0.0, 2.4)
+rotation = Vector3(0, 19.696, 0)
+
+[node name="Palmeira4" parent="Verde" instance=ExtResource("r18")]
+position = Vector3(45, 0.0, 2.4)
+rotation = Vector3(0, 29.0597, 0)
+
+[node name="Palmeira5" parent="Verde" instance=ExtResource("r18")]
+position = Vector3(47.5, 0.0, 17.5)
+rotation = Vector3(0, 16.1879, 0)
+
+[node name="Cobertura" type="Node" parent="Verde/Palmeira5"]
+script = ExtResource("r19")
+
+[node name="Palmeira6" parent="Verde" instance=ExtResource("r18")]
+position = Vector3(47.5, 0.0, 27)
+rotation = Vector3(0, 24.9757, 0)
+
+[node name="Cobertura" type="Node" parent="Verde/Palmeira6"]
+script = ExtResource("r19")
+
+[node name="ArvoreFrutifera" parent="Verde" instance=ExtResource("r20")]
+position = Vector3(4, 0.0, 38.3)
+rotation = Vector3(0, 2.0246, 0)
+
+[node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera"]
+script = ExtResource("r19")
+
+[node name="ArvoreFrutifera2" parent="Verde" instance=ExtResource("r20")]
+position = Vector3(11, 0.0, 38.3)
+rotation = Vector3(0, 5.5676, 0)
+
+[node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera2"]
+script = ExtResource("r19")
+
+[node name="ArvoreFrutifera3" parent="Verde" instance=ExtResource("r20")]
+position = Vector3(18, 0.0, 38.3)
+rotation = Vector3(0, 9.1106, 0)
+
+[node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera3"]
+script = ExtResource("r19")
+
+[node name="ArvoreFrutifera4" parent="Verde" instance=ExtResource("r20")]
+position = Vector3(25, 0.0, 38.3)
+rotation = Vector3(0, 12.6536, 0)
+
+[node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera4"]
+script = ExtResource("r19")
+
+[node name="ArvoreFrutifera5" parent="Verde" instance=ExtResource("r20")]
+position = Vector3(32, 0.0, 38.3)
+rotation = Vector3(0, 16.1967, 0)
+
+[node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera5"]
+script = ExtResource("r19")
+
+[node name="ArvoreFrutifera6" parent="Verde" instance=ExtResource("r20")]
+position = Vector3(39, 0.0, 38.3)
+rotation = Vector3(0, 19.7397, 0)
+
+[node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera6"]
+script = ExtResource("r19")
+
+[node name="ArvoreFrutifera7" parent="Verde" instance=ExtResource("r20")]
+position = Vector3(46, 0.0, 38.3)
+rotation = Vector3(0, 23.2827, 0)
+
+[node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera7"]
+script = ExtResource("r19")
+
+[node name="CercaViva" parent="Verde" instance=ExtResource("r21")]
+position = Vector3(1.6, 0.0, 17)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="CercaViva2" parent="Verde" instance=ExtResource("r21")]
+position = Vector3(1.6, 0.0, 27)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="CercaViva3" parent="Verde" instance=ExtResource("r21")]
+position = Vector3(1.6, 0.0, 33)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="CercaViva4" parent="Verde" instance=ExtResource("r21")]
+position = Vector3(48.6, 0.0, 33)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="CercaViva5" parent="Verde" instance=ExtResource("r21")]
+position = Vector3(48.6, 0.0, 37)
+rotation = Vector3(0, 1.5708, 0)
+
+[node name="Laguinho" type="MeshInstance3D" parent="Verde"]
+position = Vector3(2.8, 0.025, 13.2)
+scale = Vector3(3.6, 1, 4.4)
+mesh = SubResource("s29")
+cast_shadow = 0
+
+[node name="BloqueioDoLaguinho" type="StaticBody3D" parent="Verde"]
+position = Vector3(2.8, 1.5, 13.2)
+collision_mask = 0
+
+[node name="Forma" type="CollisionShape3D" parent="Verde/BloqueioDoLaguinho"]
+shape = SubResource("s30")
+
+[node name="Juncos" parent="Verde" instance=ExtResource("r23")]
+position = Vector3(0.8, 0.0, 10.6)
+rotation = Vector3(0, 1.117, 0)
+
+[node name="Juncos2" parent="Verde" instance=ExtResource("r23")]
+position = Vector3(4.9, 0.0, 11.2)
+rotation = Vector3(0, 6.8417, 0)
+
+[node name="Juncos3" parent="Verde" instance=ExtResource("r23")]
+position = Vector3(5.0, 0.0, 15.0)
+rotation = Vector3(0, 6.9813, 0)
+
+[node name="Juncos4" parent="Verde" instance=ExtResource("r23")]
+position = Vector3(2.4, 0.0, 15.8)
+rotation = Vector3(0, 3.351, 0)
+
+[node name="Juncos5" parent="Verde" instance=ExtResource("r23")]
+position = Vector3(0.7, 0.0, 15.6)
+rotation = Vector3(0, 0.9774, 0)
+
+[node name="Pedras" parent="Verde" instance=ExtResource("r24")]
+position = Vector3(5.3, 0.0, 13.0)
+scale = Vector3(0.7, 0.7, 0.7)
+
+[node name="Pedras2" parent="Verde" instance=ExtResource("r24")]
+position = Vector3(3.8, 0.0, 16.4)
+scale = Vector3(0.7, 0.7, 0.7)
+
+[node name="Grama" type="Node3D" parent="Verde"]
+position = Vector3(25, 0, 20)
+script = ExtResource("r25")
+modelo = ExtResource("r26")
+quantidade = 170
+tamanho_da_area = Vector2(49, 39)
+semente = 31
+escala_minima = 0.9
+escala_maxima = 1.5
+distancia_minima = 1.0
+areas_livres = Array[Rect2]([Rect2(-19.6, -2.6, 12.2, 9.2), Rect2(-5.6, -2.6, 12.2, 9.2), Rect2(8.4, -2.6, 11.2, 9.2), Rect2(-19.6, 8.4, 12.2, 8.2), Rect2(-5.6, 8.4, 12.2, 8.2), Rect2(8.4, 8.4, 11.2, 8.2), Rect2(-10, -19, 18, 10.5), Rect2(6, -18, 11, 10), Rect2(-19, -19, 8, 8), Rect2(-22, -9, 44, 4.5), Rect2(-24.5, -9.5, 4.8, 5.5), Rect2(18, -6, 8, 11), Rect2(6.5, 0.5, 2.2, 3)])
+raio_da_colisao = 0.0
+altura_da_colisao = 1.5
+projeta_sombra = false
+some_a_partir_de = 0.0
+
+[node name="Flores" type="Node3D" parent="Verde"]
+position = Vector3(25, 0, 20)
+script = ExtResource("r25")
+modelo = ExtResource("r27")
+quantidade = 40
+tamanho_da_area = Vector2(49, 39)
+semente = 32
+escala_minima = 0.85
+escala_maxima = 1.2
+distancia_minima = 1.6
+areas_livres = Array[Rect2]([Rect2(-19.6, -2.6, 12.2, 9.2), Rect2(-5.6, -2.6, 12.2, 9.2), Rect2(8.4, -2.6, 11.2, 9.2), Rect2(-19.6, 8.4, 12.2, 8.2), Rect2(-5.6, 8.4, 12.2, 8.2), Rect2(8.4, 8.4, 11.2, 8.2), Rect2(-10, -19, 18, 10.5), Rect2(6, -18, 11, 10), Rect2(-19, -19, 8, 8), Rect2(-22, -9, 44, 4.5), Rect2(-24.5, -9.5, 4.8, 5.5), Rect2(18, -6, 8, 11), Rect2(6.5, 0.5, 2.2, 3)])
+raio_da_colisao = 0.0
+altura_da_colisao = 1.5
+projeta_sombra = false
+some_a_partir_de = 0.0
+
+[node name="Arbustos" type="Node3D" parent="Verde"]
+position = Vector3(25, 0, 20)
+script = ExtResource("r25")
+modelo = ExtResource("r28")
+quantidade = 16
+tamanho_da_area = Vector2(49, 39)
+semente = 33
+escala_minima = 0.8
+escala_maxima = 1.2
+distancia_minima = 4.0
+areas_livres = Array[Rect2]([Rect2(-19.6, -2.6, 12.2, 9.2), Rect2(-5.6, -2.6, 12.2, 9.2), Rect2(8.4, -2.6, 11.2, 9.2), Rect2(-19.6, 8.4, 12.2, 8.2), Rect2(-5.6, 8.4, 12.2, 8.2), Rect2(8.4, 8.4, 11.2, 8.2), Rect2(-10, -19, 18, 10.5), Rect2(6, -18, 11, 10), Rect2(-19, -19, 8, 8), Rect2(-22, -9, 44, 4.5), Rect2(-24.5, -9.5, 4.8, 5.5), Rect2(18, -6, 8, 11), Rect2(6.5, 0.5, 2.2, 3)])
+raio_da_colisao = 0.45
+altura_da_colisao = 0.8
+projeta_sombra = true
+some_a_partir_de = 0.0
+
+[node name="FloresDoCanteiro" parent="Verde" instance=ExtResource("r27")]
+position = Vector3(8, 0.0, 9.5)
+rotation = Vector3(0, 5.7247, 0)
+
+[node name="FloresDoCanteiro2" parent="Verde" instance=ExtResource("r27")]
+position = Vector3(11, 0.0, 9.2)
+rotation = Vector3(0, 7.8714, 0)
+
+[node name="FloresDoCanteiro3" parent="Verde" instance=ExtResource("r27")]
+position = Vector3(39.5, 0.0, 11.4)
+rotation = Vector3(0, 28.2656, 0)
+
+[node name="FloresDoCanteiro4" parent="Verde" instance=ExtResource("r27")]
+position = Vector3(12.6, 0.0, 16.4)
+rotation = Vector3(0, 9.0164, 0)
+
+[node name="FloresDoCanteiro5" parent="Verde" instance=ExtResource("r27")]
+position = Vector3(29.8, 0.0, 16.4)
+rotation = Vector3(0, 21.3244, 0)
+
+[node name="Utensilios" type="Node3D" parent="."]
+
+[node name="Varal" parent="Utensilios" instance=ExtResource("r29")]
+position = Vector3(13.5, 0.0, 9.6)
+
+[node name="Bancada" parent="Utensilios" instance=ExtResource("r30")]
+position = Vector3(42.2, 0.0, 6.5)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="Feno" parent="Utensilios" instance=ExtResource("r31")]
+position = Vector3(41.8, 0.0, 10.4)
+rotation = Vector3(0, 0.1745, 0)
+
+[node name="Feno2" parent="Utensilios" instance=ExtResource("r31")]
+position = Vector3(42.4, 0.0, 11.2)
+rotation = Vector3(0, -0.2618, 0)
+
+[node name="Feno3" parent="Utensilios" instance=ExtResource("r31")]
+position = Vector3(42.0, 0.5, 10.75)
+rotation = Vector3(0, 1.3963, 0)
+
+[node name="CarrinhoDeMao" parent="Utensilios" instance=ExtResource("r32")]
+position = Vector3(18.4, 0.0, 16.6)
+rotation = Vector3(0, 1.2217, 0)
+
+[node name="Barril" parent="Utensilios" instance=ExtResource("r33")]
+position = Vector3(11.6, 0.0, 6.5)
+
 [node name="Deserto" type="Node3D" parent="."]
 
 [node name="CactosDoNorte" type="Node3D" parent="Deserto"]
 position = Vector3(25, 0, -8)
-script = ExtResource("r18")
-modelo = ExtResource("r19")
+script = ExtResource("r25")
+modelo = ExtResource("r34")
 quantidade = 14
 tamanho_da_area = Vector2(60, 12)
 semente = 21
@@ -910,8 +1173,8 @@ some_a_partir_de = 0.0
 
 [node name="CactosDoOeste" type="Node3D" parent="Deserto"]
 position = Vector3(-9, 0, 20)
-script = ExtResource("r18")
-modelo = ExtResource("r20")
+script = ExtResource("r25")
+modelo = ExtResource("r35")
 quantidade = 6
 tamanho_da_area = Vector2(12, 44)
 semente = 22
@@ -926,8 +1189,8 @@ some_a_partir_de = 0.0
 
 [node name="CapimDeFora" type="Node3D" parent="Deserto"]
 position = Vector3(25, 0, 47)
-script = ExtResource("r18")
-modelo = ExtResource("r21")
+script = ExtResource("r25")
+modelo = ExtResource("r36")
 quantidade = 30
 tamanho_da_area = Vector2(60, 10)
 semente = 23
@@ -942,8 +1205,8 @@ some_a_partir_de = 0.0
 
 [node name="CapimDeDentro" type="Node3D" parent="Deserto"]
 position = Vector3(25, 0, 38)
-script = ExtResource("r18")
-modelo = ExtResource("r21")
+script = ExtResource("r25")
+modelo = ExtResource("r36")
 quantidade = 12
 tamanho_da_area = Vector2(46, 3)
 semente = 24
