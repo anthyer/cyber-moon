@@ -94,11 +94,8 @@ def canal_reto():
     jogador fora da água sem parede invisível.
     """
     m = kit.Modelo("canal_reto")
-    # A água fica um fio acima do chão do mapa (que é um plano de areia em y = 0): mais
-    # funda, ela some debaixo da areia. As bordas de 0,3 é que dão a ideia de canal.
-    m.caixa((2.6, 4.0, 0.03), pos=(0, 0, 0.0), cor="azul")
-    for y in (-1.2, 0.4):
-        m.caixa((1.6, 0.12, 0.01), pos=(-0.2, y, 0.03), cor="azul_claro")
+    # A água não faz parte do modelo: é um plano com o shader toon de água, posto pelo
+    # gerador do mapa ao longo do canal inteiro (assets/shaders/agua_toon.gdshader).
     for x in (-1.5, 1.5):
         m.caixa((0.4, 4.0, 0.62), pos=(x, 0, -0.32), cor="cinza", chanfro=0.03, cor_do_topo="cinza_medio")
         m.caixa((0.42, 4.0, 0.05), pos=(x, 0, 0.27), cor="amarelo" if x < 0 else "cinza_medio")
@@ -108,7 +105,6 @@ def canal_reto():
 def canal_ponte():
     """Ponte por cima do canal. O tabuleiro fica rente ao chão, onde o jogador já anda."""
     m = kit.Modelo("canal_ponte")
-    m.caixa((2.6, 4.0, 0.03), pos=(0, 0, 0.0), cor="azul")
     m.caixa((4.0, 3.0, 0.08), pos=(0, 0, -0.02), cor="cinza_medio", chanfro=0.02)
     for y in (-1.45, 1.45):
         m.caixa((4.0, 0.12, 0.08), pos=(0, y, 0.55), cor="amarelo")
@@ -123,7 +119,6 @@ def canal_ponte():
 def canal_comporta():
     """A comporta da corporação, por cima do canal: pórtico, a placa de aço e a sirene."""
     m = kit.Modelo("canal_comporta")
-    m.caixa((2.6, 4.0, 0.03), pos=(0, 0, 0.0), cor="azul")
     for x in (-1.6, 1.6):
         m.caixa((0.6, 1.0, 3.0), pos=(x, 0, -0.3), cor="cinza_medio", chanfro=0.05, degrade=True)
         m.caixa((0.42, 4.0, 0.62), pos=(x, 0, -0.32), cor="cinza", chanfro=0.03)
