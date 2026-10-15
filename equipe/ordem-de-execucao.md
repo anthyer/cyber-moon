@@ -31,6 +31,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 24 Saque por força do inimigo e aprimoramento de armas e ferramentas no ferreiro
 - [x] 20 Salvar o jogo (depois dos planos de sistema; obrigatório antes de qualquer entrega jogável)
 - [x] 19 Partículas no que já existe (depois de todos os planos acima; feature nova, escrita depois deste plano, já nasce com partículas)
+- [ ] 26 Mapa mundi (deserto rural cyberpunk) e mapa da fazenda com talhões (depois de acertar o multiplayer; só documentado)
 - [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
 
 ## Por que essa ordem
