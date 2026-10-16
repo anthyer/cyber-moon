@@ -412,8 +412,10 @@ def exportar(objeto, nome_do_arquivo):
     caminho = os.path.join(PASTA_DO_PACOTE, nome_do_arquivo + ".glb")
     posicao_original = objeto.location.copy()
     objeto.location = Vector((0, 0, 0))
+    bpy.context.view_layer.update()
     for outro in bpy.context.view_layer.objects:
-        outro.select_set(False)
+        if outro is not None:
+            outro.select_set(False)
     for parte in _familia(objeto):
         parte.select_set(True)
     bpy.context.view_layer.objects.active = objeto
