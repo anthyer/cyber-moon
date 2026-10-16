@@ -1,0 +1,474 @@
+<title>Mundo Orgânico do Cyber Moon</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Instrument+Sans:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a mesma prancheta escura do mapa de manchas. Referência e mapa atual lado a
+   lado, depois a proposta desenhada, as regras e o que precisa de decisão. Visual único,
+   escuro, de propósito. */
+:root {
+  --noite: #1c1830;
+  --prancheta: #252040;
+  --linha: #3a3360;
+  --areia-texto: #f1e6d6;
+  --apagado: #a99fbd;
+  --sol: #ff9f5a;
+  --neon: #ff6fd8;
+  --ok: #8fd6a9;
+  --display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --corpo: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --dado: "JetBrains Mono", ui-monospace, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--noite); color: var(--areia-texto); font-family: var(--corpo);
+  font-size: 15px; line-height: 1.55; padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-width: 1240px; margin: 0 auto; display: grid; gap: 44px; }
+header { display: grid; gap: 10px; max-width: 72ch; }
+.selo { font-family: var(--dado); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--sol); }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(40px, 7vw, 76px); line-height: .92; margin: 0; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--sol); }
+h2 { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 4vw, 40px); margin: 0; line-height: 1; text-wrap: balance; }
+h3 { font-family: var(--display); font-weight: 600; font-size: 24px; margin: 0; line-height: 1.05; }
+p { margin: 0; max-width: 72ch; }
+.apagado { color: var(--apagado); }
+section { display: grid; gap: 16px; }
+.par { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 820px) { .par { grid-template-columns: minmax(0, 1fr); } }
+figure { margin: 0; background: var(--prancheta); border: 1px solid var(--linha); border-radius: 6px; padding: 10px; display: grid; gap: 8px; min-width: 0; }
+figure img, canvas { display: block; width: 100%; height: auto; border-radius: 3px; }
+figcaption { font-size: 13px; color: var(--apagado); }
+figcaption b { color: var(--areia-texto); font-weight: 600; }
+.lista-critica { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.critica { border-top: 2px solid var(--sol); padding-top: 10px; display: grid; gap: 6px; }
+.critica h4, .regra h4 { margin: 0; font-family: var(--dado); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--sol); }
+.critica p, .regra p { font-size: 14px; }
+.mapa { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; align-items: start; }
+@media (max-width: 900px) { .mapa { grid-template-columns: minmax(0, 1fr); } }
+.ficha { position: sticky; top: calc(16px + env(safe-area-inset-top, 0px)); background: var(--prancheta); border: 1px solid var(--linha); border-radius: 6px; padding: 18px; display: grid; gap: 12px; min-width: 0; }
+.ficha .faixa { height: 6px; border-radius: 3px; }
+.ficha dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 12px; margin: 0; font-size: 14px; }
+.ficha dt { font-family: var(--dado); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--apagado); padding-top: 3px; }
+.ficha dd { margin: 0; }
+.controles { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; color: var(--apagado); align-items: center; }
+.controles label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.controles input { accent-color: var(--sol); }
+.legenda { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--apagado); font-family: var(--dado); }
+.legenda span { display: inline-flex; align-items: center; gap: 6px; }
+.legenda i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.regras { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
+.regra { border-top: 2px solid var(--ok); padding-top: 10px; display: grid; gap: 6px; }
+.regra h4 { color: var(--ok); }
+.fases { display: grid; gap: 10px; counter-reset: fase; }
+.fase { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 4px 14px; padding: 12px 14px; border: 1px solid var(--linha); border-radius: 6px; }
+.fase::before { counter-increment: fase; content: counter(fase); grid-row: span 2; font-family: var(--display); font-weight: 800; font-size: 34px; color: var(--sol); line-height: 1; }
+.fase strong { font-weight: 600; }
+.fase p { font-size: 14px; color: var(--apagado); }
+.duvidas { display: grid; gap: 10px; }
+.duvida { padding: 12px 14px; border-left: 3px solid var(--neon); background: var(--prancheta); border-radius: 0 6px 6px 0; display: grid; gap: 4px; }
+.duvida strong { font-weight: 600; }
+.duvida p { font-size: 14px; color: var(--apagado); }
+.numero { font-variant-numeric: tabular-nums; }
+footer { font-size: 13px; color: var(--apagado); max-width: 72ch; }
+</style>
+
+<main>
+  <header>
+    <span class="selo">Plano 26, segunda versão · 15 out 2026 · para aprovar</span>
+    <h1>O deserto <em>orgânico</em></h1>
+    <p class="apagado">O mapa atual tem as áreas certas no lugar certo, mas tudo é reto: canal em régua, reservatório retangular, estradas em linha, areia lisa entre uma coisa e outra. Esta página compara com a referência, propõe o mundo redesenhado, com relevo, e lista o que precisa da sua decisão antes de modelar.</p>
+  </header>
+
+  <section aria-labelledby="titulo-comparar">
+    <h2 id="titulo-comparar">Referência e mapa atual</h2>
+    <div class="par">
+      <figure>
+        <img src="data:image/png;base64,__IMAGEM_REFERENCIA__" alt="Mapa de referência desenhado: deserto com rio serpenteando, cânion, aglomerados de barracos e lago ao sul">
+        <figcaption><b>Referência.</b> Rio serpenteando de norte a sul até o aquífero, cânion cortando o oeste, rochas por todo lado, trilhas curvas, barracos em grupos.</figcaption>
+      </figure>
+      <figure>
+        <img src="data:image/png;base64,__IMAGEM_AEREA__" alt="Foto aérea do mapa mundi atual do jogo, com estradas retas, canal reto e reservatório retangular">
+        <figcaption><b>Hoje, visto de cima.</b> Foto do jogo, ao meio-dia, com a câmera ortográfica sobre o mapa inteiro (160 por 110).</figcaption>
+      </figure>
+    </div>
+    <div class="lista-critica">
+      <div class="critica"><h4>Tudo em linha reta</h4><p>Canal, estradas, praça e reservatório são retângulos. Na referência nada é reto: o rio serpenteia, as trilhas acompanham o relevo, a praça é redonda.</p></div>
+      <div class="critica"><h4>Areia lisa demais</h4><p>Entre a vila, as Badlands e o acampamento sobra um terço do mapa sem nada. Na referência o chão tem rocha, terra rachada, capim e manchas em toda parte; o vazio é exceção.</p></div>
+      <div class="critica"><h4>Sem relevo</h4><p>O chão é um plano só. A referência tem cânion, leito de rio afundado, bacias e penhascos: é o relevo que dá cara de lugar e guia o caminho sem cerca.</p></div>
+      <div class="critica"><h4>Marcos longe demais</h4><p>A câmera mostra uma janela de uns 15 por 12 em volta do jogador. Em boa parte do mapa atual essa janela só tem areia e cacto, e o jogador se perde.</p></div>
+      <div class="critica"><h4>A borda é um corte</h4><p>O mapa acaba numa cerca reta. Na referência a borda é terra rachada, cânion e rocha: o limite parece paisagem.</p></div>
+      <div class="critica"><h4>O que já está bom</h4><p>A ordem das áreas (viaduto ao norte, vila no meio, água ao sul, Badlands a nordeste) bate com a referência e com a regra da câmera, e fica.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="titulo-proposta">
+    <h2 id="titulo-proposta">Proposta: o mundo redesenhado</h2>
+    <p class="apagado">Mesmo tamanho (160 por 110) e mesma ordem das áreas, agora com relevo e forma de lugar. Toque numa área para ver a ficha. A sobreposição "o que a câmera vê" pinta, para cada ponto andável, se há um marco dentro da janela da câmera.</p>
+    <div class="mapa">
+      <figure>
+        <canvas id="proposta" width="1600" height="1100" aria-label="Mapa proposto do mundo, desenhado em manchas orgânicas"></canvas>
+        <div class="controles">
+          <label><input type="checkbox" id="ver-cobertura" checked> o que a câmera vê</label>
+          <label><input type="checkbox" id="ver-relevo" checked> relevo</label>
+          <label><input type="checkbox" id="ver-janela"> janela da câmera no mouse</label>
+          <span class="numero" id="resultado-cobertura"></span>
+        </div>
+        <div class="legenda">
+          <span><i style="background:#3f86d8"></i>água</span>
+          <span><i style="background:#8a5a3c"></i>afundado (leito, cânion)</span>
+          <span><i style="background:#c06a44"></i>rocha alta, não se anda</span>
+          <span><i style="background:#e8c58f"></i>terraço baixo, com rampa</span>
+          <span><i style="background:#9a6a4a;outline:2px dashed #231c33"></i>área cercada, só se vê</span>
+          <span><i style="background:#ff6fd8"></i>marco</span>
+          <span><i style="background:rgba(143,214,169,.7)"></i>marco à vista</span>
+          <span><i style="background:rgba(255,80,120,.7)"></i>sem marco à vista</span>
+        </div>
+      </figure>
+      <aside class="ficha" id="ficha" aria-live="polite"></aside>
+    </div>
+  </section>
+
+  <section aria-labelledby="titulo-relevo">
+    <h2 id="titulo-relevo">Relevo sem esconder o jogador</h2>
+    <div class="regras">
+      <div class="regra"><h4>Afundar é de graça</h4><p>Leito do rio, cânion e bacia do aquífero ficam abaixo do chão. Buraco não cobre ninguém, então pode haver quanto relevo para baixo se quiser.</p></div>
+      <div class="regra"><h4>Subir, só um degrau</h4><p>Terraço onde se anda tem no máximo 1,2 de altura e rampa suave (o personagem não sobe degrau). A praça do mercado e o mirante das Badlands são terraços.</p></div>
+      <div class="regra"><h4>Rocha alta é cenário</h4><p>Mesas e paredões de 3 a 6 ficam nas bordas e no norte, e não se anda neles. Os poucos no meio do mapa ficam translúcidos quando cobrem alguém, como as colunas das dungeons.</p></div>
+      <div class="regra"><h4>Um terreno só</h4><p>O chão vira uma malha única modelada no Blender, facetada como o Nature Kit, com a cor tirada da paleta pela altura e pela inclinação: areia no plano, estrato de rocha no barranco, terra rachada na borda, trilha pintada.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="titulo-vida">
+    <h2 id="titulo-vida">O vazio vira paisagem viva</h2>
+    <div class="regras">
+      <div class="regra"><h4>Áreas cercadas</h4><p>O que sobra de deserto entre as áreas vira reserva: cercada com cerca de sucata, rocha ou barranco, vista mas não andável. Diminui o chão que precisa de marco e deixa o caminho claro.</p></div>
+      <div class="regra"><h4>Bichos</h4><p>Dentro das reservas: raposas, lebres, gado do vizinho; na fazenda, galinhas e um cachorro. São os animais do pacote cube pets, passeando devagar numa área, sem esqueleto novo.</p></div>
+      <div class="regra"><h4>Ossos e restos</h4><p>Costela de boi, caveira, carcaça de drone caído, pneu enterrado. Detalhe barato que conta história.</p></div>
+      <div class="regra"><h4>Bola de feno que rola</h4><p>Nasce na borda do lado do vento, rola pelo chão, quica nas pedras e some com o tempo, encolhendo. Poucas ao mesmo tempo (seis, por exemplo), o que mantém o custo fixo.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="titulo-fases">
+    <h2 id="titulo-fases">Como fazer, em fases</h2>
+    <div class="fases">
+      <div class="fase"><strong>Terreno no Blender</strong><p>A malha do chão com relevo, o leito do rio, o cânion, a bacia do aquífero, os terraços com rampa e as trilhas pintadas. A água vira uma malha com a forma do rio, e a espuma do shader passa a seguir a margem de verdade.</p></div>
+      <div class="fase"><strong>Modelos novos</strong><p>As casas dos NPCs refeitas com mais capricho (varanda, toldo, janela acesa, antena, caixa d'água, vaso, varal, cada uma com a cara do morador), barracos de sucata em módulos, a feira em roda, a cisterna velha, ponte de sucata e ponte de corda, formações de rocha variadas, cerca de sucata, costela e carcaça de drone, poço de petróleo, ônibus abandonado.</p></div>
+      <div class="fase"><strong>Sistemas</strong><p>Bola de feno que rola e some, animal que passeia numa área, e a regra de translucidez valendo também para rocha alta.</p></div>
+      <div class="fase"><strong>Montagem e teste</strong><p>O gerador monta o mundo em cima do terreno; malha de navegação refeita; fotos de cima e da câmera do jogo; medida de quadros por segundo.</p></div>
+      <div class="fase"><strong>A fazenda na mesma língua</strong><p>Borda de terra rachada, o laguinho num barranco, o pomar e a cerca acompanhando o terreno.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="titulo-duvidas">
+    <h2 id="titulo-duvidas">O que preciso que você decida</h2>
+    <div class="duvidas">
+      <div class="duvida"><strong>Quanto relevo?</strong><p>Só afundado mais terraços baixos com rampa (o seguro para a câmera), ou também planaltos altos onde se sobe por rampa longa.</p></div>
+      <div class="duvida"><strong>O canal de concreto some?</strong><p>Trocar por um rio natural serpenteando, como na referência; manter o canal; ou os dois (o rio natural e um aqueduto de concreto da corporação cruzando por cima).</p></div>
+      <div class="duvida"><strong>A fazenda muda junto?</strong><p>A mesma língua orgânica (borda rachada, terreno com leve relevo), ou continua plana e retangular como está.</p></div>
+      <div class="duvida"><strong>Casas: refazer ou enfeitar?</strong><p>Modelar casas novas do zero, no estilo do pacote, uma para cada NPC; ou manter as da Kenney e somar detalhe por cima (varanda, toldo, antena, placa, vaso). A primeira fica mais bonita e com a cara do deserto; a segunda é mais rápida.</p></div>
+      <div class="duvida"><strong>Que bichos?</strong><p>Raposa, lebre, gado e galinha parecem certos para o tema. Leão e veado do pacote destoam do deserto cyberpunk.</p></div>
+    </div>
+  </section>
+
+  <footer>Rascunho para conversa, feito em cima da referência que você mandou e da foto aérea do jogo de hoje. Tamanhos em unidades do jogo: o personagem tem 0,66 de altura, anda a 3 por segundo e corre a 6. A janela da câmera foi medida pela câmera do jogo (deslocamento de 5 para cima e 5 para trás, campo de visão de 60 graus): perto de 15 de largura por 12 de profundidade.</footer>
+</main>
+
+<script>
+// Mapa proposto, em unidades do jogo (x para o leste, z para o sul).
+const LARGURA = 160, ALTURA = 110;
+// Janela da câmera em volta do jogador: 7,5 para cada lado, 8 para o norte, 4,5 para o sul.
+const JANELA = { lado: 7.5, norte: 8, sul: 4.5 };
+
+const AREAS = [
+  { id: "rodovia", nome: "Viaduto e ponto de ônibus", cor: "#8f88a8", tipo: "faixa", pontos: [[0,0],[160,0],[160,12],[0,12]],
+    tem: "O viaduto para Night City, o ponto de ônibus debaixo dele, a ponte de sucata por onde o rio passa, o alçapão da Galeria e o elevador da Torre.",
+    relevo: "Plano. O viaduto é alto, mas fica na borda norte.", marco: "Ponto de ônibus, ponte de sucata, elevador da Torre." },
+  { id: "rio", nome: "O leito do rio (wadi)", cor: "#3f86d8", tipo: "rio",
+    pontos: [[86,10],[88,20],[82,30],[86,40],[80,50],[84,60],[78,70],[82,80],[74,88]], largura: 5,
+    tem: "Rio raso serpenteando num leito afundado, margem de pedra e junco, três pontes (sucata, madeira, cabo).",
+    relevo: "Afundado 1,2 abaixo do chão, com barranco dos dois lados. Só se atravessa pelas pontes.", marco: "As três pontes, a comporta velha." },
+  { id: "aquifero", nome: "Aquífero do deserto", cor: "#3f86d8", tipo: "blob", x: 76, z: 98, rx: 24, rz: 9,
+    tem: "O lago onde o rio termina, de margem irregular, com píer, barco, palmeiras e a casa de bombas.",
+    relevo: "Bacia afundada; a margem desce em degraus de pedra.", marco: "Píer, casa de bombas, palmeiras." },
+  { id: "mercado", nome: "O mercado (praça redonda)", cor: "#c7b2ec", tipo: "blob", x: 63, z: 54, rx: 12, rz: 10,
+    tem: "Praça redonda num terraço baixo, barracas em roda, o letreiro da vila no meio, bar e mercado na borda norte.",
+    relevo: "Terraço de 0,5 com rampas nas quatro saídas.", marco: "Letreiro de neon, poço com bomba solar." },
+  { id: "vila", nome: "Vila de barracos", cor: "#b8a5e0", tipo: "blob", x: 102, z: 52, rx: 13, rz: 14,
+    tem: "Casas dos NPCs em grupos de barracos de sucata, varais, caixas d'água, a oficina do Vitor.",
+    relevo: "Plano, com uma rocha alta no meio que separa dois grupos.", marco: "Oficina do Vitor, antena do Kenji." },
+  { id: "cisterna", nome: "Cisterna velha", cor: "#a99fbd", tipo: "blob", x: 103, z: 77, rx: 8, rz: 6,
+    tem: "A cisterna de concreto da corporação, rachada, com escada e mirante; o fim do bairro.",
+    relevo: "Plano.", marco: "A cisterna (alta, 5), visível de longe." },
+  { id: "solar_norte", nome: "Campo solar norte", cor: "#8fd6a9", tipo: "blob", x: 26, z: 32, rx: 18, rz: 13,
+    tem: "Painéis em grupos tortos, cabos no chão, transformadores, o cata-vento enferrujado.",
+    relevo: "Plano, com o paredão do cânion na borda sul.", marco: "Cata-vento enferrujado, transformador." },
+  { id: "canion", nome: "Cânion", cor: "#8a5a3c", tipo: "rio",
+    pontos: [[0,62],[12,58],[24,60],[36,54],[46,58]], largura: 7,
+    tem: "Desfiladeiro que corta o oeste, de paredes em estrato, cruzado por uma ponte de cabo.",
+    relevo: "Afundado 2,5; não se desce. A ponte é a única passagem entre os dois campos solares.", marco: "Ponte de cabo." },
+  { id: "solar_sul", nome: "Campo solar sul e ruínas do Biodomo", cor: "#7fc29a", tipo: "blob", x: 24, z: 84, rx: 18, rz: 14,
+    tem: "Mais painéis, as ruínas da estufa (entrada do Biodomo) e o poço de petróleo parado.",
+    relevo: "Plano.", marco: "Ruínas do Biodomo, poço de petróleo." },
+  { id: "badlands", nome: "Badlands e pedreira", cor: "#e08d5c", tipo: "blob", x: 134, z: 36, rx: 22, rz: 20,
+    tem: "Mesas de pedra, a pedreira com vagonete e guindaste, o mirante num terraço, ossada de boi.",
+    relevo: "Mirante num terraço de 1,2 com rampa longa; mesas altas na borda.", marco: "Guindaste da pedreira, mirante." },
+  { id: "acampamento", nome: "Acampamento das motoqueiras", cor: "#f5b843", tipo: "blob", x: 138, z: 86, rx: 16, rz: 12,
+    tem: "Oficina, trailers, motos, pneus, fogueira, alvos de treino, o ônibus abandonado virado em bar.",
+    relevo: "Plano, numa clareira entre rochas.", marco: "Oficina, ônibus abandonado." },
+  { id: "porteira", nome: "Saída para a fazenda", cor: "#b98757", tipo: "blob", x: 8, z: 18, rx: 7, rz: 5,
+    tem: "A porteira, a caixa de correio e a placa.", relevo: "Plano.", marco: "Porteira." },
+];
+
+// Reservas: cercadas, vistas mas não andáveis. É o deserto que sobra.
+const RESERVAS = [
+  { id: "reserva_oeste", nome: "Reserva das raposas", pontos: [[34,66],[50,64],[52,82],[44,92],[34,88]],
+    tem: "Cercada com sucata. Raposas e lebres, capim, ossada.", relevo: "Plano.", marco: "Carcaça de drone caído." },
+  { id: "reserva_leste", nome: "Pasto do vizinho", pontos: [[112,64],[124,62],[124,74],[114,76]],
+    tem: "Cerca de arame, gado e uma caixa d'água de vaca.", relevo: "Plano.", marco: "Caixa d'água do pasto." },
+  { id: "ossada", nome: "Campo de ossos", pontos: [[100,20],[116,18],[118,30],[104,32]],
+    tem: "Atrás de rocha: a costela gigante e bolas de feno.", relevo: "Plano, rodeado de rocha.", marco: "Costela gigante." },
+  { id: "borda_sudoeste", nome: "Terra rachada do sudoeste", pontos: [[0,98],[44,96],[52,110],[0,110]],
+    tem: "Borda do mapa: terra rachada, rocha, bola de feno.", relevo: "Plano.", marco: "nenhum" },
+  { id: "borda_sudeste", nome: "Terra rachada do sudeste", pontos: [[104,102],[160,100],[160,110],[104,110]],
+    tem: "Borda do mapa.", relevo: "Plano.", marco: "nenhum" },
+];
+
+// Rochas altas (não se anda) e terraços baixos (com rampa).
+const ROCHAS = [[10,48,5,4],[44,24,4,3],[50,40,3,3],[70,22,4,3],[96,36,3,3],[118,48,4,3],[148,22,7,5],[132,18,5,4],[156,40,4,6],[150,60,5,4],[124,96,4,3],[150,100,5,3],[60,78,3,3],[112,90,3,3],[30,100,4,3],[6,76,4,5],[100,64,2.5,2.5]];
+const TERRACOS = [{ x: 63, z: 54, rx: 9, rz: 7 }, { x: 128, z: 30, rx: 6, rz: 4 }];
+
+const MARCOS = [
+  [74,14,"ponto de ônibus"],[86,11,"ponte de sucata"],[98,15,"Galeria"],[130,12,"Torre"],[40,13,"outdoor"],[118,13,"outdoor"],
+  [63,50,"letreiro"],[58,44,"bar"],[68,44,"mercado"],[84,44,"ponte de madeira"],[84,62,"comporta velha"],
+  [96,46,"barracos"],[108,50,"oficina do Vitor"],[106,40,"antena do Kenji"],[96,60,"barracos"],[103,77,"cisterna"],
+  [20,28,"cata-vento"],[34,36,"transformador"],[12,38,"painéis"],[24,58,"ponte de cabo"],[20,82,"Biodomo"],[34,80,"poço de petróleo"],[10,92,"painéis"],
+  [128,30,"mirante"],[140,36,"guindaste"],[146,48,"ossada de boi"],[122,40,"vagonete"],
+  [138,78,"oficina"],[128,86,"ônibus abandonado"],[148,88,"trailer"],[140,92,"fogueira"],
+  [64,92,"píer"],[90,92,"casa de bombas"],[78,90,"palmeiras"],[8,18,"porteira"],[24,18,"placa"],
+  [46,72,"drone caído"],[118,68,"caixa d'água do pasto"],[108,24,"costela gigante"],[78,30,"caixa d'água"],[52,30,"barraco isolado"],[118,84,"poste de energia"],
+];
+
+const canvas = document.getElementById("proposta");
+const ctx = canvas.getContext("2d");
+const E = canvas.width / LARGURA;
+const caminhos = [];
+
+function semente(texto) {
+  let h = 2166136261;
+  for (const c of texto) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
+  return () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 10000) / 10000; };
+}
+
+function caminhoDe(area) {
+  const p = new Path2D();
+  if (area.tipo === "rio") {
+    const meia = area.largura / 2;
+    const ida = area.pontos.map(([x, z]) => [x + meia, z]);
+    const volta = area.pontos.slice().reverse().map(([x, z]) => [x - meia, z]);
+    curvaFechada(p, ida.concat(volta));
+    return p;
+  }
+  if (area.pontos) { curvaFechada(p, area.pontos); return p; }
+  const s = semente(area.id), n = 30, f = [s() * 6, s() * 6, s() * 6];
+  const pts = [];
+  for (let i = 0; i < n; i++) {
+    const a = i / n * Math.PI * 2;
+    const t = 1 + .1 * Math.sin(a * 3 + f[0]) + .06 * Math.sin(a * 5 + f[1]) + .04 * Math.sin(a * 7 + f[2]);
+    pts.push([area.x + Math.cos(a) * area.rx * t, area.z + Math.sin(a) * area.rz * t]);
+  }
+  curvaFechada(p, pts);
+  return p;
+}
+
+// Curva suave passando pelos pontos (Catmull-Rom convertida em Bézier).
+function curvaFechada(p, pts) {
+  const n = pts.length;
+  p.moveTo(pts[0][0] * E, pts[0][1] * E);
+  for (let i = 0; i < n; i++) {
+    const a = pts[(i - 1 + n) % n], b = pts[i], c = pts[(i + 1) % n], d = pts[(i + 2) % n];
+    p.bezierCurveTo((b[0] + (c[0] - a[0]) / 6) * E, (b[1] + (c[1] - a[1]) / 6) * E,
+                    (c[0] - (d[0] - b[0]) / 6) * E, (c[1] - (d[1] - b[1]) / 6) * E, c[0] * E, c[1] * E);
+  }
+  p.closePath();
+}
+
+function trilha(pts, largura, cor) {
+  ctx.save();
+  ctx.strokeStyle = cor; ctx.lineWidth = largura * E; ctx.lineCap = "round"; ctx.lineJoin = "round";
+  ctx.beginPath();
+  ctx.moveTo(pts[0][0] * E, pts[0][1] * E);
+  for (let i = 1; i < pts.length - 1; i++) {
+    const meio = [(pts[i][0] + pts[i + 1][0]) / 2, (pts[i][1] + pts[i + 1][1]) / 2];
+    ctx.quadraticCurveTo(pts[i][0] * E, pts[i][1] * E, meio[0] * E, meio[1] * E);
+  }
+  const ult = pts[pts.length - 1];
+  ctx.lineTo(ult[0] * E, ult[1] * E);
+  ctx.stroke();
+  ctx.restore();
+}
+
+const TRILHAS = [
+  [[4,18],[20,20],[36,26],[48,38],[56,48]],
+  [[74,12],[72,26],[68,40],[64,46]],
+  [[72,54],[84,52],[96,50],[112,46],[124,36],[128,30]],
+  [[108,52],[118,60],[128,72],[136,80]],
+  [[64,62],[66,74],[70,86]],
+  [[30,40],[26,52],[24,58],[22,70],[22,80]],
+  [[100,62],[102,72]],
+  [[56,52],[44,58],[30,58]],
+];
+
+function andavel(x, z) {
+  if (x < 1 || x > 159 || z < 12 || z > 108) return false;
+  for (const r of RESERVAS) if (ctx.isPointInPath(caminhoReserva[r.id], x * E, z * E)) return false;
+  for (const a of AREAS) if ((a.id === "rio" || a.id === "canion" || a.id === "aquifero") && ctx.isPointInPath(caminhoArea[a.id], x * E, z * E)) return false;
+  for (const [rx, rz, w, d] of ROCHAS) if (((x - rx) / w) ** 2 + ((z - rz) / d) ** 2 < 1) return false;
+  return true;
+}
+
+function marcoNaJanela(x, z) {
+  for (const [mx, mz] of MARCOS) {
+    if (Math.abs(mx - x) <= JANELA.lado && mz >= z - JANELA.norte && mz <= z + JANELA.sul) return true;
+  }
+  return false;
+}
+
+const caminhoArea = {}, caminhoReserva = {};
+for (const a of AREAS) caminhoArea[a.id] = caminhoDe(a);
+for (const r of RESERVAS) caminhoReserva[r.id] = caminhoDe(r);
+
+let escolhida = AREAS.find(a => a.id === "mercado");
+let mouse = null;
+
+function desenhar() {
+  const verRelevo = document.getElementById("ver-relevo").checked;
+  const verCobertura = document.getElementById("ver-cobertura").checked;
+  ctx.fillStyle = "#dcbd8d"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const g = semente("grao");
+  ctx.fillStyle = "rgba(120,82,44,.13)";
+  for (let i = 0; i < 3200; i++) ctx.fillRect(g() * canvas.width, g() * canvas.height, 2, 2);
+  // Terra rachada nas bordas.
+  ctx.strokeStyle = "rgba(110,64,40,.35)"; ctx.lineWidth = 2;
+  const r = semente("rachado");
+  for (let i = 0; i < 260; i++) {
+    const borda = r() < .5;
+    let x = borda ? (r() < .5 ? r() * 10 : 150 + r() * 10) : r() * 160;
+    let z = borda ? 12 + r() * 98 : (r() < .5 ? 100 + r() * 10 : 12 + r() * 4);
+    ctx.beginPath(); ctx.moveTo(x * E, z * E);
+    for (let k = 0; k < 3; k++) { x += (r() - .5) * 4; z += (r() - .5) * 4; ctx.lineTo(x * E, z * E); }
+    ctx.stroke();
+  }
+  // Silhueta da cidade.
+  ctx.fillStyle = "rgba(37,32,64,.9)";
+  const pr = semente("cidade");
+  for (let x = 0; x < LARGURA; x += 4 + pr() * 5) ctx.fillRect(x * E, 0, (2.5 + pr() * 3) * E, (2 + pr() * 4) * E);
+  // Áreas.
+  for (const a of AREAS) {
+    if (a.id === "rio" || a.id === "canion" || a.id === "aquifero") continue;
+    ctx.save(); ctx.globalAlpha = .55; ctx.fillStyle = a.cor; ctx.fill(caminhoArea[a.id]); ctx.restore();
+  }
+  // Trilhas.
+  for (const t of TRILHAS) { trilha(t, 2.6, "rgba(150,100,62,.55)"); trilha(t, .3, "rgba(240,220,180,.5)"); }
+  trilha([[0,12],[160,12]], 4.5, "rgba(60,58,76,.85)");
+  // Reservas.
+  for (const res of RESERVAS) {
+    ctx.save(); ctx.fillStyle = "rgba(154,106,74,.45)"; ctx.fill(caminhoReserva[res.id]);
+    ctx.setLineDash([1.2 * E, .8 * E]); ctx.lineWidth = .35 * E; ctx.strokeStyle = "#231c33"; ctx.stroke(caminhoReserva[res.id]); ctx.restore();
+  }
+  // Relevo: cânion, leito do rio, bacia, rochas e terraços.
+  if (verRelevo) {
+    for (const id of ["canion"]) { ctx.fillStyle = "#8a5a3c"; ctx.fill(caminhoArea[id]); ctx.lineWidth = .5 * E; ctx.strokeStyle = "#5e3a26"; ctx.stroke(caminhoArea[id]); }
+    for (const t of TERRACOS) {
+      ctx.beginPath(); ctx.ellipse(t.x * E, t.z * E, t.rx * E, t.rz * E, 0, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(232,197,143,.6)"; ctx.fill(); ctx.setLineDash([.6 * E, .4 * E]); ctx.strokeStyle = "#8a5a3c"; ctx.lineWidth = .25 * E; ctx.stroke(); ctx.setLineDash([]);
+    }
+    for (const [x, z, w, d] of ROCHAS) {
+      ctx.beginPath(); ctx.ellipse(x * E, z * E, w * E, d * E, (x * 7) % 3, 0, Math.PI * 2);
+      ctx.fillStyle = "#c06a44"; ctx.fill(); ctx.lineWidth = .3 * E; ctx.strokeStyle = "#7d3f26"; ctx.stroke();
+      ctx.beginPath(); ctx.ellipse((x - w * .15) * E, (z - d * .2) * E, w * .55 * E, d * .5 * E, 0, 0, Math.PI * 2);
+      ctx.fillStyle = "#e3a27a"; ctx.fill();
+    }
+  }
+  ctx.fillStyle = "#4b80c8"; ctx.fill(caminhoArea.aquifero); ctx.fill(caminhoArea.rio);
+  ctx.lineWidth = .5 * E; ctx.strokeStyle = "#8a5a3c"; ctx.stroke(caminhoArea.rio); ctx.stroke(caminhoArea.aquifero);
+  // Pontes.
+  for (const [x, z, w] of [[86,11,6],[84,44,6],[80,52,6],[24,58,8]]) {
+    ctx.fillStyle = "#7d4f33"; ctx.fillRect((x - w / 2) * E, (z - .9) * E, w * E, 1.8 * E);
+  }
+  // Cobertura.
+  let total = 0, cobertos = 0;
+  if (verCobertura) {
+    for (let x = 1; x < LARGURA; x += 2) for (let z = 13; z < ALTURA; z += 2) {
+      if (!andavel(x, z)) continue;
+      total++;
+      const ok = marcoNaJanela(x, z);
+      if (ok) cobertos++;
+      ctx.fillStyle = ok ? "rgba(143,214,169,.55)" : "rgba(255,80,120,.75)";
+      ctx.beginPath(); ctx.arc(x * E, z * E, .45 * E, 0, Math.PI * 2); ctx.fill();
+    }
+    document.getElementById("resultado-cobertura").textContent = `${Math.round(cobertos / total * 100)}% do chão andável tem marco à vista`;
+  } else {
+    document.getElementById("resultado-cobertura").textContent = "";
+  }
+  // Marcos.
+  for (const [x, z, nome] of MARCOS) {
+    ctx.beginPath(); ctx.arc(x * E, z * E, .75 * E, 0, Math.PI * 2);
+    ctx.fillStyle = "#ff6fd8"; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = "#231c33"; ctx.stroke();
+  }
+  // Nomes.
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.font = `800 ${2.2 * E}px "Big Shoulders Display", "Arial Narrow", sans-serif`;
+  for (const a of AREAS.concat(RESERVAS)) {
+    let cx, cz;
+    if (a.pontos) { cx = a.pontos.reduce((s, p) => s + p[0], 0) / a.pontos.length; cz = a.pontos.reduce((s, p) => s + p[1], 0) / a.pontos.length; }
+    else { cx = a.x; cz = a.z - (a.rz || 0) * .55; }
+    if (a.id === "rio") { cx = 95; cz = 28; }
+    if (a.id === "rodovia") { cx = 30; cz = 6; }
+    ctx.fillStyle = a.id === "rodovia" ? "#f1e6d6" : "#231c33";
+    ctx.fillText(a.nome.toUpperCase(), cx * E, cz * E);
+  }
+  // Destaque da escolhida.
+  const sel = caminhoArea[escolhida.id] || caminhoReserva[escolhida.id];
+  ctx.lineWidth = .6 * E; ctx.strokeStyle = "#ff6fd8"; ctx.stroke(sel);
+  // Janela da câmera.
+  if (mouse && document.getElementById("ver-janela").checked) {
+    ctx.save(); ctx.strokeStyle = "#ff6fd8"; ctx.lineWidth = .35 * E; ctx.setLineDash([.8 * E, .5 * E]);
+    ctx.strokeRect((mouse[0] - JANELA.lado) * E, (mouse[1] - JANELA.norte) * E, JANELA.lado * 2 * E, (JANELA.norte + JANELA.sul) * E);
+    ctx.restore();
+  }
+}
+
+function ficha(a) {
+  const el = document.getElementById("ficha");
+  el.innerHTML = "";
+  const faixa = document.createElement("div"); faixa.className = "faixa"; faixa.style.background = a.cor || "#9a6a4a";
+  const h = document.createElement("h3"); h.textContent = a.nome;
+  const dl = document.createElement("dl");
+  const linhas = [["Tem", a.tem], ["Relevo", a.relevo], ["Marco", a.marco]];
+  if (!a.cor) linhas.unshift(["Tipo", "Área cercada: se vê, não se anda."]);
+  for (const [r, v] of linhas) { const dt = document.createElement("dt"); dt.textContent = r; const dd = document.createElement("dd"); dd.textContent = v; dl.append(dt, dd); }
+  const dica = document.createElement("p"); dica.className = "apagado"; dica.style.fontSize = "13px"; dica.textContent = "Toque em outra área para trocar.";
+  el.append(faixa, h, dl, dica);
+}
+
+canvas.addEventListener("click", (ev) => {
+  const c = canvas.getBoundingClientRect();
+  const x = (ev.clientX - c.left) * canvas.width / c.width, y = (ev.clientY - c.top) * canvas.height / c.height;
+  const todas = RESERVAS.map(r => [r, caminhoReserva[r.id]]).concat(AREAS.map(a => [a, caminhoArea[a.id]]));
+  for (const [a, p] of todas) if (ctx.isPointInPath(p, x, y)) { escolhida = a; ficha(a); desenhar(); return; }
+});
+canvas.addEventListener("mousemove", (ev) => {
+  if (!document.getElementById("ver-janela").checked) return;
+  const c = canvas.getBoundingClientRect();
+  mouse = [(ev.clientX - c.left) / c.width * LARGURA, (ev.clientY - c.top) / c.height * ALTURA];
+  desenhar();
+});
+for (const id of ["ver-cobertura", "ver-relevo", "ver-janela"]) document.getElementById(id).addEventListener("change", desenhar);
+ficha(escolhida);
+desenhar();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(desenhar);
+</script>
