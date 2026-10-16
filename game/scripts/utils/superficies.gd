@@ -24,6 +24,7 @@ const POR_TRECHO: Array = [
 	["water", &"agua"],
 	["river", &"agua"],
 	["lake", &"agua"],
+	["chao_terreno", &"terra"],
 	["chao_metal", &"metal"],
 	["chao_grade", &"metal"],
 	["chao_faixa", &"metal"],

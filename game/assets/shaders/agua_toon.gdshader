@@ -25,6 +25,11 @@ uniform float velocidade = 0.35;
 // Espessura das linhas de reflexo, de 0 a 1 (fração da célula).
 uniform float espessura_do_reflexo = 0.022;
 uniform float largura_da_espuma = 0.28;
+// Com a água modelada no formato do rio, a distância até a margem vem na cor dos vértices
+// (vermelho 0 na beira, 1 no meio), e a espuma segue a margem de verdade. Desligado, a
+// espuma vem da beira do plano, como no laguinho retangular.
+uniform bool espuma_pela_cor_do_vertice = false;
+uniform float espuma_na_cor = 0.16;
 // Um pouco de brilho próprio, para a água não ficar azul-marinho de manhã cedo e de
 // tarde, quando o sol está baixo e o chão claro ainda reflete bastante.
 uniform float brilho_proprio = 0.22;
@@ -83,11 +88,16 @@ void fragment() {
 	cor = mix(cor, cor_do_reflexo.rgb, reflexo * mascara * 0.85);
 
 	// Espuma na beira do plano, com a largura ondulando.
-	vec2 em_metros = UV * tamanho_em_metros;
-	vec2 ate_a_beira = min(em_metros, tamanho_em_metros - em_metros);
-	float beira = min(ate_a_beira.x, ate_a_beira.y);
 	float ondinha = 0.07 * sin(posicao_no_mundo.x * 3.0 + posicao_no_mundo.z * 2.3 + TIME * 2.2);
-	float espuma = 1.0 - step(largura_da_espuma + ondinha, beira);
+	float espuma;
+	if (espuma_pela_cor_do_vertice) {
+		espuma = 1.0 - step(espuma_na_cor + ondinha * 0.6, COLOR.r);
+	} else {
+		vec2 em_metros = UV * tamanho_em_metros;
+		vec2 ate_a_beira = min(em_metros, tamanho_em_metros - em_metros);
+		float beira = min(ate_a_beira.x, ate_a_beira.y);
+		espuma = 1.0 - step(largura_da_espuma + ondinha, beira);
+	}
 	cor = mix(cor, cor_da_espuma.rgb, espuma);
 
 	ALBEDO = cor;

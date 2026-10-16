@@ -23,6 +23,12 @@ extends Node3D
 @export var distancia_minima: float = 1.5
 ## Retângulos (em x e z, no espaço deste nó) onde nada é posto: estrada, praça, talhão.
 @export var areas_livres: Array[Rect2] = []
+## Círculos livres, cada um como (x, z, raio) no espaço deste nó. Servem para caminho
+## curvo (uma trilha vira uma fileira de círculos), que retângulo não acompanha.
+@export var circulos_livres: PackedVector3Array = PackedVector3Array()
+## Com o chão em relevo, cada cópia desce (ou sobe) até o chão por um raio. Sem isto, as
+## cópias ficam todas na altura do nó.
+@export var seguir_o_chao: bool = false
 
 @export_group("Colisão")
 ## Zero deixa as cópias sem colisão (capim, mancha de chão).
@@ -43,6 +49,11 @@ func _ready() -> void:
 		push_warning("EspalhadorDeObjetos sem modelo: %s" % name)
 		return
 	var posicoes: Array[Transform3D] = _sortear_posicoes()
+	if seguir_o_chao:
+		# O chão é um corpo de física, que só responde a raio depois do primeiro quadro de
+		# física. Por isso as cópias esperam um quadro para descer até ele.
+		await get_tree().physics_frame
+		_assentar_no_chao(posicoes)
 	_montar_desenho(posicoes)
 	if raio_da_colisao > 0.0:
 		_montar_colisao(posicoes)
@@ -69,10 +80,22 @@ func _lugar_livre(ponto: Vector2, ocupados: Array[Vector2]) -> bool:
 	for area in areas_livres:
 		if area.has_point(ponto):
 			return false
+	for circulo in circulos_livres:
+		if Vector2(circulo.x, circulo.y).distance_to(ponto) < circulo.z:
+			return false
 	for outro in ocupados:
 		if outro.distance_to(ponto) < distancia_minima:
 			return false
 	return true
+
+func _assentar_no_chao(posicoes: Array[Transform3D]) -> void:
+	var espaco: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	for indice in posicoes.size():
+		var no_mundo: Vector3 = global_transform * posicoes[indice].origin
+		var consulta: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(no_mundo + Vector3.UP * 6.0, no_mundo + Vector3.DOWN * 8.0, CAMADA_MUNDO)
+		var acerto: Dictionary = espaco.intersect_ray(consulta)
+		if not acerto.is_empty():
+			posicoes[indice].origin.y = (acerto["position"] as Vector3).y - global_position.y
 
 ## Um MultiMeshInstance3D por malha do modelo, cada um com a posição da malha dentro do
 ## modelo somada à posição da cópia.

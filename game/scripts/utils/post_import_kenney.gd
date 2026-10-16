@@ -39,7 +39,7 @@ const TRECHOS_SEM_COLISAO: Array[String] = [
 ## sombra que se veja, mas, com a sombra ligada, cada uma entra no cálculo da sombra do
 ## sol a cada quadro. Desligar a sombra delas corta esse trabalho sem mudar a tela.
 const TRECHOS_SEM_SOMBRA: Array[String] = [
-	"road", "driveway", "sidewalk", "path", "ground_", "platform_", "tile",
+	"road", "driveway", "sidewalk", "path", "ground_", "platform_", "tile", "chao_",
 ]
 
 func _post_import(cena: Node) -> Object:

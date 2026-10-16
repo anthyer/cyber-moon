@@ -20,6 +20,9 @@ extends NavigationRegion3D
 ## que o gerador não enxerga, então este retângulo é somado à geometria como chão.
 @export var limite_do_chao: Rect2 = Rect2(-20.0, -20.0, 40.0, 40.0)
 @export var altura_do_chao: float = 0.0
+## Soma um chão plano na altura acima. Mapa com terreno em relevo (o mundo) desliga: o
+## chão de verdade é a malha do terreno, e um plano por cima taparia o leito do rio.
+@export var somar_chao_plano: bool = true
 
 @export_group("Personagem")
 ## A cápsula de quem anda na malha: jogador, inimigos e NPCs usam raio 0,25 e altura 0,7.
@@ -53,13 +56,17 @@ func gerar(raiz: Node) -> NavigationMesh:
 	# Só a faixa perto do chão entra na conta. Sem isso sairia malha em cima de telhado,
 	# e um destino poderia grudar lá. O que fica acima da cabeça do personagem não
 	# atrapalha a passagem, então pode ficar de fora.
+	# Com terreno em relevo a faixa vai do fundo do cânion até o alto do mirante.
+	var fundo: float = altura_do_chao - (3.0 if not somar_chao_plano else 0.5)
+	var altura_da_faixa: float = altura_do_agente + (5.0 if not somar_chao_plano else 0.75)
 	malha.filter_baking_aabb = AABB(
-		Vector3(limite_do_chao.position.x, altura_do_chao - 0.5, limite_do_chao.position.y),
-		Vector3(limite_do_chao.size.x, altura_do_agente + 0.75, limite_do_chao.size.y))
+		Vector3(limite_do_chao.position.x, fundo, limite_do_chao.position.y),
+		Vector3(limite_do_chao.size.x, altura_da_faixa, limite_do_chao.size.y))
 
 	var geometria: NavigationMeshSourceGeometryData3D = NavigationMeshSourceGeometryData3D.new()
 	NavigationServer3D.parse_source_geometry_data(malha, geometria, raiz)
-	geometria.add_faces(_faces_do_chao(), Transform3D.IDENTITY)
+	if somar_chao_plano:
+		geometria.add_faces(_faces_do_chao(), Transform3D.IDENTITY)
 	NavigationServer3D.bake_from_source_geometry_data(malha, geometria)
 	return malha
 
