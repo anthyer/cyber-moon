@@ -53,97 +53,100 @@ size = Vector2(130, 110)
 material = SubResource("s1")
 size = Vector2(50, 40)
 
-[sub_resource type="StandardMaterial3D" id="s5"]
+[sub_resource type="BoxShape3D" id="s5"]
+size = Vector3(140, 1, 120)
+
+[sub_resource type="StandardMaterial3D" id="s6"]
 albedo_color = Color(0.73, 0.55, 0.38, 1)
 roughness = 1.0
 
-[sub_resource type="PlaneMesh" id="s6"]
-material = SubResource("s5")
+[sub_resource type="PlaneMesh" id="s7"]
+material = SubResource("s6")
 size = Vector2(42, 4)
 
-[sub_resource type="PlaneMesh" id="s7"]
-material = SubResource("s5")
+[sub_resource type="PlaneMesh" id="s8"]
+material = SubResource("s6")
 size = Vector2(9.5623, 3.0)
 
-[sub_resource type="PlaneMesh" id="s8"]
-material = SubResource("s5")
+[sub_resource type="PlaneMesh" id="s9"]
+material = SubResource("s6")
 size = Vector2(9.5, 3.0)
 
-[sub_resource type="StandardMaterial3D" id="s9"]
+[sub_resource type="StandardMaterial3D" id="s10"]
 albedo_color = Color(0.45, 0.31, 0.21, 1)
 roughness = 1.0
 
-[sub_resource type="PlaneMesh" id="s10"]
-material = SubResource("s9")
-size = Vector2(11, 8)
-
 [sub_resource type="PlaneMesh" id="s11"]
-material = SubResource("s9")
+material = SubResource("s10")
 size = Vector2(11, 8)
 
 [sub_resource type="PlaneMesh" id="s12"]
-material = SubResource("s9")
+material = SubResource("s10")
+size = Vector2(11, 8)
+
+[sub_resource type="PlaneMesh" id="s13"]
+material = SubResource("s10")
 size = Vector2(10, 8)
 
-[sub_resource type="StandardMaterial3D" id="s13"]
+[sub_resource type="StandardMaterial3D" id="s14"]
 albedo_color = Color(0.6, 0.47, 0.34, 1)
 roughness = 1.0
 
-[sub_resource type="PlaneMesh" id="s14"]
-material = SubResource("s13")
-size = Vector2(11, 7)
-
 [sub_resource type="PlaneMesh" id="s15"]
-material = SubResource("s13")
+material = SubResource("s14")
 size = Vector2(11, 7)
 
 [sub_resource type="PlaneMesh" id="s16"]
-material = SubResource("s13")
+material = SubResource("s14")
+size = Vector2(11, 7)
+
+[sub_resource type="PlaneMesh" id="s17"]
+material = SubResource("s14")
 size = Vector2(10, 7)
 
-[sub_resource type="StandardMaterial3D" id="s17"]
+[sub_resource type="StandardMaterial3D" id="s18"]
 transparency = 1
 albedo_color = Color(1, 1, 0, 0.5)
 
-[sub_resource type="PlaneMesh" id="s18"]
-material = SubResource("s17")
+[sub_resource type="PlaneMesh" id="s19"]
+material = SubResource("s18")
 size = Vector2(1, 1)
 
-[sub_resource type="BoxShape3D" id="s19"]
-size = Vector3(2.0, 3.0, 5.0)
-
 [sub_resource type="BoxShape3D" id="s20"]
-size = Vector3(52, 3.0, 1)
+size = Vector3(2.0, 3.0, 5.0)
 
 [sub_resource type="BoxShape3D" id="s21"]
 size = Vector3(52, 3.0, 1)
 
 [sub_resource type="BoxShape3D" id="s22"]
-size = Vector3(1, 3.0, 42)
+size = Vector3(52, 3.0, 1)
 
 [sub_resource type="BoxShape3D" id="s23"]
-size = Vector3(1, 3.0, 20.5)
+size = Vector3(1, 3.0, 42)
 
 [sub_resource type="BoxShape3D" id="s24"]
-size = Vector3(1, 3.0, 16.5)
+size = Vector3(1, 3.0, 20.5)
 
 [sub_resource type="BoxShape3D" id="s25"]
-size = Vector3(1, 3.0, 8)
+size = Vector3(1, 3.0, 16.5)
 
 [sub_resource type="BoxShape3D" id="s26"]
-size = Vector3(5, 3.0, 1)
+size = Vector3(1, 3.0, 8)
 
 [sub_resource type="BoxShape3D" id="s27"]
 size = Vector3(5, 3.0, 1)
 
-[sub_resource type="ShaderMaterial" id="s28"]
+[sub_resource type="BoxShape3D" id="s28"]
+size = Vector3(5, 3.0, 1)
+
+[sub_resource type="ShaderMaterial" id="s29"]
 shader = ExtResource("r22")
 
-[sub_resource type="PlaneMesh" id="s29"]
-material = SubResource("s28")
+[sub_resource type="PlaneMesh" id="s30"]
+material = SubResource("s29")
 size = Vector2(1, 1)
 
-[sub_resource type="BoxShape3D" id="s30"]
+[sub_resource type="BoxShape3D" id="s31"]
 size = Vector3(3.6, 3.0, 4.4)
 
 [node name="Fazenda" type="Node3D"]
@@ -163,21 +166,29 @@ position = Vector3(25, 0, 20)
 mesh = SubResource("s4")
 cast_shadow = 0
 
+[node name="ChaoFirme" type="StaticBody3D" parent="Chao"]
+position = Vector3(25, -0.5, 20)
+collision_mask = 0
+metadata/superficie = &"terra"
+
+[node name="Forma" type="CollisionShape3D" parent="Chao/ChaoFirme"]
+shape = SubResource("s5")
+
 [node name="Patio" type="MeshInstance3D" parent="Chao"]
 position = Vector3(25, 0.008, 13)
-mesh = SubResource("s6")
+mesh = SubResource("s7")
 cast_shadow = 0
 
 [node name="Caminho" type="MeshInstance3D" parent="Chao"]
 position = Vector3(46.0, 0.012, 18.5)
 rotation = Vector3(0, -1.0517, 0)
-mesh = SubResource("s7")
+mesh = SubResource("s8")
 cast_shadow = 0
 
 [node name="Caminho2" type="MeshInstance3D" parent="Chao"]
 position = Vector3(52.0, 0.012, 22.0)
 rotation = Vector3(0, -0.0, 0)
-mesh = SubResource("s8")
+mesh = SubResource("s9")
 cast_shadow = 0
 
 [node name="GramaDaEstacao" type="Node" parent="."]
@@ -356,7 +367,7 @@ liberado = true
 
 [node name="Terra" type="MeshInstance3D" parent="Talhoes/Talhao1"]
 position = Vector3(5.5, 0.01, 4.0)
-mesh = SubResource("s10")
+mesh = SubResource("s11")
 cast_shadow = 0
 
 [node name="Borda" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
@@ -435,7 +446,7 @@ liberado = true
 
 [node name="Terra" type="MeshInstance3D" parent="Talhoes/Talhao2"]
 position = Vector3(5.5, 0.01, 4.0)
-mesh = SubResource("s11")
+mesh = SubResource("s12")
 cast_shadow = 0
 
 [node name="Borda" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
@@ -514,7 +525,7 @@ liberado = true
 
 [node name="Terra" type="MeshInstance3D" parent="Talhoes/Talhao3"]
 position = Vector3(5.0, 0.01, 4.0)
-mesh = SubResource("s12")
+mesh = SubResource("s13")
 cast_shadow = 0
 
 [node name="Borda" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
@@ -587,7 +598,7 @@ liberado = false
 
 [node name="Terra" type="MeshInstance3D" parent="Talhoes/Talhao4"]
 position = Vector3(5.5, 0.01, 3.5)
-mesh = SubResource("s14")
+mesh = SubResource("s15")
 cast_shadow = 0
 
 [node name="Borda" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
@@ -666,7 +677,7 @@ liberado = false
 
 [node name="Terra" type="MeshInstance3D" parent="Talhoes/Talhao5"]
 position = Vector3(5.5, 0.01, 3.5)
-mesh = SubResource("s15")
+mesh = SubResource("s16")
 cast_shadow = 0
 
 [node name="Borda" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
@@ -745,7 +756,7 @@ liberado = false
 
 [node name="Terra" type="MeshInstance3D" parent="Talhoes/Talhao6"]
 position = Vector3(5.0, 0.01, 3.5)
-mesh = SubResource("s16")
+mesh = SubResource("s17")
 cast_shadow = 0
 
 [node name="Borda" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
@@ -819,7 +830,7 @@ script = ExtResource("r13")
 [node name="IndicadorAlvo" type="MeshInstance3D" parent="."]
 position = Vector3(0, 0.13, 0)
 visible = false
-mesh = SubResource("s18")
+mesh = SubResource("s19")
 
 [node name="PontoDeSpawn" type="Marker3D" parent="."]
 position = Vector3(24, 0, 10.5)
@@ -855,7 +866,7 @@ mapa_de_destino = &"mundo"
 chegada = &"ChegadaDaFazenda"
 
 [node name="Forma" type="CollisionShape3D" parent="PassagemParaOMundo"]
-shape = SubResource("s19")
+shape = SubResource("s20")
 
 [node name="Limites" type="Node3D" parent="."]
 
@@ -864,56 +875,56 @@ position = Vector3(25, 1.5, -0.6)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/Norte"]
-shape = SubResource("s20")
+shape = SubResource("s21")
 
 [node name="Sul" type="StaticBody3D" parent="Limites"]
 position = Vector3(25, 1.5, 40.6)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/Sul"]
-shape = SubResource("s21")
+shape = SubResource("s22")
 
 [node name="Oeste" type="StaticBody3D" parent="Limites"]
 position = Vector3(-0.6, 1.5, 20)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/Oeste"]
-shape = SubResource("s22")
+shape = SubResource("s23")
 
 [node name="LesteDeCima" type="StaticBody3D" parent="Limites"]
 position = Vector3(50.6, 1.5, 9.75)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/LesteDeCima"]
-shape = SubResource("s23")
+shape = SubResource("s24")
 
 [node name="LesteDeBaixo" type="StaticBody3D" parent="Limites"]
 position = Vector3(50.6, 1.5, 32.25)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/LesteDeBaixo"]
-shape = SubResource("s24")
+shape = SubResource("s25")
 
 [node name="AtrasDaPassagem" type="StaticBody3D" parent="Limites"]
 position = Vector3(55.5, 1.5, 22)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/AtrasDaPassagem"]
-shape = SubResource("s25")
+shape = SubResource("s26")
 
 [node name="LadoDaPassagemNorte" type="StaticBody3D" parent="Limites"]
 position = Vector3(53, 1.5, 19.2)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/LadoDaPassagemNorte"]
-shape = SubResource("s26")
+shape = SubResource("s27")
 
 [node name="LadoDaPassagemSul" type="StaticBody3D" parent="Limites"]
 position = Vector3(53, 1.5, 24.8)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Limites/LadoDaPassagemSul"]
-shape = SubResource("s27")
+shape = SubResource("s28")
 
 [node name="Verde" type="Node3D" parent="."]
 
@@ -1019,7 +1030,7 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="Laguinho" type="MeshInstance3D" parent="Verde"]
 position = Vector3(2.8, 0.025, 13.2)
 scale = Vector3(3.6, 1, 4.4)
-mesh = SubResource("s29")
+mesh = SubResource("s30")
 cast_shadow = 0
 
 [node name="BloqueioDoLaguinho" type="StaticBody3D" parent="Verde"]
@@ -1027,7 +1038,7 @@ position = Vector3(2.8, 1.5, 13.2)
 collision_mask = 0
 
 [node name="Forma" type="CollisionShape3D" parent="Verde/BloqueioDoLaguinho"]
-shape = SubResource("s30")
+shape = SubResource("s31")
 
 [node name="Juncos" parent="Verde" instance=ExtResource("r23")]
 position = Vector3(0.8, 0.0, 10.6)

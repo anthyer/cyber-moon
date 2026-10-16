@@ -291,6 +291,12 @@ def montar_fazenda():
     m.chao("Areia", 25, 20, 130, 110, "areia", pai="Chao", y=-0.01)
     malha = c.sub("PlaneMesh", {"material": material_da_terra, "size": "Vector2(50, 40)"})
     c.no("Terra", "MeshInstance3D", pai="Chao", propriedades={"position": vetor(25, 0, 20), "mesh": malha, "cast_shadow": "0"})
+    # O chão de colisão da fazenda. O plano de colisão da fase fica bem abaixo (o mundo tem
+    # relevo e precisa do rio afundado livre), então cada mapa traz o próprio chão.
+    forma_do_chao = c.sub("BoxShape3D", {"size": vetor(140, 1, 120)})
+    corpo_do_chao = c.no("ChaoFirme", "StaticBody3D", pai="Chao", propriedades={
+        "position": vetor(25, -0.5, 20), "collision_mask": "0", "metadata/superficie": '&"terra"'})
+    c.no("Forma", "CollisionShape3D", pai=corpo_do_chao, propriedades={"shape": forma_do_chao})
     m.chao("Patio", 25, 13, 42, 4, "terra_batida", pai="Chao", y=0.008)
     m.faixa("Caminho", [(44, 15), (48, 22), (56, 22)], 3.0, "terra_batida", pai="Chao")
     c.no("GramaDaEstacao", "Node", propriedades={
@@ -420,24 +426,195 @@ def montar_fazenda():
 
 
 # -- mundo -----------------------------------------------------------------------------------
+#
+# O mundo orgânico (plano 26, segunda versão). O traçado do rio, do cânion, do aquífero,
+# dos terraços e das trilhas vem de desenho_do_mundo.py, o mesmo arquivo que o Blender lê
+# para modelar o terreno. As alturas do chão vêm de altura_do_mundo.json, gravado pelo
+# script do terreno, para cada peça assentar no relevo.
 
-LARGURA_DO_MUNDO = 160.0
-PROFUNDIDADE_DO_MUNDO = 110.0
-X_DO_CANAL = 90.0
-Z_DO_VIADUTO = 7.0
+import json
+import sys as _sys
 
-# Áreas onde o deserto espalhado não entra: estradas, vila, canal, reservatório, campos.
-LIVRES = [
-    (0, 9, 160, 6),        # estrada debaixo do viaduto
-    (77, 13, 6, 30),       # avenida que desce do viaduto para a vila
-    (54, 34, 52, 48),      # vila
-    (86, 13, 8, 82),       # canal
-    (48, 88, 52, 22),      # reservatório
-    (8, 30, 42, 44),       # fazendas solares
-    (0, 17, 34, 12),       # porteira da fazenda e o caminho
-    (118, 62, 42, 36),     # acampamento das motoqueiras
-    (94, 20, 50, 8),       # estrada das Badlands
-]
+_sys.path.insert(0, str(Path(__file__).resolve().parent))
+import desenho_do_mundo as dm
+
+with open(Path(__file__).resolve().parent / "altura_do_mundo.json") as _arquivo:
+    _ALTURAS = json.load(_arquivo)
+
+
+def chao(x, z):
+    """A altura do chão do mundo em (x, z), pela grade gravada pelo script do terreno."""
+    passo = _ALTURAS["passo"]
+    cx = (x - _ALTURAS["x0"]) / passo
+    cz = (z - _ALTURAS["z0"]) / passo
+    colunas, linhas = _ALTURAS["colunas"], _ALTURAS["linhas"]
+    cx = min(max(cx, 0.0), colunas - 1.001)
+    cz = min(max(cz, 0.0), linhas - 1.001)
+    i, j = int(cx), int(cz)
+    fx, fz = cx - i, cz - j
+    a = _ALTURAS["alturas"]
+    v00 = a[j * colunas + i]
+    v10 = a[j * colunas + i + 1]
+    v01 = a[(j + 1) * colunas + i]
+    v11 = a[(j + 1) * colunas + i + 1]
+    return (v00 * (1 - fx) + v10 * fx) * (1 - fz) + (v01 * (1 - fx) + v11 * fx) * fz
+
+
+def circulos_das_trilhas(folga=1.2):
+    """As trilhas, o rio e o cânion como círculos livres para o deserto espalhado."""
+    circulos = []
+    for pontos, largura in dm.TRILHAS:
+        for x, z in dm.suavizar(pontos, passo=2.0):
+            circulos.append((x, z, largura / 2 + folga))
+    for x, z in dm.suavizar(dm.RIO, passo=2.0):
+        circulos.append((x, z, dm.meia_largura_do_rio_em(z) + dm.LARGURA_DA_MARGEM_DO_RIO + 1.0))
+    for x, z in dm.suavizar(dm.CANION, passo=2.0):
+        circulos.append((x, z, dm.MEIA_LARGURA_DO_CANION + dm.LARGURA_DA_PAREDE_DO_CANION + 1.0))
+    return circulos
+
+
+def dentro_de_algum_lugar(x, z, folga=0.0):
+    for cx, cz, rx, rz in dm.LUGARES.values():
+        if ((x - cx) / (rx + folga)) ** 2 + ((z - cz) / (rz + folga)) ** 2 < 1.0:
+            return True
+    return False
+
+
+# O que é pequeno demais para servir de ponto de referência.
+PECAS_QUE_NAO_SAO_MARCO = (
+    "barril", "arbusto", "enfeite_", "pedras", "varal", "banco_de_praca", "caixa_de_correio", "maquina_de_venda",
+    "moto", "pilha_de_pneus", "mesa_de_acampamento", "alvo_de_treino", "campfire", "poste_de_luz", "cerca_",
+    "vagonete", "rochedo_b", "placa_de_estrada", "bateria_de_reserva",
+)
+MARCOS_POSTOS = []
+
+# A janela que a câmera do jogo mostra em volta do jogador.
+JANELA_LADO, JANELA_NORTE, JANELA_SUL = 7.5, 8.0, 4.5
+
+
+def andavel(x, z):
+    """Verdadeiro para o chão onde o jogador pode estar: fora da água, do cânion e das reservas."""
+    if x < 1 or x > 159 or z < 10 or z > 108:
+        return False
+    if _distancia_a_pontos(x, z, dm.suavizar(dm.RIO, passo=1.0)) < dm.meia_largura_do_rio_em(z) + dm.LARGURA_DA_MARGEM_DO_RIO:
+        return False
+    if _distancia_a_pontos(x, z, dm.suavizar(dm.CANION, passo=1.0)) < dm.MEIA_LARGURA_DO_CANION + dm.LARGURA_DA_PAREDE_DO_CANION:
+        return False
+    cx, cz = dm.AQUIFERO_CENTRO
+    if math.hypot(x - cx, z - cz) < dm.raio_do_aquifero(math.atan2(z - cz, x - cx)) + 0.5:
+        return False
+    for pontos in dm.RESERVAS.values():
+        if _dentro_do_poligono(x, z, pontos):
+            return False
+    return True
+
+
+def _distancia_a_pontos(x, z, pontos):
+    return min(math.hypot(x - px, z - pz) for px, pz in pontos)
+
+
+def _dentro_do_poligono(x, z, pontos):
+    dentro = False
+    for (x1, z1), (x2, z2) in zip(pontos, pontos[1:] + pontos[:1]):
+        if (z1 > z) != (z2 > z) and x < (x2 - x1) * (z - z1) / (z2 - z1) + x1:
+            dentro = not dentro
+    return dentro
+
+
+def relatorio_de_marcos():
+    """Mede, para cada ponto andável (de 2 em 2), se algum marco cai na janela da câmera,
+    e lista os buracos. É a regra do plano 26: sempre um marco à vista."""
+    total, cobertos, buracos = 0, 0, []
+    for x in range(1, 160, 2):
+        for z in range(11, 109, 2):
+            if not andavel(x, z):
+                continue
+            total += 1
+            if any(abs(mx - x) <= JANELA_LADO and z - JANELA_NORTE <= mz <= z + JANELA_SUL for mx, mz, n in MARCOS_POSTOS if n != "nada"):
+                cobertos += 1
+            else:
+                buracos.append((x, z))
+    print("cobertura de marcos: %d%% (%d de %d pontos andáveis), %d marcos" % (100 * cobertos // max(total, 1), cobertos, total, sum(1 for *_r, n in MARCOS_POSTOS if n != "nada")))
+    return buracos
+
+
+# Os marcos de preenchimento de cada região: o que faz sentido aparecer ali.
+MARCOS_DE_PREENCHIMENTO = {
+    "oeste": ("rochedo_a", "barraco_a", "carro_velho", "rochedo_c", "poste_de_energia"),
+    "centro": ("barraco_b", "rochedo_c", "poste_de_energia", "carro_velho", "rochedo_a"),
+    "leste": ("rochedo_a", "carro_velho", "rochedo_c", "barraco_a", "poste_de_energia"),
+    "sul": ("rochedo_c", "palmeira", "barraco_b", "rochedo_a", "carro_velho"),
+    "norte": ("outdoor_neon", "poste_de_energia", "barraco_a", "carro_velho"),
+}
+
+
+def regiao_de(x, z):
+    if z < 22:
+        return "norte"
+    if z > 88:
+        return "sul"
+    if x < 50:
+        return "oeste"
+    if x > 110:
+        return "leste"
+    return "centro"
+
+
+def lugar_livre_para_marco(x, z, circulos):
+    if not andavel(x, z):
+        return False
+    if dentro_de_algum_lugar(x, z, folga=1.0):
+        return False
+    for cx_, cz_, r in circulos:
+        if math.hypot(x - cx_, z - cz_) < r + 1.0:
+            return False
+    for mx, mz, _n in MARCOS_POSTOS:
+        if math.hypot(x - mx, z - mz) < 4.0:
+            return False
+    return True
+
+
+def preencher_buracos(p, sorteio, meta=0.95):
+    """Põe marcos onde a câmera não teria nenhum à vista, até a cobertura passar da meta.
+
+    O marco vai um pouco ao norte do buraco (a câmera vê mais para o norte do que para o
+    sul), num lugar livre de trilha, água e outros marcos.
+    """
+    circulos = circulos_das_trilhas(folga=0.5)
+    contadores = {}
+    for rodada in range(400):
+        buracos = []
+        total = 0
+        for x in range(1, 160, 2):
+            for z in range(11, 109, 2):
+                if not andavel(x, z):
+                    continue
+                total += 1
+                if not any(abs(mx - x) <= JANELA_LADO and z - JANELA_NORTE <= mz <= z + JANELA_SUL for mx, mz, _n in MARCOS_POSTOS):
+                    buracos.append((x, z))
+        if not buracos or 1.0 - len(buracos) / total >= meta:
+            return
+        # Começa pelo buraco com mais vizinhos sem marco: é o meio da maior área vazia.
+        def vizinhos(ponto):
+            return sum(1 for b in buracos if abs(b[0] - ponto[0]) <= 7 and abs(b[1] - ponto[1]) <= 6)
+        buraco = max(buracos, key=vizinhos)
+        posto = False
+        for dz in (-4, -2, -6, 0, 2, -8):
+            for dx in (0, 3, -3, 6, -6):
+                x, z = buraco[0] + dx, buraco[1] + dz
+                if lugar_livre_para_marco(x, z, circulos):
+                    regiao = regiao_de(x, z)
+                    escolha = MARCOS_DE_PREENCHIMENTO[regiao][contadores.get(regiao, 0) % len(MARCOS_DE_PREENCHIMENTO[regiao])]
+                    contadores[regiao] = contadores.get(regiao, 0) + 1
+                    p("Marco", MUNDO_PACOTE + escolha + ".glb", x, z, graus=sorteio.uniform(0, 360) if escolha.startswith("rochedo") else sorteio.uniform(-35, 35),
+                      pai="Preenchimento", cobre=escolha in ("rochedo_a", "rochedo_c", "palmeira") and z < 100)
+                    posto = True
+                    break
+            if posto:
+                break
+        if not posto:
+            # Sem lugar livre perto, este buraco fica de fora da conta nas próximas rodadas.
+            MARCOS_POSTOS.append((buraco[0], buraco[1], "nada"))
 
 
 def montar_mundo():
@@ -446,267 +623,378 @@ def montar_mundo():
     raiz_do_mapa(c, "Mundo", "mundo", "Arredores da vila")
     sorteio = random.Random(26)
 
-    # -- chão e estradas
+    def p(nome, modelo, x, z, graus=0.0, pai=".", escala=None, cobre=False, gira=False, erguer=0.0):
+        """Uma peça assentada no chão do terreno. Peça grande conta como marco."""
+        arquivo = modelo.rsplit("/", 1)[-1].replace(".glb", "").replace(".tscn", "")
+        if not any(arquivo.startswith(pequeno) for pequeno in PECAS_QUE_NAO_SAO_MARCO):
+            MARCOS_POSTOS.append((x, z, arquivo))
+        return m.peca(nome, modelo, x, z, graus=graus, pai=pai, escala=escala, cobre=cobre, gira=gira, y=chao(x, z) + erguer)
+
+    def voltada_para(x, z, alvo_x, alvo_z):
+        """Os graus que viram a frente (+Z) de uma peça para o ponto dado."""
+        return math.degrees(math.atan2(alvo_x - x, alvo_z - z))
+
+    # -- o chão e a água
     c.no("Chao", "Node3D")
-    m.chao("Areia", 80, 50, 230, 150, "areia", pai="Chao", y=-0.01)
-    m.espalhador("ManchasDeTerra", MUNDO_PACOTE + "enfeite_mancha_de_terra.glb", 80, 60, 150, 90, 26, 1,
-                 distancia=10.0, sombra=False, escala=(1.0, 2.2), livres=LIVRES, pai="Chao")
-    m.espalhador("ManchasDeAreia", MUNDO_PACOTE + "enfeite_mancha_de_areia.glb", 80, 60, 150, 90, 20, 2,
-                 distancia=10.0, sombra=False, escala=(1.0, 2.0), livres=LIVRES, pai="Chao")
-    c.no("Estradas", "Node3D")
-    m.faixa("Pista", [(2, 12), (158, 12)], 5.0, "asfalto", pai="Estradas")
-    m.faixa("Avenida", [(80, 12), (80, 46)], 4.0, "asfalto", pai="Estradas")
-    m.faixa("CaminhoDaFazenda", [(3, 22), (30, 28), (55, 52), (62, 55)], 3.0, "terra_batida", pai="Estradas")
-    m.faixa("CaminhoDoSolar", [(30, 28), (30, 70)], 2.5, "terra_batida", pai="Estradas")
-    m.faixa("CaminhoDoLeste", [(84, 56), (104, 56), (128, 76), (136, 80)], 3.0, "terra_batida", pai="Estradas")
-    m.faixa("CaminhoDasBadlands", [(80, 24), (100, 24), (122, 30), (138, 32)], 3.0, "terra_batida", pai="Estradas")
-    m.faixa("CaminhoDoReservatorio", [(70, 64), (70, 90)], 2.5, "terra_batida", pai="Estradas")
-    m.faixa("CaminhoDasCasas", [(96, 46), (96, 78)], 2.0, "terra_batida", pai="Estradas")
-    m.faixa("CaminhoDoSul", [(60, 72), (82, 72)], 2.0, "terra_batida", pai="Estradas")
+    m.peca("Terreno", MUNDO_PACOTE + "chao_terreno_mundo.glb", 0, 0, pai="Chao")
+    agua = m.peca("Agua", MUNDO_PACOTE + "enfeite_agua_do_mundo.glb", 0, 0, pai="Chao")
+    material_da_agua = c.sub("ShaderMaterial", {
+        "shader": c.recurso("Shader", "res://assets/shaders/agua_toon.gdshader"),
+        "shader_parameter/espuma_pela_cor_do_vertice": "true"})
+    c.no("AplicarShader", "Node", pai=agua, propriedades={
+        "script": c.recurso("Script", "res://scripts/world/material_nas_malhas.gd"),
+        "material": material_da_agua})
 
-    for x, z, graus in ((32, 31.5, 30), (101, 26.2, 0), (105, 58.5, -40), (71.6, 66, 90)):
-        m.peca("Placa", MUNDO_PACOTE + "placa_de_estrada.glb", x, z, graus=graus, pai="Estradas")
-
-    # -- viaduto e cidade ao fundo (o norte pode ser alto)
+    # -- viaduto e a cidade ao fundo (o norte pode ser alto)
     c.no("Viaduto", "Node3D")
     for x in range(4, 160, 8):
-        m.peca("Modulo", MUNDO_PACOTE + "viaduto_modulo.glb", x, Z_DO_VIADUTO, pai="Viaduto")
-    for indice, x in enumerate(range(6, 158, 13)):
-        escala = 1.6 + sorteio.random() * 1.2
-        m.peca("Predio", DUNGEON_PACOTE + "predio_de_fundo.glb", x + sorteio.uniform(-2, 2), -7 - sorteio.random() * 4,
-               escala=escala, pai="Viaduto")
-    m.peca("PontoDeOnibus", MUNDO_PACOTE + "ponto_de_onibus.glb", 74, 15.2, pai="Viaduto")
+        m.peca("Modulo", MUNDO_PACOTE + "viaduto_modulo.glb", x, 5.0, pai="Viaduto")
+        # O viaduto é alto (4,2) e aparece no alto da tela de quem está na pista.
+        MARCOS_POSTOS.append((x, 5.0, "viaduto_modulo"))
+    for x in range(6, 158, 13):
+        m.peca("Predio", DUNGEON_PACOTE + "predio_de_fundo.glb", x + sorteio.uniform(-2, 2), -9 - sorteio.random() * 4,
+               escala=1.6 + sorteio.random() * 1.2, pai="Viaduto")
+    p("PontoDeOnibus", MUNDO_PACOTE + "ponto_de_onibus.glb", 74, 14.6, pai="Viaduto")
+    p("Maquina", MUNDO_PACOTE + "maquina_de_venda.glb", 77.2, 14.2, pai="Viaduto")
     for x in (40, 118):
-        m.peca("Outdoor", MUNDO_PACOTE + "outdoor_neon.glb", x, 15.5, pai="Viaduto")
-    for x in range(10, 156, 18):
-        m.peca("Poste", MUNDO_PACOTE + "poste_de_luz.glb", x, 15.0, pai="Viaduto")
-    m.luz("LuzDoPonto", 74, 2.6, 16.5, (0.45, 0.7, 1.0), pai="Viaduto")
+        p("Outdoor", MUNDO_PACOTE + "outdoor_neon.glb", x, 15.0, pai="Viaduto")
+    for x in range(10, 156, 16):
+        if abs(x - 87) > 5:
+            p("Poste", MUNDO_PACOTE + "poste_de_luz.glb", x, 14.0, pai="Viaduto")
+    m.luz("LuzDoPonto", 74, 2.6, 16, (0.45, 0.7, 1.0), pai="Viaduto")
+
+    # -- pontes, no lugar exato onde as trilhas cruzam o rio e o cânion
+    c.no("Pontes", "Node3D")
+    modelos_de_ponte = {"sucata": "ponte_de_sucata", "madeira": "ponte_de_madeira", "cabo": "ponte_de_cabo"}
+    pontes_do_rio = []
+    for nome, x, z, comprimento, tipo in dm.PONTES:
+        if x is None:
+            x, angulo = dm.x_do_curso_em(dm.RIO, z)
+            graus = math.degrees(angulo)
+            pontes_do_rio.append(z)
+        else:
+            z, angulo = dm.z_do_curso_em(dm.CANION, x)
+            graus = -math.degrees(angulo) - 90.0
+            ponte_do_canion = x
+        m.peca(nome, MUNDO_PACOTE + modelos_de_ponte[tipo] + ".glb", x, z, graus=graus, pai="Pontes")
+
+    # -- paredes invisíveis no alto da margem (o rio e o cânion são afundados)
+    c.no("Margens", "Node3D")
+
+    def muro_ao_longo(pontos, nome, pular):
+        for (x1, z1), (x2, z2) in zip(pontos, pontos[1:]):
+            mx, mz = (x1 + x2) / 2, (z1 + z2) / 2
+            if pular(mx, mz):
+                continue
+            comprimento = math.hypot(x2 - x1, z2 - z1) + 0.3
+            forma = c.sub("BoxShape3D", {"size": vetor(comprimento, 3.0, 0.4)})
+            corpo = c.no(nome, "StaticBody3D", pai="Margens", propriedades={
+                "position": vetor(mx, 1.0, mz), "rotation": vetor(0, -math.atan2(z2 - z1, x2 - x1), 0),
+                "collision_mask": "0"})
+            c.no("Forma", "CollisionShape3D", pai=corpo, propriedades={"shape": forma})
+
+    def lado_do_rio(sinal):
+        pontos = []
+        curva = dm.suavizar(dm.RIO, passo=2.0)
+        for indice, (x, z) in enumerate(curva):
+            a = curva[max(indice - 1, 0)]
+            b = curva[min(indice + 1, len(curva) - 1)]
+            dx, dz = b[0] - a[0], b[1] - a[1]
+            comprimento = math.hypot(dx, dz) or 1.0
+            desvio = dm.meia_largura_do_rio_em(z) + dm.LARGURA_DA_MARGEM_DO_RIO + 0.2
+            pontos.append((x + dz / comprimento * desvio * sinal, z - dx / comprimento * desvio * sinal))
+        return pontos
+
+    def perto_de_ponte_do_rio(x, z):
+        return any(abs(z - zp) < 1.6 for zp in pontes_do_rio) or z > dm.AQUIFERO_CENTRO[1] - dm.AQUIFERO_RAIOS[1] - 1.0
+    for sinal in (-1, 1):
+        muro_ao_longo(lado_do_rio(sinal), "MargemDoRio", perto_de_ponte_do_rio)
+        muro_ao_longo(dm.paralela(dm.CANION, sinal * (dm.MEIA_LARGURA_DO_CANION + dm.LARGURA_DA_PAREDE_DO_CANION + 0.2)),
+                      "BeiraDoCanion", lambda x, z: abs(x - ponte_do_canion) < 1.5)
+    # O aquífero: a margem toda, menos o vão do píer e a boca do rio.
+    contorno = dm.margem_do_aquifero(80)
+    contorno_largo = []
+    cx, cz = dm.AQUIFERO_CENTRO
+    for x, z in contorno + contorno[:1]:
+        dx, dz = x - cx, z - cz
+        r = math.hypot(dx, dz)
+        contorno_largo.append((x + dx / r * (dm.LARGURA_DA_MARGEM_DO_AQUIFERO + 0.2), z + dz / r * (dm.LARGURA_DA_MARGEM_DO_AQUIFERO + 0.2)))
+    x_do_pier = 64.0
+    muro_ao_longo(contorno_largo, "MargemDoAquifero",
+                  lambda x, z: (abs(x - x_do_pier) < 1.2 and z < cz) or (abs(x - dm.RIO[-1][0]) < 4 and z < cz - 4))
+
+    # -- aquífero: píer, barco, casa de bombas, oásis
+    c.no("Aquifero", "Node3D")
+    z_da_margem_norte = min(z for x, z in contorno if abs(x - x_do_pier) < 1.5)
+    m.peca("Pier", MUNDO_PACOTE + "pier_de_madeira.glb", x_do_pier, z_da_margem_norte - 1.2, graus=180, pai="Aquifero",
+           y=0.0)
+    m.peca("Barco", MUNDO_PACOTE + "barco_velho.glb", x_do_pier + 2.6, z_da_margem_norte + 4.0, graus=8, pai="Aquifero",
+           y=dm.ALTURA_DA_AGUA - 0.15)
+    p("CasaDeBombas", MUNDO_PACOTE + "casa_de_bombas.glb", cx + dm.AQUIFERO_RAIOS[0] + 3.5, cz - 1.0, graus=-90, pai="Aquifero")
+    for angulo in range(0, 360, 30):
+        if 250 < angulo < 290:
+            continue
+        r = dm.raio_do_aquifero(math.radians(angulo)) + 2.6
+        x, z = cx + math.cos(math.radians(angulo)) * r, cz + math.sin(math.radians(angulo)) * r
+        if z > 107 or abs(x - x_do_pier) < 2.5:
+            continue
+        p("Palmeira", MUNDO_PACOTE + "palmeira.glb", x, z, graus=angulo * 7, pai="Aquifero", cobre=True)
+    anel = []
+    for angulo in range(0, 360, 8):
+        r = dm.raio_do_aquifero(math.radians(angulo)) + 1.6
+        anel.append((cx + math.cos(math.radians(angulo)) * r, cz + math.sin(math.radians(angulo)) * r))
+    for indice, (x, z) in enumerate(anel):
+        if abs(x - x_do_pier) < 2.0 or z > 107:
+            continue
+        modelo = ("enfeite_juncos", "enfeite_tufo_de_grama", "enfeite_juncos", "arbusto_do_oasis")[indice % 4]
+        p("Beira", MUNDO_PACOTE + modelo + ".glb", x, z, graus=indice * 47, pai="Aquifero")
+
+    # -- o mercado (praça redonda no terraço)
+    c.no("Mercado", "Node3D")
+    mx, mz = dm.LUGARES["mercado"][0], dm.LUGARES["mercado"][1]
+    p("Letreiro", MUNDO_PACOTE + "letreiro_da_vila.glb", mx, mz - 3.0, pai="Mercado")
+    p("Poco", MUNDO_PACOTE + "bomba_solar.glb", mx, mz + 2.0, pai="Mercado")
+    for angulo in (-40, 40, 140, -112):
+        x = mx + math.cos(math.radians(angulo)) * 6.5
+        z = mz + math.sin(math.radians(angulo)) * 5.2
+        p("Barraca", MUNDO_PACOTE + "barraca_de_feira.glb", x, z, graus=voltada_para(x, z, mx, mz), pai="Mercado")
+    for angulo in (0, 100, -165, 180 + 35):
+        x = mx + math.cos(math.radians(angulo)) * 3.6
+        z = mz + math.sin(math.radians(angulo)) * 3.0
+        p("Banco", MUNDO_PACOTE + "banco_de_praca.glb", x, z, graus=voltada_para(x, z, mx, mz) + 180, pai="Mercado")
+    for angulo in (20, 160, -70):
+        x = mx + math.cos(math.radians(angulo)) * 8.6
+        z = mz + math.sin(math.radians(angulo)) * 7.0
+        p("Palmeira", MUNDO_PACOTE + "palmeira.glb", x, z, graus=angulo, pai="Mercado", cobre=True)
+    for x, z in ((mx - 5, mz - 6.5), (mx + 5, mz - 6.5), (mx - 7, mz + 4), (mx + 7, mz + 4)):
+        p("Poste", MUNDO_PACOTE + "poste_de_luz.glb", x, z, graus=voltada_para(x, z, mx, mz), pai="Mercado")
+    m.luz("LuzDoMercado", mx, 4.5, mz - 2, (0.95, 0.45, 0.95), alcance=12.0, pai="Mercado")
+    # Na borda norte, fora do terraço: o mercado da Marta e o bar. A clínica a oeste.
+    p("MercadoDaMarta", MUNDO_PACOTE + "mercado_da_marta.glb", mx - 4.5, mz - 12.0, pai="Mercado")
+    p("Bar", MUNDO_PACOTE + "bar_de_beira_de_estrada.glb", mx + 6.0, mz - 11.5, pai="Mercado")
+    m.luz("LuzDoBar", mx + 6.0, 3.0, mz - 8.5, (0.95, 0.45, 0.95), alcance=7.0, pai="Mercado")
+    p("Clinica", MUNDO_PACOTE + "clinica_da_iara.glb", mx - 14.5, mz + 1.0, graus=90, pai="Mercado")
+    p("CasaDaIara", MUNDO_PACOTE + "casa_da_iara.glb", mx - 14.0, mz + 9.5, graus=90, pai="Mercado")
+
+    # -- a vila de barracos, do outro lado do rio
+    c.no("Vila", "Node3D")
+    vx, vz = dm.LUGARES["vila"][0], dm.LUGARES["vila"][1]
+    p("CasaGeminada", MUNDO_PACOTE + "casa_geminada.glb", vx, vz - 9.0, pai="Vila")
+    p("CasaDoVitor", MUNDO_PACOTE + "casa_do_vitor.glb", vx + 9.5, vz - 1.0, graus=-90, pai="Vila")
+    p("OficinaDoVitor", MUNDO_PACOTE + "oficina_do_vitor.glb", vx + 9.5, vz + 7.5, graus=-90, pai="Vila")
+    p("CasaDaMarta", MUNDO_PACOTE + "casa_da_marta.glb", vx - 8.5, vz + 6.0, graus=90, pai="Vila")
+    for nome, modelo, x, z, graus in (("BarracoA", "barraco_a", vx - 7.0, vz - 8.5, 0), ("BarracoB", "barraco_b", vx + 3.5, vz + 10.5, 180),
+                                      ("BarracoA", "barraco_a", vx + 12.5, vz - 10.0, -60), ("BarracoB", "barraco_b", vx - 2.0, vz + 13.5, 160)):
+        p(nome, MUNDO_PACOTE + modelo + ".glb", x, z, graus=graus, pai="Vila")
+    p("AntenaDoKenji", DUNGEON_PACOTE + "movel_antena_pirata.glb", vx + 4.5, vz - 13.0, escala=1.5, pai="Vila", gira=True)
+    p("Varal", MUNDO_PACOTE + "varal.glb", vx - 3.5, vz + 3.0, graus=30, pai="Vila")
+    for x, z in ((vx + 2, vz - 2), (vx - 4, vz + 1), (vx + 6, vz + 3)):
+        p("Barril", DUNGEON_PACOTE + "barril.glb", x, z, pai="Vila")
+    p("CarroVelho", MUNDO_PACOTE + "carro_velho.glb", vx + 13.0, vz + 2.0, graus=-20, pai="Vila")
+    p("Cisterna", MUNDO_PACOTE + "cisterna_velha.glb", dm.LUGARES["cisterna"][0], dm.LUGARES["cisterna"][1], pai="Vila", cobre=True)
+    p("BarracaDaSol", MUNDO_PACOTE + "barraca_da_sol.glb", 73.0, 75.0, graus=90, pai="Vila")
+    m.luz("LuzDaSol", 73.5, 1.2, 74.0, (1.0, 0.8, 0.4), alcance=5.0, energia=0.8, pai="Vila")
+    for x, z in ((vx - 5.5, vz - 4.0), (vx + 6.5, vz - 6.0), (vx + 1.0, vz + 6.5)):
+        p("Arbusto", MUNDO_PACOTE + "arbusto_do_oasis.glb", x, z, escala=0.8, pai="Vila")
+
+    # -- campos solares, o cânion entre eles
+    c.no("Solar", "Node3D")
+    for grupo_x, grupo_z, linhas_, colunas_ in ((14, 26, 2, 4), (28, 24, 2, 3), (16, 38, 2, 3), (32, 38, 1, 3), (10, 84, 2, 3), (14, 96, 1, 4), (30, 94, 2, 2)):
+        for linha in range(linhas_):
+            for coluna in range(colunas_):
+                x = grupo_x + coluna * 4.2 + sorteio.uniform(-0.3, 0.3)
+                z = grupo_z + linha * 3.2
+                p("Paineis", INDUSTRIAL + "solar_panel_landscape_group.glb", x, z, graus=sorteio.uniform(-6, 6),
+                  escala=ESCALA_KENNEY * 0.75, pai="Solar")
+    p("CataVento", MUNDO_PACOTE + "cata_vento_enferrujado.glb", 7, 32, pai="Solar", cobre=True)
+    p("CataVentoNovo", INDUSTRIAL + "windmill.glb", 40, 20, escala=4.0, pai="Solar", cobre=True)
+    for x, z in ((38, 32), (22, 33), (24, 90)):
+        p("Transformador", DUNGEON_PACOTE + "bateria_de_reserva.glb", x, z, graus=90, pai="Solar")
+    for x, z, graus in ((20, 31, 10), (27, 92, -20), (36, 30, 70)):
+        p("Cabos", DUNGEON_PACOTE + "enfeite_cabos.glb", x, z, graus=graus, pai="Solar")
+    p("PocoDePetroleo", MUNDO_PACOTE + "poco_de_petroleo.glb", 35, 80, graus=-20, pai="Solar")
 
     # -- entradas das dungeons (a Galeria aberta desde o primeiro dia)
     c.no("Entradas", "Node3D")
-    entradas = (
-        ("Galeria", "galeria", "entrada_da_galeria", 100, 17.5, (1.0, 0.8, 0.35)),
-        ("Torre", "torre", "entrada_da_torre", 130, 16.5, (0.95, 0.45, 0.95)),
-        ("Biodomo", "biodomo", "entrada_do_biodomo", 25, 50, (0.5, 1.0, 0.6)),
-    )
-    for nome, dungeon_id, modelo, x, z, rgb in entradas:
-        grupo = c.no(nome, "Node3D", pai="Entradas", propriedades={"position": vetor(x, 0, z)})
+    for nome, dungeon_id, modelo, x, z, rgb, frente in (
+            ("Galeria", "galeria", "entrada_da_galeria", 98, 17.5, (1.0, 0.8, 0.35), 2.4),
+            ("Torre", "torre", "entrada_da_torre", 132, 15.5, (0.95, 0.45, 0.95), 2.4),
+            ("Biodomo", "biodomo", "entrada_do_biodomo", 18, 80, (0.5, 1.0, 0.6), 2.9)):
+        grupo = c.no(nome, "Node3D", pai="Entradas", propriedades={"position": vetor(x, chao(x, z), z)})
         m.peca("Modelo", MUNDO_PACOTE + modelo + ".glb", 0, 0, pai=grupo)
-        entrada = m.peca("Acesso", "res://scenes/world/entrada_de_dungeon.tscn", 0, 2.4 if nome != "Biodomo" else 2.9, pai=grupo)
+        m.peca("Acesso", "res://scenes/world/entrada_de_dungeon.tscn", 0, frente, pai=grupo)
         c.nos[-1] += '\ndungeon_id = &"%s"' % dungeon_id
         m.luz("Luz", 0, 2.2, 1.8, rgb, alcance=7.0, pai=grupo)
 
-    # -- canal da corporação, de norte a sul
-    c.no("Canal", "Node3D")
-    pontes = {24: "ponte", 56: "ponte"}
-    comportas = {36: "comporta", 72: "comporta"}
-    for z in range(16, 92, 4):
-        if z in pontes:
-            m.peca("Ponte", MUNDO_PACOTE + "canal_ponte.glb", X_DO_CANAL, z, pai="Canal")
-        elif z in comportas:
-            m.peca("Comporta", MUNDO_PACOTE + "canal_comporta.glb", X_DO_CANAL, z, pai="Canal")
-        else:
-            m.peca("Trecho", MUNDO_PACOTE + "canal_reto.glb", X_DO_CANAL, z, pai="Canal")
-    m.peca("CabecaDoCanal", MUNDO_PACOTE + "casa_de_bombas.glb", X_DO_CANAL, 13.6, graus=180, pai="Canal")
-    # A água do canal é um plano só, de ponta a ponta, e passa debaixo das pontes. O
-    # bloqueio fica só entre as pontes: em cima delas o jogador atravessa.
-    m.agua("Agua", X_DO_CANAL - 1.3, 14.0, X_DO_CANAL + 1.3, 92.0, pai="Canal")
-    for z1, z2 in ((14.0, 22.0), (26.0, 54.0), (58.0, 92.0)):
-        m.bloqueio("Bloqueio", X_DO_CANAL - 1.3, z1, X_DO_CANAL + 1.3, z2, pai="Canal")
-
-    # -- reservatório, na borda sul (plano, não cobre nada)
-    c.no("Reservatorio", "Node3D")
-    m.agua("Agua", 52.0, 92.0, 96.0, 106.0, pai="Reservatorio")
-    # O píer (x de 61 a 63, até z = 99,6) fica fora do bloqueio.
-    m.bloqueio("Bloqueio", 52.0, 92.0, 61.0, 106.0, pai="Reservatorio")
-    m.bloqueio("Bloqueio", 63.0, 92.0, 96.0, 106.0, pai="Reservatorio")
-    m.bloqueio("Bloqueio", 61.0, 99.8, 63.0, 106.0, pai="Reservatorio")
-    m.peca("Barco", MUNDO_PACOTE + "barco_velho.glb", 64.6, 95.5, graus=8, pai="Reservatorio")
-    # O oásis em volta da água: palmeiras, juncos e grama.
-    for x, z in ((53.5, 89), (57.5, 88.5), (79, 89), (83.5, 88.6), (99, 96), (99.5, 102.5), (49, 96.5), (48.5, 103)):
-        m.peca("Palmeira", MUNDO_PACOTE + "palmeira.glb", x, z, graus=x * 31, pai="Reservatorio", cobre=True)
-    m.espalhador("Juncos", MUNDO_PACOTE + "enfeite_juncos.glb", 74, 90, 42, 2.4, 22, 41, distancia=1.2, sombra=False,
-                 livres=[(60, 88, 4, 4), (68.5, 86, 3, 6), (88, 86, 4, 6)], pai="Reservatorio")
-    m.espalhador("Grama", MUNDO_PACOTE + "enfeite_tufo_de_grama.glb", 74, 87.5, 50, 4, 40, 42, distancia=1.0,
-                 sombra=False, livres=[(68.5, 84, 3, 8), (88, 84, 4, 8)], pai="Reservatorio")
-    m.espalhador("Arbustos", MUNDO_PACOTE + "arbusto_do_oasis.glb", 74, 87, 52, 3, 8, 43, distancia=4.0,
-                 raio=0.45, altura=0.8, livres=[(60, 84, 4, 8), (68.5, 84, 3, 8), (88, 84, 4, 8)], pai="Reservatorio")
-    for x in range(54, 96, 4):
-        if x in (62, 90):
-            continue
-        m.peca("BordaNorte", MUNDO_PACOTE + "reservatorio_borda.glb", x, 91.75, graus=180, pai="Reservatorio")
-        m.peca("BordaSul", MUNDO_PACOTE + "reservatorio_borda.glb", x, 106.25, pai="Reservatorio")
-    for x in (62, 90):
-        m.peca("BordaSul", MUNDO_PACOTE + "reservatorio_borda.glb", x, 106.25, pai="Reservatorio")
-    for z in range(94, 106, 4):
-        m.peca("BordaOeste", MUNDO_PACOTE + "reservatorio_borda.glb", 51.75, z, graus=-90, pai="Reservatorio")
-        m.peca("BordaLeste", MUNDO_PACOTE + "reservatorio_borda.glb", 96.25, z, graus=90, pai="Reservatorio")
-    for x, z in ((51.75, 91.75), (96.25, 91.75), (51.75, 106.25), (96.25, 106.25)):
-        m.peca("Quina", MUNDO_PACOTE + "reservatorio_quina.glb", x, z, pai="Reservatorio")
-    m.peca("Pier", MUNDO_PACOTE + "pier_de_madeira.glb", 62, 91.5, graus=180, pai="Reservatorio")
-    m.peca("CasaDeBombas", MUNDO_PACOTE + "casa_de_bombas.glb", 100, 89, graus=-90, pai="Reservatorio")
-
-    # -- vila
-    c.no("Vila", "Node3D")
-    m.chao("Praca", 73, 56, 18, 13, "praca", pai="Vila", y=0.006)
-    m.peca("Letreiro", MUNDO_PACOTE + "letreiro_da_vila.glb", 73, 47.5, pai="Vila")
-    m.peca("Poco", MUNDO_PACOTE + "bomba_solar.glb", 73, 57, pai="Vila")
-    for x, z in ((64.5, 50), (81.5, 50), (64.5, 62), (81.5, 62)):
-        m.peca("Poste", MUNDO_PACOTE + "poste_de_luz.glb", x, z, pai="Vila")
-    m.luz("LuzDaPraca", 73, 5.0, 49, (0.95, 0.45, 0.95), alcance=12.0, pai="Vila")
-    # Lado norte da praça, de frente para o sul: o bar e o mercado. A avenida do viaduto
-    # chega entre o mercado e o canal.
-    m.peca("Bar", MUNDO_PACOTE + "bar_de_beira_de_estrada.glb", 59, 43, pai="Vila")
-    m.luz("LuzDoBar", 59, 3.0, 46, (0.95, 0.45, 0.95), alcance=7.0, pai="Vila")
-    m.peca("Mercado", COMERCIAL + "building_c.glb", 68, 41.5, escala=ESCALA_KENNEY, pai="Vila")
-    m.peca("OficinaDoVitor", INDUSTRIAL + "building_b.glb", 102, 74, graus=-90, escala=ESCALA_KENNEY, pai="Vila")
-    m.peca("Clinica", COMERCIAL + "building_e.glb", 58, 55, graus=90, escala=ESCALA_KENNEY, pai="Vila")
-    # Casas: duas a oeste, duas ao sul (baixas, viradas para o norte), a geminada do Kenji e do
-    # Rafa e a do Vitor do outro lado do canal.
-    casas = (
-        ("CasaDaMarta", "building_type_c", 58, 64, 90),
-        ("CasaDaIara", "building_type_f", 64, 75, 180),
-        ("CasaDaSol", "building_type_h", 76, 75, 180),
-        ("CasaDoKenji", "building_type_k", 100, 46, -90),
-        ("CasaDoRafa", "building_type_l", 100, 51, -90),
-        ("CasaDoVitor", "building_type_b", 100, 63, -90),
-    )
-    for nome, modelo, x, z, graus in casas:
-        m.peca(nome, SUBURBANO + modelo + ".glb", x, z, graus=graus, escala=ESCALA_KENNEY, pai="Vila")
-    # A feira e os bancos da praça, a máquina de venda, o carro abandonado.
-    for x in (65.5, 69.0, 77.0, 80.5):
-        m.peca("Barraca", MUNDO_PACOTE + "barraca_de_feira.glb", x, 51.3, pai="Vila")
-    for x, z, graus in ((70.0, 59.5, 0), (76.0, 59.5, 0), (70.0, 54.5, 180), (76.0, 54.5, 180)):
-        m.peca("Banco", MUNDO_PACOTE + "banco_de_praca.glb", x, z, graus=graus + 180, pai="Vila")
-    for x in (66.5, 79.5):
-        m.peca("Palmeira", MUNDO_PACOTE + "palmeira.glb", x, 61.8, graus=x * 13, pai="Vila", cobre=True)
-    m.peca("Maquina", MUNDO_PACOTE + "maquina_de_venda.glb", 62.0, 46.5, pai="Vila")
-    m.peca("Maquina", MUNDO_PACOTE + "maquina_de_venda.glb", 77.6, 14.4, pai="Vila")
-    m.peca("CarroVelho", MUNDO_PACOTE + "carro_velho.glb", 55.5, 60.5, graus=80, pai="Vila")
-    m.peca("CarroVelho", MUNDO_PACOTE + "carro_velho.glb", 105.5, 57.0, graus=-20, pai="Vila")
-    for x, z in ((61, 67), (61, 61), (67, 71.5), (73, 71.5), (79, 71.5), (97.5, 43.5), (97.5, 66)):
-        m.peca("Arbusto", MUNDO_PACOTE + "arbusto_do_oasis.glb", x, z, graus=x * 11, escala=0.8, pai="Vila")
-    for z in (20, 28, 36):
-        m.peca("PosteDaAvenida", MUNDO_PACOTE + "poste_de_luz.glb", 77.3, z, graus=-90, pai="Vila")
-    m.espalhador("FloresDaVila", MUNDO_PACOTE + "enfeite_flores.glb", 80, 58, 50, 44, 26, 44, distancia=2.0,
-                 sombra=False, livres=[(62, 48, 22, 16), (78, 12, 4, 36), (86, 13, 8, 82), (52, 38, 14, 10),
-                                       (63, 36, 12, 10), (95, 44, 10, 34), (54, 58, 10, 10), (59, 70, 22, 10)],
-                 pai="Vila")
-    m.peca("AntenaDoKenji", DUNGEON_PACOTE + "movel_antena_pirata.glb", 108, 22, escala=1.4, pai="Vila", gira=True)
-    for x, z in ((96, 70), (104, 40)):
-        m.peca("Barril", DUNGEON_PACOTE + "barril.glb", x, z, pai="Vila")
-
-    # -- fazendas solares (oeste)
-    c.no("Solar", "Node3D")
-    for z in (34, 40, 62, 68):
-        for x in range(12, 46, 5):
-            m.peca("Paineis", INDUSTRIAL + "solar_panel_landscape_group.glb", x, z, escala=ESCALA_KENNEY, pai="Solar")
-    for x, z in ((12, 50), (42, 52)):
-        m.peca("CataVento", MUNDO_PACOTE + "cata_vento_enferrujado.glb", x, z, pai="Solar", cobre=True)
-    for x, z in ((46.5, 46), (10, 57)):
-        m.peca("Transformador", DUNGEON_PACOTE + "bateria_de_reserva.glb", x, z, graus=90, pai="Solar")
-    for x, z in ((40, 30), (16, 74)):
-        m.peca("CataVentoNovo", INDUSTRIAL + "windmill.glb", x, z, escala=4.0, pai="Solar", cobre=True)
-
-    # -- Badlands (nordeste): mesas de pedra no fundo, a pedreira e cactos
+    # -- Badlands e a pedreira
     c.no("Badlands", "Node3D")
-    for nome, x, z, graus in (("MesaGrande", 148, 22, 10), ("MesaGrande", 132, 19, -15), ("MesaGrande", 156, 40, 80)):
-        m.peca(nome, MUNDO_PACOTE + "mesa_de_pedra_grande.glb", x, z, graus=graus, pai="Badlands")
-    for nome, x, z, graus in (("MesaMedia", 120, 44, 30), ("MesaMedia", 152, 54, -20), ("MesaMedia", 114, 18, 0)):
-        m.peca(nome, MUNDO_PACOTE + "mesa_de_pedra_media.glb", x, z, graus=graus, pai="Badlands", cobre=True)
-    for x, z in ((138, 32), (142, 35), (135, 36), (140, 39)):
-        m.peca("RochaDaPedreira", MUNDO_PACOTE + "rocha_do_deserto.glb", x, z, graus=sorteio.uniform(0, 360),
-               escala=1.4, pai="Badlands")
-    for x in (126, 130, 134):
-        m.peca("Trilho", MUNDO_PACOTE + "enfeite_trilho.glb", x, 33.5, graus=90, pai="Badlands")
-    m.peca("Vagonete", MUNDO_PACOTE + "vagonete.glb", 131, 33.5, graus=90, pai="Badlands")
-    m.peca("Caixote", DUNGEON_PACOTE + "caixote_de_metal.glb", 125, 31.6, graus=20, pai="Badlands")
-    m.peca("Caixote", DUNGEON_PACOTE + "caixote_de_metal.glb", 125.6, 31.0, graus=-10, y=0.46, pai="Badlands")
-    m.peca("CarroVelho", MUNDO_PACOTE + "carro_velho.glb", 112, 52, graus=35, pai="Badlands")
+    for x, z, graus in ((150, 19, 10), (138, 16, -15), (157, 36, 80)):
+        p("MesaGrande", MUNDO_PACOTE + "mesa_de_pedra_grande.glb", x, z, graus=graus, pai="Badlands")
+    p("Guindaste", MUNDO_PACOTE + "guindaste_da_pedreira.glb", 142, 37, graus=-30, pai="Badlands")
+    for x in (131, 135, 139):
+        p("Trilho", MUNDO_PACOTE + "enfeite_trilho.glb", x, 43, graus=90, pai="Badlands")
+    p("Vagonete", MUNDO_PACOTE + "vagonete.glb", 136, 43, graus=90, pai="Badlands")
+    for x, z in ((146, 40), (149, 44), (144, 46)):
+        p("RochaDaPedreira", MUNDO_PACOTE + "rochedo_b.glb", x, z, graus=sorteio.uniform(0, 360), pai="Badlands")
+    p("Mirante", MUNDO_PACOTE + "placa_de_estrada.glb", 127, 28.5, graus=0, pai="Badlands")
+    p("BancoDoMirante", MUNDO_PACOTE + "banco_de_praca.glb", 125.5, 30.5, graus=180, pai="Badlands")
+    p("Ossada", MUNDO_PACOTE + "enfeite_caveira_de_boi.glb", 146, 50, pai="Badlands")
+    p("CarroVelho", MUNDO_PACOTE + "carro_velho.glb", 121, 50, graus=35, pai="Badlands")
 
-    # -- acampamento das motoqueiras (leste)
+    # -- acampamento das motoqueiras
     c.no("Acampamento", "Node3D")
-    m.peca("Oficina", MUNDO_PACOTE + "oficina_das_motoqueiras.glb", 140, 70, pai="Acampamento")
-    m.peca("Trailer", MUNDO_PACOTE + "trailer.glb", 127, 82, graus=20, pai="Acampamento")
-    m.peca("Trailer", MUNDO_PACOTE + "trailer.glb", 153, 84, graus=-30, pai="Acampamento")
-    for x, z, graus in ((134.5, 78.5, 80), (136.2, 79, 100), (146, 77, -70)):
-        m.peca("Moto", MUNDO_PACOTE + "moto.glb", x, z, graus=graus, pai="Acampamento")
-    m.peca("Rampa", MUNDO_PACOTE + "rampa_de_salto.glb", 146, 90, graus=90, pai="Acampamento")
-    for x, z in ((124, 72), (157, 73), (132, 90)):
-        m.peca("Pneus", MUNDO_PACOTE + "pilha_de_pneus.glb", x, z, graus=sorteio.uniform(0, 360), pai="Acampamento")
-    m.peca("Muro", MUNDO_PACOTE + "muro_grafitado.glb", 129, 68.5, pai="Acampamento")
-    m.peca("Muro", MUNDO_PACOTE + "muro_grafitado.glb", 151, 68.5, pai="Acampamento")
-    m.peca("Fogueira", NATUREZA + "campfire_stones.glb", 140, 82, escala=3.0, pai="Acampamento")
-    m.peca("Toldo", MUNDO_PACOTE + "toldo_de_lona.glb", 133, 76.5, graus=-10, pai="Acampamento")
-    m.peca("Mesa", MUNDO_PACOTE + "mesa_de_acampamento.glb", 133, 76.8, graus=-10, pai="Acampamento")
-    for x, z in ((156, 78), (156.7, 78.8), (122.5, 80)):
-        m.peca("Tambor", DUNGEON_PACOTE + "barril_de_aviso.glb", x, z, pai="Acampamento")
-    m.peca("CarroVelho", MUNDO_PACOTE + "carro_velho.glb", 124, 89, graus=60, pai="Acampamento")
-    m.peca("Maquina", MUNDO_PACOTE + "maquina_de_venda.glb", 146.5, 72.4, pai="Acampamento")
-    m.luz("LuzDaFogueira", 140, 1.4, 82, (1.0, 0.6, 0.3), alcance=8.0, energia=1.5, pai="Acampamento")
+    ax, az = dm.LUGARES["acampamento"][0], dm.LUGARES["acampamento"][1]
+    p("Oficina", MUNDO_PACOTE + "oficina_das_motoqueiras.glb", ax + 2, az - 9, pai="Acampamento")
+    p("Onibus", MUNDO_PACOTE + "onibus_abandonado.glb", ax - 10, az + 1, graus=20, pai="Acampamento")
+    m.luz("LuzDoOnibus", ax - 10, 2.0, az - 1.5, (1.0, 0.6, 0.9), alcance=7.0, pai="Acampamento")
+    p("Trailer", MUNDO_PACOTE + "trailer.glb", ax + 12, az + 2, graus=-30, pai="Acampamento")
+    p("Trailer", MUNDO_PACOTE + "trailer.glb", ax - 4, az + 9, graus=170, pai="Acampamento")
+    for x, z, graus in ((ax - 3.5, az - 4.5, 80), (ax - 1.8, az - 4.0, 100), (ax + 8, az - 5, -70)):
+        p("Moto", MUNDO_PACOTE + "moto.glb", x, z, graus=graus, pai="Acampamento")
+    p("Rampa", MUNDO_PACOTE + "rampa_de_salto.glb", ax + 8, az + 7, graus=90, pai="Acampamento")
+    for x, z in ((ax - 13, az - 7), (ax + 14, az - 7), (ax - 6, az + 12)):
+        p("Pneus", MUNDO_PACOTE + "pilha_de_pneus.glb", x, z, graus=sorteio.uniform(0, 360), pai="Acampamento")
+    p("Muro", MUNDO_PACOTE + "muro_grafitado.glb", ax - 7, az - 11, pai="Acampamento")
+    p("Muro", MUNDO_PACOTE + "muro_grafitado.glb", ax + 11, az - 11, pai="Acampamento")
+    p("Fogueira", NATUREZA + "campfire_stones.glb", ax + 1, az + 1, escala=3.0, pai="Acampamento")
+    m.luz("LuzDaFogueira", ax + 1, 1.4, az + 1, (1.0, 0.6, 0.3), alcance=8.0, energia=1.5, pai="Acampamento")
+    p("Toldo", MUNDO_PACOTE + "toldo_de_lona.glb", ax - 5, az - 1, graus=-10, pai="Acampamento")
+    p("Mesa", MUNDO_PACOTE + "mesa_de_acampamento.glb", ax - 5, az - 0.7, graus=-10, pai="Acampamento")
     c.no("AlvosDeTreino", "Node3D", pai="Acampamento")
-    for x in (148, 150.5, 153):
-        m.peca("AlvoDeTreino", "res://scenes/combat/alvo_de_treino.tscn", x, 79, pai="Acampamento/AlvosDeTreino")
+    for indice, x in enumerate((ax + 8, ax + 10.5, ax + 13)):
+        m.peca("AlvoDeTreino", "res://scenes/combat/alvo_de_treino.tscn", x, az - 1, pai="Acampamento/AlvosDeTreino",
+               y=chao(x, az - 1))
+
+    # -- reservas: cercadas, vistas mas não andáveis, com bichos dentro
+    c.no("Reservas", "Node3D")
+
+    def cercar(pontos, nome, modelo):
+        fechado = list(pontos) + [pontos[0]]
+        for (x1, z1), (x2, z2) in zip(fechado, fechado[1:]):
+            comprimento = math.hypot(x2 - x1, z2 - z1)
+            pedacos = max(int(round(comprimento / 4.0)), 1)
+            for k in range(pedacos):
+                t = (k + 0.5) / pedacos
+                x, z = x1 + (x2 - x1) * t, z1 + (z2 - z1) * t
+                p(nome, MUNDO_PACOTE + modelo + ".glb", x, z, graus=math.degrees(math.atan2(-(z2 - z1), x2 - x1)),
+                  pai="Reservas", escala=comprimento / pedacos / 4.0 * 1.02 if abs(comprimento / pedacos - 4.0) > 0.3 else None)
+
+    for nome, pontos in dm.RESERVAS.items():
+        cercar(pontos, "Cerca", "cerca_de_sucata" if nome != "pasto_do_vizinho" else "cerca_de_arame")
+    raposas = dm.RESERVAS["reserva_das_raposas"]
+    p("CarcacaDeDrone", MUNDO_PACOTE + "carcaca_de_drone.glb", 43, 75, graus=25, pai="Reservas")
+    p("Costela", MUNDO_PACOTE + "costela_gigante.glb", 108, 24, graus=-15, pai="Reservas")
+    p("CaixaDoPasto", MUNDO_PACOTE + "caixa_dagua_da_fazenda.glb", 119, 69, pai="Reservas")
+
+    def animal(nome, arquivo, x, z, area, escala, velocidade):
+        c.no(nome, "Node3D", pai="Reservas", propriedades={
+            "position": vetor(x, chao(x, z), z),
+            "script": c.recurso("Script", "res://scripts/world/animal_do_cenario.gd"),
+            "modelo": c.recurso("PackedScene", KENNEY + "kenney_cube_pets/" + arquivo + ".glb"),
+            "area": "Rect2(%s, %s, %s, %s)" % (numero(area[0]), numero(area[1]), numero(area[2]), numero(area[3])),
+            "escala_do_modelo": numero(escala), "velocidade": numero(velocidade)})
+
+    area_das_raposas = (37, 68, 12, 18)
+    for k, (x, z) in enumerate(((40, 70), (46, 80), (38, 84))):
+        animal("Raposa", "animal_fox", x, z, area_das_raposas, 0.24, 1.1)
+    for k, (x, z) in enumerate(((44, 70), (40, 78))):
+        animal("Lebre", "animal_bunny", x, z, area_das_raposas, 0.2, 1.4)
+    for k, (x, z) in enumerate(((115, 66), (120, 72), (117, 74))):
+        animal("Vaca", "animal_cow", x, z, (114, 64, 9, 10), 0.36, 0.5)
+    for k, (x, z) in enumerate(((104, 22), (111, 27))):
+        animal("RaposaDosOssos", "animal_fox", x, z, (102, 20, 12, 8), 0.24, 1.0)
+    c.no("BolasDeFeno", "Node3D", propriedades={
+        "script": c.recurso("Script", "res://scripts/world/soprador_de_feno.gd"),
+        "modelo": c.recurso("PackedScene", MUNDO_PACOTE + "enfeite_bola_de_feno.glb"),
+        "areas": "Array[Rect2]([Rect2(34, 66, 8, 22), Rect2(100, 19, 6, 10), Rect2(2, 99, 40, 8), Rect2(105, 101, 50, 6), Rect2(112, 62, 5, 14), Rect2(118, 52, 16, 6)])",
+        "maximo_ao_mesmo_tempo": "7"})
 
     # -- a porteira para a fazenda (noroeste)
     c.no("SaidaDaFazenda", "Node3D")
-    m.peca("Porteira", MUNDO_PACOTE + "porteira_da_fazenda.glb", 0.5, 22, graus=90, pai="SaidaDaFazenda")
-    m.peca("CaixaDeCorreio", MUNDO_PACOTE + "caixa_de_correio.glb", 4, 25.5, pai="SaidaDaFazenda")
-    m.marcador("ChegadaDaFazenda", 5, 22, graus=90, pai="SaidaDaFazenda")
-    m.passagem("PassagemParaAFazenda", -2.5, 22, 2.0, 5.0, "fazenda", "ChegadaDaPorteira", pai="SaidaDaFazenda")
+    p("Porteira", MUNDO_PACOTE + "porteira_da_fazenda.glb", 0.5, 20, graus=90, pai="SaidaDaFazenda")
+    p("CaixaDeCorreio", MUNDO_PACOTE + "caixa_de_correio.glb", 4, 23.5, pai="SaidaDaFazenda")
+    p("Placa", MUNDO_PACOTE + "placa_de_estrada.glb", 14, 18, graus=180, pai="SaidaDaFazenda")
+    m.marcador("ChegadaDaFazenda", 5, 20, graus=90, pai="SaidaDaFazenda")
+    m.passagem("PassagemParaAFazenda", -2.5, 20, 2.0, 5.0, "fazenda", "ChegadaDaPorteira", pai="SaidaDaFazenda")
 
-    # -- deserto espalhado (o que dá vida ao chão aberto)
+    # -- marcos espalhados no caminho, para o jogador sempre ter um à vista
+    c.no("Marcos", "Node3D")
+    for x, z in ((52, 30), (114, 84), (30, 68), (104, 92), (48, 96)):
+        p("Barraco", MUNDO_PACOTE + ("barraco_a" if x % 2 else "barraco_b") + ".glb", x, z, graus=sorteio.uniform(-30, 30), pai="Marcos")
+    p("CaixaDagua", MUNDO_PACOTE + "caixa_dagua_da_fazenda.glb", 78, 30, pai="Marcos")
+    for pontos, _largura in dm.TRILHAS[3:5]:
+        curva = dm.suavizar(pontos, passo=12.0)
+        for indice, (x, z) in enumerate(curva[1:-1]):
+            p("PosteDeEnergia", MUNDO_PACOTE + "poste_de_energia.glb", x + 2.2, z + 1.5, graus=indice * 13, pai="Marcos")
+
+    # -- preenchimento: onde ainda não há marco à vista, um marco do tipo da região
+    c.no("Preenchimento", "Node3D")
+    preencher_buracos(p, sorteio)
+
+    # -- rocha: formações altas nas bordas e no norte; baixas no meio
+    c.no("Rochas", "Node3D")
+    altas = ((4, 48, "rochedo_a"), (9, 62, "rochedo_d"), (44, 22, "rochedo_c"), (68, 20, "rochedo_a"), (96, 32, "rochedo_c"),
+             (118, 46, "rochedo_a"), (150, 60, "rochedo_d"), (156, 75, "rochedo_c"), (124, 96, "rochedo_b"), (150, 99, "rochedo_d"),
+             (60, 80, "rochedo_c"), (112, 90, "rochedo_a"), (30, 103, "rochedo_d"), (5, 76, "rochedo_c"), (156, 90, "rochedo_a"),
+             (1, 100, "rochedo_d"), (86, 104, "rochedo_b"), (100, 104, "rochedo_d"), (48, 104, "rochedo_b"))
+    for x, z, modelo in altas:
+        p("Rochedo", MUNDO_PACOTE + modelo + ".glb", x, z, graus=sorteio.uniform(0, 360), pai="Rochas",
+          cobre=modelo in ("rochedo_a", "rochedo_c") and z < 95)
+
+    # -- deserto espalhado
     c.no("Deserto", "Node3D")
-    m.espalhador("CactosAltos", MUNDO_PACOTE + "cacto_alto.glb", 80, 62, 156, 92, 70, 3, distancia=5.0,
-                 raio=0.3, altura=2.0, livres=LIVRES, pai="Deserto")
-    m.espalhador("CactosRedondos", MUNDO_PACOTE + "cacto_redondo.glb", 80, 62, 156, 92, 90, 4, distancia=2.5,
-                 raio=0.32, altura=0.5, livres=LIVRES, pai="Deserto")
-    m.espalhador("Palmas", MUNDO_PACOTE + "cacto_de_raquete.glb", 80, 62, 156, 92, 60, 5, distancia=2.5,
-                 raio=0.3, altura=0.9, livres=LIVRES, pai="Deserto")
-    m.espalhador("Rochas", MUNDO_PACOTE + "rocha_do_deserto.glb", 80, 62, 156, 92, 45, 6, distancia=4.0,
-                 raio=0.9, altura=0.6, livres=LIVRES, escala=(0.7, 1.5), pai="Deserto")
-    m.espalhador("Pedras", MUNDO_PACOTE + "pedras_do_deserto.glb", 80, 62, 156, 92, 50, 7, distancia=3.0,
-                 livres=LIVRES, sombra=False, some=40.0, pai="Deserto")
-    m.espalhador("Capim", MUNDO_PACOTE + "enfeite_capim_seco.glb", 80, 62, 156, 92, 320, 8, distancia=1.4,
-                 livres=LIVRES[:1] + LIVRES[3:5], sombra=False, some=35.0, pai="Deserto")
-    m.espalhador("ArbustosSecos", MUNDO_PACOTE + "arbusto_seco.glb", 80, 62, 156, 92, 70, 11, distancia=3.0,
-                 livres=LIVRES, sombra=False, some=45.0, pai="Deserto")
-    m.espalhador("BolasDeFeno", MUNDO_PACOTE + "enfeite_bola_de_feno.glb", 80, 62, 156, 92, 14, 12, distancia=10.0,
-                 livres=LIVRES, pai="Deserto")
-    m.espalhador("Caveiras", MUNDO_PACOTE + "enfeite_caveira_de_boi.glb", 120, 50, 70, 60, 5, 9, distancia=12.0,
-                 livres=LIVRES, sombra=False, pai="Deserto")
-    m.espalhador("CactosDasBadlands", MUNDO_PACOTE + "cacto_alto.glb", 138, 40, 40, 36, 16, 10, distancia=4.0,
-                 raio=0.3, altura=2.0, livres=LIVRES + [(130, 28, 16, 14)], pai="Deserto")
+    circulos = circulos_das_trilhas()
+    livres_dos_lugares = [(cx_ - rx - 1, cz_ - rz - 1, (rx + 1) * 2, (rz + 1) * 2) for cx_, cz_, rx, rz in dm.LUGARES.values()]
+    livres_dos_lugares += [(0, 0, 160, 16), (cx - 26, cz - 11, 52, 22)]
+
+    def espalhar(nome, modelo, quantidade, semente, distancia, raio=0.0, altura=1.5, escala=(0.85, 1.2), sombra=True, some=0.0,
+                 area=(80, 60, 156, 92), livres=None):
+        no = m.espalhador(nome, MUNDO_PACOTE + modelo + ".glb", area[0], area[1], area[2], area[3], quantidade, semente,
+                          distancia=distancia, raio=raio, altura=altura, livres=livres if livres is not None else livres_dos_lugares,
+                          escala=escala, sombra=sombra, some=some, pai="Deserto")
+        circulos_locais = ", ".join("%s, %s, %s" % (numero(x - area[0]), numero(z - area[1]), numero(r)) for x, z, r in circulos)
+        c.nos[-1] += "\ncirculos_livres = PackedVector3Array(%s)\nseguir_o_chao = true" % circulos_locais
+        return no
+
+    espalhar("CactosAltos", "cacto_alto", 55, 3, 5.0, raio=0.3, altura=2.0)
+    espalhar("CactosRedondos", "cacto_redondo", 80, 4, 2.5, raio=0.32, altura=0.5)
+    espalhar("Palmas", "cacto_de_raquete", 55, 5, 2.5, raio=0.3, altura=0.9)
+    espalhar("RochasBaixas", "rochas_baixas", 60, 6, 3.0, raio=0.7, altura=0.6, escala=(0.7, 1.4))
+    espalhar("Pedras", "pedras_do_deserto", 70, 7, 2.5, sombra=False, some=40.0)
+    espalhar("Capim", "enfeite_capim_seco", 380, 8, 1.3, sombra=False, some=35.0)
+    espalhar("ArbustosSecos", "arbusto_seco", 90, 11, 2.5, sombra=False, some=45.0)
+    espalhar("Ossos", "enfeite_ossos", 18, 12, 9.0, sombra=False)
+    espalhar("Caveiras", "enfeite_caveira_de_boi", 8, 13, 12.0, sombra=False)
+    espalhar("Rachaduras", "enfeite_rachadura", 120, 14, 3.0, sombra=False, some=45.0)
+    espalhar("ManchasDeTerra", "enfeite_mancha_de_terra", 18, 15, 12.0, sombra=False, escala=(1.0, 2.0))
 
     # -- pontos de rotina dos NPCs (os nomes são os que os perfis usam)
     c.no("PontosDeRotina", "Node3D", grupos=["pontos_de_rotina"])
-    pontos = (
-        ("casa_marta", 61.5, 64, 90), ("casa_iara", 64, 71.5, 0), ("casa_sol", 76, 71.5, 0),
-        ("casa_kenji", 96.5, 46, -90), ("casa_rafa", 96.5, 51, -90), ("casa_vitor", 96.5, 63, -90),
-        ("oficina", 97.5, 74, -90), ("mercado", 68, 45.5, 0), ("clinica", 61.5, 55, 90),
-        ("torre_antena", 108, 25, 0), ("posto_entrega", 77, 16.5, 0), ("mirante", 118, 34, 0),
-        ("praca", 73, 60, 0), ("ponte", X_DO_CANAL, 56, 90), ("beira_rio", 70, 89.5, 180),
+    pontos_de_rotina = (
+        ("casa_marta", vx - 5.6, vz + 6.0, 90), ("casa_iara", mx - 11.6, mz + 9.5, 90), ("casa_sol", 75.0, 75.0, 90),
+        ("casa_kenji", vx - 1.8, vz - 6.3, 0), ("casa_rafa", vx + 2.2, vz - 6.3, 0), ("casa_vitor", vx + 7.0, vz - 1.0, -90),
+        ("oficina", vx + 6.5, vz + 7.5, -90), ("mercado", mx - 4.5, mz - 9.0, 0), ("clinica", mx - 11.5, mz + 1.0, 90),
+        ("torre_antena", vx + 4.5, vz - 10.5, 0), ("posto_entrega", 76.0, 16.0, 0), ("mirante", 127.0, 30.5, 0),
+        ("praca", mx, mz + 0.5, 0), ("ponte", 0.0, dm.PONTES[2][2], 90), ("beira_rio", x_do_pier, z_da_margem_norte - 3.0, 180),
     )
-    for nome, x, z, graus in pontos:
+    for nome, x, z, graus in pontos_de_rotina:
+        if nome == "ponte":
+            x, _angulo = dm.x_do_curso_em(dm.RIO, z)
         m.marcador(nome, x, z, graus=graus, pai="PontosDeRotina")
+        c.nos[-1] = c.nos[-1].replace("position = Vector3(%s, 0, %s)" % (numero(x), numero(z)),
+                                      "position = %s" % vetor(x, chao(x, z), z))
     c.no("ElencoDeNpcs", "Node3D", propriedades={"script": c.recurso("Script", "res://scripts/npcs/elenco_de_npcs.gd")})
 
     # -- bordas do mapa
     c.no("Limites", "Node3D")
-    m.parede("Norte", 80, 9.6, 164, 1, pai="Limites")
-    m.parede("Sul", 80, 110.6, 164, 1, pai="Limites")
-    m.parede("Leste", 160.6, 60, 1, 102, pai="Limites")
-    m.parede("OesteDeCima", -0.6, 15.25, 1, 11.5, pai="Limites")
-    m.parede("OesteDeBaixo", -0.6, 67.25, 1, 88.5, pai="Limites")
-    m.parede("AtrasDaPassagem", -5.5, 22, 1, 8, pai="Limites")
-    m.parede("LadoDaPassagemNorte", -3, 19.2, 5, 1, pai="Limites")
-    m.parede("LadoDaPassagemSul", -3, 24.8, 5, 1, pai="Limites")
-    for z in range(30, 110, 4):
-        m.peca("Cerca", MUNDO_PACOTE + "cerca_de_arame.glb", -0.2, z, graus=90, pai="Limites")
-    for x in range(2, 160, 4):
-        if 50 <= x <= 98:
-            continue
-        m.peca("Cerca", MUNDO_PACOTE + "cerca_de_arame.glb", x, 110, pai="Limites")
+    m.parede("Norte", 80, 8.6, 164, 1, pai="Limites")
+    m.parede("Sul", 80, 108.6, 164, 1, pai="Limites")
+    m.parede("Leste", 159.6, 60, 1, 102, pai="Limites")
+    m.parede("OesteDeCima", -0.6, 13.25, 1, 9.5, pai="Limites")
+    m.parede("OesteDeBaixo", -0.6, 65.25, 1, 88.5, pai="Limites")
+    m.parede("AtrasDaPassagem", -5.5, 20, 1, 8, pai="Limites")
+    m.parede("LadoDaPassagemNorte", -3, 17.2, 5, 1, pai="Limites")
+    m.parede("LadoDaPassagemSul", -3, 22.8, 5, 1, pai="Limites")
 
     # -- navegação
     arquivo = "res://resources/navigation/mundo.tres"
@@ -715,7 +1003,8 @@ def montar_mundo():
         propriedades["navigation_mesh"] = c.recurso("NavigationMesh", arquivo)
     propriedades["script"] = c.recurso("Script", "res://scripts/world/regiao_de_navegacao.gd")
     propriedades["arquivo_da_malha"] = '"%s"' % arquivo
-    propriedades["limite_do_chao"] = "Rect2(0, 10, 160, 100)"
+    propriedades["limite_do_chao"] = "Rect2(0, 9, 160, 100)"
+    propriedades["somar_chao_plano"] = "false"
     c.no("RegiaoDeNavegacao", "NavigationRegion3D", propriedades=propriedades)
     return c.texto()
 
@@ -723,6 +1012,10 @@ def montar_mundo():
 def main():
     for nome, montar in (("fazenda", montar_fazenda), ("mundo", montar_mundo)):
         texto = montar()
+        if nome == "mundo":
+            buracos = relatorio_de_marcos()
+            if "--buracos" in _sys.argv:
+                print("buracos:", buracos)
         caminho = PASTA_DAS_CENAS / (nome + ".tscn")
         caminho.write_text(texto, encoding="utf-8")
         print("gravado", caminho.relative_to(RAIZ), "com", texto.count("[node "), "nos")
