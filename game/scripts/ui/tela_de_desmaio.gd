@@ -20,6 +20,9 @@ const TEXTO_DE_DORMIR: String = "Você dormiu bem.\nUm novo dia começou."
 
 var _em_andamento: bool = false
 
+## A transição que pediram enquanto outra rodava. Fica guardada e roda logo depois.
+var _pendente: Callable = Callable()
+
 func _ready() -> void:
 	# A sequência não pode parar se o jogo pausar no meio, senão a tela ficaria preta
 	# para sempre. O tween segue o modo de processo deste nó.
@@ -31,6 +34,11 @@ func _ready() -> void:
 
 func _ao_desmaiar(motivo: int) -> void:
 	if _em_andamento:
+		# Um desmaio que chega no meio de outra transição (o menu de debug pulando a hora
+		# para a 1:00 enquanto a tela de dormir ainda está escura, por exemplo) não pode ser
+		# descartado: o StatusManager já marcou o jogador como caído e o relógio já parou, e
+		# só esta tela os solta. Ele espera a transição atual acabar e roda em seguida.
+		_pendente = _ao_desmaiar.bind(motivo)
 		return
 	_em_andamento = true
 	match motivo:
@@ -55,7 +63,11 @@ func _ao_desmaiar(motivo: int) -> void:
 ## Dormir na cama usa a mesma tela, sem queda e sem penalidade: escurece, vira o dia e
 ## clareia. O sono forçado da 1:00 não passa por aqui, ele chega como desmaio.
 func _ao_dormir(forcado: bool) -> void:
-	if forcado or _em_andamento:
+	if forcado:
+		return
+	if _em_andamento:
+		# Mesmo motivo do desmaio: o DayCycleManager já está dormindo e espera a virada.
+		_pendente = _ao_dormir.bind(false)
 		return
 	_em_andamento = true
 	texto.text = TEXTO_DE_DORMIR
@@ -70,3 +82,7 @@ func _ao_dormir(forcado: bool) -> void:
 
 func _ao_terminar() -> void:
 	_em_andamento = false
+	if _pendente.is_valid():
+		var proxima: Callable = _pendente
+		_pendente = Callable()
+		proxima.call()
