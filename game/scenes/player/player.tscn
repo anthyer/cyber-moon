@@ -1,5 +1,6 @@
 [gd_scene load_steps=15 format=3]
 
+[ext_resource type="Script" path="res://scripts/player/luz_do_jogador.gd" id="90_luz_do_jogador"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://d2br6e0shdkjd" path="res://assets/models/kenney_mini_characters/character_female_f.glb" id="2_personagem"]
 [ext_resource type="Script" path="res://scripts/player/passos_do_jogador.gd" id="3_passos"]
@@ -73,6 +74,7 @@ script = ExtResource("8_ataque")
 som = ExtResource("11_som_de_dano")
 
 [node name="LuzDoJogador" type="OmniLight3D" parent="."]
+script = ExtResource("90_luz_do_jogador")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 light_color = Color(0.62, 0.95, 1, 1)
 light_energy = 1.2
