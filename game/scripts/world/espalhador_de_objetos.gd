@@ -48,6 +48,8 @@ const CAMADA_MUNDO: int = 1
 const CAMADA_CHAO: int = 512
 ## Quantas vezes tentar achar lugar para cada cópia antes de desistir dela.
 const TENTATIVAS_POR_COPIA: int = 12
+## O lado de cada bloco de cópias desenhado junto.
+const TAMANHO_DO_BLOCO: float = 24.0
 
 func _ready() -> void:
 	if modelo == null:
@@ -112,26 +114,36 @@ func _assentar_no_chao(posicoes: Array[Transform3D]) -> void:
 		if not acerto.is_empty():
 			posicoes[indice].origin.y = (acerto["position"] as Vector3).y - global_position.y
 
-## Um MultiMeshInstance3D por malha do modelo, cada um com a posição da malha dentro do
-## modelo somada à posição da cópia.
+## As cópias são separadas em blocos de 24 por 24, e cada bloco ganha um
+## MultiMeshInstance3D por malha do modelo. Bloco fora da tela não é desenhado, e o
+## `some_a_partir_de` vale para cada bloco. Com um MultiMesh só para a área toda, o Godot
+## mede a distância até o meio da área: longe dele, o espalhador inteiro sumia de uma vez.
 func _montar_desenho(posicoes: Array[Transform3D]) -> void:
+	var blocos: Dictionary[Vector2i, Array] = {}
+	for posicao in posicoes:
+		var bloco: Vector2i = Vector2i(floori(posicao.origin.x / TAMANHO_DO_BLOCO), floori(posicao.origin.z / TAMANHO_DO_BLOCO))
+		if not blocos.has(bloco):
+			blocos[bloco] = []
+		blocos[bloco].append(posicao)
 	var exemplo: Node3D = modelo.instantiate() as Node3D
 	for no in exemplo.find_children("*", "MeshInstance3D", true, false):
 		var malha: MeshInstance3D = no as MeshInstance3D
 		var dentro_do_modelo: Transform3D = _transformacao_ate(malha, exemplo)
-		var multi: MultiMesh = MultiMesh.new()
-		multi.transform_format = MultiMesh.TRANSFORM_3D
-		multi.mesh = malha.mesh
-		multi.instance_count = posicoes.size()
-		for indice in posicoes.size():
-			multi.set_instance_transform(indice, posicoes[indice] * dentro_do_modelo)
-		var desenho: MultiMeshInstance3D = MultiMeshInstance3D.new()
-		desenho.name = "Copias_%s" % malha.name
-		desenho.multimesh = multi
-		desenho.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON if projeta_sombra else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		if some_a_partir_de > 0.0:
-			desenho.visibility_range_end = some_a_partir_de
-		add_child(desenho)
+		for bloco: Vector2i in blocos:
+			var do_bloco: Array = blocos[bloco]
+			var multi: MultiMesh = MultiMesh.new()
+			multi.transform_format = MultiMesh.TRANSFORM_3D
+			multi.mesh = malha.mesh
+			multi.instance_count = do_bloco.size()
+			for indice in do_bloco.size():
+				multi.set_instance_transform(indice, (do_bloco[indice] as Transform3D) * dentro_do_modelo)
+			var desenho: MultiMeshInstance3D = MultiMeshInstance3D.new()
+			desenho.name = "Copias_%s_%d_%d" % [malha.name, bloco.x, bloco.y]
+			desenho.multimesh = multi
+			desenho.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON if projeta_sombra else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			if some_a_partir_de > 0.0:
+				desenho.visibility_range_end = some_a_partir_de
+			add_child(desenho)
 	exemplo.free()
 
 func _transformacao_ate(no: Node3D, raiz: Node3D) -> Transform3D:
