@@ -97,8 +97,19 @@ serrilhado o leito dos rios", e "tudo que atrapalha a visão fica translúcido")
 - Quadros por segundo no mundo: de 70 a 85 (a borda e as coberturas não pesam; o número
   varia com o lugar).
 
-**Falta:** a fazenda na mesma língua orgânica (relevo leve, borda rachada, tons sem
-branco), decidida com o Antonio e ainda não feita.
+**A fazenda orgânica (2026-10-16).** O traçado está em
+`equipe/ferramentas/desenho_da_fazenda.py`, e o chão sai de `terreno_da_fazenda.py`:
+
+- Dentro da cerca o chão continua plano (talhão, casa e baú pedem chão reto). O orgânico
+  vem do gramado em manchas, dos caminhos curvos de terra batida (no lugar do pátio
+  retangular) e do laguinho afundado num barranco, com água no formato dele, parede
+  invisível na beira e o `ResgateDoJogador`.
+- Fora da cerca, uma faixa de terra rachada e depois dunas que sobem: a fazenda fica num
+  vale raso.
+- O gramado é uma malha própria, sem material; o gerador põe um material com a cor dos
+  vértices, e a `GramaDaEstacao` continua mudando o verde ao longo do ano.
+- Os corredores entre os talhões são retos e enchem o vão inteiro. Espantalho, feno,
+  carrinho de mão, uma palmeira e um canteiro de flores saíram de cima dos caminhos.
 
 **Como foi testado (por script, com captura de tela)**
 

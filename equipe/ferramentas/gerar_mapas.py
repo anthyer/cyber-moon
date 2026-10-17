@@ -52,7 +52,6 @@ CORES = {
     "terra_batida": (0.73, 0.55, 0.38),
     "asfalto": (0.29, 0.29, 0.35),
     "praca": (0.62, 0.61, 0.68),
-    "terra_da_fazenda": (0.5, 0.66, 0.36),
     "talhao": (0.45, 0.31, 0.21),
     "talhao_futuro": (0.6, 0.47, 0.34),
     "agua": (0.26, 0.5, 0.86),
@@ -271,7 +270,7 @@ class Montador:
         self.c.no("Forma", "CollisionShape3D", pai=area, propriedades={"shape": forma})
 
 
-def gravar_mascara_da_fazenda(livres, umidade=1.0):
+def gravar_mascara_da_fazenda(livres, circulos=(), umidade=1.0):
     """A máscara da graminha da fazenda: um pixel por unidade, vermelho é a densidade e
     verde a umidade. Os retângulos livres (talhões, caminhos, quintal) ficam sem grama.
 
@@ -284,7 +283,8 @@ def gravar_mascara_da_fazenda(livres, umidade=1.0):
         linhas.append(0)
         for x in range(largura):
             centro_x, centro_z = x + 0.5, z + 0.5
-            livre = any(rx <= centro_x <= rx + rw and rz <= centro_z <= rz + rd for (rx, rz, rw, rd) in livres)
+            livre = any(rx <= centro_x <= rx + rw and rz <= centro_z <= rz + rd for (rx, rz, rw, rd) in livres) or any(
+                (centro_x - cx_) ** 2 + (centro_z - cz_) ** 2 < r * r for cx_, cz_, r in circulos)
             linhas += bytes((0 if livre else 255, int(umidade * 255), 0))
 
     def bloco(tipo, dados):
@@ -323,44 +323,39 @@ def raiz_do_mapa(cena, nome, mapa_id, nome_exibido):
 LARGURA_DA_FAZENDA = 50.0
 PROFUNDIDADE_DA_FAZENDA = 40.0
 
-# (x, z, largura, profundidade, liberado), em células de 1 por 1, canto noroeste.
-TALHOES = [
-    (6, 18, 11, 8, True),
-    (20, 18, 11, 8, True),
-    (34, 18, 10, 8, True),
-    (6, 29, 11, 7, False),
-    (20, 29, 11, 7, False),
-    (34, 29, 10, 7, False),
-]
+# O traçado da fazenda (talhões, caminhos, laguinho) fica em desenho_da_fazenda.py, que o
+# terreno do Blender também lê.
+import desenho_da_fazenda as df
+
+TALHOES = df.TALHOES
 
 
 def montar_fazenda():
     c = Cena()
     m = Montador(c)
     raiz_do_mapa(c, "Fazenda", "fazenda", "Fazenda")
-    material_da_terra = c.material("terra_da_fazenda")
 
+    # O chão: o terreno (caminhos, talhões, laguinho, terra rachada e as dunas do vale) e o
+    # gramado, que vem sem material e ganha aqui o verde que muda com a estação.
     c.no("Chao", "Node3D")
-    m.chao("Areia", 25, 20, 130, 110, "areia", pai="Chao", y=-0.01)
-    malha = c.sub("PlaneMesh", {"material": material_da_terra, "size": "Vector2(50, 40)"})
-    c.no("Terra", "MeshInstance3D", pai="Chao", propriedades={"position": vetor(25, 0, 20), "mesh": malha, "cast_shadow": "0"})
-    # O chão de colisão da fazenda. O plano de colisão da fase fica bem abaixo (o mundo tem
-    # relevo e precisa do rio afundado livre), então cada mapa traz o próprio chão.
-    forma_do_chao = c.sub("BoxShape3D", {"size": vetor(140, 1, 120)})
-    corpo_do_chao = c.no("ChaoFirme", "StaticBody3D", pai="Chao", propriedades={
-        "position": vetor(25, -0.5, 20), "collision_layer": "513", "collision_mask": "0", "metadata/superficie": '&"terra"'})
-    c.no("Forma", "CollisionShape3D", pai=corpo_do_chao, propriedades={"shape": forma_do_chao})
-    m.chao("Patio", 25, 13, 42, 4, "terra_batida", pai="Chao", y=0.008)
-    m.faixa("Caminho", [(44, 15), (48, 22), (56, 22)], 3.0, "terra_batida", pai="Chao")
+    m.peca("Terreno", MUNDO_PACOTE + "chao_terreno_fazenda.glb", 0, 0, pai="Chao")
+    gramado = m.peca("Gramado", MUNDO_PACOTE + "chao_terreno_fazenda_gramado.glb", 0, 0, pai="Chao")
+    material_do_gramado = c.sub("StandardMaterial3D", {
+        "vertex_color_use_as_albedo": "true", "albedo_color": "Color(0.46, 0.62, 0.33, 1)", "roughness": "1.0"})
+    c.no("AplicarMaterial", "Node", pai=gramado, propriedades={
+        "script": c.recurso("Script", "res://scripts/world/material_nas_malhas.gd"), "material": material_do_gramado})
     c.no("GramaDaEstacao", "Node", propriedades={
         "script": c.recurso("Script", "res://scripts/world/grama_da_estacao.gd"),
-        "material_da_grama": material_da_terra})
+        "material_da_grama": material_do_gramado})
+    # Quem cair no laguinho volta para o chão.
+    c.no("ResgateDoJogador", "Node", propriedades={
+        "script": c.recurso("Script", "res://scripts/world/resgate_do_jogador.gd")})
 
     c.no("Construcoes", "Node3D")
     m.peca("Casa", MUNDO_PACOTE + "casa_da_fazenda.glb", 24, 6, pai="Construcoes")
     m.peca("Galpao", MUNDO_PACOTE + "galpao_da_fazenda.glb", 37, 6.5, pai="Construcoes")
     m.peca("CaixaDagua", MUNDO_PACOTE + "caixa_dagua_da_fazenda.glb", 10, 5, pai="Construcoes")
-    m.peca("Espantalho", MUNDO_PACOTE + "espantalho_robo.glb", 32.5, 22, graus=-15, pai="Construcoes")
+    m.peca("Espantalho", MUNDO_PACOTE + "espantalho_robo.glb", 45.6, 24.5, graus=-15, pai="Construcoes")
     m.peca("Porteira", MUNDO_PACOTE + "porteira_da_fazenda.glb", 50, 22, graus=90, pai="Construcoes")
     m.peca("CaixaDeCorreio", MUNDO_PACOTE + "caixa_de_correio.glb", 47.5, 25.5, pai="Construcoes")
 
@@ -433,57 +428,91 @@ def montar_fazenda():
     for x in (3, 15, 30.5, 45):
         m.peca("Palmeira", MUNDO_PACOTE + "palmeira.glb", x, 2.4, graus=x * 37, pai="Verde")
     for x in (47.5,):
-        for z in (17.5, 27):
+        for z in (13.5, 27):
             m.peca("Palmeira", MUNDO_PACOTE + "palmeira.glb", x, z, graus=z * 53, pai="Verde", cobre=True)
     for x in (4, 11, 18, 25, 32, 39, 46):
         m.peca("ArvoreFrutifera", MUNDO_PACOTE + "arvore_frutifera.glb", x, 38.3, graus=x * 29, pai="Verde", cobre=True)
     for x, z in ((1.6, 17), (1.6, 27), (1.6, 33), (48.6, 33), (48.6, 37)):
         m.peca("CercaViva", MUNDO_PACOTE + "cerca_viva.glb", x, z, graus=90, pai="Verde")
-    m.agua("Laguinho", 1.0, 11.0, 4.6, 15.4, pai="Verde")
-    m.bloqueio("BloqueioDoLaguinho", 1.0, 11.0, 4.6, 15.4, pai="Verde")
-    for x, z in ((0.8, 10.6), (4.9, 11.2), (5.0, 15.0), (2.4, 15.8), (0.7, 15.6)):
-        m.peca("Juncos", MUNDO_PACOTE + "enfeite_juncos.glb", x, z, graus=x * 80, pai="Verde")
-    for x, z in ((5.3, 13.0), (3.8, 16.4)):
-        m.peca("Pedras", MUNDO_PACOTE + "pedras_do_deserto.glb", x, z, escala=0.7, pai="Verde")
-    livres_da_fazenda = [(x - 0.6, z - 0.6, w + 1.2, d + 1.2) for (x, z, w, d, _l) in TALHOES] + [
-        (15, 1, 18, 10.5), (31, 2, 11, 10), (6, 1, 8, 8), (3, 11, 44, 4.5), (0.5, 10.5, 4.8, 5.5),
-        (43, 14, 8, 11), (31.5, 20.5, 2.2, 3)]
+    # O laguinho afundado, com a água no formato dele e uma parede invisível no alto do
+    # barranco. Juncos e pedras em volta, menos do lado do caminho que chega nele.
+    agua = m.peca("Laguinho", MUNDO_PACOTE + "enfeite_agua_da_fazenda.glb", 0, 0, pai="Verde")
+    c.no("AplicarShader", "Node", pai=agua, propriedades={
+        "script": c.recurso("Script", "res://scripts/world/material_nas_malhas.gd"),
+        "material": c.sub("ShaderMaterial", {
+            "shader": c.recurso("Shader", "res://assets/shaders/agua_toon.gdshader"),
+            "shader_parameter/espuma_pela_cor_do_vertice": "true"})})
+    lx, lz = df.LAGUINHO_CENTRO
+    beira = []
+    for indice in range(33):
+        angulo = math.tau * indice / 32
+        raio = df.raio_do_laguinho(angulo) + 0.3
+        beira.append((lx + math.cos(angulo) * raio, lz + math.sin(angulo) * raio))
+    corpo_da_beira = c.no("BeiraDoLaguinho", "StaticBody3D", pai="Verde", propriedades={"collision_mask": "0"})
+    for (x1, z1), (x2, z2) in zip(beira, beira[1:]):
+        forma = c.sub("BoxShape3D", {"size": vetor(math.hypot(x2 - x1, z2 - z1) + 0.2, 3.0, 0.3)})
+        c.no("Trecho", "CollisionShape3D", pai=corpo_da_beira, propriedades={
+            "position": vetor((x1 + x2) / 2, 1.0, (z1 + z2) / 2), "rotation": vetor(0, -math.atan2(z2 - z1, x2 - x1), 0),
+            "shape": forma})
+    for indice, angulo in enumerate(range(0, 360, 30)):
+        if -50 < (angulo - 330) < 50 or angulo < 20:
+            continue
+        raio = df.raio_do_laguinho(math.radians(angulo)) + 0.7
+        x, z = lx + math.cos(math.radians(angulo)) * raio, lz + math.sin(math.radians(angulo)) * raio
+        if x < 0.4:
+            continue
+        modelo = ("enfeite_juncos", "enfeite_juncos", "pedras_do_deserto")[indice % 3]
+        m.peca("Beira", MUNDO_PACOTE + modelo + ".glb", x, z, graus=angulo * 7, pai="Verde")
+    # Onde o enfeite espalhado não vai: talhões, construções, caminhos e o laguinho.
+    livres_da_fazenda = [(x - 0.6, z - 0.6, w + 1.2, d + 1.2) for (x, z, w, d, _l) in TALHOES] + list(df.CONSTRUCOES)
+    circulos_da_fazenda = [(x, z, largura / 2 + 0.6) for pontos, largura in df.CAMINHOS for x, z in df.suavizar(pontos, passo=1.0)]
+    circulos_da_fazenda.append((lx, lz, max(df.LAGUINHO_RAIOS) + 1.4))
+
+    def so_fora_dos_caminhos():
+        c.nos[-1] += "\ncirculos_livres = PackedVector3Array(%s)" % ", ".join(
+            "%s, %s, %s" % (numero(x - 25), numero(z - 20), numero(r)) for x, z, r in circulos_da_fazenda)
+
     m.espalhador("Grama", MUNDO_PACOTE + "enfeite_tufo_de_grama.glb", 25, 20, 49, 39, 170, 31, distancia=1.0,
                  sombra=False, livres=livres_da_fazenda, escala=(0.9, 1.5), pai="Verde")
+    so_fora_dos_caminhos()
     m.espalhador("Flores", MUNDO_PACOTE + "enfeite_flores.glb", 25, 20, 49, 39, 40, 32, distancia=1.6,
                  sombra=False, livres=livres_da_fazenda, pai="Verde")
+    so_fora_dos_caminhos()
     m.espalhador("Arbustos", MUNDO_PACOTE + "arbusto_do_oasis.glb", 25, 20, 49, 39, 16, 33, distancia=4.0,
                  raio=0.45, altura=0.8, livres=livres_da_fazenda, escala=(0.8, 1.2), pai="Verde")
-    for x, z in ((8, 9.5), (11, 9.2), (39.5, 11.4), (12.6, 16.4), (29.8, 16.4)):
+    so_fora_dos_caminhos()
+    for x, z in ((8, 9.5), (11, 9.2), (40.6, 9.6), (12.6, 16.4), (29.8, 16.4)):
         m.peca("FloresDoCanteiro", MUNDO_PACOTE + "enfeite_flores.glb", x, z, graus=x * 41, pai="Verde")
 
     # As coisas de uso, perto da casa e do galpão.
     c.no("Utensilios", "Node3D")
     m.peca("Varal", MUNDO_PACOTE + "varal.glb", 13.5, 9.6, pai="Utensilios")
     m.peca("Bancada", MUNDO_PACOTE + "bancada_de_ferramentas.glb", 42.2, 6.5, graus=-90, pai="Utensilios")
-    m.peca("Feno", MUNDO_PACOTE + "fardo_de_feno.glb", 41.8, 10.4, graus=10, pai="Utensilios")
-    m.peca("Feno", MUNDO_PACOTE + "fardo_de_feno.glb", 42.4, 11.2, graus=-15, pai="Utensilios")
-    m.peca("Feno", MUNDO_PACOTE + "fardo_de_feno.glb", 42.0, 10.75, graus=80, y=0.5, pai="Utensilios")
-    m.peca("CarrinhoDeMao", MUNDO_PACOTE + "carrinho_de_mao.glb", 18.4, 16.6, graus=70, pai="Utensilios")
+    m.peca("Feno", MUNDO_PACOTE + "fardo_de_feno.glb", 43.4, 8.4, graus=10, pai="Utensilios")
+    m.peca("Feno", MUNDO_PACOTE + "fardo_de_feno.glb", 44.0, 9.2, graus=-15, pai="Utensilios")
+    m.peca("Feno", MUNDO_PACOTE + "fardo_de_feno.glb", 43.6, 8.75, graus=80, y=0.5, pai="Utensilios")
+    m.peca("CarrinhoDeMao", MUNDO_PACOTE + "carrinho_de_mao.glb", 15.4, 16.2, graus=70, pai="Utensilios")
     m.peca("Barril", DUNGEON_PACOTE + "barril.glb", 11.6, 6.5, pai="Utensilios")
 
     # Graminha perto do jogador: mais verde que a do mundo, a fazenda é o oásis.
     # A máscara da graminha usa só o que é chão de uso (talhão, caminho, casa, galpão,
     # laguinho). O gramado em volta da casa ganha grama, mesmo sem enfeite espalhado.
-    sem_grama_na_fazenda = [(x - 0.6, z - 0.6, w + 1.2, d + 1.2) for (x, z, w, d, _l) in TALHOES] + [
-        (16, 1, 16, 8.5), (31, 2, 11, 10), (6, 1, 8, 8), (3, 11, 44, 4.5), (0.5, 10.5, 4.8, 5.5),
-        (43, 14, 8, 11), (31.5, 20.5, 2.2, 3)]
-    gravar_mascara_da_fazenda(sem_grama_na_fazenda)
+    sem_grama_na_fazenda = [(x - 0.6, z - 0.6, w + 1.2, d + 1.2) for (x, z, w, d, _l) in TALHOES] + list(df.CONSTRUCOES)
+    gravar_mascara_da_fazenda(sem_grama_na_fazenda, circulos_da_fazenda)
     grama_perto_do_jogador(c, mascara="res://assets/textures/grama/mascara_da_fazenda.png", densidade=5.0)
 
     # O deserto do lado de fora da cerca, só para a borda não ser um corte seco.
     c.no("Deserto", "Node3D")
     m.espalhador("CactosDoNorte", MUNDO_PACOTE + "cacto_redondo.glb", 25, -8, 60, 12, 14, 21, distancia=3.0, pai="Deserto")
+    c.nos[-1] += "\nseguir_o_chao = true"
     m.espalhador("CactosDoOeste", MUNDO_PACOTE + "cacto_alto.glb", -9, 20, 12, 44, 6, 22, distancia=5.0, pai="Deserto")
+    c.nos[-1] += "\nseguir_o_chao = true"
     m.espalhador("CapimDeFora", MUNDO_PACOTE + "enfeite_capim_seco.glb", 25, 47, 60, 10, 30, 23, distancia=1.2,
                  sombra=False, pai="Deserto")
+    c.nos[-1] += "\nseguir_o_chao = true"
     m.espalhador("CapimDeDentro", MUNDO_PACOTE + "enfeite_capim_seco.glb", 25, 38, 46, 3, 12, 24, distancia=1.5,
                  sombra=False, pai="Deserto")
+    c.nos[-1] += "\nseguir_o_chao = true"
     return c.texto()
 
 

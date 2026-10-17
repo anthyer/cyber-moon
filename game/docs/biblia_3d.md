@@ -204,6 +204,16 @@ e o lago afundados.
   com 1,4. E os vértices perto do pé e do topo são puxados para cima da curva exata
   (`encaixar_nas_margens`).
 
+### Terreno da fazenda
+
+O chão da fazenda segue a mesma receita, com `terreno_da_fazenda.py` lendo
+`desenho_da_fazenda.py`. Dentro da cerca é plano; o desnível fica no laguinho e no vale de
+fora. São dois modelos: `chao_terreno_fazenda` (paleta por face: terra batida
+`pessego@0.2`, talhão `marrom`, terra rachada e areia) e `chao_terreno_fazenda_gramado`,
+sem material, com um cinza por face na cor dos vértices, que o jogo multiplica pelo verde
+da estação. Os vértices perto da beira de cada caminho são puxados para a beira exata;
+os talhões caem na grade e não se mexem.
+
 ### Água (shader toon)
 
 A água tem o shader `assets/shaders/agua_toon.gdshader`: duas cores chapadas que andam
@@ -438,6 +448,11 @@ Em ordem de quanto tempo custaram.
     com `visibility_range_end`. O Godot mede essa distância até o meio da peça, e o meio
     era o meio do mapa: longe dele, todas as pedras, cactos e a borda sumiam, e a parede
     ficava invisível de verdade. Agora cada espalhador é dividido em blocos de 24 por 24.
+24. **Modelo novo sem colisão.** O `.glb.import` de um arquivo novo nasce com
+    `import_script/path=""`, e sem o script de pós-importação o modelo vem sem colisão e
+    sem a camada `chao`: o jogador atravessou o chão da fazenda e caiu. Todo modelo novo
+    do pacote precisa do script, como manda o `pipeline_de_assets.md`. Na dúvida:
+    `grep -L post_import_kenney assets/models/*/*.glb.import`.
 
 ## O que ainda não foi feito
 

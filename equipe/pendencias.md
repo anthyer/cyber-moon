@@ -302,8 +302,11 @@ exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota
 
 ### 2026-10-16, plano 26: corredores, rio, mira e translucidez
 
-- **A fazenda ainda não está na língua orgânica do mundo.** Decidido com o Antonio, falta
-  fazer: relevo leve, borda rachada, laguinho no barranco, tons sem branco.
+- **A fazenda orgânica foi feita no mesmo dia** (ver o plano 26). O vale e as dunas ficam
+  só do lado de fora da cerca; dentro, o chão segue plano por causa dos talhões.
+- **`planter.glb` do pacote suburbano da Kenney** está sem o script de pós-importação
+  (sem colisão gerada). Achado ao corrigir os modelos novos; não mexido, porque ligar a
+  colisão pode mudar onde se anda no playground antigo.
 - **Cobertura de marcos caiu de 92% para 89%.** Com o mundo andável só nos corredores, os
   buracos que sobraram ficam no miolo dos lugares grandes (campos solares, Badlands), longe
   do deserto fechado onde o marco de preenchimento pode ir. Esses lugares têm as próprias
