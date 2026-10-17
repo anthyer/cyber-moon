@@ -17,6 +17,12 @@ const SEGUNDOS_DE_VIDA: float = 3.0
 const MASCARA_DO_TIRO_DE_INIMIGO: int = 3
 ## O tiro do inimigo é lento e feito para ser desviado, então é maior para ser visto.
 const ESCALA_DO_TIRO_DE_INIMIGO: float = 1.8
+## A camada "chao" (a 10): o terreno com relevo. O tiro não bate nele; acompanha a altura
+## dele, para uma duna na frente não engolir o disparo.
+const CAMADA_DO_CHAO: int = 512
+## O tiro não desce abaixo disto ao acompanhar o chão: atirando por cima do rio ou do
+## cânion, ele passa reto em vez de mergulhar no leito.
+const CHAO_MAIS_BAIXO: float = -0.3
 
 var dano: int = 0
 var velocidade: float = 18.0
@@ -35,6 +41,8 @@ var disparo: Dictionary = {}
 
 var _segundos_restantes: float = SEGUNDOS_DE_VIDA
 var _distancia_percorrida: float = 0.0
+## Quanto o tiro saiu acima do chão. Negativo enquanto não foi medido (ou sem chão embaixo).
+var _altura_sobre_o_chao: float = -1.0
 
 ## Cria o projétil já configurado, coloca no pai e posiciona na origem.
 ## Verdadeiro no tiro que o convidado vê na dungeon em equipe: ele voa e some igual, mas
@@ -88,13 +96,33 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var passo: float = velocidade * delta
 	global_position += direcao * passo
+	_acompanhar_o_chao()
 	_distancia_percorrida += passo
 	_segundos_restantes -= delta
 	if _segundos_restantes <= 0.0 or (alcance > 0.0 and _distancia_percorrida >= alcance):
 		queue_free()
 
+## Sobe e desce com o terreno, mantendo a altura de quando saiu da arma. Em lugar sem
+## terreno (a dungeon, o chão plano) o raio não acha nada e o tiro segue reto.
+func _acompanhar_o_chao() -> void:
+	var chao: float = _altura_do_chao_embaixo()
+	if is_nan(chao):
+		return
+	if _altura_sobre_o_chao < 0.0:
+		_altura_sobre_o_chao = global_position.y - chao
+		return
+	global_position.y = chao + _altura_sobre_o_chao
+
+func _altura_do_chao_embaixo() -> float:
+	var espaco: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	var consulta: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(global_position + Vector3.UP * 2.0, global_position + Vector3.DOWN * 3.0, CAMADA_DO_CHAO)
+	var acerto: Dictionary = espaco.intersect_ray(consulta)
+	if acerto.is_empty():
+		return NAN
+	return maxf((acerto["position"] as Vector3).y, CHAO_MAIS_BAIXO)
+
 func _ao_acertar(corpo: Node3D) -> void:
-	if _eh_do_dono(corpo):
+	if _eh_do_dono(corpo) or _eh_o_terreno(corpo):
 		return
 	var alvo: Node = _alvo_que_leva_dano(corpo)
 	if alvo != null and not so_desenho:
@@ -105,6 +133,10 @@ func _ao_acertar(corpo: Node3D) -> void:
 			StatusManager.gastar_stamina(minf(custo_de_stamina, StatusManager.stamina_atual))
 	EventBus.projectile_impacted.emit(global_position)
 	queue_free()
+
+func _eh_o_terreno(no: Node) -> bool:
+	var corpo: CollisionObject3D = no as CollisionObject3D
+	return corpo != null and (corpo.collision_layer & CAMADA_DO_CHAO) != 0
 
 func _eh_do_dono(no: Node) -> bool:
 	if dono == null or not is_instance_valid(dono):
