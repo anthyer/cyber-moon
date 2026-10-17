@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dukx4tvyb2bdi"
-path="res://.godot/imported/tufos_de_grama.png-5b801fce6aba9f736cb01c4654d250f3.ctex"
+uid="uid://ctwuj7j25xrcb"
+path="res://.godot/imported/mascara_da_fazenda.png-9078dc56cdfcacb30e923f3b4f1a7c95.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/grama/tufos_de_grama.png"
-dest_files=["res://.godot/imported/tufos_de_grama.png-5b801fce6aba9f736cb01c4654d250f3.ctex"]
+source_file="res://assets/textures/grama/mascara_da_fazenda.png"
+dest_files=["res://.godot/imported/mascara_da_fazenda.png-9078dc56cdfcacb30e923f3b4f1a7c95.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

@@ -41,6 +41,8 @@ extends Node3D
 @export var some_a_partir_de: float = 0.0
 
 const CAMADA_MUNDO: int = 1
+## A camada "chao" (a 10), onde as cópias procuram o chão.
+const CAMADA_CHAO: int = 512
 ## Quantas vezes tentar achar lugar para cada cópia antes de desistir dela.
 const TENTATIVAS_POR_COPIA: int = 12
 
@@ -92,7 +94,7 @@ func _assentar_no_chao(posicoes: Array[Transform3D]) -> void:
 	var espaco: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	for indice in posicoes.size():
 		var no_mundo: Vector3 = global_transform * posicoes[indice].origin
-		var consulta: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(no_mundo + Vector3.UP * 6.0, no_mundo + Vector3.DOWN * 8.0, CAMADA_MUNDO)
+		var consulta: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(no_mundo + Vector3.UP * 6.0, no_mundo + Vector3.DOWN * 8.0, CAMADA_CHAO)
 		var acerto: Dictionary = espaco.intersect_ray(consulta)
 		if not acerto.is_empty():
 			posicoes[indice].origin.y = (acerto["position"] as Vector3).y - global_position.y

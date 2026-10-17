@@ -16,6 +16,9 @@ extends EditorScenePostImport
 const RUGOSIDADE_PADRAO: float = 0.9
 
 const CAMADA_MUNDO: int = 1
+## A camada "chao" (a 10). O terreno do mundo fica nela além da do mundo: é só nela que a
+## grama, os bichos e o deserto espalhado procuram onde pisar, para não nascer em telhado.
+const CAMADA_CHAO: int = 512
 
 ## Modelos cujo nome contém um destes trechos não recebem colisão. São decoração
 ## que o jogador precisa poder atravessar, senão andar pelo mapa vira um labirinto
@@ -81,7 +84,7 @@ func _gerar_colisao(no: Node, raiz: Node, superficie: StringName) -> void:
 		if malha != null and malha.get_surface_count() > 0:
 			var corpo := StaticBody3D.new()
 			corpo.name = "Colisao"
-			corpo.collision_layer = CAMADA_MUNDO
+			corpo.collision_layer = CAMADA_MUNDO | (CAMADA_CHAO if raiz.name.to_lower().begins_with("chao_terreno") else 0)
 			corpo.collision_mask = 0
 			corpo.set_meta(&"superficie", superficie)
 

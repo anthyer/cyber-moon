@@ -248,6 +248,7 @@ slot_anterior={
 3d_physics/layer_7="hitbox_ataque"
 3d_physics/layer_8="solo_agricola"
 3d_physics/layer_9="porta"
+3d_physics/layer_10="chao"
 
 [physics]
 

@@ -26,7 +26,8 @@ extends Node3D
 
 const SEGUNDOS_ENCOLHENDO: float = 1.2
 const ALTURA_DO_PULO: float = 0.25
-const CAMADA_DO_CHAO: int = 1
+## A camada "chao" (a 10): só o terreno e o chão da fazenda.
+const CAMADA_DO_CHAO: int = 512
 
 var _bolas: Array[Dictionary] = []
 var _segundos_ate_nascer: float = 0.0

@@ -33,16 +33,19 @@
 [ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/fardo_de_feno.glb" id="r31"]
 [ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/carrinho_de_mao.glb" id="r32"]
 [ext_resource type="PackedScene" path="res://assets/models/cyber_moon_dungeons/barril.glb" id="r33"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_redondo.glb" id="r34"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_alto.glb" id="r35"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_capim_seco.glb" id="r36"]
+[ext_resource type="Shader" path="res://assets/shaders/grama_perto.gdshader" id="r34"]
+[ext_resource type="Script" path="res://scripts/world/grama_perto_do_jogador.gd" id="r35"]
+[ext_resource type="Texture2D" path="res://assets/textures/grama/mascara_da_fazenda.png" id="r36"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_redondo.glb" id="r37"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cacto_alto.glb" id="r38"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_capim_seco.glb" id="r39"]
 
 [sub_resource type="StandardMaterial3D" id="s1"]
 albedo_color = Color(0.5, 0.66, 0.36, 1)
 roughness = 1.0
 
 [sub_resource type="StandardMaterial3D" id="s2"]
-albedo_color = Color(0.85, 0.73, 0.55, 1)
+albedo_color = Color(0.78, 0.58, 0.42, 1)
 roughness = 1.0
 
 [sub_resource type="PlaneMesh" id="s3"]
@@ -149,6 +152,9 @@ size = Vector2(1, 1)
 [sub_resource type="BoxShape3D" id="s31"]
 size = Vector3(3.6, 3.0, 4.4)
 
+[sub_resource type="ShaderMaterial" id="s32"]
+shader = ExtResource("r34")
+
 [node name="Fazenda" type="Node3D"]
 script = ExtResource("r1")
 id = &"fazenda"
@@ -168,6 +174,7 @@ cast_shadow = 0
 
 [node name="ChaoFirme" type="StaticBody3D" parent="Chao"]
 position = Vector3(25, -0.5, 20)
+collision_layer = 513
 collision_mask = 0
 metadata/superficie = &"terra"
 
@@ -1164,12 +1171,19 @@ rotation = Vector3(0, 1.2217, 0)
 [node name="Barril" parent="Utensilios" instance=ExtResource("r33")]
 position = Vector3(11.6, 0.0, 6.5)
 
+[node name="GramaPertoDoJogador" type="Node3D" parent="."]
+script = ExtResource("r35")
+material = SubResource("s32")
+umidade_sem_mascara = 0.0
+tufos_por_metro_quadrado = 5.0
+mascara = ExtResource("r36")
+
 [node name="Deserto" type="Node3D" parent="."]
 
 [node name="CactosDoNorte" type="Node3D" parent="Deserto"]
 position = Vector3(25, 0, -8)
 script = ExtResource("r25")
-modelo = ExtResource("r34")
+modelo = ExtResource("r37")
 quantidade = 14
 tamanho_da_area = Vector2(60, 12)
 semente = 21
@@ -1185,7 +1199,7 @@ some_a_partir_de = 0.0
 [node name="CactosDoOeste" type="Node3D" parent="Deserto"]
 position = Vector3(-9, 0, 20)
 script = ExtResource("r25")
-modelo = ExtResource("r35")
+modelo = ExtResource("r38")
 quantidade = 6
 tamanho_da_area = Vector2(12, 44)
 semente = 22
@@ -1201,7 +1215,7 @@ some_a_partir_de = 0.0
 [node name="CapimDeFora" type="Node3D" parent="Deserto"]
 position = Vector3(25, 0, 47)
 script = ExtResource("r25")
-modelo = ExtResource("r36")
+modelo = ExtResource("r39")
 quantidade = 30
 tamanho_da_area = Vector2(60, 10)
 semente = 23
@@ -1217,7 +1231,7 @@ some_a_partir_de = 0.0
 [node name="CapimDeDentro" type="Node3D" parent="Deserto"]
 position = Vector3(25, 0, 38)
 script = ExtResource("r25")
-modelo = ExtResource("r36")
+modelo = ExtResource("r39")
 quantidade = 12
 tamanho_da_area = Vector2(46, 3)
 semente = 24

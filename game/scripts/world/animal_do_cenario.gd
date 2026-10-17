@@ -19,7 +19,8 @@ extends Node3D
 @export var segundos_parado_maximo: float = 5.0
 @export var escala_do_modelo: float = 1.0
 
-const CAMADA_DO_CHAO: int = 1
+## A camada "chao" (a 10): só o terreno e o chão da fazenda.
+const CAMADA_DO_CHAO: int = 512
 
 var _visual: Node3D
 var _animacao: AnimationPlayer

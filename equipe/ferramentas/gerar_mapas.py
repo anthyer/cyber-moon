@@ -48,7 +48,7 @@ NATUREZA = KENNEY + "kenney_nature_kit/"
 ESCALA_KENNEY = 4.0
 
 CORES = {
-    "areia": (0.85, 0.73, 0.55),
+    "areia": (0.78, 0.58, 0.42),
     "terra_batida": (0.73, 0.55, 0.38),
     "asfalto": (0.29, 0.29, 0.35),
     "praca": (0.62, 0.61, 0.68),
@@ -259,6 +259,47 @@ class Montador:
         self.c.no("Forma", "CollisionShape3D", pai=area, propriedades={"shape": forma})
 
 
+def gravar_mascara_da_fazenda(livres, umidade=1.0):
+    """A máscara da graminha da fazenda: um pixel por unidade, vermelho é a densidade e
+    verde a umidade. Os retângulos livres (talhões, caminhos, quintal) ficam sem grama.
+
+    O PNG é escrito à mão com zlib, para o gerador seguir só com a biblioteca padrão."""
+    import struct
+    import zlib
+    largura, altura = int(LARGURA_DA_FAZENDA), int(PROFUNDIDADE_DA_FAZENDA)
+    linhas = bytearray()
+    for z in range(altura):
+        linhas.append(0)
+        for x in range(largura):
+            centro_x, centro_z = x + 0.5, z + 0.5
+            livre = any(rx <= centro_x <= rx + rw and rz <= centro_z <= rz + rd for (rx, rz, rw, rd) in livres)
+            linhas += bytes((0 if livre else 255, int(umidade * 255), 0))
+
+    def bloco(tipo, dados):
+        corpo = tipo + dados
+        return struct.pack(">I", len(dados)) + corpo + struct.pack(">I", zlib.crc32(corpo) & 0xFFFFFFFF)
+
+    png = b"\x89PNG\r\n\x1a\n" + bloco(b"IHDR", struct.pack(">IIBBBBB", largura, altura, 8, 2, 0, 0, 0))
+    png += bloco(b"IDAT", zlib.compress(bytes(linhas), 9)) + bloco(b"IEND", b"")
+    caminho = RAIZ / "game" / "assets" / "textures" / "grama" / "mascara_da_fazenda.png"
+    caminho.write_bytes(png)
+
+
+def grama_perto_do_jogador(cena, mascara=None, umidade=0.0, densidade=5.0):
+    """A graminha que só nasce em volta do jogador (GramaPertoDoJogador)."""
+    material = cena.sub("ShaderMaterial", {
+        "shader": cena.recurso("Shader", "res://assets/shaders/grama_perto.gdshader")})
+    propriedades = {
+        "script": cena.recurso("Script", "res://scripts/world/grama_perto_do_jogador.gd"),
+        "material": material,
+        "umidade_sem_mascara": numero(umidade),
+        "tufos_por_metro_quadrado": numero(densidade),
+    }
+    if mascara is not None:
+        propriedades["mascara"] = cena.recurso("Texture2D", mascara)
+    cena.no("GramaPertoDoJogador", "Node3D", propriedades=propriedades)
+
+
 def raiz_do_mapa(cena, nome, mapa_id, nome_exibido):
     cena.no(nome, "Node3D", pai=None, propriedades={
         "script": cena.recurso("Script", "res://scripts/world/mapa.gd"),
@@ -295,7 +336,7 @@ def montar_fazenda():
     # relevo e precisa do rio afundado livre), então cada mapa traz o próprio chão.
     forma_do_chao = c.sub("BoxShape3D", {"size": vetor(140, 1, 120)})
     corpo_do_chao = c.no("ChaoFirme", "StaticBody3D", pai="Chao", propriedades={
-        "position": vetor(25, -0.5, 20), "collision_mask": "0", "metadata/superficie": '&"terra"'})
+        "position": vetor(25, -0.5, 20), "collision_layer": "513", "collision_mask": "0", "metadata/superficie": '&"terra"'})
     c.no("Forma", "CollisionShape3D", pai=corpo_do_chao, propriedades={"shape": forma_do_chao})
     m.chao("Patio", 25, 13, 42, 4, "terra_batida", pai="Chao", y=0.008)
     m.faixa("Caminho", [(44, 15), (48, 22), (56, 22)], 3.0, "terra_batida", pai="Chao")
@@ -413,6 +454,15 @@ def montar_fazenda():
     m.peca("Feno", MUNDO_PACOTE + "fardo_de_feno.glb", 42.0, 10.75, graus=80, y=0.5, pai="Utensilios")
     m.peca("CarrinhoDeMao", MUNDO_PACOTE + "carrinho_de_mao.glb", 18.4, 16.6, graus=70, pai="Utensilios")
     m.peca("Barril", DUNGEON_PACOTE + "barril.glb", 11.6, 6.5, pai="Utensilios")
+
+    # Graminha perto do jogador: mais verde que a do mundo, a fazenda é o oásis.
+    # A máscara da graminha usa só o que é chão de uso (talhão, caminho, casa, galpão,
+    # laguinho). O gramado em volta da casa ganha grama, mesmo sem enfeite espalhado.
+    sem_grama_na_fazenda = [(x - 0.6, z - 0.6, w + 1.2, d + 1.2) for (x, z, w, d, _l) in TALHOES] + [
+        (16, 1, 16, 8.5), (31, 2, 11, 10), (6, 1, 8, 8), (3, 11, 44, 4.5), (0.5, 10.5, 4.8, 5.5),
+        (43, 14, 8, 11), (31.5, 20.5, 2.2, 3)]
+    gravar_mascara_da_fazenda(sem_grama_na_fazenda)
+    grama_perto_do_jogador(c, mascara="res://assets/textures/grama/mascara_da_fazenda.png", densidade=5.0)
 
     # O deserto do lado de fora da cerca, só para a borda não ser um corte seco.
     c.no("Deserto", "Node3D")
@@ -967,6 +1017,9 @@ def montar_mundo():
     espalhar("Caveiras", "enfeite_caveira_de_boi", 8, 13, 12.0, sombra=False)
     espalhar("Rachaduras", "enfeite_rachadura", 120, 14, 3.0, sombra=False, some=45.0)
     espalhar("ManchasDeTerra", "enfeite_mancha_de_terra", 18, 15, 12.0, sombra=False, escala=(1.0, 2.0))
+
+    # -- graminha perto do jogador, seca, só onde a máscara do terreno deixa
+    grama_perto_do_jogador(c, mascara="res://assets/textures/grama/mascara_do_mundo.png")
 
     # -- pontos de rotina dos NPCs (os nomes são os que os perfis usam)
     c.no("PontosDeRotina", "Node3D", grupos=["pontos_de_rotina"])
