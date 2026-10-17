@@ -614,7 +614,7 @@ parte, em z = 400.
   `EventBus.player_rescued`, que solta o efeito `resgate_da_agua`.
 - **Corredores.** O mundo é andável só nas trilhas (com uma folga para cada lado) e nos
   lugares, como no Stardew Valley. O resto do deserto continua à vista, mas fica atrás de
-  uma borda de cenário (muro de pedra, cerca, barreira, moita, sucata, cerca viva, com o
+  uma borda de cenário (muro de pedra, cerca, barreira, moita, sucata, junco, com o
   tema escolhido pelo lugar), com parede invisível. A borda sai de uma
   grade de meio em meio montada pelo gerador a partir de `desenho_do_mundo.py`
   (`TRILHAS`, `LUGARES`, `FOLGA_DOS_CORREDORES`); as peças dela são um

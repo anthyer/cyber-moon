@@ -860,10 +860,10 @@ def preencher_buracos(p, sorteio, meta=0.95):
 
 # Só as peças altas da borda projetam sombra: a sombra de cada bloco de cópias é mais uma
 # chamada de desenho, e a de pedra baixa e mato quase não se vê de cima.
-SOMBRA_NA_BORDA = ("muro_de_pedra", "rochedo_b", "arvore_seca", "cacto_alto", "palmeira", "cerca_viva")
+SOMBRA_NA_BORDA = ("muro_de_pedra", "rochedo_b", "arvore_seca", "cacto_alto", "palmeira")
 
 # Peças de 2 de comprimento que seguem a linha da borda, emendadas.
-PECAS_COMPRIDAS_DA_BORDA = ("muro_de_pedra", "cerca_de_estaca", "barreira_de_concreto", "cerca_viva")
+PECAS_COMPRIDAS_DA_BORDA = ("muro_de_pedra", "cerca_de_estaca", "barreira_de_concreto")
 COMPRIMENTO_DA_PECA_COMPRIDA = 2.0
 
 # Cada tema: a peça comprida da linha (ou nenhuma), as peças soltas da linha, as de trás
@@ -876,7 +876,10 @@ TEMAS_DA_BORDA = {
     "cerca": ("cerca_de_estaca", (), ("arbusto_seco", "cacto_redondo", "pedras_do_deserto"), ("arvore_seca",)),
     "quintal": ("cerca_de_estaca", (), ("pilha_de_sucata", "arbusto_seco", "pilha_de_pneus", "cacto_redondo"), ("arvore_seca",)),
     "pista": ("barreira_de_concreto", (), ("pilha_de_sucata", "pilha_de_pneus", "arbusto_seco"), ()),
-    "verde": ("cerca_viva", (), ("arbusto_do_oasis", "enfeite_juncos", "arbusto_do_oasis"), ("palmeira",)),
+    # Perto da água: touceira de junco com arbusto e pedra no meio. A cerca viva destoava
+    # (verde forte demais para a beira do rio no deserto).
+    "verde": (None, ("enfeite_juncos", "arbusto_do_oasis", "enfeite_juncos", "rochas_baixas", "enfeite_juncos", "arbusto_seco"),
+              ("enfeite_juncos", "arbusto_seco", "pedras_do_deserto"), ("palmeira",)),
 }
 
 

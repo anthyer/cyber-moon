@@ -223,10 +223,11 @@ Compatibility não garante.
 
 Onde o deserto fecha, a parede invisível tem sempre cenário em cima (`bordas.py`). As
 peças compridas têm 2 de comprimento ao longo de X e seguem a linha emendadas: muro de
-pedra seca, cerca de estaca, barreira de concreto e a cerca viva. As soltas enchem a
+pedra seca, cerca de estaca, barreira de concreto. As soltas enchem a
 linha e uma segunda fileira atrás: moita de cacto, pilha de sucata, pedra, mato. O tema
 muda a cada trecho de 10 a 22, pelo lugar: concreto na pista, cerca e sucata perto de
-casa, verde perto da água, e pedra, mato ou cerca no deserto aberto. Peça alta (árvore
+casa, junco e arbusto perto da água (a cerca viva foi testada ali e destoou: verde
+forte demais para a beira do rio no deserto), e pedra, mato ou cerca no deserto aberto. Peça alta (árvore
 seca, cacto alto, rochedo) só na borda do norte do corredor, que não esconde o jogador.
 
 ### Graminha perto do jogador
