@@ -27,13 +27,14 @@ MARGEM_DO_TERRENO = 14.0
 
 # O rio (wadi) desce do viaduto até o aquífero, serpenteando.
 RIO = [(86, 0), (87, 11), (89, 19), (86, 27), (82, 34), (84, 42), (88, 49), (85, 57), (79, 63), (77, 71), (81, 79), (78, 86), (76, 92)]
-# Meia largura da água e do leito. A margem é íngreme de propósito: o personagem não
-# desce nela, e a parede invisível da margem fica no topo.
-MEIA_LARGURA_DO_RIO = 2.3
+# Meia largura do leito. A parede invisível da margem fica no topo do barranco.
+MEIA_LARGURA_DO_RIO = 1.7
 # A largura varia ao longo do rio (mais largo nas curvas abertas), em até tanto para mais
 # ou para menos.
-VARIACAO_DA_LARGURA_DO_RIO = 0.6
-LARGURA_DA_MARGEM_DO_RIO = 0.7
+VARIACAO_DA_LARGURA_DO_RIO = 0.45
+# O barranco é mais largo que o passo da grade do terreno (1), para cada linha da grade ter
+# vértice nele. Mais estreito que isso, a beira do rio sai serrilhada.
+LARGURA_DA_MARGEM_DO_RIO = 1.3
 FUNDO_DO_RIO = -1.2
 
 # O aquífero: um lago de margem irregular na borda sul.
@@ -41,12 +42,13 @@ AQUIFERO_CENTRO = (76.0, 98.0)
 AQUIFERO_RAIOS = (23.0, 8.5)
 AQUIFERO_SEMENTE = 5
 FUNDO_DO_AQUIFERO = -1.2
-LARGURA_DA_MARGEM_DO_AQUIFERO = 0.8
+LARGURA_DA_MARGEM_DO_AQUIFERO = 1.4
 
 # O cânion corta o oeste e separa os dois campos solares.
-CANION = [(-14, 63), (0, 62), (12, 58), (24, 60), (36, 54), (46, 58), (52, 56)]
-MEIA_LARGURA_DO_CANION = 2.6
-LARGURA_DA_PAREDE_DO_CANION = 1.0
+# Acaba antes do mercado: a clínica e a casa da Iara ficam na ponta dele.
+CANION = [(-14, 63), (0, 62), (12, 58), (24, 60), (36, 54), (42, 55)]
+MEIA_LARGURA_DO_CANION = 2.0
+LARGURA_DA_PAREDE_DO_CANION = 1.6
 FUNDO_DO_CANION = -2.6
 
 # A água fica um pouco abaixo do chão: do alto do barranco se vê o rio lá embaixo.
@@ -74,6 +76,7 @@ TRILHAS = [
     ([(52, 52), (40, 56), (30, 58)], 2.2),                                 # mercado até a ponte de cabo
     ([(101, 60), (102, 71)], 2.2),                                         # vila até a cisterna
     ([(96, 22), (88, 24), (80, 22)], 2.2),                                 # Galeria até a avenida
+    ([(64, 71), (69, 74), (74, 75)], 2.0),                                 # trilha do mercado até a casa da Sol
 ]
 
 # Onde as trilhas cruzam a água ou o cânion: (nome, x, z, comprimento, tipo).
@@ -103,7 +106,21 @@ LUGARES = {
     "badlands": (134.0, 36.0, 22.0, 20.0),
     "acampamento": (138.0, 86.0, 16.0, 12.0),
     "porteira": (8.0, 20.0, 7.0, 5.0),
+    # Lugares pequenos, só para a porta ficar dentro da área andável.
+    "porta_da_torre": (132.0, 17.0, 5.0, 4.0),
+    "porta_da_galeria": (98.0, 20.0, 4.5, 3.0),
+    "pier": (64.0, 86.5, 5.0, 3.0),
+    "casa_da_sol": (75.0, 75.0, 3.5, 3.0),
+    "quintal_da_iara": (51.0, 60.0, 4.5, 5.5),
 }
+
+# -- corredores (o jeito do Stardew Valley) -------------------------------------------------
+
+# A área andável do mundo é feita só de trilhas e lugares: a trilha com esta folga para
+# cada lado, mais os lugares. O resto do deserto continua à vista, cheio de cacto e rocha,
+# mas fica atrás de uma borda de pedra e mato, com parede invisível. Assim o jogador
+# sempre está num caminho que leva a algum lugar, e não num campo aberto sem rumo.
+FOLGA_DOS_CORREDORES = 2.5
 
 
 # -- contas ----------------------------------------------------------------------------------

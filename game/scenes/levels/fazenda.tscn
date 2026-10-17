@@ -3,22 +3,22 @@
 [ext_resource type="Script" path="res://scripts/world/mapa.gd" id="r1"]
 [ext_resource type="Script" path="res://scripts/world/grama_da_estacao.gd" id="r2"]
 [ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/casa_da_fazenda.glb" id="r3"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/galpao_da_fazenda.glb" id="r4"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/caixa_dagua_da_fazenda.glb" id="r5"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/espantalho_robo.glb" id="r6"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/porteira_da_fazenda.glb" id="r7"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/caixa_de_correio.glb" id="r8"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cerca_de_arame.glb" id="r9"]
-[ext_resource type="Script" path="res://scripts/farming/talhao_de_cultivo.gd" id="r10"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_borda_de_talhao.glb" id="r11"]
-[ext_resource type="MeshLibrary" path="res://resources/farming/mesh_library_solo.tres" id="r12"]
-[ext_resource type="Script" path="res://scripts/farming/grade_solo.gd" id="r13"]
-[ext_resource type="PackedScene" path="res://scenes/world/cama.tscn" id="r14"]
-[ext_resource type="PackedScene" path="res://scenes/world/quadro_calendario.tscn" id="r15"]
-[ext_resource type="PackedScene" path="res://scenes/items/bau.tscn" id="r16"]
-[ext_resource type="Script" path="res://scripts/world/passagem_de_mapa.gd" id="r17"]
-[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/palmeira.glb" id="r18"]
-[ext_resource type="Script" path="res://scripts/world/cobertura_translucida.gd" id="r19"]
+[ext_resource type="Script" path="res://scripts/world/cobertura_translucida.gd" id="r4"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/galpao_da_fazenda.glb" id="r5"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/caixa_dagua_da_fazenda.glb" id="r6"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/espantalho_robo.glb" id="r7"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/porteira_da_fazenda.glb" id="r8"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/caixa_de_correio.glb" id="r9"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cerca_de_arame.glb" id="r10"]
+[ext_resource type="Script" path="res://scripts/farming/talhao_de_cultivo.gd" id="r11"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/enfeite_borda_de_talhao.glb" id="r12"]
+[ext_resource type="MeshLibrary" path="res://resources/farming/mesh_library_solo.tres" id="r13"]
+[ext_resource type="Script" path="res://scripts/farming/grade_solo.gd" id="r14"]
+[ext_resource type="PackedScene" path="res://scenes/world/cama.tscn" id="r15"]
+[ext_resource type="PackedScene" path="res://scenes/world/quadro_calendario.tscn" id="r16"]
+[ext_resource type="PackedScene" path="res://scenes/items/bau.tscn" id="r17"]
+[ext_resource type="Script" path="res://scripts/world/passagem_de_mapa.gd" id="r18"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/palmeira.glb" id="r19"]
 [ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/arvore_frutifera.glb" id="r20"]
 [ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/cerca_viva.glb" id="r21"]
 [ext_resource type="Shader" path="res://assets/shaders/agua_toon.gdshader" id="r22"]
@@ -207,160 +207,169 @@ material_da_grama = SubResource("s1")
 [node name="Casa" parent="Construcoes" instance=ExtResource("r3")]
 position = Vector3(24, 0.0, 6)
 
-[node name="Galpao" parent="Construcoes" instance=ExtResource("r4")]
+[node name="Cobertura" type="Node" parent="Construcoes/Casa"]
+script = ExtResource("r4")
+
+[node name="Galpao" parent="Construcoes" instance=ExtResource("r5")]
 position = Vector3(37, 0.0, 6.5)
 
-[node name="CaixaDagua" parent="Construcoes" instance=ExtResource("r5")]
+[node name="Cobertura" type="Node" parent="Construcoes/Galpao"]
+script = ExtResource("r4")
+
+[node name="CaixaDagua" parent="Construcoes" instance=ExtResource("r6")]
 position = Vector3(10, 0.0, 5)
 
-[node name="Espantalho" parent="Construcoes" instance=ExtResource("r6")]
+[node name="Cobertura" type="Node" parent="Construcoes/CaixaDagua"]
+script = ExtResource("r4")
+
+[node name="Espantalho" parent="Construcoes" instance=ExtResource("r7")]
 position = Vector3(32.5, 0.0, 22)
 rotation = Vector3(0, -0.2618, 0)
 
-[node name="Porteira" parent="Construcoes" instance=ExtResource("r7")]
+[node name="Porteira" parent="Construcoes" instance=ExtResource("r8")]
 position = Vector3(50, 0.0, 22)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="CaixaDeCorreio" parent="Construcoes" instance=ExtResource("r8")]
+[node name="CaixaDeCorreio" parent="Construcoes" instance=ExtResource("r9")]
 position = Vector3(47.5, 0.0, 25.5)
 
-[node name="Cerca" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(2, 0.0, 0)
 
-[node name="Cerca2" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca2" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(2, 0.0, 40)
 
-[node name="Cerca3" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca3" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(6, 0.0, 0)
 
-[node name="Cerca4" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca4" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(6, 0.0, 40)
 
-[node name="Cerca5" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca5" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(10, 0.0, 0)
 
-[node name="Cerca6" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca6" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(10, 0.0, 40)
 
-[node name="Cerca7" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca7" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(14, 0.0, 0)
 
-[node name="Cerca8" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca8" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(14, 0.0, 40)
 
-[node name="Cerca9" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca9" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(18, 0.0, 0)
 
-[node name="Cerca10" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca10" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(18, 0.0, 40)
 
-[node name="Cerca11" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca11" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(22, 0.0, 0)
 
-[node name="Cerca12" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca12" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(22, 0.0, 40)
 
-[node name="Cerca13" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca13" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(26, 0.0, 0)
 
-[node name="Cerca14" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca14" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(26, 0.0, 40)
 
-[node name="Cerca15" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca15" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(30, 0.0, 0)
 
-[node name="Cerca16" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca16" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(30, 0.0, 40)
 
-[node name="Cerca17" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca17" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(34, 0.0, 0)
 
-[node name="Cerca18" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca18" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(34, 0.0, 40)
 
-[node name="Cerca19" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca19" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(38, 0.0, 0)
 
-[node name="Cerca20" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca20" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(38, 0.0, 40)
 
-[node name="Cerca21" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca21" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(42, 0.0, 0)
 
-[node name="Cerca22" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca22" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(42, 0.0, 40)
 
-[node name="Cerca23" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca23" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(46, 0.0, 0)
 
-[node name="Cerca24" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca24" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(46, 0.0, 40)
 
-[node name="Cerca25" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca25" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(0, 0.0, 2)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca26" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca26" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(50, 0.0, 2)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca27" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca27" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(0, 0.0, 6)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca28" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca28" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(50, 0.0, 6)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca29" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca29" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(0, 0.0, 10)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca30" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca30" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(50, 0.0, 10)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca31" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca31" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(0, 0.0, 14)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca32" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca32" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(50, 0.0, 14)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca33" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca33" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(0, 0.0, 18)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca34" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca34" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(0, 0.0, 22)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca35" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca35" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(0, 0.0, 26)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca36" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca36" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(0, 0.0, 30)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca37" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca37" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(50, 0.0, 30)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca38" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca38" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(0, 0.0, 34)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca39" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca39" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(50, 0.0, 34)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca40" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca40" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(0, 0.0, 38)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Cerca41" parent="Construcoes" instance=ExtResource("r9")]
+[node name="Cerca41" parent="Construcoes" instance=ExtResource("r10")]
 position = Vector3(50, 0.0, 38)
 rotation = Vector3(0, 1.5708, 0)
 
@@ -368,7 +377,7 @@ rotation = Vector3(0, 1.5708, 0)
 
 [node name="Talhao1" type="Node3D" parent="Talhoes"]
 position = Vector3(6, 0, 18)
-script = ExtResource("r10")
+script = ExtResource("r11")
 tamanho_em_celulas = Vector2i(11, 8)
 liberado = true
 
@@ -377,77 +386,77 @@ position = Vector3(5.5, 0.01, 4.0)
 mesh = SubResource("s11")
 cast_shadow = 0
 
-[node name="Borda" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(1, 0.0, -0.1)
 
-[node name="Borda2" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda2" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(1, 0.0, 8.1)
 
-[node name="Borda3" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda3" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(3, 0.0, -0.1)
 
-[node name="Borda4" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda4" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(3, 0.0, 8.1)
 
-[node name="Borda5" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda5" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(5, 0.0, -0.1)
 
-[node name="Borda6" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda6" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(5, 0.0, 8.1)
 
-[node name="Borda7" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda7" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(7, 0.0, -0.1)
 
-[node name="Borda8" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda8" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(7, 0.0, 8.1)
 
-[node name="Borda9" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda9" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(9, 0.0, -0.1)
 
-[node name="Borda10" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda10" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(9, 0.0, 8.1)
 
-[node name="Borda11" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda11" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(11, 0.0, -0.1)
 
-[node name="Borda12" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda12" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(11, 0.0, 8.1)
 
-[node name="Borda13" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda13" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 1)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda14" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda14" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 1)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda15" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda15" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 3)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda16" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda16" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 3)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda17" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda17" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 5)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda18" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda18" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 5)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda19" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda19" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 7)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda20" parent="Talhoes/Talhao1" instance=ExtResource("r11")]
+[node name="Borda20" parent="Talhoes/Talhao1" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 7)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Talhao2" type="Node3D" parent="Talhoes"]
 position = Vector3(20, 0, 18)
-script = ExtResource("r10")
+script = ExtResource("r11")
 tamanho_em_celulas = Vector2i(11, 8)
 liberado = true
 
@@ -456,77 +465,77 @@ position = Vector3(5.5, 0.01, 4.0)
 mesh = SubResource("s12")
 cast_shadow = 0
 
-[node name="Borda" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(1, 0.0, -0.1)
 
-[node name="Borda2" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda2" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(1, 0.0, 8.1)
 
-[node name="Borda3" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda3" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(3, 0.0, -0.1)
 
-[node name="Borda4" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda4" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(3, 0.0, 8.1)
 
-[node name="Borda5" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda5" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(5, 0.0, -0.1)
 
-[node name="Borda6" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda6" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(5, 0.0, 8.1)
 
-[node name="Borda7" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda7" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(7, 0.0, -0.1)
 
-[node name="Borda8" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda8" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(7, 0.0, 8.1)
 
-[node name="Borda9" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda9" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(9, 0.0, -0.1)
 
-[node name="Borda10" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda10" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(9, 0.0, 8.1)
 
-[node name="Borda11" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda11" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(11, 0.0, -0.1)
 
-[node name="Borda12" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda12" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(11, 0.0, 8.1)
 
-[node name="Borda13" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda13" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 1)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda14" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda14" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 1)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda15" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda15" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 3)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda16" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda16" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 3)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda17" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda17" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 5)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda18" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda18" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 5)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda19" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda19" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 7)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda20" parent="Talhoes/Talhao2" instance=ExtResource("r11")]
+[node name="Borda20" parent="Talhoes/Talhao2" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 7)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Talhao3" type="Node3D" parent="Talhoes"]
 position = Vector3(34, 0, 18)
-script = ExtResource("r10")
+script = ExtResource("r11")
 tamanho_em_celulas = Vector2i(10, 8)
 liberado = true
 
@@ -535,71 +544,71 @@ position = Vector3(5.0, 0.01, 4.0)
 mesh = SubResource("s13")
 cast_shadow = 0
 
-[node name="Borda" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(1, 0.0, -0.1)
 
-[node name="Borda2" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda2" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(1, 0.0, 8.1)
 
-[node name="Borda3" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda3" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(3, 0.0, -0.1)
 
-[node name="Borda4" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda4" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(3, 0.0, 8.1)
 
-[node name="Borda5" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda5" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(5, 0.0, -0.1)
 
-[node name="Borda6" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda6" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(5, 0.0, 8.1)
 
-[node name="Borda7" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda7" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(7, 0.0, -0.1)
 
-[node name="Borda8" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda8" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(7, 0.0, 8.1)
 
-[node name="Borda9" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda9" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(9, 0.0, -0.1)
 
-[node name="Borda10" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda10" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(9, 0.0, 8.1)
 
-[node name="Borda11" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda11" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 1)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda12" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda12" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(10.1, 0.0, 1)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda13" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda13" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 3)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda14" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda14" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(10.1, 0.0, 3)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda15" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda15" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 5)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda16" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda16" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(10.1, 0.0, 5)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda17" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda17" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 7)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda18" parent="Talhoes/Talhao3" instance=ExtResource("r11")]
+[node name="Borda18" parent="Talhoes/Talhao3" instance=ExtResource("r12")]
 position = Vector3(10.1, 0.0, 7)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Talhao4" type="Node3D" parent="Talhoes"]
 position = Vector3(6, 0, 29)
-script = ExtResource("r10")
+script = ExtResource("r11")
 tamanho_em_celulas = Vector2i(11, 7)
 liberado = false
 
@@ -608,77 +617,77 @@ position = Vector3(5.5, 0.01, 3.5)
 mesh = SubResource("s15")
 cast_shadow = 0
 
-[node name="Borda" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(1, 0.0, -0.1)
 
-[node name="Borda2" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda2" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(1, 0.0, 7.1)
 
-[node name="Borda3" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda3" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(3, 0.0, -0.1)
 
-[node name="Borda4" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda4" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(3, 0.0, 7.1)
 
-[node name="Borda5" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda5" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(5, 0.0, -0.1)
 
-[node name="Borda6" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda6" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(5, 0.0, 7.1)
 
-[node name="Borda7" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda7" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(7, 0.0, -0.1)
 
-[node name="Borda8" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda8" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(7, 0.0, 7.1)
 
-[node name="Borda9" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda9" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(9, 0.0, -0.1)
 
-[node name="Borda10" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda10" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(9, 0.0, 7.1)
 
-[node name="Borda11" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda11" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(11, 0.0, -0.1)
 
-[node name="Borda12" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda12" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(11, 0.0, 7.1)
 
-[node name="Borda13" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda13" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 1)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda14" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda14" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 1)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda15" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda15" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 3)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda16" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda16" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 3)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda17" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda17" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 5)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda18" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda18" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 5)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda19" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda19" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 7)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda20" parent="Talhoes/Talhao4" instance=ExtResource("r11")]
+[node name="Borda20" parent="Talhoes/Talhao4" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 7)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Talhao5" type="Node3D" parent="Talhoes"]
 position = Vector3(20, 0, 29)
-script = ExtResource("r10")
+script = ExtResource("r11")
 tamanho_em_celulas = Vector2i(11, 7)
 liberado = false
 
@@ -687,77 +696,77 @@ position = Vector3(5.5, 0.01, 3.5)
 mesh = SubResource("s16")
 cast_shadow = 0
 
-[node name="Borda" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(1, 0.0, -0.1)
 
-[node name="Borda2" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda2" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(1, 0.0, 7.1)
 
-[node name="Borda3" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda3" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(3, 0.0, -0.1)
 
-[node name="Borda4" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda4" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(3, 0.0, 7.1)
 
-[node name="Borda5" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda5" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(5, 0.0, -0.1)
 
-[node name="Borda6" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda6" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(5, 0.0, 7.1)
 
-[node name="Borda7" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda7" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(7, 0.0, -0.1)
 
-[node name="Borda8" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda8" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(7, 0.0, 7.1)
 
-[node name="Borda9" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda9" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(9, 0.0, -0.1)
 
-[node name="Borda10" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda10" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(9, 0.0, 7.1)
 
-[node name="Borda11" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda11" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(11, 0.0, -0.1)
 
-[node name="Borda12" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda12" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(11, 0.0, 7.1)
 
-[node name="Borda13" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda13" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 1)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda14" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda14" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 1)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda15" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda15" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 3)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda16" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda16" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 3)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda17" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda17" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 5)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda18" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda18" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 5)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda19" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda19" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 7)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda20" parent="Talhoes/Talhao5" instance=ExtResource("r11")]
+[node name="Borda20" parent="Talhoes/Talhao5" instance=ExtResource("r12")]
 position = Vector3(11.1, 0.0, 7)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Talhao6" type="Node3D" parent="Talhoes"]
 position = Vector3(34, 0, 29)
-script = ExtResource("r10")
+script = ExtResource("r11")
 tamanho_em_celulas = Vector2i(10, 7)
 liberado = false
 
@@ -766,73 +775,73 @@ position = Vector3(5.0, 0.01, 3.5)
 mesh = SubResource("s17")
 cast_shadow = 0
 
-[node name="Borda" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(1, 0.0, -0.1)
 
-[node name="Borda2" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda2" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(1, 0.0, 7.1)
 
-[node name="Borda3" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda3" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(3, 0.0, -0.1)
 
-[node name="Borda4" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda4" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(3, 0.0, 7.1)
 
-[node name="Borda5" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda5" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(5, 0.0, -0.1)
 
-[node name="Borda6" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda6" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(5, 0.0, 7.1)
 
-[node name="Borda7" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda7" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(7, 0.0, -0.1)
 
-[node name="Borda8" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda8" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(7, 0.0, 7.1)
 
-[node name="Borda9" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda9" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(9, 0.0, -0.1)
 
-[node name="Borda10" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda10" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(9, 0.0, 7.1)
 
-[node name="Borda11" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda11" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 1)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda12" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda12" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(10.1, 0.0, 1)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda13" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda13" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 3)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda14" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda14" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(10.1, 0.0, 3)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda15" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda15" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 5)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda16" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda16" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(10.1, 0.0, 5)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda17" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda17" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(-0.1, 0.0, 7)
 rotation = Vector3(0, 1.5708, 0)
 
-[node name="Borda18" parent="Talhoes/Talhao6" instance=ExtResource("r11")]
+[node name="Borda18" parent="Talhoes/Talhao6" instance=ExtResource("r12")]
 position = Vector3(10.1, 0.0, 7)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="GradeSolo" type="GridMap" parent="."]
 position = Vector3(0, 0.07, 0)
-mesh_library = ExtResource("r12")
+mesh_library = ExtResource("r13")
 cell_size = Vector3(1, 0.1, 1)
-script = ExtResource("r13")
+script = ExtResource("r14")
 
 [node name="IndicadorAlvo" type="MeshInstance3D" parent="."]
 position = Vector3(0, 0.13, 0)
@@ -842,16 +851,16 @@ mesh = SubResource("s19")
 [node name="PontoDeSpawn" type="Marker3D" parent="."]
 position = Vector3(24, 0, 10.5)
 
-[node name="Cama" parent="." instance=ExtResource("r14")]
+[node name="Cama" parent="." instance=ExtResource("r15")]
 position = Vector3(19.5, 0.0, 9.2)
 
-[node name="QuadroCalendario" parent="." instance=ExtResource("r15")]
+[node name="QuadroCalendario" parent="." instance=ExtResource("r16")]
 position = Vector3(28.8, 0.0, 9.4)
 
-[node name="BauDeGuardar" parent="." instance=ExtResource("r16")]
+[node name="BauDeGuardar" parent="." instance=ExtResource("r17")]
 position = Vector3(35.4, 0.0, 9.2)
 
-[node name="BauDeVenda" parent="." instance=ExtResource("r16")]
+[node name="BauDeVenda" parent="." instance=ExtResource("r17")]
 position = Vector3(38.6, 0.0, 9.2)
 funcao = 1
 
@@ -868,7 +877,7 @@ rotation = Vector3(0, -1.5708, 0)
 
 [node name="PassagemParaOMundo" type="Area3D" parent="."]
 position = Vector3(53, 1.5, 22)
-script = ExtResource("r17")
+script = ExtResource("r18")
 mapa_de_destino = &"mundo"
 chegada = &"ChegadaDaFazenda"
 
@@ -935,84 +944,96 @@ shape = SubResource("s28")
 
 [node name="Verde" type="Node3D" parent="."]
 
-[node name="Palmeira" parent="Verde" instance=ExtResource("r18")]
+[node name="Palmeira" parent="Verde" instance=ExtResource("r19")]
 position = Vector3(3, 0.0, 2.4)
 rotation = Vector3(0, 1.9373, 0)
 
-[node name="Palmeira2" parent="Verde" instance=ExtResource("r18")]
+[node name="Cobertura" type="Node" parent="Verde/Palmeira"]
+script = ExtResource("r4")
+
+[node name="Palmeira2" parent="Verde" instance=ExtResource("r19")]
 position = Vector3(15, 0.0, 2.4)
 rotation = Vector3(0, 9.6866, 0)
 
-[node name="Palmeira3" parent="Verde" instance=ExtResource("r18")]
+[node name="Cobertura" type="Node" parent="Verde/Palmeira2"]
+script = ExtResource("r4")
+
+[node name="Palmeira3" parent="Verde" instance=ExtResource("r19")]
 position = Vector3(30.5, 0.0, 2.4)
 rotation = Vector3(0, 19.696, 0)
 
-[node name="Palmeira4" parent="Verde" instance=ExtResource("r18")]
+[node name="Cobertura" type="Node" parent="Verde/Palmeira3"]
+script = ExtResource("r4")
+
+[node name="Palmeira4" parent="Verde" instance=ExtResource("r19")]
 position = Vector3(45, 0.0, 2.4)
 rotation = Vector3(0, 29.0597, 0)
 
-[node name="Palmeira5" parent="Verde" instance=ExtResource("r18")]
+[node name="Cobertura" type="Node" parent="Verde/Palmeira4"]
+script = ExtResource("r4")
+
+[node name="Palmeira5" parent="Verde" instance=ExtResource("r19")]
 position = Vector3(47.5, 0.0, 17.5)
 rotation = Vector3(0, 16.1879, 0)
 
 [node name="Cobertura" type="Node" parent="Verde/Palmeira5"]
-script = ExtResource("r19")
+script = ExtResource("r4")
 
-[node name="Palmeira6" parent="Verde" instance=ExtResource("r18")]
+[node name="Palmeira6" parent="Verde" instance=ExtResource("r19")]
 position = Vector3(47.5, 0.0, 27)
 rotation = Vector3(0, 24.9757, 0)
 
 [node name="Cobertura" type="Node" parent="Verde/Palmeira6"]
-script = ExtResource("r19")
+script = ExtResource("r4")
 
 [node name="ArvoreFrutifera" parent="Verde" instance=ExtResource("r20")]
 position = Vector3(4, 0.0, 38.3)
 rotation = Vector3(0, 2.0246, 0)
 
 [node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera"]
-script = ExtResource("r19")
+script = ExtResource("r4")
 
 [node name="ArvoreFrutifera2" parent="Verde" instance=ExtResource("r20")]
 position = Vector3(11, 0.0, 38.3)
 rotation = Vector3(0, 5.5676, 0)
 
 [node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera2"]
-script = ExtResource("r19")
+script = ExtResource("r4")
 
 [node name="ArvoreFrutifera3" parent="Verde" instance=ExtResource("r20")]
 position = Vector3(18, 0.0, 38.3)
 rotation = Vector3(0, 9.1106, 0)
 
 [node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera3"]
-script = ExtResource("r19")
+script = ExtResource("r4")
 
 [node name="ArvoreFrutifera4" parent="Verde" instance=ExtResource("r20")]
 position = Vector3(25, 0.0, 38.3)
 rotation = Vector3(0, 12.6536, 0)
 
 [node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera4"]
-script = ExtResource("r19")
+script = ExtResource("r4")
 
 [node name="ArvoreFrutifera5" parent="Verde" instance=ExtResource("r20")]
 position = Vector3(32, 0.0, 38.3)
 rotation = Vector3(0, 16.1967, 0)
 
 [node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera5"]
-script = ExtResource("r19")
+script = ExtResource("r4")
 
 [node name="ArvoreFrutifera6" parent="Verde" instance=ExtResource("r20")]
 position = Vector3(39, 0.0, 38.3)
 rotation = Vector3(0, 19.7397, 0)
 
 [node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera6"]
-script = ExtResource("r19")
+script = ExtResource("r4")
 
 [node name="ArvoreFrutifera7" parent="Verde" instance=ExtResource("r20")]
 position = Vector3(46, 0.0, 38.3)
 rotation = Vector3(0, 23.2827, 0)
 
 [node name="Cobertura" type="Node" parent="Verde/ArvoreFrutifera7"]
-script = ExtResource("r19")
+script = ExtResource("r4")
 
 [node name="CercaViva" parent="Verde" instance=ExtResource("r21")]
 position = Vector3(1.6, 0.0, 17)

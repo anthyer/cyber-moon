@@ -37,7 +37,6 @@ AREIA = "pessego@0.35"
 POEIRA = "salmao@0.45"
 TRILHA = "pessego@0.75"
 PRACA = "pessego@0.62"
-PASSO_DA_AGUA = 0.5
 
 
 def distancia_a_curva(x, z, curva):
@@ -57,6 +56,71 @@ def distancia_a_curva(x, z, curva):
         dz = pz - t * segmento[:, 1]
         menor = np.minimum(menor, np.sqrt(dx * dx + dz * dz).min(axis=-1))
     return menor
+
+
+def ponto_mais_perto_da_curva(x, z, curva):
+    """Para cada ponto (x, z), o ponto da curva mais perto dele e a distância até lá."""
+    pontos = np.array(curva)
+    menor = np.full(x.shape, np.inf)
+    perto_x = np.zeros(x.shape)
+    perto_z = np.zeros(x.shape)
+    for inicio in range(0, len(pontos) - 1, 64):
+        a = pontos[inicio:inicio + 65]
+        p0 = a[:-1]
+        segmento = a[1:] - p0
+        comprimento2 = np.maximum((segmento ** 2).sum(axis=1), 1e-9)
+        px = x[..., None] - p0[:, 0]
+        pz = z[..., None] - p0[:, 1]
+        t = np.clip((px * segmento[:, 0] + pz * segmento[:, 1]) / comprimento2, 0.0, 1.0)
+        qx = p0[:, 0] + t * segmento[:, 0]
+        qz = p0[:, 1] + t * segmento[:, 1]
+        distancia = np.hypot(x[..., None] - qx, z[..., None] - qz)
+        qual = distancia.argmin(axis=-1)
+        desta_vez = np.take_along_axis(distancia, qual[..., None], axis=-1)[..., 0]
+        melhor = desta_vez < menor
+        menor = np.where(melhor, desta_vez, menor)
+        perto_x = np.where(melhor, np.take_along_axis(qx, qual[..., None], axis=-1)[..., 0], perto_x)
+        perto_z = np.where(melhor, np.take_along_axis(qz, qual[..., None], axis=-1)[..., 0], perto_z)
+    return menor, perto_x, perto_z
+
+
+def encaixar_nas_margens(gx, gz):
+    """Puxa os vértices da grade que caem perto do pé ou do topo de um barranco para cima
+    da curva exata dele.
+
+    A grade tem 1 de passo e o barranco tem menos que isso de largura: sem o encaixe, o
+    topo e o pé do barranco caem entre os vértices e a beira do rio sai serrilhada. Com
+    ele, cada barranco vira uma faixa limpa entre duas linhas que seguem a curva.
+    """
+    gx, gz = gx.copy(), gz.copy()
+    alcance = 0.5
+
+    def encaixar_no_curso(curva, meias_larguras, largura_da_margem):
+        distancia, perto_x, perto_z = ponto_mais_perto_da_curva(gx, gz, curva)
+        pe = meias_larguras(gz)
+        topo = pe + largura_da_margem
+        # Cada vértice vai para a linha (pé ou topo) mais perto dele, se estiver no alcance.
+        alvo = np.where(np.abs(distancia - pe) <= np.abs(distancia - topo), pe, topo)
+        puxar = (np.abs(distancia - alvo) < alcance) & (distancia > 1e-6)
+        fator = np.where(puxar, alvo / np.maximum(distancia, 1e-6), 1.0)
+        gx[:] = np.where(puxar, perto_x + (gx - perto_x) * fator, gx)
+        gz[:] = np.where(puxar, perto_z + (gz - perto_z) * fator, gz)
+
+    encaixar_no_curso(dm.suavizar(dm.RIO), meia_largura_do_rio, dm.LARGURA_DA_MARGEM_DO_RIO)
+    encaixar_no_curso(dm.suavizar(dm.CANION), lambda z: np.full(z.shape, dm.MEIA_LARGURA_DO_CANION),
+                      dm.LARGURA_DA_PAREDE_DO_CANION)
+
+    # O lago: pelo raio, a partir do centro. O pé do barranco fica a uma margem para dentro
+    # da beira, e o topo na beira.
+    cx, cz = dm.AQUIFERO_CENTRO
+    for recuo in (-dm.LARGURA_DA_MARGEM_DO_AQUIFERO, 0.0):
+        d_lago = distancia_ao_aquifero(gx, gz)
+        puxar = np.abs(d_lago - recuo) < alcance
+        raio_atual = np.maximum(np.hypot(gx - cx, gz - cz), 1e-6)
+        fator = np.where(puxar, (raio_atual - d_lago + recuo) / raio_atual, 1.0)
+        gx = np.where(puxar, cx + (gx - cx) * fator, gx)
+        gz = np.where(puxar, cz + (gz - cz) * fator, gz)
+    return gx, gz
 
 
 def distancia_ao_aquifero(x, z):
@@ -157,6 +221,7 @@ def montar_terreno():
     tremor = 0.22
     gx = gx + tremor * np.sin(gz * 1.7 + gx * 0.9)
     gz = gz + tremor * np.sin(gx * 1.3 - gz * 0.7)
+    gx, gz = encaixar_nas_margens(gx, gz)
     altura, *_ = altura_do_chao(gx, gz)
 
     linhas, colunas = gx.shape
@@ -202,53 +267,85 @@ def montar_terreno():
         uv[indice * 3:indice * 3 + 3] = tabela[nome]
     camada.data.foreach_set("uv", uv.ravel())
     malha.materials.append(kit.material_da_paleta(False))
-    for poligono in malha.polygons:
-        poligono.use_smooth = False
+    # O chão é facetado, mas o barranco é liso: facetado, cada triângulo do barranco pega
+    # a luz de um jeito e a beira do rio vira um serrote de faces claras e escuras.
+    lisas = (inclinacao > 0.45).tolist()
+    malha.polygons.foreach_set("use_smooth", lisas)
     objeto = bpy.data.objects.new("chao_terreno_mundo", malha)
     bpy.context.scene.collection.objects.link(objeto)
     return objeto
 
 
 def montar_agua():
-    """A água como grade fina recortada no formato do rio e do lago, com a distância até
-    a margem na cor dos vértices."""
-    curva_do_rio = dm.suavizar(dm.RIO)
-    minimo_x = min(min(p[0] for p in curva_do_rio), dm.AQUIFERO_CENTRO[0] - dm.AQUIFERO_RAIOS[0] * 1.2) - 3
-    maximo_x = max(max(p[0] for p in curva_do_rio), dm.AQUIFERO_CENTRO[0] + dm.AQUIFERO_RAIOS[0] * 1.2) + 3
-    minimo_z = min(p[1] for p in curva_do_rio) - 1
-    maximo_z = dm.AQUIFERO_CENTRO[1] + dm.AQUIFERO_RAIOS[1] * 1.3
-    xs = np.arange(minimo_x, maximo_x + 0.01, PASSO_DA_AGUA)
-    zs = np.arange(minimo_z, maximo_z + 0.01, PASSO_DA_AGUA)
-    gx, gz = np.meshgrid(xs, zs)
-    d_rio = distancia_a_curva(gx, gz, curva_do_rio)
-    d_lago = distancia_ao_aquifero(gx, gz)
-    # A água entra um pouco por baixo do barranco, para não sobrar fresta na beira.
-    alcance = meia_largura_do_rio(gz) + 0.3
-    margem_do_rio = (alcance - d_rio)
-    margem_do_lago = -d_lago + 0.4
-    distancia_da_beira = np.maximum(margem_do_rio, margem_do_lago)
-    dentro = distancia_da_beira > 0
+    """A água: uma fita que segue o rio e um leque que preenche o lago, com a distância até
+    a margem na cor dos vértices (0 na beira, 1 a dois de distância).
 
-    linhas, colunas = gx.shape
-    indice_do_vertice = -np.ones(gx.shape, dtype=int)
+    A beira da água entra por baixo do barranco. Ela é uma curva lisa, e não recortada de
+    uma grade: recortada, a linha d'água sai em escadinha onde o barranco a deixa à vista.
+    """
     vertices = []
     cores = []
-    for linha in range(linhas):
-        for coluna in range(colunas):
-            if dentro[linha, coluna]:
-                indice_do_vertice[linha, coluna] = len(vertices)
-                vertices.append((gx[linha, coluna], -gz[linha, coluna], dm.ALTURA_DA_AGUA))
-                beira = min(max(distancia_da_beira[linha, coluna] / 2.0, 0.0), 1.0)
-                cores.append((beira, 0.0, 0.0, 1.0))
     faces = []
-    for linha in range(linhas - 1):
-        for coluna in range(colunas - 1):
-            canto = (indice_do_vertice[linha, coluna], indice_do_vertice[linha, coluna + 1],
-                     indice_do_vertice[linha + 1, coluna + 1], indice_do_vertice[linha + 1, coluna])
-            if min(canto) >= 0:
-                faces.append((canto[0], canto[3], canto[2], canto[1]))
+    entra_no_barranco = 0.6
+    alcance_da_espuma = 2.0
+
+    # O rio: cinco vértices atravessando o curso, das duas beiras para o meio.
+    curva = dm.suavizar(dm.RIO, passo=0.5)
+    anterior = None
+    for indice, (x, z) in enumerate(curva):
+        if distancia_ao_aquifero(np.array(x), np.array(z)) < -0.8:
+            break
+        a = curva[max(indice - 1, 0)]
+        b = curva[min(indice + 1, len(curva) - 1)]
+        dx, dz = b[0] - a[0], b[1] - a[1]
+        comprimento = math.hypot(dx, dz) or 1.0
+        nx, nz = dz / comprimento, -dx / comprimento
+        meia = float(meia_largura_do_rio(np.array(z))) + entra_no_barranco
+        dentro = max(meia - alcance_da_espuma, 0.1)
+        linha = []
+        for desvio in (-meia, -dentro, 0.0, dentro, meia):
+            linha.append(len(vertices))
+            vertices.append((x + nx * desvio, -(z + nz * desvio), dm.ALTURA_DA_AGUA))
+            cores.append((min((meia - abs(desvio)) / alcance_da_espuma, 1.0), 0.0, 0.0, 1.0))
+        if anterior is not None:
+            for coluna in range(4):
+                faces.append((anterior[coluna], linha[coluna], linha[coluna + 1], anterior[coluna + 1]))
+        anterior = linha
+
+    # O lago: um leque do centro até um anel por baixo do barranco. Onde o rio desemboca,
+    # o anel não tem espuma, para não riscar uma linha branca atravessando a boca do rio.
+    cx, cz = dm.AQUIFERO_CENTRO
+    centro = len(vertices)
+    vertices.append((cx, -cz, dm.ALTURA_DA_AGUA))
+    cores.append((1.0, 0.0, 0.0, 1.0))
+    curva_do_rio = dm.suavizar(dm.RIO)
+    pontos_do_anel = 120
+    anel_de_fora = []
+    anel_de_dentro = []
+    for indice in range(pontos_do_anel):
+        angulo = math.tau * indice / pontos_do_anel
+        raio = dm.raio_do_aquifero(angulo) - dm.LARGURA_DA_MARGEM_DO_AQUIFERO + entra_no_barranco + 0.4
+        fx, fz = cx + math.cos(angulo) * raio, cz + math.sin(angulo) * raio
+        na_boca = distancia_a_curva(np.array([fx]), np.array([fz]), curva_do_rio)[0] < float(meia_largura_do_rio(np.array(fz))) + 1.0
+        anel_de_fora.append(len(vertices))
+        vertices.append((fx, -fz, dm.ALTURA_DA_AGUA))
+        cores.append((1.0 if na_boca else 0.0, 0.0, 0.0, 1.0))
+        raio_de_dentro = raio - alcance_da_espuma
+        anel_de_dentro.append(len(vertices))
+        vertices.append((cx + math.cos(angulo) * raio_de_dentro, -(cz + math.sin(angulo) * raio_de_dentro), dm.ALTURA_DA_AGUA))
+        cores.append((1.0, 0.0, 0.0, 1.0))
+    for indice in range(pontos_do_anel):
+        seguinte = (indice + 1) % pontos_do_anel
+        faces.append((anel_de_fora[indice], anel_de_fora[seguinte], anel_de_dentro[seguinte], anel_de_dentro[indice]))
+        faces.append((anel_de_dentro[indice], anel_de_dentro[seguinte], centro))
+
     malha = bpy.data.meshes.new("enfeite_agua_do_mundo")
     malha.from_pydata(vertices, [], faces)
+    malha.update()
+    # A face tem que olhar para cima; a ordem dos vértices acima varia entre o rio e o lago.
+    for poligono in malha.polygons:
+        if poligono.normal.z < 0:
+            poligono.flip()
     malha.update()
     atributo = malha.color_attributes.new(name="Col", type="FLOAT_COLOR", domain="POINT")
     atributo.data.foreach_set("color", np.array(cores).ravel())

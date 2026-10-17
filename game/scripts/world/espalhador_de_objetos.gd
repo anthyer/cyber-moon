@@ -26,6 +26,9 @@ extends Node3D
 ## Círculos livres, cada um como (x, z, raio) no espaço deste nó. Servem para caminho
 ## curvo (uma trilha vira uma fileira de círculos), que retângulo não acompanha.
 @export var circulos_livres: PackedVector3Array = PackedVector3Array()
+## Posições prontas, cada uma como (x, z, graus) no espaço deste nó. Com elas não há
+## sorteio de lugar (só de tamanho): serve para a borda dos corredores, que segue uma linha.
+@export var posicoes_fixas: PackedVector3Array = PackedVector3Array()
 ## Com o chão em relevo, cada cópia desce (ou sobe) até o chão por um raio. Sem isto, as
 ## cópias ficam todas na altura do nó.
 @export var seguir_o_chao: bool = false
@@ -50,7 +53,7 @@ func _ready() -> void:
 	if modelo == null:
 		push_warning("EspalhadorDeObjetos sem modelo: %s" % name)
 		return
-	var posicoes: Array[Transform3D] = _sortear_posicoes()
+	var posicoes: Array[Transform3D] = _sortear_posicoes() if posicoes_fixas.is_empty() else _usar_posicoes_fixas()
 	if seguir_o_chao:
 		# O chão é um corpo de física, que só responde a raio depois do primeiro quadro de
 		# física. Por isso as cópias esperam um quadro para descer até ele.
@@ -76,6 +79,16 @@ func _sortear_posicoes() -> Array[Transform3D]:
 			var giro: Basis = Basis(Vector3.UP, sorteio.randf() * TAU).scaled(Vector3.ONE * escala)
 			resultado.append(Transform3D(giro, Vector3(ponto.x, 0.0, ponto.y)))
 			break
+	return resultado
+
+func _usar_posicoes_fixas() -> Array[Transform3D]:
+	var sorteio: RandomNumberGenerator = RandomNumberGenerator.new()
+	sorteio.seed = semente
+	var resultado: Array[Transform3D] = []
+	for posicao in posicoes_fixas:
+		var escala: float = sorteio.randf_range(escala_minima, escala_maxima)
+		var giro: Basis = Basis(Vector3.UP, deg_to_rad(posicao.z)).scaled(Vector3.ONE * escala)
+		resultado.append(Transform3D(giro, Vector3(posicao.x, 0.0, posicao.y)))
 	return resultado
 
 func _lugar_livre(ponto: Vector2, ocupados: Array[Vector2]) -> bool:

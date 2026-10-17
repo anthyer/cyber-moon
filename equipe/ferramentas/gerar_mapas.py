@@ -143,6 +143,17 @@ class Cena:
         return "\n\n".join(partes) + "\n"
 
 
+# Peças altas o bastante para esconder o jogador quando ele passa atrás delas (a câmera
+# olha do sul, de cima). Toda peça destas ganha a CoberturaTranslucida, que a deixa
+# quase transparente enquanto cobre alguém.
+MODELOS_QUE_COBREM = (
+    "casa_", "mercado_", "clinica_", "oficina_", "galpao_", "barraco_", "barraca_", "bar_de_",
+    "trailer", "toldo_", "ponto_de_onibus", "outdoor_", "letreiro_", "muro_", "entrada_",
+    "rochedo_", "mesa_de_pedra", "costela_", "guindaste_", "poco_de_petroleo", "onibus_",
+    "cisterna_", "caixa_dagua", "cata_vento", "windmill", "palmeira", "arvore_",
+)
+
+
 class Montador:
     """Os tijolos dos dois mapas: peça, chão, faixa de estrada, espalhador, parede."""
 
@@ -156,7 +167,8 @@ class Montador:
         if escala is not None:
             propriedades["scale"] = vetor(escala, escala, escala)
         caminho = self.c.no(nome, pai=pai, instancia=modelo, propriedades=propriedades)
-        if cobre:
+        arquivo = modelo.rsplit("/", 1)[-1]
+        if cobre or arquivo.startswith(MODELOS_QUE_COBREM):
             self.c.no("Cobertura", "Node", pai=caminho, propriedades={
                 "script": self.c.recurso("Script", "res://scripts/world/cobertura_translucida.gd")})
         if gira:
@@ -542,8 +554,178 @@ MARCOS_POSTOS = []
 JANELA_LADO, JANELA_NORTE, JANELA_SUL = 7.5, 8.0, 4.5
 
 
-def andavel(x, z):
-    """Verdadeiro para o chão onde o jogador pode estar: fora da água, do cânion e das reservas."""
+# -- corredores: a área andável do mundo ----------------------------------------------------
+#
+# Uma grade de meio em meio guarda o que é cada pedaço do mapa: 0 é deserto fechado (à vista,
+# mas atrás da borda), 1 é corredor (trilha com folga ou lugar), 2 é o resto (água, cânion,
+# reserva, fora do mapa), que já tem parede própria.
+PASSO_DA_GRADE = 0.5
+X0_DA_GRADE, Z0_DA_GRADE = -4.0, 4.0
+COLUNAS_DA_GRADE = int((164.0 - X0_DA_GRADE) / PASSO_DA_GRADE) + 1
+LINHAS_DA_GRADE = int((112.0 - Z0_DA_GRADE) / PASSO_DA_GRADE) + 1
+DESERTO_FECHADO, CORREDOR, OUTRO = 0, 1, 2
+
+
+def _celula(x, z):
+    return int(round((x - X0_DA_GRADE) / PASSO_DA_GRADE)), int(round((z - Z0_DA_GRADE) / PASSO_DA_GRADE))
+
+
+def _montar_grade():
+    grade = [bytearray(COLUNAS_DA_GRADE) for _ in range(LINHAS_DA_GRADE)]
+
+    def pintar_circulo(x, z, raio, valor, so_sobre=None):
+        i0, j0 = _celula(x - raio, z - raio)
+        i1, j1 = _celula(x + raio, z + raio)
+        for j in range(max(j0, 0), min(j1, LINHAS_DA_GRADE - 1) + 1):
+            linha = grade[j]
+            pz = Z0_DA_GRADE + j * PASSO_DA_GRADE
+            for i in range(max(i0, 0), min(i1, COLUNAS_DA_GRADE - 1) + 1):
+                px = X0_DA_GRADE + i * PASSO_DA_GRADE
+                if (px - x) ** 2 + (pz - z) ** 2 <= raio * raio and (so_sobre is None or linha[i] == so_sobre):
+                    linha[i] = valor
+
+    # Primeiro o que já tem parede própria: fora do mapa, rio, cânion, lago e reservas.
+    for j in range(LINHAS_DA_GRADE):
+        pz = Z0_DA_GRADE + j * PASSO_DA_GRADE
+        for i in range(COLUNAS_DA_GRADE):
+            px = X0_DA_GRADE + i * PASSO_DA_GRADE
+            if px < 1 or px > 159 or pz < 6 or pz > 108:
+                grade[j][i] = OUTRO
+    for x, z in dm.suavizar(dm.RIO, passo=0.5):
+        pintar_circulo(x, z, dm.meia_largura_do_rio_em(z) + dm.LARGURA_DA_MARGEM_DO_RIO, OUTRO)
+    for x, z in dm.suavizar(dm.CANION, passo=0.5):
+        pintar_circulo(x, z, dm.MEIA_LARGURA_DO_CANION + dm.LARGURA_DA_PAREDE_DO_CANION, OUTRO)
+    cx, cz = dm.AQUIFERO_CENTRO
+    for j in range(LINHAS_DA_GRADE):
+        pz = Z0_DA_GRADE + j * PASSO_DA_GRADE
+        if abs(pz - cz) > dm.AQUIFERO_RAIOS[1] * 1.3:
+            continue
+        for i in range(COLUNAS_DA_GRADE):
+            px = X0_DA_GRADE + i * PASSO_DA_GRADE
+            if math.hypot(px - cx, pz - cz) < dm.raio_do_aquifero(math.atan2(pz - cz, px - cx)) + 0.5:
+                grade[j][i] = OUTRO
+    for pontos in dm.RESERVAS.values():
+        xs = [q[0] for q in pontos]
+        zs = [q[1] for q in pontos]
+        i0, j0 = _celula(min(xs), min(zs))
+        i1, j1 = _celula(max(xs), max(zs))
+        for j in range(j0, j1 + 1):
+            for i in range(i0, i1 + 1):
+                if _dentro_do_poligono(X0_DA_GRADE + i * PASSO_DA_GRADE, Z0_DA_GRADE + j * PASSO_DA_GRADE, pontos):
+                    grade[j][i] = OUTRO
+
+    # Depois os corredores, só sobre o deserto: trilha com folga, lugares e a saída para a
+    # fazenda, no oeste.
+    for pontos, largura in dm.TRILHAS:
+        for x, z in dm.suavizar(pontos, passo=0.5):
+            pintar_circulo(x, z, largura / 2 + dm.FOLGA_DOS_CORREDORES, CORREDOR, so_sobre=DESERTO_FECHADO)
+    for cx_, cz_, rx, rz in dm.LUGARES.values():
+        i0, j0 = _celula(cx_ - rx - 1, cz_ - rz - 1)
+        i1, j1 = _celula(cx_ + rx + 1, cz_ + rz + 1)
+        for j in range(max(j0, 0), min(j1, LINHAS_DA_GRADE - 1) + 1):
+            for i in range(max(i0, 0), min(i1, COLUNAS_DA_GRADE - 1) + 1):
+                px, pz = X0_DA_GRADE + i * PASSO_DA_GRADE, Z0_DA_GRADE + j * PASSO_DA_GRADE
+                if ((px - cx_) / (rx + 0.5)) ** 2 + ((pz - cz_) / (rz + 0.5)) ** 2 < 1.0 and grade[j][i] == DESERTO_FECHADO:
+                    grade[j][i] = CORREDOR
+    return grade
+
+
+_GRADE = None
+
+
+def tipo_do_chao(x, z):
+    global _GRADE
+    if _GRADE is None:
+        _GRADE = _montar_grade()
+    i, j = _celula(x, z)
+    if i < 0 or j < 0 or i >= COLUNAS_DA_GRADE or j >= LINHAS_DA_GRADE:
+        return OUTRO
+    return _GRADE[j][i]
+
+
+def contorno_dos_corredores():
+    """As linhas que separam o deserto fechado do resto, por marching squares na grade,
+    já emendadas em polilinhas e simplificadas."""
+    tipo_do_chao(0, 0)
+    aberto = [[valor != DESERTO_FECHADO for valor in linha] for linha in _GRADE]
+    segmentos = []
+    for j in range(LINHAS_DA_GRADE - 1):
+        for i in range(COLUNAS_DA_GRADE - 1):
+            a, b = aberto[j][i], aberto[j][i + 1]
+            c_, d = aberto[j + 1][i + 1], aberto[j + 1][i]
+            if a == b == c_ == d:
+                continue
+            # Os pontos do meio de cada lado da célula que tem um canto de cada tipo.
+            meios = []
+            if a != b:
+                meios.append((i + 0.5, j))
+            if b != c_:
+                meios.append((i + 1, j + 0.5))
+            if c_ != d:
+                meios.append((i + 0.5, j + 1))
+            if d != a:
+                meios.append((i, j + 0.5))
+            for k in range(0, len(meios) - 1, 2):
+                segmentos.append((meios[k], meios[k + 1]))
+    # Emenda os segmentos pelas pontas.
+    vizinhos = {}
+    for a, b in segmentos:
+        vizinhos.setdefault(a, []).append(b)
+        vizinhos.setdefault(b, []).append(a)
+    usados = set()
+    linhas = []
+
+    def andar(desde, evitando):
+        caminho = []
+        anterior, atual = evitando, desde
+        while True:
+            seguinte = next((v for v in vizinhos[atual] if v != anterior and v not in usados), None)
+            if seguinte is None:
+                return caminho
+            caminho.append(seguinte)
+            usados.add(seguinte)
+            anterior, atual = atual, seguinte
+
+    for inicio in list(vizinhos):
+        if inicio in usados:
+            continue
+        usados.add(inicio)
+        # Anda para um lado e para o outro a partir do início, e junta os dois.
+        para_frente = andar(inicio, None)
+        para_tras = andar(inicio, para_frente[0] if para_frente else None)
+        caminho = list(reversed(para_tras)) + [inicio] + para_frente
+        # Linha fechada: a última ponta encosta na primeira.
+        if len(caminho) > 2 and caminho[0] in vizinhos[caminho[-1]]:
+            caminho.append(caminho[0])
+        if len(caminho) >= 2:
+            pontos = [(X0_DA_GRADE + i * PASSO_DA_GRADE, Z0_DA_GRADE + j * PASSO_DA_GRADE) for i, j in caminho]
+            linhas.append(_simplificar(pontos, 0.3))
+    return linhas
+
+
+def _simplificar(pontos, tolerancia):
+    """Douglas-Peucker: tira os pontos que quase não mudam a forma da linha."""
+    if len(pontos) < 3:
+        return pontos
+    (x1, z1), (x2, z2) = pontos[0], pontos[-1]
+    if math.hypot(x2 - x1, z2 - z1) < 1e-6:
+        # Linha fechada: parte no ponto mais longe do início e simplifica as duas metades.
+        onde = max(range(len(pontos)), key=lambda k: math.hypot(pontos[k][0] - x1, pontos[k][1] - z1))
+        return _simplificar(pontos[:onde + 1], tolerancia)[:-1] + _simplificar(pontos[onde:], tolerancia)
+    comprimento = math.hypot(x2 - x1, z2 - z1) or 1e-6
+    maior, onde = 0.0, 0
+    for indice in range(1, len(pontos) - 1):
+        x, z = pontos[indice]
+        distancia = abs((x2 - x1) * (z1 - z) - (x1 - x) * (z2 - z1)) / comprimento
+        if distancia > maior:
+            maior, onde = distancia, indice
+    if maior <= tolerancia:
+        return [pontos[0], pontos[-1]]
+    return _simplificar(pontos[:onde + 1], tolerancia)[:-1] + _simplificar(pontos[onde:], tolerancia)
+
+
+def chao_firme(x, z):
+    """Verdadeiro para o chão seco: fora da água, do cânion e das reservas."""
     if x < 1 or x > 159 or z < 10 or z > 108:
         return False
     if _distancia_a_pontos(x, z, dm.suavizar(dm.RIO, passo=1.0)) < dm.meia_largura_do_rio_em(z) + dm.LARGURA_DA_MARGEM_DO_RIO:
@@ -557,6 +739,11 @@ def andavel(x, z):
         if _dentro_do_poligono(x, z, pontos):
             return False
     return True
+
+
+def andavel(x, z):
+    """Verdadeiro onde o jogador pode estar: chão seco dentro de um corredor."""
+    return tipo_do_chao(x, z) == CORREDOR and chao_firme(x, z)
 
 
 def _distancia_a_pontos(x, z, pontos):
@@ -611,7 +798,9 @@ def regiao_de(x, z):
 
 
 def lugar_livre_para_marco(x, z, circulos):
-    if not andavel(x, z):
+    # O marco vai no deserto fechado, ao lado do corredor: é cenário à vista do caminho, e
+    # não obstáculo no meio dele.
+    if not chao_firme(x, z) or tipo_do_chao(x, z) != DESERTO_FECHADO:
         return False
     if dentro_de_algum_lugar(x, z, folga=1.0):
         return False
@@ -684,7 +873,9 @@ def montar_mundo():
         """Os graus que viram a frente (+Z) de uma peça para o ponto dado."""
         return math.degrees(math.atan2(alvo_x - x, alvo_z - z))
 
-    # -- o chão e a água
+    # -- o chão e a água. Quem cair no rio, no cânion ou no lago volta para o chão.
+    c.no("ResgateDoJogador", "Node", propriedades={
+        "script": c.recurso("Script", "res://scripts/world/resgate_do_jogador.gd")})
     c.no("Chao", "Node3D")
     m.peca("Terreno", MUNDO_PACOTE + "chao_terreno_mundo.glb", 0, 0, pai="Chao")
     agua = m.peca("Agua", MUNDO_PACOTE + "enfeite_agua_do_mundo.glb", 0, 0, pai="Chao")
@@ -727,6 +918,14 @@ def montar_mundo():
             graus = -math.degrees(angulo) - 90.0
             ponte_do_canion = x
         m.peca(nome, MUNDO_PACOTE + modelos_de_ponte[tipo] + ".glb", x, z, graus=graus, pai="Pontes")
+        # Guarda-corpo invisível dos dois lados do tabuleiro, um pouco mais comprido que a
+        # ponte: emenda com a parede da margem e não deixa fresta entre a ponte e o barranco.
+        guarda = c.no("GuardaCorpo", "StaticBody3D", pai="Pontes", propriedades={
+            "position": vetor(x, 1.0, z), "rotation": vetor(0, math.radians(graus), 0), "collision_mask": "0"})
+        forma = c.sub("BoxShape3D", {"size": vetor(comprimento + 1.6, 3.0, 0.3)})
+        for lado in (-1, 1):
+            c.no("Lado", "CollisionShape3D", pai=guarda, propriedades={
+                "position": vetor(0, 0, lado * 1.5), "shape": forma})
 
     # -- paredes invisíveis no alto da margem (o rio e o cânion são afundados)
     c.no("Margens", "Node3D")
@@ -755,12 +954,19 @@ def montar_mundo():
             pontos.append((x + dz / comprimento * desvio * sinal, z - dx / comprimento * desvio * sinal))
         return pontos
 
+    def dentro_do_aquifero(x, z):
+        cx, cz = dm.AQUIFERO_CENTRO
+        raio = dm.raio_do_aquifero(math.atan2(z - cz, x - cx)) + 0.3
+        return math.hypot(x - cx, z - cz) < raio
+
     def perto_de_ponte_do_rio(x, z):
-        return any(abs(z - zp) < 1.6 for zp in pontes_do_rio) or z > dm.AQUIFERO_CENTRO[1] - dm.AQUIFERO_RAIOS[1] - 1.0
+        # Só o vão do tabuleiro: o guarda-corpo da ponte fecha o resto. Dentro do lago a
+        # parede do rio acaba, e a da margem do lago passa por cima da boca do rio.
+        return any(abs(z - zp) < 1.3 for zp in pontes_do_rio) or dentro_do_aquifero(x, z)
     for sinal in (-1, 1):
         muro_ao_longo(lado_do_rio(sinal), "MargemDoRio", perto_de_ponte_do_rio)
         muro_ao_longo(dm.paralela(dm.CANION, sinal * (dm.MEIA_LARGURA_DO_CANION + dm.LARGURA_DA_PAREDE_DO_CANION + 0.2)),
-                      "BeiraDoCanion", lambda x, z: abs(x - ponte_do_canion) < 1.5)
+                      "BeiraDoCanion", lambda x, z: abs(x - ponte_do_canion) < 1.2)
     # O aquífero: a margem toda, menos o vão do píer e a boca do rio.
     contorno = dm.margem_do_aquifero(80)
     contorno_largo = []
@@ -768,10 +974,11 @@ def montar_mundo():
     for x, z in contorno + contorno[:1]:
         dx, dz = x - cx, z - cz
         r = math.hypot(dx, dz)
-        contorno_largo.append((x + dx / r * (dm.LARGURA_DA_MARGEM_DO_AQUIFERO + 0.2), z + dz / r * (dm.LARGURA_DA_MARGEM_DO_AQUIFERO + 0.2)))
+        # O barranco do lago desce para dentro da beira; a parede fica logo fora dela.
+        contorno_largo.append((x + dx / r * 0.3, z + dz / r * 0.3))
     x_do_pier = 64.0
     muro_ao_longo(contorno_largo, "MargemDoAquifero",
-                  lambda x, z: (abs(x - x_do_pier) < 1.2 and z < cz) or (abs(x - dm.RIO[-1][0]) < 4 and z < cz - 4))
+                  lambda x, z: abs(x - x_do_pier) < 1.2 and z < cz)
 
     # -- aquífero: píer, barco, casa de bombas, oásis
     c.no("Aquifero", "Node3D")
@@ -1018,6 +1225,54 @@ def montar_mundo():
     espalhar("Rachaduras", "enfeite_rachadura", 120, 14, 3.0, sombra=False, some=45.0)
     espalhar("ManchasDeTerra", "enfeite_mancha_de_terra", 18, 15, 12.0, sombra=False, escala=(1.0, 2.0))
 
+    # -- a borda dos corredores: onde o deserto fecha, uma fileira de pedra baixa, mato seco
+    # e cacto, com uma parede invisível atrás. É a borda natural do Stardew Valley: o
+    # jogador vê o deserto, mas anda pelos caminhos.
+    c.no("BordaDosCorredores", "Node3D")
+    parede = c.no("Parede", "StaticBody3D", pai="BordaDosCorredores", propriedades={"collision_mask": "0"})
+    formas = {}
+    sequencia_da_borda = ("rochas_baixas", "arbusto_seco", "rochas_baixas", "pedras_do_deserto", "arbusto_seco",
+                          "cacto_redondo", "rochas_baixas", "arbusto_seco", "cacto_de_raquete")
+    pecas_da_borda = {modelo: [] for modelo in sequencia_da_borda}
+    espaco_entre_pecas = 1.7
+    contador = 0
+    for linha in contorno_dos_corredores():
+        andado_desde_a_ultima = espaco_entre_pecas / 2
+        for (x1, z1), (x2, z2) in zip(linha, linha[1:]):
+            dx, dz = x2 - x1, z2 - z1
+            comprimento = math.hypot(dx, dz)
+            if comprimento < 0.05:
+                continue
+            meio_x, meio_z = (x1 + x2) / 2, (z1 + z2) / 2
+            tamanho = round(comprimento + 0.3, 1)
+            if tamanho not in formas:
+                formas[tamanho] = c.sub("BoxShape3D", {"size": vetor(tamanho, 3.0, 0.4)})
+            c.no("Trecho", "CollisionShape3D", pai=parede, propriedades={
+                "position": vetor(meio_x, chao(meio_x, meio_z) + 1.0, meio_z), "rotation": vetor(0, -math.atan2(dz, dx), 0),
+                "shape": formas[tamanho]})
+            # As peças vão um pouco para dentro do deserto fechado, para não comer o caminho.
+            nx, nz = -dz / comprimento, dx / comprimento
+            if tipo_do_chao(meio_x + nx, meio_z + nz) != DESERTO_FECHADO:
+                nx, nz = -nx, -nz
+            percorrido = espaco_entre_pecas - andado_desde_a_ultima
+            while percorrido <= comprimento:
+                t = percorrido / comprimento
+                x = x1 + dx * t + nx * 0.8 + sorteio.uniform(-0.25, 0.25)
+                z = z1 + dz * t + nz * 0.8 + sorteio.uniform(-0.25, 0.25)
+                if tipo_do_chao(x, z) == DESERTO_FECHADO and chao_firme(x, z):
+                    modelo = sequencia_da_borda[contador % len(sequencia_da_borda)]
+                    pecas_da_borda[modelo].append((x, z, sorteio.uniform(0, 360)))
+                    contador += 1
+                percorrido += espaco_entre_pecas
+            andado_desde_a_ultima = comprimento - (percorrido - espaco_entre_pecas)
+    for indice, (modelo, posicoes) in enumerate(pecas_da_borda.items()):
+        if not posicoes:
+            continue
+        m.espalhador("Borda_" + modelo, MUNDO_PACOTE + modelo + ".glb", 0, 0, 1, 1, 0, 40 + indice,
+                     escala=(0.8, 1.25), sombra=modelo == "rochas_baixas", some=50.0, pai="BordaDosCorredores")
+        c.nos[-1] += "\nposicoes_fixas = PackedVector3Array(%s)\nseguir_o_chao = true" % ", ".join(
+            "%s, %s, %s" % (numero(x), numero(z), numero(g)) for x, z, g in posicoes)
+
     # -- graminha perto do jogador, seca, só onde a máscara do terreno deixa
     grama_perto_do_jogador(c, mascara="res://assets/textures/grama/mascara_do_mundo.png")
 
@@ -1034,8 +1289,10 @@ def montar_mundo():
         if nome == "ponte":
             x, _angulo = dm.x_do_curso_em(dm.RIO, z)
         m.marcador(nome, x, z, graus=graus, pai="PontosDeRotina")
+        # Na ponte o NPC fica no tabuleiro (altura 0), e não no leito do rio embaixo dela.
+        altura = 0.0 if nome == "ponte" else chao(x, z)
         c.nos[-1] = c.nos[-1].replace("position = Vector3(%s, 0, %s)" % (numero(x), numero(z)),
-                                      "position = %s" % vetor(x, chao(x, z), z))
+                                      "position = %s" % vetor(x, altura, z))
     c.no("ElencoDeNpcs", "Node3D", propriedades={"script": c.recurso("Script", "res://scripts/npcs/elenco_de_npcs.gd")})
 
     # -- bordas do mapa
