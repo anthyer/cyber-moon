@@ -219,6 +219,16 @@ Compatibility não garante.
 - **O laguinho da fazenda** é um plano de 1 por 1 esticado pela escala do nó: é pela
   escala que o shader sabe a largura da espuma em metros.
 
+### Borda dos corredores
+
+Onde o deserto fecha, a parede invisível tem sempre cenário em cima (`bordas.py`). As
+peças compridas têm 2 de comprimento ao longo de X e seguem a linha emendadas: muro de
+pedra seca, cerca de estaca, barreira de concreto e a cerca viva. As soltas enchem a
+linha e uma segunda fileira atrás: moita de cacto, pilha de sucata, pedra, mato. O tema
+muda a cada trecho de 10 a 22, pelo lugar: concreto na pista, cerca e sucata perto de
+casa, verde perto da água, e pedra, mato ou cerca no deserto aberto. Peça alta (árvore
+seca, cacto alto, rochedo) só na borda do norte do corredor, que não esconde o jogador.
+
 ### Graminha perto do jogador
 
 Não é modelo do Blender: o `GramaPertoDoJogador` monta um tufo de sete folhas finas e
@@ -423,6 +433,10 @@ Em ordem de quanto tempo custaram.
     A costela gigante virou um arco de contas facetadas que se sobrepõem.
 22. **Folha de grama preta.** Com `cull_disabled`, o verso da folha tem a normal virada e
     fica escuro. A normal da folha é forçada para cima no shader.
+23. **Cenário sumindo de uma vez.** O espalhador desenhava a área toda num MultiMesh só,
+    com `visibility_range_end`. O Godot mede essa distância até o meio da peça, e o meio
+    era o meio do mapa: longe dele, todas as pedras, cactos e a borda sumiam, e a parede
+    ficava invisível de verdade. Agora cada espalhador é dividido em blocos de 24 por 24.
 
 ## O que ainda não foi feito
 

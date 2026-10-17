@@ -603,7 +603,8 @@ parte, em z = 400.
   `Portal` com `dungeon_id`). Ela abre o lobby com a dungeon já escolhida; trancada, avisa
   qual chefe falta vencer.
 - **Deserto espalhado.** `EspalhadorDeObjetos` põe cópias de um modelo numa área, com
-  semente fixa, desenhadas num `MultiMeshInstance3D` (uma chamada de desenho para todas) e
+  semente fixa, desenhadas em `MultiMeshInstance3D` por blocos de 24 por 24 (uma chamada
+  de desenho por bloco, e bloco fora da tela não é desenhado) e
   com um cilindro de colisão por cópia. Áreas livres (estrada, praça, canal) ficam vazias.
 - **Água.** O rio, o cânion e o lago são afundados no terreno, com uma parede invisível no
   alto do barranco. Nas pontes a parede tem um vão do tamanho do tabuleiro, e um
@@ -613,7 +614,8 @@ parte, em z = 400.
   `EventBus.player_rescued`, que solta o efeito `resgate_da_agua`.
 - **Corredores.** O mundo é andável só nas trilhas (com uma folga para cada lado) e nos
   lugares, como no Stardew Valley. O resto do deserto continua à vista, mas fica atrás de
-  uma borda de pedra baixa, mato seco e cacto, com parede invisível. A borda sai de uma
+  uma borda de cenário (muro de pedra, cerca, barreira, moita, sucata, cerca viva, com o
+  tema escolhido pelo lugar), com parede invisível. A borda sai de uma
   grade de meio em meio montada pelo gerador a partir de `desenho_do_mundo.py`
   (`TRILHAS`, `LUGARES`, `FOLGA_DOS_CORREDORES`); as peças dela são um
   `EspalhadorDeObjetos` com `posicoes_fixas`. Ponto de rotina de NPC, porta de dungeon e

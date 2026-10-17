@@ -856,6 +856,110 @@ def preencher_buracos(p, sorteio, meta=0.95):
             MARCOS_POSTOS.append((buraco[0], buraco[1], "nada"))
 
 
+# -- as peças da borda dos corredores --------------------------------------------------------
+
+# Só as peças altas da borda projetam sombra: a sombra de cada bloco de cópias é mais uma
+# chamada de desenho, e a de pedra baixa e mato quase não se vê de cima.
+SOMBRA_NA_BORDA = ("muro_de_pedra", "rochedo_b", "arvore_seca", "cacto_alto", "palmeira", "cerca_viva")
+
+# Peças de 2 de comprimento que seguem a linha da borda, emendadas.
+PECAS_COMPRIDAS_DA_BORDA = ("muro_de_pedra", "cerca_de_estaca", "barreira_de_concreto", "cerca_viva")
+COMPRIMENTO_DA_PECA_COMPRIDA = 2.0
+
+# Cada tema: a peça comprida da linha (ou nenhuma), as peças soltas da linha, as de trás
+# (uma segunda fileira, mais para dentro do deserto) e as altas, que só vão na borda do
+# norte. Borda do sul com peça alta esconderia o jogador, que fica ao norte dela.
+TEMAS_DA_BORDA = {
+    "pedra": ("muro_de_pedra", (), ("rochas_baixas", "pedras_do_deserto", "arbusto_seco"), ("rochedo_b", "arvore_seca")),
+    "mato": (None, ("moita_de_cacto", "arbusto_seco", "cacto_redondo", "moita_de_cacto", "cacto_de_raquete"),
+             ("arbusto_seco", "rochas_baixas"), ("cacto_alto", "arvore_seca")),
+    "cerca": ("cerca_de_estaca", (), ("arbusto_seco", "cacto_redondo", "pedras_do_deserto"), ("arvore_seca",)),
+    "quintal": ("cerca_de_estaca", (), ("pilha_de_sucata", "arbusto_seco", "pilha_de_pneus", "cacto_redondo"), ("arvore_seca",)),
+    "pista": ("barreira_de_concreto", (), ("pilha_de_sucata", "pilha_de_pneus", "arbusto_seco"), ()),
+    "verde": ("cerca_viva", (), ("arbusto_do_oasis", "enfeite_juncos", "arbusto_do_oasis"), ("palmeira",)),
+}
+
+
+def tema_da_borda(x, z, sorteio):
+    """O tema de um trecho da borda, pelo lugar: concreto na pista, cerca e sucata perto
+    de casa, verde perto da água, e no deserto aberto pedra, mato ou cerca."""
+    if z < 18:
+        return "pista"
+    for nome in ("vila", "mercado", "acampamento", "cisterna", "quintal_da_iara", "casa_da_sol"):
+        cx_, cz_, rx, rz = dm.LUGARES[nome]
+        if ((x - cx_) / (rx + 6)) ** 2 + ((z - cz_) / (rz + 6)) ** 2 < 1.0:
+            return "quintal"
+    perto_do_rio = _distancia_a_pontos(x, z, dm.suavizar(dm.RIO, passo=2.0)) < dm.meia_largura_do_rio_em(z) + 7.0
+    cx_, cz_ = dm.AQUIFERO_CENTRO
+    perto_do_lago = math.hypot(x - cx_, z - cz_) < dm.raio_do_aquifero(math.atan2(z - cz_, x - cx_)) + 7.0
+    if perto_do_rio or perto_do_lago:
+        return "verde"
+    return sorteio.choices(("pedra", "mato", "cerca"), weights=(4, 4, 2))[0]
+
+
+def _ponto_na_linha(linha, comprimentos, distancia):
+    """O ponto da polilinha a tanta distância do começo, e a direção dela ali."""
+    for indice in range(len(linha) - 1):
+        if distancia <= comprimentos[indice + 1] or indice == len(linha) - 2:
+            (x1, z1), (x2, z2) = linha[indice], linha[indice + 1]
+            trecho = max(comprimentos[indice + 1] - comprimentos[indice], 1e-6)
+            t = min(max((distancia - comprimentos[indice]) / trecho, 0.0), 1.0)
+            return x1 + (x2 - x1) * t, z1 + (z2 - z1) * t, (x2 - x1) / trecho, (z2 - z1) / trecho
+    x, z = linha[-1]
+    return x, z, 1.0, 0.0
+
+
+def pecas_da_borda(linhas, sorteio):
+    """As posições (x, z, graus) de cada peça da borda, por modelo."""
+    posicoes = {}
+
+    def por(modelo, x, z, graus):
+        if tipo_do_chao(x, z) == DESERTO_FECHADO and chao_firme(x, z):
+            posicoes.setdefault(modelo, []).append((x, z, graus))
+
+    for linha in linhas:
+        comprimentos = [0.0]
+        for (x1, z1), (x2, z2) in zip(linha, linha[1:]):
+            comprimentos.append(comprimentos[-1] + math.hypot(x2 - x1, z2 - z1))
+        total = comprimentos[-1]
+        andado = 0.0
+        while andado < total:
+            tamanho_do_trecho = min(sorteio.uniform(10.0, 22.0), total - andado)
+            x, z, _tx, _tz = _ponto_na_linha(linha, comprimentos, andado + tamanho_do_trecho / 2)
+            comprida, soltas, de_tras, altas = TEMAS_DA_BORDA[tema_da_borda(x, z, sorteio)]
+            passo = COMPRIMENTO_DA_PECA_COMPRIDA if comprida else 1.2
+            distancia = andado + passo / 2
+            contador = 0
+            while distancia < andado + tamanho_do_trecho:
+                x, z, tx, tz = _ponto_na_linha(linha, comprimentos, distancia)
+                # A normal que aponta para o deserto fechado. Sem deserto de nenhum lado
+                # (borda entre corredor e água), não vai peça.
+                nx, nz = -tz, tx
+                if tipo_do_chao(x + nx, z + nz) != DESERTO_FECHADO:
+                    nx, nz = -nx, -nz
+                    if tipo_do_chao(x + nx, z + nz) != DESERTO_FECHADO:
+                        distancia += passo
+                        continue
+                if comprida:
+                    por(comprida, x + nx * 0.4, z + nz * 0.4, math.degrees(math.atan2(-tz, tx)))
+                else:
+                    por(soltas[contador % len(soltas)], x + nx * 0.6 + sorteio.uniform(-0.2, 0.2),
+                        z + nz * 0.6 + sorteio.uniform(-0.2, 0.2), sorteio.uniform(0, 360))
+                if contador % 2 == 0:
+                    por(de_tras[(contador // 2) % len(de_tras)], x + nx * sorteio.uniform(1.4, 2.0) + sorteio.uniform(-0.4, 0.4),
+                        z + nz * sorteio.uniform(1.4, 2.0) + sorteio.uniform(-0.4, 0.4), sorteio.uniform(0, 360))
+                # Peça alta só onde o deserto fechado fica ao norte do corredor.
+                if altas and nz < -0.4 and sorteio.random() < (0.22 if comprida else 0.14):
+                    alta = altas[sorteio.randrange(len(altas))]
+                    # O rochedo largo vai mais para trás, para não invadir o caminho.
+                    recuo = sorteio.uniform(2.2, 3.2) + (1.3 if alta == "rochedo_b" else 0.0)
+                    por(alta, x + nx * recuo, z + nz * recuo, sorteio.uniform(0, 360))
+                contador += 1
+                distancia += passo
+            andado += tamanho_do_trecho
+    return posicoes
+
+
 def montar_mundo():
     c = Cena()
     m = Montador(c)
@@ -1204,7 +1308,7 @@ def montar_mundo():
     livres_dos_lugares = [(cx_ - rx - 1, cz_ - rz - 1, (rx + 1) * 2, (rz + 1) * 2) for cx_, cz_, rx, rz in dm.LUGARES.values()]
     livres_dos_lugares += [(0, 0, 160, 16), (cx - 26, cz - 11, 52, 22)]
 
-    def espalhar(nome, modelo, quantidade, semente, distancia, raio=0.0, altura=1.5, escala=(0.85, 1.2), sombra=True, some=0.0,
+    def espalhar(nome, modelo, quantidade, semente, distancia, raio=0.0, altura=1.5, escala=(0.85, 1.2), sombra=True, some=36.0,
                  area=(80, 60, 156, 92), livres=None):
         no = m.espalhador(nome, MUNDO_PACOTE + modelo + ".glb", area[0], area[1], area[2], area[3], quantidade, semente,
                           distancia=distancia, raio=raio, altura=altura, livres=livres if livres is not None else livres_dos_lugares,
@@ -1214,30 +1318,25 @@ def montar_mundo():
         return no
 
     espalhar("CactosAltos", "cacto_alto", 55, 3, 5.0, raio=0.3, altura=2.0)
-    espalhar("CactosRedondos", "cacto_redondo", 80, 4, 2.5, raio=0.32, altura=0.5)
-    espalhar("Palmas", "cacto_de_raquete", 55, 5, 2.5, raio=0.3, altura=0.9)
-    espalhar("RochasBaixas", "rochas_baixas", 60, 6, 3.0, raio=0.7, altura=0.6, escala=(0.7, 1.4))
-    espalhar("Pedras", "pedras_do_deserto", 70, 7, 2.5, sombra=False, some=40.0)
-    espalhar("Capim", "enfeite_capim_seco", 380, 8, 1.3, sombra=False, some=35.0)
-    espalhar("ArbustosSecos", "arbusto_seco", 90, 11, 2.5, sombra=False, some=45.0)
+    espalhar("CactosRedondos", "cacto_redondo", 80, 4, 2.5, raio=0.32, altura=0.5, sombra=False)
+    espalhar("Palmas", "cacto_de_raquete", 55, 5, 2.5, raio=0.3, altura=0.9, sombra=False)
+    espalhar("RochasBaixas", "rochas_baixas", 60, 6, 3.0, raio=0.7, altura=0.6, escala=(0.7, 1.4), sombra=False)
+    espalhar("Pedras", "pedras_do_deserto", 70, 7, 2.5, sombra=False)
+    espalhar("Capim", "enfeite_capim_seco", 380, 8, 1.3, sombra=False)
+    espalhar("ArbustosSecos", "arbusto_seco", 90, 11, 2.5, sombra=False)
     espalhar("Ossos", "enfeite_ossos", 18, 12, 9.0, sombra=False)
     espalhar("Caveiras", "enfeite_caveira_de_boi", 8, 13, 12.0, sombra=False)
-    espalhar("Rachaduras", "enfeite_rachadura", 120, 14, 3.0, sombra=False, some=45.0)
+    espalhar("Rachaduras", "enfeite_rachadura", 120, 14, 3.0, sombra=False)
     espalhar("ManchasDeTerra", "enfeite_mancha_de_terra", 18, 15, 12.0, sombra=False, escala=(1.0, 2.0))
 
-    # -- a borda dos corredores: onde o deserto fecha, uma fileira de pedra baixa, mato seco
-    # e cacto, com uma parede invisível atrás. É a borda natural do Stardew Valley: o
-    # jogador vê o deserto, mas anda pelos caminhos.
+    # -- a borda dos corredores: onde o deserto fecha, uma parede invisível e, em cima
+    # dela, cenário que leia como "não passa". A borda é dividida em trechos, e cada trecho
+    # tem um tema que combina com o lugar (veja `pecas_da_borda`).
     c.no("BordaDosCorredores", "Node3D")
     parede = c.no("Parede", "StaticBody3D", pai="BordaDosCorredores", propriedades={"collision_mask": "0"})
     formas = {}
-    sequencia_da_borda = ("rochas_baixas", "arbusto_seco", "rochas_baixas", "pedras_do_deserto", "arbusto_seco",
-                          "cacto_redondo", "rochas_baixas", "arbusto_seco", "cacto_de_raquete")
-    pecas_da_borda = {modelo: [] for modelo in sequencia_da_borda}
-    espaco_entre_pecas = 1.7
-    contador = 0
-    for linha in contorno_dos_corredores():
-        andado_desde_a_ultima = espaco_entre_pecas / 2
+    linhas_da_borda = contorno_dos_corredores()
+    for linha in linhas_da_borda:
         for (x1, z1), (x2, z2) in zip(linha, linha[1:]):
             dx, dz = x2 - x1, z2 - z1
             comprimento = math.hypot(dx, dz)
@@ -1250,26 +1349,14 @@ def montar_mundo():
             c.no("Trecho", "CollisionShape3D", pai=parede, propriedades={
                 "position": vetor(meio_x, chao(meio_x, meio_z) + 1.0, meio_z), "rotation": vetor(0, -math.atan2(dz, dx), 0),
                 "shape": formas[tamanho]})
-            # As peças vão um pouco para dentro do deserto fechado, para não comer o caminho.
-            nx, nz = -dz / comprimento, dx / comprimento
-            if tipo_do_chao(meio_x + nx, meio_z + nz) != DESERTO_FECHADO:
-                nx, nz = -nx, -nz
-            percorrido = espaco_entre_pecas - andado_desde_a_ultima
-            while percorrido <= comprimento:
-                t = percorrido / comprimento
-                x = x1 + dx * t + nx * 0.8 + sorteio.uniform(-0.25, 0.25)
-                z = z1 + dz * t + nz * 0.8 + sorteio.uniform(-0.25, 0.25)
-                if tipo_do_chao(x, z) == DESERTO_FECHADO and chao_firme(x, z):
-                    modelo = sequencia_da_borda[contador % len(sequencia_da_borda)]
-                    pecas_da_borda[modelo].append((x, z, sorteio.uniform(0, 360)))
-                    contador += 1
-                percorrido += espaco_entre_pecas
-            andado_desde_a_ultima = comprimento - (percorrido - espaco_entre_pecas)
-    for indice, (modelo, posicoes) in enumerate(pecas_da_borda.items()):
+    posicoes_da_borda = pecas_da_borda(linhas_da_borda, sorteio)
+    for indice, (modelo, posicoes) in enumerate(sorted(posicoes_da_borda.items())):
         if not posicoes:
             continue
+        comprida = modelo in PECAS_COMPRIDAS_DA_BORDA
         m.espalhador("Borda_" + modelo, MUNDO_PACOTE + modelo + ".glb", 0, 0, 1, 1, 0, 40 + indice,
-                     escala=(0.8, 1.25), sombra=modelo == "rochas_baixas", some=50.0, pai="BordaDosCorredores")
+                     escala=(1.0, 1.0) if comprida else (0.85, 1.2), sombra=modelo in SOMBRA_NA_BORDA,
+                     some=36.0, pai="BordaDosCorredores")
         c.nos[-1] += "\nposicoes_fixas = PackedVector3Array(%s)\nseguir_o_chao = true" % ", ".join(
             "%s, %s, %s" % (numero(x), numero(z), numero(g)) for x, z, g in posicoes)
 
