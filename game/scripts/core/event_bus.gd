@@ -38,6 +38,8 @@ signal game_loaded
 ## projétil bateu, onde o jogador começou um dash, e o que ele comeu.
 signal projectile_impacted(posicao: Vector3)
 signal player_dashed(posicao: Vector3)
+## O jogador caiu na água e foi posto de volta no chão (o ResgateDoJogador).
+signal player_rescued(posicao: Vector3)
 signal item_consumed(consumivel: Consumivel)
 signal rare_loot_dropped(posicao: Vector3, cor: Color)
 ## O comerciante que também é ferreiro oferece os dois serviços; a escolha pede um deles.
