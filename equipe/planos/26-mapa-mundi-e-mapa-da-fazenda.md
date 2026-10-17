@@ -62,6 +62,44 @@ bastante") e os dois mapas estão no jogo. Detalhes na revisão logo abaixo.
 - 23 modelos novos (`verde.py` e `utensilios.py`). Quadros por segundo depois disso: perto
   de 100 na fazenda e de 85 a 90 no mundo.
 
+**Terceira passada (2026-10-15 e 16): o mundo orgânico.** O Antonio mandou uma referência
+de mapa orgânico e pediu desnível, "sempre um marco à vista", áreas vazias fechadas com
+bicho, osso e bola de feno, e casas mais caprichadas.
+
+- O traçado inteiro está em `equipe/ferramentas/desenho_do_mundo.py`: rio no lugar do
+  canal, cânion no oeste, lago (o aquífero) no sul, dois terraços com rampa, trilhas,
+  pontes, reservas e lugares. O terreno (`terreno.py`) e o gerador leem dali.
+- Casas dos moradores modeladas do zero (`casas.py`), marcos novos (`marcos.py`): rochedos,
+  cisterna, poço de petróleo, ônibus, guindaste, costela gigante, carcaça de drone.
+- Três reservas cercadas, com raposa, lebre e vaca (`animal_do_cenario.gd`) e bolas de
+  feno que rolam e somem (`soprador_de_feno.gd`).
+- Graminha perto do jogador (`grama_perto_do_jogador.gd`), fora de telhado, trilha,
+  asfalto e talhão. Custa de 1 a 6 quadros por segundo.
+
+Depois, a pedido do Antonio ("o jogador ainda fica com muita liberdade de andar perdido",
+"dá pra cair no rio e não sair mais", "o relevo interfere na mira da escopeta", "muito
+serrilhado o leito dos rios", e "tudo que atrapalha a visão fica translúcido"):
+
+- **Corredores, como no Stardew Valley.** Só as trilhas (com 2,5 de folga para cada lado)
+  e os lugares são andáveis. O resto do deserto fica à vista atrás de uma borda de pedra,
+  mato e cacto, com parede invisível. Os marcos de preenchimento vão para fora do
+  corredor, como paisagem do caminho. Lugares pequenos novos para as portas da Torre e da
+  Galeria, o píer, a casa da Sol (com trilha nova) e o quintal da Iara.
+- **Água.** Guarda-corpo invisível nas pontes, parede fechada na boca do rio, e o
+  `ResgateDoJogador` devolve ao chão quem cair mesmo assim.
+- **Mira.** O projétil acompanha a altura do terreno em vez de bater nele.
+- **Beira do rio.** Barranco mais largo que a grade, vértices encaixados na curva, e a
+  água virou uma fita lisa (detalhes na bíblia de 3D, dificuldades 18 e 19).
+- **Translucidez.** Toda peça alta ganha a `CoberturaTranslucida` pela lista
+  `MODELOS_QUE_COBREM` do gerador.
+- O cânion acabava em cima da clínica: agora termina em x = 42. O ponto de rotina da
+  ponte estava no leito do rio: agora fica no tabuleiro.
+- Quadros por segundo no mundo: de 70 a 85 (a borda e as coberturas não pesam; o número
+  varia com o lugar).
+
+**Falta:** a fazenda na mesma língua orgânica (relevo leve, borda rachada, tons sem
+branco), decidida com o Antonio e ainda não feita.
+
 **Como foi testado (por script, com captura de tela)**
 
 - Arar dentro do talhão funciona; fora, e no talhão ainda não liberado, não.

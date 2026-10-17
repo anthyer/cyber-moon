@@ -300,6 +300,21 @@ exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota
 - Login com a conta Google, pedido do Antonio para o jogo final.
 - Publicar o jogo na Web (CloudFront na frente do bucket) e a sprint 5 inteira.
 
+### 2026-10-16, plano 26: corredores, rio, mira e translucidez
+
+- **A fazenda ainda não está na língua orgânica do mundo.** Decidido com o Antonio, falta
+  fazer: relevo leve, borda rachada, laguinho no barranco, tons sem branco.
+- **Cobertura de marcos caiu de 92% para 89%.** Com o mundo andável só nos corredores, os
+  buracos que sobraram ficam no miolo dos lugares grandes (campos solares, Badlands), longe
+  do deserto fechado onde o marco de preenchimento pode ir. Esses lugares têm as próprias
+  peças; não foi tratado.
+- **Corredor na beira de reserva.** A trilha da vila até o acampamento passa colada no
+  pasto do vizinho. A cerca segura, mas a borda de pedra não aparece ali (a cerca é a
+  borda). Conferir no jogo se fica claro.
+- **O resgate da água guarda o último chão firme.** Se esse chão for colado na beira, o
+  jogador volta para a beira. Não deu problema no teste, mas é o primeiro lugar para olhar
+  se alguém relatar que caiu duas vezes seguidas.
+
 ### 2026-10-14, plano 26 (mapa mundi e mapa da fazenda)
 
 **Feito.** Os dois mapas, os talhões e as entradas das dungeons no mundo. Decisões e

@@ -88,7 +88,7 @@ somem.
 
 ## Camadas de física
 
-O jogo usa 8 camadas de colisão 3D, nomeadas no `project.godot`:
+O jogo usa 10 camadas de colisão 3D, nomeadas no `project.godot`:
 
 | Camada | Nome | Quem fica nela |
 |---|---|---|
@@ -100,6 +100,13 @@ O jogo usa 8 camadas de colisão 3D, nomeadas no `project.godot`:
 | 6 | `area_interacao` | área que detecta o que dá para interagir |
 | 7 | `hitbox_ataque` | área de dano de um golpe |
 | 8 | `solo_agricola` | a grade de solo arável |
+| 9 | `porta` | a porta da dungeon (`porta_de_dungeon.gd`) |
+| 10 | `chao` | o terreno do mundo e o chão da fazenda, além da camada `mundo` |
+
+A camada `chao` existe para quem procura onde pisar: a graminha, o deserto espalhado, os
+bichos e as bolas de feno lançam o raio para baixo só nela, e por isso nada nasce em
+telhado. O projétil também a usa: ele não bate no terreno, acompanha a altura dele (ver
+"Combate do jogador").
 
 A colisão do cenário não é montada à mão nas cenas. Ela é gerada na importação pelo
 `scripts/utils/post_import_kenney.gd`, que cria um `StaticBody3D` com forma trimesh
@@ -248,6 +255,12 @@ aponta, e só usa a frente do personagem quando não há direção.
 a partir do corpo atingido até achar esse método. O `Inimigo` e o jogador implementam o
 contrato: o golpe do jogador procura a camada `inimigo`, e o golpe do inimigo procura a
 camada `jogador`.
+
+**Projétil no relevo.** O projétil voa reto, mas não bate no terreno (camada `chao`): a
+cada quadro ele lança um raio para baixo e mantém a altura que tinha sobre o chão quando
+saiu da arma. Sem isso, a primeira duna na frente engolia o tiro. Por cima do rio e do
+cânion ele não mergulha no leito (`CHAO_MAIS_BAIXO`). Na dungeon não há camada `chao`, e
+o tiro segue reto como antes.
 
 **Modelo na mão sem colisão:** o `AtaqueDoJogador` remove qualquer corpo de colisão do
 modelo da arma ao prendê-lo na mão, e os acessórios `aid_*` estão na lista de modelos sem
@@ -592,9 +605,23 @@ parte, em z = 400.
 - **Deserto espalhado.** `EspalhadorDeObjetos` põe cópias de um modelo numa área, com
   semente fixa, desenhadas num `MultiMeshInstance3D` (uma chamada de desenho para todas) e
   com um cilindro de colisão por cópia. Áreas livres (estrada, praça, canal) ficam vazias.
-- **Água.** Canal, reservatório e laguinho são planos com o shader toon de água, com uma
-  parede invisível por cima (a borda de concreto sozinha não segura a cápsula do
-  personagem). Nas pontes e no píer a parede tem um vão.
+- **Água.** O rio, o cânion e o lago são afundados no terreno, com uma parede invisível no
+  alto do barranco. Nas pontes a parede tem um vão do tamanho do tabuleiro, e um
+  guarda-corpo invisível dos dois lados emenda a ponte com a parede. Se mesmo assim o
+  jogador cair, o `ResgateDoJogador` (`scripts/world/resgate_do_jogador.gd`, um nó do
+  mapa) o devolve ao último chão firme em que ele pisou e emite
+  `EventBus.player_rescued`, que solta o efeito `resgate_da_agua`.
+- **Corredores.** O mundo é andável só nas trilhas (com uma folga para cada lado) e nos
+  lugares, como no Stardew Valley. O resto do deserto continua à vista, mas fica atrás de
+  uma borda de pedra baixa, mato seco e cacto, com parede invisível. A borda sai de uma
+  grade de meio em meio montada pelo gerador a partir de `desenho_do_mundo.py`
+  (`TRILHAS`, `LUGARES`, `FOLGA_DOS_CORREDORES`); as peças dela são um
+  `EspalhadorDeObjetos` com `posicoes_fixas`. Ponto de rotina de NPC, porta de dungeon e
+  qualquer coisa que o jogador precise alcançar tem que cair dentro de um corredor: o
+  gerador lista os que ficarem de fora.
+- **Peças altas translúcidas.** Toda peça cujo arquivo começa com um nome de
+  `MODELOS_QUE_COBREM` (casa, prédio, rochedo, palmeira, caixa d'água) ganha a
+  `CoberturaTranslucida` sozinha.
 - **Montagem.** As duas cenas saem de `equipe/ferramentas/gerar_mapas.py`, que reescreve a
   cena inteira. Depois de mudar o mundo, refaça a malha de navegação dele.
 

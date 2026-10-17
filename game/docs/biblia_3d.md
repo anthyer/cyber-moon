@@ -188,15 +188,45 @@ e a paleta do pacote na cor:
 - **Mancha de chão** (terra batida, areia clara) é um contorno irregular de espessura
   quase zero, rente ao chão, para quebrar o plano de areia sem custo.
 
+### Terreno do mundo
+
+O chão do mapa mundi é uma malha só (`chao_terreno_mundo`), feita por
+`equipe/ferramentas/blender/modelos/terreno.py` a partir do traçado de
+`equipe/ferramentas/desenho_do_mundo.py`. É uma grade de 1 em 1 com um tremor pequeno,
+facetada como o Nature Kit, com dunas baixas, dois terraços com rampa, e o rio, o cânion
+e o lago afundados.
+
+- **Cor por face**, tirada da paleta pelo tom do degradê (`"pessego@0.35"`): areia e
+  poeira em tons médios, nunca o chapado claro, que estoura para o branco ao meio-dia.
+- **Barranco** é qualquer face com inclinação acima de 0,45: estrato de `ferrugem` e
+  `salmao` pela altura, e sombreamento liso (o resto do chão é facetado).
+- **O barranco é mais largo que a grade.** Rio com 1,3 de barranco, cânion com 1,6, lago
+  com 1,4. E os vértices perto do pé e do topo são puxados para cima da curva exata
+  (`encaixar_nas_margens`).
+
 ### Água (shader toon)
 
-A água do canal, do reservatório e do laguinho da fazenda não é modelo: é um plano com o
-shader `assets/shaders/agua_toon.gdshader`, posto pelo gerador do mapa. Ele desenha duas
-cores chapadas que andam devagar, riscos finos de reflexo em parte da água (a emenda de
-um ruído celular), espuma ondulando na beira e luz em degraus (`diffuse_toon`), com um
-pouco de brilho próprio. Não usa textura nem leitura de profundidade, que o renderizador
-Compatibility não garante. O plano é de 1 por 1 esticado pela escala do nó: é pela escala
-que o shader sabe a largura da espuma em metros.
+A água tem o shader `assets/shaders/agua_toon.gdshader`: duas cores chapadas que andam
+devagar, riscos finos de reflexo, espuma ondulando na beira e luz em degraus
+(`diffuse_toon`). Não usa textura nem leitura de profundidade, que o renderizador
+Compatibility não garante.
+
+- **Rio e lago** são um modelo (`enfeite_agua_do_mundo`): uma fita que segue o rio, com
+  cinco vértices atravessando o curso, e um leque que preenche o lago. A cor do vértice
+  guarda a distância até a beira (0 na beira, 1 a dois de distância), e a espuma segue a
+  margem por ela (`espuma_pela_cor_do_vertice`). A beira da água entra 0,6 por baixo do
+  barranco. Onde o rio desemboca no lago, o anel do lago não tem espuma.
+- **O laguinho da fazenda** é um plano de 1 por 1 esticado pela escala do nó: é pela
+  escala que o shader sabe a largura da espuma em metros.
+
+### Graminha perto do jogador
+
+Não é modelo do Blender: o `GramaPertoDoJogador` monta um tufo de sete folhas finas e
+opacas em código, e repete por MultiMesh em pedaços de 4 por 4 só em volta do jogador.
+Opaca de propósito: cartão com transparência custa caro aos milhares. A normal da folha é
+sempre para cima, como a do chão; com a normal de verdade, o verso de cada folha ficava
+quase preto contra a areia. Onde nasce vem de uma máscara (vermelho densidade, verde
+umidade) gravada pelo script do terreno, e na fazenda pelo gerador do mapa.
 
 ### Verde e objetos de uso
 
@@ -316,6 +346,15 @@ distância atrás dele. Daí as regras das dungeons:
 - **Decoração fica nas bordas.** O miolo da sala é da luta, e os ataques dos chefes
   marcam o chão: piso muito desenhado atrapalha a leitura da marca.
 
+No mundo aberto vale o mesmo, com duas regras a mais:
+
+- **Peça alta ganha a cobertura sozinha.** O gerador põe a `CoberturaTranslucida` em
+  toda peça da lista `MODELOS_QUE_COBREM` (casas, prédios, rochedos, palmeiras, caixa
+  d'água, ônibus). Peça alta nova entra na lista.
+- **O jogador anda por corredores.** Trilha com folga e lugares, como no Stardew Valley.
+  A borda do corredor é baixa (pedra, mato, cacto) para não esconder ninguém, e o que é
+  alto (rochedo, barraco, poste) fica do lado de fora, como marco à vista do caminho.
+
 ## Dificuldades superadas
 
 Em ordem de quanto tempo custaram.
@@ -369,6 +408,21 @@ Em ordem de quanto tempo custaram.
     parte da água por uma máscara, é que lê como reflexo.
 17. **Luz própria escrita à mão escurece.** O `light()` customizado deixava a água
     azul-marinho de manhã. O `diffuse_toon` do Godot dá o degrau sem esse problema.
+18. **Beira do rio serrilhada.** O barranco tinha 0,7 de largura e a grade do terreno, 1:
+    em muitas linhas da grade nenhum vértice caía no barranco, e a beira virava um serrote.
+    Três coisas juntas resolveram: barranco mais largo que a grade (o leito ficou mais
+    estreito na mesma medida, para as pontes continuarem cobrindo o rio), vértices perto da
+    beira puxados para cima da curva, e sombreamento liso só no barranco.
+19. **Linha d'água em escadinha.** A água era recortada de uma grade de meio em meio, e a
+    beira dela aparecia em degraus onde o barranco a deixava à vista. Virou uma fita que
+    segue o rio e um leque no lago, com a beira lisa.
+20. **Grama no telhado.** O raio que procura o chão acertava o telhado das casas. Criada a
+    camada de física `chao` (a 10), só com o terreno e o chão da fazenda; todo raio de
+    assentar procura só nela.
+21. **Costela em gomos soltos.** Cilindros curtos em arco deixavam fresta entre os gomos.
+    A costela gigante virou um arco de contas facetadas que se sobrepõem.
+22. **Folha de grama preta.** Com `cull_disabled`, o verso da folha tem a normal virada e
+    fica escuro. A normal da folha é forçada para cima no shader.
 
 ## O que ainda não foi feito
 
