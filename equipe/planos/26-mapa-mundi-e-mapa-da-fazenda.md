@@ -97,6 +97,11 @@ serrilhado o leito dos rios", e "tudo que atrapalha a visão fica translúcido")
 - Quadros por segundo no mundo: de 70 a 85 (a borda e as coberturas não pesam; o número
   varia com o lugar).
 
+**Ajustes de 2026-10-19, a pedido do Antonio.** Os painéis solares ficavam em cima das
+trilhas: agora saem em fileiras de duas, dos dois lados da trilha, longe do cânion, das
+máquinas do campo e da entrada do Biodomo. E o pilar do viaduto que fica no meio do rio
+flutuava sobre o leito: ganhou um prolongamento até o fundo.
+
 **A fazenda orgânica (2026-10-16).** O traçado está em
 `equipe/ferramentas/desenho_da_fazenda.py`, e o chão sai de `terreno_da_fazenda.py`:
 

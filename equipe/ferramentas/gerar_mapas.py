@@ -1026,6 +1026,13 @@ def montar_mundo():
     c.no("Viaduto", "Node3D")
     for x in range(4, 160, 8):
         m.peca("Modulo", MUNDO_PACOTE + "viaduto_modulo.glb", x, 5.0, pai="Viaduto")
+        # Pilar em cima de chão baixo (o leito do rio) desce até o fundo: o prolongamento
+        # tem 1 de altura e é esticado até lá.
+        for pilar_x in (x - 2.0, x + 2.0):
+            fundo = min(chao(pilar_x, z) for z in (4.3, 5.0, 5.7))
+            if fundo < -0.05:
+                c.no("Pilar", pai="Viaduto", instancia=MUNDO_PACOTE + "viaduto_pilar.glb", propriedades={
+                    "position": vetor(pilar_x, 0, 5.0), "scale": vetor(1, -fundo + 0.1, 1)})
         # O viaduto é alto (4,2) e aparece no alto da tela de quem está na pista.
         MARCOS_POSTOS.append((x, 5.0, "viaduto_modulo"))
     for x in range(6, 158, 13):
@@ -1192,13 +1199,38 @@ def montar_mundo():
 
     # -- campos solares, o cânion entre eles
     c.no("Solar", "Node3D")
-    for grupo_x, grupo_z, linhas_, colunas_ in ((14, 26, 2, 4), (28, 24, 2, 3), (16, 38, 2, 3), (32, 38, 1, 3), (10, 84, 2, 3), (14, 96, 1, 4), (30, 94, 2, 2)):
-        for linha in range(linhas_):
-            for coluna in range(colunas_):
-                x = grupo_x + coluna * 4.2 + sorteio.uniform(-0.3, 0.3)
-                z = grupo_z + linha * 3.2
-                p("Paineis", INDUSTRIAL + "solar_panel_landscape_group.glb", x, z, graus=sorteio.uniform(-6, 6),
-                  escala=ESCALA_KENNEY * 0.75, pai="Solar")
+    # Os painéis em fileiras dos dois lados da trilha, nunca em cima dela: cada fileira vai
+    # até perto da trilha e para. Também ficam longe do cânion, das máquinas do campo e da
+    # entrada do Biodomo.
+    curvas_das_trilhas = [(dm.suavizar(pontos, passo=1.0), largura) for pontos, largura in dm.TRILHAS]
+    ocupados_no_campo = [(7, 32, 3.0), (40, 20, 3.5), (38, 32, 2.0), (22, 33, 2.0), (24, 90, 2.0), (35, 80, 3.0), (18, 80, 4.5)]
+
+    def lugar_de_painel(x, z):
+        for curva, largura in curvas_das_trilhas:
+            if _distancia_a_pontos(x, z, curva) < largura / 2 + 2.8:
+                return False
+        if any(math.hypot(x - ox, z - oz) < r + 2.2 for ox, oz, r in ocupados_no_campo):
+            return False
+        # O painel tem uns 4 de largura: as duas pontas também precisam estar em chão firme.
+        return all(tipo_do_chao(x + dx, z + dz) == CORREDOR and chao_firme(x + dx, z + dz)
+                   for dx in (-2.2, 0.0, 2.2) for dz in (-1.4, 1.4))
+
+    for campo in ("solar_norte", "solar_sul"):
+        cx_, cz_, rx, rz = dm.LUGARES[campo]
+        # Fileiras de duas, com um corredor entre os pares, como num campo de verdade.
+        fileiras = []
+        par = cz_ - rz
+        while par <= cz_ + rz:
+            fileiras += [par, par + 3.3]
+            par += 8.6
+        for z in fileiras:
+            x = cx_ - rx
+            while x <= cx_ + rx:
+                dentro = ((x - cx_) / (rx - 2.0)) ** 2 + ((z - cz_) / (rz - 1.5)) ** 2 < 1.0
+                if dentro and lugar_de_painel(x, z):
+                    p("Paineis", INDUSTRIAL + "solar_panel_landscape_group.glb", x, z, graus=sorteio.uniform(-3, 3),
+                      escala=ESCALA_KENNEY * 0.75, pai="Solar")
+                x += 4.4
     p("CataVento", MUNDO_PACOTE + "cata_vento_enferrujado.glb", 7, 32, pai="Solar", cobre=True)
     p("CataVentoNovo", INDUSTRIAL + "windmill.glb", 40, 20, escala=4.0, pai="Solar", cobre=True)
     for x, z in ((38, 32), (22, 33), (24, 90)):

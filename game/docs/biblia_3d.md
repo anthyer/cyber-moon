@@ -260,6 +260,8 @@ umidade) gravada pelo script do terreno, e na fazenda pelo gerador do mapa.
 ### Construções do mundo
 
 - **Viaduto, comporta, letreiro e outdoor** são as peças altas do mapa e ficam no norte.
+  Pilar do viaduto em cima de chão baixo (o leito do rio) ganha o `viaduto_pilar`, um
+  prolongamento de 1 de altura que o gerador estica até o fundo.
 - **Neon** de rua segue as cores das dungeons: `magenta` e `azul_claro` nas faixas,
   `amarelo` na luz de poste e nas sinalizações.
 - **Água** é uma face `azul` com um ou dois riscos `azul_claro`, rente ao chão. O canal e o

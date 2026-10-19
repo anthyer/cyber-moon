@@ -44,6 +44,17 @@ def viaduto_modulo():
     return m.finalizar()
 
 
+def viaduto_pilar():
+    """O prolongamento de um pilar do viaduto, para onde o chão é mais baixo (o leito do
+    rio). Tem 1 de altura, com o topo em 0: o gerador estica em Y até o fundo. Base de
+    concreto mais larga e uma faixa de limo onde a água bate."""
+    m = kit.Modelo("viaduto_pilar")
+    m.caixa((1.0, 1.4, 1.0), pos=(0, 0, -1.0), cor="cinza", chanfro=0.06, degrade=True)
+    m.caixa((1.5, 1.9, 0.25), pos=(0, 0, -1.0), cor="chumbo", chanfro=0.05)
+    m.caixa((1.04, 1.44, 0.12), pos=(0, 0, -0.35), cor="verde_folha")
+    return m.finalizar()
+
+
 def ponto_de_onibus():
     """Abrigo do ponto de ônibus, debaixo do viaduto: banco, cobertura e a placa acesa."""
     m = kit.Modelo("ponto_de_onibus")
@@ -387,7 +398,7 @@ def cata_vento_enferrujado():
 
 
 MODELOS = [
-    viaduto_modulo, ponto_de_onibus, outdoor_neon, poste_de_luz,
+    viaduto_modulo, viaduto_pilar, ponto_de_onibus, outdoor_neon, poste_de_luz,
     canal_reto, canal_ponte, canal_comporta, reservatorio_borda, reservatorio_quina, pier_de_madeira,
     casa_de_bombas, entrada_da_galeria, entrada_do_biodomo, entrada_da_torre,
     letreiro_da_vila, bomba_solar, bar_de_beira_de_estrada,
