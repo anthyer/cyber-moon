@@ -80,6 +80,20 @@ fica para colher, conversar e abrir baú (planos 06, 15 e 17).
 **Contrato de interação:** um nó é interagível quando tem o método `interagir()`. A área
 detecta o corpo de colisão e sobe pela árvore até o primeiro ancestral com esse método.
 O jogador não conhece o tipo do alvo; NPC, planta e baú decidem sozinhos o que fazer.
+Alvo invisível (o baú de recompensa antes do chefe cair) não conta.
+
+**Destaque do alvo (plano 28).** A cada quadro a área confere qual é o alvo mais perto e,
+quando ele muda, emite `EventBus.interaction_target_changed(alvo)` (null quando não há
+nenhum, e durante uma conversa). O `DestaqueDeInteracao` (`scripts/ui/destaque_de_interacao.gd`,
+na `InterfaceHUD`) ouve e faz duas coisas: põe o shader
+`assets/shaders/destaque_de_interacao.gdshader` no `material_overlay` das malhas do alvo
+(um brilho amarelo claro que pulsa, por cima do material, sem trocá-lo) e mostra um
+balão acima dele com a tecla e o verbo. Dois métodos opcionais no interagível:
+`texto_de_interacao()` devolve o verbo ("Abrir baú"; sem ele, "Interagir") e
+`no_do_destaque()` devolve o nó que brilha, quando não é o próprio alvo (a entrada de
+dungeon brilha o modelo ao lado). O `EfeitosDoJogo` solta um sopro pequeno no alvo novo
+(`alvo_de_interacao`). Interagível novo ganha o destaque sem código novo; só o verbo é
+dele.
 
 O item solto pelo jogo (`ItemNoMundo.soltar()`) some do chão depois de
 `SEGUNDOS_NO_CHAO_AO_SOLTAR` (300), piscando nos últimos segundos. O item colocado à mão

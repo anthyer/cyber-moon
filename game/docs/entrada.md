@@ -29,6 +29,7 @@ O stick esquerdo move o jogador junto com o D-pad. As quatro ações de moviment
 ## Regras
 
 - O `InputManager` também sabe de qual aparelho veio a última entrada (`usando_teclado_e_mouse()`) e onde o mouse está (`posicao_do_mouse()`, `mouse_se_moveu_agora()`). Código de gameplay que precisa do mouse pergunta a ele, e não ao `Input` nem ao viewport.
+- Tela que precisa dizer qual tecla apertar pergunta `InputManager.nome_da_tecla(acao)`. Ele lê o Input Map e segue o aparelho em uso: "F" no teclado, "A" no controle. Nunca escreva o nome da tecla à mão num texto.
 - Toda leitura de entrada passa pelo `InputManager` (`scripts/core/input_manager.gd`), nunca por verificação direta de tecla no código de gameplay.
 - Cada ação é mapeada, desde o início, para teclado e joystick simultaneamente; `dash` soma ainda um botão de mouse como atalho extra. O suporte a toque na tela será adicionado futuramente mapeando as mesmas ações.
 - `dash` vai na direção do direcional, ou para a frente do personagem quando o direcional está solto. Ele pode cortar o fim de um golpe: sai assim que o golpe termina de acertar, sem esperar a animação acabar.

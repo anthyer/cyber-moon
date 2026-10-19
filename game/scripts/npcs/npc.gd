@@ -162,6 +162,11 @@ func ir_para(destino: Vector3) -> void:
 func interagir() -> void:
 	DialogueManager.iniciar(self)
 
+func texto_de_interacao() -> String:
+	if perfil == null:
+		return "Conversar"
+	return "Conversar com %s" % perfil.nome_exibido
+
 ## Só para comerciante: depois da conversa do dia, a loja abre. Fora do horário ou na
 ## Folga, ele explica que está fechado, numa fala só, em vez de abrir a tela.
 func _ao_terminar_dialogo(npc_id: String) -> void:

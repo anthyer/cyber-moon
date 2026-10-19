@@ -11,6 +11,10 @@ const FOLGA_DO_EIXO_DO_CONTROLE: float = 0.5
 var teclado_capturado: bool = false
 
 var _usando_controle: bool = false
+
+## Como cada botão do controle aparece na tela. Os números são os do JoyButton do Godot
+## (o botão de baixo é 0); vale para o controle de Xbox e para o painel arcade.
+const NOMES_DOS_BOTOES: Dictionary = {0: "A", 1: "B", 2: "X", 3: "Y", 9: "LB", 10: "RB", 4: "Select", 6: "Start"}
 var _posicao_do_mouse: Vector2 = Vector2.ZERO
 var _quadro_do_ultimo_movimento_do_mouse: int = -1000
 
@@ -50,6 +54,18 @@ func obter_direcao_movimento() -> Vector2:
 
 func correr_pressionado() -> bool:
 	return not teclado_capturado and Input.is_action_pressed("correr")
+
+## O nome da tecla (ou do botão do controle) ligado a uma ação, para a tela dizer o que
+## apertar. Lê o Input Map, então trocar a tecla no projeto troca o texto junto. Segue o
+## aparelho em uso: com controle, mostra o botão.
+func nome_da_tecla(acao: StringName) -> String:
+	for evento in InputMap.action_get_events(acao):
+		if _usando_controle and evento is InputEventJoypadButton:
+			return NOMES_DOS_BOTOES.get((evento as InputEventJoypadButton).button_index, "Botão")
+		if not _usando_controle and evento is InputEventKey:
+			var tecla: Key = DisplayServer.keyboard_get_keycode_from_physical((evento as InputEventKey).physical_keycode)
+			return OS.get_keycode_string(tecla)
+	return "?"
 
 func interagir_pressionado() -> bool:
 	return not teclado_capturado and Input.is_action_just_pressed("interagir")

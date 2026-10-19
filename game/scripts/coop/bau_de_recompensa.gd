@@ -27,6 +27,9 @@ func _ready() -> void:
 	_area.collision_layer = 0
 	EventBus.boss_defeated.connect(_ao_cair_chefe)
 
+func texto_de_interacao() -> String:
+	return "Abrir a recompensa"
+
 ## Contrato de interação do jogo (ver AreaDeInteracao).
 func interagir() -> void:
 	if not visible:

@@ -60,6 +60,8 @@ const EFEITOS: Dictionary = {
 	# Mapas.
 	&"trocar_de_mapa": [SOPRO, Color(0.86, 0.74, 0.55), 14, 0.3],
 	&"resgate_da_agua": [JORRO, Color(0.45, 0.75, 1.0), 16, 0.4],
+	# Interação (plano 28): um sopro pequeno no alvo novo, para o olho achar o destaque.
+	&"alvo_de_interacao": [SOPRO, Color(1.0, 0.92, 0.6), 5, 0.25],
 }
 
 const ID_DO_BASTAO_DE_CHOQUE: StringName = &"bastao_choque"
@@ -121,6 +123,7 @@ func _ready() -> void:
 	EventBus.dungeon_reward_claimed.connect(_soltar.bind(&"recompensa"))
 	EventBus.map_changed.connect(func(_mapa_id: StringName) -> void: _no_jogador(&"trocar_de_mapa"))
 	EventBus.player_rescued.connect(_soltar.bind(&"resgate_da_agua"))
+	EventBus.interaction_target_changed.connect(_ao_mudar_alvo_de_interacao)
 
 ## Este nó para junto com o jogo. O aprimoramento acontece na tela do ferreiro, que pausa
 ## o jogo, então as faíscas esperam aqui e saem quando a tela fecha.
@@ -140,6 +143,10 @@ func _soltar(posicao: Vector3, acao: StringName, cor: Color = Color.TRANSPARENT)
 	var efeito: Array = EFEITOS[acao]
 	var cor_usada: Color = efeito[1] if cor == Color.TRANSPARENT else cor
 	EfeitoDeParticulas.soltar(efeito[0], posicao + Vector3.UP * efeito[3], cor_usada, efeito[2], fase)
+
+func _ao_mudar_alvo_de_interacao(alvo: Node3D) -> void:
+	if alvo != null:
+		_soltar(alvo.global_position, &"alvo_de_interacao")
 
 func _ao_mudar_objetivo(_texto: String, concluido: bool) -> void:
 	if concluido:

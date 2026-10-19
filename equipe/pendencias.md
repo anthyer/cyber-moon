@@ -300,6 +300,17 @@ exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota
 - Login com a conta Google, pedido do Antonio para o jogo final.
 - Publicar o jogo na Web (CloudFront na frente do bucket) e a sprint 5 inteira.
 
+### 2026-10-19, plano 28
+
+- **Decidido sem consultar:** brilho pulsante amarelo claro no lugar de contorno (o
+  contorno racha nos modelos facetados) e balão com tecla e verbo. Se o brilho incomodar,
+  a força está no shader (`forca`).
+- **Porteira sem destaque:** ela troca de mapa ao andar por ela, sem botão.
+- **Planta madura sem destaque:** colher usa a célula à frente, não a área de interação.
+  Entra com o plano 29.
+- **Verbo da entrada de dungeon é genérico** ("Entrar na dungeon"). Dá para pôr o nome da
+  dungeon quando a definição dela tiver um nome exibido.
+
 ### 2026-10-16, plano 26: corredores, rio, mira e translucidez
 
 - **A fazenda orgânica foi feita no mesmo dia** (ver o plano 26). O vale e as dunas ficam

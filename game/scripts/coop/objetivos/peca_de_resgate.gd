@@ -17,6 +17,9 @@ signal collected
 
 var coletada: bool = false
 
+func texto_de_interacao() -> String:
+	return "Pegar a peça"
+
 func interagir() -> void:
 	if coletada:
 		return

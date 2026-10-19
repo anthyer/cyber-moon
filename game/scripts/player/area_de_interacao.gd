@@ -7,8 +7,15 @@ extends Area3D
 ## corpo de colisão (StaticBody3D, Area3D) e sobe pela árvore até achar o primeiro
 ## ancestral com esse método, que é o alvo. Assim o item no chão, o NPC e o baú se
 ## registram do mesmo jeito, e quem decide o que acontece é o próprio alvo.
+##
+## Dois métodos opcionais deixam o destaque na tela mais claro (plano 28):
+## texto_de_interacao() devolve o verbo ("Abrir baú"), e no_do_destaque() devolve o nó
+## cujas malhas brilham, quando não é o próprio alvo (a entrada de dungeon brilha o
+## modelo ao lado dela). Sem eles, o balão diz "Interagir" e brilha o alvo.
 
 var _alvos: Array[Node3D] = []
+## O alvo que estava valendo no quadro anterior, para avisar só quando ele muda.
+var _alvo_atual: Node3D = null
 
 func _ready() -> void:
 	body_entered.connect(_ao_entrar)
@@ -16,12 +23,22 @@ func _ready() -> void:
 	area_entered.connect(_ao_entrar)
 	area_exited.connect(_ao_sair)
 
+## A cada quadro, confere se o alvo mais perto mudou e avisa pelo EventBus. É o que
+## deixa o DestaqueDeInteracao mostrar o que o botão vai fazer antes de ele ser apertado.
+## Durante uma conversa não há alvo: o botão de interagir passa a fala.
+func _physics_process(_delta: float) -> void:
+	var alvo: Node3D = null if DialogueManager.em_dialogo else alvo_mais_proximo()
+	if alvo != _alvo_atual:
+		_alvo_atual = alvo
+		EventBus.interaction_target_changed.emit(alvo)
+
 ## Devolve o alvo interagível mais perto do jogador, ou null quando não há nenhum.
+## Alvo invisível (o baú de recompensa antes do chefe cair, o mapa desligado) não conta.
 func alvo_mais_proximo() -> Node3D:
 	var mais_proximo: Node3D = null
 	var menor_distancia: float = INF
 	for alvo in _alvos:
-		if not is_instance_valid(alvo) or alvo.is_queued_for_deletion():
+		if not is_instance_valid(alvo) or alvo.is_queued_for_deletion() or not alvo.is_visible_in_tree():
 			continue
 		var distancia: float = global_position.distance_squared_to(alvo.global_position)
 		if distancia < menor_distancia:

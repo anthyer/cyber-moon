@@ -7,3 +7,6 @@ extends Node3D
 
 func interagir() -> void:
 	EventBus.calendar_requested.emit()
+
+func texto_de_interacao() -> String:
+	return "Ver o calendário"

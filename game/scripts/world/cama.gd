@@ -8,3 +8,6 @@ extends Node3D
 ## camada area_interacao, e o jogador só chama este método.
 func interagir() -> void:
 	DayCycleManager.dormir(false)
+
+func texto_de_interacao() -> String:
+	return "Dormir"

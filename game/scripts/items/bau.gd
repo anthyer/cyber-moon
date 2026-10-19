@@ -37,6 +37,9 @@ func _ready() -> void:
 func interagir() -> void:
 	EventBus.chest_requested.emit(self)
 
+func texto_de_interacao() -> String:
+	return "Abrir baú de venda" if e_de_venda() else "Abrir baú"
+
 func e_de_venda() -> bool:
 	return funcao == Funcao.VENDER
 

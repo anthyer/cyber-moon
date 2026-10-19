@@ -106,3 +106,5 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Talhão | Farm plot / `TalhaoDeCultivo`, onde a enxada funciona |
 | Entrada de dungeon | Dungeon entrance / `Portal` com `dungeon_id`, em `scenes/world/entrada_de_dungeon.tscn` |
 | Espalhador | Scatter / `EspalhadorDeObjetos`, cópias em MultiMesh |
+| Destaque de interação | Interaction highlight / `DestaqueDeInteracao`, o brilho e o balão no alvo do botão de interagir |
+| Verbo de interação | Interaction label / `texto_de_interacao()`, o que o balão diz ("Abrir baú") |

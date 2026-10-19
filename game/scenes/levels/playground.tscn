@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_relogio.tscn" id="104_hud_relogio"]
 [ext_resource type="PackedScene" path="res://scenes/ui/menu_debug.tscn" id="107_menu_debug"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_aviso.tscn" id="109_hud_aviso"]
+[ext_resource type="PackedScene" path="res://scenes/ui/destaque_de_interacao.tscn" id="140_destaque"]
 [ext_resource type="PackedScene" path="res://scenes/ui/calendario.tscn" id="110_calendario"]
 [ext_resource type="PackedScene" path="res://scenes/effects/chuva.tscn" id="112_chuva"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_chat.tscn" id="117_hud_chat"]
@@ -95,6 +96,8 @@ position = Vector3(-300, 0, 0)
 [node name="HudDeDungeon" parent="InterfaceHUD" instance=ExtResource("130_hud_dungeon")]
 
 [node name="HudDoChefe" parent="InterfaceHUD" instance=ExtResource("131_hud_chefe")]
+
+[node name="DestaqueDeInteracao" parent="InterfaceHUD" instance=ExtResource("140_destaque")]
 
 [node name="HudAviso" parent="InterfaceHUD" unique_id=1369899493 instance=ExtResource("109_hud_aviso")]
 
