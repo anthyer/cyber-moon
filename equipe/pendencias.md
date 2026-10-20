@@ -307,7 +307,8 @@ exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota
   a força está no shader (`forca`).
 - **Porteira sem destaque:** ela troca de mapa ao andar por ela, sem botão.
 - **Planta madura sem destaque:** colher usa a célula à frente, não a área de interação.
-  Entra com o plano 29.
+  Resolvido no plano 29: a ajuda puxa a mira para a planta madura vizinha e o indicador
+  marca a célula. Não ganhou o balão com verbo.
 - **Verbo da entrada de dungeon é genérico** ("Entrar na dungeon"). Dá para pôr o nome da
   dungeon quando a definição dela tiver um nome exibido.
 

@@ -165,6 +165,12 @@ exibição (sem foco e sem arraste) e escuta dois sinais: `inventory_changed` e
 
 ## Plantio e colheita
 
+**Ajuda para mirar (plano 29).** A célula onde a ação cai sai de
+`GradeSolo.celula_com_ajuda()`: com semente a mira puxa para a vizinha arada e vazia, com
+regador para a arada e seca, e para colher para a planta madura. A ajuda só puxa uma
+célula, dentro de 2 do jogador, e enxada e picareta não têm ajuda. O `IndicadorAlvo`
+marca a célula escolhida.
+
 O estado das plantas mora na `GradeSolo` (`scripts/farming/grade_solo.gd`), num
 dicionário de célula para `PlantaNaGrade`, paralelo ao dicionário do estado do solo. A
 `PlantaNaGrade` é classe interna, e não Resource, porque é estado da partida: guarda o

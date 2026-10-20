@@ -34,7 +34,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 26 Mapa mundi (deserto rural cyberpunk) e mapa da fazenda com talhões
 - [ ] 27 As dungeons na história e nos itens coletados (só registrado)
 - [x] 28 Destaque do que se vai interagir
-- [ ] 29 Ajuda para mirar no solo arado com semente e regador (depois do 26; só registrado)
+- [x] 29 Ajuda para mirar no solo arado com semente e regador
 - [ ] 30 Mais personagens e os existentes no tema, editados no Blender (só registrado)
 - [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
 

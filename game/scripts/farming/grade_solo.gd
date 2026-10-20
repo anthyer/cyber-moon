@@ -7,6 +7,15 @@ const GRUPO: StringName = &"grade_de_solo"
 
 enum EstadoTile { VAZIO, ARADO_SECO, ARADO_MOLHADO }
 
+## A ajuda para mirar no solo (plano 29): que célula a mira prefere, conforme o que o
+## jogador vai fazer. A enxada e a picareta não têm ajuda, para a mira nunca prender
+## quando ele quer arar a célula do lado.
+enum Ajuda { NENHUMA, PLANTAR, MOLHAR, COLHER }
+
+## Até onde (do jogador ao centro da célula) a ajuda pode puxar a mira. A célula da frente
+## fica a uns 1,5 dele, e a da frente na diagonal a uns 1,8.
+const ALCANCE_DA_AJUDA: float = 2.0
+
 ## Uma planta em cima de uma célula. É classe interna, e não Resource, porque é estado
 ## da partida (em que estágio esta planta está), não conteúdo de jogo. O conteúdo é o
 ## Cultivo que ela aponta.
@@ -234,6 +243,44 @@ func obter_celula_alvo(posicao_jogador: Vector3, rotacao_y: float) -> Vector2i:
 	var direcao := Vector3(sin(rotacao_y), 0.0, cos(rotacao_y))
 	var alvo_local := local_to_map(to_local(posicao_jogador + direcao))
 	return Vector2i(alvo_local.x, alvo_local.z)
+
+## A célula que a ação deve usar, com a ajuda para mirar. Se a célula da mira normal já
+## serve (arada e vazia para a semente, arada e seca para o regador, madura para colher),
+## fica ela. Se não serve, procura entre as oito vizinhas a que serve e está mais perto
+## da mira, dentro do alcance do braço. Sem nenhuma, fica a mira normal: a ajuda só puxa
+## uma célula, e nunca impede o jogador de mirar onde quer.
+func celula_com_ajuda(celula: Vector2i, posicao_jogador: Vector3, ajuda: Ajuda) -> Vector2i:
+	if ajuda == Ajuda.NENHUMA or _serve_para(celula, ajuda):
+		return celula
+	var centro_da_mira: Vector3 = centro_da_celula_no_mundo(celula)
+	# A célula embaixo do jogador não vale: plantar no próprio pé não é o que ele quer.
+	var celula_do_jogador_3d: Vector3i = local_to_map(to_local(posicao_jogador))
+	var celula_do_jogador: Vector2i = Vector2i(celula_do_jogador_3d.x, celula_do_jogador_3d.z)
+	var melhor: Vector2i = celula
+	var menor_distancia: float = INF
+	for dx in range(-1, 2):
+		for dz in range(-1, 2):
+			var vizinha: Vector2i = celula + Vector2i(dx, dz)
+			if vizinha == celula or vizinha == celula_do_jogador or not _serve_para(vizinha, ajuda):
+				continue
+			var centro: Vector3 = centro_da_celula_no_mundo(vizinha)
+			if Vector2(centro.x - posicao_jogador.x, centro.z - posicao_jogador.z).length() > ALCANCE_DA_AJUDA:
+				continue
+			var distancia: float = centro.distance_to(centro_da_mira)
+			if distancia < menor_distancia:
+				menor_distancia = distancia
+				melhor = vizinha
+	return melhor
+
+func _serve_para(celula: Vector2i, ajuda: Ajuda) -> bool:
+	match ajuda:
+		Ajuda.PLANTAR:
+			return _estado.get(celula, EstadoTile.VAZIO) != EstadoTile.VAZIO and not _plantas.has(celula)
+		Ajuda.MOLHAR:
+			return _estado.get(celula, EstadoTile.VAZIO) == EstadoTile.ARADO_SECO
+		Ajuda.COLHER:
+			return esta_madura(celula)
+	return false
 
 func _definir_estado(celula: Vector2i, novo_estado: EstadoTile) -> void:
 	if novo_estado == EstadoTile.VAZIO:

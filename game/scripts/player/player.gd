@@ -117,14 +117,20 @@ func _physics_process(delta: float) -> void:
 	var ferramenta_equipada: Ferramenta = EquipmentManager.ferramenta_na_mao()
 	var semente_na_mao: Semente = EquipmentManager.item_na_mao() as Semente
 
+	# A célula à frente, ajustada pela ajuda para mirar (plano 29): com semente ou regador,
+	# a mira puxa para a célula vizinha que serve. Colher tem a sua própria célula, porque
+	# o botão de interagir colhe com qualquer coisa na mão.
 	var celula_alvo: Vector2i
+	var celula_de_colher: Vector2i
 	var tem_planta_madura_no_alvo: bool = false
 	if grade_solo != null:
-		celula_alvo = grade_solo.obter_celula_alvo(global_position, personagem.rotation.y)
-		tem_planta_madura_no_alvo = grade_solo.esta_madura(celula_alvo)
-	# O indicador aparece quando apertar um botão pode fazer algo na célula à frente:
-	# usar ferramenta, plantar semente ou colher planta madura.
-	var tem_celula_alvo: bool = grade_solo != null and (ferramenta_equipada != null or semente_na_mao != null or tem_planta_madura_no_alvo)
+		var celula_da_frente: Vector2i = grade_solo.obter_celula_alvo(global_position, personagem.rotation.y)
+		celula_alvo = grade_solo.celula_com_ajuda(celula_da_frente, global_position, _ajuda_da_mao(ferramenta_equipada, semente_na_mao))
+		celula_de_colher = grade_solo.celula_com_ajuda(celula_da_frente, global_position, GradeSolo.Ajuda.COLHER)
+		tem_planta_madura_no_alvo = grade_solo.esta_madura(celula_de_colher)
+	# O indicador aparece quando apertar um botão pode fazer algo na célula: usar
+	# ferramenta, plantar semente ou colher planta madura.
+	var tem_celula_alvo: bool = grade_solo != null and (ferramenta_equipada != null or semente_na_mao != null)
 
 	# Carregando a ferramenta aprimorada: a área cresce em etapas enquanto o botão fica
 	# apertado, e a marcação no chão mostra onde a ação vai cair ao soltar.
@@ -141,6 +147,8 @@ func _physics_process(delta: float) -> void:
 					_tocar_animacao_de_interacao()
 	if not _carregando_ferramenta and tem_celula_alvo:
 		celulas_marcadas = [celula_alvo]
+	elif not _carregando_ferramenta and tem_planta_madura_no_alvo:
+		celulas_marcadas = [celula_de_colher]
 	_mostrar_marcacao(celulas_marcadas)
 
 	if _tempo_dash_restante <= 0.0 and _dash_liberado_pelo_golpe() and _tempo_cooldown_restante <= 0.0 and InputManager.dash_pressionado():
@@ -168,7 +176,7 @@ func _physics_process(delta: float) -> void:
 		# Colher vem antes dos outros alvos porque usa a mesma célula à frente que as
 		# ferramentas, e não a área de interação. Planta imatura não colhe e cai no
 		# caminho normal.
-		if _colher_na_celula(celula_alvo):
+		if _colher_na_celula(celula_de_colher):
 			_tocar_animacao_de_interacao()
 		else:
 			var alvo_da_interacao: Node3D = area_interacao.alvo_mais_proximo()
@@ -368,6 +376,15 @@ func _plantar_semente_da_mao(semente: Semente, celula: Vector2i) -> bool:
 	StatusManager.ganhar_experiencia(StatusManager.custos.experiencia_plantar)
 	StatusManager.gastar_stamina(StatusManager.custos.stamina_plantar)
 	return true
+
+## Que ajuda para mirar vale com o que está na mão: semente prefere terra arada e vazia,
+## regador prefere terra seca. Enxada, picareta e o resto não puxam a mira.
+func _ajuda_da_mao(ferramenta: Ferramenta, semente: Semente) -> GradeSolo.Ajuda:
+	if semente != null:
+		return GradeSolo.Ajuda.PLANTAR
+	if ferramenta != null and ferramenta.id_acao == &"regador":
+		return GradeSolo.Ajuda.MOLHAR
+	return GradeSolo.Ajuda.NENHUMA
 
 func _colher_na_celula(celula: Vector2i) -> bool:
 	if grade_solo == null or not StatusManager.tem_stamina(StatusManager.custos.stamina_colher):

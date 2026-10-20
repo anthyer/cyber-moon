@@ -5,7 +5,22 @@ semente, regador ou outro item de solo na mão.
 
 **Depende de:** 26 (os talhões).
 
-**Situação:** só registrado, em 2026-10-14, a pedido do Antonio.
+**Situação:** feito em 2026-10-19.
+
+## Revisão de 2026-10-19 (execução)
+
+- `GradeSolo.celula_com_ajuda(celula, posicao_do_jogador, ajuda)`: se a célula da mira
+  normal já serve, fica ela; se não, a vizinha que serve mais perto da mira, dentro de 2
+  do jogador. A célula embaixo do próprio jogador não conta.
+- **Semente** prefere terra arada e vazia; **regador**, terra arada e seca; **enxada e
+  picareta** não têm ajuda, então arar a célula do lado nunca briga com a mira.
+- **Colher** também ganhou a ajuda: o botão de interagir colhe a planta madura vizinha, e
+  o indicador marca a célula dela. Era o que tinha ficado de fora do plano 28.
+- O `IndicadorAlvo` mostra a célula para onde a ajuda puxou.
+- Testado no jogo: arada a célula ao lado da mira, a semente foi para ela; com a enxada a
+  mira ficou onde estava; com a arada a duas células, a ajuda não puxou; depois de
+  molhada, o regador deixou de preferir a célula.
+- Sem partícula nova: a ajuda não cria ação; plantar e molhar já têm efeito.
 
 ## O pedido do Antonio (2026-10-14)
 
