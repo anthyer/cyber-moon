@@ -330,6 +330,27 @@ import desenho_da_fazenda as df
 TALHOES = df.TALHOES
 
 
+# A tábua da borda do talhão (enfeite_borda_de_talhao): 2 de comprido e 0,16 de largura.
+COMPRIMENTO_DA_TABUA_DO_TALHAO = 2.0
+LARGURA_DA_TABUA_DO_TALHAO = 0.16
+
+
+def tabuas_ao_longo(cena, pai, inicio, fim, posicao_fixa, deitada_em_x):
+    """Tábuas da borda de um talhão cobrindo exatamente de `inicio` a `fim`, todas do
+    mesmo tamanho. Deitada em x, a linha corre em x na altura z `posicao_fixa`; senão,
+    corre em z na altura x `posicao_fixa`."""
+    comprimento = fim - inicio
+    quantas = max(round(comprimento / COMPRIMENTO_DA_TABUA_DO_TALHAO), 1)
+    pedaco = comprimento / quantas
+    for indice in range(quantas):
+        meio = inicio + pedaco * (indice + 0.5)
+        x, z = (meio, posicao_fixa) if deitada_em_x else (posicao_fixa, meio)
+        propriedades = {"position": vetor(x, 0, z), "scale": vetor(pedaco / COMPRIMENTO_DA_TABUA_DO_TALHAO, 1, 1)}
+        if not deitada_em_x:
+            propriedades["rotation"] = vetor(0, math.radians(90), 0)
+        cena.no("Borda", pai=pai, instancia=MUNDO_PACOTE + "enfeite_borda_de_talhao.glb", propriedades=propriedades)
+
+
 def montar_fazenda():
     c = Cena()
     m = Montador(c)
@@ -378,12 +399,14 @@ def montar_fazenda():
             "liberado": "true" if liberado else "false"})
         m.chao("Terra", largura / 2, profundidade / 2, largura, profundidade,
                "talhao" if liberado else "talhao_futuro", pai=talhao, y=0.01)
-        for passo in range(0, largura, 2):
-            for borda_z in (-0.1, profundidade + 0.1):
-                m.peca("Borda", MUNDO_PACOTE + "enfeite_borda_de_talhao.glb", passo + 1, borda_z, pai=talhao)
-        for passo in range(0, profundidade, 2):
-            for borda_x in (-0.1, largura + 0.1):
-                m.peca("Borda", MUNDO_PACOTE + "enfeite_borda_de_talhao.glb", borda_x, passo + 1, graus=90, pai=talhao)
+        # A moldura de tábua: as de cima e de baixo cobrem as quinas, e as dos lados encaixam
+        # entre elas. Cada lado é dividido em tábuas iguais, esticadas para fechar exato, e
+        # nenhuma passa da quina.
+        meia_tabua = LARGURA_DA_TABUA_DO_TALHAO / 2
+        for borda_z in (-meia_tabua, profundidade + meia_tabua):
+            tabuas_ao_longo(c, talhao, -LARGURA_DA_TABUA_DO_TALHAO, largura + LARGURA_DA_TABUA_DO_TALHAO, borda_z, deitada_em_x=True)
+        for borda_x in (-meia_tabua, largura + meia_tabua):
+            tabuas_ao_longo(c, talhao, 0.0, profundidade, borda_x, deitada_em_x=False)
 
     # O que o jogador usa na fazenda. Os nomes são os de antes do plano 26, porque o save
     # de alguns deles (os baús) usa o nome do nó.

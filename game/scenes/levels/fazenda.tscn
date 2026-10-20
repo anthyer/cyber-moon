@@ -429,71 +429,91 @@ mesh = SubResource("s3")
 cast_shadow = 0
 
 [node name="Borda" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(1, 0.0, -0.1)
+position = Vector3(0.7833, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda2" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(1, 0.0, 8.1)
+position = Vector3(2.67, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda3" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(3, 0.0, -0.1)
+position = Vector3(4.5567, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda4" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(3, 0.0, 8.1)
+position = Vector3(6.4433, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda5" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(5, 0.0, -0.1)
+position = Vector3(8.33, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda6" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(5, 0.0, 8.1)
+position = Vector3(10.2167, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda7" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(7, 0.0, -0.1)
+position = Vector3(0.7833, 0, 8.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda8" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(7, 0.0, 8.1)
+position = Vector3(2.67, 0, 8.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda9" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(9, 0.0, -0.1)
+position = Vector3(4.5567, 0, 8.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda10" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(9, 0.0, 8.1)
+position = Vector3(6.4433, 0, 8.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda11" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(11, 0.0, -0.1)
+position = Vector3(8.33, 0, 8.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda12" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(11, 0.0, 8.1)
+position = Vector3(10.2167, 0, 8.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda13" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 1)
+position = Vector3(-0.08, 0, 1.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda14" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 1)
+position = Vector3(-0.08, 0, 3.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda15" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 3)
+position = Vector3(-0.08, 0, 5.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda16" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 3)
+position = Vector3(-0.08, 0, 7.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda17" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 5)
+position = Vector3(11.08, 0, 1.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda18" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 5)
+position = Vector3(11.08, 0, 3.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda19" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 7)
+position = Vector3(11.08, 0, 5.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda20" parent="Talhoes/Talhao1" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 7)
+position = Vector3(11.08, 0, 7.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Talhao2" type="Node3D" parent="Talhoes"]
@@ -508,71 +528,91 @@ mesh = SubResource("s4")
 cast_shadow = 0
 
 [node name="Borda" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(1, 0.0, -0.1)
+position = Vector3(0.7833, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda2" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(1, 0.0, 8.1)
+position = Vector3(2.67, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda3" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(3, 0.0, -0.1)
+position = Vector3(4.5567, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda4" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(3, 0.0, 8.1)
+position = Vector3(6.4433, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda5" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(5, 0.0, -0.1)
+position = Vector3(8.33, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda6" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(5, 0.0, 8.1)
+position = Vector3(10.2167, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda7" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(7, 0.0, -0.1)
+position = Vector3(0.7833, 0, 8.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda8" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(7, 0.0, 8.1)
+position = Vector3(2.67, 0, 8.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda9" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(9, 0.0, -0.1)
+position = Vector3(4.5567, 0, 8.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda10" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(9, 0.0, 8.1)
+position = Vector3(6.4433, 0, 8.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda11" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(11, 0.0, -0.1)
+position = Vector3(8.33, 0, 8.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda12" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(11, 0.0, 8.1)
+position = Vector3(10.2167, 0, 8.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda13" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 1)
+position = Vector3(-0.08, 0, 1.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda14" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 1)
+position = Vector3(-0.08, 0, 3.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda15" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 3)
+position = Vector3(-0.08, 0, 5.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda16" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 3)
+position = Vector3(-0.08, 0, 7.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda17" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 5)
+position = Vector3(11.08, 0, 1.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda18" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 5)
+position = Vector3(11.08, 0, 3.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda19" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 7)
+position = Vector3(11.08, 0, 5.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda20" parent="Talhoes/Talhao2" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 7)
+position = Vector3(11.08, 0, 7.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Talhao3" type="Node3D" parent="Talhoes"]
@@ -587,65 +627,83 @@ mesh = SubResource("s5")
 cast_shadow = 0
 
 [node name="Borda" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(1, 0.0, -0.1)
+position = Vector3(0.872, 0, -0.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda2" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(1, 0.0, 8.1)
+position = Vector3(2.936, 0, -0.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda3" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(3, 0.0, -0.1)
+position = Vector3(5.0, 0, -0.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda4" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(3, 0.0, 8.1)
+position = Vector3(7.064, 0, -0.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda5" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(5, 0.0, -0.1)
+position = Vector3(9.128, 0, -0.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda6" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(5, 0.0, 8.1)
+position = Vector3(0.872, 0, 8.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda7" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(7, 0.0, -0.1)
+position = Vector3(2.936, 0, 8.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda8" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(7, 0.0, 8.1)
+position = Vector3(5.0, 0, 8.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda9" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(9, 0.0, -0.1)
+position = Vector3(7.064, 0, 8.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda10" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(9, 0.0, 8.1)
+position = Vector3(9.128, 0, 8.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda11" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 1)
+position = Vector3(-0.08, 0, 1.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda12" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(10.1, 0.0, 1)
+position = Vector3(-0.08, 0, 3.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda13" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 3)
+position = Vector3(-0.08, 0, 5.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda14" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(10.1, 0.0, 3)
+position = Vector3(-0.08, 0, 7.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda15" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 5)
+position = Vector3(10.08, 0, 1.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda16" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(10.1, 0.0, 5)
+position = Vector3(10.08, 0, 3.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda17" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 7)
+position = Vector3(10.08, 0, 5.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda18" parent="Talhoes/Talhao3" instance=ExtResource("r16")]
-position = Vector3(10.1, 0.0, 7)
+position = Vector3(10.08, 0, 7.0)
+scale = Vector3(1.0, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Talhao4" type="Node3D" parent="Talhoes"]
@@ -660,71 +718,91 @@ mesh = SubResource("s7")
 cast_shadow = 0
 
 [node name="Borda" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(1, 0.0, -0.1)
+position = Vector3(0.7833, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda2" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(1, 0.0, 7.1)
+position = Vector3(2.67, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda3" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(3, 0.0, -0.1)
+position = Vector3(4.5567, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda4" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(3, 0.0, 7.1)
+position = Vector3(6.4433, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda5" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(5, 0.0, -0.1)
+position = Vector3(8.33, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda6" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(5, 0.0, 7.1)
+position = Vector3(10.2167, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda7" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(7, 0.0, -0.1)
+position = Vector3(0.7833, 0, 7.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda8" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(7, 0.0, 7.1)
+position = Vector3(2.67, 0, 7.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda9" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(9, 0.0, -0.1)
+position = Vector3(4.5567, 0, 7.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda10" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(9, 0.0, 7.1)
+position = Vector3(6.4433, 0, 7.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda11" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(11, 0.0, -0.1)
+position = Vector3(8.33, 0, 7.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda12" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(11, 0.0, 7.1)
+position = Vector3(10.2167, 0, 7.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda13" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 1)
+position = Vector3(-0.08, 0, 0.875)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda14" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 1)
+position = Vector3(-0.08, 0, 2.625)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda15" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 3)
+position = Vector3(-0.08, 0, 4.375)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda16" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 3)
+position = Vector3(-0.08, 0, 6.125)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda17" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 5)
+position = Vector3(11.08, 0, 0.875)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda18" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 5)
+position = Vector3(11.08, 0, 2.625)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda19" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 7)
+position = Vector3(11.08, 0, 4.375)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda20" parent="Talhoes/Talhao4" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 7)
+position = Vector3(11.08, 0, 6.125)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Talhao5" type="Node3D" parent="Talhoes"]
@@ -739,71 +817,91 @@ mesh = SubResource("s8")
 cast_shadow = 0
 
 [node name="Borda" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(1, 0.0, -0.1)
+position = Vector3(0.7833, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda2" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(1, 0.0, 7.1)
+position = Vector3(2.67, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda3" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(3, 0.0, -0.1)
+position = Vector3(4.5567, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda4" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(3, 0.0, 7.1)
+position = Vector3(6.4433, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda5" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(5, 0.0, -0.1)
+position = Vector3(8.33, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda6" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(5, 0.0, 7.1)
+position = Vector3(10.2167, 0, -0.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda7" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(7, 0.0, -0.1)
+position = Vector3(0.7833, 0, 7.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda8" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(7, 0.0, 7.1)
+position = Vector3(2.67, 0, 7.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda9" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(9, 0.0, -0.1)
+position = Vector3(4.5567, 0, 7.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda10" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(9, 0.0, 7.1)
+position = Vector3(6.4433, 0, 7.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda11" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(11, 0.0, -0.1)
+position = Vector3(8.33, 0, 7.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda12" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(11, 0.0, 7.1)
+position = Vector3(10.2167, 0, 7.08)
+scale = Vector3(0.9433, 1, 1)
 
 [node name="Borda13" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 1)
+position = Vector3(-0.08, 0, 0.875)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda14" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 1)
+position = Vector3(-0.08, 0, 2.625)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda15" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 3)
+position = Vector3(-0.08, 0, 4.375)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda16" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 3)
+position = Vector3(-0.08, 0, 6.125)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda17" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 5)
+position = Vector3(11.08, 0, 0.875)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda18" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 5)
+position = Vector3(11.08, 0, 2.625)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda19" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 7)
+position = Vector3(11.08, 0, 4.375)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda20" parent="Talhoes/Talhao5" instance=ExtResource("r16")]
-position = Vector3(11.1, 0.0, 7)
+position = Vector3(11.08, 0, 6.125)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Talhao6" type="Node3D" parent="Talhoes"]
@@ -818,65 +916,83 @@ mesh = SubResource("s9")
 cast_shadow = 0
 
 [node name="Borda" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(1, 0.0, -0.1)
+position = Vector3(0.872, 0, -0.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda2" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(1, 0.0, 7.1)
+position = Vector3(2.936, 0, -0.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda3" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(3, 0.0, -0.1)
+position = Vector3(5.0, 0, -0.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda4" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(3, 0.0, 7.1)
+position = Vector3(7.064, 0, -0.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda5" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(5, 0.0, -0.1)
+position = Vector3(9.128, 0, -0.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda6" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(5, 0.0, 7.1)
+position = Vector3(0.872, 0, 7.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda7" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(7, 0.0, -0.1)
+position = Vector3(2.936, 0, 7.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda8" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(7, 0.0, 7.1)
+position = Vector3(5.0, 0, 7.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda9" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(9, 0.0, -0.1)
+position = Vector3(7.064, 0, 7.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda10" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(9, 0.0, 7.1)
+position = Vector3(9.128, 0, 7.08)
+scale = Vector3(1.032, 1, 1)
 
 [node name="Borda11" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 1)
+position = Vector3(-0.08, 0, 0.875)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda12" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(10.1, 0.0, 1)
+position = Vector3(-0.08, 0, 2.625)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda13" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 3)
+position = Vector3(-0.08, 0, 4.375)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda14" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(10.1, 0.0, 3)
+position = Vector3(-0.08, 0, 6.125)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda15" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 5)
+position = Vector3(10.08, 0, 0.875)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda16" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(10.1, 0.0, 5)
+position = Vector3(10.08, 0, 2.625)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda17" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(-0.1, 0.0, 7)
+position = Vector3(10.08, 0, 4.375)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Borda18" parent="Talhoes/Talhao6" instance=ExtResource("r16")]
-position = Vector3(10.1, 0.0, 7)
+position = Vector3(10.08, 0, 6.125)
+scale = Vector3(0.875, 1, 1)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="GradeSolo" type="GridMap" parent="."]
