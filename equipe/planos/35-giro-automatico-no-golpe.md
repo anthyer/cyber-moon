@@ -11,6 +11,8 @@ num cone na frente dele, para o golpe não sair no vazio por causa de alguns gra
 
 - Quando se vai bater em um inimigo, o mais próximo que estiver numa área cônica na
   frente do personagem recebe um snap: o personagem vira na direção desse inimigo.
+- O cone não aparece na tela: é só da mecânica, para escolher o alvo. Nada de desenho
+  de área, marcador ou contorno (2026-10-20).
 
 ## Ideias para discutir
 
