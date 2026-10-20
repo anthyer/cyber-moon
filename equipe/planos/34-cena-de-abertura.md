@@ -6,7 +6,9 @@ história e manda o jogador explorar a primeira dungeon (a Galeria de Manutenç�
 **Depende de:** 30 (o elenco, de onde sai o morador chave), 27 (a história), 32 (a
 conversa entrega a primeira missão no diário), 33 (o waypoint aponta a Galeria).
 
-**Situação:** só registrado, em 2026-10-19, a pedido do Antonio.
+**Situação:** só registrado, em 2026-10-19, a pedido do Antonio. Em 2026-10-20 ele
+decidiu que quem abre o jogo é o **Bento Arruda** (plano 30), um residente carismático
+que dá as boas-vindas.
 
 ## O pedido do Antonio (2026-10-19)
 

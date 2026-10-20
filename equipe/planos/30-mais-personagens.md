@@ -3,7 +3,7 @@
 **Objetivo:** aumentar o elenco de personagens e deixar os que já existem com a cara do
 tema cyberpunk de deserto.
 
-**Situação:** proposta de elenco esperando o Antonio (2026-10-19). Decidido com ele:
+**Situação:** elenco aprovado pelo Antonio em 2026-10-20 (ver "Decisões"); falta fazer. Decidido com ele:
 o elenco novo vem antes do plano 27, porque a história das dungeons depende de quem a
 conta.
 
@@ -30,11 +30,16 @@ semana e vende coisa rara. Dá vida à pista e uma loja diferente.
 esqueleto. Os seis atuais também ganham peças do tema (visor do Kenji, macacão de oficina
 do Vitor, jaleco da Iara, capacete do Rafa, lenço e óculos da Sol, avental da Marta).
 
-**Perguntas:**
+## Decisões do Antonio (2026-10-20)
 
-- Os cinco servem, ou troca/tira algum? E o Zeca entra?
-- Algum dos novos é romanceável? A sugestão é a Dandara.
-- O morador chave da abertura é o Bento?
+- **Entram todos:** Bento, Hélio, Dandara, Lúcia, Téo e o Zeca (o caminhoneiro deixa de
+  ser opcional). Mais as duas motoqueiras figurantes.
+- **Romanceável novo:** só a Dandara.
+- **Abertura:** "tem que ser um residente carismático que dá as boas-vindas". Fica o
+  **Bento, mais carismático**: um senhor brincalhão, contador de causo, que recebe o
+  jogador na fazenda e conta ele mesmo da água cortada e da Galeria. A ficha dele parte
+  daí: o humor é a forma de ele carregar a culpa de ter trabalhado para a corporação
+  lá embaixo.
 
 ## O pedido do Antonio (2026-10-14)
 
