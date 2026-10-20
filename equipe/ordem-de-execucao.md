@@ -35,8 +35,11 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [ ] 27 As dungeons na história e nos itens coletados (só registrado)
 - [x] 28 Destaque do que se vai interagir
 - [x] 29 Ajuda para mirar no solo arado com semente e regador
-- [ ] 30 Mais personagens e os existentes no tema, editados no Blender (só registrado)
+- [ ] 30 Mais personagens e os existentes no tema, editados no Blender (vem antes do 27; proposta de elenco esperando o Antonio)
 - [ ] 31 Interiores das casas: casa do jogador com cama, calendário e baús dentro; NPCs recolhem ao anoitecer e trancam a casa de noite (só registrado, decisões a fechar)
+- [ ] 32 Diário de missões (quest log) (depois do 27; só registrado)
+- [ ] 33 Minimapa com waypoint da missão acompanhada (depois do 32; só registrado)
+- [ ] 34 Cena de abertura: morador chave conta o começo e manda à Galeria (depois de 30, 27, 32 e 33; só registrado)
 - [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
 
 ## Por que essa ordem
