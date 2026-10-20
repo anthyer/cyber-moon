@@ -2,7 +2,10 @@ extends CharacterBody3D
 
 @export var velocidade_andar: float = 3.0
 @export var velocidade_correr: float = 6.0
-@export var velocidade_rotacao: float = 10.0
+## Quanto o personagem gira em direção ao direcional por segundo (fator de aproximação).
+## Com 22, uma meia-volta fica quase completa em 0,1 s: rápido o bastante para a célula à
+## frente acompanhar a troca de direção ao plantar e arar.
+@export var velocidade_rotacao: float = 22.0
 @export var velocidade_dash: float = 12.0
 @export var duracao_dash: float = 0.2
 @export var cooldown_dash: float = 0.8
