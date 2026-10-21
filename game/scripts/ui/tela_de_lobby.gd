@@ -11,6 +11,10 @@ extends Control
 ##
 ## A tela não guarda estado de sala: ela só desenha o que o LobbyManager e o
 ## NetworkManager dizem, e redesenha quando eles avisam que algo mudou.
+##
+## A tela de conta (plano 36) é filha desta. O botão "Conta" esconde o painel do lobby e
+## abre a de conta por cima; quando ela fecha, o painel volta. O teclado continua
+## capturado o tempo todo, porque o lobby não fechou.
 
 const COR_DO_TEXTO: Color = Color(0.92, 0.95, 1.0)
 const COR_DO_TEXTO_APAGADO: Color = Color(0.6, 0.66, 0.8)
@@ -26,6 +30,9 @@ const LARGURA_DA_DESCRICAO: float = 380.0
 @onready var rotulo_de_espera: Label = %Espera
 @onready var botao_sair_da_equipe: Button = %BotaoSairDaEquipe
 @onready var botao_fechar: Button = %BotaoFechar
+@onready var botao_conta: Button = %BotaoConta
+@onready var painel_do_lobby: Control = $Centro
+@onready var tela_de_conta: TelaDeConta = %TelaDeConta
 
 ## Quem já recebeu convite desde a última mudança da sala. O servidor não avisa que o
 ## convite chegou, então é a tela que lembra, para o botão não ser clicado duas vezes.
@@ -39,6 +46,8 @@ func _ready() -> void:
 	botao_entrar.pressed.connect(_ao_pedir_para_entrar)
 	botao_sair_da_equipe.pressed.connect(_ao_sair_da_equipe)
 	botao_fechar.pressed.connect(fechar)
+	botao_conta.pressed.connect(_abrir_conta)
+	tela_de_conta.closed.connect(_ao_fechar_a_conta)
 	EventBus.lobby_requested.connect(abrir)
 	LobbyManager.room_changed.connect(_ao_mudar_a_sala)
 	LobbyManager.room_closed.connect(_ao_mudar_a_sala)
@@ -50,6 +59,9 @@ func _ready() -> void:
 	NetworkManager.player_left.connect(_ao_mudar_quem_esta_online)
 
 func _process(_delta: float) -> void:
+	# Com a tela de conta aberta, o Esc é dela: ela fecha e o lobby volta.
+	if tela_de_conta.visible:
+		return
 	if visible and Input.is_action_just_pressed(&"ui_cancel"):
 		fechar()
 
@@ -76,8 +88,19 @@ func fechar() -> void:
 	if not visible:
 		return
 	visible = false
+	tela_de_conta.visible = false
+	painel_do_lobby.visible = true
 	InputManager.teclado_capturado = false
 	get_viewport().gui_release_focus()
+
+func _abrir_conta() -> void:
+	painel_do_lobby.visible = false
+	tela_de_conta.abrir()
+
+func _ao_fechar_a_conta() -> void:
+	painel_do_lobby.visible = true
+	_redesenhar()
+	botao_conta.grab_focus()
 
 func _ao_pedir_para_entrar() -> void:
 	LobbyManager.iniciar(String(_dungeon_escolhida))
@@ -121,6 +144,7 @@ func _redesenhar() -> void:
 	botao_entrar.visible = sou_anfitriao
 	rotulo_de_espera.visible = not sou_anfitriao
 	botao_sair_da_equipe.visible = LobbyManager.esta_em_sala()
+	botao_conta.visible = AccountManager.login_disponivel()
 	_dar_foco()
 
 func _redesenhar_equipe() -> void:
@@ -223,6 +247,8 @@ func _esta_na_equipe(id: String) -> bool:
 ## Para o controle não ficar sem ter onde navegar, o foco volta para o botão mais útil
 ## do rodapé, a não ser que ainda esteja num botão vivo da tela.
 func _dar_foco() -> void:
+	if tela_de_conta.visible:
+		return
 	var com_foco: Control = get_viewport().gui_get_focus_owner()
 	if com_foco != null and is_ancestor_of(com_foco) and not com_foco.is_queued_for_deletion():
 		return

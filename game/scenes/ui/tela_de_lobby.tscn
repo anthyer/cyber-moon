@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/tela_de_lobby.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/ui/tela_de_conta.tscn" id="2_conta"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
 bg_color = Color(0.03, 0.04, 0.08, 0.92)
@@ -140,7 +141,18 @@ visible = false
 layout_mode = 2
 text = "Sair da equipe"
 
+[node name="BotaoConta" type="Button" parent="Centro/Painel/Linhas/Rodape"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Conta"
+
 [node name="BotaoFechar" type="Button" parent="Centro/Painel/Linhas/Rodape"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Fechar"
+
+[node name="TelaDeConta" parent="." instance=ExtResource("2_conta")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
