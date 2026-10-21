@@ -97,3 +97,40 @@ abrir o jogo. O GUID do início da linha é o que o Godot informa em
 `Input.get_joy_guid()`; o trecho `457e` vem do nome da placa, o que impede que o
 mapeamento afete gamepads DragonRise de mesmo código USB. Outra placa arcade precisa
 de linha própria, montada lendo os números brutos com `/dev/input/js0`.
+
+## Controle de Super Nintendo (USB genérico)
+
+O controle de SNES usado nos testes é um USB genérico `0810:e501`, que o SDL já conhece
+como "NEXT SNES Controller". O mapeamento embutido dele espera o R no botão bruto 5, mas
+neste controle o R manda o 6, e chegava ao jogo como gatilho. Além disso o SNES tem 8
+botões para 9 ações. A solução é a mesma do painel arcade: um mapeamento próprio para o
+SDL, que põe cada botão no botão padrão que o Input Map já usa, sem mexer no
+`project.godot` (o controle de Xbox continua igual).
+
+| Botão do SNES | Número bruto | Vira | Ação |
+|---|---|---|---|
+| Y | 3 | X (West) | `atacar` |
+| B | 2 | A (South) | `interagir`, e confirmar nos menus |
+| A | 1 | B (East) | `correr` |
+| X | 0 | R1 | `dash` |
+| L | 4 | Gatilho esquerdo | `slot_anterior` |
+| R | 6 | Gatilho direito | `slot_proximo` |
+| Start | 9 | Start | `abrir_inventario` |
+| Select | 8 | Back / Select | `menu_pausa` |
+| Direcional | eixos 0 e 1 | D-pad | movimento |
+
+`soltar_item` (e dar presente) não tem botão no SNES: fica no Q do teclado (decisão do
+Antonio, 2026-10-20).
+
+**Onde está o mapeamento.** Os mapeamentos de controle do projeto ficam em
+`equipe/controles/gamecontrollerdb.txt` (o do SNES e o do painel arcade). O SDL lê o
+arquivo pela variável `SDL_GAMECONTROLLERCONFIG_FILE`. No Godot do flatpak, grave uma vez
+por máquina, com o caminho absoluto do clone:
+
+```bash
+flatpak override --user --env=SDL_GAMECONTROLLERCONFIG_FILE="$PWD/equipe/controles/gamecontrollerdb.txt" org.godotengine.Godot
+```
+
+(rodando da raiz do repositório). Para conferir: com o mapeamento ativo, o Godot chama o
+controle de "Controle SNES Cyber Moon" em `Input.get_joy_name()`. Outro controle genérico
+ganha uma linha nova no mesmo arquivo, montada lendo os números brutos em `/dev/input/js0`.

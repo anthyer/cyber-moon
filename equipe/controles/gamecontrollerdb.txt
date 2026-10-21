@@ -1,0 +1,5 @@
+# Mapeamentos de controle do Cyber Moon, no formato do SDL (gamecontrollerdb).
+# O Godot lê este arquivo pela variável SDL_GAMECONTROLLERCONFIG_FILE. Instruções e a
+# tabela de cada controle em game/docs/entrada.md.
+0300457e790000000600000010010000,Painel Arcade DragonRise,x:b0,b:b1,lefttrigger:b2,righttrigger:b3,leftshoulder:b4,rightshoulder:b5,start:b6,back:b11,leftx:a0,lefty:a1,platform:Linux,
+0300493c1008000001e5000010010000,Controle SNES Cyber Moon,a:b2,b:b1,x:b3,rightshoulder:b0,lefttrigger:b4,righttrigger:b6,start:b9,back:b8,dpup:-a1,dpdown:+a1,dpleft:-a0,dpright:+a0,platform:Linux,
