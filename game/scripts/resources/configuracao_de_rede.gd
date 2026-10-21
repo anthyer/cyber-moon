@@ -15,3 +15,8 @@ extends Resource
 ## Depois de quanto tempo sem enviar nada o jogo manda um ping. O API Gateway fecha a
 ## conexão que fica 10 minutos parada. Zero desliga o ping.
 @export var segundos_entre_pings: float = 300.0
+## Região do User Pool do Cognito, onde ficam as contas dos jogadores (plano 36).
+@export var cognito_regiao: String = "sa-east-1"
+## O cognito_client_id que o Pulumi exporta. Vazio, o jogo não oferece login e conecta
+## sem token, o que só funciona com a chave exigir_login desligada no servidor.
+@export var cognito_client_id: String = ""

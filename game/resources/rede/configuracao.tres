@@ -4,3 +4,5 @@
 
 [resource]
 script = ExtResource("1_config")
+endereco_na_nuvem = "wss://2ohkyzguvj.execute-api.sa-east-1.amazonaws.com/dev"
+cognito_client_id = "11bafsk3bf9eirg3plgoijva6g"
