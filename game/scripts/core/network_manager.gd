@@ -39,6 +39,8 @@ var _quer_estar_conectado: bool = false
 var _socket_aberto: bool = false
 var _segundos_ate_tentar_de_novo: float = 0.0
 var _segundos_desde_o_ultimo_envio: float = 0.0
+## Verdadeiro enquanto espera o AccountManager renovar o token, antes de abrir o socket.
+var _renovando_token: bool = false
 
 func _ready() -> void:
 	# A rede continua andando com o jogo pausado: o chat e os convites não param porque o
@@ -52,6 +54,9 @@ func _ready() -> void:
 			meu_nome = argumento.trim_prefix(ARGUMENTO_DO_NOME)
 		elif argumento.begins_with(ARGUMENTO_DO_SERVIDOR):
 			_endereco = argumento.trim_prefix(ARGUMENTO_DO_SERVIDOR)
+	# Entrar ou sair da conta troca o token, e ele só vale numa conexão nova.
+	AccountManager.logged_in.connect(_reconectar)
+	AccountManager.logged_out.connect(_reconectar)
 	if _configuracao.conectar_ao_iniciar:
 		conectar()
 
@@ -124,11 +129,34 @@ func _manter_a_conexao_viva(delta: float) -> void:
 	if _segundos_desde_o_ultimo_envio >= _configuracao.segundos_entre_pings:
 		enviar("ping")
 
+## Com conta, o ID token vai na query string, porque o navegador não deixa mandar
+## cabeçalho numa conexão WebSocket. O authorizer da AWS confere o token; o servidor
+## local ignora a query string. Token perto de vencer é renovado antes de abrir.
 func _abrir_socket() -> void:
+	if _renovando_token:
+		return
 	_segundos_ate_tentar_de_novo = _configuracao.segundos_entre_tentativas
 	_segundos_desde_o_ultimo_envio = 0.0
+	if AccountManager.token_vencendo():
+		_renovando_token = true
+		await AccountManager.renovar_token()
+		_renovando_token = false
+		if not _quer_estar_conectado:
+			return
+	var endereco: String = _endereco
+	var token: String = AccountManager.token_de_conexao()
+	if token != "":
+		endereco += ("&" if endereco.contains("?") else "?") + "token=" + token.uri_encode()
 	_socket = WebSocketPeer.new()
-	_socket.connect_to_url(_endereco)
+	_socket.connect_to_url(endereco)
+
+## Fecha a conexão e abre de novo na hora, sem esperar o intervalo das tentativas.
+func _reconectar() -> void:
+	if not _quer_estar_conectado:
+		return
+	_socket.close()
+	_ao_cair()
+	_abrir_socket()
 
 func _receber(texto: String) -> void:
 	var dados: Variant = JSON.parse_string(texto)
