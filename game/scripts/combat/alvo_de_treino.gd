@@ -12,6 +12,10 @@ extends StaticBody3D
 
 signal atingido(quantidade: int)
 
+## O giro automático do golpe do jogador também procura alvos neste grupo, além dos
+## inimigos. O boneco não entra no grupo dos inimigos, que conta quem falta vencer na sala.
+const GRUPO: StringName = &"alvos_de_treino"
+
 const SEGUNDOS_DO_NUMERO: float = 0.8
 const ALTURA_QUE_O_NUMERO_SOBE: float = 0.5
 const SEGUNDOS_DO_TRANCO: float = 0.12
@@ -20,6 +24,9 @@ const SEGUNDOS_DO_TRANCO: float = 0.12
 @export var dano_total: int = 0
 
 @onready var visual: Node3D = $Visual
+
+func _ready() -> void:
+	add_to_group(GRUPO)
 
 func receber_dano(quantidade: int, _origem: Node3D) -> void:
 	dano_total += quantidade

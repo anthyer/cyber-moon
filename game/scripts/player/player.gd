@@ -63,6 +63,10 @@ var _tempo_janela_combo_restante: float = 0.0
 var _tempo_cooldown_ataque_restante: float = 0.0
 var _duracao_do_golpe_atual: float = 0.0
 
+## A direção do tiro que está saindo agora, escolhida pelo giro automático. Fora do
+## disparo é zero, e a mira volta a seguir o mouse ou a frente.
+var _mira_do_golpe: Vector3 = Vector3.ZERO
+
 ## Entre cair e acordar o jogador não responde a nenhum comando.
 var _desmaiado: bool = false
 ## Verdadeiro entre apertar e soltar o botão com uma ferramenta aprimorada na mão.
@@ -466,12 +470,41 @@ func _dash_liberado_pelo_golpe() -> bool:
 ## do personagem: o cone segue o mouse mesmo andando, e o clique vira o personagem para
 ## ele. No controle, e com qualquer outra arma, é a frente do personagem.
 func direcao_da_mira() -> Vector3:
+	if _mira_do_golpe != Vector3.ZERO:
+		return _mira_do_golpe
 	var frente: Vector3 = Vector3(sin(personagem.rotation.y), 0.0, cos(personagem.rotation.y))
 	var arma: Arma = _arma_em_uso()
 	if arma == null or not arma.tem_mira_laser or not InputManager.usando_teclado_e_mouse():
 		return frente
 	var para_o_mouse: Vector3 = _para_o_mouse()
 	return para_o_mouse if para_o_mouse != Vector3.ZERO else frente
+
+## Giro automático no golpe (plano 35): a direção para o inimigo mais perto dentro do cone
+## que sai da direção pedida, com a abertura e o alcance da arma. Sem ninguém no cone, a
+## direção pedida mesmo. O cone não aparece na tela; é só da mecânica.
+func _direcao_do_golpe(arma: Arma, pedida: Vector3) -> Vector3:
+	var meia_abertura: float = deg_to_rad(arma.abertura_do_giro_automatico_em_graus) * 0.5
+	var alcance: float = arma.alcance + arma.folga_do_giro_automatico
+	var melhor: Vector3 = pedida
+	var menor_distancia: float = INF
+	var candidatos: Array[Node] = get_tree().get_nodes_in_group(Inimigo.GRUPO)
+	candidatos.append_array(get_tree().get_nodes_in_group(AlvoDeTreino.GRUPO))
+	for no in candidatos:
+		var alvo: Node3D = no as Node3D
+		if alvo == null or not alvo.is_visible_in_tree():
+			continue
+		if alvo is Inimigo and not (alvo as Inimigo).esta_vivo():
+			continue
+		var para_o_alvo: Vector3 = alvo.global_position - global_position
+		para_o_alvo.y = 0.0
+		var distancia: float = para_o_alvo.length()
+		if distancia < 0.01 or distancia > alcance or distancia >= menor_distancia:
+			continue
+		if pedida.angle_to(para_o_alvo) > meia_abertura:
+			continue
+		menor_distancia = distancia
+		melhor = para_o_alvo / distancia
+	return melhor
 
 ## A direção, no chão, do jogador até o ponto embaixo do mouse. O ponto vem de um raio da
 ## câmera até o plano horizontal na altura do tiro, e não até o chão de verdade, para a
@@ -510,12 +543,17 @@ func _atacar_com(arma: Arma) -> void:
 		return
 	AudioManager.tocar_sfx(arma.som_do_golpe, global_position)
 
+	# O golpe sai para onde a mira aponta (o mouse, mirando no teclado e mouse; a frente,
+	# no resto), e o giro automático corrige para o inimigo mais perto no cone.
+	var mira: Vector3 = _direcao_do_golpe(arma, direcao_da_mira())
+	personagem.rotation.y = atan2(mira.x, mira.z)
+
 	if arma.tipo == Arma.Tipo.DISTANCIA:
-		# Mirando pelo mouse, o clique vira o personagem de uma vez para o cone e atira.
-		var mira: Vector3 = direcao_da_mira()
-		personagem.rotation.y = atan2(mira.x, mira.z)
+		# O tiro sai exatamente na direção escolhida, mesmo que o mouse esteja em outro lugar.
+		_mira_do_golpe = mira
 		_travar_movimento_pela_animacao(CLIPE_DE_DISPARO, arma.velocidade_da_animacao)
 		ataque.disparar(arma)
+		_mira_do_golpe = Vector3.ZERO
 		_tempo_cooldown_ataque_restante = arma.cooldown
 		return
 

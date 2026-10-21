@@ -265,6 +265,15 @@ altura do tiro. Ao clicar, o personagem vira de uma vez para a mira e atira. No 
 a mira é a frente do personagem. O botão de correr só corre (o "correr que planta" saiu
 em 2026-10-20, a pedido do Antonio).
 
+**Giro automático no golpe (plano 35):** no início de todo golpe e de todo tiro, o
+`player.gd` (`_direcao_do_golpe`) procura o inimigo vivo (ou alvo de treino) mais perto
+num cone que sai da direção da mira, e vira o personagem de uma vez para ele; o tiro sai
+nessa direção. Sem ninguém no cone, vale a mira. O cone não aparece na tela. A abertura e
+a folga além do alcance são da arma (`abertura_do_giro_automatico_em_graus`,
+`folga_do_giro_automatico`): 110 graus e 1,2 no corpo a corpo, 50 graus e 0,5 na
+escopeta. O alvo de treino entra pelo grupo `alvos_de_treino`, e não pelo dos inimigos,
+que conta quem falta vencer na sala.
+
 **Dash depois do golpe:** o golpe trava o movimento até a animação acabar, mas o dash
 pode sair antes, assim que o golpe termina de acertar (65% do clipe, o export
 `fracao_do_golpe_que_libera_o_dash` do player). O dash vai para onde o direcional

@@ -53,3 +53,8 @@ enum Tipo {
 ## Multiplica a velocidade com que o personagem vira enquanto a arma está na mão. Arma
 ## de mira pede giro rápido, senão o tiro sai antes de o personagem terminar de virar.
 @export var multiplicador_de_giro: float = 1.0
+## Giro automático no golpe (plano 35): ao atacar, o personagem vira para o inimigo mais
+## perto dentro de um cone à frente. O cone não aparece na tela; é só da mecânica. Abertura
+## total do cone, em graus, e quanto ele vai além do alcance da arma.
+@export var abertura_do_giro_automatico_em_graus: float = 110.0
+@export var folga_do_giro_automatico: float = 1.2

@@ -193,6 +193,9 @@ func _init() -> void:
 			arma.projetil = load(CENA_DO_PROJETIL)
 			arma.tem_mira_laser = true
 			arma.multiplicador_de_giro = GIRO_DA_ARMA_DE_DISTANCIA
+			# O tiro tem mais alcance e pede mais pontaria: o cone do giro é mais fechado.
+			arma.abertura_do_giro_automatico_em_graus = 50.0
+			arma.folga_do_giro_automatico = 0.5
 			arma.projeteis_por_disparo = PROJETEIS_DA_ESCOPETA
 			arma.abertura_do_cone_em_graus = ABERTURA_DO_CONE_DA_ESCOPETA
 			arma.velocidade_do_projetil = VELOCIDADE_DO_PROJETIL_DA_ESCOPETA

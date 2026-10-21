@@ -40,7 +40,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [ ] 32 Diário de missões (quest log) (depois do 27; só registrado)
 - [ ] 33 Minimapa com waypoint da missão acompanhada (depois do 32; só registrado)
 - [ ] 34 Cena de abertura: morador chave conta o começo e manda à Galeria (depois de 30, 27, 32 e 33; só registrado)
-- [ ] 35 Giro automático no golpe: virar para o inimigo mais perto no cone da frente (só registrado)
+- [x] 35 Giro automático no golpe: virar para o inimigo mais perto no cone da frente
 - [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
 
 ## Por que essa ordem

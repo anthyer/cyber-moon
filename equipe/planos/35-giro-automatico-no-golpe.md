@@ -5,7 +5,17 @@ num cone na frente dele, para o golpe não sair no vazio por causa de alguns gra
 
 **Depende de:** 08 (armas) e 09 (inimigos).
 
-**Situação:** só registrado, em 2026-10-20, a pedido do Antonio.
+**Situação:** feito em 2026-10-20.
+
+## Revisão de 2026-10-20 (execução)
+
+- O cone sai da direção da mira (o mouse, mirando no teclado e mouse com arma de mira;
+  a frente, no resto), com abertura e folga além do alcance guardadas na arma: 110 graus
+  e 1,2 no corpo a corpo, 50 graus e 0,5 na escopeta.
+- Vale inimigo vivo, chefe e alvo de treino. O cone não aparece na tela.
+- Testado contra o alvo de treino: de lado, o soco virou para ele; de costas, não virou;
+  com o mouse 20 graus ao lado, o tiro corrigiu e acertou.
+- Sem partícula nova: o giro não é ação; o golpe e o acerto já têm efeito.
 
 ## O pedido do Antonio (2026-10-20)
 
