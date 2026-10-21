@@ -101,7 +101,7 @@ func disparar(arma: Arma) -> void:
 ## As direções dos projéteis de um disparo: uma só, reta, ou várias abertas em leque em
 ## torno da direção do personagem.
 func _direcoes_do_cone(arma: Arma) -> Array[Vector3]:
-	var centro: Vector3 = _direcao_do_personagem()
+	var centro: Vector3 = _direcao_da_mira()
 	var direcoes: Array[Vector3] = []
 	var quantidade: int = maxi(arma.projeteis_por_disparo, 1)
 	if quantidade == 1 or arma.abertura_do_cone_em_graus <= 0.0:
@@ -115,7 +115,7 @@ func _direcoes_do_cone(arma: Arma) -> Array[Vector3]:
 
 func _boca_da_arma() -> Vector3:
 	var dono: Node3D = get_parent() as Node3D
-	return dono.global_position + _direcao_do_personagem() * DISTANCIA_DA_BOCA_DA_ARMA + Vector3.UP * ALTURA_DO_GOLPE
+	return dono.global_position + _direcao_da_mira() * DISTANCIA_DA_BOCA_DA_ARMA + Vector3.UP * ALTURA_DO_GOLPE
 
 ## Troca o modelo preso na mão quando o item na mão muda. Item que não é arma, ou arma
 ## sem modelo, deixa a mão vazia.
@@ -194,7 +194,7 @@ func _atualizar_mira_laser() -> void:
 		return
 
 	var origem: Vector3 = _boca_da_arma()
-	var direcao: Vector3 = _direcao_do_personagem()
+	var direcao: Vector3 = _direcao_da_mira()
 	var fim: Vector3 = _fim_do_raio(origem, direcao, arma.alcance)
 	var comprimento: float = origem.distance_to(fim)
 	if comprimento < 0.01:
@@ -212,7 +212,7 @@ func _atualizar_mira_laser() -> void:
 func _desenhar_area_do_cone(arma: Arma) -> void:
 	var dono: Node3D = get_parent() as Node3D
 	var origem: Vector3 = _boca_da_arma()
-	var centro: Vector3 = _direcao_do_personagem()
+	var centro: Vector3 = _direcao_da_mira()
 	var meia_abertura: float = deg_to_rad(arma.abertura_do_cone_em_graus) * 0.5
 	var fatias: int = maxi(fatias_da_area_do_cone, 1)
 	# A área fica rente ao chão, um pouco acima para não brigar com o piso.
@@ -264,6 +264,14 @@ func _posicionar_hitbox(alcance: float) -> void:
 	var raio: float = alcance * 0.5
 	(_forma_da_hitbox.shape as SphereShape3D).radius = raio
 	_hitbox.position = _direcao_do_personagem() * raio + Vector3.UP * ALTURA_DO_GOLPE
+
+## Para onde a mira e o tiro apontam. Quem decide é o jogador (direcao_da_mira): o mouse,
+## mirando no teclado e mouse, ou a frente do personagem. Sem jogador, a frente.
+func _direcao_da_mira() -> Vector3:
+	var dono: Node = get_parent()
+	if dono != null and dono.has_method(&"direcao_da_mira"):
+		return dono.call(&"direcao_da_mira") as Vector3
+	return _direcao_do_personagem()
 
 func _direcao_do_personagem() -> Vector3:
 	var rotacao: float = _personagem.rotation.y

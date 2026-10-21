@@ -258,12 +258,12 @@ golpe acontecer no mundo:
 A arma também pode acelerar o giro do personagem (`multiplicador_de_giro`). A escopeta
 usa 2,5, para a mira acompanhar o direcional.
 
-**Correr que planta:** arma com `correr_planta_no_lugar` troca o que o botão de correr
-faz. Segurando o botão, o `player.gd` zera a velocidade e o direcional continua virando
-o personagem do jeito normal, para mirar sem sair do lugar. A escopeta usa. No teclado e
-mouse, plantado, a mira segue o mouse: o `player.gd` projeta a posição do mouse num plano
-horizontal na altura do tiro e vira o personagem para esse ponto. Vale o que foi usado
-por último, o mouse ou as teclas de direção.
+**Mira pelo mouse:** com arma de mira na mão (`tem_mira_laser`), no teclado e mouse, o
+laser ou o cone segue o mouse o tempo todo, solto da frente do personagem, mesmo
+andando: o `player.gd` (`direcao_da_mira()`) projeta o mouse num plano horizontal na
+altura do tiro. Ao clicar, o personagem vira de uma vez para a mira e atira. No controle,
+a mira é a frente do personagem. O botão de correr só corre (o "correr que planta" saiu
+em 2026-10-20, a pedido do Antonio).
 
 **Dash depois do golpe:** o golpe trava o movimento até a animação acabar, mas o dash
 pode sair antes, assim que o golpe termina de acertar (65% do clipe, o export

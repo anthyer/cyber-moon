@@ -16,7 +16,6 @@ var _usando_controle: bool = false
 ## (o botão de baixo é 0); vale para o controle de Xbox e para o painel arcade.
 const NOMES_DOS_BOTOES: Dictionary = {0: "A", 1: "B", 2: "X", 3: "Y", 9: "LB", 10: "RB", 4: "Select", 6: "Start"}
 var _posicao_do_mouse: Vector2 = Vector2.ZERO
-var _quadro_do_ultimo_movimento_do_mouse: int = -1000
 
 ## Guarda de qual aparelho veio a última entrada e por onde o mouse andou. Não decide
 ## nada de gameplay: só responde às perguntas de quem pergunta, como o resto deste script.
@@ -24,7 +23,6 @@ func _input(evento: InputEvent) -> void:
 	if evento is InputEventMouseMotion:
 		_usando_controle = false
 		_posicao_do_mouse = (evento as InputEventMouseMotion).position
-		_quadro_do_ultimo_movimento_do_mouse = Engine.get_physics_frames()
 	elif evento is InputEventMouseButton:
 		_usando_controle = false
 		_posicao_do_mouse = (evento as InputEventMouseButton).position
@@ -42,10 +40,6 @@ func usando_teclado_e_mouse() -> bool:
 ## Posição do mouse na tela, em pixels, da última vez que ele se mexeu ou clicou.
 func posicao_do_mouse() -> Vector2:
 	return _posicao_do_mouse
-
-## Verdadeiro no quadro de física em que o mouse se mexeu e no seguinte.
-func mouse_se_moveu_agora() -> bool:
-	return Engine.get_physics_frames() - _quadro_do_ultimo_movimento_do_mouse <= 1
 
 func obter_direcao_movimento() -> Vector2:
 	if teclado_capturado:

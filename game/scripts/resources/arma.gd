@@ -53,7 +53,3 @@ enum Tipo {
 ## Multiplica a velocidade com que o personagem vira enquanto a arma está na mão. Arma
 ## de mira pede giro rápido, senão o tiro sai antes de o personagem terminar de virar.
 @export var multiplicador_de_giro: float = 1.0
-## Com a arma na mão, segurar o botão de correr planta o personagem no lugar em vez de
-## correr. O direcional continua virando o personagem do jeito normal, então dá para
-## mirar em volta sem sair do lugar.
-@export var correr_planta_no_lugar: bool = false
