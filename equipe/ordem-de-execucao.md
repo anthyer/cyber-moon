@@ -23,7 +23,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 15 Sistema de diálogo
 - [x] 16 Amizade e romance
 - [x] 17 Comércio e economia
-- [ ] 18 Chat entre jogadores na AWS (independente dos outros, pode ser feito em paralelo; plano revisado em 2026-10-13: sprints 3 e 4 a fazer, sprint 5 de CI e CD fica para depois)
+- [ ] 18 Chat entre jogadores na AWS (independente dos outros, pode ser feito em paralelo; sprint 3 no ar no stack `dev`; sprint 4 com o código escrito e o login do jogo feito no plano 36, falta ligar as três chaves e verificar na AWS; sprint 5 de CI e CD fica para depois)
 - [x] 21 Rede e chat (independente; substitui a parte do Godot do plano 18)
 - [x] 22 Dungeon em coop (depois do 21)
 - [x] 23 Conteúdo da dungeon: três dungeons com salas, subchefe, chefe e objetivo paralelo (descrição de cada uma em `equipe/dungeons/`)
@@ -41,6 +41,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [ ] 33 Minimapa com waypoint da missão acompanhada (depois do 32; só registrado)
 - [ ] 34 Cena de abertura: morador chave conta o começo e manda à Galeria (depois de 30, 27, 32 e 33; só registrado)
 - [x] 35 Giro automático no golpe: virar para o inimigo mais perto no cone da frente
+- [x] 36 Login no jogo com a conta do Cognito (tarefa 4.5 do plano 18)
 - [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
 
 ## Por que essa ordem

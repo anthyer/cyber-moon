@@ -77,6 +77,10 @@ pulumi config set ses_remetente noreply@cyber-moon.negoci.online
 **Atencao:** o NAT Gateway e cobrado por hora mesmo sem trafego. Ligar para
 demonstrar e desligar depois: `pulumi config set usar_vpc false && pulumi up`.
 
+Com `exigir_login` ligado, o jogo só conecta logado numa conta. O login é o botão
+**Conta** do lobby (plano 36), e precisa do `cognito_client_id` preenchido em
+`game/resources/rede/configuracao.tres`.
+
 Antes de ligar `exigir_login`, construir a layer do PyJWT:
 
 ```bash

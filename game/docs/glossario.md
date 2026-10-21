@@ -21,6 +21,7 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Crédito, economia | Credits / `EconomyManager`, sinais `credits_changed` e `sale_completed` |
 | Loja, catálogo | Shop / `CatalogoDeLoja` (classe Resource), `TelaDeLoja`, sinal `shop_requested` |
 | Baú de guardar, baú de venda | Storage chest, shipping chest / `Bau`, `ContainerDeItens`, `TelaDeBau` |
+| Conta online, login | Account / `AccountManager`, `TelaDeConta`, `ConfiguracaoDeRede.cognito_client_id` |
 | Marco | Milestone / `GameManager.desbloquear_marco()` |
 | Amizade, corações | Relationship, hearts / `RelationshipManager`, sinais `relationship_changed` e `heart_gained` |
 | Presentear | Gift / `Npc.receber_presente()`, ação `soltar_item` |

@@ -11,7 +11,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 - `EconomyManager` (`scripts/core/economy_manager.gd`): os créditos. `creditos`, `comprar(item, quantidade)`, `vender(pilhas)`, `preco_de_compra(item)`. Veja "Economia".
 - `RelationshipManager` (`scripts/core/relationship_manager.gd`): a amizade com cada NPC. `coracoes(npc_id)`, `pontos_de(npc_id)`, `presentear(npc_id, item)`, `pode_presentear(npc_id)`, `pedir_em_namoro(npc_id)`. Veja "Amizade e romance".
 - `DialogueManager` (`scripts/core/dialogue_manager.gd`): conduz a conversa com um NPC. `iniciar(npc)`, `avancar()`, `encerrar()`, `fala_do_dia(npc_id)`, `em_dialogo`. Veja "Diálogo".
-- `NetworkManager`, `ChatManager`, `LobbyManager` e `DungeonManager`: a conexão, o chat, a equipe e a entrada na dungeon. Veja "Rede" e "Dungeon em equipe".
+- `AccountManager`, `NetworkManager`, `ChatManager`, `LobbyManager` e `DungeonManager`: a conta online, a conexão, o chat, a equipe e a entrada na dungeon. Veja "Rede" e "Dungeon em equipe".
 - `SeasonManager` (`scripts/core/season_manager.gd`): o calendário. Quatro estações de 30 dias (Brotação, Estiagem, Colheita, Apagão), 120 dias por ano. Não guarda nada: estação, dia da estação e ano são calculados do `numero_do_dia` do `DayCycleManager` a cada pergunta. Sinais `season_changed(nova)` e `year_changed(novo_ano)`, emitidos no `day_started` da virada. Métodos: `estacao_atual()`, `dia_da_estacao()`, `ano_atual()`, `indice_da_estacao()`, `nome_exibido(estacao)`, `perfil_da_estacao(estacao)`, `perfil_atual()`.
 - `InventoryManager` (`scripts/core/inventory_manager.gd`): inventário do jogador em 36 slots, cada um uma `PilhaDeItens` ou `null`. Os índices de 0 a 8 são a barra rápida e de 9 a 35 a matriz de 3 linhas por 9 colunas, a mesma largura da barra rápida. `adicionar_item` devolve o que não coube (inventário cheio), e completa pilhas iguais antes de ocupar o primeiro slot vazio, varrendo a barra rápida antes da matriz. Também guarda o equipamento: os espaços `ARMADURA` e `ACESSORIO` apontam para o índice de um slot, e o item equipado continua ocupando esse slot. Sinais: `inventory_changed` e `equipment_changed(espaco, item)`.
 - `EquipmentManager` (`scripts/core/equipment_manager.gd`): guarda só qual dos 9 slots rápidos está selecionado (`indice_selecionado`, sinal `slot_selecionado_alterado`). O item na mão é o que está nesse slot do `InventoryManager` (`item_na_mao()`, `ferramenta_na_mao()`), como no Minecraft. Slot vazio é uma seleção válida, e com ele ou com os cestos o ataque é o soco. Ao iniciar, põe os cestos e as três ferramentas nos slots rápidos 1 a 4.
@@ -582,6 +582,18 @@ nuvem não muda nada para quem desenvolve na própria máquina.
   canal de mensagens da sala (`enviar_para_a_sala` e o sinal `room_message`).
 - `InputManager.teclado_capturado`: ligado enquanto o jogador digita no chat ou mexe no
   lobby. Com ele, toda pergunta de gameplay responde que nada foi pressionado.
+- `AccountManager` (autoload, plano 36): a conta do jogador no Cognito da AWS. Cria,
+  confirma, entra, sai e renova o ID token, com POSTs ao Cognito (`HTTPRequest`). Guarda
+  o `RefreshToken` em `user://conta.cfg`, nunca a senha. Sinais `logged_in`,
+  `logged_out`, `sign_up_finished(email)`, `account_confirmed(email)`,
+  `confirmation_required(email)` e `request_failed(mensagem)`. Só existe login quando
+  `cognito_client_id` está preenchido na `ConfiguracaoDeRede`.
+- O `NetworkManager` pergunta o token ao `AccountManager` ao abrir a conexão e, se houver,
+  acrescenta `?token=` ao endereço (o authorizer da AWS confere; o servidor local
+  ignora). Token com mais de 50 minutos é renovado antes de abrir. Entrar ou sair da conta
+  reconecta na hora.
+- `TelaDeConta`: filha da `TelaDeLobby`, aberta pelo botão "Conta" do lobby. O lobby
+  esconde o próprio painel enquanto ela está aberta e continua segurando o teclado.
 
 ## Dungeon em equipe
 

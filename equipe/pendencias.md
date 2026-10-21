@@ -300,6 +300,38 @@ exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota
 - Login com a conta Google, pedido do Antonio para o jogo final.
 - Publicar o jogo na Web (CloudFront na frente do bucket) e a sprint 5 inteira.
 
+### 2026-10-21, plano 18 (sprint 4) e plano 36 (login no jogo)
+
+**Feito.** O código Pulumi da sprint 4 (VPC, SES, Cognito e authorizer) já estava escrito
+desde o commit da sprint 3, e o stack `dev` está no ar com as três chaves desligadas. O
+que faltava era o login no jogo (tarefa 4.5), que virou o plano 36: autoload
+`AccountManager`, tela de conta aberta pelo botão "Conta" do lobby, e o token na
+conexão. O `configuracao.tres` recebeu o `endereco_na_nuvem` e o `cognito_client_id` do
+stack `dev`.
+
+**Testado:** o `AccountManager` falando com o Cognito do `dev` (senha errada e senha
+fraca voltam com a mensagem em português), a tela de conta nos três modos, e o jogo
+conectando no servidor local com e sem token.
+
+**Não testado (falta fazer na AWS):**
+
+- Criar uma conta de verdade pelo jogo, confirmar com o código e entrar. A tentativa de
+  criar um usuário de teste por comando de administrador não foi autorizada na sessão.
+- Ligar as três chaves da sprint 4 (tarefa 4.6). Nenhuma foi ligada: o NAT da VPC cobra
+  por hora, e o SES precisa de alguém clicando no e-mail de verificação.
+
+**Decidido sem consultar:**
+
+- A tela de conta abre pelo lobby, não pelo menu de pausa nem ao abrir o jogo. O menu de
+  pausa para a árvore, e a requisição e a reconexão precisam andar.
+- O `RefreshToken` fica em `user://conta.cfg` em texto puro, para o jogador não digitar
+  a senha toda vez. No navegador, `user://` é o IndexedDB da página.
+- Confirmada a conta, o jogo entra direto com a senha que ainda está no campo.
+
+**Fica para depois:** esqueci a senha, reenviar o código, trocar o nome da conta e o
+login com a conta Google. Quando o `prod` subir, trocar os dois valores do
+`configuracao.tres` pelos do `prod`.
+
 ### 2026-10-19, plano 28
 
 - **Decidido sem consultar:** brilho pulsante amarelo claro no lugar de contorno (o

@@ -131,7 +131,8 @@ São três. As duas primeiras **já estão feitas** (2026-10-13), a terceira nã
    **Falta só preencher** com o `wss_url` que o Pulumi exporta, depois do primeiro
    `pulumi up`. Não foi testado num jogo exportado, porque ainda não há preset de
    exportação para a Web (tarefa 5.3).
-3. **Login (a fazer)**, só para ligar `exigir_login`. Está na tarefa 4.5.
+3. **Login (feito em 2026-10-21, plano 36)**, só para ligar `exigir_login`. Está na
+   tarefa 4.5.
 
 Para testar o jogo de desktop contra a AWS antes de existir a exportação para a Web,
 passe o endereço na linha de comando:
@@ -1133,6 +1134,9 @@ Pontos de atenção:
 
 ### Tarefa 4.5: Login no jogo (lado Godot)
 
+**Feita em 2026-10-21 no plano 36** (`equipe/planos/36-login-no-jogo.md`). O botão
+"Conta" do lobby abre a tela de criar conta, confirmar e entrar.
+
 É uma feature de jogo, com tela e fluxo próprios. Vale escrever um plano separado em
 `equipe/planos/` antes de implementar. O que ele precisa cobrir:
 
@@ -1564,14 +1568,15 @@ jobs:
 
 Sprints 3 e 4. A sprint 5 tem verificação própria e fica para depois.
 
-- [ ] `pulumi up` no stack `dev` sobe sem erro, com as três chaves desligadas.
+- [x] `pulumi up` no stack `dev` sobe sem erro, com as três chaves desligadas.
 - [ ] Os passos 2 a 9 da tarefa 3.8 passam.
 - [ ] Dois jogos conversam no chat e jogam a dungeon juntos pela AWS.
 - [ ] Com `usar_vpc` ligado, o chat continua funcionando.
 - [ ] Com `ses_remetente` definido, uma conta nova recebe o e-mail de boas-vindas.
 - [ ] Com `exigir_login` ligado, só conecta quem manda um ID token válido.
-- [ ] `README.md` de `pulumi-start-aws/` reescrito.
-- [ ] `endereco_na_nuvem` preenchido em `game/resources/rede/configuracao.tres`.
+- [x] `README.md` de `pulumi-start-aws/` reescrito.
+- [x] `endereco_na_nuvem` preenchido em `game/resources/rede/configuracao.tres` (com o
+  endereço do `dev`, porque o `prod` ainda não tem nada no ar).
 - [ ] O que ficou de fora está em `equipe/pendencias.md`.
 
 ## Fora de escopo
