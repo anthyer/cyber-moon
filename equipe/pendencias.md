@@ -315,7 +315,9 @@ conectando no servidor local com e sem token.
 
 **Verificado na AWS (stack `dev`, mesmo dia):** as três chaves ligadas. Chat funcionando
 com as Lambdas na VPC, `$connect` recusando sem token (401), e uma conta criada pela tela
-do jogo, confirmada, com e-mail de boas-vindas, conectando com o nome da conta. Detalhes
+do jogo, confirmada, conectando com o nome da conta. O e-mail de boas-vindas **não chegou**:
+o remetente `@aluno.ifsc.edu.br` reprova no DMARC do IFSC quando sai pelo SES. Resolver com
+um remetente de domínio nosso (`noreply@cyber-moon.negoci.online` no `prod`). Detalhes
 na tarefa 4.6 do plano 18.
 
 **Estado do `dev` agora:** `usar_vpc`, `exigir_login` e `ses_remetente` ligados. O NAT
