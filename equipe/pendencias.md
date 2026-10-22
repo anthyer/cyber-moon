@@ -317,7 +317,15 @@ conectando no servidor local com e sem token.
 com as Lambdas na VPC, `$connect` recusando sem token (401), e uma conta criada pela tela
 do jogo, confirmada, conectando com o nome da conta. O e-mail de boas-vindas **caiu no spam**:
 o remetente `@aluno.ifsc.edu.br` reprova no DMARC do IFSC quando sai pelo SES. Resolver com
-um remetente de domínio nosso (`noreply@cyber-moon.negoci.online` no `prod`). Detalhes
+um remetente de domínio nosso (`noreply@cyber-moon.negoci.online` no `prod`).
+
+**Delegação do domínio órfã.** `negoci.online` é do professor, que delegou `cyber-moon`
+para `ns-22.awsdns-02.com`, `ns-578.awsdns-08.net`, `ns-1385.awsdns-45.org` e
+`ns-1940.awsdns-50.co.uk`. Esses servidores recusam a consulta: a zona foi apagada (o
+`prod` está com zero recursos) e a delegação ficou apontando para o nada. Ao subir o
+`prod`, a zona nova vem com outros servidores de nome, e o professor precisa trocar o
+registro NS de `cyber-moon` em `negoci.online` por eles. Depois disso, a zona não pode
+ser apagada nem recriada, ou a delegação quebra de novo. Detalhes
 na tarefa 4.6 do plano 18.
 
 **Estado do `dev` agora:** `exigir_login` e `ses_remetente` ligados. `usar_vpc` foi
