@@ -320,9 +320,9 @@ o remetente `@aluno.ifsc.edu.br` reprova no DMARC do IFSC quando sai pelo SES. R
 um remetente de domínio nosso (`noreply@cyber-moon.negoci.online` no `prod`). Detalhes
 na tarefa 4.6 do plano 18.
 
-**Estado do `dev` agora:** `usar_vpc`, `exigir_login` e `ses_remetente` ligados. O NAT
-cobra por hora: desligar com `pulumi config set usar_vpc false` e `pulumi up` quando não
-estiver demonstrando. Com `exigir_login` ligado, o jogo sem conta fica offline contra o
+**Estado do `dev` agora:** `exigir_login` e `ses_remetente` ligados. `usar_vpc` foi
+desligado depois da verificação, para o NAT parar de cobrar por hora; para demonstrar,
+`pulumi config set usar_vpc true` e `pulumi up` (leva uns 3 minutos). Com `exigir_login` ligado, o jogo sem conta fica offline contra o
 `dev` (o servidor local não muda). O `Pulumi.dev.yaml` com essas chaves não foi commitado.
 
 **Console sujo sem conta:** com `exigir_login` ligado e o jogador sem conta, o Godot
