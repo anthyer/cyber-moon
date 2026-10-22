@@ -1158,6 +1158,13 @@ Pontos de atenção:
 
 ### Tarefa 4.6: Verificação manual da sprint 4
 
+**Feita em 2026-10-21 no stack `dev`**, com as três chaves ligadas. Com a VPC, as 10
+Lambdas das rotas ficaram nas sub-redes privadas e o chat respondeu como antes (`bem_vindo`
+em 2 s). Sem token e com token falso, o `$connect` devolve 401. Uma conta criada pela tela
+do jogo (plano 36) recebeu o código, foi confirmada, disparou o e-mail de boas-vindas, e a
+conexão entrou com o nome da conta, não com o nome local do jogo. O passo do access token
+no lugar do ID token não foi testado à parte; o authorizer recusa pelo `token_use`.
+
 Uma chave por vez, com `pulumi up` e teste entre uma e outra.
 
 1. Com tudo desligado, `pulumi up` cria o User Pool e o chat segue igual à sprint 3.
@@ -1571,9 +1578,9 @@ Sprints 3 e 4. A sprint 5 tem verificação própria e fica para depois.
 - [x] `pulumi up` no stack `dev` sobe sem erro, com as três chaves desligadas.
 - [ ] Os passos 2 a 9 da tarefa 3.8 passam.
 - [ ] Dois jogos conversam no chat e jogam a dungeon juntos pela AWS.
-- [ ] Com `usar_vpc` ligado, o chat continua funcionando.
-- [ ] Com `ses_remetente` definido, uma conta nova recebe o e-mail de boas-vindas.
-- [ ] Com `exigir_login` ligado, só conecta quem manda um ID token válido.
+- [x] Com `usar_vpc` ligado, o chat continua funcionando.
+- [x] Com `ses_remetente` definido, uma conta nova recebe o e-mail de boas-vindas.
+- [x] Com `exigir_login` ligado, só conecta quem manda um ID token válido.
 - [x] `README.md` de `pulumi-start-aws/` reescrito.
 - [x] `endereco_na_nuvem` preenchido em `game/resources/rede/configuracao.tres` (com o
   endereço do `dev`, porque o `prod` ainda não tem nada no ar).

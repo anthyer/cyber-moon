@@ -313,12 +313,20 @@ stack `dev`.
 fraca voltam com a mensagem em português), a tela de conta nos três modos, e o jogo
 conectando no servidor local com e sem token.
 
-**Não testado (falta fazer na AWS):**
+**Verificado na AWS (stack `dev`, mesmo dia):** as três chaves ligadas. Chat funcionando
+com as Lambdas na VPC, `$connect` recusando sem token (401), e uma conta criada pela tela
+do jogo, confirmada, com e-mail de boas-vindas, conectando com o nome da conta. Detalhes
+na tarefa 4.6 do plano 18.
 
-- Criar uma conta de verdade pelo jogo, confirmar com o código e entrar. A tentativa de
-  criar um usuário de teste por comando de administrador não foi autorizada na sessão.
-- Ligar as três chaves da sprint 4 (tarefa 4.6). Nenhuma foi ligada: o NAT da VPC cobra
-  por hora, e o SES precisa de alguém clicando no e-mail de verificação.
+**Estado do `dev` agora:** `usar_vpc`, `exigir_login` e `ses_remetente` ligados. O NAT
+cobra por hora: desligar com `pulumi config set usar_vpc false` e `pulumi up` quando não
+estiver demonstrando. Com `exigir_login` ligado, o jogo sem conta fica offline contra o
+`dev` (o servidor local não muda). O `Pulumi.dev.yaml` com essas chaves não foi commitado.
+
+**Console sujo sem conta:** com `exigir_login` ligado e o jogador sem conta, o Godot
+escreve `Invalid status code. Got: '401'` a cada tentativa de reconexão (5 s). Não quebra
+nada. Uma saída seria o `NetworkManager` parar de tentar depois de um 401 até o jogador
+entrar na conta, mas o `WebSocketPeer` não diz o código da recusa, só que fechou.
 
 **Decidido sem consultar:**
 
