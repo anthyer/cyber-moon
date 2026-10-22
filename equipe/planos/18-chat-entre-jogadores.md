@@ -1164,8 +1164,7 @@ em 2 s). Sem token e com token falso, o `$connect` devolve 401. Uma conta criada
 do jogo (plano 36) recebeu o código, foi confirmada, e a conexão entrou com o nome da
 conta, não com o nome local do jogo.
 
-**O e-mail de boas-vindas não chegou.** A Lambda rodou sem erro e o SES contou a entrega
-sem devolução, mas o remetente era um endereço `@aluno.ifsc.edu.br`. O SPF desse domínio
+**O e-mail de boas-vindas caiu no spam.** A Lambda rodou sem erro e o SES entregou, mas o remetente era um endereço `@aluno.ifsc.edu.br`. O SPF desse domínio
 só autoriza os servidores do Google, não há DKIM do IFSC, e o DMARC do IFSC é
 `p=quarantine`: o Gmail do IFSC trata o e-mail como falsificado. O remetente precisa ser de
 um domínio com DNS nosso, que é o desenho do `prod` (`cyber-moon.negoci.online` com DKIM). O passo do access token
@@ -1586,7 +1585,7 @@ Sprints 3 e 4. A sprint 5 tem verificação própria e fica para depois.
 - [ ] Dois jogos conversam no chat e jogam a dungeon juntos pela AWS.
 - [x] Com `usar_vpc` ligado, o chat continua funcionando.
 - [ ] Com `ses_remetente` definido, uma conta nova recebe o e-mail de boas-vindas (no `dev`
-  o SES envia, mas o e-mail não chega: ver a tarefa 4.6).
+  ele chega, mas cai no spam: ver a tarefa 4.6).
 - [x] Com `exigir_login` ligado, só conecta quem manda um ID token válido.
 - [x] `README.md` de `pulumi-start-aws/` reescrito.
 - [x] `endereco_na_nuvem` preenchido em `game/resources/rede/configuracao.tres` (com o
