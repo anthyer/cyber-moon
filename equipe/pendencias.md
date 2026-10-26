@@ -325,7 +325,13 @@ para `ns-22.awsdns-02.com`, `ns-578.awsdns-08.net`, `ns-1385.awsdns-45.org` e
 `prod` está com zero recursos) e a delegação ficou apontando para o nada. Ao subir o
 `prod`, a zona nova vem com outros servidores de nome, e o professor precisa trocar o
 registro NS de `cyber-moon` em `negoci.online` por eles. Depois disso, a zona não pode
-ser apagada nem recriada, ou a delegação quebra de novo. Detalhes
+ser apagada nem recriada, ou a delegação quebra de novo.
+
+**2026-10-26, `prod` criado na conta do Bernardo** (`bombazaro-org/cybermoon/prod`, as
+três chaves desligadas). A zona nova (`Z06617251KR3GBF521JND`) tem os servidores
+`ns-826.awsdns-39.net`, `ns-1349.awsdns-40.org`, `ns-110.awsdns-13.com` e
+`ns-1730.awsdns-24.co.uk`. Falta o professor trocar a delegação para eles. O `prod` da
+organização `anthyer-ifsc` citado no plano 18 não é este; o Antonio precisa saber. Detalhes
 na tarefa 4.6 do plano 18.
 
 **Estado do `dev` agora:** `exigir_login` e `ses_remetente` ligados. `usar_vpc` foi
