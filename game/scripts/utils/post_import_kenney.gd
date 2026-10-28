@@ -36,6 +36,9 @@ const TRECHOS_SEM_COLISAO: Array[String] = [
 	# peças cuja colisão é da cena que as usa (porta, baú, gerador, antena) e enfeite de
 	# chão que o jogador atravessa.
 	"inimigo_", "chefe_", "movel_", "enfeite_",
+	# Pacote cyber_moon_personagens: os moradores editados, pelo mesmo motivo do
+	# "character" acima.
+	"personagem_",
 ]
 
 ## Peças planas de chão (estrada, calçada, caminho de pedra, piso). Elas não projetam

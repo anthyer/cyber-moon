@@ -586,3 +586,294 @@ def produzir(construtores, nome_do_grupo, espaco=0.6, exportar_modelos=True, fot
     if fotografar:
         foto(nome_do_grupo)
     return feitos
+
+
+# -- personagens ------------------------------------------------------------------------
+#
+# Personagem não é modelado do zero: parte de um dos modelos do pacote de personagens da
+# Kenney, que já têm esqueleto e as animações. A edição troca a cor de partes (camisa,
+# cabelo, calça) e soma peças rígidas (visor, capacete, avental), cada uma presa a um osso
+# só. Peça presa a um osso inteiro não precisa de pintura de peso, e por isso as 32
+# animações do pacote continuam valendo sem mexer em nenhuma.
+
+PASTA_DA_KENNEY_PERSONAGENS = os.path.join(RAIZ_DO_REPOSITORIO, "game", "assets", "models", "kenney_mini_characters")
+PACOTE_DE_PERSONAGENS = "cyber_moon_personagens"
+
+# A paleta dos personagens é a da Kenney com as duas linhas de cima preenchidas. Os modelos
+# do pacote só usam as linhas 2 e 3 (medido em todos os doze), então as linhas 0 e 1 estavam
+# vazias e recebem as cores do tema sem mudar a cara de ninguém.
+PALETA_DE_PERSONAGENS = {
+    # Linha 0: neon e cores fortes do tema, novas.
+    "neon_ciano": (0, 0),
+    "neon_magenta": (1, 0),
+    "neon_verde": (2, 0),
+    "neon_amarelo": (3, 0),
+    "vinho": (4, 0),
+    "oliva": (5, 0),
+    "areia": (6, 0),
+    "couro": (7, 0),
+    # Linha 1: a primeira célula já vem da Kenney; as outras são novas.
+    "rosa_choque": (0, 1),
+    "preto": (1, 1),
+    "jeans": (2, 1),
+    "ferrugem": (3, 1),
+    "laranja_seguranca": (4, 1),
+    "verde_militar": (5, 1),
+    "cromo": (6, 1),
+    "terracota": (7, 1),
+    # Linha 2: as cores de roupa da Kenney.
+    "creme": (0, 2),
+    "verde": (1, 2),
+    "amarelo": (2, 2),
+    "laranja": (3, 2),
+    "vermelho": (4, 2),
+    "azul": (5, 2),
+    "azul_claro": (6, 2),
+    "roxo": (7, 2),
+    # Linha 3: cinzas, branco e os três tons de pele da Kenney.
+    "grafite": (0, 3),
+    "cinza": (1, 3),
+    "ardosia": (2, 3),
+    "cinza_lilas": (3, 3),
+    "branco": (4, 3),
+    "pele_media": (5, 3),
+    "pele_escura": (6, 3),
+    "pele_clara": (7, 3),
+}
+
+# As cores novas, em RGB de 0 a 255. O fim do degradê (embaixo da célula) é a mesma cor
+# mais escura e um pouco mais fria, como nas células da Kenney.
+CORES_NOVAS_DOS_PERSONAGENS = {
+    "neon_ciano": (40, 226, 255),
+    "neon_magenta": (255, 52, 182),
+    "neon_verde": (130, 255, 96),
+    "neon_amarelo": (255, 214, 40),
+    "vinho": (132, 38, 62),
+    "oliva": (122, 124, 70),
+    "areia": (222, 190, 136),
+    "couro": (128, 80, 50),
+    "preto": (40, 38, 46),
+    "jeans": (62, 92, 140),
+    "ferrugem": (176, 86, 44),
+    "laranja_seguranca": (255, 128, 30),
+    "verde_militar": (86, 104, 66),
+    "cromo": (196, 206, 218),
+    "terracota": (196, 104, 78),
+}
+
+
+def usar_paleta_de_personagens():
+    """Passa o kit para o pacote e a paleta dos personagens, e gera a paleta.
+
+    Depois desta chamada, `uv_da_cor` e as primitivas do `Modelo` usam os nomes de
+    `PALETA_DE_PERSONAGENS`, para os acessórios saírem na mesma textura do corpo.
+    """
+    global PALETA, CAMINHO_DA_PALETA, PASTA_DO_PACOTE
+    PALETA = PALETA_DE_PERSONAGENS
+    PASTA_DO_PACOTE = os.path.join(RAIZ_DO_REPOSITORIO, "game", "assets", "models", PACOTE_DE_PERSONAGENS)
+    CAMINHO_DA_PALETA = os.path.join(PASTA_DO_PACOTE, "textures", "colormap.png")
+    _gerar_paleta_de_personagens()
+
+
+def _gerar_paleta_de_personagens():
+    """Copia a paleta da Kenney e pinta as células novas, no mesmo desenho de célula."""
+    os.makedirs(os.path.dirname(CAMINHO_DA_PALETA), exist_ok=True)
+    original = bpy.data.images.load(os.path.join(PASTA_DA_KENNEY_PERSONAGENS, "textures", "colormap.png"), check_existing=False)
+    largura, altura = original.size
+    pixels = list(original.pixels)
+    bpy.data.images.remove(original)
+    for nome, rgb in CORES_NOVAS_DOS_PERSONAGENS.items():
+        coluna, linha = PALETA_DE_PERSONAGENS[nome]
+        cor = [canal / 255.0 for canal in rgb]
+        escura = [cor[0] * 0.62 + 0.02, cor[1] * 0.6 + 0.02, cor[2] * 0.7 + 0.08]
+        for y_na_celula in range(int(ALTURA_DA_CELULA)):
+            # A imagem do Blender começa embaixo; a linha 0 da paleta é a de cima.
+            y = altura - 1 - (linha * int(ALTURA_DA_CELULA) + y_na_celula)
+            t = y_na_celula / (ALTURA_DA_CELULA - 1.0)
+            degrade = [cor[canal] + (escura[canal] - cor[canal]) * t for canal in range(3)]
+            for x_na_celula in range(int(LARGURA_DA_CELULA)):
+                x = coluna * int(LARGURA_DA_CELULA) + x_na_celula
+                valor = cor if x_na_celula < LARGURA_DA_CELULA / 2 else degrade
+                indice = (y * largura + x) * 4
+                pixels[indice:indice + 4] = [valor[0], valor[1], valor[2], 1.0]
+    imagem = bpy.data.images.get("paleta_de_personagens")
+    if imagem is None:
+        imagem = bpy.data.images.new("paleta_de_personagens", largura, altura, alpha=True)
+    imagem.pixels = pixels
+    imagem.filepath_raw = CAMINHO_DA_PALETA
+    imagem.file_format = "PNG"
+    imagem.save()
+
+
+def _e_do_rosto(centro):
+    """Olho ou boca: as faces desenhadas no plano da frente da cabeça, entre a boca e a
+    altura dos olhos. Medido nos doze modelos, que têm o rosto no mesmo lugar."""
+    return centro.y < -0.15 and 0.39 < centro.z < 0.52 and abs(centro.x) < 0.1
+
+
+class Personagem:
+    """Um personagem do pacote da Kenney, importado para ser editado.
+
+    `base` é o nome do modelo sem o prefixo (`"male_b"`, `"female_c"`). A malha tem duas
+    partes, `corpo` e `cabeca`, e o esqueleto tem sete ossos: root, leg-left, leg-right,
+    torso, arm-left, arm-right e head. As medidas do modelo em repouso, para encaixar
+    peça: a frente do rosto fica em y = -0,16 (a frente é -Y), os olhos em x = +-0,072 e
+    z = 0,49, a boca em z = 0,42, o pescoço em z = 0,34, e o tronco vai de z = 0,18 a 0,37,
+    com a frente em y = -0,11.
+    """
+
+    def __init__(self, nome, base):
+        self.nome = nome
+        novos = importar_glb(os.path.join("kenney_mini_characters", "character_%s.glb" % base))
+        self.armadura = next(objeto for objeto in novos if objeto.type == "ARMATURE")
+        self.armadura.name = nome
+        self.partes = {}
+        for objeto in novos:
+            if objeto.type == "MESH" and objeto.parent is self.armadura:
+                parte = "cabeca" if objeto.name.startswith("head") else "corpo"
+                self.partes[parte] = objeto
+            elif objeto is not self.armadura and objeto.parent is None:
+                # O importador traz junto um objeto solto que não faz parte do modelo.
+                bpy.data.objects.remove(objeto, do_unlink=True)
+        self._usar_a_paleta_nova()
+
+    def _usar_a_paleta_nova(self):
+        """O material da Kenney passa a ler a paleta do pacote, para a foto mostrar as
+        cores novas e as peças somadas caírem no mesmo material."""
+        for objeto in self.partes.values():
+            for material in objeto.data.materials:
+                if material is None or not material.use_nodes:
+                    continue
+                for no in material.node_tree.nodes:
+                    if no.type == "TEX_IMAGE":
+                        no.image = bpy.data.images.load(CAMINHO_DA_PALETA, check_existing=True)
+                        no.interpolation = "Closest"
+                material.name = NOME_DO_MATERIAL
+
+    def trocar_cor(self, de, para, parte=None):
+        """Toda face pintada com a cor `de` passa para a cor `para`.
+
+        A face é movida de célula sem sair da mesma posição dentro dela, e por isso o
+        degradê do modelo original continua igual na cor nova. Com `parte` (`"corpo"` ou
+        `"cabeca"`), só aquela malha muda: é como separar a camisa do boné, quando os dois
+        usam a mesma cor. Os olhos e a boca nunca mudam: eles usam a mesma célula escura
+        do cabelo preto, e pintar o cabelo não pode apagar o rosto.
+        """
+        coluna_de, linha_de = PALETA_DE_PERSONAGENS[de]
+        coluna_para, linha_para = PALETA_DE_PERSONAGENS[para]
+        deslocamento_u = (coluna_para - coluna_de) / 8.0
+        deslocamento_v = -(linha_para - linha_de) / 4.0
+        partes = [self.partes[parte]] if parte else list(self.partes.values())
+        for objeto in partes:
+            camada = objeto.data.uv_layers[0].data
+            for poligono in objeto.data.polygons:
+                us = [camada[indice].uv[0] for indice in poligono.loop_indices]
+                vs = [camada[indice].uv[1] for indice in poligono.loop_indices]
+                coluna = int(sum(us) / len(us) * 8)
+                linha = int((1.0 - sum(vs) / len(vs)) * 4)
+                if (coluna, linha) != (coluna_de, linha_de):
+                    continue
+                if objeto is self.partes.get("cabeca") and _e_do_rosto(poligono.center):
+                    continue
+                for indice in poligono.loop_indices:
+                    camada[indice].uv[0] += deslocamento_u
+                    camada[indice].uv[1] += deslocamento_v
+
+    def tirar_da_mao(self, cores, distancia_do_eixo=0.2):
+        """Apaga o que o modelo segura nas mãos: as faces do corpo pintadas com uma das
+        `cores` e mais longe do eixo do corpo que `distancia_do_eixo` (de braços abertos,
+        em repouso). É o caso dos halteres da `female_a`, que não servem a uma dona de
+        mercado."""
+        objeto = self.partes["corpo"]
+        malha = bmesh.new()
+        malha.from_mesh(objeto.data)
+        camada = malha.loops.layers.uv[0]
+        celulas = {PALETA_DE_PERSONAGENS[cor] for cor in cores}
+        apagar = []
+        for face in malha.faces:
+            u = sum(laco[camada].uv[0] for laco in face.loops) / len(face.loops)
+            v = sum(laco[camada].uv[1] for laco in face.loops) / len(face.loops)
+            celula = (int(u * 8), int((1.0 - v) * 4))
+            if celula in celulas and abs(face.calc_center_median().x) > distancia_do_eixo:
+                apagar.append(face)
+        bmesh.ops.delete(malha, geom=apagar, context="FACES")
+        soltos = [vertice for vertice in malha.verts if not vertice.link_faces]
+        bmesh.ops.delete(malha, geom=soltos, context="VERTS")
+        malha.to_mesh(objeto.data)
+        malha.free()
+
+    def peca(self, osso, modelo):
+        """Soma a peça montada em `modelo` (um `Modelo` do kit, no espaço do personagem em
+        repouso) à malha do personagem, presa inteira ao `osso`."""
+        objeto = modelo.finalizar()
+        grupo = objeto.vertex_groups.new(name=osso)
+        grupo.add(list(range(len(objeto.data.vertices))), 1.0, "REPLACE")
+        alvo = self.partes["cabeca" if osso == "head" else "corpo"]
+        for outro in bpy.context.view_layer.objects:
+            outro.select_set(False)
+        objeto.select_set(True)
+        alvo.select_set(True)
+        bpy.context.view_layer.objects.active = alvo
+        bpy.ops.object.join()
+
+    def escalar(self, fator):
+        """Para criança: o modelo inteiro menor, com as animações junto."""
+        self.armadura.scale = (fator, fator, fator)
+
+    def exportar(self, nome_do_arquivo=None):
+        """Exporta para `cyber_moon_personagens/<nome>.glb`, com esqueleto e animações."""
+        nome_do_arquivo = nome_do_arquivo or self.nome
+        os.makedirs(PASTA_DO_PACOTE, exist_ok=True)
+        caminho = os.path.join(PASTA_DO_PACOTE, nome_do_arquivo + ".glb")
+        for outro in bpy.context.view_layer.objects:
+            outro.select_set(False)
+        for parte in _familia(self.armadura):
+            parte.select_set(True)
+        bpy.context.view_layer.objects.active = self.armadura
+        # Sem aplicar modificadores: aplicar o da armadura congelaria a malha na pose e
+        # desligaria a pele do esqueleto.
+        bpy.ops.export_scene.gltf(
+            filepath=caminho,
+            export_format="GLB",
+            use_selection=True,
+            export_image_format="NONE",
+            export_apply=False,
+            export_yup=True,
+            export_skins=True,
+            export_animations=True,
+            export_animation_mode="ACTIONS",
+            export_materials="EXPORT",
+        )
+        _apontar_para_a_paleta(caminho)
+        print("exportado", nome_do_arquivo, contar_triangulos(self.armadura), "triangulos")
+        return caminho
+
+
+def produzir_personagens(construtores, nome_do_grupo, espaco=0.9):
+    """Constrói, exporta e fotografa um grupo de personagens, de frente e de costas.
+
+    Cada construtor é uma função sem parâmetros que devolve um `Personagem`. A foto é em
+    repouso (braços abertos), que mostra cada peça sem o braço na frente.
+    """
+    limpar_cena()
+    feitos = []
+    for indice, construtor in enumerate(construtores):
+        personagem = construtor()
+        personagem.exportar()
+        # O Blender não aceita dois objetos com o mesmo nome: depois de exportar, as
+        # partes ganham o nome do personagem na frente e liberam o nome para o próximo.
+        for parte in _familia(personagem.armadura)[1:]:
+            parte.name = personagem.nome + "." + parte.name
+        # As animações também: com as do anterior ainda na cena, o "idle" do próximo
+        # chegaria como "idle.001", e o jogo procura o clipe pelo nome.
+        personagem.armadura.animation_data_clear()
+        for acao in list(bpy.data.actions):
+            bpy.data.actions.remove(acao)
+        personagem.armadura.location.x = indice * espaco
+        personagem.armadura.data.pose_position = "REST"
+        feitos.append(personagem)
+    bpy.context.view_layer.update()
+    largura = max(len(construtores) * 220, 600)
+    foto(nome_do_grupo + "_de_frente", direcao=(0.0, -1.0, 0.25), resolucao=(largura, 500))
+    foto(nome_do_grupo + "_de_costas", direcao=(0.0, 1.0, 0.25), resolucao=(largura, 500))
+    return feitos
