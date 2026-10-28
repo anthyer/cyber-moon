@@ -42,6 +42,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [ ] 34 Cena de abertura: morador chave conta o começo e manda à Galeria (depois de 30, 27, 32 e 33; só registrado)
 - [x] 35 Giro automático no golpe: virar para o inimigo mais perto no cone da frente
 - [x] 36 Login no jogo com a conta do Cognito (tarefa 4.5 do plano 18)
+- [ ] 37 Mundo real: hora inicial do relógio do computador, clima pela Open-Meteo e fase da Lua (depois de 10, 13, 06 e 20; só registrado)
 - [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
 
 ## Por que essa ordem
