@@ -83,3 +83,12 @@ As ações `abrir_chat`, `menu_debug` e `teste_avancar_dia` saíram do Input Map
   pacote só trazem sementes que crescem nela (cenoura, trigo, beterraba e repolho).
 - **Dia e noite** e **desmaio** continuam como no jogo completo: dormir na cama vira o
   dia, e zerar a vida ou passar da 1:00 faz o jogador acordar em casa.
+
+## Build para a web
+
+A build pronta fica em `build/web/`, na raiz do repositório, com um `LEIAME.md` de como
+hospedar. É exportada pelo preset "Web" de `game/export_presets.cfg`, sem threads, para
+rodar em qualquer servidor de arquivos estáticos sem configuração especial. Mudou o
+jogo? Exporte de novo antes de entregar:
+
+    godot --headless --path game --export-release "Web" ../build/web/index.html
