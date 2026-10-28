@@ -62,6 +62,9 @@ const EFEITOS: Dictionary = {
 	&"resgate_da_agua": [JORRO, Color(0.45, 0.75, 1.0), 16, 0.4],
 	# Interação (plano 28): um sopro pequeno no alvo novo, para o olho achar o destaque.
 	&"alvo_de_interacao": [SOPRO, Color(1.0, 0.92, 0.6), 5, 0.25],
+	# Elenco (plano 30): o aceno da figurante, e a poeira de quem chega ou vai embora da vila.
+	&"aceno": [SUBIDA, Color(1.0, 0.92, 0.6), 6, 0.9],
+	&"visita": [SOPRO, Color(0.86, 0.74, 0.55), 12, 0.1],
 }
 
 const ID_DO_BASTAO_DE_CHOQUE: StringName = &"bastao_choque"
@@ -124,6 +127,10 @@ func _ready() -> void:
 	EventBus.map_changed.connect(func(_mapa_id: StringName) -> void: _no_jogador(&"trocar_de_mapa"))
 	EventBus.player_rescued.connect(_soltar.bind(&"resgate_da_agua"))
 	EventBus.interaction_target_changed.connect(_ao_mudar_alvo_de_interacao)
+	# Elenco.
+	EventBus.npc_waved.connect(_soltar.bind(&"aceno"))
+	EventBus.visitor_arrived.connect(_soltar.bind(&"visita"))
+	EventBus.visitor_left.connect(_soltar.bind(&"visita"))
 
 ## Este nó para junto com o jogo. O aprimoramento acontece na tela do ferreiro, que pausa
 ## o jogo, então as faíscas esperam aqui e saem quando a tela fecha.

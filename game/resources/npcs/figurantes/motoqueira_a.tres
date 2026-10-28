@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="PerfilNpc" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_w405o"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_personagens/personagem_motoqueira_a.glb" id="2_q2m2y"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="3_l01dq"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="4_6wykv"]
+
+[sub_resource type="Resource" id="Resource_dnjay"]
+script = ExtResource("3_l01dq")
+hora_final = 18.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"oficina_das_motoqueiras"
+animacao_parado = &"interact-left"
+
+[resource]
+script = ExtResource("4_6wykv")
+id = "motoqueira_a"
+nome_exibido = "Motoqueira"
+modelo = ExtResource("2_q2m2y")
+casa = &"fogueira"
+rotina = Array[ExtResource("3_l01dq")]([SubResource("Resource_dnjay")])
+eh_figurante = true

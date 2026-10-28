@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="PerfilNpc" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_6bymi"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/tomate.tres" id="2_2rj7p"]
+[ext_resource type="Resource" path="res://resources/items/sucata/nucleo_sintetico.tres" id="3_ahefx"]
+[ext_resource type="Resource" path="res://resources/items/sucata/sucata_metal.tres" id="4_qmtuk"]
+[ext_resource type="Resource" path="res://resources/items/recursos/fibra.tres" id="5_35oce"]
+[ext_resource type="Resource" path="res://resources/items/materiais/biocombustivel.tres" id="6_0pkbj"]
+[ext_resource type="Resource" path="res://resources/items/materiais/chapa_reciclada.tres" id="7_2nw5i"]
+[ext_resource type="Resource" path="res://resources/items/sucata/celula_energia.tres" id="8_5egjq"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/milho.tres" id="9_nbf4r"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_personagens/personagem_lucia.glb" id="10_gu867"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="11_oyubn"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="12_t5nsd"]
+
+[sub_resource type="Resource" id="Resource_vgevp"]
+script = ExtResource("11_oyubn")
+hora_inicial = 9.0
+dias_da_semana = Array[int]([2])
+destino = &"mercado"
+
+[sub_resource type="Resource" id="Resource_v8ini"]
+script = ExtResource("11_oyubn")
+hora_inicial = 12.0
+hora_final = 14.0
+dias_da_semana = Array[int]([2])
+destino = &"praca"
+
+[sub_resource type="Resource" id="Resource_ua5bj"]
+script = ExtResource("11_oyubn")
+hora_inicial = 14.0
+hora_final = 17.0
+dias_da_semana = Array[int]([2])
+destino = &"oficina"
+
+[resource]
+script = ExtResource("12_t5nsd")
+id = "lucia"
+nome_exibido = "Lúcia Prado"
+estacao_do_aniversario = &"colheita"
+dia_do_aniversario = 11
+itens_amados = Array[ExtResource("1_6bymi")]([ExtResource("2_2rj7p"), ExtResource("3_ahefx")])
+itens_queridos = Array[ExtResource("1_6bymi")]([ExtResource("7_2nw5i"), ExtResource("8_5egjq"), ExtResource("9_nbf4r")])
+itens_indesejados = Array[ExtResource("1_6bymi")]([ExtResource("4_qmtuk"), ExtResource("5_35oce")])
+itens_odiados = Array[ExtResource("1_6bymi")]([ExtResource("6_0pkbj")])
+modelo = ExtResource("10_gu867")
+casa = &"ponto_de_onibus"
+rotina = Array[ExtResource("11_oyubn")]([SubResource("Resource_vgevp"), SubResource("Resource_v8ini"), SubResource("Resource_ua5bj")])
+mora_fora_do_mapa = true

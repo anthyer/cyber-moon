@@ -37,6 +37,14 @@ extends Resource
 ## Os compromissos fora de casa. O que a rotina não cobre, ele passa em casa.
 @export var rotina: Array[Compromisso] = []
 @export var eh_romanceavel: bool = false
+## Quem não mora no mapa e só vem de visita (a Lúcia de ônibus, o Zeca de caminhão). A
+## casa dele é o ponto por onde chega e vai embora: ao chegar em casa, ele some, e só
+## aparece de novo no próximo compromisso.
+@export var mora_fora_do_mapa: bool = false
+## Figurante: enche o lugar, sem conversa, presente nem amizade. Ao interagir, só acena.
+## O perfil fica em resources/npcs/figurantes/, fora da lista de moradores que o
+## calendário, a amizade e o diálogo leem.
+@export var eh_figurante: bool = false
 
 func faz_aniversario(estacao: StringName, dia_da_estacao: int) -> bool:
 	return estacao == estacao_do_aniversario and dia_da_estacao == dia_do_aniversario

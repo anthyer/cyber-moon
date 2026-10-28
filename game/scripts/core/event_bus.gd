@@ -43,6 +43,11 @@ signal player_rescued(posicao: Vector3)
 ## Mudou o que responde se o jogador apertar interagir agora (null quando não há nada).
 ## Quem destaca o alvo na tela (DestaqueDeInteracao) e o efeito de troca ouvem aqui.
 signal interaction_target_changed(alvo: Node3D)
+## Uma figurante acenou de volta para o jogador (plano 30).
+signal npc_waved(posicao: Vector3)
+## Quem mora fora do mapa chegou (desceu do ônibus, parou o caminhão) ou foi embora.
+signal visitor_arrived(posicao: Vector3)
+signal visitor_left(posicao: Vector3)
 signal item_consumed(consumivel: Consumivel)
 signal rare_loot_dropped(posicao: Vector3, cor: Color)
 ## O comerciante que também é ferreiro oferece os dois serviços; a escolha pede um deles.
