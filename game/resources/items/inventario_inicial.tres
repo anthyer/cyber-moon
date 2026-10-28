@@ -1,16 +1,34 @@
 [gd_resource type="Resource" script_class="InventarioInicial" format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/inventario_inicial.gd" id="1_script"]
-[ext_resource type="Resource" path="res://resources/items/armas/cestos.tres" id="2_cestos"]
-[ext_resource type="Resource" path="res://resources/items/ferramentas/enxada.tres" id="3_enxada"]
-[ext_resource type="Resource" path="res://resources/items/ferramentas/regador.tres" id="4_regador"]
-[ext_resource type="Resource" path="res://resources/items/ferramentas/picareta.tres" id="5_picareta"]
-[ext_resource type="Resource" path="res://resources/items/sementes/semente_cenoura.tres" id="6_cenoura"]
-[ext_resource type="Resource" path="res://resources/items/sementes/semente_trigo.tres" id="7_trigo"]
-[ext_resource type="Script" path="res://scripts/resources/item.gd" id="8_item"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="2_item"]
+[ext_resource type="Resource" path="res://resources/items/armas/espadao_sucata.tres" id="3_espadao_sucata"]
+[ext_resource type="Resource" path="res://resources/items/armas/escopeta_serrada.tres" id="4_escopeta_serrada"]
+[ext_resource type="Resource" path="res://resources/items/ferramentas/enxada.tres" id="5_enxada"]
+[ext_resource type="Resource" path="res://resources/items/ferramentas/regador.tres" id="6_regador"]
+[ext_resource type="Resource" path="res://resources/items/ferramentas/picareta.tres" id="7_picareta"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_cenoura.tres" id="8_semente_cenoura"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_trigo.tres" id="9_semente_trigo"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/nanogel.tres" id="10_nanogel"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/estimulante.tres" id="11_estimulante"]
+[ext_resource type="Resource" path="res://resources/items/armas/cestos.tres" id="12_cestos"]
+[ext_resource type="Resource" path="res://resources/items/armas/bastao_choque.tres" id="13_bastao_choque"]
+[ext_resource type="Resource" path="res://resources/items/armas/foice_curva.tres" id="14_foice_curva"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_beterraba.tres" id="15_semente_beterraba"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_repolho.tres" id="16_semente_repolho"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/pao_de_trigo.tres" id="17_pao_de_trigo"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/sopa_de_legumes.tres" id="18_sopa_de_legumes"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/cenoura.tres" id="19_cenoura"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/trigo.tres" id="20_trigo"]
+[ext_resource type="Resource" path="res://resources/items/materiais/nutrisolo.tres" id="21_nutrisolo"]
+[ext_resource type="Resource" path="res://resources/items/materiais/composto_organico.tres" id="22_composto_organico"]
+[ext_resource type="Resource" path="res://resources/items/recursos/madeira.tres" id="23_madeira"]
+[ext_resource type="Resource" path="res://resources/items/recursos/pedra.tres" id="24_pedra"]
+[ext_resource type="Resource" path="res://resources/items/sucata/sucata_metal.tres" id="25_sucata_metal"]
+[ext_resource type="Resource" path="res://resources/items/sucata/celula_energia.tres" id="26_celula_energia"]
 
 [resource]
 script = ExtResource("1_script")
-itens = Array[ExtResource("8_item")]([ExtResource("2_cestos"), ExtResource("3_enxada"), ExtResource("4_regador"), ExtResource("5_picareta"), ExtResource("6_cenoura"), ExtResource("7_trigo")])
-quantidades = Array[int]([1, 1, 1, 1, 5, 5])
-creditos = 500
+itens = Array[ExtResource("2_item")]([ExtResource("3_espadao_sucata"), ExtResource("4_escopeta_serrada"), ExtResource("5_enxada"), ExtResource("6_regador"), ExtResource("7_picareta"), ExtResource("8_semente_cenoura"), ExtResource("9_semente_trigo"), ExtResource("10_nanogel"), ExtResource("11_estimulante"), ExtResource("12_cestos"), ExtResource("13_bastao_choque"), ExtResource("14_foice_curva"), ExtResource("15_semente_beterraba"), ExtResource("16_semente_repolho"), ExtResource("17_pao_de_trigo"), ExtResource("18_sopa_de_legumes"), ExtResource("19_cenoura"), ExtResource("20_trigo"), ExtResource("21_nutrisolo"), ExtResource("22_composto_organico"), ExtResource("23_madeira"), ExtResource("24_pedra"), ExtResource("25_sucata_metal"), ExtResource("26_celula_energia")])
+quantidades = Array[int]([1, 1, 1, 1, 1, 20, 20, 10, 10, 1, 1, 1, 20, 20, 10, 10, 10, 10, 10, 5, 20, 20, 10, 5])
+creditos = 5000

@@ -2,6 +2,9 @@ extends Node
 
 ## O clima do dia: sol, chuva ou tempestade.
 ##
+## Na demo o clima não muda: todo dia é de sol. O sorteio continua aqui, desligado, para
+## a demo voltar a ter chuva trocando uma linha.
+##
 ## É sorteado quando o dia começa e não muda no meio. O valor da chuva para o jogador é
 ## economizar a rega do dia, e para isso ela precisa ser previsível desde o amanhecer.
 ## A chance de chuva vem do perfil da estação, e a tempestade é um quinto dela.
@@ -15,6 +18,8 @@ const CLIMAS: Array[StringName] = [&"sol", &"chuva", &"tempestade"]
 const PASTA_DOS_PERFIS: String = "res://resources/climas/"
 ## A tempestade é rara: a chance dela é a da chuva dividida por este número.
 const DIVISOR_DA_TEMPESTADE: float = 5.0
+## Com um clima aqui, o sorteio sempre devolve ele. Vazio volta a sortear.
+const CLIMA_FIXO_DA_DEMO: StringName = &"sol"
 
 ## O primeiro dia do jogo é sempre de sol.
 var clima_atual: StringName = &"sol"
@@ -42,6 +47,8 @@ func perfil_atual() -> PerfilClima:
 
 ## Sorteia o clima de um dia, com a chance de chuva da estação em que esse dia cai.
 func sortear_clima_do_dia(numero_do_dia: int) -> StringName:
+	if CLIMA_FIXO_DA_DEMO != &"":
+		return CLIMA_FIXO_DA_DEMO
 	var estacao: PerfilEstacao = SeasonManager.perfil_da_estacao(SeasonManager.estacao_do_dia(numero_do_dia))
 	var chance_de_chuva: float = estacao.chance_de_chuva
 	var chance_de_tempestade: float = chance_de_chuva / DIVISOR_DA_TEMPESTADE
@@ -52,7 +59,7 @@ func sortear_clima_do_dia(numero_do_dia: int) -> StringName:
 		return &"chuva"
 	return &"sol"
 
-## Troca o clima na hora. Serve ao menu de debug e a eventos que forçam um clima.
+## Troca o clima na hora. Serve a eventos que forçam um clima.
 func definir_clima(clima: StringName) -> void:
 	if not _perfis.has(clima) or clima == clima_atual:
 		return

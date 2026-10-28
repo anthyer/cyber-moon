@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/lista_de_controles.gd" id="1_script"]
+[ext_resource type="Resource" path="res://resources/ui/controles_da_demo.tres" id="2_guia"]
+
+[node name="ListaDeControles" type="GridContainer"]
+theme_override_constants/h_separation = 28
+theme_override_constants/v_separation = 8
+columns = 3
+script = ExtResource("1_script")
+guia = ExtResource("2_guia")

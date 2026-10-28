@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CatalogoDeLoja" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_item"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_cenoura.tres" id="2_cenoura"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_trigo.tres" id="3_trigo"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_beterraba.tres" id="4_beterraba"]
+[ext_resource type="Resource" path="res://resources/items/sementes/semente_repolho.tres" id="5_repolho"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/pao_de_trigo.tres" id="6_pao"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/sopa_de_legumes.tres" id="7_sopa"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/nanogel.tres" id="8_nanogel"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/estimulante.tres" id="9_estimulante"]
+[ext_resource type="Resource" path="res://resources/items/materiais/nutrisolo.tres" id="10_nutrisolo"]
+[ext_resource type="Script" path="res://scripts/resources/catalogo_de_loja.gd" id="11_catalogo"]
+
+[resource]
+script = ExtResource("11_catalogo")
+npc_id = "vendinha"
+itens = Array[ExtResource("1_item")]([ExtResource("2_cenoura"), ExtResource("3_trigo"), ExtResource("4_beterraba"), ExtResource("5_repolho"), ExtResource("6_pao"), ExtResource("7_sopa"), ExtResource("8_nanogel"), ExtResource("9_estimulante"), ExtResource("10_nutrisolo")])

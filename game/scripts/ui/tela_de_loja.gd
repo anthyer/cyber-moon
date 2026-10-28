@@ -3,9 +3,9 @@ extends Control
 
 ## A loja de um comerciante: a lista do que ele vende, com o preço, e os botões de comprar.
 ##
-## Abre quando o jogador conversa com um NPC que tem catálogo e está com a loja aberta
-## (EventBus.shop_requested). Pausa o jogo de verdade, como o calendário, e por isso fica
-## com process_mode ALWAYS. Aqui só se compra: vender é pelo baú de venda da fazenda.
+## Abre quando o jogador interage com o balcão da vendinha (EventBus.shop_requested).
+## Pausa o jogo de verdade, como o menu de pausa, e por isso fica com process_mode
+## ALWAYS. Aqui só se compra: vender é pelo baú de venda ao lado da barraca.
 ##
 ## A lista é montada uma vez ao abrir. Quando o saldo ou o inventário mudam, as linhas
 ## que já existem são atualizadas no lugar, em vez de a lista ser refeita: refazer
@@ -43,7 +43,7 @@ func _ready() -> void:
 	EconomyManager.credits_changed.connect(_ao_mudar_saldo)
 	InventoryManager.inventory_changed.connect(_atualizar_linhas)
 
-## Este nó precisa vir depois do MenuPausa na cena, pelo mesmo motivo do calendário: no
+## Este nó precisa vir depois do MenuPausa na cena: no
 ## quadro em que o Esc ou a tecla de inventário fecham a loja, o MenuPausa já rodou, viu o
 ## jogo pausado e não abriu por cima.
 func _process(_delta: float) -> void:
@@ -52,15 +52,15 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed(&"ui_cancel") or InputManager.abrir_inventario_pressionado():
 		fechar()
 
-## Abre a loja do comerciante. Não abre por cima de outra tela que já pausou o jogo, nem
-## para quem não tem catálogo.
-func abrir(perfil: PerfilNpc) -> void:
-	if visible or get_tree().paused or perfil == null or perfil.catalogo == null:
+## Abre a loja com o catálogo dado. Não abre por cima de outra tela que já pausou o
+## jogo, nem sem catálogo.
+func abrir(nome_da_loja: String, catalogo: CatalogoDeLoja) -> void:
+	if visible or get_tree().paused or catalogo == null:
 		return
-	titulo.text = "Loja de %s" % perfil.nome_exibido
+	titulo.text = nome_da_loja
 	descricao.text = ""
 	_mostrar_mensagem("", COR_DO_TEXTO_APAGADO)
-	_montar_lista(perfil.catalogo.itens_disponiveis())
+	_montar_lista(catalogo.itens_disponiveis())
 	_ao_mudar_saldo(EconomyManager.creditos)
 	visible = true
 	get_tree().paused = true

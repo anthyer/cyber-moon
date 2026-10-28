@@ -1,7 +1,8 @@
 class_name CatalogoDeLoja
 extends Resource
 
-## O que um comerciante vende, e quando ele atende.
+## O que um comerciante vende, e quando ele atende. Na demo, o único catálogo é o da
+## vendinha, que atende a qualquer hora (ver Vendinha).
 ##
 ## Um item pode exigir um marco de progressão (GameManager.marcos_desbloqueados) para
 ## aparecer na loja. É assim que o catálogo cresce conforme o jogador vende.

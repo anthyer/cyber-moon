@@ -78,10 +78,8 @@ var _marcadores_extras: Array[MeshInstance3D] = []
 func _ready() -> void:
 	# Os inimigos acham o jogador por este grupo, sem depender do caminho na cena.
 	add_to_group(&"jogador")
-	# Os inimigos escolhem o alvo mais perto neste grupo, onde também entram os fantoches
-	# dos outros jogadores na dungeon em equipe.
+	# Os inimigos escolhem o alvo mais perto neste grupo.
 	add_to_group(&"alvos_de_inimigo")
-	add_to_group(SaveManager.GRUPO_DOS_SALVAVEIS)
 	StatusManager.player_fainted.connect(_ao_desmaiar)
 	StatusManager.player_woke_up.connect(_ao_acordar)
 	# O modelo na mão acompanha o item na mão, que muda ao trocar de slot e também ao
@@ -94,14 +92,6 @@ func _physics_process(delta: float) -> void:
 	if _desmaiado:
 		_cair_parado(delta)
 		return
-	# Conversando, o jogador fica parado: não anda, não ataca e não troca de item. Quem lê
-	# o botão durante a conversa é a caixa de diálogo.
-	if DialogueManager.em_dialogo:
-		_cair_parado(delta)
-		if animation_player.current_animation != "idle":
-			animation_player.play("idle")
-		return
-
 	_tempo_cooldown_restante = max(_tempo_cooldown_restante - delta, 0.0)
 	_tempo_ataque_restante = max(_tempo_ataque_restante - delta, 0.0)
 	_tempo_movimento_travado_ataque_restante = max(_tempo_movimento_travado_ataque_restante - delta, 0.0)
@@ -386,23 +376,16 @@ func _colher_na_celula(celula: Vector2i) -> bool:
 
 ## Com um consumível na mão, o botão de atacar come uma unidade. Não come quando vida e
 ## stamina já estão cheias, para o item não ser gasto à toa.
-## Solta uma unidade do item da mão. Com um NPC ao alcance, é um presente: quem decide
-## se aceita é o NPC, e o item só sai do inventário se ele aceitar. Sem NPC, o item cai
-## no chão um passo à frente. A mesma ação serve para as duas coisas, como em Stardew.
-## Item-chave, ferramenta e arma ficam de fora (Item.pode_ser_descartado).
+## Solta uma unidade do item da mão, que cai no chão um passo à frente. Item-chave,
+## ferramenta e arma ficam de fora (Item.pode_ser_descartado).
 func _soltar_item_da_mao() -> void:
 	var item: Item = EquipmentManager.item_na_mao()
 	if item == null:
 		return
-	# Item-chave, ferramenta e arma não são soltos nem dados: perder a enxada num aperto
+	# Item-chave, ferramenta e arma não são soltos: perder a enxada num aperto
 	# de tecla errado travaria o jogo do jogador.
 	if not item.pode_ser_descartado():
 		EventBus.notice_requested.emit("Isso não dá para soltar.")
-		return
-	var npc: Npc = area_interacao.alvo_mais_proximo() as Npc
-	if npc != null:
-		if npc.receber_presente(item):
-			InventoryManager.remover_do_slot(EquipmentManager.indice_selecionado, 1)
 		return
 	var a_frente: Vector3 = Vector3(sin(personagem.rotation.y), 0.0, cos(personagem.rotation.y))
 	if InventoryManager.remover_do_slot(EquipmentManager.indice_selecionado, 1):
@@ -660,23 +643,3 @@ func _tentar_subir_degrau(dir_plana_esperada: Vector3) -> void:
 	## acumulada não desfaça imediatamente a subida no próximo move_and_slide().
 	global_position.y = melhor_alvo + 0.02
 	velocity.y = maxf(velocity.y, 0.0)
-
-# Save
-
-func chave_de_save() -> String:
-	return "jogador"
-
-## Dentro da dungeon a posição não é guardada: a dungeon não existe ao carregar, e o
-## jogador volta para o ponto de spawn.
-func exportar_estado() -> Dictionary:
-	if DungeonManager.esta_na_dungeon():
-		return {}
-	return {"posicao": [global_position.x, global_position.y, global_position.z], "giro": personagem.rotation.y}
-
-func importar_estado(dados: Dictionary) -> void:
-	if not dados.has("posicao"):
-		return
-	var p: Array = dados["posicao"]
-	global_position = Vector3(p[0], p[1], p[2])
-	velocity = Vector3.ZERO
-	personagem.rotation.y = float(dados.get("giro", 0.0))

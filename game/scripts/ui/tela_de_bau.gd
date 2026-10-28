@@ -19,6 +19,7 @@ const CENA_DO_SLOT: PackedScene = preload("res://scenes/ui/slot_de_container.tsc
 
 const AJUDA_DE_GUARDAR: String = "Clique num item para mandar para o outro lado."
 const AJUDA_DE_VENDA: String = "O que ficar aqui é vendido quando você dormir."
+const AJUDA_DE_VENDA_AO_FECHAR: String = "O que ficar aqui é vendido quando você fechar o baú."
 const AVISO_DE_ITEM_RECUSADO: String = "Isso não pode ir neste baú."
 const AVISO_DE_BAU_CHEIO: String = "O baú está cheio."
 const AVISO_DE_INVENTARIO_CHEIO: String = "O inventário está cheio."
@@ -60,7 +61,7 @@ func abrir(bau: Bau) -> void:
 	_bau = bau
 	titulo.text = bau.nome_exibido
 	valor_da_venda.visible = bau.e_de_venda()
-	linha_de_ajuda.text = AJUDA_DE_VENDA if bau.e_de_venda() else AJUDA_DE_GUARDAR
+	linha_de_ajuda.text = _texto_de_ajuda(bau)
 	nome_do_item.text = ""
 	_criar_slots_do_bau()
 	# Os sinais são ligados aqui, e não no _ready, porque o baú muda de uma abertura para
@@ -77,12 +78,18 @@ func fechar() -> void:
 		return
 	if _bau != null and is_instance_valid(_bau):
 		_bau.conteudo.changed.disconnect(_redesenhar)
+		_bau.ao_fechar_a_tela()
 	InventoryManager.inventory_changed.disconnect(_redesenhar)
 	_bau = null
 	_slot_focado = null
 	get_viewport().gui_release_focus()
 	visible = false
 	get_tree().paused = false
+
+func _texto_de_ajuda(bau: Bau) -> String:
+	if not bau.e_de_venda():
+		return AJUDA_DE_GUARDAR
+	return AJUDA_DE_VENDA_AO_FECHAR if bau.vende_ao_fechar else AJUDA_DE_VENDA
 
 ## O inventário tem sempre o mesmo tamanho, então os slots dele são criados uma vez só.
 func _criar_slots_do_inventario() -> void:

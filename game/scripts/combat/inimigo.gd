@@ -265,17 +265,11 @@ func _disparar() -> void:
 	var origem: Vector3 = global_position + centro * DISTANCIA_DA_BOCA_DO_TIRO + Vector3.UP * ALTURA_DO_GOLPE
 	var quantidade: int = maxi(perfil.projeteis_por_disparo, 1)
 	var meia_abertura: float = deg_to_rad(perfil.abertura_do_cone_em_graus) * 0.5
-	var direcoes: Array[Vector3] = []
 	for indice in quantidade:
 		var direcao: Vector3 = centro
 		if quantidade > 1:
 			direcao = centro.rotated(Vector3.UP, lerpf(-meia_abertura, meia_abertura, float(indice) / float(quantidade - 1)))
-		direcoes.append(direcao)
 		Projetil.disparar_de_inimigo(perfil.projetil, origem, direcao, perfil.dano, perfil.velocidade_do_projetil, perfil.alcance_do_projetil, perfil.cor, self, get_parent())
-	# Na dungeon em equipe o convidado precisa ver o tiro vindo para poder desviar.
-	var dungeon: Dungeon = get_parent() as Dungeon
-	if dungeon != null:
-		dungeon.avisar_disparo(self, origem, direcoes)
 
 ## O anfitrião avisou que este inimigo atirou. O fantoche solta os mesmos projéteis, só
 ## de desenho: quem tira vida é o tiro do anfitrião.
@@ -308,11 +302,8 @@ func _morrer() -> void:
 	_soltar_drop()
 	queue_free()
 
-## A queda de uma máquina sem animação: ela tomba para o lado, encolhe e afunda. O Chefe
-## tem a própria queda, mais demorada, e por isso não passa por aqui.
+## A queda de uma máquina sem animação: ela tomba para o lado, encolhe e afunda.
 func _derrubar_maquina(duracao: float) -> void:
-	if self is Chefe:
-		return
 	var queda: Tween = create_tween().set_parallel(true)
 	queda.tween_property(_modelo, "rotation:z", 1.2, duracao * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	queda.tween_property(_modelo, "scale", _modelo.scale * 0.2, duracao).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
@@ -355,8 +346,8 @@ func _montar_modelo() -> void:
 				var tingido: StandardMaterial3D = (original as StandardMaterial3D).duplicate() as StandardMaterial3D
 				tingido.albedo_color = tingido.albedo_color * perfil.cor
 				instancia.set_surface_override_material(superficie, tingido)
-	# O modelo dos chefes é uma malha rígida, sem AnimationPlayer. Aí _animacao fica nula e
-	# quem anima é o código do Chefe.
+	# O modelo de máquina é uma malha rígida, sem AnimationPlayer. Aí _animacao fica nula e
+	# quem anima é a MaquinaAnimada.
 	var animacoes: Array[Node] = _modelo.find_children("*", "AnimationPlayer", true, false)
 	if not animacoes.is_empty():
 		_animacao = animacoes[0] as AnimationPlayer

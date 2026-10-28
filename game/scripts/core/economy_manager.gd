@@ -13,6 +13,8 @@ signal credits_changed(saldo: int)
 signal sale_completed(total: int, itens: int)
 ## Um por tipo de item vendido. Quem guarda algo por item (o nível da arma) escuta.
 signal item_sold(item: Item)
+## Uma compra na vendinha deu certo. Quem ouve é o EfeitosDoJogo.
+signal item_purchased(item: Item, quantidade: int)
 
 const CAMINHO_DO_INVENTARIO_INICIAL: String = "res://resources/items/inventario_inicial.tres"
 ## Comprar custa o dobro do que o item vale na venda: produzir sempre rende mais que
@@ -84,6 +86,7 @@ func comprar(item: Item, quantidade: int) -> bool:
 		return false
 	gastar(total)
 	ultimo_motivo_de_recusa = ""
+	item_purchased.emit(item, quantidade)
 	return true
 
 ## Quanto vale, em créditos, um conjunto de pilhas no baú de venda.

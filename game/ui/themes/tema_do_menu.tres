@@ -1,0 +1,73 @@
+[gd_resource type="Theme" format=3]
+
+[sub_resource type="StyleBoxFlat" id="Botao_normal"]
+content_margin_left = 18.0
+content_margin_top = 8.0
+content_margin_right = 18.0
+content_margin_bottom = 8.0
+bg_color = Color(0.11, 0.07, 0.25, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 6
+border_color = Color(0.2, 0.55, 0.85, 1)
+
+[sub_resource type="StyleBoxFlat" id="Botao_em_cima"]
+content_margin_left = 18.0
+content_margin_top = 8.0
+content_margin_right = 18.0
+content_margin_bottom = 8.0
+bg_color = Color(0.2, 0.1, 0.38, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 6
+border_color = Color(0.31, 0.94, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="Botao_apertado"]
+content_margin_left = 18.0
+content_margin_top = 11.0
+content_margin_right = 18.0
+content_margin_bottom = 5.0
+bg_color = Color(0.3, 0.1, 0.4, 0.95)
+border_width_left = 3
+border_width_top = 6
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.31, 0.85, 1)
+
+[sub_resource type="StyleBoxFlat" id="Botao_focado"]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 6
+border_color = Color(1, 0.31, 0.85, 1)
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="Painel"]
+content_margin_left = 24.0
+content_margin_top = 20.0
+content_margin_right = 24.0
+content_margin_bottom = 20.0
+bg_color = Color(0.04, 0.03, 0.12, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.31, 0.94, 1, 0.8)
+
+[resource]
+default_font_size = 20
+Button/colors/font_color = Color(0.92, 0.95, 1, 1)
+Button/colors/font_hover_color = Color(0.31, 0.94, 1, 1)
+Button/colors/font_focus_color = Color(0.31, 0.94, 1, 1)
+Button/colors/font_pressed_color = Color(1, 0.85, 0.42, 1)
+Button/styles/normal = SubResource("Botao_normal")
+Button/styles/hover = SubResource("Botao_em_cima")
+Button/styles/pressed = SubResource("Botao_apertado")
+Button/styles/focus = SubResource("Botao_focado")
+PanelContainer/styles/panel = SubResource("Painel")

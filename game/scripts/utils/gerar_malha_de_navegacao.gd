@@ -4,12 +4,12 @@ extends Node
 ##
 ##   godot --headless --path game res://scenes/utils/gerar_malha_de_navegacao.tscn -- res://scenes/levels/NOME.tscn
 ##
-## Sem o caminho da fase, usa o playground. A fase precisa ter um nó RegiaoDeNavegacao,
+## Sem o caminho da fase, usa a fase da demo. A fase precisa ter um nó RegiaoDeNavegacao,
 ## que guarda os limites do chão e o tamanho do personagem; este script só carrega a
 ## fase, manda a região calcular e salva. Depois de gerar pela primeira vez numa fase
 ## nova, aponte o navigation_mesh da região para o arquivo salvo.
 
-const FASE_PADRAO: String = "res://scenes/levels/playground.tscn"
+const FASE_PADRAO: String = "res://scenes/levels/demo.tscn"
 const PASTA_DAS_MALHAS: String = "res://resources/navigation/"
 
 func _ready() -> void:

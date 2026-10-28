@@ -2,6 +2,10 @@ extends Node
 
 ## O calendário: quatro estações de 30 dias, 120 dias por ano.
 ##
+## Na demo a estação não vira: o jogo fica sempre na primeira (a Brotação), que é a que
+## aceita a maior parte das sementes do pacote inicial. Os perfis das quatro continuam
+## carregados, porque o cultivo e o clima perguntam por estação pelo nome.
+##
 ## A estação não é guardada, é calculada do numero_do_dia do DayCycleManager toda vez que
 ## alguém pergunta. Um número só é a fonte da verdade, e não tem como a estação e o dia
 ## ficarem dessincronizados. Também não importa quem recebe o day_started primeiro: quem
@@ -32,18 +36,18 @@ func _ready() -> void:
 	_indice_anunciado = indice_da_estacao()
 	_ano_anunciado = ano_atual()
 	DayCycleManager.day_started.connect(_ao_comecar_o_dia)
-	EventBus.game_loaded.connect(_ao_carregar_o_jogo)
 
-## 0 a 3, na ordem de ESTACOES.
+## 0 a 3, na ordem de ESTACOES. Na demo, sempre 0.
 func indice_da_estacao() -> int:
-	return int(_dias_passados() / DIAS_POR_ESTACAO) % ESTACOES.size()
+	return 0
 
 func estacao_atual() -> StringName:
 	return ESTACOES[indice_da_estacao()]
 
-## A estação em que cai um dia qualquer, por exemplo o de amanhã.
-func estacao_do_dia(numero_do_dia: int) -> StringName:
-	return ESTACOES[int((numero_do_dia - 1) / DIAS_POR_ESTACAO) % ESTACOES.size()]
+## A estação em que cai um dia qualquer, por exemplo o de amanhã. Na demo, sempre a
+## primeira.
+func estacao_do_dia(_numero_do_dia: int) -> StringName:
+	return ESTACOES[0]
 
 ## 1 a 30.
 func dia_da_estacao() -> int:
@@ -70,10 +74,6 @@ func nome_exibido(estacao: StringName) -> String:
 	var perfil: PerfilEstacao = perfil_da_estacao(estacao)
 	return perfil.nome_exibido if perfil != null else String(estacao)
 
-## Quantos dias faltam para o primeiro dia da próxima estação. Usado pelo menu de debug.
-func dias_ate_a_proxima_estacao() -> int:
-	return DIAS_POR_ESTACAO - dia_da_estacao() + 1
-
 ## O dia 1 é o primeiro dia do jogo, então zero dias se passaram nele.
 func _dias_passados() -> int:
 	return DayCycleManager.numero_do_dia - 1
@@ -90,11 +90,3 @@ func _ao_comecar_o_dia(_numero_do_dia: int) -> void:
 	if ano != _ano_anunciado:
 		_ano_anunciado = ano
 		year_changed.emit(ano)
-
-## A estação sai do número do dia, então não tem nada próprio no save. Depois de carregar
-## só é preciso avisar quem depende dela (a luz, a grama, o relógio), sem tocar a música
-## de virada, porque a estação não virou.
-func _ao_carregar_o_jogo() -> void:
-	_indice_anunciado = indice_da_estacao()
-	_ano_anunciado = ano_atual()
-	season_changed.emit(estacao_atual())

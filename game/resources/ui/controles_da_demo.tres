@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GuiaDeControles" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/guia_de_controles.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+acoes = Array[String](["Andar", "Correr", "Dash", "Usar o item da mão (golpe, tiro, arar, regar, plantar, comer)", "Interagir (colher, baú, vendinha, cama)", "Trocar o item da mão", "Soltar o item da mão", "Inventário", "Pausa e controles"])
+teclado = Array[String](["W A S D ou setas", "Shift esquerdo, segurando", "Espaço ou botão direito", "Botão esquerdo", "F", "1 a 9 ou roda do mouse", "Q", "E", "Esc"])
+controle = Array[String](["Analógico esquerdo ou direcional", "B, segurando", "RB", "X", "A ou LB", "LT e RT", "R3", "Y ou Start", "Select"])

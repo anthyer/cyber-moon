@@ -1,0 +1,140 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/menu_principal.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/ui/lista_de_controles.tscn" id="2_lista"]
+[ext_resource type="Theme" path="res://ui/themes/tema_do_menu.tres" id="3_tema"]
+[ext_resource type="Script" path="res://scripts/ui/cenario_do_menu.gd" id="4_cenario"]
+[ext_resource type="Script" path="res://scripts/ui/camada_de_parallax.gd" id="5_camada"]
+[ext_resource type="Texture2D" path="res://assets/textures/tela_inicial/ceu.png" id="6_ceu"]
+[ext_resource type="Texture2D" path="res://assets/textures/tela_inicial/lua.png" id="7_lua"]
+[ext_resource type="Texture2D" path="res://assets/textures/tela_inicial/nevoa.png" id="8_nevoa"]
+[ext_resource type="Texture2D" path="res://assets/textures/tela_inicial/cidade_longe.png" id="9_longe"]
+[ext_resource type="Texture2D" path="res://assets/textures/tela_inicial/cidade_meio.png" id="10_meio"]
+[ext_resource type="Texture2D" path="res://assets/textures/tela_inicial/cidade_perto.png" id="11_perto"]
+[ext_resource type="Texture2D" path="res://assets/textures/tela_inicial/via.png" id="12_via"]
+[ext_resource type="Texture2D" path="res://assets/textures/tela_inicial/titulo.png" id="13_titulo"]
+
+[node name="MenuPrincipal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_tema")
+script = ExtResource("1_script")
+
+[node name="CorDoCeu" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.039, 0.027, 0.125, 1)
+
+[node name="Cenario" type="Node2D" parent="."]
+texture_filter = 1
+script = ExtResource("4_cenario")
+
+[node name="Ceu" type="Sprite2D" parent="Cenario"]
+texture = ExtResource("6_ceu")
+script = ExtResource("5_camada")
+
+[node name="Lua" type="Sprite2D" parent="Cenario"]
+texture = ExtResource("7_lua")
+centered = false
+
+[node name="Nevoa" type="Sprite2D" parent="Cenario"]
+position = Vector2(0, 40)
+texture = ExtResource("8_nevoa")
+script = ExtResource("5_camada")
+velocidade = 3.0
+
+[node name="CidadeLonge" type="Sprite2D" parent="Cenario"]
+texture = ExtResource("9_longe")
+script = ExtResource("5_camada")
+velocidade = 4.0
+
+[node name="CarrosAoFundo" type="Node2D" parent="Cenario"]
+
+[node name="CidadeMeio" type="Sprite2D" parent="Cenario"]
+texture = ExtResource("10_meio")
+script = ExtResource("5_camada")
+velocidade = 9.0
+
+[node name="CidadePerto" type="Sprite2D" parent="Cenario"]
+texture = ExtResource("11_perto")
+script = ExtResource("5_camada")
+velocidade = 18.0
+
+[node name="Via" type="Sprite2D" parent="Cenario"]
+position = Vector2(0, 172)
+texture = ExtResource("12_via")
+script = ExtResource("5_camada")
+velocidade = 40.0
+
+[node name="CarrosNaFrente" type="Node2D" parent="Cenario"]
+
+[node name="Titulo" type="Sprite2D" parent="Cenario"]
+texture = ExtResource("13_titulo")
+centered = false
+
+[node name="Margem" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 220
+theme_override_constants/margin_bottom = 24
+
+[node name="Centro" type="CenterContainer" parent="Margem"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Coluna" type="VBoxContainer" parent="Margem/Centro"]
+layout_mode = 2
+
+[node name="Botoes" type="VBoxContainer" parent="Margem/Centro/Coluna"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 14
+
+[node name="BotaoJogar" type="Button" parent="Margem/Centro/Coluna/Botoes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Jogar"
+
+[node name="BotaoControles" type="Button" parent="Margem/Centro/Coluna/Botoes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Controles"
+
+[node name="BotaoSair" type="Button" parent="Margem/Centro/Coluna/Botoes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sair"
+
+[node name="PainelDeControles" type="PanelContainer" parent="Margem/Centro/Coluna"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Conteudo" type="VBoxContainer" parent="Margem/Centro/Coluna/PainelDeControles"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="ListaDeControles" parent="Margem/Centro/Coluna/PainelDeControles/Conteudo" instance=ExtResource("2_lista")]
+layout_mode = 2
+theme_override_constants/v_separation = 4
+tamanho_da_fonte = 15
+
+[node name="BotaoVoltar" type="Button" parent="Margem/Centro/Coluna/PainelDeControles/Conteudo"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Voltar"

@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/vendinha.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_mundo/barraca_de_feira.glb" id="2_barraca"]
+[ext_resource type="PackedScene" path="res://scenes/items/bau.tscn" id="3_bau"]
+[ext_resource type="Resource" path="res://resources/lojas/vendinha.tres" id="4_catalogo"]
+
+[sub_resource type="SphereShape3D" id="Forma_do_balcao"]
+radius = 1.1
+
+[node name="Vendinha" type="Node3D"]
+script = ExtResource("1_script")
+catalogo = ExtResource("4_catalogo")
+
+[node name="Modelo" parent="." instance=ExtResource("2_barraca")]
+
+[node name="AreaDoBalcao" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="FormaDoBalcao" type="CollisionShape3D" parent="AreaDoBalcao"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.6)
+shape = SubResource("Forma_do_balcao")
+
+[node name="Letreiro" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+pixel_size = 0.006
+billboard = 1
+modulate = Color(1, 0.85, 0.35, 1)
+text = "Vendinha"
+font_size = 40
+outline_size = 8
+
+[node name="BauDeVenda" parent="." instance=ExtResource("3_bau")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55, 0, 0.45)
+funcao = 1
+vende_ao_fechar = true

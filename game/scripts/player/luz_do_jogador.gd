@@ -2,7 +2,7 @@ class_name LuzDoJogador
 extends OmniLight3D
 
 ## A luz em volta do jogador. Fica apagada de dia e acende aos poucos quando o mapa
-## começa a escurecer, no fim da tarde. Na dungeon, que é escura, fica sempre acesa.
+## começa a escurecer, no fim da tarde.
 ##
 ## Apagada, ela fica invisível, e uma luz invisível não custa nada no desenho.
 
@@ -13,19 +13,15 @@ var energia_maxima: float = 1.0
 ## Está toda acesa nesta hora.
 @export var hora_toda_acesa: float = 19.0
 
-var _na_dungeon: bool = false
-
 func _ready() -> void:
 	energia_maxima = light_energy
-	EventBus.dungeon_entered.connect(func() -> void: _na_dungeon = true)
-	EventBus.dungeon_left.connect(func() -> void: _na_dungeon = false)
 	_atualizar()
 
 func _process(_delta: float) -> void:
 	_atualizar()
 
 func _atualizar() -> void:
-	var fator: float = 1.0 if _na_dungeon else _fator_da_hora(DayCycleManager.hora_atual)
+	var fator: float = _fator_da_hora(DayCycleManager.hora_atual)
 	light_energy = energia_maxima * fator
 	visible = fator > 0.0
 

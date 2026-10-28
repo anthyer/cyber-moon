@@ -5,9 +5,8 @@ extends Node
 ## controle só porque o stick tremeu.
 const FOLGA_DO_EIXO_DO_CONTROLE: float = 0.5
 
-## Ligado enquanto o jogador digita no chat ou mexe numa tela que não pausa o jogo (o
-## lobby). Com ele ligado, toda pergunta de gameplay responde que nada foi pressionado:
-## as teclas vão para a tela, e o personagem não anda nem ataca.
+## Ligado enquanto o jogador mexe numa tela que não pausa o jogo. Com ele ligado, toda
+## pergunta de gameplay responde que nada foi pressionado: as teclas vão para a tela, e o personagem não anda nem ataca.
 var teclado_capturado: bool = false
 
 var _usando_controle: bool = false
@@ -98,20 +97,6 @@ func slot_proximo_pressionado() -> bool:
 func slot_anterior_pressionado() -> bool:
 	return not teclado_capturado and Input.is_action_just_pressed("slot_anterior")
 
-## Temporária: avança um dia para testar o crescimento das plantas. Sai quando o plano
-## 10 trouxer o ciclo de dia automático.
-func teste_avancar_dia_pressionado() -> bool:
-	return not teclado_capturado and Input.is_action_just_pressed("teste_avancar_dia")
-
-## Solta o item da mão. Perto de um NPC, é dar de presente; longe, o item cai no chão.
+## Solta o item da mão, que cai no chão.
 func soltar_item_pressionado() -> bool:
 	return not teclado_capturado and Input.is_action_just_pressed("soltar_item")
-
-## Abre o campo de texto do chat (Enter ou T).
-func abrir_chat_pressionado() -> bool:
-	return not teclado_capturado and Input.is_action_just_pressed("abrir_chat")
-
-## Abre e fecha o menu de debug. Só no teclado, de propósito: é ferramenta de teste.
-func menu_debug_pressionado() -> bool:
-	return not teclado_capturado and Input.is_action_just_pressed("menu_debug")
-

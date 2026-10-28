@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/barras_de_status.tscn" id="2_barras_de_status"]
 [ext_resource type="Script" path="res://scripts/ui/lixeira_do_inventario.gd" id="90_lixeira"]
 [ext_resource type="Texture2D" path="res://assets/textures/icones_itens/lixeira.png" id="91_icone_lixeira"]
-[ext_resource type="PackedScene" path="res://scenes/ui/aba_de_relacionamentos.tscn" id="3_aba_de_relacionamentos"]
+[ext_resource type="PackedScene" path="res://scenes/ui/lista_de_controles.tscn" id="3_lista_de_controles"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_abas"]
 
@@ -76,12 +76,21 @@ button_pressed = true
 button_group = SubResource("ButtonGroup_abas")
 text = "Inventário"
 
-[node name="BotaoAbaRelacionamentos" type="Button" parent="Centro/Painel/Margem/Colunas/Abas"]
+[node name="BotaoAbaControles" type="Button" parent="Centro/Painel/Margem/Colunas/Abas"]
 unique_name_in_owner = true
 layout_mode = 2
 toggle_mode = true
 button_group = SubResource("ButtonGroup_abas")
-text = "Relacionamentos"
+text = "Controles"
+
+[node name="Espaco" type="Control" parent="Centro/Painel/Margem/Colunas/Abas"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BotaoSair" type="Button" parent="Centro/Painel/Margem/Colunas/Abas"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sair do jogo"
 
 [node name="Topo" type="HBoxContainer" parent="Centro/Painel/Margem/Colunas"]
 unique_name_in_owner = true
@@ -182,7 +191,7 @@ modulate = Color(1, 1, 1, 0.75)
 layout_mode = 2
 autowrap_mode = 3
 
-[node name="AbaDeRelacionamentos" parent="Centro/Painel/Margem/Colunas" instance=ExtResource("3_aba_de_relacionamentos")]
+[node name="AbaDeControles" parent="Centro/Painel/Margem/Colunas" instance=ExtResource("3_lista_de_controles")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

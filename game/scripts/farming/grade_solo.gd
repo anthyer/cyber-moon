@@ -65,7 +65,6 @@ func _ready() -> void:
 	DayCycleManager.day_started.connect(_ao_comecar_o_dia)
 	SeasonManager.season_changed.connect(_ao_mudar_estacao)
 	WeatherManager.weather_changed.connect(_ao_mudar_clima)
-	add_to_group(SaveManager.GRUPO_DOS_SALVAVEIS)
 
 ## Em célula vazia, ara. Em célula com planta, arranca a planta e mantém a terra arada:
 ## é como o jogador se livra da planta murcha, e também serve para desistir de um
@@ -391,79 +390,8 @@ func _linha_tem_pixel(imagem: Image, linha: int) -> bool:
 			return true
 	return false
 
-## Leva toda planta viva ao estágio maduro, para testar colheita sem esperar os dias.
-## Usado pelo menu de debug.
-func amadurecer_todas_as_plantas() -> void:
-	for celula: Vector2i in _plantas:
-		var planta: PlantaNaGrade = _plantas[celula]
-		if planta.murcha:
-			continue
-		planta.estagio = planta.cultivo.estagio_maduro()
-		planta.dias_no_estagio = 0
-		_atualizar_visual_da_planta(planta)
-
 ## Molha toda célula arada, para testar crescimento sem regar uma por uma.
 func molhar_todo_o_solo() -> void:
 	for celula: Vector2i in _estado.keys():
 		if _estado[celula] == EstadoTile.ARADO_SECO:
 			molhar(celula)
-
-# Save
-
-const PASTA_DOS_CULTIVOS: String = "res://resources/farming/cultivos/"
-
-func chave_de_save() -> String:
-	return "grade_de_solo"
-
-## A célula vira o texto "x,y", porque a chave de um dicionário JSON só pode ser texto. A
-## planta guarda o id do cultivo, e não o caminho do arquivo.
-func exportar_estado() -> Dictionary:
-	var celulas: Dictionary = {}
-	for celula: Vector2i in _estado:
-		celulas["%d,%d" % [celula.x, celula.y]] = _estado[celula]
-	var plantas: Dictionary = {}
-	for celula: Vector2i in _plantas:
-		var planta: PlantaNaGrade = _plantas[celula]
-		plantas["%d,%d" % [celula.x, celula.y]] = {
-			"cultivo": String(planta.cultivo.id),
-			"estagio": planta.estagio,
-			"dias_no_estagio": planta.dias_no_estagio,
-			"murcha": planta.murcha,
-		}
-	return {"celulas": celulas, "plantas": plantas}
-
-## Desfaz tudo que está na grade e refaz a partir do save. Não emite os sinais de arar e
-## plantar: nada disso aconteceu agora, e eles disparariam som e efeito.
-func importar_estado(dados: Dictionary) -> void:
-	for celula: Vector2i in _plantas.keys():
-		_tirar_planta(celula)
-	for celula: Vector2i in _estado.keys():
-		_definir_estado(celula, EstadoTile.VAZIO)
-	_secas_na_chuva.clear()
-	# Terra fora dos talhões só existe em save de antes do mapa da fazenda (plano 26), quando
-	# se arava em qualquer lugar. Ela não é carregada: o lugar dela agora é chão comum.
-	var celulas: Dictionary = dados.get("celulas", {})
-	for chave: String in celulas:
-		if eh_cultivavel(_celula_do_texto(chave)):
-			_definir_estado(_celula_do_texto(chave), int(celulas[chave]) as EstadoTile)
-	var plantas: Dictionary = dados.get("plantas", {})
-	for chave: String in plantas:
-		if not eh_cultivavel(_celula_do_texto(chave)):
-			continue
-		var salvo: Dictionary = plantas[chave]
-		var caminho: String = PASTA_DOS_CULTIVOS + String(salvo.get("cultivo", "")) + ".tres"
-		if not ResourceLoader.exists(caminho):
-			continue
-		var celula: Vector2i = _celula_do_texto(chave)
-		var planta: PlantaNaGrade = PlantaNaGrade.new()
-		planta.cultivo = load(caminho) as Cultivo
-		planta.estagio = clampi(int(salvo.get("estagio", 0)), 0, planta.cultivo.estagio_maduro())
-		planta.dias_no_estagio = int(salvo.get("dias_no_estagio", 0))
-		planta.murcha = bool(salvo.get("murcha", false))
-		planta.visual = _criar_visual_da_planta(celula)
-		_plantas[celula] = planta
-		_atualizar_visual_da_planta(planta)
-
-func _celula_do_texto(texto: String) -> Vector2i:
-	var partes: PackedStringArray = texto.split(",")
-	return Vector2i(int(partes[0]), int(partes[1]))
