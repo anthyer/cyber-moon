@@ -56,7 +56,11 @@ func nome_da_tecla(acao: StringName) -> String:
 		if _usando_controle and evento is InputEventJoypadButton:
 			return NOMES_DOS_BOTOES.get((evento as InputEventJoypadButton).button_index, "Botão")
 		if not _usando_controle and evento is InputEventKey:
-			var tecla: Key = DisplayServer.keyboard_get_keycode_from_physical((evento as InputEventKey).physical_keycode)
+			var tecla: Key = (evento as InputEventKey).physical_keycode
+			# No navegador o Godot não sabe o layout do teclado, e a tradução da tecla
+			# física dá erro a cada quadro. Lá vale a tecla física, que é a do padrão QWERTY.
+			if not OS.has_feature("web"):
+				tecla = DisplayServer.keyboard_get_keycode_from_physical(tecla)
 			return OS.get_keycode_string(tecla)
 	return "?"
 
