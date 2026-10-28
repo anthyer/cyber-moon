@@ -4,7 +4,9 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 
 ## Autoloads
 
-- `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada`, `item_picked_up(item, quantidade)` (o jogador pegou um item do chão), `crop_planted(celula, cultivo)`, `crop_grown(celula, novo_estagio)`, `crop_withered(celula)`, `crop_removed(celula)`, `damage_dealt(alvo, quantidade)` e `enemy_defeated(perfil, posicao)`.
+- `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada`, `item_picked_up(item, quantidade)` (o jogador pegou um item do chão), `crop_planted(celula, cultivo)`, `crop_grown(celula, novo_estagio)`, `crop_withered(celula)`, `crop_removed(celula)`, `damage_dealt(alvo, quantidade)` e `enemy_defeated(perfil, posicao)`. Do plano 30:
+`npc_waved(posicao)` (uma figurante acenou), `visitor_arrived(posicao)` e
+`visitor_left(posicao)` (quem mora fora do mapa chegou ou foi embora). Veja "NPCs".
 - `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): o relógio do jogo. A hora anda sozinha das 6:00 à 1:00 do dia seguinte (5 minutos reais de dia, das 6:00 às 18:00, e 5 de noite, das 18:00 à 1:00), e passa de 24 em vez de voltar a zero (24.5 é 0:30). Sinais: `day_started`, `day_ended`, `hour_changed` (a cada minuto de jogo), `period_changed` e `player_slept(forcado)`. Métodos: `avancar_para_o_proximo_dia()`, `dormir(forcado)`, `periodo_atual()`, `hora_formatada()`, `fracao_do_dia()`. Para com o menu de pausa (pausa junto com a árvore) e com `tempo_congelado`.
 - `WeatherManager` (`scripts/core/weather_manager.gd`): o clima do dia (`sol`, `chuva` ou `tempestade`), sorteado no `day_started` com a `chance_de_chuva` da estação; a tempestade é um quinto dela. Não muda no meio do dia. Sinal `weather_changed(clima)`, emitido todo dia. `clima_atual`, `clima_de_amanha`, `esta_chovendo()`, `perfil_atual()`, `definir_clima(clima)`.
 - `UpgradeManager` (`scripts/core/upgrade_manager.gd`): o nível das armas e ferramentas. `nivel_de(item)`, `aprimorar(item)`, `dano_de(arma)`, `etapa_maxima_de_area(ferramenta)`. Veja "Saque e aprimoramento".
@@ -760,8 +762,20 @@ para tal lugar e ficar em tal pose.
 - **Andar:** pela malha de navegação, com `walk`; ao chegar, vira para a frente do
   marcador e toca a pose do compromisso. Na virada do dia ele já aparece no lugar certo.
 - **Elenco:** o nó `ElencoDeNpcs` da fase cria um NPC para cada `.tres` de
-  `resources/npcs/`. Os `.tres` saem de `scripts/utils/gerar_npcs.gd`, que tem a tabela
-  com a semana de cada um.
+  `resources/npcs/` e de `resources/npcs/figurantes/`. Os `.tres` saem de
+  `scripts/utils/gerar_npcs.gd`, que tem a tabela com a semana de cada um. São doze
+  moradores e duas figurantes (plano 30). `ElencoDeNpcs.carregar_perfis()` devolve só os
+  moradores, que é a lista que o calendário, a amizade e o diálogo leem.
+- **Modelo:** cada um usa `assets/models/cyber_moon_personagens/personagem_<id>.glb`, um
+  personagem da Kenney editado no Blender (cor e peças do tema), com o mesmo esqueleto e
+  as mesmas animações. Veja `biblia_3d.md`, seção "Pessoas".
+- **Figurante** (`PerfilNpc.eh_figurante`): enche o lugar (as motoqueiras do acampamento).
+  Não conversa, não recebe presente e não tem amizade. Interagir com ela faz ela acenar
+  (`EventBus.npc_waved`), e o balão de interação diz "Acenar".
+- **Quem mora fora do mapa** (`PerfilNpc.mora_fora_do_mapa`, a Lúcia e o Zeca): a casa é o
+  ponto por onde ele chega (o ponto de ônibus, o fim da estrada). Ao chegar em casa ele
+  some (`visible`, colisão e física desligados) e reaparece ali no próximo compromisso.
+  Os sinais `EventBus.visitor_arrived` e `visitor_left` levantam poeira nesse ponto.
 - **Encenação:** dois NPCs parados em `idle` a menos de 3 metros se viram um para o outro
   e fazem gestos com um balão de conversa. Não é diálogo, que é o plano 15.
 

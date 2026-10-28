@@ -1,6 +1,6 @@
 # Biblioteca de diálogos
 
-Falas dos seis NPCs, organizadas para virar `.tres` de `Conversa` e `NoDialogo` na tarefa
+Falas dos doze NPCs (os seis do plano 14 e os seis do plano 30), organizadas para virar `.tres` de `Conversa` e `NoDialogo` na tarefa
 7 do plano 16.
 
 ## Como funciona

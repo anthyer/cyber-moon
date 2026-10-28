@@ -3,9 +3,9 @@
 **Objetivo:** aumentar o elenco de personagens e deixar os que já existem com a cara do
 tema cyberpunk de deserto.
 
-**Situação:** elenco aprovado pelo Antonio em 2026-10-20 (ver "Decisões"); falta fazer. Decidido com ele:
-o elenco novo vem antes do plano 27, porque a história das dungeons depende de quem a
-conta.
+**Situação:** feito em 2026-10-27 (ver "Revisão de 2026-10-27", no fim). Elenco aprovado
+pelo Antonio em 2026-10-20. Decidido com ele: o elenco novo vem antes do plano 27, porque
+a história das dungeons depende de quem a conta.
 
 ## Proposta de elenco (2026-10-19, para aprovar)
 
@@ -58,3 +58,37 @@ do Vitor, jaleco da Iara, capacete do Rafa, lenço e óculos da Sol, avental da 
 - Peça presa a um osso não precisa de pintura de peso: herda o osso inteiro. É o que
   permite acessório sem refazer animação.
 - As motoqueiras do mapa novo (plano 26) e os NPCs da vila são os primeiros candidatos.
+
+## Revisão de 2026-10-27
+
+**Feito.** O que entrou, em quatro partes:
+
+- **Modelos.** Os doze moradores e as duas motoqueiras figurantes saem de
+  `equipe/ferramentas/blender/modelos/personagens.py`, no pacote novo
+  `assets/models/cyber_moon_personagens/`. Cada um é um personagem da Kenney com a cor de
+  partes trocada e peças do tema presas a um osso, com o esqueleto e as 32 animações
+  intactos. O kit ganhou a classe `Personagem` e a paleta dos personagens (a da Kenney com
+  as cores do tema nas linhas vazias). O passo a passo está na `biblia_3d.md`.
+- **Dados.** `gerar_npcs.gd` tem o elenco novo, com rotina, gostos, aniversário, a loja do
+  Zeca e as figurantes. O `PerfilNpc` ganhou `mora_fora_do_mapa` (Lúcia e Zeca, que somem
+  ao chegar em casa) e `eh_figurante` (só acena). As figurantes ficam em
+  `resources/npcs/figurantes/`, fora do calendário e da amizade.
+- **Mapa.** O barraco do Bento de frente para a trilha da Galeria, e os pontos de rotina
+  novos (`casa_bento`, `porta_da_galeria`, `casa_helio`, `cisterna`, `casa_dandara`,
+  `oficina_das_motoqueiras`, `fogueira`, `ponto_de_onibus`, `fim_da_estrada`,
+  `parada_do_caminhao`). O Téo mora com o Kenji, na `casa_kenji`.
+- **Fala.** Fichas em `equipe/personas/` (bento, helio, dandara, lucia, teo, zeca) e as
+  falas na biblioteca. A ficha do Kenji ganhou a irmã (Yumi, mãe do Téo).
+
+Partículas: o aceno da figurante e a chegada e saída do visitante (sinais `npc_waved`,
+`visitor_arrived` e `visitor_left` no `EfeitosDoJogo`).
+
+**Divergências do plano:**
+
+- O Blender não respondia pelo MCP (o addon não estava rodando). Tudo foi feito com o
+  Blender sem janela, pelo kit, como os outros modelos do projeto.
+- O Kenji usava o modelo de policial da Kenney. Ficou com ele, mas o quepe virou gorro
+  preto e a farda virou jaqueta.
+- O acampamento das motoqueiras estava sem caminho desde o plano 26: o pasto do vizinho
+  ficava em cima da trilha, e a oficina do Vitor tampava a boca dela. O pasto desceu para
+  o sul da trilha e a oficina recuou 2 para oeste.

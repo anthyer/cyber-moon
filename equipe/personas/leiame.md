@@ -1,6 +1,6 @@
 # Personas
 
-As fichas dos seis personagens e o guia para escrever as falas deles. A ficha é a fonte da
+As fichas dos doze personagens e o guia para escrever as falas deles. A ficha é a fonte da
 verdade de cada personagem: toda fala nova é conferida contra ela. As falas ficam em
 `equipe/biblioteca-de-dialogos.md`, que o gerador transcreve para o jogo.
 
@@ -40,6 +40,12 @@ dungeon onde se luta.
 | Marta Bueno, 58 | dona do mercado, sabe a história de todos; vende semente e comida | mercado | casa dela |
 | Iara Nakamura, 29 | médica que atende de graça quem não pode pagar | clínica | casa dela |
 | Sol Vasques, 26 | ex-analista da corporação, desertou há dois anos | passa o dia no mirante | uma barraca na beira do rio |
+| Bento Arruda, 68 | ex-zelador da Galeria, contador de causo; recebe o jogador | porta da Galeria | barraco de frente para a trilha da Galeria |
+| Hélio Tavares, 55 | ex-pesquisador do Biodomo, guarda o caderno das sementes nativas | cisterna e mercado | a cisterna velha |
+| Dandara "Dada" Reis, 34 | líder das motoqueiras, leva carga e os repetidores do Kenji | oficina das motoqueiras | o acampamento |
+| Lúcia Prado, 41 | fiscal da expansão, ex-chefe da Sol | vem de ônibus no 3º dia da semana | na cidade |
+| Téo, 10 | criança da vila, sobrinho do Kenji | corre o mapa | casa geminada, com o Kenji |
+| Zeca, 52 | caminhoneiro; vende o que ninguém da vila vende | parada sob o viaduto, no 4º dia da semana | na estrada |
 
 Laços que as falas atuais já estabelecem, e que as fichas precisam respeitar:
 
@@ -55,7 +61,21 @@ Laços que as falas atuais já estabelecem, e que as fichas precisam respeitar:
   sabe o quanto. A Iara é quem mais se aproxima dela (as duas ficam na beira do rio no fim
   da tarde).
 - **Marta:** a mais velha, a memória da vila. Viu todos chegarem.
-- **Não romanceáveis:** Vitor e Marta. **Romanceáveis:** Kenji, Rafa, Iara e Sol.
+- **Bento e a água:** foi ele quem ensinou às máquinas da Galeria a rotina que hoje fecha
+  o registro das fazendas. O Téo é a plateia dos causos dele.
+- **Hélio e as sementes:** copiou o catálogo do Biodomo num caderno. Troca semente com a
+  Marta e evita a Lúcia, que já visitou o Biodomo.
+- **Dandara e o sinal:** leva os repetidores do Kenji para as outras vilas e sobe na
+  antena com ele duas tardes por semana.
+- **Lúcia e a Sol:** foi chefe dela e sabia para onde ela fugiu. Nunca escreveu isso no
+  relatório, e a Sol não sabe.
+- **Téo e o Kenji:** a mãe do Téo, a Yumi, é a irmã mais velha do Kenji e trabalha em
+  turno numa fábrica da cidade.
+- **Zeca e a estrada:** a Dandara é a freguesa mais pão-dura dele; o Téo sabe o dia do
+  caminhão de cor.
+- **Não romanceáveis:** Vitor, Marta, Bento, Hélio, Lúcia, Téo e Zeca. **Romanceáveis:**
+  Kenji, Rafa, Iara, Sol e Dandara.
+- **Figurantes:** as duas motoqueiras do acampamento não falam e não têm ficha.
 
 ## A ficha de persona
 
@@ -126,9 +146,9 @@ fala, e a mais específica vence as outras no dia.
 | `choveu_ontem`, `tempestade_ontem` | o clima de ontem |
 | `trabalho`, `folga`, `vespera_de_folga` | dias de trabalho, a Folga, e o dia antes dela |
 | `manha`, `tarde`, `noite` | 6:00 a 12:00, 12:00 a 18:00, 18:00 em diante |
-| `em:<ponto>` | o personagem está naquele lugar (`em:praca`, `em:oficina`, `em:mercado`, `em:clinica`, `em:torre_antena`, `em:posto_entrega`, `em:mirante`, `em:ponte`, `em:beira_rio`, `em:casa`) |
+| `em:<ponto>` | o personagem está naquele lugar (`em:praca`, `em:oficina`, `em:mercado`, `em:clinica`, `em:torre_antena`, `em:posto_entrega`, `em:mirante`, `em:ponte`, `em:beira_rio`, `em:casa`, e do elenco do plano 30: `em:porta_da_galeria`, `em:cisterna`, `em:oficina_das_motoqueiras`, `em:fogueira`, `em:parada_do_caminhao`) |
 | `aniversario` | é o aniversário deste personagem |
-| `aniversario_de:<id>` | é o aniversário de outro (`vitor`, `kenji`, `rafa`, `marta`, `iara`, `sol`) |
+| `aniversario_de:<id>` | é o aniversário de outro (`vitor`, `kenji`, `rafa`, `marta`, `iara`, `sol`, `bento`, `helio`, `dandara`, `lucia`, `teo`, `zeca`) |
 | `primeiro_dia_da_estacao`, `ultimo_dia_da_estacao`, `primeiro_dia_do_ano` | datas do calendário |
 | `primeiro_encontro` | o jogador nunca conversou com este personagem |
 | `sumido` | o jogador passou 7 dias ou mais sem conversar com ele |

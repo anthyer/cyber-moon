@@ -47,7 +47,7 @@ pixel art, fundo transparente; modelo em `.glb`. O caminho de importação está
 | Ícone de loja aberta em cima do comerciante | provisório, uma banquinha desenhada no estilo dos itens | `assets/textures/efeitos/indicador_de_loja.png` | 17 |
 | Indicador de conversa em cima do NPC | provisório, um balão branco tingido por código | `assets/textures/efeitos/indicador_de_conversa.png` | 15 |
 | Balão de conversa dos NPCs | provisório, desenhado no estilo dos itens | `assets/textures/efeitos/balao_de_conversa.png` | 14 |
-| Retrato dos seis NPCs | sem retrato | `retrato` em `resources/npcs/*.tres` | 14 e 15 |
+| Retrato dos doze NPCs | sem retrato | `retrato` em `resources/npcs/*.tres` | 14, 15 e 30 |
 
 ## Modelos e animação
 
@@ -55,7 +55,9 @@ pixel art, fundo transparente; modelo em `.glb`. O caminho de importação está
 |---|---|---|---|
 | Modelos das armas | bengalas e muleta do pacote de acessibilidade | `modelo` nos `.tres` de `resources/items/armas/`, e refazer o encaixe na mão no gerador do catálogo | 08 |
 | Quadro de calendário | feito de caixas | `scenes/world/quadro_calendario.tscn` | 12 |
-| Modelos dos seis NPCs | personagens do pacote Kenney | `modelo` em `resources/npcs/*.tres` (ou na tabela de `scripts/utils/gerar_npcs.gd`) | 14 |
+| Caminhão do Zeca | o Zeca chega e vai embora a pé pela pista, sem caminhão | um modelo novo em `equipe/ferramentas/blender/modelos/` e, para aparecer só no dia dele, um nó que siga a visibilidade do Zeca (`EventBus.visitor_arrived` e `visitor_left`) | 30 |
+| Ônibus que traz a Lúcia | ela aparece e some no ponto de ônibus | idem, com o ônibus parando no `ponto_de_onibus` | 30 |
+| Acessórios melhores nas pessoas | caixas e cilindros do kit (visor, capacete, boné, avental) | as funções de peça em `equipe/ferramentas/blender/modelos/personagens.py` | 30 |
 | Baú (de guardar e de venda) | caixa feita de formas simples, com etiqueta de texto | `scenes/items/bau.tscn` | 17 |
 | Portal de saída da dungeon | um anel com luz, feito de formas simples | `scenes/world/portal.tscn` | 22 |
 | Prédios da vila no tema do deserto | casas, mercado, clínica e oficina do Vitor são da Kenney, sem mudança | as instâncias em `equipe/ferramentas/gerar_mapas.py` (seção da vila) | 26 e 30 |
