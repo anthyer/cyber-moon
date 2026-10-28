@@ -17,6 +17,14 @@ a fase da Lua vem do calendário real (API do USNO), com efeito na noite e na la
 - **Ao iniciar o jogo, o primeiro horário é sincronizado com o tempo real.** Depois disso o
   relógio anda na velocidade normal do jogo (5 minutos reais de dia e 5 de noite).
 
+## Decisões do Antonio (2026-10-27)
+
+- **A Lua mexe em três coisas:** a iluminação da noite, um bônus de crescimento e um
+  bônus de rendimento na colheita. Detalhes em "O que a Lua faz no jogo".
+- **A hora pode voltar dentro do mesmo dia.** Salvar às 22:00 e reabrir às 10:00 começa
+  às 10:00 do mesmo dia do jogo. Depois de sincronizar, o tempo anda rápido, igual
+  funciona hoje.
+
 ## Como fica, em resumo
 
 | O quê | De onde vem | Quando |
@@ -48,8 +56,8 @@ sem consultar o relógio real de novo.
 
 **Com save:** o save guarda o número do dia e a hora. Ao abrir, o número do dia vem do
 save e a hora vem do relógio real. Isso pode voltar a hora dentro do mesmo dia (salvou às
-22:00, abriu às 10:00), o que dá mais tempo ao jogador. Aceitável, porque o crescimento só
-acontece dormindo; registrar como decisão na revisão.
+22:00, abriu às 10:00), o que dá mais tempo ao jogador. Decidido que pode: o crescimento só
+acontece dormindo, então voltar a hora não adianta a lavoura.
 
 **Com `--sem-save` e no coop:** a hora inicial vale para quem hospeda. Quem entra segue a
 hora de quem hospeda, como já acontece hoje.
@@ -113,19 +121,29 @@ a fase. Ela só muda quando o dia real muda.
 
 ### O que a Lua faz no jogo
 
-Ideias, para decidir com o Antonio antes do passo 6:
+Decidido (2026-10-27): iluminação, crescimento e rendimento.
 
 - **Luz da noite.** A `IluminacaoDoCiclo` já faz a luz direcional virar lua à noite. A
   energia dessa luz passa a depender da fase: lua cheia clareia a fazenda, lua nova deixa
-  bem escuro. É o efeito mais barato e o que mais se vê.
-- **Lua cheia na lavoura.** Ao dormir numa noite de lua cheia, cada planta regada tem uma
+  bem escuro, crescente e minguante ficam no meio.
+- **Bônus de crescimento.** Ao dormir numa noite de lua cheia, cada planta regada tem uma
   chance (sugestão: 25%) de crescer um dia a mais. Entra dentro de `avancar_um_dia()` da
   `GradeSolo`, que continua sendo o único lugar que mexe no crescimento. Planta seca
-  continua murchando; a Lua não salva quem não regou.
-- **Lua nova na dungeon.** Inimigos com mais vida ou mais saque. Só se sobrar tempo.
-- **Relógio da tela.** Um ícone pequeno da fase ao lado do relógio (`hud_relogio`).
+  continua murchando; a Lua não salva quem não regou. Crescente dá uma chance menor
+  (sugestão: 10%); nova e minguante não dão bônus.
+- **Bônus de rendimento.** Colher com lua cheia rende mais: depois do sorteio entre
+  `quantidade_colhida_minima` e `quantidade_colhida_maxima` em `colher()` da `GradeSolo`,
+  a quantidade ganha um item a mais com uma chance (sugestão: 50%). O `crop_harvested`
+  já sai com a quantidade final, então o inventário, a economia e o diário não mudam.
+- **Relógio da tela.** Um ícone pequeno da fase ao lado do relógio (`hud_relogio`), para
+  o jogador saber quando vale a pena plantar e colher.
 
-Os números (chance, energia da luz por fase) ficam no `.tres`.
+Os números (chance de crescer e de render por fase, energia da luz por fase) ficam no
+`.tres`, para o balanceamento final mexer sem tocar no código. A `GradeSolo` só lê
+`RealWorldManager.fase_da_lua` e os números da configuração; ela não sabe de onde a fase
+veio.
+
+Fica de fora, por enquanto: lua nova deixando a dungeon mais difícil ou com mais saque.
 
 ## Arquitetura
 
@@ -166,7 +184,8 @@ func clima_do_codigo_wmo(codigo: int) -> StringName
 - `latitude`, `longitude` (Florianópolis por padrão), `segundos_de_limite` (5.0).
 - `url_do_clima`, `url_da_lua` (com marcadores para coordenada e data).
 - `clima_por_codigo_wmo: Dictionary[int, StringName]`.
-- `chance_de_crescer_na_lua_cheia: float`, `energia_da_lua_por_fase: Dictionary`.
+- `chance_de_crescer_por_fase`, `chance_de_render_por_fase`, `energia_da_lua_por_fase`,
+  os três `Dictionary[int, float]` com a fase da Lua como chave.
 - `usar_apis: bool`: desligado, o jogo usa só sorteio e conta local. Serve para teste e
   para jogar offline sem esperar o limite.
 
@@ -179,6 +198,9 @@ Pela regra do projeto, a ação nova já nasce com efeito, pela tabela do `Efeit
 - **`lua_cheia`:** a planta que ganhou o dia extra da lua cheia solta um brilho branco
   azulado subindo (o mesmo molde do `crescer`, com outra cor). Sinal novo no `EventBus`:
   `moon_growth_applied(celula: Vector2i)`.
+- **`colheita_da_lua`:** quando a colheita ganha o item extra, um punhado de faíscas
+  prateadas sai da célula, junto do efeito de colheita que já existe. Sinal novo no
+  `EventBus`: `moon_harvest_bonus(celula: Vector2i)`.
 - A troca de clima já tem efeito (a chuva do plano 13), e a hora inicial não é ação do
   jogador. Nada novo para elas.
 
@@ -201,8 +223,10 @@ Pela regra do projeto, a ação nova já nasce com efeito, pela tabela do `Efeit
   desligada (o jogo abre normal e sem travar) e com `usar_apis` desligado.
 - [ ] **5.** Fase da Lua pelo USNO, com a conta local. Conferir a conta local contra a
   API em quatro datas conhecidas.
-- [ ] **6.** Decidir com o Antonio o que a Lua faz. Implementar a luz da noite e, se
-  aprovado, o crescimento extra na lua cheia, com a partícula `lua_cheia`.
+- [ ] **6.** Efeitos da Lua: a luz da noite por fase, o bônus de crescimento (partícula
+  `lua_cheia`) e o bônus de rendimento (partícula `colheita_da_lua`). Testar forçando cada
+  fase pelo menu de debug: plantar, regar e dormir com lua cheia e com lua nova, e colher
+  dez vezes em cada uma, conferindo que só a cheia rende a mais.
 - [ ] **7.** Ícone da fase no relógio da tela.
 - [ ] **8.** Mostrar no menu de debug a origem de cada dado (API ou reserva) e um botão
   para forçar cada fase da Lua. Atualizar `arquitetura.md`.
@@ -216,3 +240,7 @@ Pela regra do projeto, a ação nova já nasce com efeito, pela tabela do `Efeit
 - Chovendo em Florianópolis, chove na fazenda ao abrir o jogo, e o solo fica molhado.
 - Sem internet, o jogo abre no mesmo tempo de sempre, com clima sorteado e Lua calculada.
 - Numa noite de lua cheia real, a fazenda está mais clara que numa de lua nova.
+- Com lua cheia, parte das plantas regadas cresce um dia a mais ao dormir, e parte das
+  colheitas rende um item a mais, cada uma com a sua partícula.
+- Abrir de novo no mesmo dia do jogo, mais cedo que a hora salva, volta o relógio, e o
+  tempo anda na velocidade de sempre.
