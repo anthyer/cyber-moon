@@ -1074,10 +1074,10 @@ size = Vector3(9.3, 3.0, 0.4)
 size = Vector3(7.6, 3.0, 0.4)
 
 [sub_resource type="BoxShape3D" id="s320"]
-size = Vector3(3.6, 3.0, 0.4)
+size = Vector3(15.5, 3.0, 0.4)
 
 [sub_resource type="BoxShape3D" id="s321"]
-size = Vector3(12.0, 3.0, 0.4)
+size = Vector3(5.2, 3.0, 0.4)
 
 [sub_resource type="BoxShape3D" id="s322"]
 size = Vector3(6.8, 3.0, 0.4)
@@ -1089,94 +1089,94 @@ size = Vector3(6.3, 3.0, 0.4)
 size = Vector3(3.5, 3.0, 0.4)
 
 [sub_resource type="BoxShape3D" id="s325"]
-size = Vector3(7.5, 3.0, 0.4)
+size = Vector3(5.1, 3.0, 0.4)
 
 [sub_resource type="BoxShape3D" id="s326"]
-size = Vector3(11.7, 3.0, 0.4)
+size = Vector3(12.3, 3.0, 0.4)
 
 [sub_resource type="BoxShape3D" id="s327"]
-size = Vector3(5.8, 3.0, 0.4)
+size = Vector3(10.3, 3.0, 0.4)
 
 [sub_resource type="BoxShape3D" id="s328"]
-size = Vector3(4.6, 3.0, 0.4)
+size = Vector3(5.8, 3.0, 0.4)
 
 [sub_resource type="BoxShape3D" id="s329"]
-size = Vector3(3.9, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s330"]
-size = Vector3(4.2, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s331"]
-size = Vector3(8.4, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s332"]
-size = Vector3(8.9, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s333"]
-size = Vector3(8.6, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s334"]
-size = Vector3(2.9, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s335"]
-size = Vector3(7.3, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s336"]
-size = Vector3(11.3, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s337"]
-size = Vector3(2.2, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s338"]
-size = Vector3(7.4, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s339"]
-size = Vector3(5.7, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s340"]
-size = Vector3(5.9, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s341"]
-size = Vector3(5.2, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s342"]
-size = Vector3(42.8, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s343"]
-size = Vector3(158.6, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s344"]
-size = Vector3(92.6, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s345"]
-size = Vector3(20.6, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s346"]
-size = Vector3(36.1, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s347"]
-size = Vector3(6.2, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s348"]
-size = Vector3(8.1, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s349"]
-size = Vector3(7.9, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s350"]
-size = Vector3(7.1, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s351"]
-size = Vector3(4.4, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s352"]
-size = Vector3(12.7, 3.0, 0.4)
-
-[sub_resource type="BoxShape3D" id="s353"]
 size = Vector3(6.1, 3.0, 0.4)
 
+[sub_resource type="BoxShape3D" id="s330"]
+size = Vector3(8.1, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s331"]
+size = Vector3(4.6, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s332"]
+size = Vector3(3.9, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s333"]
+size = Vector3(4.2, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s334"]
+size = Vector3(3.6, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s335"]
+size = Vector3(8.4, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s336"]
+size = Vector3(8.9, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s337"]
+size = Vector3(8.6, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s338"]
+size = Vector3(2.9, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s339"]
+size = Vector3(7.3, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s340"]
+size = Vector3(11.3, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s341"]
+size = Vector3(2.2, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s342"]
+size = Vector3(7.4, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s343"]
+size = Vector3(5.7, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s344"]
+size = Vector3(5.9, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s345"]
+size = Vector3(42.8, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s346"]
+size = Vector3(158.6, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s347"]
+size = Vector3(92.6, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s348"]
+size = Vector3(20.6, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s349"]
+size = Vector3(36.1, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s350"]
+size = Vector3(6.2, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s351"]
+size = Vector3(7.9, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s352"]
+size = Vector3(7.1, 3.0, 0.4)
+
+[sub_resource type="BoxShape3D" id="s353"]
+size = Vector3(4.4, 3.0, 0.4)
+
 [sub_resource type="BoxShape3D" id="s354"]
-size = Vector3(5.1, 3.0, 0.4)
+size = Vector3(12.7, 3.0, 0.4)
 
 [sub_resource type="BoxShape3D" id="s355"]
 size = Vector3(5.0, 3.0, 0.4)
@@ -3974,7 +3974,7 @@ rotation = Vector3(0, -1.5708, 0)
 script = ExtResource("r11")
 
 [node name="OficinaDoVitor" parent="Vila" instance=ExtResource("r35")]
-position = Vector3(111.5, 0.0, 59.5)
+position = Vector3(109.5, 0.0003, 59.5)
 rotation = Vector3(0, -1.5708, 0)
 
 [node name="Cobertura" type="Node" parent="Vila/OficinaDoVitor"]
@@ -4313,6 +4313,13 @@ light_energy = 1.2
 omni_range = 7.0
 shadow_enabled = false
 
+[node name="BarracoDoBento" parent="Entradas" instance=ExtResource("r37")]
+position = Vector3(92, 0.087, 29.5)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="Cobertura" type="Node" parent="Entradas/BarracoDoBento"]
+script = ExtResource("r11")
+
 [node name="Badlands" type="Node3D" parent="."]
 
 [node name="MesaGrande" parent="Badlands" instance=ExtResource("r56")]
@@ -4594,58 +4601,58 @@ position = Vector3(34.0, 0.0, 68.0)
 rotation = Vector3(0, 1.5708, 0)
 
 [node name="Cerca21" parent="Reservas" instance=ExtResource("r75")]
-position = Vector3(114.0, 0.0, 63.6667)
-rotation = Vector3(0, 0.1651, 0)
+position = Vector3(113.6667, 0.0, 76.8333)
+rotation = Vector3(0, 0.0997, 0)
+scale = Vector3(0.8542, 0.8542, 0.8542)
 
 [node name="Cerca22" parent="Reservas" instance=ExtResource("r75")]
-position = Vector3(118.0, 0.0, 63.0)
-rotation = Vector3(0, 0.1651, 0)
+position = Vector3(117.0, 0.0, 76.5)
+rotation = Vector3(0, 0.0997, 0)
+scale = Vector3(0.8542, 0.8542, 0.8542)
 
 [node name="Cerca23" parent="Reservas" instance=ExtResource("r75")]
-position = Vector3(122.0, 0.0857, 62.3333)
-rotation = Vector3(0, 0.1651, 0)
+position = Vector3(120.3333, 0.0, 76.1667)
+rotation = Vector3(0, 0.0997, 0)
+scale = Vector3(0.8542, 0.8542, 0.8542)
 
 [node name="Cerca24" parent="Reservas" instance=ExtResource("r75")]
-position = Vector3(124.1667, 0.1415, 64.1667)
-rotation = Vector3(0, -1.494, 0)
-scale = Vector3(1.1083, 1.1083, 1.1083)
+position = Vector3(122.1667, 0.0, 78.0)
+rotation = Vector3(0, -1.4877, 0)
 
 [node name="Cerca25" parent="Reservas" instance=ExtResource("r75")]
-position = Vector3(124.5, 0.0023, 68.5)
-rotation = Vector3(0, -1.494, 0)
-scale = Vector3(1.1083, 1.1083, 1.1083)
+position = Vector3(122.5, 0.0735, 82.0)
+rotation = Vector3(0, -1.4877, 0)
 
 [node name="Cerca26" parent="Reservas" instance=ExtResource("r75")]
-position = Vector3(124.8333, 0.0011, 72.8333)
-rotation = Vector3(0, -1.494, 0)
-scale = Vector3(1.1083, 1.1083, 1.1083)
+position = Vector3(122.8333, 0.1335, 86.0)
+rotation = Vector3(0, -1.4877, 0)
 
 [node name="Cerca27" parent="Reservas" instance=ExtResource("r75")]
-position = Vector3(123.1667, 0.0031, 75.3333)
-rotation = Vector3(0, -2.9617, 0)
+position = Vector3(121.3333, 0.0138, 88.1667)
+rotation = Vector3(0, -3.0419, 0)
+scale = Vector3(0.8542, 0.8542, 0.8542)
 
 [node name="Cerca28" parent="Reservas" instance=ExtResource("r75")]
-position = Vector3(119.5, 0.0, 76.0)
-rotation = Vector3(0, -2.9617, 0)
+position = Vector3(118.0, 0.0025, 88.5)
+rotation = Vector3(0, -3.0419, 0)
+scale = Vector3(0.8542, 0.8542, 0.8542)
 
 [node name="Cerca29" parent="Reservas" instance=ExtResource("r75")]
-position = Vector3(115.8333, 0.0, 76.6667)
-rotation = Vector3(0, -2.9617, 0)
+position = Vector3(114.6667, 0.0331, 88.8333)
+rotation = Vector3(0, -3.0419, 0)
+scale = Vector3(0.8542, 0.8542, 0.8542)
 
 [node name="Cerca30" parent="Reservas" instance=ExtResource("r75")]
-position = Vector3(113.6667, 0.0, 74.8333)
-rotation = Vector3(0, 1.7234, 0)
-scale = Vector3(1.118, 1.118, 1.118)
+position = Vector3(112.8333, 0.0385, 87.0)
+rotation = Vector3(0, 1.6539, 0)
 
 [node name="Cerca31" parent="Reservas" instance=ExtResource("r75")]
-position = Vector3(113.0, 0.0, 70.5)
-rotation = Vector3(0, 1.7234, 0)
-scale = Vector3(1.118, 1.118, 1.118)
+position = Vector3(112.5, 0.0, 83.0)
+rotation = Vector3(0, 1.6539, 0)
 
 [node name="Cerca32" parent="Reservas" instance=ExtResource("r75")]
-position = Vector3(112.3333, 0.0071, 66.1667)
-rotation = Vector3(0, 1.7234, 0)
-scale = Vector3(1.118, 1.118, 1.118)
+position = Vector3(112.1667, 0.0, 79.0)
+rotation = Vector3(0, 1.6539, 0)
 
 [node name="Cerca33" parent="Reservas" instance=ExtResource("r74")]
 position = Vector3(101.75, 0.0, 19.75)
@@ -4718,7 +4725,7 @@ rotation = Vector3(0, -0.2618, 0)
 script = ExtResource("r11")
 
 [node name="CaixaDoPasto" parent="Reservas" instance=ExtResource("r78")]
-position = Vector3(119, 0.003, 69)
+position = Vector3(119, 0.0, 82)
 
 [node name="Cobertura" type="Node" parent="Reservas/CaixaDoPasto"]
 script = ExtResource("r11")
@@ -4764,26 +4771,26 @@ escala_do_modelo = 0.2
 velocidade = 1.4
 
 [node name="Vaca" type="Node3D" parent="Reservas"]
-position = Vector3(115, 0.008, 66)
+position = Vector3(115, 0.0, 79)
 script = ExtResource("r79")
 modelo = ExtResource("r82")
-area = Rect2(114, 64, 9, 10)
+area = Rect2(114, 78, 8, 9)
 escala_do_modelo = 0.36
 velocidade = 0.5
 
 [node name="Vaca2" type="Node3D" parent="Reservas"]
-position = Vector3(120, 0.0, 72)
+position = Vector3(120, 0.0, 85)
 script = ExtResource("r79")
 modelo = ExtResource("r82")
-area = Rect2(114, 64, 9, 10)
+area = Rect2(114, 78, 8, 9)
 escala_do_modelo = 0.36
 velocidade = 0.5
 
 [node name="Vaca3" type="Node3D" parent="Reservas"]
-position = Vector3(117, 0.0, 74)
+position = Vector3(117, 0.0, 87)
 script = ExtResource("r79")
 modelo = ExtResource("r82")
-area = Rect2(114, 64, 9, 10)
+area = Rect2(114, 78, 8, 9)
 escala_do_modelo = 0.36
 velocidade = 0.5
 
@@ -4806,7 +4813,7 @@ velocidade = 1.0
 [node name="BolasDeFeno" type="Node3D" parent="."]
 script = ExtResource("r83")
 modelo = ExtResource("r84")
-areas = Array[Rect2]([Rect2(34, 66, 8, 22), Rect2(100, 19, 6, 10), Rect2(2, 99, 40, 8), Rect2(105, 101, 50, 6), Rect2(112, 62, 5, 14), Rect2(118, 52, 16, 6)])
+areas = Array[Rect2]([Rect2(34, 66, 8, 22), Rect2(100, 19, 6, 10), Rect2(2, 99, 40, 8), Rect2(105, 101, 50, 6), Rect2(113, 78, 5, 10), Rect2(118, 52, 16, 6)])
 maximo_ao_mesmo_tempo = 7
 
 [node name="SaidaDaFazenda" type="Node3D" parent="."]
@@ -4917,15 +4924,15 @@ script = ExtResource("r11")
 position = Vector3(15, 0.0, 17)
 rotation = Vector3(0, 0.2418, 0)
 
-[node name="Marco3" parent="Preenchimento" instance=ExtResource("r37")]
-position = Vector3(94, 0.0, 17)
+[node name="Marco3" parent="Preenchimento" instance=ExtResource("r38")]
+position = Vector3(58, 0.013, 69)
 rotation = Vector3(0, -0.1861, 0)
 
 [node name="Cobertura" type="Node" parent="Preenchimento/Marco3"]
 script = ExtResource("r11")
 
-[node name="Marco4" parent="Preenchimento" instance=ExtResource("r38")]
-position = Vector3(58, 0.013, 69)
+[node name="Marco4" parent="Preenchimento" instance=ExtResource("r37")]
+position = Vector3(94, 0.0, 17)
 rotation = Vector3(0, -0.0371, 0)
 
 [node name="Cobertura" type="Node" parent="Preenchimento/Marco4"]
@@ -5806,1571 +5813,1566 @@ rotation = Vector3(0, -0.6055, 0)
 shape = SubResource("s291")
 
 [node name="Trecho99" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(118.75, 1.0, 61.0)
-rotation = Vector3(0, -0.7854, 0)
-shape = SubResource("s309")
-
-[node name="Trecho100" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(122.0, 1.0877, 62.25)
-rotation = Vector3(0, -0.0, 0)
-shape = SubResource("s291")
-
-[node name="Trecho101" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(124.125, 1.1514, 63.875)
-rotation = Vector3(0, -1.494, 0)
+position = Vector3(123.25, 1.0664, 64.75)
+rotation = Vector3(0, -0.7157, 0)
 shape = SubResource("s320")
 
-[node name="Trecho102" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(128.625, 1.0168, 69.375)
-rotation = Vector3(0, -0.7249, 0)
+[node name="Trecho100" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(129.25, 1.0076, 69.75)
+rotation = Vector3(0, -0.0, 0)
+shape = SubResource("s279")
+
+[node name="Trecho101" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(131.25, 1.0, 71.5)
+rotation = Vector3(0, -0.7854, 0)
 shape = SubResource("s321")
 
-[node name="Trecho103" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho102" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(133.5, 1.0, 73.5)
 rotation = Vector3(0, -0.4636, 0)
 shape = SubResource("s304")
 
-[node name="Trecho104" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho103" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(138.25, 1.0, 73.75)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s288")
 
-[node name="Trecho105" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho104" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(145.5, 1.134, 75.0)
 rotation = Vector3(0, -0.3948, 0)
 shape = SubResource("s322")
 
-[node name="Trecho106" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho105" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(150.375, 1.0929, 77.875)
 rotation = Vector3(0, -0.7141, 0)
 shape = SubResource("s300")
 
-[node name="Trecho107" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho106" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(153.25, 1.0, 81.25)
 rotation = Vector3(0, -1.0517, 0)
 shape = SubResource("s291")
 
-[node name="Trecho108" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho107" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(154.25, 1.0, 86.0)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s323")
 
-[node name="Trecho109" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho108" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(153.25, 1.0436, 90.75)
 rotation = Vector3(0, -2.0899, 0)
 shape = SubResource("s291")
 
-[node name="Trecho110" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho109" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(151.125, 1.042, 93.625)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s324")
 
-[node name="Trecho111" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho110" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(147.75, 1.1867, 96.0)
 rotation = Vector3(0, -2.6345, 0)
 shape = SubResource("s313")
 
-[node name="Trecho112" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho111" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(145.0, 1.1452, 97.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s294")
 
-[node name="Trecho113" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho112" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(143.5, 1.0671, 97.75)
 rotation = Vector3(0, -2.6779, 0)
 shape = SubResource("s296")
 
-[node name="Trecho114" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho113" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(138.0, 1.0023, 98.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s318")
 
-[node name="Trecho115" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho114" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(133.25, 1.0, 98.0)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho116" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho115" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(131.75, 1.0, 97.5)
 rotation = Vector3(0, 2.9442, 0)
 shape = SubResource("s283")
 
-[node name="Trecho117" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho116" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(128.25, 1.0, 96.0)
 rotation = Vector3(0, 2.6345, 0)
 shape = SubResource("s313")
 
-[node name="Trecho118" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho117" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(124.875, 1.0007, 93.625)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s324")
 
-[node name="Trecho119" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(122.75, 1.0119, 90.75)
-rotation = Vector3(0, 2.0899, 0)
-shape = SubResource("s291")
-
-[node name="Trecho120" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(121.75, 1.077, 86.0)
-rotation = Vector3(0, 1.5708, 0)
-shape = SubResource("s323")
-
-[node name="Trecho121" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(123.75, 1.0105, 80.0)
-rotation = Vector3(0, 0.9828, 0)
+[node name="Trecho118" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(122.625, 1.0146, 90.375)
+rotation = Vector3(0, 2.0577, 0)
 shape = SubResource("s325")
 
-[node name="Trecho122" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(124.875, 1.0398, 76.125)
-rotation = Vector3(0, 2.3562, 0)
-shape = SubResource("s283")
+[node name="Trecho119" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(117.25, 1.0077, 88.5)
+rotation = Vector3(0, -3.0828, 0)
+shape = SubResource("s288")
 
-[node name="Trecho123" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(121.75, 1.0, 75.5)
-rotation = Vector3(0, -3.0309, 0)
-shape = SubResource("s317")
-
-[node name="Trecho124" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(119.25, 1.0, 76.0)
-rotation = Vector3(0, -2.3562, 0)
-shape = SubResource("s289")
-
-[node name="Trecho125" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(118.0, 1.0, 76.25)
-rotation = Vector3(0, -3.1416, 0)
-shape = SubResource("s282")
-
-[node name="Trecho126" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(116.75, 1.0, 76.5)
-rotation = Vector3(0, -2.3562, 0)
-shape = SubResource("s289")
-
-[node name="Trecho127" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(115.25, 1.0, 76.75)
-rotation = Vector3(0, -3.1416, 0)
-shape = SubResource("s283")
-
-[node name="Trecho128" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(113.125, 1.0001, 71.125)
-rotation = Vector3(0, 1.7251, 0)
+[node name="Trecho120" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(112.5, 1.0, 82.75)
+rotation = Vector3(0, 1.6539, 0)
 shape = SubResource("s326")
 
-[node name="Trecho129" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(111.125, 1.0148, 64.625)
-rotation = Vector3(0, 2.4805, 0)
-shape = SubResource("s286")
-
-[node name="Trecho130" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(107.625, 1.0695, 65.125)
-rotation = Vector3(0, -2.6168, 0)
+[node name="Trecho121" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(117.0, 1.0, 76.5)
+rotation = Vector3(0, 0.05, 0)
 shape = SubResource("s327")
 
-[node name="Trecho131" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho122" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(122.25, 1.0, 79.0)
+rotation = Vector3(0, -1.4801, 0)
+shape = SubResource("s328")
+
+[node name="Trecho123" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(124.125, 1.0093, 79.375)
+rotation = Vector3(0, 0.9707, 0)
+shape = SubResource("s329")
+
+[node name="Trecho124" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(122.625, 1.0022, 74.125)
+rotation = Vector3(0, 2.3978, 0)
+shape = SubResource("s288")
+
+[node name="Trecho125" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(119.25, 1.0, 71.25)
+rotation = Vector3(0, -3.1416, 0)
+shape = SubResource("s279")
+
+[node name="Trecho126" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(117.75, 1.0, 70.0)
+rotation = Vector3(0, 2.3562, 0)
+shape = SubResource("s309")
+
+[node name="Trecho127" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(116.25, 1.0002, 68.75)
+rotation = Vector3(0, -3.1416, 0)
+shape = SubResource("s279")
+
+[node name="Trecho128" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(113.0, 1.006, 66.25)
+rotation = Vector3(0, 2.4469, 0)
+shape = SubResource("s330")
+
+[node name="Trecho129" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(107.625, 1.0695, 65.125)
+rotation = Vector3(0, -2.6168, 0)
+shape = SubResource("s328")
+
+[node name="Trecho130" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(105.25, 1.1105, 68.0)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s305")
 
-[node name="Trecho132" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho131" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(105.875, 1.1368, 69.875)
 rotation = Vector3(0, -0.5404, 0)
 shape = SubResource("s290")
 
-[node name="Trecho133" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho132" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(107.0, 1.1865, 70.25)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s294")
 
-[node name="Trecho134" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho133" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(109.125, 1.1599, 71.625)
 rotation = Vector3(0, -0.7023, 0)
-shape = SubResource("s328")
+shape = SubResource("s331")
 
-[node name="Trecho135" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho134" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(111.0, 1.074, 73.5)
 rotation = Vector3(0, -1.1071, 0)
 shape = SubResource("s304")
 
-[node name="Trecho136" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho135" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(111.25, 1.0, 76.0)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s291")
 
-[node name="Trecho137" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho136" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(111.0, 1.0, 78.5)
 rotation = Vector3(0, -2.0344, 0)
 shape = SubResource("s304")
 
-[node name="Trecho138" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho137" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(109.875, 1.0015, 79.875)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s283")
 
-[node name="Trecho139" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho138" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(107.5, 1.059, 81.5)
 rotation = Vector3(0, -2.6779, 0)
 shape = SubResource("s293")
 
-[node name="Trecho140" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho139" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(103.0, 1.0, 82.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s323")
 
-[node name="Trecho141" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho140" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(99.75, 1.0, 82.0)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho142" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho141" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(99.0, 1.0, 81.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s294")
 
-[node name="Trecho143" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho142" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(97.75, 1.0, 81.25)
 rotation = Vector3(0, 2.5536, 0)
 shape = SubResource("s284")
 
-[node name="Trecho144" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho143" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(95.875, 1.0012, 79.375)
 rotation = Vector3(0, 2.2565, 0)
-shape = SubResource("s329")
+shape = SubResource("s332")
 
-[node name="Trecho145" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho144" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(94.75, 1.0, 76.0)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s291")
 
-[node name="Trecho146" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho145" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(95.0, 1.0, 73.5)
 rotation = Vector3(0, 1.1071, 0)
 shape = SubResource("s304")
 
-[node name="Trecho147" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho146" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(96.75, 1.0, 71.75)
 rotation = Vector3(0, 0.6947, 0)
-shape = SubResource("s330")
+shape = SubResource("s333")
 
-[node name="Trecho148" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho147" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(98.25, 1.0, 68.75)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s309")
 
-[node name="Trecho149" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho148" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(97.625, 1.0, 66.125)
 rotation = Vector3(0, 2.191, 0)
 shape = SubResource("s296")
 
-[node name="Trecho150" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho149" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(95.75, 1.0, 64.75)
 rotation = Vector3(0, 2.7611, 0)
 shape = SubResource("s287")
 
-[node name="Trecho151" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho150" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(92.875, 1.0, 62.625)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s307")
 
-[node name="Trecho152" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho151" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(90.5, 1.0236, 59.75)
 rotation = Vector3(0, 2.1112, 0)
 shape = SubResource("s286")
 
-[node name="Trecho153" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho152" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(89.375, 1.0667, 57.125)
 rotation = Vector3(0, 1.837, 0)
 shape = SubResource("s286")
 
-[node name="Trecho154" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho153" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(88.125, 1.0676, 57.125)
 rotation = Vector3(0, -2.1375, 0)
-shape = SubResource("s320")
+shape = SubResource("s334")
 
-[node name="Trecho155" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho154" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(84.25, 0.8237, 61.25)
 rotation = Vector3(0, -2.3996, 0)
-shape = SubResource("s331")
+shape = SubResource("s335")
 
-[node name="Trecho156" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho155" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(80.5, 0.7794, 65.75)
 rotation = Vector3(0, -1.9757, 0)
 shape = SubResource("s299")
 
-[node name="Trecho157" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho156" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(79.75, 0.8241, 69.25)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s309")
 
-[node name="Trecho158" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho157" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(81.5, 0.8396, 73.25)
 rotation = Vector3(0, -0.9098, 0)
 shape = SubResource("s310")
 
-[node name="Trecho159" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho158" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(83.75, 0.9121, 76.75)
 rotation = Vector3(0, -1.1903, 0)
 shape = SubResource("s287")
 
-[node name="Trecho160" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho159" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(84.25, 1.0051, 79.5)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s305")
 
-[node name="Trecho161" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho160" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(83.5, 0.9263, 82.75)
 rotation = Vector3(0, -1.9757, 0)
 shape = SubResource("s299")
 
-[node name="Trecho162" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho161" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(81.75, 0.891, 86.0)
 rotation = Vector3(0, -2.1588, 0)
-shape = SubResource("s329")
+shape = SubResource("s332")
 
-[node name="Trecho163" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho162" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(80.75, 0.9005, 88.25)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s290")
 
-[node name="Trecho164" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho163" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(82.875, 0.99, 89.125)
 rotation = Vector3(0, -0.0588, 0)
-shape = SubResource("s328")
+shape = SubResource("s331")
 
-[node name="Trecho165" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho164" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(85.25, 0.9524, 89.5)
 rotation = Vector3(0, -0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho166" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho165" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(87.5, 1.0, 90.0)
 rotation = Vector3(0, -0.1244, 0)
 shape = SubResource("s291")
 
-[node name="Trecho167" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho166" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(91.5, 0.9281, 91.25)
 rotation = Vector3(0, -0.4636, 0)
 shape = SubResource("s317")
 
-[node name="Trecho168" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho167" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(95.125, 0.9487, 94.125)
 rotation = Vector3(0, -0.8567, 0)
 shape = SubResource("s300")
 
-[node name="Trecho169" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho168" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(96.75, 0.9339, 97.25)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s283")
 
-[node name="Trecho170" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho169" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(96.0, 1.0, 99.75)
 rotation = Vector3(0, -2.1112, 0)
 shape = SubResource("s286")
 
-[node name="Trecho171" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho170" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(91.875, 0.9841, 103.625)
 rotation = Vector3(0, -2.4805, 0)
-shape = SubResource("s332")
+shape = SubResource("s336")
 
-[node name="Trecho172" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho171" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(86.75, 1.1783, 107.0)
 rotation = Vector3(0, -2.7367, 0)
 shape = SubResource("s299")
 
-[node name="Trecho173" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho172" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(82.75, 0.9716, 107.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s317")
 
-[node name="Trecho174" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho173" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(78.5, 1.0, 107.0)
 rotation = Vector3(0, 2.7828, 0)
-shape = SubResource("s328")
+shape = SubResource("s331")
 
-[node name="Trecho175" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho174" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(74.75, 1.0069, 106.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s309")
 
-[node name="Trecho176" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho175" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(72.75, 0.9991, 106.5)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho177" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho176" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(70.0, 1.0135, 106.5)
 rotation = Vector3(0, 3.0419, 0)
 shape = SubResource("s300")
 
-[node name="Trecho178" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho177" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(67.25, 1.0097, 106.0)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho179" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho178" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(64.75, 0.9494, 105.5)
 rotation = Vector3(0, 3.0309, 0)
 shape = SubResource("s317")
 
-[node name="Trecho180" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho179" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(62.25, 1.0023, 105.0)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho181" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho180" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(61.25, 0.8379, 104.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s290")
 
-[node name="Trecho182" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho181" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(60.25, 0.8394, 104.5)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho183" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho182" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(59.25, 0.9556, 104.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s290")
 
-[node name="Trecho184" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho183" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(58.25, 1.0, 104.0)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho185" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho184" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(56.75, 0.8357, 103.5)
 rotation = Vector3(0, 2.9442, 0)
 shape = SubResource("s283")
 
-[node name="Trecho186" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho185" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(54.0, 0.9815, 102.5)
 rotation = Vector3(0, 2.6779, 0)
 shape = SubResource("s293")
 
-[node name="Trecho187" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho186" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(51.375, 0.9215, 100.625)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s324")
 
-[node name="Trecho188" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho187" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(50.0, 1.049, 99.0)
 rotation = Vector3(0, 2.0344, 0)
 shape = SubResource("s304")
 
-[node name="Trecho189" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho188" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(49.75, 1.085, 97.5)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s282")
 
-[node name="Trecho190" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho189" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(50.875, 1.0614, 95.125)
 rotation = Vector3(0, 0.8851, 0)
-shape = SubResource("s329")
+shape = SubResource("s332")
 
-[node name="Trecho191" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho190" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(55.0, 0.809, 92.5)
 rotation = Vector3(0, 0.3948, 0)
 shape = SubResource("s322")
 
-[node name="Trecho192" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho191" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(62.125, 1.079, 90.875)
 rotation = Vector3(0, 0.0907, 0)
-shape = SubResource("s333")
+shape = SubResource("s337")
 
-[node name="Trecho193" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho192" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(65.875, 1.1113, 90.125)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s304")
 
-[node name="Trecho194" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho193" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(63.5, 1.0811, 89.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s291")
 
-[node name="Trecho195" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho194" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(60.5, 1.0105, 89.25)
 rotation = Vector3(0, 2.6779, 0)
 shape = SubResource("s296")
 
-[node name="Trecho196" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho195" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(59.125, 1.0, 88.125)
 rotation = Vector3(0, 2.1112, 0)
 shape = SubResource("s290")
 
-[node name="Trecho197" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho196" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(58.75, 1.0, 86.5)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s282")
 
-[node name="Trecho198" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho197" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(59.0, 1.0, 85.0)
 rotation = Vector3(0, 1.1071, 0)
 shape = SubResource("s304")
 
-[node name="Trecho199" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho198" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(60.375, 1.0, 83.875)
 rotation = Vector3(0, 0.5071, 0)
-shape = SubResource("s334")
+shape = SubResource("s338")
 
-[node name="Trecho200" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho199" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(62.0, 1.0257, 83.25)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s294")
 
-[node name="Trecho201" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho200" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(62.625, 1.0255, 82.625)
 rotation = Vector3(0, 1.3734, 0)
 shape = SubResource("s308")
 
-[node name="Trecho202" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho201" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(62.5, 1.0101, 81.75)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho203" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho202" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(62.25, 1.0, 81.0)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s294")
 
-[node name="Trecho204" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho203" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(61.5, 1.0, 78.75)
 rotation = Vector3(0, 1.9757, 0)
 shape = SubResource("s299")
 
-[node name="Trecho205" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho204" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(60.5, 1.0, 75.25)
 rotation = Vector3(0, 1.7127, 0)
 shape = SubResource("s309")
 
-[node name="Trecho206" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho205" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(60.0, 1.0, 73.25)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho207" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho206" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(59.25, 1.0463, 68.75)
 rotation = Vector3(0, 1.6879, 0)
-shape = SubResource("s332")
+shape = SubResource("s336")
 
-[node name="Trecho208" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho207" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(58.375, 1.0141, 64.125)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s304")
 
-[node name="Trecho209" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho208" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(57.5, 1.04, 63.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s294")
 
-[node name="Trecho210" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho209" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(56.25, 1.0581, 63.25)
 rotation = Vector3(0, 2.5536, 0)
 shape = SubResource("s284")
 
-[node name="Trecho211" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho210" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(54.5, 1.0, 64.0)
 rotation = Vector3(0, -2.2455, 0)
 shape = SubResource("s324")
 
-[node name="Trecho212" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho211" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(51.875, 1.0, 65.625)
 rotation = Vector3(0, -2.9148, 0)
-shape = SubResource("s320")
+shape = SubResource("s334")
 
-[node name="Trecho213" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho212" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(50.5, 1.046, 69.5)
 rotation = Vector3(0, -1.4995, 0)
-shape = SubResource("s335")
+shape = SubResource("s339")
 
-[node name="Trecho214" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho213" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(51.0, 1.0917, 73.25)
 rotation = Vector3(0, -0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho215" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho214" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(51.25, 1.0357, 75.5)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s291")
 
-[node name="Trecho216" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho215" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(51.5, 1.0, 77.75)
 rotation = Vector3(0, -0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho217" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho216" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(51.75, 1.0, 80.0)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s291")
 
-[node name="Trecho218" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho217" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(47.875, 1.0, 85.875)
 rotation = Vector3(0, -2.3562, 0)
-shape = SubResource("s336")
+shape = SubResource("s340")
 
-[node name="Trecho219" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho218" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(43.5, 1.0283, 89.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s294")
 
-[node name="Trecho220" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho219" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(41.25, 1.0, 89.0)
 rotation = Vector3(0, 2.7367, 0)
 shape = SubResource("s299")
 
-[node name="Trecho221" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho220" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(39.125, 1.0, 89.125)
 rotation = Vector3(0, -1.9757, 0)
-shape = SubResource("s337")
+shape = SubResource("s341")
 
-[node name="Trecho222" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho221" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(36.875, 1.0, 91.875)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s292")
 
-[node name="Trecho223" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho222" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(33.25, 1.0, 94.75)
 rotation = Vector3(0, -2.6224, 0)
 shape = SubResource("s291")
 
-[node name="Trecho224" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho223" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(31.0, 1.0, 95.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s294")
 
-[node name="Trecho225" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho224" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(29.5, 1.0056, 96.25)
 rotation = Vector3(0, -2.6779, 0)
 shape = SubResource("s296")
 
-[node name="Trecho226" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho225" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(27.75, 1.0391, 96.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s290")
 
-[node name="Trecho227" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho226" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(26.75, 1.0337, 97.0)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho228" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho227" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(22.0, 1.0, 97.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s318")
 
-[node name="Trecho229" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho228" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(17.25, 1.0, 97.0)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho230" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho229" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(16.25, 1.0, 96.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s290")
 
-[node name="Trecho231" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho230" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(15.25, 1.0, 96.5)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho232" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho231" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(13.75, 1.0, 96.0)
 rotation = Vector3(0, 2.9442, 0)
 shape = SubResource("s283")
 
-[node name="Trecho233" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho232" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(10.75, 1.0257, 94.75)
 rotation = Vector3(0, 2.6224, 0)
 shape = SubResource("s291")
 
-[node name="Trecho234" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho233" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(7.125, 1.0721, 91.875)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s292")
 
-[node name="Trecho235" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho234" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(4.5, 1.0217, 88.5)
 rotation = Vector3(0, 2.0344, 0)
 shape = SubResource("s293")
 
-[node name="Trecho236" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho235" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(3.75, 1.066, 84.0)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s323")
 
-[node name="Trecho237" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho236" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(4.5, 1.0425, 79.5)
 rotation = Vector3(0, 1.1071, 0)
 shape = SubResource("s293")
 
-[node name="Trecho238" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho237" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(7.875, 1.1401, 75.625)
 rotation = Vector3(0, 0.7354, 0)
-shape = SubResource("s338")
+shape = SubResource("s342")
 
-[node name="Trecho239" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho238" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(13.0, 1.0, 72.25)
 rotation = Vector3(0, 0.3805, 0)
-shape = SubResource("s339")
+shape = SubResource("s343")
 
-[node name="Trecho240" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho239" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(17.0, 1.0, 71.0)
 rotation = Vector3(0, 0.1651, 0)
 shape = SubResource("s305")
 
-[node name="Trecho241" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho240" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(18.875, 1.0, 70.125)
 rotation = Vector3(0, 1.0304, 0)
 shape = SubResource("s290")
 
-[node name="Trecho242" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho241" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(19.125, 1.0313, 66.375)
 rotation = Vector3(0, 1.6108, 0)
 shape = SubResource("s315")
 
-[node name="Trecho243" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho242" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(17.0, 0.547, 62.5)
 rotation = Vector3(0, 2.7828, 0)
-shape = SubResource("s328")
+shape = SubResource("s331")
 
-[node name="Trecho244" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho243" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(12.75, 0.7577, 61.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s317")
 
-[node name="Trecho245" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho244" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(8.0, 1.043, 63.0)
 rotation = Vector3(0, -2.6779, 0)
-shape = SubResource("s340")
-
-[node name="Trecho246" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(3.125, 0.828, 64.875)
-rotation = Vector3(0, -2.8843, 0)
-shape = SubResource("s341")
-
-[node name="Trecho247" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(0.75, 1.0, 86.75)
-rotation = Vector3(0, -1.5708, 0)
-shape = SubResource("s342")
-
-[node name="Trecho248" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(79.875, 1.0017, 108.125)
-rotation = Vector3(0, -0.0016, 0)
-shape = SubResource("s343")
-
-[node name="Trecho249" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(159.125, 1.0, 62.125)
-rotation = Vector3(0, 1.5681, 0)
 shape = SubResource("s344")
 
-[node name="Trecho250" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
-position = Vector3(149.125, 1.0481, 15.875)
-rotation = Vector3(0, 3.1292, 0)
+[node name="Trecho245" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(3.125, 0.828, 64.875)
+rotation = Vector3(0, -2.8843, 0)
+shape = SubResource("s321")
+
+[node name="Trecho246" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(0.75, 1.0, 86.75)
+rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s345")
 
-[node name="Trecho251" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho247" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(79.875, 1.0017, 108.125)
+rotation = Vector3(0, -0.0016, 0)
+shape = SubResource("s346")
+
+[node name="Trecho248" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(159.125, 1.0, 62.125)
+rotation = Vector3(0, 1.5681, 0)
+shape = SubResource("s347")
+
+[node name="Trecho249" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+position = Vector3(149.125, 1.0481, 15.875)
+rotation = Vector3(0, 3.1292, 0)
+shape = SubResource("s348")
+
+[node name="Trecho250" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(76.5, 1.0, 21.0)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s279")
 
-[node name="Trecho252" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho251" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(76.5, 1.0, 21.0)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s279")
 
-[node name="Trecho253" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho252" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(0.875, 1.0, 40.125)
 rotation = Vector3(0, -1.5778, 0)
-shape = SubResource("s346")
+shape = SubResource("s349")
 
-[node name="Trecho254" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho253" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(0.875, 0.8735, 58.125)
 rotation = Vector3(0, -0.7854, 0)
 shape = SubResource("s285")
 
-[node name="Trecho255" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho254" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(3.5, 0.93, 57.0)
 rotation = Vector3(0, 0.4636, 0)
-shape = SubResource("s340")
+shape = SubResource("s344")
 
-[node name="Trecho256" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho255" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(6.5, 0.748, 55.75)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s294")
 
-[node name="Trecho257" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho256" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(8.0, 0.7352, 55.25)
 rotation = Vector3(0, 0.4636, 0)
 shape = SubResource("s296")
 
-[node name="Trecho258" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho257" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(9.75, 0.6997, 54.75)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s290")
 
-[node name="Trecho259" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho258" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(10.75, 0.6326, 54.5)
 rotation = Vector3(0, 0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho260" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho259" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(12.5, 0.7518, 54.25)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s305")
 
-[node name="Trecho261" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho260" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(14.25, 0.5876, 54.5)
 rotation = Vector3(0, -0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho262" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho261" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(15.5, 0.6408, 54.75)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s282")
 
-[node name="Trecho263" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho262" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(17.5, 0.6913, 55.25)
 rotation = Vector3(0, -0.4636, 0)
 shape = SubResource("s296")
 
-[node name="Trecho264" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho263" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(19.25, 0.7004, 55.75)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s290")
 
-[node name="Trecho265" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho264" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(20.375, 0.9966, 55.125)
 rotation = Vector3(0, 1.0304, 0)
 shape = SubResource("s290")
 
-[node name="Trecho266" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho265" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(20.75, 1.0, 53.5)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s282")
 
-[node name="Trecho267" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho266" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(21.0, 1.0, 52.25)
 rotation = Vector3(0, 0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho268" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho267" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(21.25, 1.0, 51.25)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s290")
 
-[node name="Trecho269" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho268" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(21.75, 1.0, 49.5)
 rotation = Vector3(0, 1.1071, 0)
 shape = SubResource("s296")
 
-[node name="Trecho270" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho269" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(22.5, 1.028, 47.0)
 rotation = Vector3(0, 1.4056, 0)
 shape = SubResource("s305")
 
-[node name="Trecho271" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho270" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(21.125, 1.055, 45.375)
 rotation = Vector3(0, 3.0648, 0)
-shape = SubResource("s320")
+shape = SubResource("s334")
 
-[node name="Trecho272" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho271" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(19.25, 1.0045, 45.0)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho273" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho272" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(18.25, 1.0001, 44.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s290")
 
-[node name="Trecho274" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho273" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(17.25, 1.0, 44.5)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho275" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho274" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(15.75, 1.0, 44.0)
 rotation = Vector3(0, 2.9442, 0)
 shape = SubResource("s283")
 
-[node name="Trecho276" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho275" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(12.75, 1.0045, 42.75)
 rotation = Vector3(0, 2.6224, 0)
 shape = SubResource("s291")
 
-[node name="Trecho277" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho276" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(9.125, 1.0191, 39.875)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s292")
 
-[node name="Trecho278" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho277" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(6.5, 1.0248, 36.5)
 rotation = Vector3(0, 2.0344, 0)
 shape = SubResource("s293")
 
-[node name="Trecho279" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho278" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(5.75, 1.0425, 32.0)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s323")
 
-[node name="Trecho280" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho279" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(6.75, 1.1886, 27.25)
 rotation = Vector3(0, 1.0517, 0)
 shape = SubResource("s291")
 
-[node name="Trecho281" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho280" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(6.375, 1.1782, 25.375)
 rotation = Vector3(0, 3.0509, 0)
 shape = SubResource("s297")
 
-[node name="Trecho282" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho281" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(4.0, 1.1812, 24.75)
 rotation = Vector3(0, 2.6779, 0)
 shape = SubResource("s296")
 
-[node name="Trecho283" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho282" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(2.0, 1.091, 23.25)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s297")
 
-[node name="Trecho284" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho283" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(76.125, 1.0, 23.125)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s304")
 
-[node name="Trecho285" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho284" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(75.75, 1.0, 24.5)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s282")
 
-[node name="Trecho286" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho285" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(75.5, 1.0, 25.75)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho287" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho286" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(75.25, 1.0, 26.75)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s290")
 
-[node name="Trecho288" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho287" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(75.0, 1.0, 27.75)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho289" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho288" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(74.75, 1.0, 28.75)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s290")
 
-[node name="Trecho290" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho289" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(73.75, 1.0, 32.25)
 rotation = Vector3(0, -1.9196, 0)
-shape = SubResource("s347")
+shape = SubResource("s350")
 
-[node name="Trecho291" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho290" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(72.5, 1.0012, 36.5)
 rotation = Vector3(0, -1.7359, 0)
 shape = SubResource("s305")
 
-[node name="Trecho292" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho291" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(70.5, 1.066, 41.5)
 rotation = Vector3(0, -2.0344, 0)
-shape = SubResource("s348")
+shape = SubResource("s330")
 
-[node name="Trecho293" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho292" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(69.375, 1.103, 45.375)
 rotation = Vector3(0, -0.5404, 0)
 shape = SubResource("s290")
 
-[node name="Trecho294" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho293" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(72.0, 1.1, 48.0)
 rotation = Vector3(0, -0.8442, 0)
 shape = SubResource("s323")
 
-[node name="Trecho295" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho294" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(76.0, 1.0, 50.0)
 rotation = Vector3(0, 0.1244, 0)
 shape = SubResource("s291")
 
-[node name="Trecho296" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho295" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(78.25, 1.0, 49.5)
 rotation = Vector3(0, 0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho297" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho296" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(79.5, 1.0, 49.25)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s282")
 
-[node name="Trecho298" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho297" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(80.75, 1.0, 49.0)
 rotation = Vector3(0, 0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho299" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho298" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(81.75, 1.0, 48.75)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s290")
 
-[node name="Trecho300" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho299" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(83.375, 1.0033, 48.375)
 rotation = Vector3(0, 0.4049, 0)
-shape = SubResource("s337")
+shape = SubResource("s341")
 
-[node name="Trecho301" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho300" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(82.25, 0.7677, 44.75)
 rotation = Vector3(0, 2.1225, 0)
-shape = SubResource("s349")
+shape = SubResource("s351")
 
-[node name="Trecho302" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho301" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(80.25, 0.896, 41.0)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s294")
 
-[node name="Trecho303" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho302" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(79.75, 0.8831, 39.5)
 rotation = Vector3(0, 2.0344, 0)
 shape = SubResource("s296")
 
-[node name="Trecho304" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho303" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(79.25, 0.8355, 37.5)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s282")
 
-[node name="Trecho305" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho304" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(79.0, 0.9802, 36.25)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho306" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho305" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(79.0, 0.978, 34.0)
 rotation = Vector3(0, 1.4464, 0)
 shape = SubResource("s291")
 
-[node name="Trecho307" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho306" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(79.75, 0.9445, 31.0)
 rotation = Vector3(0, 1.1071, 0)
 shape = SubResource("s296")
 
-[node name="Trecho308" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho307" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(81.5, 0.8365, 28.5)
 rotation = Vector3(0, 0.8761, 0)
-shape = SubResource("s330")
+shape = SubResource("s333")
 
-[node name="Trecho309" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho308" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(82.375, 0.9409, 26.625)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s304")
 
-[node name="Trecho310" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho309" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(81.5, 1.0, 26.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s294")
 
-[node name="Trecho311" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho310" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(79.25, 1.0, 25.5)
 rotation = Vector3(0, 2.7367, 0)
 shape = SubResource("s299")
 
-[node name="Trecho312" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho311" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(77.0, 1.0, 23.75)
 rotation = Vector3(0, 2.0344, 0)
 shape = SubResource("s296")
 
-[node name="Trecho313" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho312" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(100.75, 1.0, 23.0)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho314" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho313" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(100.0, 1.0077, 23.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s294")
 
-[node name="Trecho315" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho314" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(99.0, 1.013, 24.0)
 rotation = Vector3(0, -2.1588, 0)
 shape = SubResource("s284")
 
-[node name="Trecho316" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho315" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(97.5, 1.0015, 25.25)
 rotation = Vector3(0, -2.6779, 0)
 shape = SubResource("s296")
 
-[node name="Trecho317" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho316" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(92.75, 1.0015, 26.75)
 rotation = Vector3(0, -2.881, 0)
-shape = SubResource("s348")
+shape = SubResource("s330")
 
-[node name="Trecho318" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho317" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(86.875, 1.0032, 31.125)
 rotation = Vector3(0, -2.1327, 0)
 shape = SubResource("s316")
 
-[node name="Trecho319" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho318" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(85.75, 0.9887, 37.75)
 rotation = Vector3(0, -1.2723, 0)
-shape = SubResource("s350")
+shape = SubResource("s352")
 
-[node name="Trecho320" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho319" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(88.375, 0.8498, 43.125)
 rotation = Vector3(0, -0.9179, 0)
-shape = SubResource("s339")
+shape = SubResource("s343")
 
-[node name="Trecho321" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho320" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(90.625, 1.0, 44.125)
 rotation = Vector3(0, 1.0637, 0)
-shape = SubResource("s334")
+shape = SubResource("s338")
 
-[node name="Trecho322" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho321" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(92.875, 1.0, 41.375)
 rotation = Vector3(0, 0.7854, 0)
 shape = SubResource("s307")
 
-[node name="Trecho323" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho322" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(96.5, 1.0, 38.75)
 rotation = Vector3(0, 0.4636, 0)
 shape = SubResource("s317")
 
-[node name="Trecho324" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho323" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(102.0, 1.0, 37.75)
 rotation = Vector3(0, -0.0, 0)
-shape = SubResource("s335")
+shape = SubResource("s339")
 
-[node name="Trecho325" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho324" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(107.5, 1.0, 38.75)
 rotation = Vector3(0, -0.4636, 0)
 shape = SubResource("s317")
 
-[node name="Trecho326" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho325" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(110.5, 1.0111, 40.75)
 rotation = Vector3(0, -0.7854, 0)
 shape = SubResource("s297")
 
-[node name="Trecho327" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho326" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(111.875, 1.0096, 41.375)
 rotation = Vector3(0, 0.7854, 0)
 shape = SubResource("s304")
 
-[node name="Trecho328" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho327" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(112.0, 1.018, 40.5)
 rotation = Vector3(0, 2.0344, 0)
 shape = SubResource("s304")
 
-[node name="Trecho329" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho328" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(111.75, 1.0, 36.0)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s316")
 
-[node name="Trecho330" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho329" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(112.0, 1.0, 31.75)
 rotation = Vector3(0, 0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho331" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho330" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(112.25, 1.0, 30.75)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s290")
 
-[node name="Trecho332" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho331" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(111.375, 1.0, 29.875)
 rotation = Vector3(0, 2.9997, 0)
 shape = SubResource("s284")
 
-[node name="Trecho333" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho332" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(110.25, 1.0, 30.0)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho334" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho333" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(108.75, 1.0121, 30.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s283")
 
-[node name="Trecho335" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho334" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(107.25, 1.0811, 30.5)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho336" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho335" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(105.5, 1.1279, 30.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s305")
 
-[node name="Trecho337" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho336" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(102.5, 1.13, 26.75)
 rotation = Vector3(0, 1.9296, 0)
 shape = SubResource("s288")
 
-[node name="Trecho338" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho337" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(37.75, 1.0, 40.75)
 rotation = Vector3(0, -2.415, 0)
 shape = SubResource("s323")
 
-[node name="Trecho339" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho338" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(33.125, 1.0, 43.625)
 rotation = Vector3(0, -2.7886, 0)
 shape = SubResource("s313")
 
-[node name="Trecho340" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho339" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(30.5, 1.0, 45.75)
 rotation = Vector3(0, -1.7682, 0)
 shape = SubResource("s283")
 
-[node name="Trecho341" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho340" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(30.0, 1.0, 47.25)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho342" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho341" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(29.75, 1.0013, 48.25)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s290")
 
-[node name="Trecho343" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho342" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(29.25, 1.0083, 50.0)
 rotation = Vector3(0, -2.0344, 0)
 shape = SubResource("s296")
 
-[node name="Trecho344" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho343" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(28.75, 1.0016, 51.75)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s290")
 
-[node name="Trecho345" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho344" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(28.5, 1.0, 52.75)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho346" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho345" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(28.375, 0.9377, 53.375)
 rotation = Vector3(0, -1.249, 0)
 shape = SubResource("s301")
 
-[node name="Trecho347" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho346" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(32.0, 0.807, 52.0)
 rotation = Vector3(0, 0.4636, 0)
-shape = SubResource("s348")
+shape = SubResource("s330")
 
-[node name="Trecho348" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho347" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(37.75, 0.6691, 50.25)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s317")
 
-[node name="Trecho349" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho348" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(41.0, 0.7737, 50.75)
 rotation = Vector3(0, -0.4636, 0)
 shape = SubResource("s296")
 
-[node name="Trecho350" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho349" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(42.75, 0.8816, 51.25)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s290")
 
-[node name="Trecho351" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho350" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(43.75, 1.1045, 51.0)
 rotation = Vector3(0, 0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho352" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho351" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(46.0, 1.066, 50.25)
 rotation = Vector3(0, 0.245, 0)
-shape = SubResource("s351")
+shape = SubResource("s353")
 
-[node name="Trecho353" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho352" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(48.375, 1.0599, 49.375)
 rotation = Vector3(0, 0.7854, 0)
 shape = SubResource("s304")
 
-[node name="Trecho354" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho353" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(48.75, 1.0677, 48.75)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s279")
 
-[node name="Trecho355" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho354" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(44.5, 1.022, 44.0)
 rotation = Vector3(0, 2.3276, 0)
-shape = SubResource("s352")
+shape = SubResource("s354")
 
-[node name="Trecho356" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho355" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(40.125, 1.0081, 39.125)
 rotation = Vector3(0, 1.8925, 0)
 shape = SubResource("s301")
 
-[node name="Trecho357" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho356" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(82.0, 0.9135, 56.5)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s279")
 
-[node name="Trecho358" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho357" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(82.0, 0.9135, 56.5)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s279")
 
-[node name="Trecho359" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho358" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(79.25, 1.0, 57.0)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho360" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho359" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(78.0, 1.0, 57.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s282")
 
-[node name="Trecho361" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho360" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(76.75, 1.0, 57.5)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho362" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho361" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(75.5, 1.0, 57.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s282")
 
-[node name="Trecho363" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho362" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(74.0, 1.02, 58.0)
 rotation = Vector3(0, -2.6779, 0)
 shape = SubResource("s304")
 
-[node name="Trecho364" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho363" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(71.75, 1.1044, 60.25)
 rotation = Vector3(0, -2.2896, 0)
 shape = SubResource("s292")
 
-[node name="Trecho365" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho364" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(68.25, 1.131, 63.0)
 rotation = Vector3(0, -2.7367, 0)
 shape = SubResource("s299")
 
-[node name="Trecho366" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho365" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(66.375, 1.1382, 65.375)
 rotation = Vector3(0, -1.6476, 0)
-shape = SubResource("s320")
+shape = SubResource("s334")
 
-[node name="Trecho367" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho366" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(66.5, 1.1035, 67.25)
 rotation = Vector3(0, -0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho368" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho367" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(66.75, 1.0955, 68.0)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s294")
 
-[node name="Trecho369" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho368" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(68.375, 1.0517, 69.625)
 rotation = Vector3(0, -0.6055, 0)
 shape = SubResource("s291")
 
-[node name="Trecho370" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho369" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(70.5, 1.0089, 70.75)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s294")
 
-[node name="Trecho371" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho370" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(71.25, 1.0, 71.0)
 rotation = Vector3(0, -0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho372" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho371" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(72.75, 1.0, 71.25)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s283")
 
-[node name="Trecho373" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho372" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(74.375, 0.7584, 68.375)
 rotation = Vector3(0, 1.4411, 0)
-shape = SubResource("s353")
+shape = SubResource("s329")
 
-[node name="Trecho374" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho373" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(75.75, 0.8792, 63.5)
 rotation = Vector3(0, 1.1071, 0)
 shape = SubResource("s317")
 
-[node name="Trecho375" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho374" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(78.875, 0.7982, 59.375)
 rotation = Vector3(0, 0.7854, 0)
 shape = SubResource("s323")
 
-[node name="Trecho376" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho375" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(81.375, 0.8703, 57.125)
 rotation = Vector3(0, 0.3218, 0)
 shape = SubResource("s301")
 
-[node name="Trecho377" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho376" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(80.625, 1.0291, 56.875)
 rotation = Vector3(0, 3.0309, 0)
 shape = SubResource("s303")
 
-[node name="Trecho378" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho377" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(44.25, 1.0453, 58.5)
 rotation = Vector3(0, -2.7367, 0)
 shape = SubResource("s299")
 
-[node name="Trecho379" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho378" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(41.75, 1.0446, 59.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s290")
 
-[node name="Trecho380" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho379" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(39.75, 1.0464, 59.75)
 rotation = Vector3(0, -2.7611, 0)
 shape = SubResource("s287")
 
-[node name="Trecho381" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho380" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(37.5, 1.0068, 60.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s282")
 
-[node name="Trecho382" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho381" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(36.25, 1.0, 60.5)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho383" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho382" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(35.0, 1.0, 60.75)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s282")
 
-[node name="Trecho384" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho383" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(33.75, 1.0, 61.0)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho385" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho384" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(32.25, 1.0079, 61.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s283")
 
-[node name="Trecho386" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho385" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(29.0, 1.137, 62.0)
 rotation = Vector3(0, -2.7828, 0)
-shape = SubResource("s328")
+shape = SubResource("s331")
 
-[node name="Trecho387" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho386" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(26.875, 1.0616, 65.625)
 rotation = Vector3(0, -1.6142, 0)
-shape = SubResource("s353")
+shape = SubResource("s329")
 
-[node name="Trecho388" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho387" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(26.5, 1.0702, 68.75)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho389" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho388" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(26.25, 1.0721, 69.75)
 rotation = Vector3(0, -1.5708, 0)
 shape = SubResource("s290")
 
-[node name="Trecho390" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho389" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(26.625, 1.0731, 70.875)
 rotation = Vector3(0, -0.7854, 0)
 shape = SubResource("s304")
 
-[node name="Trecho391" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho390" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(27.75, 1.0539, 71.25)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s290")
 
-[node name="Trecho392" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho391" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(31.0, 1.0, 72.25)
 rotation = Vector3(0, -0.3805, 0)
-shape = SubResource("s339")
+shape = SubResource("s343")
 
-[node name="Trecho393" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho392" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(33.75, 1.0, 69.5)
 rotation = Vector3(0, 1.5042, 0)
 shape = SubResource("s306")
 
-[node name="Trecho394" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho393" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(35.75, 1.0, 65.75)
 rotation = Vector3(0, -0.0, 0)
 shape = SubResource("s309")
 
-[node name="Trecho395" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho394" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(37.75, 1.0, 65.5)
 rotation = Vector3(0, 0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho396" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho395" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(41.75, 1.0, 65.0)
 rotation = Vector3(0, 0.0666, 0)
 shape = SubResource("s306")
 
-[node name="Trecho397" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho396" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(46.375, 1.025, 64.375)
 rotation = Vector3(0, 0.4049, 0)
-shape = SubResource("s337")
+shape = SubResource("s341")
 
-[node name="Trecho398" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho397" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(46.75, 1.0036, 63.25)
 rotation = Vector3(0, 2.1588, 0)
 shape = SubResource("s284")
 
-[node name="Trecho399" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho398" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(46.125, 1.0281, 60.125)
 rotation = Vector3(0, 1.6234, 0)
-shape = SubResource("s354")
+shape = SubResource("s325")
 
-[node name="Trecho400" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho399" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(69.375, 1.0162, 78.375)
 rotation = Vector3(0, -1.7682, 0)
 shape = SubResource("s308")
 
-[node name="Trecho401" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho400" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(69.5, 1.0163, 79.25)
 rotation = Vector3(0, -0.7854, 0)
 shape = SubResource("s289")
 
-[node name="Trecho402" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho401" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(70.25, 1.0109, 81.5)
 rotation = Vector3(0, -1.3258, 0)
-shape = SubResource("s351")
+shape = SubResource("s353")
 
-[node name="Trecho403" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho402" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(72.0, 1.0, 85.5)
 rotation = Vector3(0, -1.0122, 0)
 shape = SubResource("s355")
 
-[node name="Trecho404" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho403" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(73.625, 0.9543, 87.625)
 rotation = Vector3(0, -0.3218, 0)
 shape = SubResource("s301")
 
-[node name="Trecho405" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho404" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(74.375, 0.8013, 86.375)
 rotation = Vector3(0, 1.3045, 0)
 shape = SubResource("s286")
 
-[node name="Trecho406" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho405" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(76.25, 0.7804, 82.5)
 rotation = Vector3(0, 1.0304, 0)
-shape = SubResource("s353")
+shape = SubResource("s329")
 
-[node name="Trecho407" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho406" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(77.75, 0.8003, 79.25)
 rotation = Vector3(0, 1.5708, 0)
 shape = SubResource("s290")
 
-[node name="Trecho408" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho407" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(76.125, 1.0, 78.375)
 rotation = Vector3(0, 3.0648, 0)
-shape = SubResource("s320")
+shape = SubResource("s334")
 
-[node name="Trecho409" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho408" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(74.25, 1.0, 78.5)
 rotation = Vector3(0, -2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho410" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho409" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(73.75, 1.0, 78.5)
 rotation = Vector3(0, 2.3562, 0)
 shape = SubResource("s289")
 
-[node name="Trecho411" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho410" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(72.0, 1.0, 78.25)
 rotation = Vector3(0, -3.1416, 0)
 shape = SubResource("s305")
 
-[node name="Trecho412" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
+[node name="Trecho411" type="CollisionShape3D" parent="BordaDosCorredores/Parede"]
 position = Vector3(70.0, 1.003, 78.0)
 rotation = Vector3(0, 2.6779, 0)
 shape = SubResource("s304")
@@ -7390,7 +7392,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(77.5798, 17.9201, 109.8622, 82.9318, 18.567, 182.7948, 84.644, 16.5222, 228.8217, 84.6648, 81.8707, 315.1088, 81.2357, 88.0783, 269.9074, 84.2074, 88.4159, 291.4621, 91.2135, 90.3171, 232.0328, 97.2493, 96.1412, 149.8363, 94.1144, 102.5886, 242.8464, 87.3077, 107.2931, 334.3449, 73.472, 106.6753, 188.6673, 68.1896, 107.0893, 300.8296, 61.5925, 105.4991, 26.3766, 53.7467, 102.905, 248.1127, 49.1902, 97.1777, 277.9148, 54.5803, 91.8328, 178.4345, 58.9591, 90.6228, 86.8265, 55.807, 107.4751, 47.1791, 63.2936, 107.4518, 113.9475, 70.1576, 107.5635, 247.8031, 77.8306, 107.7019, 330.5811, 83.4988, 47.7, 52.1542, 80.3268, 42.7141, 79.4692, 78.5423, 38.1577, 198.9837, 79.3108, 30.935, 166.1979, 81.0151, 26.8801, 166.1001, 88.9967, 28.7718, 42.3672, 85.2794, 34.7261, 196.3524, 87.404, 40.9576, 226.686, 69.8863, 79.1219, 161.0053, 72.8591, 85.6299, 27.5455)
+posicoes_fixas = PackedVector3Array(77.5798, 17.9201, 109.8622, 82.9318, 18.567, 182.7948, 84.644, 16.5222, 228.8217, 82.39, 73.4928, 232.0345, 84.821, 80.3792, 343.3412, 81.2604, 88.514, 316.6145, 87.3266, 89.3973, 228.9945, 94.0164, 92.1677, 30.0543, 97.2236, 96.073, 290.2411, 94.095, 102.7188, 204.2513, 88.2727, 107.0272, 99.975, 78.3727, 107.6857, 15.7185, 71.7815, 107.4143, 300.0434, 65.4233, 106.047, 161.9728, 58.7891, 104.7698, 146.1002, 53.5265, 103.0029, 354.1522, 48.9583, 96.7616, 235.7772, 54.8289, 91.9381, 158.452, 62.3599, 90.2876, 133.9025, 58.0526, 87.1837, 271.5473, 53.4731, 107.542, 227.4782, 60.9397, 107.6591, 146.0339, 68.0909, 107.6683, 9.1496, 75.4148, 107.4227, 88.4065, 83.4341, 47.8837, 82.7041, 80.3235, 42.9993, 241.1018, 78.5032, 36.5621, 235.2898, 80.3962, 28.9251, 333.0443, 78.8467, 25.7634, 228.5344, 99.2248, 24.5107, 171.7399, 92.4264, 27.3453, 205.9369, 88.0556, 30.2833, 290.8792, 85.9642, 35.886, 270.5753, 69.8513, 78.9282, 225.6103, 72.8063, 85.538, 123.9485, 75.0274, 83.2991, 219.5805)
 seguir_o_chao = true
 
 [node name="Borda_arbusto_seco" type="Node3D" parent="BordaDosCorredores"]
@@ -7408,7 +7410,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(22.4771, 16.6682, 60.3964, 24.0539, 18.1251, 210.1856, 27.6389, 16.9828, 218.3009, 29.882, 18.6562, 301.6866, 32.2789, 18.4141, 278.6504, 35.7486, 20.8626, 350.3567, 37.3267, 20.2294, 58.5134, 43.3683, 29.3679, 162.1671, 53.1473, 40.1528, 147.9648, 64.7506, 31.4328, 243.0142, 65.8781, 26.6914, 236.7986, 67.8354, 15.9435, 353.3564, 57.3538, 17.2206, 276.6389, 38.8784, 17.598, 184.9659, 28.8294, 17.7781, 107.3459, 78.7063, 18.1214, 3.5013, 80.3429, 17.6559, 241.3861, 84.2372, 17.9241, 219.0267, 85.6433, 18.6381, 146.7079, 84.0688, 17.356, 17.9102, 102.2494, 15.9053, 51.1521, 111.0338, 16.3738, 156.8953, 116.2894, 22.9402, 160.5875, 118.148, 19.6157, 165.8112, 120.5859, 18.8008, 104.4328, 122.0762, 16.1263, 153.2872, 125.3594, 16.3288, 237.4871, 115.8183, 17.7821, 55.6583, 101.3701, 17.4001, 302.0445, 155.1457, 25.7472, 167.6666, 156.8624, 29.0839, 122.1684, 156.5225, 31.1845, 62.8735, 157.593, 34.4924, 44.0703, 156.9402, 36.9913, 61.3475, 158.0552, 39.337, 329.4879, 156.0573, 42.9533, 188.8723, 156.4606, 44.8595, 232.7453, 147.2632, 54.6347, 138.4859, 144.3761, 56.6164, 45.9876, 142.6378, 55.3796, 178.8577, 140.4077, 57.0721, 190.1949, 136.7128, 57.0443, 285.6459, 134.245, 57.9624, 192.4805, 130.9326, 56.8354, 216.795, 129.2221, 58.5035, 273.7337, 122.5324, 55.2311, 223.7541, 116.2634, 56.4894, 289.1578, 123.2657, 60.6772, 287.8938, 131.4954, 69.2317, 236.3861, 136.2571, 72.3277, 64.0468, 154.046, 79.4807, 316.009, 154.1529, 92.155, 324.3272, 137.7878, 100.1709, 94.5248, 120.5732, 90.0278, 98.0896, 118.4976, 78.1293, 84.1034, 111.3615, 69.0645, 269.8735, 107.396, 66.4172, 241.0906, 111.6544, 80.9104, 129.4589, 96.8925, 82.7247, 62.4046, 96.2421, 69.7403, 339.0109, 89.6279, 58.2359, 125.5078, 82.0786, 67.5937, 50.0816, 85.2798, 83.3765, 192.035, 82.4477, 86.0598, 308.752, 81.1053, 87.6346, 286.1848, 86.4718, 88.6391, 90.4791, 89.1019, 89.6227, 217.4651, 92.6441, 89.9352, 355.4753, 95.33, 93.532, 46.5288, 98.6595, 97.6897, 345.4222, 95.8971, 101.1826, 142.7957, 93.5225, 104.1076, 132.1405, 90.2662, 105.5576, 161.0309, 75.5319, 106.8491, 114.2648, 65.8815, 107.2342, 85.1612, 63.8174, 106.0596, 100.0111, 59.4289, 105.6056, 255.1934, 57.1356, 104.116, 205.137, 52.3194, 103.441, 81.7395, 49.6088, 99.4968, 169.0371, 48.7485, 94.9451, 3.9877, 52.3664, 92.8791, 31.2783, 55.2957, 90.719, 270.1342, 59.5318, 89.5897, 247.2824, 57.4829, 85.6659, 296.3124, 59.5907, 83.42, 59.4571, 61.8214, 81.6384, 279.6965, 61.7233, 80.4702, 86.8681, 59.6671, 79.9503, 338.3688, 58.1293, 72.0404, 8.8454, 52.2201, 67.6136, 304.6313, 53.3967, 76.3746, 37.0202, 51.9833, 77.3684, 332.2752, 53.2629, 80.8864, 104.142, 51.0121, 83.5064, 227.6691, 49.8746, 86.1474, 127.3735, 48.7628, 87.0784, 30.5305, 40.0901, 90.2201, 112.1231, 29.6257, 97.8899, 285.4137, 25.4194, 98.5389, 164.3842, 23.948, 97.6789, 51.6759, 20.178, 98.8237, 77.1768, 18.1708, 97.8994, 174.4311, 15.7991, 98.4191, 157.3676, 12.3586, 96.0861, 317.0796, 10.3497, 97.1827, 343.4856, 6.6581, 93.9231, 233.9147, 6.1786, 91.9793, 223.4248, 3.0792, 89.187, 169.9255, 3.2824, 86.3944, 274.8749, 2.243, 83.9249, 352.5344, 2.4688, 79.3471, 304.7037, 4.2182, 78.9586, 359.6266, 5.7753, 75.417, 0.5465, 8.2334, 74.5506, 353.398, 16.8754, 69.465, 1.8113, 17.1926, 64.4238, 228.12, 16.6609, 63.106, 136.439, 13.3301, 63.3164, 133.531, 11.2266, 62.3169, 7.3725, 10.0472, 64.1093, 183.125, 2.3269, 69.1988, 212.3295, 2.6199, 86.831, 356.9592, 2.6779, 92.8747, 127.6781, 1.4608, 94.2121, 341.1636, 2.8922, 98.1337, 351.5509, 1.538, 100.2094, 203.786, 3.1254, 102.526, 337.8873, 6.2535, 106.1593, 174.8563, 14.6597, 105.964, 138.2469, 15.4519, 107.5881, 238.6299, 19.1095, 106.4827, 111.8169, 21.7093, 107.6077, 234.7614, 23.5998, 106.7396, 315.7797, 27.4883, 107.264, 245.8768, 28.3397, 106.6568, 183.5605, 33.6555, 107.4171, 59.5776, 33.6404, 105.8224, 306.5231, 36.5025, 106.8992, 77.6211, 48.5629, 106.6314, 340.7951, 56.8671, 106.3662, 221.6754, 60.9344, 107.6221, 20.7692, 64.1145, 106.5261, 165.0006, 67.9474, 107.5246, 14.0546, 75.1204, 107.6349, 101.456, 90.0078, 106.8525, 186.1977, 101.9746, 106.726, 269.0482, 114.1267, 106.5012, 17.7819, 126.1008, 106.8963, 9.2464, 127.8046, 106.8562, 142.4038, 128.7191, 107.5818, 12.9254, 132.5777, 106.4868, 18.8052, 134.8467, 107.4764, 154.3786, 136.7593, 106.4843, 80.5622, 140.678, 107.7892, 321.3516, 142.2798, 106.1973, 166.0658, 143.8186, 107.552, 4.7397, 147.0562, 106.4717, 207.9903, 149.461, 107.5129, 309.5065, 157.0466, 106.1991, 122.7665, 157.5893, 98.9799, 265.6332, 158.6031, 97.5215, 82.0737, 157.2142, 93.8299, 302.1065, 158.4983, 91.8064, 287.8719, 156.9196, 89.3593, 99.9442, 158.4157, 85.5968, 91.8105, 156.9064, 83.86, 96.0628, 156.7781, 72.1285, 286.1186, 157.8393, 63.3642, 142.0848, 157.4077, 51.6784, 205.9776, 157.3397, 47.9823, 167.8003, 157.429, 35.9746, 260.5553, 157.6962, 22.5656, 298.4658, 155.0799, 18.0301, 92.5547, 3.2186, 31.4705, 335.5513, 2.4132, 43.3514, 55.5989, 2.7605, 44.3004, 142.0891, 1.4517, 45.847, 46.8826, 2.7071, 49.4796, 90.2127, 1.4629, 51.5426, 196.0989, 2.5341, 53.735, 189.2147, 13.3776, 52.5295, 219.869, 21.0677, 47.1896, 101.2547, 17.9958, 46.5906, 103.4084, 8.5874, 41.3448, 41.1979, 7.9913, 39.7692, 201.5075, 4.8259, 36.8785, 137.0273, 4.9765, 34.1076, 264.7323, 3.7424, 31.5804, 267.1851, 5.7179, 27.9555, 140.4003, 4.9946, 26.2803, 146.8977, 5.475, 26.9397, 244.2587, 4.3106, 25.6299, 353.2689, 76.192, 24.0665, 288.023, 75.9978, 28.5916, 113.6984, 75.2274, 29.86, 161.1124, 75.2964, 32.7902, 277.3016, 73.407, 39.9652, 34.8351, 75.2939, 48.6904, 100.8127, 82.2122, 48.4878, 327.3309, 81.5553, 44.7915, 320.1011, 79.0913, 41.5182, 22.4535, 78.0956, 36.7146, 130.177, 78.6355, 33.3112, 237.2084, 78.6424, 29.3945, 197.1707, 81.8591, 27.1157, 150.5587, 79.5507, 27.1676, 311.9328, 77.2405, 26.3354, 214.4334, 76.5154, 24.5552, 193.1233, 100.5872, 24.2096, 29.2411, 99.2834, 24.5939, 41.7269, 96.4055, 27.3068, 219.7984, 93.4754, 27.2591, 192.0762, 91.5362, 28.8455, 166.6411, 89.3839, 30.2279, 67.3614, 86.4407, 32.6034, 210.6757, 86.682, 35.382, 245.9681, 86.6803, 38.7583, 269.2683, 89.0985, 41.3817, 71.2544, 91.3404, 40.5279, 82.93, 111.2687, 39.2385, 124.1383, 111.7442, 31.5706, 111.6263, 100.3978, 25.9161, 346.2413, 40.9381, 40.3212, 281.9936, 39.0186, 40.2056, 204.3225, 37.1905, 43.3824, 239.4935, 34.0532, 43.9637, 329.6814, 32.141, 45.4893, 90.7093, 30.433, 47.5585, 236.5596, 31.093, 48.2266, 213.6509, 32.2203, 49.4655, 160.0988, 44.5345, 48.6379, 34.7477, 41.3533, 43.2279, 317.2165, 74.8263, 59.0698, 272.9451, 68.2798, 65.8368, 83.996, 74.4262, 62.5451, 299.1833, 37.5744, 62.3147, 55.0297, 27.7955, 64.6082, 200.8781, 27.627, 63.956, 224.1553, 28.4388, 67.5278, 267.9701, 26.9551, 69.8533, 318.0205, 27.7156, 69.6856, 120.8352, 31.0629, 71.6539, 79.06, 32.8915, 70.6535, 173.4091, 33.2778, 72.294, 237.1642, 31.7776, 70.411, 117.5045, 33.3806, 67.953, 216.6827, 33.9647, 63.749, 307.3441, 37.5706, 65.0252, 116.7153, 38.9813, 63.466, 113.938, 43.5052, 64.3663, 16.5403, 43.2637, 63.3519, 140.4203, 45.1672, 63.4118, 283.1212, 71.9546, 79.974, 241.7118, 71.3514, 83.6091, 355.3984, 74.008, 85.5699, 158.5651, 75.7476, 79.7748, 151.9267)
+posicoes_fixas = PackedVector3Array(22.4771, 16.6682, 60.3964, 24.0539, 18.1251, 210.1856, 27.6389, 16.9828, 218.3009, 29.882, 18.6562, 301.6866, 32.2789, 18.4141, 278.6504, 35.7486, 20.8626, 350.3567, 37.3267, 20.2294, 58.5134, 43.3683, 29.3679, 162.1671, 53.1473, 40.1528, 147.9648, 64.7506, 31.4328, 243.0142, 65.8781, 26.6914, 236.7986, 67.8354, 15.9435, 353.3564, 57.3538, 17.2206, 276.6389, 38.8784, 17.598, 184.9659, 28.8294, 17.7781, 107.3459, 78.7063, 18.1214, 3.5013, 80.3429, 17.6559, 241.3861, 84.2372, 17.9241, 219.0267, 85.6433, 18.6381, 146.7079, 84.0688, 17.356, 17.9102, 102.2494, 15.9053, 51.1521, 111.0338, 16.3738, 156.8953, 116.2894, 22.9402, 160.5875, 118.148, 19.6157, 165.8112, 120.5859, 18.8008, 104.4328, 122.0762, 16.1263, 153.2872, 125.3594, 16.3288, 237.4871, 115.8183, 17.7821, 55.6583, 101.3701, 17.4001, 302.0445, 155.1457, 25.7472, 167.6666, 156.8624, 29.0839, 122.1684, 156.5225, 31.1845, 62.8735, 157.593, 34.4924, 44.0703, 156.9402, 36.9913, 61.3475, 158.0552, 39.337, 329.4879, 156.0573, 42.9533, 188.8723, 156.4606, 44.8595, 232.7453, 147.2632, 54.6347, 138.4859, 144.3761, 56.6164, 45.9876, 142.6378, 55.3796, 178.8577, 140.4077, 57.0721, 190.1949, 136.7128, 57.0443, 285.6459, 134.245, 57.9624, 192.4805, 130.9326, 56.8354, 216.795, 129.2221, 58.5035, 273.7337, 122.5324, 55.2311, 223.7541, 116.2634, 56.4894, 289.1578, 123.9023, 62.9768, 287.8938, 133.0938, 70.2218, 19.4785, 137.5746, 71.5751, 327.0995, 148.9491, 74.5625, 72.1619, 155.8495, 83.9635, 91.3298, 148.4481, 97.1493, 276.3593, 127.2617, 97.8578, 156.7568, 119.1789, 90.008, 89.7601, 110.2553, 80.3151, 199.1881, 124.3069, 75.898, 357.3996, 124.6986, 78.0754, 150.5618, 111.0519, 66.9089, 85.1575, 109.6888, 70.1351, 128.7051, 108.1237, 83.1788, 87.4593, 93.9548, 79.6773, 327.5225, 94.5443, 66.2917, 32.2337, 85.969, 61.7697, 308.8421, 81.3352, 68.3916, 264.4072, 84.102, 74.0321, 15.0359, 84.9405, 77.9345, 6.7435, 85.1733, 82.28, 132.8939, 83.1018, 85.2865, 203.9422, 81.1314, 87.3256, 105.0293, 85.3571, 88.9751, 61.9301, 88.7301, 88.4082, 345.0056, 91.7953, 90.8662, 37.4726, 96.2243, 92.7179, 286.863, 98.3313, 97.6467, 23.2635, 96.1065, 101.1066, 332.3021, 93.7014, 104.1434, 55.4505, 90.2224, 105.7402, 235.5189, 76.37, 107.9507, 43.9406, 73.6779, 106.8408, 121.6334, 64.2434, 106.8174, 338.9378, 61.0176, 105.1913, 196.9602, 57.5786, 105.1073, 61.427, 51.7468, 103.0162, 278.4316, 49.4272, 99.3044, 248.1388, 48.6833, 94.7753, 347.8749, 52.4071, 92.9625, 319.953, 55.0715, 90.0541, 156.2658, 59.3045, 90.6978, 24.5114, 59.5893, 89.4776, 256.9423, 57.4864, 84.8278, 85.2352, 58.6393, 76.6224, 142.4896, 56.7449, 65.5104, 224.8569, 51.9355, 66.4122, 198.7365, 52.8035, 72.051, 144.8644, 51.1552, 72.5291, 48.1816, 52.7116, 76.2428, 112.448, 52.4863, 78.6819, 39.5285, 53.4049, 80.8315, 148.8763, 45.319, 90.8566, 63.6328, 40.4275, 90.1603, 305.3444, 38.6841, 91.1053, 31.9372, 36.8689, 94.4147, 53.2135, 33.9562, 95.004, 120.0352, 32.3907, 97.0529, 317.0796, 28.3863, 97.3443, 358.7638, 27.3649, 98.4165, 235.8813, 14.0974, 98.0798, 16.6076, 1.8274, 82.8403, 319.2455, 9.2517, 72.0417, 341.8401, 17.6425, 69.478, 351.9658, 11.422, 63.7855, 333.7997, 8.4149, 64.2221, 173.1514, 7.1198, 63.9736, 154.9777, 3.873, 66.1478, 95.3425, 1.1656, 65.7973, 308.872, 3.052, 67.1633, 255.2074, 2.7742, 68.735, 189.3485, 1.4597, 69.7974, 230.4381, 2.2219, 73.2547, 188.8317, 1.4629, 75.7199, 255.6797, 2.5261, 78.1253, 147.0949, 2.482, 82.1167, 31.9957, 2.3551, 93.9975, 97.3178, 2.4973, 104.0092, 356.8132, 8.3282, 106.1935, 338.6071, 9.3382, 106.2285, 260.5501, 10.7384, 107.6033, 141.5475, 14.2263, 106.0222, 266.0159, 16.7968, 107.5767, 181.9553, 19.1268, 106.8549, 234.2185, 28.7131, 106.5806, 249.5824, 43.5897, 106.5553, 134.3944, 54.467, 105.9644, 44.4465, 58.2636, 107.3551, 182.1428, 62.0762, 106.2938, 356.522, 65.6326, 107.3549, 28.0194, 69.1697, 106.7054, 83.1062, 72.9433, 107.3929, 322.8462, 88.3001, 106.8109, 247.8031, 89.2516, 107.4576, 272.3681, 93.117, 106.7019, 101.456, 95.0163, 107.4894, 113.9954, 97.9176, 105.8803, 132.2761, 101.1932, 107.6785, 274.6763, 102.2307, 106.1692, 322.7156, 107.0302, 107.5487, 145.1001, 106.7641, 106.1151, 140.9093, 108.5345, 106.5582, 38.7698, 109.8045, 107.4402, 311.8224, 113.1597, 106.2795, 87.3225, 115.8566, 107.7055, 45.7188, 118.0728, 106.5588, 40.2869, 121.8844, 107.6703, 21.3902, 122.9167, 106.6685, 335.6177, 127.5557, 107.4027, 99.0244, 127.9336, 106.7095, 171.1458, 130.1835, 106.4863, 104.7564, 131.501, 107.7015, 188.2621, 134.6295, 106.344, 176.6395, 137.4128, 107.4554, 288.4479, 139.6687, 106.8404, 80.226, 143.451, 107.4798, 298.4623, 144.8389, 106.9152, 238.2801, 147.5655, 106.5263, 246.5219, 157.3058, 93.6256, 352.3543, 157.481, 80.0402, 246.4682, 157.7185, 61.752, 321.1416, 157.3971, 49.2128, 206.2735, 157.4981, 41.1101, 161.9403, 158.549, 40.1163, 144.3715, 157.8273, 36.3435, 113.728, 158.504, 34.0489, 185.9841, 157.216, 31.7456, 121.8666, 157.2109, 28.2076, 81.6731, 152.7191, 17.5887, 359.0946, 3.1285, 31.133, 342.0155, 2.2266, 42.6271, 246.9721, 2.5876, 53.3052, 199.688, 4.1422, 54.7437, 322.8631, 5.6501, 55.3767, 24.1175, 9.057, 53.2923, 58.4109, 11.4798, 53.5286, 298.9341, 13.7724, 53.0949, 45.3412, 17.5904, 54.7187, 208.4905, 18.6432, 54.1833, 59.2493, 20.2441, 52.9095, 64.6792, 18.9215, 52.9435, 150.7361, 19.7475, 49.8338, 345.5702, 21.429, 48.9907, 328.6562, 21.07, 45.772, 181.85, 20.8761, 46.0873, 62.4, 18.5733, 46.9183, 3.7359, 15.1543, 44.5692, 87.5078, 12.9073, 45.1519, 264.8817, 9.7123, 41.2487, 101.5505, 9.0419, 42.1768, 54.0794, 8.377, 40.9106, 202.1466, 7.8466, 39.5748, 271.9088, 4.493, 37.2563, 119.7487, 5.1997, 34.0187, 278.6134, 4.2148, 31.7108, 115.2408, 5.6318, 27.725, 155.8351, 5.3528, 26.0638, 101.4688, 75.7592, 31.3096, 294.636, 71.6788, 43.2723, 184.6965, 72.3596, 46.6989, 38.7018, 82.42, 48.5682, 72.7967, 81.5027, 45.0581, 65.8284, 78.9745, 42.2503, 99.9633, 78.4719, 38.0596, 138.9464, 77.1096, 34.3522, 236.8513, 79.0113, 31.1036, 283.3972, 80.0915, 27.6129, 338.2837, 81.1446, 26.7426, 41.7482, 77.1941, 26.0428, 70.0733, 98.6417, 27.1807, 304.4451, 94.7872, 26.7494, 289.9143, 91.2194, 29.1676, 53.0227, 88.2969, 31.7919, 324.151, 85.7749, 34.1759, 324.0692, 87.5309, 36.9897, 315.8467, 87.304, 40.4681, 209.5892, 89.3573, 43.1282, 24.5241, 104.3423, 36.0661, 57.918, 109.866, 39.2402, 252.9903, 111.1213, 38.4307, 238.654, 109.8332, 34.5049, 194.1332, 111.0992, 32.2477, 88.6902, 109.2024, 30.897, 352.671, 107.8444, 32.344, 110.1126, 100.3794, 25.0685, 285.4299, 40.4032, 40.3462, 343.0108, 32.1094, 46.7606, 268.567, 34.754, 48.8623, 117.8204, 45.4136, 48.1176, 262.5532, 74.7165, 59.1772, 270.9885, 68.5492, 65.5197, 148.4566, 73.6362, 63.7404, 173.0315, 44.4438, 58.8818, 62.0017, 41.2439, 60.9334, 328.2291, 38.8756, 60.9232, 154.1425, 37.9003, 61.8583, 139.583, 33.144, 61.9326, 206.9996, 31.838, 63.0783, 337.7194, 27.6739, 63.0546, 218.0872, 27.8709, 64.2124, 169.5336, 28.4711, 69.8033, 10.8682, 31.9534, 69.4709, 8.8008, 45.9605, 62.6298, 226.4482, 71.3583, 80.4041, 111.8823, 71.4333, 83.6375, 26.9949, 74.1908, 86.093, 50.9061, 74.1305, 85.5775, 57.0821, 74.44, 82.0737, 226.3882, 75.3791, 80.2727, 117.3106)
 seguir_o_chao = true
 
 [node name="Borda_arvore_seca" type="Node3D" parent="BordaDosCorredores"]
@@ -7426,7 +7428,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = true
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(54.5687, 39.4057, 5.3228, 60.4699, 41.0868, 274.9477, 113.0608, 15.9121, 85.8554, 153.6269, 20.8963, 137.8436, 118.1285, 57.1949, 35.7015, 123.1474, 59.3184, 238.4044, 127.7705, 64.3725, 128.928, 133.8753, 70.9888, 328.3927, 138.038, 70.7376, 267.3293, 146.807, 72.6118, 14.5688, 151.8329, 75.4346, 160.9164, 156.1932, 80.7276, 324.2121, 121.8819, 78.3955, 233.0, 53.2185, 71.1768, 102.5023, 16.6938, 68.5615, 125.763, 6.3332, 104.8457, 76.526, 27.526, 105.2467, 298.9508, 36.5994, 105.5571, 152.4342, 38.5998, 105.3671, 35.7435, 40.599, 105.8165, 46.1408, 46.6, 105.1939, 315.3035, 48.6002, 105.0714, 351.156, 50.5993, 105.6368, 185.665, 95.8735, 105.5454, 219.2439, 116.2309, 105.8747, 155.8403, 126.231, 105.8313, 122.7526, 148.448, 106.0183, 81.3449, 156.9137, 105.2073, 254.973, 11.2143, 51.95, 348.4999, 17.6928, 53.4664, 295.9137, 75.9819, 48.1684, 36.8957, 77.433, 47.3924, 348.0293, 91.7273, 38.2639, 197.1985, 94.1872, 36.6865, 64.6129, 105.1181, 35.0699, 168.5338, 42.8242, 48.6035, 116.4564, 46.2783, 47.3298, 187.7725, 44.9793, 62.1817, 249.7142, 75.0572, 79.0549, 109.1904)
+posicoes_fixas = PackedVector3Array(54.5687, 39.4057, 5.3228, 60.4699, 41.0868, 274.9477, 113.0608, 15.9121, 85.8554, 153.6269, 20.8963, 137.8436, 118.1285, 57.1949, 35.7015, 124.4666, 61.923, 238.4044, 125.703, 63.5491, 100.1191, 128.9078, 65.9594, 222.9023, 139.8323, 71.2249, 105.1095, 156.3193, 80.9483, 324.2121, 112.1738, 74.0215, 129.6035, 118.0169, 73.6932, 65.6532, 106.9343, 66.802, 301.443, 95.5193, 69.3841, 122.0728, 17.5361, 68.2022, 43.7251, 24.3363, 105.7854, 350.5401, 43.5377, 105.2477, 183.5605, 97.5661, 105.2045, 232.5273, 109.7576, 105.796, 331.8857, 110.9588, 105.0388, 204.816, 122.9589, 105.005, 46.0921, 125.3575, 105.8412, 187.6528, 132.6209, 105.7647, 207.2192, 157.259, 105.875, 259.6766, 4.6817, 53.2458, 163.2678, 19.4084, 53.3841, 8.4385, 71.8551, 44.4377, 319.2064, 68.2787, 65.1684, 126.9865, 76.8074, 57.6828, 32.7142, 39.7541, 61.9735, 56.2044)
 seguir_o_chao = true
 
 [node name="Borda_barreira_de_concreto" type="Node3D" parent="BordaDosCorredores"]
@@ -7444,7 +7446,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(1.4243, 16.7601, 45.0, 15.5846, 17.309, -37.875, 17.296, 17.35, -0.0, 19.3161, 18.0456, -21.8014, 21.1034, 18.35, -0.0, 65.7295, 16.15, -180.0, 63.7295, 16.15, -180.0, 61.7295, 16.15, -180.0, 59.7295, 16.15, -180.0, 57.7295, 16.15, -180.0, 55.7295, 16.15, -180.0, 53.7295, 16.15, -180.0, 51.7295, 16.15, -180.0, 49.7295, 16.15, -180.0, 47.2186, 16.15, -180.0, 45.2186, 16.15, -180.0, 43.2186, 16.15, -180.0, 41.2186, 16.15, -180.0, 39.2186, 16.15, -180.0, 37.1064, 16.15, -180.0, 35.1064, 16.15, -180.0, 33.1064, 16.15, -180.0, 31.1064, 16.15, -180.0, 29.1064, 16.15, -180.0, 27.1064, 16.15, -180.0, 25.1064, 16.15, -180.0, 23.1064, 16.15, -180.0, 21.1064, 16.15, -180.0, 19.1058, 16.15, -180.0, 17.1058, 16.15, -180.0, 15.1058, 16.15, -180.0, 83.2801, 16.15, -180.0, 81.2801, 16.15, -180.0, 79.2801, 16.15, -180.0, 92.4, 16.75, -90.0, 92.4, 18.75, -90.0, 92.4989, 18.7955, 40.6013, 94.0175, 17.4939, 40.6013, 95.8902, 16.35, -0.0, 97.8902, 16.35, -0.0, 99.8902, 16.35, -0.0, 123.5848, 16.15, -180.0, 121.5848, 16.15, -180.0, 119.5848, 16.15, -180.0, 117.5848, 16.15, -180.0, 115.5848, 16.15, -180.0, 113.5848, 16.15, -180.0, 111.5848, 16.15, -180.0, 109.2685, 16.15, -180.0, 107.2685, 16.15, -180.0, 105.2685, 16.15, -180.0, 103.2685, 16.15, -180.0, 101.2685, 16.15, -180.0, 93.7392, 16.15, -180.0, 141.3657, 16.4152, -11.3099, 143.3268, 16.8074, -11.3099, 145.2182, 17.747, -29.0546, 146.9666, 18.7183, -29.0546, 158.8391, 20.0206, 89.8447, 158.8445, 18.0207, 89.8447, 158.8499, 16.0207, 89.8447, 157.267, 16.3755, 179.2927, 155.2671, 16.3509, 179.2927, 153.2673, 16.3262, 179.2927, 151.2674, 16.3015, 179.2927, 149.2676, 16.2768, 179.2927, 146.619, 16.2441, 179.2927, 144.6191, 16.2194, 179.2927, 142.6193, 16.1947, 179.2927)
+posicoes_fixas = PackedVector3Array(1.4243, 16.7601, 45.0, 15.5846, 17.309, -37.875, 17.296, 17.35, -0.0, 19.3161, 18.0456, -21.8014, 21.1034, 18.35, -0.0, 65.7295, 16.15, -180.0, 63.7295, 16.15, -180.0, 61.7295, 16.15, -180.0, 59.7295, 16.15, -180.0, 57.7295, 16.15, -180.0, 55.7295, 16.15, -180.0, 53.7295, 16.15, -180.0, 51.7295, 16.15, -180.0, 49.7295, 16.15, -180.0, 47.2186, 16.15, -180.0, 45.2186, 16.15, -180.0, 43.2186, 16.15, -180.0, 41.2186, 16.15, -180.0, 39.2186, 16.15, -180.0, 37.1064, 16.15, -180.0, 35.1064, 16.15, -180.0, 33.1064, 16.15, -180.0, 31.1064, 16.15, -180.0, 29.1064, 16.15, -180.0, 27.1064, 16.15, -180.0, 25.1064, 16.15, -180.0, 23.1064, 16.15, -180.0, 21.1064, 16.15, -180.0, 19.1058, 16.15, -180.0, 17.1058, 16.15, -180.0, 15.1058, 16.15, -180.0, 83.2801, 16.15, -180.0, 81.2801, 16.15, -180.0, 79.2801, 16.15, -180.0, 92.4, 16.75, -90.0, 92.4, 18.75, -90.0, 92.4989, 18.7955, 40.6013, 94.0175, 17.4939, 40.6013, 95.8902, 16.35, -0.0, 97.8902, 16.35, -0.0, 99.8902, 16.35, -0.0, 123.5848, 16.15, -180.0, 121.5848, 16.15, -180.0, 119.5848, 16.15, -180.0, 117.5848, 16.15, -180.0, 115.5848, 16.15, -180.0, 113.5848, 16.15, -180.0, 111.5848, 16.15, -180.0, 109.2685, 16.15, -180.0, 107.2685, 16.15, -180.0, 105.2685, 16.15, -180.0, 103.2685, 16.15, -180.0, 101.2685, 16.15, -180.0, 93.7392, 16.15, -180.0, 141.3657, 16.4152, -11.3099, 143.3268, 16.8074, -11.3099, 145.2182, 17.747, -29.0546, 146.9666, 18.7183, -29.0546, 158.8456, 17.6403, 89.8447, 158.8864, 16.3955, 179.2927, 156.8866, 16.3709, 179.2927, 154.8868, 16.3462, 179.2927, 152.8869, 16.3215, 179.2927, 150.8871, 16.2968, 179.2927, 148.8872, 16.2721, 179.2927, 146.8874, 16.2474, 179.2927, 144.8875, 16.2227, 179.2927, 142.4932, 16.1932, 179.2927)
 seguir_o_chao = true
 
 [node name="Borda_cacto_alto" type="Node3D" parent="BordaDosCorredores"]
@@ -7462,7 +7464,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = true
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(22.7843, 16.2459, 150.1718, 139.4579, 105.5539, 215.4577, 146.0495, 105.0426, 230.0811, 29.5911, 69.0594, 211.0981)
+posicoes_fixas = PackedVector3Array(22.7843, 16.2459, 150.1718, 9.6698, 105.3027, 111.4957, 133.8206, 105.9799, 23.5331, 8.7226, 52.966, 236.352)
 seguir_o_chao = true
 
 [node name="Borda_cacto_de_raquete" type="Node3D" parent="BordaDosCorredores"]
@@ -7480,7 +7482,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(27.7034, 18.0244, 106.7751, 33.2846, 19.689, 228.5964, 118.9417, 20.2413, 128.6132, 123.9539, 17.0884, 55.8969, 156.9038, 34.5467, 134.4426, 156.4282, 40.7966, 265.5068, 139.218, 56.3233, 136.8761, 133.0271, 56.9407, 148.8569, 58.1635, 85.7038, 156.2658, 62.2235, 82.226, 103.2838, 59.9857, 77.0879, 297.7463, 52.5301, 81.2003, 318.4134, 20.48, 97.9681, 31.9372, 14.7576, 96.7992, 125.9523, 9.1633, 94.4647, 358.7638, 4.2114, 88.8478, 115.1393, 3.1825, 82.8139, 291.8806, 6.7957, 75.8527, 331.431, 13.302, 62.5051, 318.9149, 8.2011, 63.7699, 200.8347, 1.3936, 97.895, 359.0175, 1.2589, 103.75, 285.2225, 19.2367, 107.3851, 110.0507, 25.1662, 107.2645, 80.4672, 30.923, 107.5571, 2.0586, 132.4479, 107.6299, 317.1809, 138.075, 107.5911, 74.0839, 147.4307, 107.5121, 109.1101, 158.4514, 94.1096, 24.1736, 158.2788, 88.0561, 46.7724, 1.4164, 49.1376, 260.9268, 1.5292, 55.1421, 279.0054, 3.3033, 56.4457, 125.0698, 5.8901, 36.5332, 259.7467, 5.2066, 30.3468, 200.6411, 1.2909, 23.4372, 260.1899, 75.6727, 27.8779, 280.6616, 73.8613, 33.544, 240.0438, 95.9272, 26.6763, 296.5219, 36.431, 42.6839, 114.2283, 31.3161, 44.7561, 8.6867, 27.3067, 67.3566, 346.2913, 28.8625, 70.8952, 213.1786, 33.2187, 70.0085, 19.5786, 35.5562, 65.2063, 89.0814, 41.2879, 64.4578, 241.1605)
+posicoes_fixas = PackedVector3Array(27.7034, 18.0244, 106.7751, 33.2846, 19.689, 228.5964, 118.9417, 20.2413, 128.6132, 123.9539, 17.0884, 55.8969, 156.9038, 34.5467, 134.4426, 156.4282, 40.7966, 265.5068, 139.218, 56.3233, 136.8761, 133.0271, 56.9407, 148.8569, 51.6586, 76.6035, 91.0392, 51.8478, 82.5254, 63.225, 36.1575, 93.3627, 352.9116, 30.8024, 96.4131, 116.6003, 25.0725, 97.7029, 75.0939, 3.6186, 65.3143, 241.0538, 1.4322, 73.0745, 218.2199, 1.1627, 79.048, 156.2778, 14.2916, 107.3952, 19.8847, 92.8044, 107.6934, 67.9264, 98.7311, 107.6301, 161.4369, 104.8626, 107.6932, 253.6607, 113.1651, 107.415, 295.1881, 119.4302, 107.7091, 188.292, 125.1751, 107.5708, 74.0839, 134.9516, 107.4685, 73.4638, 141.1844, 107.424, 325.2256, 158.7348, 36.3803, 116.4822, 158.7974, 30.2836, 213.3614, 9.3266, 54.0541, 300.8643, 15.0671, 54.0256, 223.7404, 19.7254, 54.9688, 79.4133, 21.9291, 45.6986, 146.8977, 16.8396, 45.2186, 149.4148, 11.8283, 42.9503, 3.3791, 5.7385, 36.6683, 214.8518, 5.0352, 30.3114, 300.3058, 111.0173, 34.7398, 316.9427, 111.0207, 30.2866, 76.1095, 41.0514, 59.8472, 20.6648, 35.2392, 61.3102, 81.2358, 29.7281, 62.1899, 160.5088)
 seguir_o_chao = true
 
 [node name="Borda_cacto_redondo" type="Node3D" parent="BordaDosCorredores"]
@@ -7498,7 +7500,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(25.3712, 18.2546, 283.4458, 31.4345, 19.017, 245.8293, 36.6416, 21.1699, 173.6802, 58.1965, 42.2261, 177.5363, 65.8959, 24.3196, 315.7399, 66.7152, 17.9793, 20.8178, 115.575, 18.8169, 273.7038, 117.0181, 22.1148, 33.3434, 121.6464, 18.1245, 230.2648, 156.8725, 32.0171, 62.4379, 156.9992, 38.1984, 272.8905, 153.5369, 48.5993, 178.6116, 141.6572, 55.892, 147.9816, 135.5532, 56.8971, 51.0268, 129.64, 56.9221, 255.0053, 116.0125, 50.4064, 35.6567, 121.8174, 60.653, 270.7949, 125.6892, 65.2567, 224.0929, 144.4923, 72.6926, 14.7663, 147.2763, 97.8003, 276.3593, 129.2079, 98.939, 156.7568, 121.2971, 80.8654, 113.8093, 110.7441, 70.9989, 247.5075, 102.8853, 83.7845, 331.2653, 92.773, 75.1775, 221.5633, 92.9554, 65.0507, 98.2638, 83.3602, 72.8633, 241.4149, 58.544, 88.2988, 240.521, 60.7069, 82.8088, 144.7086, 61.2901, 79.1988, 183.9101, 56.4326, 65.2778, 333.0843, 53.4349, 75.5557, 165.2411, 52.2564, 78.7114, 130.2596, 50.0176, 84.5363, 91.0392, 46.016, 90.404, 202.7589, 22.7549, 97.9543, 190.5985, 16.4016, 97.3341, 53.2135, 11.2244, 95.76, 116.6003, 5.3293, 91.1862, 14.149, 3.0478, 85.3143, 158.2629, 4.605, 77.7229, 341.8401, 9.2046, 73.7317, 64.8855, 15.6258, 62.5574, 85.7756, 10.2432, 62.5462, 341.3069, 1.2707, 95.3346, 18.626, 1.2152, 101.6752, 268.3838, 16.6574, 107.3475, 118.043, 22.9112, 107.3233, 211.4493, 28.5537, 107.3214, 143.8849, 34.551, 107.5121, 227.4782, 40.8882, 106.1722, 344.125, 52.634, 106.2313, 209.3426, 94.1119, 106.0472, 133.6195, 129.9555, 107.493, 167.3026, 136.0533, 107.6517, 260.2766, 144.7956, 107.677, 100.2717, 150.9655, 107.696, 24.5737, 158.3831, 96.4244, 226.1381, 158.5828, 90.2773, 35.0643, 156.9307, 80.1979, 60.3734, 157.4993, 67.9418, 341.2883, 157.2156, 59.3498, 169.5859, 158.1101, 44.585, 269.4549, 156.9405, 32.2951, 294.0753, 1.4664, 46.7797, 65.4164, 1.5313, 53.0082, 121.348, 1.1894, 57.6241, 311.2404, 13.3195, 45.089, 342.1476, 7.156, 39.0168, 272.5452, 5.1701, 32.8898, 207.2867, 6.3805, 26.7464, 171.4598, 3.038, 24.896, 304.9079, 76.5439, 25.3647, 95.2894, 74.8287, 30.9525, 314.4206, 71.1384, 44.3786, 336.2192, 81.456, 47.0831, 161.4779, 97.9635, 25.5543, 44.5828, 92.4633, 27.6687, 170.0332, 99.2502, 36.2583, 231.9892, 110.3801, 36.1505, 23.7399, 106.6084, 32.5547, 63.9834, 38.232, 41.3633, 140.0899, 32.7569, 44.424, 154.1647, 30.1954, 48.3112, 134.3024, 72.3629, 69.3025, 234.8919, 27.5009, 65.1357, 253.5903, 26.795, 70.2379, 140.3155, 32.8736, 72.5764, 138.6989, 33.2638, 66.7294, 52.2022, 39.0528, 64.5219, 65.1009, 72.2792, 80.3333, 264.8496)
+posicoes_fixas = PackedVector3Array(25.3712, 18.2546, 283.4458, 31.4345, 19.017, 245.8293, 36.6416, 21.1699, 173.6802, 58.1965, 42.2261, 177.5363, 65.8959, 24.3196, 315.7399, 66.7152, 17.9793, 20.8178, 115.575, 18.8169, 273.7038, 117.0181, 22.1148, 33.3434, 121.6464, 18.1245, 230.2648, 156.8725, 32.0171, 62.4379, 156.9992, 38.1984, 272.8905, 153.5369, 48.5993, 178.6116, 141.6572, 55.892, 147.9816, 135.5532, 56.8971, 51.0268, 129.64, 56.9221, 255.0053, 116.0125, 50.4064, 35.6567, 122.6, 61.8808, 270.7949, 126.4974, 65.4914, 63.528, 153.7341, 92.8377, 97.7461, 140.4284, 99.8374, 62.86, 121.1743, 90.9649, 190.6012, 110.7873, 87.1237, 27.6353, 115.9991, 74.8712, 266.5909, 118.3211, 72.3183, 69.7656, 106.1743, 67.9436, 314.3492, 97.8775, 83.0387, 184.83, 96.3574, 69.8083, 266.2155, 88.4128, 60.0111, 277.5521, 61.7948, 81.5281, 96.796, 58.2367, 73.1894, 93.6729, 51.7082, 73.9404, 301.3549, 52.4771, 80.0134, 202.7589, 37.7985, 91.7211, 101.1173, 32.8015, 95.5121, 50.8635, 27.1152, 97.3603, 31.1201, 6.0582, 64.6487, 110.9201, 1.2807, 66.4002, 83.8671, 1.3223, 70.8252, 309.7435, 1.4601, 76.7444, 313.4601, 2.3026, 85.5142, 212.37, 12.1118, 107.3651, 145.2271, 18.1983, 107.602, 176.2711, 90.337, 107.673, 11.9472, 96.1797, 107.6564, 11.399, 102.3109, 107.6404, 41.7992, 111.0963, 107.4653, 44.0932, 116.8707, 107.6156, 306.2317, 123.0695, 107.4272, 134.2342, 129.1275, 107.4396, 235.5261, 132.767, 107.6398, 134.5516, 138.4941, 107.7627, 209.0163, 144.5108, 107.7911, 226.2901, 151.313, 106.6045, 142.3465, 157.3046, 103.743, 231.0646, 158.519, 38.6667, 207.1782, 158.4178, 32.6126, 274.9625, 157.353, 23.8137, 268.8795, 2.2897, 46.5146, 197.5704, 2.4875, 56.6516, 242.8479, 6.784, 55.3018, 242.476, 12.6581, 53.6623, 289.8214, 18.7301, 55.1819, 3.0858, 20.6803, 51.8227, 205.5267, 21.6002, 47.9879, 228.0738, 19.3795, 45.655, 292.1643, 13.6474, 43.9156, 126.6804, 6.9898, 38.5836, 130.7649, 5.0816, 32.6292, 116.3048, 6.2694, 26.9102, 115.9628, 77.1486, 48.1464, 210.4929, 95.5578, 37.4015, 191.5545, 111.3228, 37.2922, 135.5899, 111.6282, 31.3609, 19.2443, 107.8182, 30.821, 2.0256, 37.1884, 43.505, 301.0056, 31.0579, 50.439, 202.4664, 44.9239, 46.2471, 325.4069, 70.5258, 69.0522, 224.1553, 43.4689, 59.4036, 307.5548, 37.3869, 61.0396, 255.9885, 31.9669, 61.8263, 162.4192)
 seguir_o_chao = true
 
 [node name="Borda_cerca_de_estaca" type="Node3D" parent="BordaDosCorredores"]
@@ -7516,7 +7518,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(49.9925, 38.1835, -47.3373, 51.3479, 39.6542, -47.3373, 52.7032, 41.1249, -47.3373, 54.0586, 42.5957, -47.3373, 55.4139, 44.0664, -47.3373, 56.7137, 44.1959, 26.5651, 58.6658, 43.3333, 5.1944, 60.6576, 43.1522, 5.1944, 61.5019, 42.0253, 64.7989, 62.3535, 40.2157, 64.7989, 66.6922, 27.9921, 45.0, 67.0458, 26.1385, 45.0, 67.35, 24.5959, 90.0, 68.0858, 22.5835, 68.1986, 68.4725, 20.7547, 84.2894, 68.6715, 18.7646, 84.2894, 69.0991, 16.5852, 45.0, 68.8111, 16.15, -180.0, 66.8111, 16.15, -180.0, 101.3828, 16.9299, -37.875, 102.9615, 18.1578, -37.875, 103.1995, 18.9848, 45.0, 105.475, 18.85, -0.0, 107.2679, 18.35, -0.0, 109.2679, 18.35, -0.0, 111.0608, 17.85, -0.0, 113.0608, 17.85, -0.0, 114.665, 19.1682, -74.7449, 115.1913, 21.0977, -74.7449, 115.7175, 23.0272, -74.7449, 154.9883, 44.4178, -116.5651, 154.0233, 46.2937, -132.6141, 152.6692, 47.7655, -132.6141, 151.3151, 49.2374, -132.6141, 149.961, 50.7093, -132.6141, 148.6069, 52.1811, -132.6141, 146.8494, 53.3468, -150.9454, 145.1011, 54.3181, -150.9454, 126.7401, 55.5558, 135.0, 124.9922, 55.2564, 168.6901, 123.0662, 54.411, 150.9454, 121.3178, 53.4397, 150.9454, 119.5261, 52.3418, 135.0, 118.1119, 50.9276, 135.0, 116.6977, 49.5133, 135.0, 115.8269, 50.3759, -91.9749, 115.758, 52.3747, -91.9749, 115.6756, 54.7655, -91.9749, 115.0482, 56.798, -116.5651, 115.3123, 57.749, -34.6952, 116.9567, 58.8874, -34.6952, 118.534, 60.2183, -45.0, 119.9482, 61.6325, -45.0, 121.5268, 61.85, -0.0, 123.1474, 61.85, -0.0, 124.4868, 63.3633, -85.6013, 124.6402, 65.3574, -85.6013, 125.9284, 66.4522, -41.5318, 127.4256, 67.7783, -41.5318, 128.9227, 69.1044, -41.5318, 130.4199, 70.4304, -41.5318, 132.6334, 72.391, -41.5318, 134.038, 73.35, -0.0, 136.038, 73.35, -0.0, 138.038, 73.35, -0.0, 140.038, 73.35, -0.0, 142.038, 73.35, -0.0, 144.0735, 73.9723, -22.6199, 145.9197, 74.7415, -22.6199, 147.7658, 75.5108, -22.6199, 150.2617, 77.2475, -40.9144, 151.7731, 78.5574, -40.9144, 153.1045, 80.1891, -60.2551, 154.0967, 81.9256, -60.2551, 154.65, 83.9911, -90.0, 154.65, 85.9911, -90.0, 154.65, 87.7803, -90.0, 154.2102, 89.8759, -119.7449, 153.2179, 91.6124, -119.7449, 152.0031, 93.3126, -135.0, 150.5889, 94.7268, -135.0, 148.8243, 95.8607, -150.9454, 147.076, 96.832, -150.9454, 145.0807, 97.65, -180.0, 143.4094, 98.2425, -153.4349, 142.0727, 98.65, -180.0, 140.0727, 98.65, -180.0, 138.0727, 98.65, -180.0, 136.0727, 98.65, -180.0, 134.0727, 98.65, -180.0, 132.2153, 98.001, 168.6901, 130.1565, 97.5167, 150.9454, 128.4082, 96.5455, 150.9454, 126.6599, 95.5742, 150.9454, 124.9938, 94.3095, 135.0, 123.5128, 92.8285, 135.0, 122.4425, 91.018, 119.7449, 121.4502, 89.2816, 119.7449, 121.35, 87.0957, 90.0, 121.35, 85.0957, 90.0, 121.35, 83.0957, 90.0, 122.4735, 81.1937, 56.3099, 123.5829, 79.5296, 56.3099, 124.6923, 77.8655, 56.3099, 112.9486, 72.5934, 98.8418, 112.6412, 70.6171, 98.8418, 112.3338, 68.6409, 98.8418, 112.0264, 66.6647, 98.8418, 111.307, 65.2733, 142.125, 110.1718, 64.1128, -149.9314, 108.6444, 64.997, -149.9314, 106.9136, 65.9991, -149.9314, 105.65, 66.8093, -90.0, 105.65, 68.8093, -90.0, 106.5786, 69.8307, -30.9638, 108.4085, 70.4947, -40.2364, 109.9353, 71.7866, -40.2364, 111.3735, 73.3526, -63.4349, 111.65, 75.8609, -90.0, 111.65, 77.8609, -90.0, 110.5075, 79.8082, -135.0, 108.9391, 81.2276, -153.4349, 107.1503, 82.1221, -153.4349, 105.0861, 82.65, -180.0, 103.0861, 82.65, -180.0, 101.7592, 82.65, -180.0, 99.5469, 82.3626, 135.0, 97.8341, 81.7868, 146.3099, 96.2276, 80.4376, 129.2894, 94.9611, 78.8897, 129.2894, 94.35, 76.8223, 90.0, 94.35, 74.8223, 90.0, 95.4577, 72.3062, 39.8056, 96.9942, 71.0259, 39.8056, 97.85, 69.8014, 90.0, 97.85, 67.8014, 90.0, 97.2278, 66.2572, 125.5377, 95.8784, 65.2322, 158.1986, 93.9658, 64.2815, 135.0, 92.5516, 62.8673, 135.0, 91.1374, 61.4531, 135.0, 89.9991, 59.6927, 120.9638, 89.1407, 57.7861, 105.2551, 88.2644, 57.6509, -122.4712, 86.9755, 59.2943, -137.4896, 85.5012, 60.6457, -137.4896, 84.0269, 61.9972, -137.4896, 82.0188, 63.8379, -137.4896, 81.0962, 65.3742, -113.1986, 80.3084, 67.2125, -113.1986, 80.15, 69.0158, -90.0, 80.0754, 70.7669, -52.125, 81.3033, 72.3456, -52.125, 82.5312, 73.9243, -52.125, 83.7384, 75.6439, -68.1986, 84.4811, 77.5008, -68.1986, 84.65, 79.6224, -90.0, 60.1337, 75.5144, 98.1301, 59.9514, 73.7671, 135.0, 59.1991, 71.7406, 96.7098, 58.9654, 69.7543, 96.7098, 58.7317, 67.768, 96.7098, 58.498, 65.7817, 96.7098, 57.9322, 64.2479, 135.0, 56.1991, 63.6968, 146.3099, 55.2544, 63.6973, -128.6598, 54.0051, 65.259, -128.6598, 52.8011, 65.8218, -167.0054, 50.8523, 66.2715, -167.0054, 50.754, 67.4419, -85.9144, 50.8965, 69.4368, -85.9144, 51.039, 71.4318, -85.9144, 51.3555, 73.0398, -45.0, 51.65, 75.2492, -90.0, 48.1216, 86.1941, -135.0, 46.7074, 87.6083, -135.0, 45.2931, 89.0225, -135.0, 43.4288, 90.15, -180.0, 41.3983, 89.4987, 156.8014, 39.56, 88.7109, 156.8014, 39.173, 90.0283, -113.1986, 37.7181, 91.5976, -135.0, 36.5961, 107.6566, -0.0905, 38.5961, 107.6598, -0.0905, 40.5961, 107.6629, -0.0905, 42.5961, 107.6661, -0.0905, 44.5961, 107.6693, -0.0905, 46.5961, 107.6724, -0.0905, 48.5961, 107.6756, -0.0905, 50.5961, 107.6787, -0.0905, 52.5961, 107.6819, -0.0905, 89.87, 107.7408, -0.0905, 91.87, 107.7439, -0.0905, 93.87, 107.7471, -0.0905, 95.87, 107.7503, -0.0905, 97.87, 107.7534, -0.0905, 99.87, 107.7566, -0.0905, 101.87, 107.7597, -0.0905, 103.87, 107.7629, -0.0905, 158.6651, 84.2396, 89.8447, 158.6705, 82.2397, 89.8447, 158.6759, 80.2397, 89.8447, 158.6813, 78.2397, 89.8447, 158.6867, 76.2397, 89.8447, 158.6922, 74.2397, 89.8447, 158.6976, 72.2397, 89.8447, 158.703, 70.2397, 89.8447, 158.7084, 68.2397, 89.8447, 158.7138, 66.2397, 89.8447, 158.7218, 63.3072, 89.8447, 158.7272, 61.3072, 89.8447, 158.7326, 59.3072, 89.8447, 158.7381, 57.3072, 89.8447, 158.7435, 55.3072, 89.8447, 158.7489, 53.3072, 89.8447, 158.7543, 51.3073, 89.8447, 158.7597, 49.3073, 89.8447, 158.7626, 48.2382, 89.8447, 158.7681, 46.2382, 89.8447, 158.7735, 44.2382, 89.8447, 158.7789, 42.2382, 89.8447, 158.7843, 40.2382, 89.8447, 158.7897, 38.2382, 89.8447, 158.7952, 36.2382, 89.8447, 158.8006, 34.2382, 89.8447, 158.806, 32.2382, 89.8447, 18.0591, 45.15, -180.0, 16.202, 44.4983, 168.6901, 14.1416, 44.0059, 150.2551, 12.4051, 43.0136, 150.2551, 10.6089, 41.9246, 135.0, 73.1256, 35.1796, -99.4623, 72.7968, 37.1524, -99.4623, 72.1274, 39.1396, -116.5651, 71.233, 40.9284, -116.5651, 70.3386, 42.7173, -116.5651, 69.4442, 44.5061, -116.5651, 70.0258, 45.299, -30.9638, 71.4827, 46.8159, -48.3665, 72.8114, 48.3107, -48.3665, 74.1401, 49.8056, -48.3665, 75.6977, 49.6347, 7.125, 77.6823, 49.3866, 7.125, 79.5227, 48.85, -0.0, 81.3156, 48.35, -0.0, 89.7768, 44.8282, 60.9454, 90.748, 43.0799, 60.9454, 92.1596, 41.5247, 45.0, 93.5738, 40.1105, 45.0, 95.2962, 38.9047, 26.5651, 97.0851, 38.0102, 26.5651, 99.1181, 37.35, -0.0, 101.1181, 37.35, -0.0, 103.1181, 37.35, -0.0, 105.1181, 37.35, -0.0, 106.7611, 37.9333, -26.5651, 108.5499, 38.8277, -26.5651, 110.3045, 39.9888, -45.0, 111.7187, 41.403, -45.0, 111.5127, 40.4198, 116.5651, 111.35, 38.2694, 90.0, 111.35, 36.2694, 90.0, 111.35, 34.2694, 90.0, 111.35, 32.2694, 90.0, 111.85, 30.4765, 90.0, 110.4218, 30.3939, -135.0, 108.1966, 30.65, -180.0, 106.4037, 31.15, -180.0, 104.4037, 31.15, -180.0, 103.065, 29.3958, 110.556, 102.3627, 27.5231, 110.556, 101.6605, 25.6504, 110.556, 100.9582, 23.7778, 110.556, 41.1272, 50.3664, -26.5651, 42.8242, 50.85, -0.0, 44.5016, 50.2123, 14.0362, 46.4419, 49.7272, 14.0362, 48.0664, 49.1179, 45.0, 78.7071, 57.65, -180.0, 77.0757, 57.7399, -135.0, 74.9142, 58.15, -180.0, 73.493, 58.8654, -131.1859, 72.176, 60.3706, -131.1859, 70.859, 61.8757, -131.1859, 68.3735, 63.3823, -156.8014, 66.8886, 63.9134, -94.3987, 66.7352, 65.9076, -94.3987, 67.15, 67.6665, -90.0, 67.9367, 68.8351, -34.6952, 69.5811, 69.9735, -34.6952, 71.4339, 70.6182, -45.0, 73.0065, 70.85, -0.0, 73.7335, 70.2002, 82.5686, 73.9922, 68.217, 82.5686, 74.1765, 66.8044, 82.5686, 74.675, 64.7555, 63.4349, 75.5695, 62.9667, 63.4349, 76.5804, 61.1039, 45.0, 77.9947, 59.6897, 45.0, 79.4089, 58.2754, 45.0, 45.1255, 64.3741, 3.8141, 45.9479, 62.768, 123.6901, 45.7483, 60.5791, 93.0128, 45.6432, 58.5819, 93.0128, 75.0532, 83.7172, 59.0362, 76.0822, 82.0023, 59.0362, 77.1112, 80.2873, 59.0362, 77.35, 78.575, 90.0, 75.8, 78.7512, 175.6013, 74.3123, 79.0033, -135.0, 72.2488, 78.65, -180.0, 70.0965, 78.4954, 153.4349)
+posicoes_fixas = PackedVector3Array(49.9925, 38.1835, -47.3373, 51.3479, 39.6542, -47.3373, 52.7032, 41.1249, -47.3373, 54.0586, 42.5957, -47.3373, 55.4139, 44.0664, -47.3373, 56.7137, 44.1959, 26.5651, 58.6658, 43.3333, 5.1944, 60.6576, 43.1522, 5.1944, 61.5019, 42.0253, 64.7989, 62.3535, 40.2157, 64.7989, 66.6922, 27.9921, 45.0, 67.0458, 26.1385, 45.0, 67.35, 24.5959, 90.0, 68.0858, 22.5835, 68.1986, 68.4725, 20.7547, 84.2894, 68.6715, 18.7646, 84.2894, 69.0991, 16.5852, 45.0, 68.8111, 16.15, -180.0, 66.8111, 16.15, -180.0, 101.3828, 16.9299, -37.875, 102.9615, 18.1578, -37.875, 103.1995, 18.9848, 45.0, 105.475, 18.85, -0.0, 107.2679, 18.35, -0.0, 109.2679, 18.35, -0.0, 111.0608, 17.85, -0.0, 113.0608, 17.85, -0.0, 114.665, 19.1682, -74.7449, 115.1913, 21.0977, -74.7449, 115.7175, 23.0272, -74.7449, 154.9883, 44.4178, -116.5651, 154.0233, 46.2937, -132.6141, 152.6692, 47.7655, -132.6141, 151.3151, 49.2374, -132.6141, 149.961, 50.7093, -132.6141, 148.6069, 52.1811, -132.6141, 146.8494, 53.3468, -150.9454, 145.1011, 54.3181, -150.9454, 126.7401, 55.5558, 135.0, 124.9922, 55.2564, 168.6901, 123.0662, 54.411, 150.9454, 121.3178, 53.4397, 150.9454, 119.5261, 52.3418, 135.0, 118.1119, 50.9276, 135.0, 116.6977, 49.5133, 135.0, 115.8269, 50.3759, -91.9749, 115.758, 52.3747, -91.9749, 115.6756, 54.7655, -91.9749, 115.0482, 56.798, -116.5651, 115.3123, 57.749, -34.6952, 116.9567, 58.8874, -34.6952, 118.5641, 60.1452, -41.0091, 120.0733, 61.4576, -41.0091, 121.5825, 62.7699, -41.0091, 122.8054, 63.8333, -41.0091, 124.3147, 65.1457, -41.0091, 125.8239, 66.4581, -41.0091, 127.3331, 67.7704, -41.0091, 128.8423, 69.0828, -41.0091, 130.4498, 70.1341, -45.0, 131.864, 71.5483, -45.0, 134.0289, 73.3172, -26.5651, 135.8323, 73.35, -0.0, 137.8323, 73.35, -0.0, 139.8323, 73.35, -0.0, 141.8323, 73.35, -0.0, 144.7276, 74.2448, -22.6199, 146.5737, 75.0141, -22.6199, 148.4199, 75.7833, -22.6199, 150.0818, 77.0916, -40.9144, 151.5932, 78.4015, -40.9144, 153.2306, 80.4098, -60.2551, 154.2228, 82.1463, -60.2551, 154.65, 84.2453, -90.0, 154.65, 86.2453, -90.0, 154.65, 88.2453, -90.0, 153.9795, 90.2797, -119.7449, 152.9872, 92.0161, -119.7449, 151.5368, 93.7789, -135.0, 149.9961, 95.2097, -150.9454, 148.2478, 96.181, -150.9454, 146.4995, 97.1523, -150.9454, 144.6084, 97.643, -153.4349, 142.8195, 98.5375, -153.4349, 140.6572, 98.65, -180.0, 138.6572, 98.65, -180.0, 136.6572, 98.65, -180.0, 134.6572, 98.65, -180.0, 131.9934, 97.9566, 168.6901, 129.9586, 97.4068, 150.9454, 128.2103, 96.4355, 150.9454, 126.462, 95.4643, 150.9454, 124.8338, 94.1495, 135.0, 123.365, 92.6277, 117.8973, 122.4292, 90.8601, 117.8973, 121.8908, 89.843, 117.8973, 121.1149, 88.6733, -176.6335, 119.1184, 88.7908, -176.6335, 117.1218, 88.9082, -176.6335, 115.1253, 89.0257, -176.6335, 113.1287, 89.1431, -176.6335, 112.444, 86.8952, 94.7636, 112.24, 84.4468, 94.7636, 112.0739, 82.4537, 94.7636, 111.9078, 80.4606, 94.7636, 111.7417, 78.4676, 94.7636, 112.2895, 76.335, 2.8624, 114.287, 76.2352, 2.8624, 116.2845, 76.1353, 2.8624, 118.1344, 76.0428, 2.8624, 120.1319, 75.9429, 2.8624, 122.4119, 76.3627, -84.8056, 122.593, 78.3545, -84.8056, 123.2564, 79.9362, 55.6197, 124.3858, 78.2855, 55.6197, 125.355, 77.1802, 137.3859, 123.8832, 75.8261, 137.3859, 122.4113, 74.4719, 137.3859, 120.9395, 73.1178, 137.3859, 119.4676, 71.7637, 137.3859, 117.8856, 70.7013, 135.0, 116.4714, 69.2871, 135.0, 115.0008, 68.438, 140.1944, 113.4644, 67.1577, 140.1944, 111.9279, 65.8773, 140.1944, 110.3915, 64.5969, 140.1944, 109.1991, 64.6759, -149.9314, 107.4682, 65.678, -149.9314, 105.7374, 66.68, -149.9314, 105.65, 68.1684, -90.0, 105.5039, 69.1859, -30.9638, 107.0984, 69.85, -0.0, 108.9786, 70.9771, -40.2364, 110.5053, 72.269, -40.2364, 111.65, 74.223, -90.0, 111.65, 76.223, -90.0, 111.508, 78.3783, -116.5651, 110.6586, 79.6571, -135.0, 109.1303, 81.1321, -153.4349, 107.3414, 82.0265, -153.4349, 105.2998, 82.65, -180.0, 103.2998, 82.65, -180.0, 101.2998, 82.65, -180.0, 99.222, 82.0377, 135.0, 97.4497, 81.5305, 146.3099, 95.935, 80.08, 129.2894, 94.6686, 78.5321, 129.2894, 94.35, 76.3603, 90.0, 94.35, 74.3603, 90.0, 95.3947, 72.3587, 39.8056, 96.9311, 71.0784, 39.8056, 97.85, 69.8834, 90.0, 97.85, 67.3304, 90.0, 96.954, 65.8738, 125.5377, 95.441, 65.0572, 158.1986, 93.6327, 63.9484, 135.0, 92.2185, 62.5342, 135.0, 90.7885, 61.0083, 120.9638, 89.7595, 59.2933, 120.9638, 89.0181, 57.3368, 105.2551, 88.1127, 57.8893, -122.4712, 86.7672, 59.4852, -137.4896, 85.2929, 60.8366, -137.4896, 83.8186, 62.1881, -137.4896, 81.7504, 64.0839, -137.4896, 80.9528, 65.7089, -113.1986, 80.165, 67.5472, -113.1986, 80.15, 69.3799, -90.0, 80.299, 71.0543, -52.125, 58.4116, 85.2823, 63.4349, 59.8646, 83.701, 29.0546, 61.8514, 82.85, -0.0, 62.413, 82.2286, 135.0, 61.7368, 80.3179, 113.1986, 60.9489, 78.4796, 113.1986, 60.2746, 76.5005, 98.1301, 59.9917, 74.5207, 98.1301, 59.3155, 72.7299, 96.7098, 59.0818, 70.7436, 96.7098, 58.875, 68.9858, 96.7098, 58.6413, 66.9995, 96.7098, 58.4076, 65.0132, 96.7098, 57.5303, 64.15, -180.0, 55.5553, 63.2676, 146.3099, 54.7711, 64.3015, -128.6598, 54.0994, 65.1411, -128.6598, 52.0889, 65.9862, -167.0054, 50.6636, 66.1761, -85.9144, 50.8061, 68.171, -85.9144, 50.9486, 70.1659, -85.9144, 1.15, 81.7759, -90.0, 1.15, 83.7759, -90.0, 1.15, 85.7759, -90.0, 1.15, 87.7759, -90.0, 1.15, 89.7759, -90.0, 1.15, 91.7759, -90.0, 1.15, 93.7759, -90.0, 147.2559, 107.8314, -0.0905, 149.2559, 107.8346, -0.0905, 151.2559, 107.8378, -0.0905, 153.2559, 107.8409, -0.0905, 155.2559, 107.8441, -0.0905, 157.2559, 107.8472, -0.0905, 158.6007, 107.9937, 89.8447, 158.6061, 105.9937, 89.8447, 158.6115, 103.9937, 89.8447, 158.8178, 27.8659, 89.8447, 158.8233, 25.8659, 89.8447, 158.8287, 23.8659, 89.8447, 158.8341, 21.8659, 89.8447, 158.8395, 19.8659, 89.8447, 1.2577, 42.5962, -90.4007, 1.2437, 44.5961, -90.4007, 1.2298, 46.5961, -90.4007, 1.2158, 48.596, -90.4007, 1.2018, 50.596, -90.4007, 1.1857, 52.8964, -90.4007, 1.1717, 54.8964, -90.4007, 1.1577, 56.8963, -90.4007, 1.3041, 57.6507, 26.5651, 3.0929, 56.7563, 26.5651, 69.2377, 44.919, -116.5651, 70.4662, 45.6724, -48.3665, 71.7949, 47.1672, -48.3665, 73.1236, 48.662, -48.3665, 74.1795, 49.8245, 7.125, 76.164, 49.5764, 7.125, 77.8584, 49.3259, 45.0, 79.9926, 48.85, -0.0, 81.7855, 48.35, -0.0, 88.6526, 42.8295, -52.5946, 89.8675, 44.4182, -52.5946, 90.2616, 43.9554, 60.9454, 91.4514, 42.2329, 45.0, 92.8656, 40.8187, 45.0, 94.4004, 39.3526, 26.5651, 96.1893, 38.4582, 26.5651, 97.9781, 37.5637, 26.5651, 100.5177, 37.35, -0.0, 102.5177, 37.35, -0.0, 104.5177, 37.35, -0.0, 106.5892, 37.8474, -26.5651, 108.378, 38.7418, -26.5651, 110.1686, 39.853, -45.0, 111.5829, 41.2672, -45.0, 111.5986, 40.5917, 116.5651, 39.5183, 39.7133, -138.3665, 38.0235, 41.0421, -138.3665, 36.5287, 42.3708, -138.3665, 34.7195, 43.4639, -159.7751, 32.8428, 44.1553, -159.7751, 30.9661, 44.8467, -159.7751, 30.7663, 46.4583, -101.3099, 30.15, 48.1605, -90.0, 29.5888, 50.2168, -116.5651, 29.15, 51.9244, -90.0, 42.1835, 50.85, -0.0, 43.7005, 50.4838, 45.0, 45.8204, 49.8826, 14.0362, 47.7607, 49.3975, 14.0362, 48.2582, 48.5619, 133.3634, 46.885, 47.1079, 133.3634, 45.5118, 45.6538, 133.3634, 44.1385, 44.1998, 133.3634, 42.7653, 42.7458, 133.3634, 41.392, 41.2917, 133.3634, 78.7071, 57.65, -180.0, 77.0757, 57.7399, -135.0, 74.9142, 58.15, -180.0, 73.493, 58.8654, -131.1859, 72.176, 60.3706, -131.1859, 70.859, 61.8757, -131.1859, 69.0483, 63.093, -156.8014, 67.21, 63.8809, -156.8014, 66.7915, 65.1755, -94.3987, 66.6314, 66.8157, -45.0, 67.333, 68.4171, -34.6952, 68.9774, 69.5556, -34.6952, 70.4794, 70.35, -0.0, 72.2723, 70.85, -0.0, 73.6386, 70.9283, 82.5686, 73.9927, 68.213, 82.5686, 74.2514, 66.2298, 82.5686, 74.9342, 64.2372, 63.4349, 75.8286, 62.4483, 63.4349, 76.9902, 60.6941, 45.0, 78.4045, 59.2799, 45.0, 79.8187, 57.8656, 45.0, 79.7789, 57.1835, 173.6598, 42.4921, 64.5496, 3.8141, 44.4877, 64.4166, 3.8141, 46.2727, 63.9836, 23.1986, 46.3025, 63.2998, 123.6901, 45.7819, 61.2174, 93.0128, 45.6768, 59.2202, 93.0128, 77.204, 80.1326, 59.0362, 77.6142, 78.8907, 175.6013, 75.6201, 78.7373, 175.6013, 73.6191, 78.9348, 135.0, 72.0684, 78.65, -180.0, 69.9351, 78.4148, 153.4349)
 seguir_o_chao = true
 
 [node name="Borda_enfeite_juncos" type="Node3D" parent="BordaDosCorredores"]
@@ -7534,7 +7536,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(77.8144, 16.619, 140.6741, 78.9125, 16.9252, 127.3493, 77.2898, 18.301, 351.8333, 78.8229, 17.8777, 246.5607, 81.6307, 18.2746, 318.595, 82.6011, 16.942, 180.7983, 83.7841, 19.0325, 180.892, 85.8283, 18.9581, 300.06, 85.3255, 17.7398, 33.3609, 84.3234, 17.812, 323.5188, 84.2812, 16.1756, 344.8621, 84.771, 80.3647, 125.6358, 86.3664, 80.726, 80.5598, 83.939, 83.1077, 305.8741, 83.0834, 85.3026, 353.0372, 81.6306, 87.387, 59.2726, 82.5159, 87.7609, 169.7034, 80.9597, 88.3151, 154.5319, 83.0905, 88.7105, 89.9559, 83.3134, 87.6812, 200.4708, 85.809, 89.2433, 33.9426, 87.7845, 89.5315, 248.9018, 90.25, 89.9851, 201.5532, 90.4587, 89.0741, 323.1961, 92.5666, 91.0923, 112.439, 94.5252, 92.6308, 354.9679, 96.0823, 94.5015, 33.6658, 96.6722, 93.8192, 342.0942, 96.5167, 94.8856, 251.4148, 97.2437, 94.2922, 105.8453, 97.1839, 97.6567, 145.0133, 96.3959, 99.9248, 75.2005, 94.9688, 102.2256, 230.0791, 95.8303, 102.4956, 113.7276, 93.0145, 103.3154, 11.5235, 90.9796, 105.1274, 266.1223, 89.1683, 106.4699, 38.9149, 89.9608, 107.8483, 227.2743, 88.0477, 106.822, 182.3133, 88.4337, 107.9979, 262.5518, 78.4247, 107.7009, 329.6953, 76.2641, 106.7204, 3.5557, 73.981, 106.7195, 81.1629, 74.161, 107.6701, 225.0051, 72.0454, 107.2919, 138.7659, 69.5621, 107.2303, 208.7255, 69.4525, 107.6142, 211.8388, 66.6523, 106.1788, 234.1698, 64.93, 105.9802, 7.4957, 62.6461, 105.8068, 322.3535, 62.6217, 107.1536, 251.7596, 59.8484, 104.9744, 252.6353, 57.9897, 104.2668, 239.6943, 55.7661, 104.0434, 249.3516, 55.5607, 105.1387, 100.0748, 54.6027, 103.5003, 158.4894, 54.1277, 103.9097, 40.8877, 52.5505, 102.538, 96.7081, 50.6389, 100.5721, 100.3643, 48.9637, 98.2464, 262.8314, 47.7117, 98.1327, 235.9133, 49.5266, 95.6101, 162.0478, 51.3372, 93.935, 216.8605, 53.5096, 92.4709, 74.8188, 52.903, 91.6589, 178.8521, 55.5657, 91.4678, 195.3296, 57.6383, 90.7543, 21.9435, 57.4176, 89.8853, 244.3573, 60.3356, 90.6023, 342.3877, 62.6348, 90.1393, 150.4481, 54.8061, 107.4934, 134.8248, 54.6387, 106.2132, 343.4528, 57.317, 107.4827, 210.9492, 59.4336, 107.6811, 145.3195, 61.8257, 107.6022, 98.7794, 61.774, 106.3873, 268.7869, 64.4801, 107.6844, 188.5273, 66.7545, 107.5876, 85.2147, 68.9774, 107.4026, 317.7716, 69.4317, 106.8654, 288.2888, 71.6241, 107.4298, 272.3681, 74.0325, 107.4626, 28.1182, 76.71, 107.6912, 345.8641, 76.5008, 106.8648, 163.3949, 87.4831, 107.5545, 275.8653, 82.5172, 48.0048, 232.4289, 81.7242, 47.2114, 63.2948, 83.2294, 47.5866, 168.0125, 82.2258, 45.6571, 132.0433, 80.7877, 43.6638, 359.7998, 80.1763, 44.3974, 160.7413, 79.6552, 41.2128, 128.9724, 79.0016, 39.4856, 16.1524, 78.4673, 39.8863, 118.43, 78.8324, 36.8692, 279.2214, 78.2845, 34.5133, 115.7908, 78.5062, 32.1335, 187.5097, 77.7224, 32.1896, 47.718, 79.6741, 29.7177, 134.4632, 81.4006, 27.8705, 90.2665, 81.8182, 26.7214, 177.2382, 81.014, 27.4269, 233.1758, 79.7573, 26.3349, 330.4298, 89.4696, 28.1233, 63.5632, 90.1761, 29.3874, 86.4811, 88.6852, 29.5814, 217.0081, 87.3764, 31.7979, 125.9016, 86.1389, 33.6466, 339.9366, 86.9439, 34.72, 147.4524, 85.8338, 35.4552, 165.5431, 86.2157, 37.7231, 78.779, 87.2573, 40.0139, 35.8133, 87.7796, 40.1324, 4.2299, 88.0446, 41.7717, 165.8018, 89.756, 43.5888, 79.5378, 70.1581, 78.48, 332.3089, 71.3155, 78.2947, 66.1404, 70.7654, 80.2771, 339.7415, 71.1108, 82.8326, 27.4057, 71.9975, 84.4961, 42.3828, 73.2267, 84.0853, 189.7096, 73.3087, 86.816, 86.2122, 73.5588, 86.6855, 83.9594)
+posicoes_fixas = PackedVector3Array(77.8144, 16.619, 140.6741, 78.9125, 16.9252, 127.3493, 77.2898, 18.301, 351.8333, 78.8229, 17.8777, 246.5607, 81.6307, 18.2746, 318.595, 82.6011, 16.942, 180.7983, 83.7841, 19.0325, 180.892, 85.8283, 18.9581, 300.06, 85.3255, 17.7398, 33.3609, 84.3234, 17.812, 323.5188, 84.2812, 16.1756, 344.8621, 81.6023, 72.5639, 56.9386, 82.8433, 72.0172, 92.4789, 83.2947, 74.6958, 345.6347, 84.2587, 76.9475, 204.9582, 84.7846, 79.1611, 115.6954, 85.9376, 79.3892, 29.7412, 84.429, 81.8546, 162.6849, 83.7532, 84.0939, 345.1461, 82.1095, 86.2245, 185.4498, 83.3065, 86.5846, 250.0519, 81.5381, 87.4603, 13.757, 82.3727, 88.5256, 296.9308, 81.4181, 88.2669, 66.1154, 84.0437, 88.4041, 310.4719, 85.9433, 89.1522, 10.488, 86.6155, 87.9507, 271.5427, 88.5487, 89.54, 230.5262, 90.9953, 90.236, 353.4131, 92.8724, 91.4807, 283.0589, 93.7744, 90.2409, 19.2933, 94.8422, 92.9318, 154.7251, 96.399, 94.6942, 110.8585, 97.0713, 93.5946, 190.8485, 97.25, 97.2176, 211.2861, 96.6371, 99.9364, 328.6359, 95.049, 102.0294, 288.9323, 95.8927, 102.9268, 69.3456, 93.264, 103.4943, 105.8979, 91.035, 105.1041, 37.4526, 89.3214, 106.3271, 330.4466, 90.3466, 107.3315, 53.6282, 86.8321, 107.463, 114.688, 77.2946, 106.9758, 261.5669, 74.9581, 107.0434, 169.3988, 73.3387, 106.9791, 81.9217, 74.1398, 107.3622, 264.7231, 70.5514, 107.082, 219.2108, 67.95, 106.7326, 2.8276, 66.7818, 106.3965, 12.1799, 66.6099, 107.626, 142.8271, 64.2518, 106.172, 137.1701, 61.7009, 105.3147, 184.9119, 59.8522, 104.7748, 149.2024, 59.9261, 105.5345, 272.9139, 57.5068, 104.4263, 319.2849, 55.102, 103.5675, 99.8785, 54.2797, 103.5438, 313.0231, 53.7634, 104.4998, 356.4193, 52.5044, 102.4492, 254.8855, 50.6178, 100.588, 155.7013, 49.1119, 98.1747, 345.7317, 47.8968, 98.0695, 201.6938, 49.7204, 95.6945, 94.9643, 51.1289, 93.6837, 324.4324, 53.4899, 92.5627, 152.4682, 52.8343, 91.3598, 284.5958, 55.8708, 91.6555, 126.9983, 58.4795, 90.5478, 276.3339, 60.9547, 90.3807, 336.1512, 60.699, 89.6769, 215.8323, 63.2628, 90.2859, 7.2839, 60.738, 89.926, 149.4568, 58.6816, 88.5909, 234.5794, 57.4903, 89.2681, 160.7434, 52.5777, 107.447, 59.5776, 52.5625, 105.8523, 306.5231, 54.9293, 107.6139, 338.3609, 57.1696, 107.3668, 177.3831, 59.7112, 107.494, 170.6137, 59.4284, 106.5002, 340.9378, 62.0509, 107.4724, 196.1485, 64.6314, 107.5547, 343.4528, 66.9566, 107.6504, 343.9011, 66.9151, 105.9138, 335.1728, 69.1299, 107.5395, 88.7905, 71.4677, 107.7018, 81.6947, 74.1182, 107.6612, 345.5701, 76.4589, 107.6909, 303.2157, 82.3197, 47.9988, 140.9421, 82.3233, 47.0373, 21.7146, 83.3383, 48.1372, 335.8604, 82.2057, 45.9093, 94.3805, 81.0272, 44.0359, 13.5161, 80.6586, 44.7899, 26.5587, 79.8049, 41.8898, 98.9667, 79.2316, 39.6986, 215.6708, 78.6904, 36.8907, 235.6214, 77.6197, 37.3997, 322.3414, 78.224, 34.6025, 285.7498, 78.6684, 32.3801, 294.925, 79.4743, 29.8716, 256.2873, 78.2522, 29.6864, 106.333, 81.2233, 28.0832, 96.1967, 81.7379, 26.9134, 223.8215, 79.9951, 26.5092, 264.6718, 79.5143, 26.9857, 293.6453, 77.5675, 25.4604, 103.7085, 99.7629, 23.7014, 323.2472, 100.8368, 24.0622, 269.7571, 98.3477, 25.5413, 189.4503, 95.9555, 26.4503, 222.3465, 93.6718, 27.3097, 78.1885, 93.71, 28.4295, 76.5732, 91.2775, 27.9109, 237.0327, 89.2266, 28.4582, 281.7259, 88.7915, 29.3125, 343.1013, 89.8365, 29.8529, 349.4281, 87.3424, 31.0211, 190.1349, 86.4214, 33.1965, 178.2637, 85.4626, 34.7351, 340.3362, 86.2351, 34.587, 27.913, 86.213, 37.2725, 172.8531, 86.8389, 39.431, 187.2804, 87.7216, 41.2463, 64.8254, 88.8767, 40.4009, 70.9263, 69.8164, 78.538, 19.3157, 71.4483, 78.3038, 3.2001, 70.7003, 80.5419, 244.4838, 71.2373, 82.6072, 189.8971, 72.3066, 84.4496, 189.7242, 72.9132, 83.7863, 354.0625, 73.5174, 86.6308, 305.5001, 73.7761, 86.6083, 23.8802, 74.5626, 84.166, 302.6945, 73.192, 83.862, 233.8332, 75.7954, 82.2051, 114.8879)
 seguir_o_chao = true
 
 [node name="Borda_moita_de_cacto" type="Node3D" parent="BordaDosCorredores"]
@@ -7552,7 +7554,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(22.9601, 18.3441, 19.1338, 26.3461, 18.3037, 281.0677, 29.0534, 18.4106, 106.7885, 31.9024, 19.432, 127.397, 34.3377, 20.2645, 79.8157, 37.7393, 22.129, 295.5913, 115.7642, 23.0143, 355.0868, 117.8682, 21.2677, 113.0963, 119.7518, 19.5125, 237.3447, 122.7553, 17.6553, 128.2436, 124.9072, 16.7015, 43.278, 156.0582, 29.5645, 291.3778, 156.662, 33.085, 211.008, 156.7857, 35.7997, 96.488, 157.0338, 39.2177, 185.4653, 156.4326, 41.5239, 269.1563, 143.8594, 55.3743, 326.1782, 140.207, 56.2589, 102.7882, 137.925, 56.675, 250.6434, 134.3563, 57.0396, 189.6263, 131.9492, 56.7683, 71.0454, 128.7226, 56.4816, 214.6173, 60.8304, 90.1185, 180.8383, 58.0911, 87.1974, 33.848, 58.3992, 84.3231, 22.5565, 62.3014, 82.659, 234.6857, 61.4527, 81.5651, 290.2762, 60.4768, 78.2124, 341.958, 51.8596, 76.389, 239.136, 52.4313, 79.8205, 227.1688, 51.7642, 82.5761, 301.3549, 49.3675, 85.1136, 38.6808, 25.3778, 98.0082, 153.1379, 21.5183, 97.8072, 305.3444, 19.1748, 97.9654, 133.396, 15.7107, 97.4976, 248.2753, 13.3724, 96.4732, 50.8635, 10.0516, 95.2655, 168.536, 8.1208, 93.5113, 235.8813, 7.0885, 92.9672, 47.5823, 4.6073, 90.172, 320.5553, 3.6082, 87.7823, 342.4574, 3.0783, 84.2353, 241.8956, 3.3047, 81.7829, 161.7308, 3.5466, 79.9461, 147.3076, 5.7197, 76.6717, 101.5583, 7.3366, 75.1369, 329.6637, 17.8008, 63.4794, 184.3092, 14.4755, 62.4932, 123.6398, 12.224, 62.1625, 351.6641, 9.0019, 63.2623, 189.3485, 6.8284, 64.0438, 173.5699, 1.4589, 93.2247, 275.7515, 1.5009, 96.5531, 151.0863, 1.2904, 99.0737, 193.2049, 1.4921, 102.6406, 188.051, 14.4798, 107.5033, 357.4022, 18.1223, 107.437, 157.6553, 20.2391, 107.5687, 149.8984, 23.9682, 107.4202, 329.2346, 26.2603, 107.5599, 213.3981, 29.7828, 107.5163, 60.0709, 32.1398, 107.2748, 130.9685, 127.45, 107.7228, 9.4935, 131.1172, 107.4402, 220.0686, 133.4228, 107.592, 275.7116, 137.0688, 107.6528, 185.1801, 139.2821, 107.5734, 138.6558, 142.5819, 107.6826, 259.3187, 146.0281, 107.6622, 178.8817, 148.3761, 107.6614, 10.904, 158.4139, 99.0221, 85.9304, 158.3076, 95.0939, 332.7645, 158.594, 92.8447, 108.0339, 158.5951, 89.3453, 236.1211, 158.3509, 86.9439, 281.5484, 1.2938, 44.6085, 171.8214, 1.4393, 48.1323, 17.4493, 1.5475, 50.4191, 300.3782, 1.5577, 53.8632, 319.8195, 1.1709, 56.5966, 19.6332, 2.3078, 57.1391, 359.005, 4.2952, 55.7755, 156.1464, 8.7398, 40.6852, 109.9965, 6.5241, 37.8327, 69.6545, 5.3347, 35.4237, 233.927, 5.0623, 31.7507, 312.0217, 5.334, 29.4559, 309.7802, 6.9544, 25.9122, 256.9242, 5.5223, 25.7796, 1.9666, 1.9608, 24.4183, 322.5371, 76.5905, 23.6928, 88.3586, 75.9335, 26.539, 113.5229, 75.4655, 28.7047, 1.8637, 74.2019, 32.2684, 194.0384, 77.7881, 25.3712, 280.0636, 100.0484, 23.6243, 349.458, 96.9968, 26.3126, 227.8138, 94.7613, 26.9711, 162.0859, 91.2457, 27.6621, 157.0885, 40.0457, 39.7142, 191.5545, 37.3822, 41.9513, 16.9215, 35.1983, 43.6748, 138.942, 31.8663, 44.8229, 335.4825, 31.0051, 46.2478, 60.5657, 30.1126, 49.4519, 160.3965, 27.2785, 63.2029, 19.8262, 27.3838, 66.4723, 136.1731, 27.0842, 68.8928, 227.3018, 27.4304, 70.5993, 8.4569, 29.9299, 71.0741, 342.0592, 32.1301, 72.1879, 78.6744, 33.0232, 71.2645, 174.9346, 33.1979, 68.9082, 173.9548, 34.4069, 64.9651, 79.7691, 36.6331, 65.0473, 79.892, 40.2302, 64.5226, 257.3787, 42.3754, 64.2326, 243.9073)
+posicoes_fixas = PackedVector3Array(22.9601, 18.3441, 19.1338, 26.3461, 18.3037, 281.0677, 29.0534, 18.4106, 106.7885, 31.9024, 19.432, 127.397, 34.3377, 20.2645, 79.8157, 37.7393, 22.129, 295.5913, 115.7642, 23.0143, 355.0868, 117.8682, 21.2677, 113.0963, 119.7518, 19.5125, 237.3447, 122.7553, 17.6553, 128.2436, 124.9072, 16.7015, 43.278, 156.0582, 29.5645, 291.3778, 156.662, 33.085, 211.008, 156.7857, 35.7997, 96.488, 157.0338, 39.2177, 185.4653, 156.4326, 41.5239, 269.1563, 143.8594, 55.3743, 326.1782, 140.207, 56.2589, 102.7882, 137.925, 56.675, 250.6434, 134.3563, 57.0396, 189.6263, 131.9492, 56.7683, 71.0454, 128.7226, 56.4816, 214.6173, 51.2514, 71.9054, 37.0082, 51.6585, 75.0808, 205.2935, 51.7063, 77.2942, 127.3735, 52.1707, 81.2049, 5.0104, 51.0977, 83.3453, 35.0171, 39.4118, 90.0256, 329.4115, 37.0778, 92.7336, 174.4311, 34.9398, 94.5638, 248.2753, 32.0369, 96.1428, 10.3544, 29.7254, 96.7629, 327.5253, 26.0017, 97.8507, 99.7496, 23.7331, 97.8982, 43.8212, 8.0332, 63.5451, 300.5802, 4.5591, 65.1169, 123.4346, 2.5644, 65.5157, 322.1028, 1.2984, 67.5023, 11.2772, 1.341, 68.6122, 215.628, 1.2082, 71.888, 92.7229, 1.3343, 74.5119, 239.5064, 1.17, 78.1088, 263.9879, 1.3633, 80.3985, 108.7897, 9.694, 107.5785, 98.4271, 13.0996, 107.4029, 270.2812, 15.7214, 107.3946, 352.3816, 19.2287, 107.4361, 250.6832, 88.11, 107.3571, 263.8523, 91.6601, 107.4905, 28.1182, 93.8575, 107.6383, 334.2056, 97.6265, 107.5706, 275.8653, 99.9744, 107.6869, 91.2461, 103.4088, 107.7404, 56.2828, 105.7911, 107.388, 107.5503, 108.3567, 107.6139, 116.3603, 112.2691, 107.5113, 16.4585, 114.5842, 107.3945, 127.58, 117.9573, 107.4203, 123.8205, 120.7477, 107.789, 336.6584, 123.9958, 107.4602, 80.5622, 126.3634, 107.4571, 16.1835, 130.1844, 107.5172, 24.2184, 133.7244, 107.5439, 276.3153, 136.4066, 107.6878, 62.9048, 139.6345, 107.7991, 223.6914, 142.2828, 107.7877, 172.3777, 145.9185, 107.5185, 149.0974, 158.7084, 41.0239, 78.7313, 158.7883, 37.629, 102.2142, 158.5117, 35.2661, 310.6284, 158.4729, 31.4996, 78.4139, 158.7426, 29.1429, 315.4415, 4.4794, 55.6182, 257.7655, 7.8516, 54.5565, 340.7431, 10.2144, 54.5038, 295.9137, 14.078, 53.64, 9.9189, 15.9961, 54.0712, 48.7608, 19.5477, 55.2794, 69.6545, 20.2099, 53.9298, 166.7204, 20.5883, 50.0393, 116.1301, 21.8857, 46.9724, 36.3986, 22.0805, 46.0356, 288.035, 18.5281, 45.5121, 40.0065, 16.1169, 44.8931, 133.3869, 12.6445, 43.3313, 297.4942, 10.4492, 42.3299, 269.6674, 8.6733, 40.4785, 71.8793, 6.3833, 37.6191, 238.4932, 5.4527, 35.2745, 34.3255, 5.257, 31.7159, 343.1952, 5.0168, 29.2696, 185.785, 7.0973, 25.9243, 353.8219, 6.1146, 25.8174, 66.0845, 111.3163, 39.5824, 231.2178, 110.9597, 35.9147, 308.2416, 111.2128, 33.3958, 315.6593, 111.5422, 30.2582, 71.538, 110.3929, 30.3924, 258.8915, 106.9075, 31.3382, 101.4128, 45.4994, 58.4167, 11.6082, 42.0732, 59.6984, 262.3583, 39.8924, 60.2934, 130.1421, 36.5877, 60.9507, 275.6231, 34.1494, 61.1811, 242.7242, 30.7968, 62.0309, 231.4781, 28.8318, 62.8057, 107.5274)
 seguir_o_chao = true
 
 [node name="Borda_muro_de_pedra" type="Node3D" parent="BordaDosCorredores"]
@@ -7570,7 +7572,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = true
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(38.4752, 23.1595, -45.0, 39.8894, 24.5737, -45.0, 41.279, 26.1636, -63.4349, 42.1734, 27.9524, -63.4349, 42.5873, 29.783, -53.1301, 43.7873, 31.383, -53.1301, 45.0802, 32.8531, -47.3373, 46.4355, 34.3238, -47.3373, 47.7909, 35.7946, -47.3373, 49.1463, 37.2653, -47.3373, 62.8396, 39.1827, 64.7989, 63.6912, 37.3731, 64.7989, 64.5428, 35.5634, 64.7989, 64.85, 33.8109, 90.0, 65.5477, 31.7899, 66.8014, 66.3355, 29.9516, 66.8014, 148.841, 20.0253, -45.0, 150.2552, 21.4395, -45.0, 151.6694, 22.8538, -45.0, 153.1356, 24.3715, -61.3895, 154.0933, 26.1273, -61.3895, 155.051, 27.8831, -61.3895, 125.3964, 77.2121, 135.0, 123.9822, 75.7979, 135.0, 122.4289, 75.827, -173.6598, 120.4411, 76.0479, -173.6598, 118.6096, 76.65, -180.0, 117.0068, 76.8089, -135.0, 114.8167, 77.15, -180.0, 113.4229, 75.6422, 98.8418, 113.1155, 73.666, 98.8418, 35.9478, 93.3679, -135.0, 34.2785, 94.623, -150.2551, 32.542, 95.6153, -150.2551, 30.6534, 96.1205, -153.4349, 28.8646, 97.0149, -153.4349, 27.0761, 97.2396, -135.0, 11.2843, 72.5055, 21.8014, 13.1412, 71.7627, 21.8014, 14.9982, 71.0199, 21.8014, 17.0317, 70.5892, 9.4623, 18.4544, 70.0485, 59.0362, 18.8055, 68.3965, 92.2906, 18.7256, 66.3981, 92.2906, 18.6457, 64.3997, 92.2906, 4.8876, 64.8248, -165.2564, 2.9534, 65.3338, -165.2564, 1.0193, 65.8428, -165.2564, 1.15, 67.3268, -90.0, 1.15, 69.3268, -90.0, 1.15, 71.3268, -90.0, 1.15, 73.3268, -90.0, 1.15, 75.3268, -90.0, 1.15, 77.3268, -90.0, 1.15, 78.6008, -90.0, 1.15, 80.6008, -90.0, 1.15, 82.6008, -90.0, 1.15, 84.6008, -90.0, 1.15, 86.6008, -90.0, 1.15, 88.6008, -90.0, 1.15, 90.6008, -90.0, 1.15, 105.5783, -90.0, 1.15, 107.5783, -90.0, 2.3289, 107.6025, -0.0905, 4.3289, 107.6057, -0.0905, 6.3289, 107.6088, -0.0905, 8.3289, 107.612, -0.0905, 10.3289, 107.6151, -0.0905, 12.3289, 107.6183, -0.0905, 106.2279, 107.7666, -0.0905, 108.2279, 107.7698, -0.0905, 110.2279, 107.773, -0.0905, 112.2279, 107.7761, -0.0905, 114.2279, 107.7793, -0.0905, 116.2279, 107.7824, -0.0905, 118.2279, 107.7856, -0.0905, 120.2279, 107.7887, -0.0905, 122.2279, 107.7919, -0.0905, 124.2279, 107.7951, -0.0905, 126.2279, 107.7982, -0.0905, 152.9095, 107.8404, -0.0905, 154.9095, 107.8435, -0.0905, 156.9095, 107.8467, -0.0905, 158.9095, 107.8499, -0.0905, 158.6052, 106.34, 89.8447, 158.6106, 104.34, 89.8447, 158.616, 102.34, 89.8447, 158.6214, 100.34, 89.8447, 158.8106, 30.5343, 89.8447, 158.816, 28.5343, 89.8447, 158.8215, 26.5343, 89.8447, 158.8269, 24.5343, 89.8447, 158.8323, 22.5343, 89.8447, 1.393, 23.2528, -90.4007, 1.379, 25.2527, -90.4007, 1.365, 27.2527, -90.4007, 1.351, 29.2526, -90.4007, 1.3371, 31.2526, -90.4007, 1.3231, 33.2525, -90.4007, 1.3091, 35.2525, -90.4007, 1.2951, 37.2524, -90.4007, 1.2811, 39.2524, -90.4007, 1.2671, 41.2523, -90.4007, 1.2531, 43.2523, -90.4007, 5.5148, 55.5454, 26.5651, 7.4092, 55.0982, 26.5651, 9.4214, 54.35, -0.0, 11.2143, 53.85, -0.0, 13.2143, 53.85, -0.0, 15.0072, 54.35, -0.0, 17.1325, 54.6191, -26.5651, 18.7711, 55.35, -0.0, 20.0538, 54.883, 59.0362, 20.35, 53.1866, 90.0, 20.85, 51.9839, 90.0, 21.123, 49.8595, 63.4349, 21.9015, 48.158, 80.5377, 22.2303, 46.1852, 80.5377, 21.4843, 45.8038, 175.6013, 19.4902, 45.6504, 175.6013, 29.15, 51.2806, -90.0, 28.6527, 52.9433, -71.5651, 29.4686, 52.8185, 26.5651, 31.2575, 51.9241, 26.5651, 33.0463, 51.0296, 26.5651, 34.8352, 50.1352, 26.5651, 36.9567, 49.85, -0.0, 38.9567, 49.85, -0.0, 47.5666, 47.8295, 133.3634, 46.1933, 46.3755, 133.3634, 44.8201, 44.9215, 133.3634, 43.4468, 43.4675, 133.3634, 42.0736, 42.0134, 133.3634, 40.7004, 40.5594, 133.3634, 45.2384, 58.5116, -156.8014, 43.4001, 59.2994, -156.8014, 41.3079, 59.65, -180.0, 39.5775, 60.2498, -158.1986, 37.5005, 60.65, -180.0, 35.7076, 61.15, -180.0, 34.0761, 61.2396, -135.0, 31.9147, 61.65, -180.0, 30.1242, 62.0056, -159.444, 28.2516, 62.7079, -159.444)
+posicoes_fixas = PackedVector3Array(38.4752, 23.1595, -45.0, 39.8894, 24.5737, -45.0, 41.279, 26.1636, -63.4349, 42.1734, 27.9524, -63.4349, 42.5873, 29.783, -53.1301, 43.7873, 31.383, -53.1301, 45.0802, 32.8531, -47.3373, 46.4355, 34.3238, -47.3373, 47.7909, 35.7946, -47.3373, 49.1463, 37.2653, -47.3373, 62.8396, 39.1827, 64.7989, 63.6912, 37.3731, 64.7989, 64.5428, 35.5634, 64.7989, 64.85, 33.8109, 90.0, 65.5477, 31.7899, 66.8014, 66.3355, 29.9516, 66.8014, 148.841, 20.0253, -45.0, 150.2552, 21.4395, -45.0, 151.6694, 22.8538, -45.0, 153.1356, 24.3715, -61.3895, 154.0933, 26.1273, -61.3895, 155.051, 27.8831, -61.3895, 49.9444, 84.3713, -135.0, 48.5302, 85.7855, -135.0, 47.116, 87.1997, -135.0, 45.7017, 88.6139, -135.0, 44.2875, 90.0282, -135.0, 41.9294, 89.7264, 156.8014, 40.0911, 88.9385, 156.8014, 22.1514, 97.65, -180.0, 20.1514, 97.65, -180.0, 18.1514, 97.65, -180.0, 16.3585, 97.15, -180.0, 14.4956, 96.557, 168.6901, 12.5344, 96.1648, 168.6901, 10.665, 95.1621, 150.2551, 8.9285, 94.1698, 150.2551, 7.4063, 92.722, 135.0, 5.9921, 91.3078, 135.0, 5.1351, 90.4508, 135.0, 4.104, 88.6025, 116.5651, 3.35, 86.5916, 90.0, 3.35, 84.5916, 90.0, 3.35, 82.5916, 90.0, 3.5749, 80.4559, 63.4349, 4.4693, 78.667, 63.4349, 5.7634, 76.9961, 42.1376, 7.2465, 75.6542, 42.1376, 8.7296, 74.3124, 42.1376, 10.2126, 72.9706, 42.1376, 12.1105, 72.175, 21.8014, 13.9675, 71.4322, 21.8014, 15.9367, 70.7717, 9.4623, 17.9095, 70.4429, 9.4623, 18.8499, 69.5057, 92.2906, 18.77, 67.5073, 92.2906, 18.69, 65.5089, 92.2906, 18.602, 63.308, 92.2906, 17.0263, 62.9371, 159.444, 15.1536, 62.2348, 159.444, 13.3141, 62.15, -180.0, 11.3141, 62.15, -180.0, 9.6182, 62.6381, -153.4349, 1.15, 95.9434, -90.0, 1.15, 97.9434, -90.0, 1.15, 99.9434, -90.0, 1.15, 101.9434, -90.0, 1.15, 103.9434, -90.0, 1.15, 105.9434, -90.0, 1.15, 107.9434, -90.0, 2.6941, 107.6031, -0.0905, 4.6941, 107.6062, -0.0905, 6.6941, 107.6094, -0.0905, 8.6941, 107.6125, -0.0905, 20.3333, 107.6309, -0.0905, 22.3333, 107.6341, -0.0905, 24.3333, 107.6373, -0.0905, 26.3333, 107.6404, -0.0905, 28.3333, 107.6436, -0.0905, 30.3333, 107.6467, -0.0905, 32.3333, 107.6499, -0.0905, 34.3333, 107.6531, -0.0905, 35.5339, 107.655, -0.0905, 37.5339, 107.6581, -0.0905, 39.5339, 107.6613, -0.0905, 41.5339, 107.6644, -0.0905, 43.5339, 107.6676, -0.0905, 45.5339, 107.6707, -0.0905, 47.5339, 107.6739, -0.0905, 49.5339, 107.6771, -0.0905, 51.5339, 107.6802, -0.0905, 158.6188, 101.2998, 89.8447, 158.6243, 99.2998, 89.8447, 158.6297, 97.2998, 89.8447, 158.6351, 95.2998, 89.8447, 158.6405, 93.2998, 89.8447, 158.6459, 91.2999, 89.8447, 158.6514, 89.2999, 89.8447, 158.655, 87.9684, 89.8447, 158.6604, 85.9684, 89.8447, 158.6658, 83.9684, 89.8447, 158.6712, 81.9684, 89.8447, 158.6766, 79.9684, 89.8447, 158.6821, 77.9684, 89.8447, 158.6875, 75.9684, 89.8447, 158.6929, 73.9684, 89.8447, 158.6983, 71.9684, 89.8447, 158.7046, 69.642, 89.8447, 158.71, 67.642, 89.8447, 158.7155, 65.642, 89.8447, 158.7209, 63.642, 89.8447, 158.7263, 61.642, 89.8447, 158.7317, 59.6421, 89.8447, 158.7387, 57.0509, 89.8447, 158.7442, 55.0509, 89.8447, 158.7496, 53.0509, 89.8447, 158.755, 51.0509, 89.8447, 158.7604, 49.0509, 89.8447, 158.7658, 47.0509, 89.8447, 158.7713, 45.0509, 89.8447, 158.7767, 43.0509, 89.8447, 1.393, 23.2528, -90.4007, 1.379, 25.2527, -90.4007, 1.365, 27.2527, -90.4007, 1.351, 29.2526, -90.4007, 1.3371, 31.2526, -90.4007, 1.3231, 33.2525, -90.4007, 1.3091, 35.2525, -90.4007, 1.2951, 37.2524, -90.4007, 1.2811, 39.2524, -90.4007, 1.2671, 41.2523, -90.4007, 4.1484, 25.2714, 153.4349, 2.3523, 24.168, 135.0, 76.0757, 23.7399, -135.0, 76.15, 25.4393, -90.0, 75.65, 27.2322, -90.0, 75.15, 29.0251, -90.0, 74.6047, 31.07, -109.9831, 73.9212, 32.9496, -109.9831, 73.108, 35.2853, -99.4623, 72.7792, 37.2581, -99.4623, 72.0795, 39.2354, -116.5651, 71.1851, 41.0242, -116.5651, 70.2907, 42.8131, -116.5651, 105.5804, 31.15, -180.0, 103.4781, 30.4975, 110.556, 102.7759, 28.6249, 110.556, 102.0736, 26.7522, 110.556, 101.3714, 24.8795, 110.556, 28.8011, 53.3884, -71.5651, 29.8883, 52.6086, 26.5651, 31.6772, 51.7142, 26.5651, 33.466, 50.8198, 26.5651, 35.2549, 49.9253, 26.5651, 37.4259, 49.85, -0.0, 39.4259, 49.85, -0.0, 27.3563, 63.7645, -92.4896, 27.2694, 65.7626, -92.4896, 27.1825, 67.7607, -92.4896, 26.65, 69.5355, -90.0, 27.265, 70.9494, -45.0, 29.6486, 71.2786, -21.8014, 31.5055, 72.0214, -21.8014, 33.3625, 72.7642, -21.8014, 33.2134, 71.5353, 86.1859, 33.3465, 69.5397, 86.1859, 33.4795, 67.5441, 86.1859, 34.1752, 65.35, -0.0, 36.1752, 65.35, -0.0, 37.6946, 64.9897, 45.0, 39.9372, 64.72, 3.8141)
 seguir_o_chao = true
 
 [node name="Borda_palmeira" type="Node3D" parent="BordaDosCorredores"]
@@ -7588,7 +7590,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = true
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(84.6783, 17.404, 18.1798, 89.1125, 87.9628, 152.2653, 91.3332, 87.7728, 96.8045, 49.4769, 92.4048, 9.4377, 54.7376, 105.781, 231.1446, 55.9387, 105.1073, 311.4192)
+posicoes_fixas = PackedVector3Array(84.6783, 17.404, 18.1798, 84.3291, 72.1398, 3.1017, 90.7313, 87.9452, 80.2689, 94.0357, 89.3863, 309.8834, 53.8711, 89.7986, 314.0195, 55.1193, 89.6744, 73.473, 56.314, 89.4216, 13.6676, 58.4484, 105.1021, 97.7361, 60.8472, 105.8621, 87.1012, 82.3939, 46.1343, 132.2059, 89.1503, 40.3159, 328.0222, 73.5214, 82.3517, 133.8611, 73.9308, 81.0833, 148.6494)
 seguir_o_chao = true
 
 [node name="Borda_pedras_do_deserto" type="Node3D" parent="BordaDosCorredores"]
@@ -7606,7 +7608,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(42.589, 25.4369, 36.1888, 48.5686, 35.148, 239.7588, 63.1273, 35.3089, 226.3599, 67.2344, 20.8238, 177.3079, 78.6439, 17.1749, 242.9175, 85.7094, 18.1027, 109.6814, 107.6569, 17.1843, 98.1052, 116.5616, 23.0804, 52.2716, 152.9793, 22.1746, 336.9733, 150.7902, 51.1271, 144.8165, 128.5157, 66.887, 239.918, 122.8602, 76.9913, 35.1814, 112.0377, 74.2455, 357.4569, 83.5226, 85.7351, 193.2584, 87.9152, 87.8829, 291.7529, 95.4628, 91.5697, 104.8161, 97.455, 100.5372, 99.8493, 91.9586, 105.6142, 264.4416, 76.3553, 107.9886, 310.5831, 64.953, 107.485, 253.3934, 57.4954, 105.4647, 167.2152, 50.2479, 101.002, 238.6947, 50.6646, 92.9315, 156.1767, 41.3025, 90.6124, 96.6631, 32.9537, 96.4606, 200.8227, 14.1864, 70.0231, 234.6907, 1.5168, 67.4603, 255.6797, 2.7081, 77.5461, 226.6251, 2.0723, 82.3049, 21.7198, 2.1787, 106.8694, 141.5475, 44.8297, 106.6396, 180.9036, 59.6144, 106.4583, 149.4531, 67.0109, 106.1117, 136.1538, 97.8716, 106.3921, 298.981, 109.8879, 107.0753, 284.7109, 121.9302, 106.2862, 192.8042, 156.5922, 106.3309, 286.9019, 157.0221, 75.9072, 166.9386, 157.5388, 55.0764, 237.133, 157.9713, 39.8994, 312.0051, 157.7945, 26.3926, 53.9159, 3.0258, 27.6372, 6.7689, 3.037, 39.4406, 116.9047, 9.3643, 52.4982, 27.8662, 19.402, 54.0025, 196.1673, 20.2281, 47.7397, 178.7635, 9.6232, 43.0862, 48.6824, 81.1434, 45.9295, 31.4621, 76.9463, 34.7072, 309.2007, 80.5221, 27.525, 302.8581, 88.465, 32.3885, 50.6065, 87.0115, 37.5444, 175.8782, 90.5559, 42.6265, 227.3435, 101.9694, 30.1032, 335.096, 43.6868, 45.5203, 231.4399, 41.6683, 60.6615, 270.3569, 30.9118, 62.6418, 190.6703, 72.2977, 82.6856, 255.7388, 72.6344, 86.1468, 123.9485)
+posicoes_fixas = PackedVector3Array(42.589, 25.4369, 36.1888, 48.5686, 35.148, 239.7588, 63.1273, 35.3089, 226.3599, 67.2344, 20.8238, 177.3079, 78.6439, 17.1749, 242.9175, 85.7094, 18.1027, 109.6814, 107.6569, 17.1843, 98.1052, 116.5616, 23.0804, 52.2716, 152.9793, 22.1746, 336.9733, 150.7902, 51.1271, 144.8165, 129.3843, 68.4599, 61.6034, 85.0131, 75.9343, 196.1547, 84.493, 84.6494, 274.816, 83.6592, 87.6183, 276.9503, 91.2408, 89.1669, 84.5178, 97.4934, 100.063, 267.3141, 92.2715, 105.4684, 97.5446, 74.9565, 107.6858, 25.3744, 67.7852, 107.8989, 176.5553, 60.6863, 106.14, 107.6622, 54.2321, 105.1283, 55.4356, 49.5862, 101.1512, 241.2232, 50.0122, 92.8299, 158.6388, 58.2418, 89.2568, 39.5559, 60.1024, 90.466, 328.4035, 60.4598, 81.1291, 237.6696, 48.3714, 88.5709, 322.3906, 18.4486, 99.4986, 88.0129, 6.7889, 93.3211, 43.4429, 1.7611, 86.7745, 110.1231, 6.155, 75.043, 307.8392, 15.4518, 68.8487, 49.9935, 14.5689, 63.2557, 334.514, 2.8548, 89.9999, 206.9886, 2.2977, 99.6416, 151.0863, 4.5073, 106.5075, 82.3745, 23.9409, 106.2415, 57.3299, 39.6045, 106.4577, 149.1819, 51.5036, 105.7655, 22.3867, 57.6344, 106.0752, 61.4833, 64.7904, 105.8716, 231.1446, 155.538, 106.572, 212.2429, 156.8378, 97.3571, 348.2207, 156.8224, 84.2748, 5.8201, 157.8159, 72.0255, 142.0848, 156.9758, 65.8422, 227.88, 157.6575, 52.7663, 304.4275, 156.933, 19.7218, 0.2993, 2.6958, 27.6493, 43.4953, 2.3606, 39.0518, 279.0054, 2.9882, 50.209, 239.0362, 2.9104, 55.554, 82.1145, 77.4674, 27.3012, 305.3453, 73.3443, 39.6269, 330.2115, 81.2804, 46.4812, 24.0129, 78.0416, 39.9127, 185.9469, 77.6179, 32.2387, 1.686, 80.9343, 27.5685, 31.6464, 96.1175, 27.9511, 212.7375, 90.187, 28.9399, 326.1424, 86.9461, 33.7358, 184.7269, 87.7641, 39.2719, 275.9973, 101.222, 29.0813, 45.714, 33.1801, 45.9336, 317.2305, 30.9347, 50.6315, 246.4264, 28.4449, 67.671, 2.0788, 36.664, 64.3621, 133.587, 72.0356, 82.6984, 93.0895)
 seguir_o_chao = true
 
 [node name="Borda_pilha_de_pneus" type="Node3D" parent="BordaDosCorredores"]
@@ -7624,7 +7626,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(19.9067, 17.1937, 244.9824, 56.5202, 43.0379, 192.6237, 61.5919, 17.5901, 167.2807, 49.8522, 17.1514, 179.4571, 43.5395, 17.3881, 255.2947, 32.7793, 17.1604, 327.3264, 21.4895, 17.471, 71.6652, 14.7546, 17.1547, 211.8277, 79.2614, 17.3394, 95.3934, 119.8743, 17.392, 347.0891, 104.8951, 17.8919, 197.1541, 145.5966, 16.1857, 133.1643, 118.586, 53.2145, 230.9676, 119.6164, 59.0369, 309.9749, 140.075, 71.8001, 105.1095, 155.8495, 83.7094, 91.3298, 151.146, 95.3585, 96.9951, 133.868, 99.7483, 172.2682, 119.7841, 85.3036, 89.7601, 110.2971, 66.069, 50.4928, 107.2799, 68.7176, 96.3737, 107.912, 83.1926, 167.2047, 94.4642, 79.6813, 135.6308, 95.766, 67.4257, 165.2339, 86.8165, 61.5822, 231.9107, 81.373, 69.553, 133.2537, 57.4378, 67.536, 195.3868, 52.5188, 71.0547, 76.7135, 157.5843, 15.8011, 152.6804, 142.3795, 17.0009, 277.5809, 71.4389, 43.0353, 276.3311, 77.14, 48.4698, 71.9312, 94.9813, 37.7762, 257.5526, 46.9666, 48.4286, 164.9535, 72.7458, 61.3136, 318.1282, 68.9585, 67.8145, 59.9921, 76.7035, 59.0852, 169.5602, 44.5028, 58.5534, 191.9335, 75.8796, 79.8608, 279.6171)
+posicoes_fixas = PackedVector3Array(19.9067, 17.1937, 244.9824, 56.5202, 43.0379, 192.6237, 61.5919, 17.5901, 167.2807, 49.8522, 17.1514, 179.4571, 43.5395, 17.3881, 255.2947, 32.7793, 17.1604, 327.3264, 21.4895, 17.471, 71.6652, 14.7546, 17.1547, 211.8277, 79.2614, 17.3394, 95.3934, 119.8743, 17.392, 347.0891, 104.8951, 17.8919, 197.1541, 145.5966, 16.1857, 133.1643, 118.586, 53.2145, 230.9676, 119.5771, 58.9088, 309.9749, 142.1344, 71.8598, 296.3088, 152.3308, 77.4185, 215.6357, 155.7581, 87.9866, 333.2903, 145.1421, 98.8393, 192.5652, 123.5079, 95.2281, 333.1376, 115.2672, 90.7039, 113.8093, 112.4656, 75.1403, 192.0014, 121.4058, 75.8203, 184.116, 110.0978, 65.5781, 116.7017, 112.9871, 74.0283, 307.4651, 103.0092, 83.7364, 349.729, 93.0909, 74.1433, 134.2704, 91.3382, 63.8066, 74.3808, 81.3319, 70.5379, 312.4034, 54.6739, 64.2829, 188.6169, 51.9692, 69.8433, 295.9603, 157.1942, 17.7154, 257.4267, 144.8532, 17.491, 197.72, 73.7765, 48.0242, 34.8924, 92.1956, 39.8285, 102.7493, 108.5719, 37.283, 114.2283, 47.0045, 49.6196, 208.0273, 73.5513, 61.2855, 167.5926, 68.0815, 67.0931, 130.554, 76.3349, 60.0497, 318.0205, 44.4186, 61.2024, 250.3933, 72.1901, 80.1301, 278.1789)
 seguir_o_chao = true
 
 [node name="Borda_pilha_de_sucata" type="Node3D" parent="BordaDosCorredores"]
@@ -7642,7 +7644,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(16.7068, 16.241, 272.7398, 51.236, 37.2293, 347.3442, 60.6923, 41.5567, 323.6844, 65.6219, 17.2288, 354.2361, 53.5732, 17.6993, 318.5025, 47.5672, 17.9328, 32.9833, 37.0851, 17.4524, 208.4345, 25.1616, 17.7471, 243.9663, 19.11, 17.3556, 150.7771, 83.4605, 17.8925, 149.9296, 94.1089, 16.78, 245.0132, 123.3396, 17.2261, 44.2652, 111.2112, 17.7752, 276.3774, 109.1274, 17.073, 217.7283, 93.5039, 17.6537, 183.4254, 125.6899, 56.652, 319.3862, 116.9756, 52.6335, 194.5083, 117.2579, 54.5325, 53.979, 133.3905, 71.866, 64.7719, 148.5562, 74.2001, 315.7156, 151.4165, 76.3617, 181.527, 155.6681, 88.1209, 8.6504, 143.9432, 99.4388, 192.5652, 141.8989, 99.7029, 285.982, 125.6358, 96.8747, 333.1376, 122.3009, 93.5631, 133.7056, 123.8218, 77.126, 138.4755, 111.9814, 72.6727, 65.5521, 109.3556, 65.8627, 100.4205, 112.7652, 75.9745, 225.8402, 101.6533, 83.6802, 274.7591, 94.5624, 71.1449, 198.31, 90.0098, 62.7845, 217.1132, 88.3878, 60.117, 139.1232, 83.4071, 64.3783, 149.7178, 86.307, 77.4449, 18.1963, 59.3812, 75.8285, 207.8924, 56.0154, 64.6854, 303.2749, 52.9017, 67.3973, 35.1045, 157.2883, 20.2976, 156.1912, 151.2639, 17.809, 263.7716, 146.2286, 17.4638, 58.7057, 74.2577, 35.4527, 187.0955, 72.1268, 45.5527, 232.9473, 102.8574, 35.9375, 170.2881, 107.743, 36.4645, 261.2543, 109.8793, 31.9672, 328.0222, 41.9158, 49.1385, 346.9184, 78.8131, 58.9248, 72.0749, 69.0358, 63.9764, 113.6624, 72.3683, 69.9661, 266.0205, 72.6733, 66.3752, 164.1183, 44.7669, 62.9515, 125.3176, 73.7426, 83.071, 50.9061)
+posicoes_fixas = PackedVector3Array(16.7068, 16.241, 272.7398, 51.236, 37.2293, 347.3442, 60.6923, 41.5567, 323.6844, 65.6219, 17.2288, 354.2361, 53.5732, 17.6993, 318.5025, 47.5672, 17.9328, 32.9833, 37.0851, 17.4524, 208.4345, 25.1616, 17.7471, 243.9663, 19.11, 17.3556, 150.7771, 83.4605, 17.8925, 149.9296, 94.1089, 16.78, 245.0132, 123.3396, 17.2261, 44.2652, 111.2112, 17.7752, 276.3774, 109.1274, 17.073, 217.7283, 93.5039, 17.6537, 183.4254, 125.6899, 56.652, 319.3862, 116.9756, 52.6335, 194.5083, 117.2579, 54.5325, 53.979, 134.175, 71.8738, 213.3049, 144.9678, 72.9405, 348.6457, 154.1721, 79.7014, 316.009, 152.0939, 94.4106, 96.9951, 137.0567, 99.5415, 345.1641, 131.5562, 99.0336, 172.2682, 120.9916, 90.5579, 98.0896, 111.3014, 84.3927, 295.921, 118.423, 75.0921, 357.4569, 115.5715, 70.4035, 176.2343, 114.3774, 69.5739, 246.999, 106.051, 68.3577, 70.6891, 111.6332, 80.703, 209.9047, 96.9714, 82.3391, 181.289, 96.6756, 67.0112, 136.4999, 88.8062, 59.0863, 356.7099, 82.967, 64.8216, 133.244, 57.6663, 69.0579, 6.1202, 55.4942, 65.7806, 84.6728, 157.4818, 17.8212, 154.2383, 148.9506, 17.2149, 110.6288, 69.9281, 45.2161, 332.5519, 81.4445, 47.1393, 278.264, 90.0589, 41.7583, 327.335, 100.7444, 35.7246, 204.3225, 42.5703, 49.5779, 80.7683, 41.5136, 43.3708, 289.8432, 78.3096, 59.0397, 268.1734, 69.8715, 64.1995, 344.0136, 72.1026, 70.5627, 156.2249, 73.1505, 67.8791, 56.1332, 42.3545, 63.098, 333.4449, 76.2804, 79.8435, 101.146)
 seguir_o_chao = true
 
 [node name="Borda_rochas_baixas" type="Node3D" parent="BordaDosCorredores"]
@@ -7660,7 +7662,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = false
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(25.0179, 17.1226, 284.0473, 29.9723, 17.5157, 210.933, 34.6367, 18.82, 263.6271, 39.6286, 22.5066, 63.8708, 45.95, 32.2715, 225.7166, 61.7842, 38.5801, 103.995, 77.7477, 18.4214, 221.5346, 84.6454, 18.9279, 69.3395, 116.2522, 21.4566, 125.6313, 119.5521, 18.3431, 221.9679, 124.4988, 16.1026, 253.7548, 150.2155, 18.9584, 108.1459, 158.2385, 31.9131, 344.5461, 157.8887, 36.7979, 213.1451, 157.1752, 41.6611, 30.7372, 141.9752, 56.7144, 248.0139, 137.0101, 57.9844, 80.7092, 131.8233, 57.8801, 64.8377, 124.4452, 78.2694, 49.5179, 115.049, 78.5767, 38.9172, 83.4935, 84.0472, 181.6178, 81.9559, 88.3412, 44.0253, 86.6539, 89.3853, 39.563, 93.4191, 91.5951, 299.5138, 96.9476, 99.1118, 62.0402, 91.9658, 104.31, 267.0553, 77.3154, 107.0548, 107.1506, 70.5464, 107.3522, 64.8107, 66.1016, 106.0771, 344.7803, 59.3685, 104.745, 292.4877, 51.52, 101.4083, 296.101, 50.3836, 94.5822, 71.0335, 56.7567, 90.9282, 36.7722, 61.5401, 90.3538, 99.2243, 57.8385, 89.1713, 332.7136, 59.5544, 83.071, 71.6767, 60.562, 81.1308, 295.8078, 59.1336, 76.7026, 239.9492, 53.5308, 78.7357, 165.4358, 51.2721, 83.7636, 205.2935, 36.4345, 94.3319, 74.8816, 23.1281, 99.2213, 153.2111, 17.6671, 99.2825, 180.8072, 13.1607, 97.349, 150.6361, 8.4958, 95.4541, 310.7176, 4.4696, 91.5893, 6.0574, 1.6114, 86.8749, 107.2291, 2.0325, 81.6434, 28.3391, 3.6562, 77.0537, 310.081, 7.4196, 73.6656, 6.4297, 10.4967, 71.5013, 140.6342, 16.9964, 66.5963, 152.9825, 15.5854, 63.7248, 109.2857, 10.8656, 63.4174, 351.4378, 7.113, 65.1972, 47.5118, 4.9334, 66.1255, 165.8338, 2.4606, 72.9668, 258.4236, 2.1367, 78.5545, 108.7897, 2.3767, 90.4659, 0.2167, 2.1023, 95.2476, 197.9994, 2.4138, 100.0021, 64.6846, 2.5148, 105.8678, 355.1309, 10.5378, 106.3444, 79.2341, 16.7679, 106.3135, 61.575, 21.5944, 106.9807, 220.8825, 26.6527, 106.3359, 247.4414, 31.3179, 106.2861, 165.447, 58.1451, 107.6704, 76.7701, 65.4398, 107.4006, 31.9035, 72.7615, 107.4667, 124.8246, 88.5876, 107.6141, 161.4369, 105.9223, 106.7499, 19.2072, 117.9661, 105.9177, 195.5553, 130.0115, 106.9334, 170.684, 134.9913, 106.3993, 82.9583, 139.1589, 106.1982, 187.6528, 144.9992, 106.9089, 190.871, 149.6518, 106.5068, 153.3979, 153.2222, 106.4895, 320.0338, 157.1315, 102.5901, 101.5183, 157.152, 96.2445, 23.1187, 157.2782, 91.3836, 259.6766, 156.8662, 86.9062, 348.2207, 157.5271, 30.4371, 161.9403, 2.7387, 35.2735, 158.1033, 2.5916, 47.2475, 33.5129, 2.3456, 51.3542, 300.6421, 2.2329, 56.6044, 21.4477, 3.0492, 55.3748, 352.4104, 5.2124, 54.419, 202.1224, 17.8287, 53.4636, 28.5928, 19.5039, 52.3005, 182.3797, 6.3385, 39.6111, 8.4385, 3.7844, 34.02, 239.319, 4.5275, 29.127, 22.4262, 2.4625, 26.1563, 67.7093, 77.9314, 25.3501, 101.5505, 76.0628, 30.1932, 223.2651, 82.8514, 46.5469, 211.0484, 79.2838, 40.2655, 259.7682, 78.0025, 35.7054, 222.2468, 80.6683, 28.9217, 37.7917, 78.5572, 25.9915, 18.0719, 98.1674, 27.041, 259.0381, 93.9558, 28.7832, 245.7677, 87.7924, 30.6939, 211.6634, 85.9032, 36.5619, 89.351, 89.0047, 42.8852, 234.5888, 38.5458, 41.6447, 151.9006, 34.5486, 44.8659, 18.1601, 32.4083, 46.1958, 191.0637, 30.4897, 51.5108, 174.8969, 36.8875, 48.6803, 67.1574, 46.612, 48.8821, 161.7238, 45.3955, 59.5377, 171.1499, 34.6416, 61.8795, 308.6698, 28.3884, 65.0847, 227.4869, 27.7642, 69.51, 247.4366, 30.4589, 70.1365, 50.0168, 31.9559, 72.4111, 159.1771, 31.701, 67.6924, 251.8299, 36.8692, 64.17, 127.771, 41.4457, 62.888, 220.065, 70.6876, 81.6764, 140.7359, 74.1376, 86.9438, 189.7242)
+posicoes_fixas = PackedVector3Array(25.0179, 17.1226, 284.0473, 29.9723, 17.5157, 210.933, 34.6367, 18.82, 263.6271, 39.6286, 22.5066, 63.8708, 45.95, 32.2715, 225.7166, 61.7842, 38.5801, 103.995, 77.7477, 18.4214, 221.5346, 84.6454, 18.9279, 69.3395, 116.2522, 21.4566, 125.6313, 119.5521, 18.3431, 221.9679, 124.4988, 16.1026, 253.7548, 150.2155, 18.9584, 108.1459, 158.2385, 31.9131, 344.5461, 157.8887, 36.7979, 213.1451, 157.1752, 41.6611, 30.7372, 141.9752, 56.7144, 248.0139, 137.0101, 57.9844, 80.7092, 131.8233, 57.8801, 64.8377, 83.96, 75.7707, 207.777, 84.2203, 82.9858, 346.3807, 82.6062, 88.6318, 177.4547, 89.8483, 89.8952, 183.7684, 95.7123, 93.8646, 203.8132, 97.3025, 98.7292, 272.9137, 91.9712, 104.0118, 302.4214, 76.4306, 106.7286, 86.7307, 69.0913, 106.9208, 293.944, 63.033, 106.0522, 7.0702, 56.6452, 104.0326, 122.3188, 51.416, 101.3145, 193.8731, 50.5864, 94.5793, 338.43, 57.111, 90.8536, 4.1889, 65.0961, 90.4244, 207.6711, 52.8127, 73.733, 3.8311, 53.4411, 78.8312, 48.3039, 51.9717, 84.4343, 19.6185, 51.2714, 85.4156, 20.9267, 39.4708, 89.6123, 132.938, 38.3149, 92.8101, 133.396, 34.5227, 96.024, 125.9523, 30.6135, 98.1783, 168.536, 25.0033, 99.2982, 44.5858, 21.8596, 98.7288, 6.0574, 10.2098, 96.5289, 299.1682, 4.3926, 91.2011, 319.6311, 3.7074, 78.3769, 163.4316, 11.9937, 71.1533, 91.6143, 16.7511, 65.4196, 343.9727, 17.1491, 63.0365, 149.1404, 6.4548, 65.6988, 73.9859, 1.167, 67.5879, 101.6093, 2.6876, 70.5512, 173.5699, 2.3269, 75.4937, 212.3295, 2.0723, 80.1258, 21.7198, 1.8373, 95.6462, 323.7384, 2.8885, 107.8242, 152.7239, 12.0727, 106.0637, 114.827, 16.4811, 106.183, 352.2714, 20.1529, 106.2309, 288.7935, 32.1818, 106.2559, 247.5608, 35.6879, 106.6872, 213.3981, 47.6761, 106.7404, 0.4344, 56.0943, 107.493, 123.636, 63.2528, 107.4485, 234.8988, 70.4107, 107.5593, 359.5092, 77.5798, 107.5497, 38.2163, 90.2407, 106.3075, 124.8246, 95.1277, 106.2874, 342.1156, 99.7227, 106.2976, 105.392, 104.9658, 106.6411, 256.3839, 110.6968, 106.6157, 209.8933, 115.4062, 106.6308, 355.5273, 120.2099, 106.1143, 163.5551, 125.0115, 106.4736, 325.1668, 132.2705, 106.1586, 335.6958, 137.1854, 106.7499, 244.9424, 141.8235, 106.8349, 213.373, 157.0111, 101.4879, 281.5484, 156.8927, 88.9202, 96.0628, 157.4958, 88.2344, 106.6797, 157.0282, 75.9021, 293.7058, 157.7274, 69.7244, 251.8902, 156.9146, 56.6531, 333.407, 157.3977, 45.3827, 38.8233, 157.1494, 39.067, 199.4633, 157.5628, 34.0114, 231.0956, 157.4326, 29.3609, 348.5867, 2.6428, 35.4081, 256.7642, 6.7179, 54.3345, 336.8159, 11.3682, 52.2987, 261.8702, 16.4583, 53.1075, 202.0925, 18.9435, 54.3015, 159.5118, 20.5024, 48.2128, 43.1557, 20.4226, 46.8825, 48.8151, 15.7622, 46.3985, 193.6631, 10.9304, 44.3428, 112.8393, 6.392, 39.6266, 17.369, 4.3775, 33.6882, 229.8968, 3.8747, 29.5569, 144.4009, 6.7328, 26.9836, 232.4289, 3.4402, 26.2512, 311.9553, 74.9034, 35.4554, 250.7009, 83.0249, 47.0582, 135.5887, 79.6731, 40.4324, 194.4608, 78.6226, 33.5979, 46.8135, 81.7387, 27.0015, 261.0124, 76.6188, 24.4782, 324.2553, 96.9607, 26.0664, 309.7769, 89.8785, 28.0883, 249.988, 87.0258, 32.2285, 250.626, 86.482, 38.3473, 306.1926, 110.3015, 37.2302, 24.7083, 109.8514, 32.3247, 55.0138, 111.633, 31.4753, 15.5006, 105.3459, 32.234, 236.2328, 30.1733, 52.7373, 117.0918, 39.6504, 48.8379, 306.5023, 43.6504, 60.0827, 102.8978, 39.2755, 61.9372, 66.8569, 34.0468, 62.2411, 92.1768, 30.2706, 63.4965, 260.0002, 28.2057, 63.9193, 77.2325, 29.8371, 69.7503, 149.7237, 34.1121, 64.2613, 249.7142, 70.8132, 81.4439, 157.3697, 73.9959, 87.2071, 122.17, 76.4067, 81.0045, 6.6396)
 seguir_o_chao = true
 
 [node name="Borda_rochedo_b" type="Node3D" parent="BordaDosCorredores"]
@@ -7678,7 +7680,7 @@ raio_da_colisao = 0.0
 altura_da_colisao = 1.5
 projeta_sombra = true
 some_a_partir_de = 36.0
-posicoes_fixas = PackedVector3Array(118.2337, 104.1038, 326.5544, 154.9151, 104.3587, 88.3311)
+posicoes_fixas = PackedVector3Array(3.4091, 74.3939, 309.7138, 15.3033, 66.9712, 170.9049, 6.6991, 104.3997, 269.1294, 39.5397, 104.0, 113.1972, 49.5399, 103.8354, 221.2664, 30.8762, 68.2096, 243.9073)
 seguir_o_chao = true
 
 [node name="GramaPertoDoJogador" type="Node3D" parent="."]
@@ -7713,7 +7715,7 @@ position = Vector3(109.0, 0.033, 51.0)
 rotation = Vector3(0, -1.5708, 0)
 
 [node name="oficina" type="Marker3D" parent="PontosDeRotina"]
-position = Vector3(108.5, 0.002, 59.5)
+position = Vector3(106.5, 0.0033, 59.5)
 rotation = Vector3(0, -1.5708, 0)
 
 [node name="mercado" type="Marker3D" parent="PontosDeRotina"]
@@ -7742,6 +7744,41 @@ rotation = Vector3(0, 1.5708, 0)
 [node name="beira_rio" type="Marker3D" parent="PontosDeRotina"]
 position = Vector3(64.0, 0.1096, 88.035)
 rotation = Vector3(0, 3.1416, 0)
+
+[node name="casa_bento" type="Marker3D" parent="PontosDeRotina"]
+position = Vector3(92.0, 0.0, 26.0)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="porta_da_galeria" type="Marker3D" parent="PontosDeRotina"]
+position = Vector3(95.5, 0.0, 21.5)
+
+[node name="casa_helio" type="Marker3D" parent="PontosDeRotina"]
+position = Vector3(105.0, 0.0635, 72.5)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="cisterna" type="Marker3D" parent="PontosDeRotina"]
+position = Vector3(101.0, 0.024, 73.0)
+
+[node name="casa_dandara" type="Marker3D" parent="PontosDeRotina"]
+position = Vector3(147.5, 0.0145, 90.0)
+
+[node name="oficina_das_motoqueiras" type="Marker3D" parent="PontosDeRotina"]
+position = Vector3(140.0, 0.03, 80.0)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="fogueira" type="Marker3D" parent="PontosDeRotina"]
+position = Vector3(139.0, 0.0, 89.5)
+rotation = Vector3(0, 3.1416, 0)
+
+[node name="ponto_de_onibus" type="Marker3D" parent="PontosDeRotina"]
+position = Vector3(72.5, 0.0, 15.5)
+
+[node name="fim_da_estrada" type="Marker3D" parent="PontosDeRotina"]
+position = Vector3(156.0, 0.0, 11.0)
+rotation = Vector3(0, -1.5708, 0)
+
+[node name="parada_do_caminhao" type="Marker3D" parent="PontosDeRotina"]
+position = Vector3(120.0, 0.0, 12.5)
 
 [node name="ElencoDeNpcs" type="Node3D" parent="."]
 script = ExtResource("r112")

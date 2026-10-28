@@ -92,7 +92,9 @@ PONTES = [
 
 RESERVAS = {
     "reserva_das_raposas": [(34, 66), (50, 64), (52, 82), (44, 90), (34, 86)],
-    "pasto_do_vizinho": [(112, 64), (124, 62), (125, 75), (114, 77)],
+    # Ao sul da trilha da vila até o acampamento. No lugar antigo, (112, 64) a (125, 75),
+    # a reserva cortava essa trilha, e a cerca deixava o acampamento sem caminho (plano 30).
+    "pasto_do_vizinho": [(112, 77), (122, 76), (123, 88), (113, 89)],
     "campo_de_ossos": [(100, 20), (114, 18), (117, 29), (104, 31)],
 }
 

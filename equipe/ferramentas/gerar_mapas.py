@@ -1204,7 +1204,9 @@ def montar_mundo():
     vx, vz = dm.LUGARES["vila"][0], dm.LUGARES["vila"][1]
     p("CasaGeminada", MUNDO_PACOTE + "casa_geminada.glb", vx, vz - 9.0, pai="Vila")
     p("CasaDoVitor", MUNDO_PACOTE + "casa_do_vitor.glb", vx + 9.5, vz - 1.0, graus=-90, pai="Vila")
-    p("OficinaDoVitor", MUNDO_PACOTE + "oficina_do_vitor.glb", vx + 9.5, vz + 7.5, graus=-90, pai="Vila")
+    # A oficina fica 2 a oeste da boca da trilha do acampamento. Em vx + 9,5 ela tampava a
+    # passagem, e ninguém chegava ao acampamento (plano 30).
+    p("OficinaDoVitor", MUNDO_PACOTE + "oficina_do_vitor.glb", vx + 7.5, vz + 7.5, graus=-90, pai="Vila")
     p("CasaDaMarta", MUNDO_PACOTE + "casa_da_marta.glb", vx - 8.5, vz + 6.0, graus=90, pai="Vila")
     for nome, modelo, x, z, graus in (("BarracoA", "barraco_a", vx - 7.0, vz - 8.5, 0), ("BarracoB", "barraco_b", vx + 3.5, vz + 10.5, 180),
                                       ("BarracoA", "barraco_a", vx + 12.5, vz - 10.0, -60), ("BarracoB", "barraco_b", vx - 2.0, vz + 13.5, 160)):
@@ -1273,6 +1275,9 @@ def montar_mundo():
         m.peca("Acesso", "res://scenes/world/entrada_de_dungeon.tscn", 0, frente, pai=grupo)
         c.nos[-1] += '\ndungeon_id = &"%s"' % dungeon_id
         m.luz("Luz", 0, 2.2, 1.8, rgb, alcance=7.0, pai=grupo)
+    # O barraco do Bento, o ex-zelador, de frente para a trilha e à vista da porta da
+    # Galeria, que ele vigia até hoje.
+    p("BarracoDoBento", MUNDO_PACOTE + "barraco_a.glb", 92, 29.5, graus=180, pai="Entradas")
 
     # -- Badlands e a pedreira
     c.no("Badlands", "Node3D")
@@ -1332,7 +1337,7 @@ def montar_mundo():
     raposas = dm.RESERVAS["reserva_das_raposas"]
     p("CarcacaDeDrone", MUNDO_PACOTE + "carcaca_de_drone.glb", 43, 75, graus=25, pai="Reservas")
     p("Costela", MUNDO_PACOTE + "costela_gigante.glb", 108, 24, graus=-15, pai="Reservas")
-    p("CaixaDoPasto", MUNDO_PACOTE + "caixa_dagua_da_fazenda.glb", 119, 69, pai="Reservas")
+    p("CaixaDoPasto", MUNDO_PACOTE + "caixa_dagua_da_fazenda.glb", 119, 82, pai="Reservas")
 
     def animal(nome, arquivo, x, z, area, escala, velocidade):
         c.no(nome, "Node3D", pai="Reservas", propriedades={
@@ -1347,14 +1352,14 @@ def montar_mundo():
         animal("Raposa", "animal_fox", x, z, area_das_raposas, 0.24, 1.1)
     for k, (x, z) in enumerate(((44, 70), (40, 78))):
         animal("Lebre", "animal_bunny", x, z, area_das_raposas, 0.2, 1.4)
-    for k, (x, z) in enumerate(((115, 66), (120, 72), (117, 74))):
-        animal("Vaca", "animal_cow", x, z, (114, 64, 9, 10), 0.36, 0.5)
+    for k, (x, z) in enumerate(((115, 79), (120, 85), (117, 87))):
+        animal("Vaca", "animal_cow", x, z, (114, 78, 8, 9), 0.36, 0.5)
     for k, (x, z) in enumerate(((104, 22), (111, 27))):
         animal("RaposaDosOssos", "animal_fox", x, z, (102, 20, 12, 8), 0.24, 1.0)
     c.no("BolasDeFeno", "Node3D", propriedades={
         "script": c.recurso("Script", "res://scripts/world/soprador_de_feno.gd"),
         "modelo": c.recurso("PackedScene", MUNDO_PACOTE + "enfeite_bola_de_feno.glb"),
-        "areas": "Array[Rect2]([Rect2(34, 66, 8, 22), Rect2(100, 19, 6, 10), Rect2(2, 99, 40, 8), Rect2(105, 101, 50, 6), Rect2(112, 62, 5, 14), Rect2(118, 52, 16, 6)])",
+        "areas": "Array[Rect2]([Rect2(34, 66, 8, 22), Rect2(100, 19, 6, 10), Rect2(2, 99, 40, 8), Rect2(105, 101, 50, 6), Rect2(113, 78, 5, 10), Rect2(118, 52, 16, 6)])",
         "maximo_ao_mesmo_tempo": "7"})
 
     # -- a porteira para a fazenda (noroeste)
@@ -1455,9 +1460,15 @@ def montar_mundo():
     pontos_de_rotina = (
         ("casa_marta", vx - 5.6, vz + 6.0, 90), ("casa_iara", mx - 11.6, mz + 9.5, 90), ("casa_sol", 75.0, 75.0, 90),
         ("casa_kenji", vx - 1.8, vz - 6.3, 0), ("casa_rafa", vx + 2.2, vz - 6.3, 0), ("casa_vitor", vx + 7.0, vz - 1.0, -90),
-        ("oficina", vx + 6.5, vz + 7.5, -90), ("mercado", mx - 4.5, mz - 9.0, 0), ("clinica", mx - 11.5, mz + 1.0, 90),
+        ("oficina", vx + 4.5, vz + 7.5, -90), ("mercado", mx - 4.5, mz - 9.0, 0), ("clinica", mx - 11.5, mz + 1.0, 90),
         ("torre_antena", vx + 4.5, vz - 10.5, 0), ("posto_entrega", 76.0, 16.0, 0), ("mirante", 127.0, 30.5, 0),
         ("praca", mx, mz + 0.5, 0), ("ponte", 0.0, dm.PONTES[2][2], 90), ("beira_rio", x_do_pier, z_da_margem_norte - 3.0, 180),
+        # Elenco do plano 30. A Lúcia e o Zeca moram fora do mapa: a "casa" deles é o ponto
+        # de ônibus e o fim da estrada, por onde chegam e vão embora.
+        ("casa_bento", 92.0, 26.0, 180), ("porta_da_galeria", 95.5, 21.5, 0),
+        ("casa_helio", 105.0, 72.5, -90), ("cisterna", 101.0, 73.0, 0),
+        ("casa_dandara", 147.5, 90.0, 0), ("oficina_das_motoqueiras", 140.0, 80.0, 180), ("fogueira", 139.0, 89.5, 180),
+        ("ponto_de_onibus", 72.5, 15.5, 0), ("fim_da_estrada", 156.0, 11.0, -90), ("parada_do_caminhao", 120.0, 12.5, 0),
     )
     for nome, x, z, graus in pontos_de_rotina:
         if nome == "ponte":
