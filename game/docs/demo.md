@@ -24,6 +24,9 @@ na frente de casa, os prédios dos kits de cidade da Kenney e a cama. Duas mudan
   norte, onde fica a área de combate.
 - Todo prédio e toda árvore ganhou um `CoberturaTranslucida`, para o jogador não sumir
   atrás deles.
+- A horta são os dois canteiros contornados de pedra ao sul da casa, cada um com um
+  `TalhaoDeCultivo` (5x4 e 4x3 células). A enxada só funciona dentro de talhão desde o
+  plano 26, e a cidade antiga é de antes disso: sem eles, nada podia ser arado.
 
 A malha de navegação é `resources/navigation/demo.tres`. Mexeu no mapa, gere de novo:
 

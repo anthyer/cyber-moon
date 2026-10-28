@@ -87,6 +87,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/vendinha.tscn" id="142_vendinha"]
 [ext_resource type="Script" path="res://scripts/combat/area_de_combate.gd" id="143_area_de_combate"]
 [ext_resource type="Script" path="res://scripts/world/cobertura_translucida.gd" id="153_cobertura"]
+[ext_resource type="Script" path="res://scripts/farming/talhao_de_cultivo.gd" id="154_talhao"]
 [ext_resource type="Script" path="res://scripts/combat/ponto_de_inimigo.gd" id="144_ponto_de_inimigo"]
 [ext_resource type="Resource" path="res://resources/combat/inimigos/rato_de_sucata.tres" id="145_rato"]
 [ext_resource type="Resource" path="res://resources/combat/inimigos/drone_de_solda.tres" id="146_drone"]
@@ -1323,6 +1324,18 @@ limite_do_chao = Rect2(-13.7, -23, 39.8, 36.8)
 
 [node name="BauDeGuardar" parent="." instance=ExtResource("126_bau")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1, 0, 5.6)
+
+[node name="Talhoes" type="Node3D" parent="."]
+
+[node name="CanteiroDaDireita" type="Node3D" parent="Talhoes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.064, 0, 6.886)
+script = ExtResource("154_talhao")
+tamanho_em_celulas = Vector2i(5, 4)
+
+[node name="CanteiroDaEsquerda" type="Node3D" parent="Talhoes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.064, 0, 7.886)
+script = ExtResource("154_talhao")
+tamanho_em_celulas = Vector2i(4, 3)
 
 [node name="Vendinha" parent="." instance=ExtResource("142_vendinha")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 5)
