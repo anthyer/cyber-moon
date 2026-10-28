@@ -1,0 +1,253 @@
+[gd_resource type="Resource" script_class="Conversa" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/no_dialogo.gd" id="1_2pi8d"]
+[ext_resource type="Script" path="res://scripts/resources/conversa.gd" id="2_g3fnr"]
+
+[sub_resource type="Resource" id="Resource_384v4"]
+script = ExtResource("1_2pi8d")
+id = "zeca_83ada953"
+falante_id = "zeca"
+texto = "Olha a freguesia! Zeca, da estrada. Chegou fio óptico novinho. Preço de amigo, câmbio."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_232s3"]
+script = ExtResource("1_2pi8d")
+id = "zeca_49486e73"
+falante_id = "zeca"
+texto = "Paro aqui uma vez por semana. Se perder o dia, só na outra. A estrada não espera."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_cf2og"]
+script = ExtResource("1_2pi8d")
+id = "zeca_1496306f"
+falante_id = "zeca"
+texto = "Na estrada a gente aprende: quem tem combustível tem amigo."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_ofe2d"]
+script = ExtResource("1_2pi8d")
+id = "zeca_8d0f282d"
+falante_id = "zeca"
+texto = "Fazenda nova? Então é carga nova. Eu levo o que você colher pras outras vilas."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_1m6rx"]
+script = ExtResource("1_2pi8d")
+id = "zeca_e8570da7"
+falante_id = "zeca"
+texto = "Não pechincha com o Zeca. O Zeca já faz o preço pechinchado."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_xg4ss"]
+script = ExtResource("1_2pi8d")
+id = "zeca_0c486c77"
+falante_id = "zeca"
+texto = "A Dandara é a melhor freguesa e a mais pão-dura. Discute centavo por meia hora e depois me paga um café."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_fx05l"]
+script = ExtResource("1_2pi8d")
+id = "zeca_80b2a27c"
+falante_id = "zeca"
+texto = "Trinta anos de caminhão. Ele tem mais remendo que pintura. Igual a mim."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_8wrrn"]
+script = ExtResource("1_2pi8d")
+id = "zeca_2c7bae2a"
+falante_id = "zeca"
+texto = "Lá no porto já não tem motorista. Só comboio sem gente. Eu passo buzinando pra eles. Eles não buzinam de volta."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_ttrlt"]
+script = ExtResource("1_2pi8d")
+id = "zeca_c40ff39a"
+falante_id = "zeca"
+texto = "O Téo sabe o dia que eu chego melhor que eu. Fica no viaduto desde cedo. Leva bala de graça."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_y3kr4"]
+script = ExtResource("1_2pi8d")
+id = "zeca_c93de7fe"
+falante_id = "zeca"
+texto = "Na vila do lago tá faltando célula de energia. Na do morro, sobrando. Eu sou a ponte das duas. Câmbio."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_jpkkw"]
+script = ExtResource("1_2pi8d")
+id = "zeca_1b89b972"
+falante_id = "zeca"
+texto = "Eu tinha doze amigos de estrada. Hoje tenho dois. Os outros viraram comboio. Quer dizer, foram trocados por um."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_78uir"]
+script = ExtResource("1_2pi8d")
+id = "zeca_a716e8d7"
+falante_id = "zeca"
+texto = "Eu digo que não tenho casa. Mas conheço a família de toda parada. Acho que a casa é comprida."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_tjuly"]
+script = ExtResource("1_2pi8d")
+id = "zeca_b6d7201d"
+falante_id = "zeca"
+texto = "Já dei carona pra Lúcia quando o ônibus quebrou. Ela falou de números o caminho inteiro. No fim, chorou. Não sei por quê."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_f88li"]
+script = ExtResource("1_2pi8d")
+id = "zeca_48b58aa8"
+falante_id = "zeca"
+texto = "Meu caminhão tem trinta anos. Se ele parar, eu paro junto."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_xlce3"]
+script = ExtResource("1_2pi8d")
+id = "zeca_e20f15a8"
+falante_id = "zeca"
+texto = "Cortaram a minha rota pro fim do ano. Ainda não decidi se paro ou se saio dela."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_mrlrs"]
+script = ExtResource("1_2pi8d")
+id = "zeca_b544557b"
+falante_id = "zeca"
+texto = "Se um dia eu aparecer com o caminhão e não for embora, a sua fazenda tem lugar? Pergunto por perguntar."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_u7ymj"]
+script = ExtResource("1_2pi8d")
+id = "zeca_abcb69e1"
+falante_id = "zeca"
+texto = "Na Brotação a estrada vira sabão. Eu chego atrasado, mas chego."
+estacoes = Array[StringName]([&"brotacao"])
+
+[sub_resource type="Resource" id="Resource_2ulb7"]
+script = ExtResource("1_2pi8d")
+id = "zeca_9edf2c5e"
+falante_id = "zeca"
+texto = "Na Estiagem o asfalto derrete. Eu dirijo descalço. Não conta pra fiscalização."
+estacoes = Array[StringName]([&"estiagem"])
+
+[sub_resource type="Resource" id="Resource_4gbim"]
+script = ExtResource("1_2pi8d")
+id = "zeca_45cbb6cf"
+falante_id = "zeca"
+texto = "Na Colheita eu compro tudo o que a fronteira produz. Me guarda um pouco do seu."
+estacoes = Array[StringName]([&"colheita"])
+
+[sub_resource type="Resource" id="Resource_tegov"]
+script = ExtResource("1_2pi8d")
+id = "zeca_d6d2841e"
+falante_id = "zeca"
+texto = "No Apagão a estrada fica escura e o farol é o que me resta. Ainda bem que o meu é bom."
+estacoes = Array[StringName]([&"apagao"])
+
+[sub_resource type="Resource" id="Resource_3811v"]
+script = ExtResource("1_2pi8d")
+id = "zeca_cd013be2"
+falante_id = "zeca"
+texto = "Olha a freguesia nova! Zeca, da estrada. Primeira compra tem desconto. A segunda também, se você voltar."
+situacoes = Array[StringName]([&"primeiro_encontro"])
+
+[sub_resource type="Resource" id="Resource_jyf4u"]
+script = ExtResource("1_2pi8d")
+id = "zeca_35d462d1"
+falante_id = "zeca"
+texto = "Perguntei de você em três vilas. Ninguém sabia. Que bom que você tá aqui."
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_mwrhq"]
+script = ExtResource("1_2pi8d")
+id = "zeca_f4795898"
+falante_id = "zeca"
+texto = "Senta aí na boleia que eu tenho um negócio pra isso. Brincadeira. Vai na Iara, câmbio."
+situacoes = Array[StringName]([&"vida_baixa"])
+
+[sub_resource type="Resource" id="Resource_dvlh1"]
+script = ExtResource("1_2pi8d")
+id = "zeca_ed99a9a3"
+falante_id = "zeca"
+texto = "Desceu lá? Achou peça? Eu compro. Achou ferida? Isso eu não compro."
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_usf55"]
+script = ExtResource("1_2pi8d")
+id = "zeca_710c38eb"
+falante_id = "zeca"
+texto = "Choveu na estrada toda. O caminhão chegou lavado. Foi o único banho dele no mês."
+situacoes = Array[StringName]([&"chuva"])
+
+[sub_resource type="Resource" id="Resource_kf08v"]
+script = ExtResource("1_2pi8d")
+id = "zeca_14dc1210"
+falante_id = "zeca"
+texto = "Cheguei agora. Ainda tô arrumando a carga. Olha, mas não pega."
+situacoes = Array[StringName]([&"em:parada_do_caminhao", &"manha"])
+
+[sub_resource type="Resource" id="Resource_b6jp0"]
+script = ExtResource("1_2pi8d")
+id = "zeca_f1cb4089"
+falante_id = "zeca"
+texto = "Hoje eu faço cinquenta e dois. Comemoro na estrada, como sempre. Mas hoje com você."
+situacoes = Array[StringName]([&"aniversario"])
+
+[sub_resource type="Resource" id="Resource_eq2xt"]
+script = ExtResource("1_2pi8d")
+id = "zeca_b6fe452f"
+falante_id = "zeca"
+texto = "Hoje é aniversário da Dandara. Vou dar desconto pra ela. De cinco por cento. Ela vai brigar por dez."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"aniversario_de:dandara"])
+
+[sub_resource type="Resource" id="Resource_2hegp"]
+script = ExtResource("1_2pi8d")
+id = "zeca_8322ff90"
+falante_id = "zeca"
+texto = "Ano novo, rota velha. Mas tô aqui, câmbio."
+situacoes = Array[StringName]([&"primeiro_dia_do_ano"])
+
+[sub_resource type="Resource" id="Resource_fptpl"]
+script = ExtResource("1_2pi8d")
+id = "zeca_4cf4e905"
+falante_id = "zeca"
+texto = "Sua fazenda tá ficando conhecida. Me pediram produto seu em duas vilas. Eu disse que conheço quem planta."
+situacoes = Array[StringName]([&"marco_1"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_n7563"]
+script = ExtResource("1_2pi8d")
+id = "zeca_581e64a5"
+falante_id = "zeca"
+texto = "Agora eu tenho coisa que só vendo pra freguesia boa. Você entrou na lista."
+situacoes = Array[StringName]([&"marco_2"])
+uma_vez = true
+
+[resource]
+script = ExtResource("2_g3fnr")
+id = &"zeca"
+npc_id = "zeca"
+nos = Array[ExtResource("1_2pi8d")]([SubResource("Resource_384v4"), SubResource("Resource_232s3"), SubResource("Resource_cf2og"), SubResource("Resource_ofe2d"), SubResource("Resource_1m6rx"), SubResource("Resource_xg4ss"), SubResource("Resource_fx05l"), SubResource("Resource_8wrrn"), SubResource("Resource_ttrlt"), SubResource("Resource_y3kr4"), SubResource("Resource_jpkkw"), SubResource("Resource_78uir"), SubResource("Resource_tjuly"), SubResource("Resource_f88li"), SubResource("Resource_xlce3"), SubResource("Resource_mrlrs"), SubResource("Resource_u7ymj"), SubResource("Resource_2ulb7"), SubResource("Resource_4gbim"), SubResource("Resource_tegov"), SubResource("Resource_3811v"), SubResource("Resource_jyf4u"), SubResource("Resource_mwrhq"), SubResource("Resource_dvlh1"), SubResource("Resource_usf55"), SubResource("Resource_kf08v"), SubResource("Resource_b6jp0"), SubResource("Resource_eq2xt"), SubResource("Resource_2hegp"), SubResource("Resource_fptpl"), SubResource("Resource_n7563")])
+falas_de_evento = Dictionary[StringName, String]({
+&"amou": "Biocombustível! Isso rende mais que qualquer venda da semana. Você é dos meus.",
+&"aniversario": "Lembrou do aniversário do caminhoneiro? Ninguém lembra do caminhoneiro. Câmbio, obrigado.",
+&"buque_ja_namorando": "Você já tem alguém. E essa pessoa não merece isso.",
+&"buque_nao_romanceavel": "Ah, que gentileza. Mas eu vou colocar num vaso e fingir que você não quis dizer nada com isso.",
+&"buque_poucos_coracoes": "Eu gosto de você, mas não desse jeito. Ainda não.",
+&"gostou": "Opa, isso vai na boleia. Obrigado, freguesia.",
+&"ja_presenteou": "Você já me deu uma coisa essa semana. Guarda pra próxima.",
+&"loja_fechada_folga": "Hoje é folga. Volta amanhã.",
+&"loja_fechada_horario": "Tô fechando. Aparece entre nove e seis.",
+&"nao_gostou": "Fibra? Isso eu nem vendo. Mas aceito, que presente não se recusa.",
+&"neutro": "Obrigado. Vou levar pra alguém que precise.",
+&"odiou": "Composto? Na boleia? Vai feder até o porto.",
+&"sem_credito": "Você não tem o suficiente. Não fio, e você sabe disso."
+})

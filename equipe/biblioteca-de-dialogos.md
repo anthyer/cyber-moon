@@ -784,6 +784,597 @@ apareceu você, pra me pedir pra ficar.
 
 ---
 
+## Bento Arruda
+
+Ex-zelador da Galeria, 68 anos (plano 30). Brincalhão, contador de causo, o primeiro a
+receber quem chega. Passou trinta e um anos nos túneis e ensinou às máquinas a rotina que
+hoje fecha a água das fazendas. O humor é o jeito de carregar isso. Não é romanceável.
+
+**Distante**
+
+- Ô, criatura! Fazenda nova, é? Chegou gente na fronteira. A água tá atrasada, mas o
+  vizinho chegou na hora.
+- Bento. Bento Arruda. Trinta e um anos de Galeria e nenhum de juízo. Pode rir.
+- Tá vendo aquela porta? Eu abri e fechei ela onze mil vezes. Contei. Não tinha o que
+  fazer.
+- Isso me lembra uma vez que uma bomba lá embaixo engoliu a minha marmita. Inteira. Com a
+  colher.
+- A fazenda tá seca, eu sei. Não é culpa sua. Tem uma válvula lá embaixo com muita
+  opinião.
+- Se ouvir um ronco debaixo do chão de noite, não se assusta. É a Galeria. Ou sou eu.
+
+**Conhecido**
+
+- Lá embaixo as máquinas continuam varrendo. Varrem até o que não é sujeira. Por isso eu
+  fico aqui fora.
+- Eu conheço cada cano daquela Galeria pelo ronco. O da bomba três parece o Vitor de
+  manhã.
+- O Téo vem todo dia ouvir história. Eu já repeti a do rato gigante umas quarenta vezes.
+  Ele finge que é a primeira.
+- A Marta me conhece de quando eu tinha cabelo. Ela jura que eu tinha. Eu não lembro.
+- Zelador não tem folga. Tem só dia em que ninguém chama.
+- Se for lá embaixo um dia, leva lanterna. A minha eu não empresto, que ela é mais velha
+  que você.
+
+**Amigo**
+
+- A água das fazendas passava por um registro lá na sala das bombas. Um dia fechou. Não
+  quebrou, criatura. Fechou.
+- Antes de me mandarem embora, me pediram pra ensinar a rotina pras máquinas. Eu ensinei.
+  Caprichei, até.
+- Eu fico nessa porta porque ainda tenho a chave de serviço no bolso. Não sei pra quê.
+  Pra nada, talvez.
+- Tem dia que eu acho que a Galeria me chama. Tem dia que eu acho que é só a idade.
+- A sua fazenda é a primeira em anos que alguém quis tocar com aquela terra seca. Eu fiquei
+  bobo. Não conta pra ninguém.
+
+**Íntimo**
+
+- Fui eu que ensinei aquelas máquinas a fechar a água. Ensinei direitinho.
+- Trinta e um anos cuidando da água da fronteira, e o meu último serviço foi tirar ela
+  de vocês.
+- Eu conto causo o dia inteiro pra ninguém me perguntar o que eu fazia lá embaixo. Você
+  perguntou mesmo assim.
+- A chave do registro tá aqui. Se um dia você chegar na sala das bombas, abre. Eu não
+  tenho mais perna pra isso.
+- Com você por aqui, a porta da Galeria ficou menor. Não sei explicar. Ficou.
+
+**Por estação**
+
+- Brotação: A primeira chuva da Brotação tem um cheiro que lá embaixo não chegava nunca.
+  Eu saía do turno só pra sentir.
+- Estiagem: Estiagem é quando a falta da água aparece em tudo. Até no humor do Vitor.
+  Mais do que o normal, digo.
+- Colheita: No meu tempo, na Colheita, a fronteira inteira cheirava a milho. Agora cheira
+  a poeira. Mas tem a sua fazenda.
+- Apagão: No Apagão a Galeria fica quieta. As máquinas economizam. Eu nasci no Apagão, por
+  isso enxergo no escuro.
+
+**Situações**
+
+- [primeiro_encontro] Ô, criatura! Você é da fazenda nova! Bento, ex-zelador, atual
+  vigia de porta. Seja quem for, a vila agradece.
+- [sumido] Sete dias sem aparecer. Eu pensei que tinha ido embora, como os outros. Que bom
+  que não foi.
+- [desmaiou_ontem] Caiu de cansaço, foi? No meu primeiro turno eu dormi em pé encostado
+  numa bomba. Acordei com a orelha quente.
+- [vida_baixa] Para tudo. Isso não é graça. Vai na Iara agora, que eu fico de olho na
+  sua fazenda.
+- [saiu_da_dungeon] Você entrou lá? O registro ainda tá lá? Digo, você tá bem? Nessa
+  ordem. Desculpa a ordem.
+- [chuva] Chuva! A única água que máquina nenhuma fecha.
+- [tempestade_ontem] Ontem a Galeria roncou a noite toda. Ela não gosta de raio. Eu
+  também não.
+- [folga] Folga, é? Zelador não tem folga. Mas eu sento um pouco mais longe da porta.
+- [manha, em:porta_da_galeria] Bati o ponto. Ninguém mais anota, mas eu bato.
+- [em:praca] Senta aí que eu conto a do rato gigante. Ou a do cano que cantava. Escolhe.
+- [noite, em:ponte] O Kenji fala, o Rafa cochila e eu conto causo. A ponte é a melhor
+  repartição da fronteira.
+- [aniversario] Hoje eu faço sessenta e oito. Ou sessenta e nove. Na Galeria a gente
+  perdia a conta.
+- [aniversario_de:teo] O Téo faz anos hoje. Guardei pra ele a lanterna velha do turno da
+  noite. Ele vai achar que é tesouro. E é.
+- [aniversario_de:marta, conhecido+] A Marta faz anos hoje. Ela me deu fiado por vinte
+  anos. Hoje eu levo uma flor e não cobro troco.
+- [primeiro_dia_do_ano] Ano novo! Mais um ano de fronteira, criatura. Ela continua aqui.
+  A gente também.
+- [estiagem, amigo+] Na Estiagem eu olho a sua terra rachada e penso no registro. Penso
+  todo dia. Na Estiagem penso dobrado.
+- [marco_1, uma_vez] Tão falando da sua fazenda até no mercado. Eu falei que fui o
+  primeiro a saber. Fui mesmo.
+- [namorando_outro, uma_vez] Fiquei sabendo que você tá de namoro. Que coisa boa! Na
+  fronteira, quem fica, fica junto.
+
+**Presente**
+
+- Amou: Sopa! Comida de turno! Você não sabe o que fez, criatura. Ou sabe e fez de
+  propósito.
+- Gostou: Isso serve. Obrigado, viu. Vou guardar no barraco junto das minhas relíquias.
+- Neutro: Ah, que gentileza. Vou achar um canto pra isso.
+- Não gostou: Estimulante? Vi muito colega de turno ir embora com isso. Leva de volta,
+  por favor.
+- Odiou: Biocombustível. Tem o cheiro da sala das bombas. Tira daqui, criatura.
+
+**Aniversário:** Lembrou do meu aniversário? Nem a Galeria lembrava. E olha que ela me via
+todo dia.
+
+---
+
+## Hélio Tavares
+
+Ex-pesquisador do Biodomo, 55 anos (plano 30). Calmo, preciso, fala de semente como de
+gente. Copiou à mão o catálogo das sementes nativas que a corporação ia destruir e mora
+na cisterna velha com o caderno. Não é romanceável.
+
+**Distante**
+
+- Boa tarde. Hélio. Você é da fazenda nova? O que você planta? Veja bem, eu pergunto pra
+  anotar.
+- Essa cisterna é fresca e escura. Bom lugar pra guardar o que precisa esperar.
+- Paciência. A terra daqui não gosta de ser apressada. Ninguém gosta.
+- A cenoura é teimosa, mas é leal. Se você cuidar no começo, ela cuida de você no fim.
+- Anotado. Fazenda nova, Brotação. Isso vai pro caderno.
+
+**Conhecido**
+
+- Eu trabalhei num lugar onde guardavam semente. Muita semente. Hoje eu guardo só as que
+  cabem numa bolsa.
+- Beterraba gosta de frio na raiz e sol na folha. Ela é contraditória. Como todo mundo.
+- A Marta e eu trocamos semente há anos. Ela finge que é negócio. É amizade.
+- Toda semente tem uma origem. Quem plantou antes, onde, por quanto tempo. Eu tento não
+  esquecer nenhuma.
+- Isso tem um ciclo. A sua fazenda também tem. Você ainda está no começo dele.
+
+**Amigo**
+
+- Eu trabalhei vinte anos no Biodomo. Catalogando o que a corporação comprava dos
+  agricultores. Depois parou de comprar, e passou a só tomar.
+- Veio uma ordem de destruir o banco de sementes nativas. Eu copiei o catálogo inteiro à
+  mão, numa noite. Esse é o caderno.
+- Ficaram caixas lá dentro. Quatro, eu acho. Eu não consegui carregar tudo. Penso nelas
+  toda Brotação.
+- Eu durmo mal. Não é a cisterna. É lembrar que tem semente lá dentro esperando, e que
+  semente não espera para sempre.
+
+**Íntimo**
+
+- Toma. Lê o caderno. Você é a primeira pessoa que eu deixo ler. Veja bem, isso é sério.
+- Essa aqui era de uma família do vale. Seis gerações plantando. Eu sei o nome de todos.
+  Eles não sabem que eu sei.
+- Eu ajudei a catalogar o que eles tomaram. O caderno é o meu pedido de desculpas.
+- Se eu morrer, o caderno é seu. Não faz essa cara. Semente sobrevive a quem guarda.
+
+**Por estação**
+
+- Brotação: A Brotação é a minha estação. Tudo está tentando ao mesmo tempo. É bonito e é
+  cansativo.
+- Estiagem: Na Estiagem eu guardo as caixas no fundo da cisterna. Semente sente calor
+  como a gente.
+- Colheita: Na Colheita eu peço uma coisa só: guarda semente de tudo o que você colher.
+  Tudo.
+- Apagão: No Apagão nada cresce. Eu aproveito e passo o caderno a limpo. Pela quinta vez.
+
+**Situações**
+
+- [primeiro_encontro] Boa tarde. Hélio. Ouvi dizer que alguém voltou a plantar aquela
+  terra seca. Que coragem. Que bom.
+- [sumido] Pensei que você tinha desistido da terra. Muita gente desiste. Fico contente
+  de estar errado.
+- [desmaiou_ontem] Você caiu ontem. O corpo também tem ciclo. Respeita o dele.
+- [vida_baixa] Você se machucou. Vai na Iara. E toma um chá de erva-cidreira depois, que
+  eu tenho aqui.
+- [saiu_da_dungeon] Você esteve lá embaixo. No Biodomo, por acaso? Viu alguma caixa com
+  etiqueta escrita à mão?
+- [chuva] Chuva. Veja bem, não existe coisa melhor no mundo. Eu já pesquisei.
+- [tempestade_ontem] A água ontem chegou perto das caixas. Passei a noite com um balde.
+  Nenhuma molhou.
+- [em:cisterna, manha] Estou separando as de milho. Essa aqui germina em quatro dias.
+  Essa outra, em quatro anos, se quiser.
+- [em:mercado] A Marta me paga em sopa. É o melhor negócio da fronteira.
+- [noite, em:beira_rio] O rio está mais baixo que no ano passado. Eu anoto isso também.
+- [folga] Na Folga eu leio. Releio, na verdade. O caderno tem mais de trezentas páginas.
+- [aniversario] Hoje eu faço cinquenta e cinco. Não precisa de nada. Bom, se tiver
+  composto, eu não recuso.
+- [aniversario_de:marta, conhecido+] Hoje é aniversário da Marta. Guardei pra ela uma
+  semente de tomate que ela procura há dez anos.
+- [primeiro_dia_da_estacao, brotacao] Começou a Brotação. Hoje eu planto a primeira de
+  cada caixa. É uma cerimônia. Pequena.
+- [marco_1, uma_vez] Sua fazenda está produzindo. Eu passei lá na porteira e contei os
+  canteiros. Desculpa. É vício.
+- [namorando_outro, uma_vez] Soube que você está namorando. Que bom. Semente também
+  precisa de companhia pra dar certo.
+
+**Presente**
+
+- Amou: Terra viva! Veja bem, isso aqui vale mais que qualquer moeda. Obrigado. De
+  verdade.
+- Gostou: Isso é bom. Muito bom. Anotado: você tem gosto pra coisa certa.
+- Neutro: Obrigado. Vou encontrar uma utilidade. Tudo tem uma.
+- Não gostou: Sucata. Eu não sei o que fazer com isso. Talvez o Vitor saiba.
+- Odiou: Um núcleo sintético. É peça deles. Por favor, leva embora daqui.
+
+**Aniversário:** Você lembrou do meu aniversário. Isso vai pro caderno. Na primeira página.
+
+---
+
+## Dandara Reis
+
+Líder das motoqueiras, 34 anos (plano 30). Direta, ri alto, chama o jogador de "lavoura".
+Leva carga, recado e os repetidores do Kenji entre as vilas, e conhece a rota até a
+cidade. Diz que não para em lugar nenhum. Romanceável.
+
+**Distante**
+
+- Ô, lavoura. Dandara. Pode chamar de Dada. Precisa de alguma coisa da estrada? Fala agora
+  que eu saio às seis.
+- Essa fazenda tava abandonada faz tempo. Bom ver luz lá. A gente usa de referência na
+  pista.
+- Não encosta na moto. Pode olhar. Olhar é de graça.
+- Se tiver biocombustível sobrando, eu compro. Se não tiver, faz.
+- Patrulha nova no trecho do viaduto. Se for pra lá, vai pela pista de baixo.
+
+**Conhecido**
+
+- Levo os repetidores do Kenji pras outras vilas. Ele monta, eu entrego. Ele fala, eu
+  ando.
+- As meninas do acampamento vieram cada uma de um lugar. Nenhuma quis ir pra cidade.
+  Bora, que é isso que a gente tem em comum.
+- O Rafa diz que eu corro demais. O Rafa é pedestre.
+- O Vitor é o único que mexe em moto tão bem quanto eu. Não conta pra ele que eu disse.
+- Tem uma estrada que sobe até a Torre deles. Eu conheço. Não te levo. Ainda.
+
+**Amigo**
+
+- Minha vila foi a primeira que a expansão engoliu. Minha família aceitou o crédito e foi
+  morar num bloco. Eu peguei a moto do meu pai e não fui.
+- Toda noite eu conserto a moto de uma das meninas. Escondido. Elas acham que a moto é que
+  é boa.
+- Eu falo de liberdade o tempo todo. E sou a que mais tem gente pra cuidar. Engraçado,
+  né.
+- Se uma das meninas não volta da estrada, eu não durmo. Já aconteceu. Não vou contar.
+
+**Íntimo**
+
+- Eu desligo a moto quando chego aqui. Em lugar nenhum eu faço isso.
+- Minha irmã mais nova manda mensagem da cidade pela rede do Kenji. Toda semana. Eu nunca
+  respondi.
+- Eu sempre achei que parar era prender. Com você eu tô reaprendendo a palavra.
+- Se um dia eu sumir na estrada, procura no trecho do viaduto. Eu sempre volto por lá.
+
+**Namorando**
+
+- Trouxe uma coisa de cada vila do caminho. Não é muito. Mas é de toda a fronteira.
+- Voltei mais cedo hoje. As meninas tão rindo de mim. Deixa rirem.
+- Fechou, lavoura. Agora eu tenho um ponto fixo na rota. É a sua porteira.
+- Respondi minha irmã ontem. Falei de você. Ela perguntou se você tem moto. Eu disse que
+  tem enxada.
+
+**Por estação**
+
+- Brotação: Brotação é lama. A moto vira um bicho de barro. Eu adoro.
+- Estiagem: Estiagem é poeira e o meu aniversário. As duas coisas sobem na cabeça.
+- Colheita: Na Colheita tem carga pra todo lado. É quando a fronteira mais precisa da
+  gente.
+- Apagão: No Apagão a estrada fica escura e a patrulha some. É quando eu mais rodo.
+
+**Situações**
+
+- [primeiro_encontro] Ô, você é da fazenda nova! Dandara, das motoqueiras. Se precisar de
+  coisa da estrada, é comigo.
+- [sumido] Achei que você tinha pegado a estrada. Ia ficar com inveja.
+- [desmaiou_ontem] Apagou ontem, foi? Na pista a gente chama isso de pane seca. Bebe água,
+  lavoura.
+- [vida_baixa] Você tá em pedaços. Sobe na garupa que eu te deixo na Iara em dois
+  minutos.
+- [saiu_da_dungeon] Desceu lá? Me conta o caminho. A luta não, o caminho. Por onde entra,
+  por onde sai.
+- [chuva] Estrada lisa. Vou sair mesmo assim. A carga não espera a chuva parar.
+- [tempestade_ontem] Ontem eu contei as motos três vezes. Nenhuma tombou. Nenhuma menina
+  saiu.
+- [em:oficina_das_motoqueiras] Passa a chave de doze. Não, essa é de dez. Tudo bem, você é
+  da lavoura.
+- [noite, em:fogueira] Senta na fogueira. Aqui ninguém pergunta de onde você veio.
+- [em:torre_antena] O Kenji tá ouvindo o sinal da cidade. Eu vim saber por onde a patrulha
+  vai passar amanhã.
+- [folga] A estrada não tem folga. Mas hoje eu fico na fogueira. Só hoje.
+- [aniversario] Hoje é meu aniversário. Trinta e quatro. E nenhuma multa. Isso é que é
+  vitória.
+- [aniversario_de:kenji, conhecido+] O Kenji faz anos hoje. Trouxe pra ele um conector
+  de três vilas daqui. Ele vai chorar. Ele sempre chora.
+- [apagao, noite, amigo+] Noite de Apagão. Vem comigo até o viaduto um dia. Dá pra ver a
+  cidade apagando bairro por bairro.
+- [marco_2, uma_vez] Sua colheita tá chegando em vila que eu nem sabia que comia. Tô
+  levando com o seu nome na caixa.
+- [namorando_outro, uma_vez] Fiquei sabendo que você tá com alguém. Fechou. Que seja
+  gente boa, senão eu fico sabendo.
+
+**Presente**
+
+- Amou: Biocombustível! Você entende de gente, lavoura. Isso aqui me leva três vilas
+  adiante.
+- Gostou: Opa, serve. Valeu. Vai pra bolsa da moto.
+- Neutro: Beleza. Obrigada. Vou achar onde encaixar.
+- Não gostou: Repolho. Eu vou dar pras meninas. Sem ofensa.
+- Odiou: Nanogel não. Tem cheiro de posto de realocação. Leva embora.
+
+**Aniversário:** Você lembrou. Ninguém lembra de quem tá sempre de passagem. Você lembrou.
+
+**Buquê aceito:** Eu sempre disse que não paro em lugar nenhum. Acho que acabei de parar.
+Fechou, lavoura. Sim.
+
+---
+
+## Lúcia Prado
+
+Fiscal da expansão, 41 anos (plano 30). Educada, fala em números, acredita que a cidade
+traz água, luz e hospital. Mora na cidade e vem de ônibus uma vez por semana. Foi chefe
+da Sol. Não é vilã de desenho. Não é romanceável.
+
+**Distante**
+
+- Bom dia. Lúcia Prado, do programa de expansão. Não vim incomodar, vim conhecer.
+- Veja, eu entendo a desconfiança. Mas a cidade tem hospital a vinte minutos daqui. A vila
+  tem a Iara.
+- Os números mostram que uma fazenda nessa terra fecha no vermelho em dois anos. Mas os
+  números já erraram antes.
+- Eu venho toda semana, no mesmo ônibus. Pode me procurar se tiver dúvida sobre o
+  programa.
+- Com todo respeito, essa bomba solar não aguenta mais uma Estiagem. A cidade aguenta.
+
+**Conhecido**
+
+- Eu não sou daqui, mas sou de um lugar igual. Por isso me mandam pra cá. Dizem que eu
+  falo a língua.
+- Na cidade ninguém almoça na praça. Aqui eu almoço. Não conta no relatório.
+- A Marta me olha como se eu fosse a seca em pessoa. Eu respeito. Ela tá defendendo o que
+  é dela.
+- A adesão ao programa nesta vila é de zero por cento. É o pior indicador da fronteira.
+  Eu acho isso, sinceramente, admirável.
+- A sua fazenda é o único indicador que sobe por aqui. Isso me deixa curiosa. E
+  preocupada, um pouco.
+
+**Amigo**
+
+- Minha mãe morreu de uma infecção que o hospital da cidade curava em dois dias. A vila
+  dela não tinha hospital. É por isso que eu faço o que faço.
+- Eu trago no bolso um saquinho de semente de tomate da minha mãe. Nunca plantei. Não sei
+  onde.
+- A Sol trabalhou comigo. Era a melhor. Eu não vou dizer mais nada sobre isso.
+- Às vezes eu desço do ônibus e fico um minuto parada no ponto. Só respirando. Na cidade
+  o ar é filtrado.
+
+**Íntimo**
+
+- Eu sabia para onde a Sol tinha ido. Nunca escrevi no relatório. Ela não sabe disso.
+- Eu não sei mais o que estou entregando quando a cidade chega. Antes eu sabia. Antes eu
+  tinha certeza.
+- Se eu sair do programa, mandam alguém que não almoça na praça. É por isso que eu fico.
+  É o que eu digo pra mim.
+- Toma. A semente da minha mãe. Planta na sua fazenda. Eu queria ver ela crescer em algum
+  lugar.
+
+**Por estação**
+
+- Brotação: A cidade chama a Brotação de "trimestre de adesão". Eu chamo de primavera,
+  quando ninguém escuta.
+- Estiagem: Na Estiagem eu uso a seca como argumento. Eu sei. Não me orgulho disso.
+- Colheita: Na Colheita a vila fica bonita. Fica mais difícil escrever o relatório.
+- Apagão: Na cidade dizem que o Apagão é "ajuste de demanda". Aqui é só escuro. Eu
+  prefiro a palavra de vocês.
+
+**Situações**
+
+- [primeiro_encontro] Bom dia. Você é a pessoa da fazenda nova? Lúcia Prado. Eu estava
+  curiosa pra te conhecer. Profissionalmente, claro.
+- [sumido] Faz tempo que não te vejo. Na cidade, quem some assim costuma ter mudado de
+  endereço. Que bom que aqui não é a cidade.
+- [vida_baixa] Você se machucou. Se quiser, eu consigo um encaminhamento pro hospital da
+  cidade. Sem compromisso. Eu falo sério.
+- [saiu_da_dungeon] Você esteve nas instalações antigas? Com todo respeito, aquilo é
+  propriedade da corporação. E também é perigoso. Nessa ordem eu devia dizer, mas não é.
+- [chuva] O ônibus atrasou com a chuva. Eu cheguei molhada e com o relatório borrado. Não
+  conta pra ninguém.
+- [em:mercado] A Marta não me vende nada. Eu compro do mesmo jeito, deixando o dinheiro
+  no balcão.
+- [em:praca] Eu almoço aqui toda semana. É a única hora que eu não sou fiscal.
+- [em:oficina] O Vitor me olha como se eu fosse uma peça com defeito. Talvez eu seja.
+- [aniversario] É meu aniversário. Na cidade ninguém lembra. Eu nem sei por que estou
+  contando.
+- [aniversario_de:sol, amigo+] Hoje é aniversário da Sol. Eu lembro. Eu sempre lembrei.
+  Ela não precisa saber.
+- [colheita, amigo+] Essa época me lembra da minha mãe. Ela colhia tomate de chapéu de
+  palha. Eu achava aquilo pequeno. Não era.
+- [marco_1, uma_vez] Sua produção apareceu nos números da fronteira. Meu chefe perguntou
+  quem é você. Eu disse que não sabia.
+- [marco_2, uma_vez] Você virou um problema no meu relatório. Um problema bom. Eu escrevo
+  isso com cuidado.
+
+**Presente**
+
+- Amou: Tomate. Do jeito que a minha mãe plantava. Obrigada. Desculpa, me dá um minuto.
+- Gostou: Muito gentil. Obrigada, de verdade.
+- Neutro: Obrigada. Vou levar comigo pra cidade.
+- Não gostou: Com todo respeito, eu não tenho onde guardar isso no ônibus.
+- Odiou: Biocombustível. Na cidade dizem que isso não existe. Eu prefiro não ter na mão a
+  prova de que existe.
+
+**Aniversário:** Você lembrou. Na cidade, ninguém. Aqui, você. Eu não sei o que fazer com
+isso.
+
+---
+
+## Téo
+
+Criança da vila, 10 anos, sobrinho do Kenji (plano 30). Corre o mapa inteiro, coleciona
+osso e lenda, pergunta tudo e exagera tudo. A mãe trabalha na cidade e vem nas Folgas,
+quando consegue. Não é romanceável.
+
+**Distante**
+
+- Você é da fazenda nova? Tem bicho? Tem trator? Tem osso?
+- Sabia que tem um osso no campo maior que eu? Juro. Eu medi deitado.
+- Eu sou o Téo. Sobrinho do tio Kenji. Ele é o da antena. Ele subiu sozinho. Duas vezes.
+- O Bento disse que lá dentro da Galeria tem um robô que varre gente. Varre mesmo.
+- Minha mochila tem catorze tesouros. Não pode ver. Pode ver um.
+
+**Conhecido**
+
+- Achei uma placa queimada perto do viaduto. É de nave espacial. Juro. Bom, o tio disse
+  que não, mas ele não viu.
+- A Dandara disse que quando eu crescer eu posso andar de moto. Ela disse "vamos ver",
+  que é sim.
+- O Hélio sabe o nome de toda planta. Até das feias. Principalmente das feias.
+- O tio Kenji esquece de jantar. Aí eu esqueço também. Aí a Marta lembra os dois.
+- Se você achar osso, me dá? Eu troco por pedra. Tenho pedra boa.
+
+**Amigo**
+
+- Não tem escola aqui. O tio me ensina conta com rádio. Eu sei somar frequência.
+- Eu durmo com a lanterna acesa. Não é medo. É pra achar osso de noite se precisar.
+- A Dandara me deixou sentar na moto. Parada. Mas valeu.
+- Quando eu crescer eu vou entrar na Galeria e trazer o robô pra casa. Pra ele varrer o
+  meu quarto.
+
+**Íntimo**
+
+- Minha mãe vem na Folga. Às vezes. Você acha que ela vem nessa?
+- Eu guardo a passagem de ônibus que ela deixou. Um dia eu vou atrás dela. Não conta pro
+  tio.
+- O tio Kenji acha que tá fazendo tudo errado comigo. Ele não tá. Fala pra ele. Pra mim
+  ele não acredita.
+
+**Por estação**
+
+- Brotação: Brotação tem bicho saindo de tudo que é buraco. E meu aniversário!
+- Estiagem: Na Estiagem o vento descobre osso novo. É a melhor estação pra caçar.
+- Colheita: Na Colheita a Marta dá milho escondido. Não conta que eu contei.
+- Apagão: No Apagão fica escuro de dia. Eu não tenho medo. Eu só ando mais perto do tio.
+
+**Situações**
+
+- [primeiro_encontro] Oi! Você é da fazenda nova? Eu vi o caminhão da mudança! Bom, não
+  vi, mas imaginei.
+- [sumido] Você sumiu! Eu procurei você no mapa inteiro. Bom, em metade.
+- [vida_baixa] Você se machucou? Você vai morrer? Vai na Iara. Cuidado que ela dá vacina.
+- [saiu_da_dungeon] Você entrou lá! Tinha robô que varre gente? Ele varreu você? Conta
+  tudo!
+- [chuva] Chuva! Tem poça no mapa inteiro! Eu já pulei em todas. Faltou uma.
+- [tempestade_ontem] Ontem eu e o tio contamos raio. Ele contou quarenta. Eu contei
+  quarenta e um. Eu ganhei.
+- [folga] Hoje é Folga. Eu vou esperar no ponto de ônibus. Minha mãe pode vir.
+- [em:porta_da_galeria] Shhh. O Bento tá contando a do cano que cantava. É a melhor.
+- [em:mirante] Daqui dá pra ver o campo de ossos inteiro. Eu já achei sete lá. Oito, se
+  contar o pequeno.
+- [noite, em:torre_antena] O tio deixa eu ficar na antena até as nove. Eu escuto o rádio
+  das outras vilas. Tem uma que só toca música.
+- [aniversario] Hoje é meu aniversário! Eu fiz dez. Bom, onze. Não, dez. Dez!
+- [aniversario_de:kenji] Hoje é aniversário do tio! Ele esqueceu. Eu não. Eu fiz um
+  cartão de papelão com antena.
+- [aniversario_de:bento] Hoje o Bento faz anos! Eu dei pra ele um osso. O melhor. Quer
+  dizer, o segundo melhor.
+- [marco_1, uma_vez] Todo mundo tá falando da sua fazenda. Eu falei que fui o primeiro a
+  saber. Fui o segundo, mas o Bento não conta.
+
+**Presente**
+
+- Amou: Milho! Você é a pessoa mais legal da fronteira. Depois do tio. Empatado com o
+  tio.
+- Gostou: Isso é tesouro! Vai pra mochila. Agora são quinze.
+- Neutro: Ah. Obrigado. Dá pra trocar por osso?
+- Não gostou: Repolho? Eu não como verde. O tio também não, mas finge.
+- Odiou: Isso é remédio! Tem gosto de remédio! Por que você me deu remédio?
+
+**Aniversário:** Você lembrou! Você lembrou do meu aniversário! Vou contar pra todo mundo
+até a Folga.
+
+---
+
+## Zeca
+
+Caminhoneiro, 52 anos (plano 30). Para debaixo do viaduto um dia por semana e vende o que
+ninguém da vila vende. Fala alto, puxa assunto, traz a notícia de graça. É o último
+motorista de carne e osso da rota. Não é romanceável.
+
+**Distante**
+
+- Olha a freguesia! Zeca, da estrada. Chegou fio óptico novinho. Preço de amigo, câmbio.
+- Paro aqui uma vez por semana. Se perder o dia, só na outra. A estrada não espera.
+- Na estrada a gente aprende: quem tem combustível tem amigo.
+- Fazenda nova? Então é carga nova. Eu levo o que você colher pras outras vilas.
+- Não pechincha com o Zeca. O Zeca já faz o preço pechinchado.
+
+**Conhecido**
+
+- A Dandara é a melhor freguesa e a mais pão-dura. Discute centavo por meia hora e depois
+  me paga um café.
+- Trinta anos de caminhão. Ele tem mais remendo que pintura. Igual a mim.
+- Lá no porto já não tem motorista. Só comboio sem gente. Eu passo buzinando pra eles.
+  Eles não buzinam de volta.
+- O Téo sabe o dia que eu chego melhor que eu. Fica no viaduto desde cedo. Leva bala de
+  graça.
+- Na vila do lago tá faltando célula de energia. Na do morro, sobrando. Eu sou a ponte
+  das duas. Câmbio.
+
+**Amigo**
+
+- Eu tinha doze amigos de estrada. Hoje tenho dois. Os outros viraram comboio. Quer dizer,
+  foram trocados por um.
+- Eu digo que não tenho casa. Mas conheço a família de toda parada. Acho que a casa é
+  comprida.
+- Já dei carona pra Lúcia quando o ônibus quebrou. Ela falou de números o caminho
+  inteiro. No fim, chorou. Não sei por quê.
+
+**Íntimo**
+
+- Meu caminhão tem trinta anos. Se ele parar, eu paro junto.
+- Cortaram a minha rota pro fim do ano. Ainda não decidi se paro ou se saio dela.
+- Se um dia eu aparecer com o caminhão e não for embora, a sua fazenda tem lugar? Pergunto
+  por perguntar.
+
+**Por estação**
+
+- Brotação: Na Brotação a estrada vira sabão. Eu chego atrasado, mas chego.
+- Estiagem: Na Estiagem o asfalto derrete. Eu dirijo descalço. Não conta pra fiscalização.
+- Colheita: Na Colheita eu compro tudo o que a fronteira produz. Me guarda um pouco do
+  seu.
+- Apagão: No Apagão a estrada fica escura e o farol é o que me resta. Ainda bem que o meu
+  é bom.
+
+**Situações**
+
+- [primeiro_encontro] Olha a freguesia nova! Zeca, da estrada. Primeira compra tem
+  desconto. A segunda também, se você voltar.
+- [sumido] Perguntei de você em três vilas. Ninguém sabia. Que bom que você tá aqui.
+- [vida_baixa] Senta aí na boleia que eu tenho um negócio pra isso. Brincadeira. Vai na
+  Iara, câmbio.
+- [saiu_da_dungeon] Desceu lá? Achou peça? Eu compro. Achou ferida? Isso eu não compro.
+- [chuva] Choveu na estrada toda. O caminhão chegou lavado. Foi o único banho dele no
+  mês.
+- [em:parada_do_caminhao, manha] Cheguei agora. Ainda tô arrumando a carga. Olha, mas
+  não pega.
+- [aniversario] Hoje eu faço cinquenta e dois. Comemoro na estrada, como sempre. Mas hoje
+  com você.
+- [aniversario_de:dandara, conhecido+] Hoje é aniversário da Dandara. Vou dar desconto
+  pra ela. De cinco por cento. Ela vai brigar por dez.
+- [primeiro_dia_do_ano] Ano novo, rota velha. Mas tô aqui, câmbio.
+- [marco_1, uma_vez] Sua fazenda tá ficando conhecida. Me pediram produto seu em duas
+  vilas. Eu disse que conheço quem planta.
+- [marco_2, uma_vez] Agora eu tenho coisa que só vendo pra freguesia boa. Você entrou na
+  lista.
+
+**Presente**
+
+- Amou: Biocombustível! Isso rende mais que qualquer venda da semana. Você é dos meus.
+- Gostou: Opa, isso vai na boleia. Obrigado, freguesia.
+- Neutro: Obrigado. Vou levar pra alguém que precise.
+- Não gostou: Fibra? Isso eu nem vendo. Mas aceito, que presente não se recusa.
+- Odiou: Composto? Na boleia? Vai feder até o porto.
+
+**Aniversário:** Lembrou do aniversário do caminhoneiro? Ninguém lembra do caminhoneiro.
+Câmbio, obrigado.
+
+---
+
 ## Falas de sistema
 
 Usadas pelos planos 16 e 17, não são de NPC específico. Ajuste o nome do falante.

@@ -28,6 +28,11 @@ e, quando ele quer, escuta o que passa na rede oficial.
 Mora na casa geminada, vizinho de parede do Rafa. Não cozinha, e compra comida pronta no
 mercado achando que a Marta não percebe.
 
+Há dois anos divide a casa com o sobrinho, o Téo, de dez anos (plano 30). A irmã mais
+velha do Kenji, a Yumi, foi trabalhar em turno numa fábrica da cidade, onde o alojamento
+não aceita criança, e deixou o filho com o tio. O Kenji, que mal cuida de si, agora tem
+de lembrar de dar comida para outra pessoa. Lembra quase sempre.
+
 ## 3. O que quer e o que precisa
 
 **Quer** provar que a cidade não é o futuro, e que dá para construir uma coisa melhor com
@@ -123,6 +128,10 @@ evita falar da mãe, a não ser com quem confia.
   dela o estimulante.
 - **Sol:** fascinado e cuidadoso. Ela sabe por dentro o que ele só escuta por fora. Ele
   tem mil perguntas, entre elas uma sobre a mãe, e ainda não fez nenhuma.
+- **Téo:** o sobrinho. Tem pavor de estar fazendo tudo errado com ele, e o Téo acha que o
+  tio é o maior herói do mundo. Os dois terminam o dia juntos na antena.
+- **Dandara:** leva os repetidores dele para as outras vilas e implica com ele como irmã
+  mais velha. Duas tardes por semana ela sobe na antena para ouvir o sinal da cidade.
 - **Jogador:** primeiro, alguém que pode ter fio óptico. Depois, a única pessoa que o
   escuta falar de rede por mais de dois minutos. No fim, o motivo de a antena parecer
   grande demais para o que ele quer de verdade.
