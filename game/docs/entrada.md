@@ -4,6 +4,10 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 
 ## Ações do Input Map
 
+Na branch da demo não existem `abrir_chat`, `menu_debug` nem `teste_avancar_dia`. A tabela
+que o jogador vê (tutorial e aba Controles) fica em `resources/ui/controles_da_demo.tres`:
+mudou um bind aqui, mude lá também.
+
 | Ação | Teclado | Mouse | Joystick |
 |---|---|---|---|
 | `mover_cima` | W / seta para cima | Nenhum | D-pad ou stick esquerdo para cima |
@@ -19,10 +23,7 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 | `slot_1` a `slot_9` | 1 a 9 (seleciona o slot rápido) | Nenhum | Nenhum |
 | `slot_proximo` | Nenhum | Roda para baixo | Gatilho direito (RT / R2) |
 | `slot_anterior` | Nenhum | Roda para cima | Gatilho esquerdo (LT / L2) |
-| `teste_avancar_dia` | N (atalho de teste: avança um dia na hora, sem penalidade) | Nenhum | Nenhum |
-| `soltar_item` | Q (solta o item da mão; perto de um NPC, dá de presente) | Nenhum | R3 (apertar o analógico direito) |
-| `abrir_chat` | Enter ou T (abre o campo do chat; Enter envia, Esc fecha) | Nenhum | Nenhum |
-| `menu_debug` | F3 (abre e fecha o menu de debug; só teclado, é ferramenta de teste) | Nenhum | Nenhum |
+| `soltar_item` | Q (solta o item da mão no chão) | Nenhum | R3 (apertar o analógico direito) |
 
 O stick esquerdo move o jogador junto com o D-pad. As quatro ações de movimento usam zona morta de 0.2 (as outras ficam em 0.5) para o stick analógico responder a um toque leve; teclado e D-pad não são afetados, porque só valem 0 ou 1.
 
@@ -39,7 +40,7 @@ O stick esquerdo move o jogador junto com o D-pad. As quatro ações de moviment
 - Nos menus, `ui_accept` confirma. Além dos binds padrão do Godot (Enter, Espaço e o botão A), ele também responde ao botão X/West, que é onde chega o botão A do painel arcade; sem isso o painel navegaria no menu sem conseguir confirmar. Com o jogo pausado não há conflito com `atacar`.
 - Com uma ferramenta aprimorada na mão, `atacar` age ao soltar: um toque faz um quadrado, e segurar aumenta a área em etapas, até o máximo do nível. O personagem fica parado enquanto o botão está apertado.
 - Na conversa com um NPC, `interagir` (ou o clique de `atacar`) completa a fala e depois avança, e `ui_cancel` encerra. O personagem fica parado e o menu de pausa não abre.
-- Com o chat aberto ou a tela de lobby na frente, o `InputManager.teclado_capturado` fica ligado e o personagem não responde a nada. Nenhuma das duas pausa o jogo, porque a rede precisa continuar.
+- Com o `InputManager.teclado_capturado` ligado o personagem não responde a nada. Na demo nada liga essa chave: ela servia ao chat e ao lobby, que ficaram de fora.
 - O calendário pausa o jogo como o menu de pausa. Esquerda e direita trocam a estação mostrada, e `ui_cancel` (Esc ou B) fecha. Ele não tem tecla de atalho: abre só pelo quadro de calendário no mundo. Com uma das duas telas aberta, a outra não abre.
 - `abrir_inventario` e `menu_pausa` abrem a mesma tela por enquanto, o menu de pausa com o inventário, porque ainda não existe tela de opções. Com o menu aberto, qualquer uma das duas fecha, e o jogo fica pausado de verdade enquanto ele está aberto.
 - Menus e telas de UI usam o sistema nativo de foco dos nós `Control` do Godot, permitindo navegação por teclado ou joystick sem depender do mouse.

@@ -2,23 +2,24 @@
 
 Este documento descreve os sistemas globais (autoloads) e o modelo de dados do Cyber Moon.
 
+**Branch `demo`.** Esta branch é a versão de demonstração, e várias seções abaixo
+descrevem sistemas que não existem nela (rede, chat, lobby, dungeon, NPC, diálogo, amizade,
+save, calendário, mapas novos). O que a demo tira, muda e acrescenta está em
+`docs/demo.md`, que vale por cima deste documento.
+
 ## Autoloads
 
-- `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `npc_relationship_changed`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada`, `item_picked_up(item, quantidade)` (o jogador pegou um item do chão), `crop_planted(celula, cultivo)`, `crop_grown(celula, novo_estagio)`, `crop_withered(celula)`, `crop_removed(celula)`, `damage_dealt(alvo, quantidade)` e `enemy_defeated(perfil, posicao)`.
+- `EventBus` (`scripts/core/event_bus.gd`): declara sinais globais usados por sistemas que não precisam se conhecer diretamente. Sinais atuais: `crop_harvested`, `city_expansion_blocked`, `tile_plowed`, `tile_watered`, `tile_removed`, `musica_solicitada`, `item_picked_up(item, quantidade)` (o jogador pegou um item do chão), `crop_planted(celula, cultivo)`, `crop_grown(celula, novo_estagio)`, `crop_withered(celula)`, `crop_removed(celula)`, `damage_dealt(alvo, quantidade)`, `enemy_defeated(perfil, posicao)`, `enemy_spawned(posicao)` (um inimigo nasceu na área de combate da demo) e `shop_requested(nome_da_loja, catalogo)` (o balcão da vendinha pediu a loja).
 - `DayCycleManager` (`scripts/core/day_cycle_manager.gd`): o relógio do jogo. A hora anda sozinha das 6:00 à 1:00 do dia seguinte (5 minutos reais de dia, das 6:00 às 18:00, e 5 de noite, das 18:00 à 1:00), e passa de 24 em vez de voltar a zero (24.5 é 0:30). Sinais: `day_started`, `day_ended`, `hour_changed` (a cada minuto de jogo), `period_changed` e `player_slept(forcado)`. Métodos: `avancar_para_o_proximo_dia()`, `dormir(forcado)`, `periodo_atual()`, `hora_formatada()`, `fracao_do_dia()`. Para com o menu de pausa (pausa junto com a árvore) e com `tempo_congelado`.
-- `WeatherManager` (`scripts/core/weather_manager.gd`): o clima do dia (`sol`, `chuva` ou `tempestade`), sorteado no `day_started` com a `chance_de_chuva` da estação; a tempestade é um quinto dela. Não muda no meio do dia. Sinal `weather_changed(clima)`, emitido todo dia. `clima_atual`, `clima_de_amanha`, `esta_chovendo()`, `perfil_atual()`, `definir_clima(clima)`.
+- `WeatherManager` (`scripts/core/weather_manager.gd`): o clima do dia (`sol`, `chuva` ou `tempestade`), sorteado no `day_started` com a `chance_de_chuva` da estação; a tempestade é um quinto dela. Na demo, `CLIMA_FIXO_DA_DEMO` deixa todo dia de sol. Não muda no meio do dia. Sinal `weather_changed(clima)`, emitido todo dia. `clima_atual`, `clima_de_amanha`, `esta_chovendo()`, `perfil_atual()`, `definir_clima(clima)`.
 - `UpgradeManager` (`scripts/core/upgrade_manager.gd`): o nível das armas e ferramentas. `nivel_de(item)`, `aprimorar(item)`, `dano_de(arma)`, `etapa_maxima_de_area(ferramenta)`. Veja "Saque e aprimoramento".
-- `EconomyManager` (`scripts/core/economy_manager.gd`): os créditos. `creditos`, `comprar(item, quantidade)`, `vender(pilhas)`, `preco_de_compra(item)`. Veja "Economia".
-- `RelationshipManager` (`scripts/core/relationship_manager.gd`): a amizade com cada NPC. `coracoes(npc_id)`, `pontos_de(npc_id)`, `presentear(npc_id, item)`, `pode_presentear(npc_id)`, `pedir_em_namoro(npc_id)`. Veja "Amizade e romance".
-- `DialogueManager` (`scripts/core/dialogue_manager.gd`): conduz a conversa com um NPC. `iniciar(npc)`, `avancar()`, `encerrar()`, `fala_do_dia(npc_id)`, `em_dialogo`. Veja "Diálogo".
-- `NetworkManager`, `ChatManager`, `LobbyManager` e `DungeonManager`: a conexão, o chat, a equipe e a entrada na dungeon. Veja "Rede" e "Dungeon em equipe".
-- `SeasonManager` (`scripts/core/season_manager.gd`): o calendário. Quatro estações de 30 dias (Brotação, Estiagem, Colheita, Apagão), 120 dias por ano. Não guarda nada: estação, dia da estação e ano são calculados do `numero_do_dia` do `DayCycleManager` a cada pergunta. Sinais `season_changed(nova)` e `year_changed(novo_ano)`, emitidos no `day_started` da virada. Métodos: `estacao_atual()`, `dia_da_estacao()`, `ano_atual()`, `indice_da_estacao()`, `nome_exibido(estacao)`, `perfil_da_estacao(estacao)`, `perfil_atual()`.
+- `EconomyManager` (`scripts/core/economy_manager.gd`): os créditos. `creditos`, `comprar(item, quantidade)`, `vender(pilhas)`, `preco_de_compra(item)`. Sinais `credits_changed`, `sale_completed`, `item_sold` e `item_purchased(item, quantidade)`. Veja "Economia".
+- `SeasonManager` (`scripts/core/season_manager.gd`): o calendário. Quatro estações de 30 dias (Brotação, Estiagem, Colheita, Apagão), 120 dias por ano. Não guarda nada: estação, dia da estação e ano são calculados do `numero_do_dia` do `DayCycleManager` a cada pergunta. Sinais `season_changed(nova)` e `year_changed(novo_ano)`, emitidos no `day_started` da virada. Métodos: `estacao_atual()`, `dia_da_estacao()`, `ano_atual()`, `indice_da_estacao()`, `nome_exibido(estacao)`, `perfil_da_estacao(estacao)`, `perfil_atual()`. Na demo a estação não vira: fica sempre na Brotação.
 - `InventoryManager` (`scripts/core/inventory_manager.gd`): inventário do jogador em 36 slots, cada um uma `PilhaDeItens` ou `null`. Os índices de 0 a 8 são a barra rápida e de 9 a 35 a matriz de 3 linhas por 9 colunas, a mesma largura da barra rápida. `adicionar_item` devolve o que não coube (inventário cheio), e completa pilhas iguais antes de ocupar o primeiro slot vazio, varrendo a barra rápida antes da matriz. Também guarda o equipamento: os espaços `ARMADURA` e `ACESSORIO` apontam para o índice de um slot, e o item equipado continua ocupando esse slot. Sinais: `inventory_changed` e `equipment_changed(espaco, item)`.
 - `EquipmentManager` (`scripts/core/equipment_manager.gd`): guarda só qual dos 9 slots rápidos está selecionado (`indice_selecionado`, sinal `slot_selecionado_alterado`). O item na mão é o que está nesse slot do `InventoryManager` (`item_na_mao()`, `ferramenta_na_mao()`), como no Minecraft. Slot vazio é uma seleção válida, e com ele ou com os cestos o ataque é o soco. Ao iniciar, põe os cestos e as três ferramentas nos slots rápidos 1 a 4.
 - `StatusManager` (`scripts/core/status_manager.gd`): vida, stamina, experiência e nível do jogador. Sinais `health_changed`, `stamina_changed`, `level_changed`, `experience_changed`, `player_fainted(motivo)` e `player_woke_up(motivo)`. A stamina só volta dormindo (virada do dia) ou comendo; a vida volta devagar depois de 5 segundos sem dano.
 - `InputManager` (`scripts/core/input_manager.gd`): traduz o Input Map do Godot em consultas simples (`obter_direcao_movimento`, `interagir_pressionado`, `abrir_inventario_pressionado`), independente do dispositivo físico usado.
 - `GameManager` (`scripts/core/game_manager.gd`): guarda a fase da história e os marcos de progresso já desbloqueados. Método principal: `desbloquear_marco`, que emite `EventBus.city_expansion_blocked`.
-- `SaveManager` (`scripts/core/save_manager.gd`): grava e lê o progresso em `user://save_game.json`.
 - `AudioManager` (`scripts/core/audio_manager.gd`): Ponto único de reprodução de som do jogo com piscina de tocadores reutilizados para SFX.
 
 Cada autoload tem responsabilidade única. Quando um autoload começar a acumular lógica de um domínio diferente do seu, isso é sinal de que uma responsabilidade nova precisa de seu próprio autoload.
@@ -314,7 +315,7 @@ mudam por ação.
 
 O nó `EfeitosDoJogo` (`scripts/effects/efeitos_do_jogo.gd`), posto na fase, escuta os
 sinais que os sistemas já emitem (arar, molhar, colher, dano, inimigo caindo, subir de
-nível, troca de estação, ganhar coração) e solta o efeito no lugar certo. A tabela
+nível, troca de estação, comprar e vender na vendinha, inimigo surgindo) e solta o efeito no lugar certo. A tabela
 `EFEITOS` dele diz, para cada ação, a cena, a cor, a quantidade e a altura. Os sistemas
 não sabem que partículas existem: tirar o nó da fase tira os efeitos sem quebrar nada.
 Quando falta o dado no sinal, acrescenta-se o parâmetro ou um sinal novo no `EventBus`,
