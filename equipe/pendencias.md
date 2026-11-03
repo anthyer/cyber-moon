@@ -330,9 +330,18 @@ ser apagada nem recriada, ou a delegação quebra de novo.
 **2026-10-26, `prod` criado na conta do Bernardo** (`bombazaro-org/cybermoon/prod`, as
 três chaves desligadas). A zona nova (`Z06617251KR3GBF521JND`) tem os servidores
 `ns-826.awsdns-39.net`, `ns-1349.awsdns-40.org`, `ns-110.awsdns-13.com` e
-`ns-1730.awsdns-24.co.uk`. Falta o professor trocar a delegação para eles. O `prod` da
+`ns-1730.awsdns-24.co.uk`. O professor trocou a delegação em 2026-11-03 (conferido com
+`dig +trace`). Não apagar nem recriar essa zona: ela ganharia servidores novos e a
+delegação quebraria de novo. O `prod` da
 organização `anthyer-ifsc` citado no plano 18 não é este; o Antonio precisa saber. Detalhes
 na tarefa 4.6 do plano 18.
+
+**2026-11-03, SES ligado no `prod`** com `ses_remetente` igual a
+`noreply@cyber-moon.negoci.online`. O domínio inteiro é verificado, com o TXT e os três
+CNAMEs do DKIM criados na zona, e os registros já resolvem pela internet. A conta AWS
+ainda está no sandbox do SES: o e-mail de boas-vindas só chega a endereços verificados.
+Para mandar a qualquer jogador, pedir a saída do sandbox no console do SES (Account
+dashboard, "Request production access").
 
 **Estado do `dev` agora:** `exigir_login` e `ses_remetente` ligados. `usar_vpc` foi
 desligado depois da verificação, para o NAT parar de cobrar por hora; para demonstrar,

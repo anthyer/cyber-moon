@@ -1,2 +1,3 @@
 config:
   aws:region: sa-east-1
+  cybermoon:ses_remetente: noreply@cyber-moon.negoci.online
