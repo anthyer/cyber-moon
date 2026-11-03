@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_config")
-endereco_na_nuvem = "wss://2ohkyzguvj.execute-api.sa-east-1.amazonaws.com/dev"
-cognito_client_id = "11bafsk3bf9eirg3plgoijva6g"
+endereco_na_nuvem = "wss://qidn87ek0g.execute-api.sa-east-1.amazonaws.com/prod"
+cognito_client_id = "5mk6bof3b5sr3doi1dttfj9f8g"

@@ -362,8 +362,9 @@ entrar na conta, mas o `WebSocketPeer` não diz o código da recusa, só que fec
 - Confirmada a conta, o jogo entra direto com a senha que ainda está no campo.
 
 **Fica para depois:** esqueci a senha, reenviar o código, trocar o nome da conta e o
-login com a conta Google. Quando o `prod` subir, trocar os dois valores do
-`configuracao.tres` pelos do `prod`.
+login com a conta Google. Em 2026-11-03 o `configuracao.tres` passou a apontar para o
+`prod`. Para testar contra o `dev`, trocar de volta `endereco_na_nuvem` e
+`cognito_client_id` pelos valores de `pulumi stack output --stack dev`, sem commitar.
 
 ### 2026-10-19, plano 28
 
