@@ -68,7 +68,7 @@ func _process(delta: float) -> void:
 		WebSocketPeer.STATE_OPEN:
 			if not _socket_aberto:
 				_socket_aberto = true
-				enviar("entrar", {"nome": meu_nome})
+				enviar("entrar", {"nome": _nome_para_entrar()})
 			while _socket.get_available_packet_count() > 0:
 				_receber(_socket.get_packet().get_string_from_utf8())
 			_manter_a_conexao_viva(delta)
@@ -107,6 +107,14 @@ func enviar(acao: String, campos: Dictionary = {}) -> void:
 	mensagem["action"] = acao
 	_socket.send_text(JSON.stringify(mensagem))
 	_segundos_desde_o_ultimo_envio = 0.0
+
+## Com conta, o nome que vai ao servidor é o da conta. Com exigir_login ligado o servidor
+## já usa o nome do token e ignora este; com ele desligado, e no servidor local, é este
+## que vale. Sem conta, vai o nome local.
+func _nome_para_entrar() -> String:
+	if AccountManager.esta_logado() and AccountManager.nome_da_conta != "":
+		return AccountManager.nome_da_conta
+	return meu_nome
 
 func nome_de(id: String) -> String:
 	if id == meu_id:
