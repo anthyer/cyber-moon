@@ -147,9 +147,14 @@ func _abrir_socket() -> void:
 	_segundos_desde_o_ultimo_envio = 0.0
 	if AccountManager.token_vencendo():
 		_renovando_token = true
-		await AccountManager.renovar_token()
+		var renovou: bool = await AccountManager.renovar_token()
 		_renovando_token = false
 		if not _quer_estar_conectado:
+			return
+		# Renovação que falhou com a conta ainda logada (sem internet, servidor de contas
+		# fora): conectar sem token daria 401. Espera a próxima tentativa.
+		if not renovou and AccountManager.esta_logado():
+			push_warning("Não deu para renovar o token da conta. Tentando de novo em seguida.")
 			return
 	var endereco: String = _endereco
 	var token: String = AccountManager.token_de_conexao()
