@@ -53,6 +53,7 @@ func _ready() -> void:
 	AccountManager.logged_in.connect(_ao_entrar_na_conta)
 	AccountManager.logged_out.connect(_ao_sair_da_conta)
 	AccountManager.request_failed.connect(_mostrar_status.bind(true))
+	NetworkManager.connected.connect(_ao_conectar)
 
 ## Enquanto uma requisição está no ar, os botões ficam desabilitados, para o jogador não
 ## mandar a mesma coisa duas vezes.
@@ -123,6 +124,13 @@ func _ao_entrar_na_conta() -> void:
 	campo_senha.clear()
 	_mostrar_modo()
 	_mostrar_status("Conectando com a conta...")
+
+## Entrar na conta reconecta. Quando o servidor responde, troca o "Conectando..." pelo
+## nome com que o jogo entrou.
+func _ao_conectar() -> void:
+	if not visible or not AccountManager.esta_logado():
+		return
+	_mostrar_status("Conectado como %s." % NetworkManager.meu_nome)
 
 func _ao_sair_da_conta() -> void:
 	_mostrar_modo()
