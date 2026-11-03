@@ -29,6 +29,9 @@ func _ready() -> void:
 		_perfis[clima] = load(PASTA_DOS_PERFIS + String(clima) + ".tres") as PerfilClima
 	clima_de_amanha = sortear_clima_do_dia(DayCycleManager.numero_do_dia + 1)
 	DayCycleManager.day_started.connect(_ao_comecar_o_dia)
+	# O clima real de Florianópolis (plano 37) troca o de hoje quando chega. Sem resposta,
+	# fica o sorteado.
+	RealWorldManager.real_weather_received.connect(definir_clima)
 
 ## Verdadeiro para chuva e para tempestade.
 func esta_chovendo() -> bool:

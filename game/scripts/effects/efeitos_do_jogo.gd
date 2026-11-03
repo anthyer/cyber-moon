@@ -27,6 +27,9 @@ const EFEITOS: Dictionary = {
 	&"murchar": [JORRO, Color(0.6, 0.5, 0.25), 8, 0.5],
 	&"arrancar": [ESTOURO, Color(0.4, 0.7, 0.3), 10, 0.25],
 	&"colher": [SUBIDA, Color(0.5, 0.9, 0.4), 12, 0.25],
+	# Lua (plano 37): o mesmo molde do crescer e da colheita, em branco azulado e prata.
+	&"lua_cheia": [SUBIDA, Color(0.78, 0.88, 1.0), 8, 0.2],
+	&"colheita_da_lua": [ESTOURO, Color(0.85, 0.9, 0.98), 10, 0.3],
 	&"coletar": [ESTOURO, Color(1.0, 0.95, 0.6), 6, 0.3],
 	# Combate e status. O jogo não tem sangue: nenhum efeito de dano é vermelho, nem no
 	# jogador nem no inimigo. O golpe solta faísca clara, como metal batendo.
@@ -93,6 +96,8 @@ func _ready() -> void:
 	EventBus.crop_withered.connect(_na_celula.bind(&"murchar"))
 	EventBus.crop_removed.connect(_na_celula.bind(&"arrancar"))
 	EventBus.crop_harvested.connect(func(_cultivo: Cultivo, _quantidade: int, celula: Vector2i) -> void: _na_celula(celula, &"colher"))
+	EventBus.moon_growth_applied.connect(_na_celula.bind(&"lua_cheia"))
+	EventBus.moon_harvest_bonus.connect(_na_celula.bind(&"colheita_da_lua"))
 	EventBus.item_picked_up.connect(func(_item: Item, _quantidade: int) -> void: _no_jogador(&"coletar"))
 	# Combate e status.
 	EventBus.damage_dealt.connect(_ao_causar_dano)

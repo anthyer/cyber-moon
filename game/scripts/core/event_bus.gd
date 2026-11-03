@@ -58,4 +58,8 @@ signal boss_attack_landed(posicao: Vector3, raio: float, cor: Color)
 signal boss_defeated(chefe: Node3D)
 signal dungeon_objective_changed(texto: String, concluido: bool)
 signal dungeon_objective_progress(posicao: Vector3)
+## A Lua (plano 37). A planta ganhou um dia extra de crescimento na lua cheia, e a
+## colheita rendeu um item a mais. Só existem para o efeito de partícula.
+signal moon_growth_applied(celula: Vector2i)
+signal moon_harvest_bonus(celula: Vector2i)
 signal dungeon_reward_claimed(posicao: Vector3)
