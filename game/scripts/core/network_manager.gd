@@ -146,9 +146,19 @@ func _abrir_socket() -> void:
 	var endereco: String = _endereco
 	var token: String = AccountManager.token_de_conexao()
 	if token != "":
-		endereco += ("&" if endereco.contains("?") else "?") + "token=" + token.uri_encode()
+		endereco = _com_token(endereco, token)
 	_socket = WebSocketPeer.new()
 	_socket.connect_to_url(endereco)
+
+## Acrescenta o token ao endereço. O Godot recusa um endereço sem caminho seguido de
+## query string (ws://localhost:8765?token=...), então, quando não há caminho depois do
+## servidor, entra uma barra antes do "?".
+func _com_token(endereco: String, token: String) -> String:
+	var depois_do_protocolo: String = endereco.get_slice("://", 1)
+	if not depois_do_protocolo.contains("/") and not depois_do_protocolo.contains("?"):
+		endereco += "/"
+	var separador: String = "&" if endereco.contains("?") else "?"
+	return endereco + separador + "token=" + token.uri_encode()
 
 ## Fecha a conexão e abre de novo na hora, sem esperar o intervalo das tentativas.
 func _reconectar() -> void:
