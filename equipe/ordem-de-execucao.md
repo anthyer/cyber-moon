@@ -23,7 +23,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 15 Sistema de diálogo
 - [x] 16 Amizade e romance
 - [x] 17 Comércio e economia
-- [ ] 18 Chat entre jogadores na AWS (independente dos outros, pode ser feito em paralelo; sprints 3 e 4 no ar e verificadas no stack `dev` em 2026-10-21, com o login do jogo feito no plano 36; o `prod` ainda está vazio; sprint 5 de CI e CD fica para depois)
+- [ ] 18 Chat entre jogadores na AWS (independente dos outros, pode ser feito em paralelo; sprints 3 e 4 no ar e verificadas no stack `dev` em 2026-10-21, com o login do jogo feito no plano 36; o `prod` no ar em 2026-11-03 com SES e login ligados, na conta `bombazaro-org`; falta a verificação de dois jogadores da tarefa 3.8; sprint 5 de CI e CD fica para depois)
 - [x] 21 Rede e chat (independente; substitui a parte do Godot do plano 18)
 - [x] 22 Dungeon em coop (depois do 21)
 - [x] 23 Conteúdo da dungeon: três dungeons com salas, subchefe, chefe e objetivo paralelo (descrição de cada uma em `equipe/dungeons/`)

@@ -338,7 +338,8 @@ na tarefa 4.6 do plano 18.
 
 **2026-11-03, SES ligado no `prod`** com `ses_remetente` igual a
 `noreply@cyber-moon.negoci.online`. O domínio inteiro é verificado, com o TXT e os três
-CNAMEs do DKIM criados na zona, e os registros já resolvem pela internet. A conta AWS
+CNAMEs do DKIM criados na zona, e os registros já resolvem pela internet. O e-mail de
+boas-vindas chegou na caixa de entrada, não no spam. A conta AWS
 ainda está no sandbox do SES: o e-mail de boas-vindas só chega a endereços verificados.
 Para mandar a qualquer jogador, pedir a saída do sandbox no console do SES (Account
 dashboard, "Request production access").

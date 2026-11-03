@@ -1170,6 +1170,15 @@ só autoriza os servidores do Google, não há DKIM do IFSC, e o DMARC do IFSC �
 um domínio com DNS nosso, que é o desenho do `prod` (`cyber-moon.negoci.online` com DKIM). O passo do access token
 no lugar do ID token não foi testado à parte; o authorizer recusa pelo `token_use`.
 
+**Refeita em 2026-11-03 no stack `prod`** (`bombazaro-org/cybermoon/prod`), depois que o
+professor delegou `cyber-moon.negoci.online` para a zona do `prod`. O SES verificou o
+domínio e o DKIM, e o e-mail de boas-vindas de uma conta criada pela tela do jogo saiu de
+`noreply@cyber-moon.negoci.online` e **chegou na caixa de entrada**. Com `exigir_login`
+ligado, sem token e com token falso a conexão volta 401; com o ID token, o `bem_vindo`
+traz o nome da conta mesmo quando o jogo manda outro no `entrar`. A VPC não foi ligada no
+`prod` (foi verificada no `dev`, e o NAT cobra por hora). A conta AWS ainda está no
+sandbox do SES: o e-mail só chega a endereços verificados.
+
 Uma chave por vez, com `pulumi up` e teste entre uma e outra.
 
 1. Com tudo desligado, `pulumi up` cria o User Pool e o chat segue igual à sprint 3.
@@ -1584,13 +1593,13 @@ Sprints 3 e 4. A sprint 5 tem verificação própria e fica para depois.
 - [ ] Os passos 2 a 9 da tarefa 3.8 passam.
 - [ ] Dois jogos conversam no chat e jogam a dungeon juntos pela AWS.
 - [x] Com `usar_vpc` ligado, o chat continua funcionando.
-- [ ] Com `ses_remetente` definido, uma conta nova recebe o e-mail de boas-vindas (no `dev`
-  ele chega, mas cai no spam: ver a tarefa 4.6).
+- [x] Com `ses_remetente` definido, uma conta nova recebe o e-mail de boas-vindas (no `dev`
+  cai no spam; no `prod`, com o domínio e o DKIM, chega na caixa de entrada: ver a tarefa 4.6).
 - [x] Com `exigir_login` ligado, só conecta quem manda um ID token válido.
 - [x] `README.md` de `pulumi-start-aws/` reescrito.
 - [x] `endereco_na_nuvem` preenchido em `game/resources/rede/configuracao.tres` (com o
-  endereço do `dev`, porque o `prod` ainda não tem nada no ar).
-- [ ] O que ficou de fora está em `equipe/pendencias.md`.
+  endereço do `prod` desde 2026-11-03).
+- [x] O que ficou de fora está em `equipe/pendencias.md`.
 
 ## Fora de escopo
 
