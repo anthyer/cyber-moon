@@ -343,6 +343,12 @@ ainda está no sandbox do SES: o e-mail de boas-vindas só chega a endereços ve
 Para mandar a qualquer jogador, pedir a saída do sandbox no console do SES (Account
 dashboard, "Request production access").
 
+**2026-11-03, `exigir_login` ligado no `prod`.** Conferido: sem token e com token falso a
+conexão volta 401; com o ID token da conta, o `bem_vindo` traz o nome da conta mesmo
+quando o jogo manda outro nome no `entrar`. Jogo sem conta fica offline contra o `prod`.
+No desktop, o jogo só usa a nuvem com `-- --servidor=<wss_url>`; sem isso vai ao
+servidor local.
+
 **Estado do `dev` agora:** `exigir_login` e `ses_remetente` ligados. `usar_vpc` foi
 desligado depois da verificação, para o NAT parar de cobrar por hora; para demonstrar,
 `pulumi config set usar_vpc true` e `pulumi up` (leva uns 3 minutos). Com `exigir_login` ligado, o jogo sem conta fica offline contra o
