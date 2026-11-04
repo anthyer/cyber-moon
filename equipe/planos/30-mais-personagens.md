@@ -58,3 +58,47 @@ do Vitor, jaleco da Iara, capacete do Rafa, lenço e óculos da Sol, avental da 
 - Peça presa a um osso não precisa de pintura de peso: herda o osso inteiro. É o que
   permite acessório sem refazer animação.
 - As motoqueiras do mapa novo (plano 26) e os NPCs da vila são os primeiros candidatos.
+
+## Como fica (escrito em 2026-11-03, ao começar)
+
+Os ids, os modelos e os lugares abaixo são o contrato entre as partes do trabalho.
+
+| id | Base da Kenney | Casa (marcador) | Lugares de rotina novos |
+|---|---|---|---|
+| `bento` | `character_male_a` | `casa_bento`, barraco perto da entrada da Galeria | `entrada_galeria` |
+| `helio` | `character_male_e` | `casa_helio`, na cisterna velha | `cisterna` |
+| `dandara` | `character_female_d` | `casa_dandara`, no acampamento | `acampamento` |
+| `lucia` | `character_female_e` | `ponto_de_onibus` (visitante) | `ponto_de_onibus` |
+| `teo` | `character_male_f`, menor | `casa_kenji` (mora com o tio) | anda pelo mapa |
+| `zeca` | `character_male_a`, outra cor | `pista_do_viaduto` (visitante) | `pista_do_viaduto` |
+
+As duas motoqueiras figurantes saem de `character_female_d` e `character_female_e` com
+outras cores e ficam paradas no acampamento, sem perfil e sem fala.
+
+**Visitante.** A Lúcia e o Zeca não moram na vila. O `PerfilNpc` ganha `eh_visitante`:
+fora dos compromissos, o visitante some no próprio marcador da casa, em vez de andar até
+ela. A Lúcia desce do ônibus num dia de trabalho por semana; o Zeca para o caminhão na
+pista uma vez por semana e abre a loja dele. Chegar e partir soltam partícula (sinal
+`EventBus.npc_visit_changed`).
+
+**Modelos.** Cada personagem é um `.glb` próprio em
+`assets/models/cyber_moon_pessoas/npc_<id>.glb`, saído da base da Kenney no Blender, com o
+mesmo esqueleto e as mesmas animações, outra cor e peças rígidas presas a um osso. Os seis
+atuais ganham as peças do tema da mesma forma (`npc_vitor.glb` e assim por diante). O
+original da Kenney não muda.
+
+## Passos
+
+- [ ] **1.** Prova de caminho no Blender: um personagem da Kenney com uma peça presa ao osso
+  da cabeça, exportado com as animações, importado no Godot e tocando `walk` e `idle` no
+  `Npc`. Registrar na bíblia de 3D como se faz.
+- [ ] **2.** Os 14 modelos: seis novos, seis atuais no tema e duas figurantes.
+- [ ] **3.** As seis fichas em `equipe/personas/`, no formato do `leiame.md`, com aniversário,
+  gostos e rotina.
+- [ ] **4.** As falas dos seis na `biblioteca-de-dialogos.md` (cerca de 50 falas do dia cada,
+  com a faixa de namoro só para a Dandara), e os lugares novos no `gerar_dialogos.gd`.
+- [ ] **5.** Os marcadores novos e as figurantes no `gerar_mapas.py`; o visitante no `Npc`;
+  os perfis no `gerar_npcs.gd`, com a loja do Zeca.
+- [ ] **6.** Rodar os três geradores, abrir o jogo e conferir cada um: aparece, anda a
+  rotina, conversa, recebe presente, a Dandara aceita buquê, a Lúcia e o Zeca chegam e
+  partem com partícula.
