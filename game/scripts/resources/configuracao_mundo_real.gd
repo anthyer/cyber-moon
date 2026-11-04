@@ -16,8 +16,11 @@ extends Resource
 ## Florianópolis. O clima real é o desta coordenada.
 @export var latitude: float = -27.59
 @export var longitude: float = -48.55
-## Depois deste tempo sem resposta, a consulta desiste e o jogo fica com a reserva.
-@export var segundos_de_limite: float = 5.0
+## Depois deste tempo sem resposta, a consulta desiste e o jogo fica com a reserva. A
+## consulta sai logo ao abrir, quando o mapa ainda está carregando e os primeiros quadros
+## demoram; com 5 segundos ela estourava mesmo com a rede boa. O jogo não espera a
+## resposta, então um limite maior não atrasa nada.
+@export var segundos_de_limite: float = 15.0
 
 @export_group("Endereços")
 ## {latitude} e {longitude} são trocados pela coordenada acima.

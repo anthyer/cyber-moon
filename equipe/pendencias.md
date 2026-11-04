@@ -455,10 +455,11 @@ noite às 22:00 com lua cheia ficou 2,5 vezes a da lua nova (medido com cheia 1,
   `rodar-o-jogo` pede para pixel art. Os ícones da Lua foram importados com 0. Os de clima
   ficaram como estavam, porque a interface não é 3D e não aconteceu de borrar, mas vale
   igualar.
-- **Num teste, as duas consultas estouraram o limite de 5 segundos** com a máquina rodando
-  três jogos ao mesmo tempo, e o jogo ficou com a reserva, como deve. Sozinho, a resposta
-  chegou dentro do limite em todas as rodadas. Se acontecer em máquina lenta, aumentar
-  `segundos_de_limite` não atrasa nada, porque o jogo não espera a resposta.
+- **O limite das consultas subiu de 5 para 15 segundos** (2026-11-04). Com 5, as duas
+  consultas estouravam em cerca de metade das aberturas, com a rede boa (o `curl` responde
+  em 1 segundo): a consulta sai logo ao abrir, enquanto o mapa carrega e os primeiros
+  quadros demoram. Com 15, respondeu em todas as rodadas. O jogo não espera a resposta,
+  então o limite maior não atrasa a abertura.
 
 **Fica para depois:** a previsão do tempo (o clima de amanhã continua sorteado), e a lua
 nova deixando a dungeon mais difícil ou com mais saque.
