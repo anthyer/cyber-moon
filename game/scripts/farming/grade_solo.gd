@@ -139,6 +139,11 @@ func colher(celula: Vector2i) -> bool:
 	var planta: PlantaNaGrade = planta_em(celula)
 	var cultivo: Cultivo = planta.cultivo
 	var quantidade: int = randi_range(cultivo.quantidade_colhida_minima, cultivo.quantidade_colhida_maxima)
+	# A Lua (plano 37): com a chance da fase de hoje, a colheita rende um item a mais. O
+	# crop_harvested sai com a quantidade final, então quem conta a colheita não muda.
+	var rendeu_pela_lua: bool = randf() < _configuracao_da_lua().chance_de_render(RealWorldManager.fase_da_lua)
+	if rendeu_pela_lua:
+		quantidade += 1
 	if cultivo.item_colhido != null:
 		ItemNoMundo.soltar(cultivo.item_colhido, quantidade, centro_da_celula_no_mundo(celula), get_parent())
 
@@ -149,6 +154,8 @@ func colher(celula: Vector2i) -> bool:
 	else:
 		_tirar_planta(celula)
 	EventBus.crop_harvested.emit(cultivo, quantidade, celula)
+	if rendeu_pela_lua:
+		EventBus.moon_harvest_bonus.emit(celula)
 	return true
 
 ## A estação virou: toda planta viva cuja cultura não serve para a estação nova murcha,
@@ -167,7 +174,11 @@ func _ao_mudar_estacao(nova: StringName) -> void:
 ## solo seco murcha e está perdida, em qualquer estágio, inclusive madura. Depois todo
 ## solo molhado seca, então é preciso regar de novo a cada dia. É o único lugar que mexe
 ## no crescimento das plantas.
+##
+## A Lua (plano 37) entra aqui: com a chance da fase de hoje, a planta regada conta um dia
+## a mais. Planta seca continua murchando; a Lua não salva quem não regou.
 func avancar_um_dia() -> void:
+	var chance_da_lua: float = _configuracao_da_lua().chance_de_crescer(RealWorldManager.fase_da_lua)
 	for celula: Vector2i in _plantas:
 		var planta: PlantaNaGrade = _plantas[celula]
 		if planta.murcha:
@@ -178,18 +189,30 @@ func avancar_um_dia() -> void:
 			_atualizar_visual_da_planta(planta)
 			EventBus.crop_withered.emit(celula)
 			continue
-		if planta.estagio >= planta.cultivo.estagio_maduro():
+		if not _contar_um_dia_de_crescimento(celula, planta):
 			continue
-		planta.dias_no_estagio += 1
-		if planta.dias_no_estagio >= planta.cultivo.dias_por_estagio:
-			planta.dias_no_estagio = 0
-			planta.estagio += 1
-			_atualizar_visual_da_planta(planta)
-			EventBus.crop_grown.emit(celula, planta.estagio)
+		if randf() < chance_da_lua and _contar_um_dia_de_crescimento(celula, planta):
+			EventBus.moon_growth_applied.emit(celula)
 
 	for celula: Vector2i in _estado.keys():
 		if _estado[celula] == EstadoTile.ARADO_MOLHADO:
 			_definir_estado(celula, EstadoTile.ARADO_SECO)
+
+## Um dia de crescimento para uma planta viva e regada. Retorna false quando ela já está
+## madura e não tem mais para onde crescer.
+func _contar_um_dia_de_crescimento(celula: Vector2i, planta: PlantaNaGrade) -> bool:
+	if planta.estagio >= planta.cultivo.estagio_maduro():
+		return false
+	planta.dias_no_estagio += 1
+	if planta.dias_no_estagio >= planta.cultivo.dias_por_estagio:
+		planta.dias_no_estagio = 0
+		planta.estagio += 1
+		_atualizar_visual_da_planta(planta)
+		EventBus.crop_grown.emit(celula, planta.estagio)
+	return true
+
+func _configuracao_da_lua() -> ConfiguracaoMundoReal:
+	return RealWorldManager.configuracao()
 
 ## A chuva molha depois de o dia virar, e não antes, porque virar o dia seca todo o solo.
 ## Por isso a checagem fica aqui, e não só no weather_changed: assim não importa em que
