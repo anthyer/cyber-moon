@@ -1,0 +1,429 @@
+[gd_resource type="Resource" script_class="Conversa" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/no_dialogo.gd" id="1_oger6"]
+[ext_resource type="Script" path="res://scripts/resources/conversa.gd" id="2_jkwn7"]
+
+[sub_resource type="Resource" id="Resource_mcnas"]
+script = ExtResource("1_oger6")
+id = "teo_46b92e03"
+falante_id = "teo"
+texto = "Você é da fazenda nova? Eu sou o Téo. Eu sei tudo daqui. Tudo mesmo."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_yve3d"]
+script = ExtResource("1_oger6")
+id = "teo_159263ca"
+falante_id = "teo"
+texto = "Sabia que embaixo do rio tem um monstro de mil metros? É verdade. Ninguém acredita."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_ff5nd"]
+script = ExtResource("1_oger6")
+id = "teo_80b06053"
+falante_id = "teo"
+texto = "O Kenji é meu tio. Ele cuida da antena. Eu cuido do resto."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_7sw1x"]
+script = ExtResource("1_oger6")
+id = "teo_e80641ff"
+falante_id = "teo"
+texto = "Se você achar osso grande no deserto, é meu, tá? Eu vi primeiro. De longe, mas vi."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_su6lj"]
+script = ExtResource("1_oger6")
+id = "teo_678fa5be"
+falante_id = "teo"
+texto = "Juro de dedinho que aquela costela no deserto é de um bicho do tamanho da vila."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_tedcg"]
+script = ExtResource("1_oger6")
+id = "teo_38aad403"
+falante_id = "teo"
+texto = "Perdi meu dente de lobo perto da cisterna. Se você achar, é meu. Eu te conto onde tem pedra que brilha."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_qkq2d"]
+script = ExtResource("1_oger6")
+id = "teo_77781981"
+falante_id = "teo"
+texto = "O caminhão do Zeca aparece toda semana do nada. É um caminhão fantasma. Eu já vi ele sem ninguém dentro."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_u3l3p"]
+script = ExtResource("1_oger6")
+id = "teo_ed7c3c7c"
+falante_id = "teo"
+texto = "O tio diz que é interferência de frequência alta. Eu não sei o que é, mas é perigoso."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_6mg45"]
+script = ExtResource("1_oger6")
+id = "teo_30d5161d"
+falante_id = "teo"
+texto = "Eu sei onde os robôs passam de noite. Se você me ajudar a achar meu parafuso, eu te mostro."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_ryl0k"]
+script = ExtResource("1_oger6")
+id = "teo_ef1b8a37"
+falante_id = "teo"
+texto = "A Dandara não me dá garupa nunca. Mas me ensinou a trocar pneu. Agora eu sei trocar pneu de qualquer coisa."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_kh0y0"]
+script = ExtResource("1_oger6")
+id = "teo_492c1e58"
+falante_id = "teo"
+texto = "Quer ver minha coleção? Tem quarenta e três ossos. Quarenta e quatro, se contar um que pode ser pedra."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_g1bs3"]
+script = ExtResource("1_oger6")
+id = "teo_43c7d29c"
+falante_id = "teo"
+texto = "O Bento disse que na Galeria mora uma máquina que come o barulho. Por isso lá embaixo é tão quieto."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_geyqu"]
+script = ExtResource("1_oger6")
+id = "teo_0dc7a2f2"
+falante_id = "teo"
+texto = "O tio não dorme. Quando ele cai em cima da bancada, eu cubro ele com o lençol. Não conta pra ele."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_5smlv"]
+script = ExtResource("1_oger6")
+id = "teo_b8b7e916"
+falante_id = "teo"
+texto = "A minha mãe trabalha na cidade. Ela falou que eu ia ficar aqui só até as coisas melhorarem."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_d8ohb"]
+script = ExtResource("1_oger6")
+id = "teo_58515865"
+falante_id = "teo"
+texto = "Eu anoto tudo num caderno. Você tá nele. Na parte das pessoas boas."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_gcp44"]
+script = ExtResource("1_oger6")
+id = "teo_96ad31d0"
+falante_id = "teo"
+texto = "Às vezes a minha mãe liga e cai no meio. O tio fala que é a antena. Eu acho que é a cidade."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_oqqhs"]
+script = ExtResource("1_oger6")
+id = "teo_01f5d576"
+falante_id = "teo"
+texto = "Faz dois anos que é só até as coisas melhorarem. Eu acho que as coisas não melhoram rápido."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_5e20x"]
+script = ExtResource("1_oger6")
+id = "teo_821be3f4"
+falante_id = "teo"
+texto = "Se a minha mãe voltar, eu queria que ela morasse aqui. Não lá. Aqui tem você e o tio."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_afuwt"]
+script = ExtResource("1_oger6")
+id = "teo_06d96324"
+falante_id = "teo"
+texto = "Shhh. O monstro do rio não existe. Eu inventei. Mas não conta pra ninguém, senão perde a graça."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_ie3wc"]
+script = ExtResource("1_oger6")
+id = "teo_9e40be08"
+falante_id = "teo"
+texto = "Eu tenho medo de escuro. Pronto, falei. Você é a primeira pessoa grande que eu conto."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_c1nsu"]
+script = ExtResource("1_oger6")
+id = "teo_b7dee319"
+falante_id = "teo"
+texto = "Na Brotação nasce tudo. Até o meu aniversário. Sabia?"
+estacoes = Array[StringName]([&"brotacao"])
+
+[sub_resource type="Resource" id="Resource_f0sib"]
+script = ExtResource("1_oger6")
+id = "teo_d798e621"
+falante_id = "teo"
+texto = "O rio baixou e apareceu um monte de coisa no fundo. Eu achei uma roda. Uma roda inteira!"
+estacoes = Array[StringName]([&"estiagem"])
+
+[sub_resource type="Resource" id="Resource_sja1j"]
+script = ExtResource("1_oger6")
+id = "teo_9b4fb911"
+falante_id = "teo"
+texto = "Na Colheita eu ajudo a Marta no mercado. Ganho lanche dobrado. É o melhor emprego do mundo."
+estacoes = Array[StringName]([&"colheita"])
+
+[sub_resource type="Resource" id="Resource_8ed20"]
+script = ExtResource("1_oger6")
+id = "teo_236d3b3c"
+falante_id = "teo"
+texto = "No Apagão fica tudo escuro. Não é que eu tenha medo. É que eu gosto de luz."
+estacoes = Array[StringName]([&"apagao"])
+
+[sub_resource type="Resource" id="Resource_5mrgd"]
+script = ExtResource("1_oger6")
+id = "teo_b002bb70"
+falante_id = "teo"
+texto = "Oi! Você que chegou na fazenda abandonada? Sabia que lá tinha fantasma? Tinha. Agora tem você. Eu sou o Téo."
+situacoes = Array[StringName]([&"primeiro_encontro"])
+
+[sub_resource type="Resource" id="Resource_iwlxh"]
+script = ExtResource("1_oger6")
+id = "teo_29434a62"
+falante_id = "teo"
+texto = "Você sumiu um tempão! Eu achei que o monstro do rio tinha te engolido."
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_j2qcs"]
+script = ExtResource("1_oger6")
+id = "teo_2c1a3824"
+falante_id = "teo"
+texto = "Eu fui na sua porteira e você não tava. Deixei uma pedra lá. Era a segunda melhor."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_tcjgn"]
+script = ExtResource("1_oger6")
+id = "teo_b423b7bd"
+falante_id = "teo"
+texto = "Falaram que você caiu dormindo no chão! Igual o tio. Vocês precisam dormir na cama."
+situacoes = Array[StringName]([&"desmaiou_ontem"])
+
+[sub_resource type="Resource" id="Resource_x0qbh"]
+script = ExtResource("1_oger6")
+id = "teo_46c8e3a3"
+falante_id = "teo"
+texto = "Você tá machucado! Vai na Iara, vai! Ela não dá bronca. Quase não dá."
+situacoes = Array[StringName]([&"vida_baixa"])
+
+[sub_resource type="Resource" id="Resource_n3xvb"]
+script = ExtResource("1_oger6")
+id = "teo_39c2ff9d"
+falante_id = "teo"
+texto = "Você foi lá embaixo? Tinha monstro? De que tamanho? Trouxe osso?"
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_o2rra"]
+script = ExtResource("1_oger6")
+id = "teo_6ecc157b"
+falante_id = "teo"
+texto = "Eu fiquei olhando a entrada enquanto você tava lá dentro. Era pra ver se você voltava. Você voltou."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_hs0iv"]
+script = ExtResource("1_oger6")
+id = "teo_754bfd82"
+falante_id = "teo"
+texto = "Chuva desenterra osso! Eu vou correr pro deserto. Não fala pro tio."
+situacoes = Array[StringName]([&"chuva"])
+
+[sub_resource type="Resource" id="Resource_3rdkw"]
+script = ExtResource("1_oger6")
+id = "teo_67f006df"
+falante_id = "teo"
+texto = "Depois da chuva o deserto fica cheio de coisa nova. Eu achei três pedras e um parafuso."
+situacoes = Array[StringName]([&"choveu_ontem"])
+
+[sub_resource type="Resource" id="Resource_t6hwt"]
+script = ExtResource("1_oger6")
+id = "teo_8c2b8272"
+falante_id = "teo"
+texto = "Ontem caiu um raio do lado da torre! Eu contei vinte e sete. O tio contou vinte e seis. Eu ganhei."
+situacoes = Array[StringName]([&"tempestade_ontem"])
+
+[sub_resource type="Resource" id="Resource_dwsux"]
+script = ExtResource("1_oger6")
+id = "teo_adc4e3cf"
+falante_id = "teo"
+texto = "Bom dia! Hoje eu vou achar o maior osso da fronteira. Eu sinto."
+situacoes = Array[StringName]([&"manha"])
+
+[sub_resource type="Resource" id="Resource_n2p3o"]
+script = ExtResource("1_oger6")
+id = "teo_229e9371"
+falante_id = "teo"
+texto = "Eu tenho que estar em casa antes de escurecer. Regra do tio. Mas ainda não escureceu direito, né?"
+situacoes = Array[StringName]([&"noite"])
+
+[sub_resource type="Resource" id="Resource_40m0i"]
+script = ExtResource("1_oger6")
+id = "teo_2927a030"
+falante_id = "teo"
+texto = "Eu não posso entrar aí. Mas posso ficar olhando. Olhar não é proibido."
+situacoes = Array[StringName]([&"em:entrada_galeria"])
+
+[sub_resource type="Resource" id="Resource_uq2yf"]
+script = ExtResource("1_oger6")
+id = "teo_443dd5fe"
+falante_id = "teo"
+texto = "Se você entrar na Galeria, procura uma máquina que come barulho. O Bento jura que existe. Eu também juro."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"em:entrada_galeria"])
+
+[sub_resource type="Resource" id="Resource_b2kh6"]
+script = ExtResource("1_oger6")
+id = "teo_9f2b0978"
+falante_id = "teo"
+texto = "O Hélio tem um caderno secreto. Eu só quero ver uma página. Uma só."
+situacoes = Array[StringName]([&"em:cisterna"])
+
+[sub_resource type="Resource" id="Resource_gws6l"]
+script = ExtResource("1_oger6")
+id = "teo_8051c306"
+falante_id = "teo"
+texto = "As motoqueiras me deixam ficar aqui se eu não encostar nas motos. Eu não encosto. Quase."
+situacoes = Array[StringName]([&"em:acampamento"])
+
+[sub_resource type="Resource" id="Resource_723dt"]
+script = ExtResource("1_oger6")
+id = "teo_392e69b7"
+falante_id = "teo"
+texto = "Tô procurando o monstro. Ele aparece quando ninguém tá olhando. Então não olha."
+situacoes = Array[StringName]([&"em:beira_rio"])
+
+[sub_resource type="Resource" id="Resource_1puxb"]
+script = ExtResource("1_oger6")
+id = "teo_8c09ae87"
+falante_id = "teo"
+texto = "A Marta me dá lanche e pergunta se eu tomei banho. Eu sempre falo que sim."
+situacoes = Array[StringName]([&"em:mercado"])
+
+[sub_resource type="Resource" id="Resource_mpqf5"]
+script = ExtResource("1_oger6")
+id = "teo_2de2447a"
+falante_id = "teo"
+texto = "Tô esperando o tio largar. Ele sempre fala mais cinco minutos. Cinco minutos do tio é uma hora."
+situacoes = Array[StringName]([&"em:torre_antena"])
+
+[sub_resource type="Resource" id="Resource_bjquc"]
+script = ExtResource("1_oger6")
+id = "teo_3587bcf5"
+falante_id = "teo"
+texto = "Folga! O tio desmontou o rádio de novo. Agora eu tô ajudando a desmontar mais."
+situacoes = Array[StringName]([&"folga"])
+
+[sub_resource type="Resource" id="Resource_dvg84"]
+script = ExtResource("1_oger6")
+id = "teo_36723626"
+falante_id = "teo"
+texto = "Hoje é meu aniversário! Eu fiz dez. Não, onze. Não, dez. Mas é hoje!"
+situacoes = Array[StringName]([&"aniversario"])
+
+[sub_resource type="Resource" id="Resource_r6iy6"]
+script = ExtResource("1_oger6")
+id = "teo_355aa433"
+falante_id = "teo"
+texto = "Hoje é aniversário do tio! Eu fiz um cartão. Ele vai esquecer que é hoje, mas eu lembro por nós dois."
+situacoes = Array[StringName]([&"aniversario_de:kenji"])
+
+[sub_resource type="Resource" id="Resource_a7sqx"]
+script = ExtResource("1_oger6")
+id = "teo_ac249d32"
+falante_id = "teo"
+texto = "A Dandara faz anos hoje. Eu vou dar a pedra vermelha. É a minha melhor. Era."
+situacoes = Array[StringName]([&"aniversario_de:dandara"])
+
+[sub_resource type="Resource" id="Resource_fp7xl"]
+script = ExtResource("1_oger6")
+id = "teo_bc571a04"
+falante_id = "teo"
+texto = "Hoje é aniversário do Bento. Eu vou pedir pra ele contar a lenda da Galeria de presente. Pra mim. Eu sei que o aniversário é dele."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"aniversario_de:bento"])
+
+[sub_resource type="Resource" id="Resource_l44gk"]
+script = ExtResource("1_oger6")
+id = "teo_3de0d300"
+falante_id = "teo"
+texto = "Estação nova! Vou fazer um mapa novo do que tem em cada canto."
+situacoes = Array[StringName]([&"primeiro_dia_da_estacao"])
+
+[sub_resource type="Resource" id="Resource_8j6mb"]
+script = ExtResource("1_oger6")
+id = "teo_37c9cc0f"
+falante_id = "teo"
+texto = "Ano novo! Esse ano eu vou ter cem ossos. Juro de dedinho."
+situacoes = Array[StringName]([&"primeiro_dia_do_ano"])
+
+[sub_resource type="Resource" id="Resource_wweqx"]
+script = ExtResource("1_oger6")
+id = "teo_1cca9e02"
+falante_id = "teo"
+texto = "Todo mundo tá falando da sua fazenda. Eu falei que fui eu que te ensinei a plantar. Não fui, mas falei."
+situacoes = Array[StringName]([&"marco_1"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_s6vuq"]
+script = ExtResource("1_oger6")
+id = "teo_7c62d816"
+falante_id = "teo"
+texto = "Você tá ficando famoso! Posso contar pros outros que a gente é amigo? Já contei, mas posso?"
+situacoes = Array[StringName]([&"marco_2"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_xc65a"]
+script = ExtResource("1_oger6")
+id = "teo_937d1cbe"
+falante_id = "teo"
+texto = "O tio falou que você tá namorando. Eca. Mas tudo bem, você ainda pode procurar osso comigo."
+situacoes = Array[StringName]([&"namorando_outro"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_a2xni"]
+script = ExtResource("1_oger6")
+id = "teo_a58c4582"
+falante_id = "teo"
+texto = "Com esse sol a areia fica tão quente que dá pra fritar ovo. Eu tentei. Não deu, mas quase."
+estacoes = Array[StringName]([&"estiagem"])
+situacoes = Array[StringName]([&"sol"])
+
+[sub_resource type="Resource" id="Resource_gb71d"]
+script = ExtResource("1_oger6")
+id = "teo_a9535044"
+falante_id = "teo"
+texto = "De noite no Apagão eu fico perto da luz da antena. Não é medo. É que é bonita."
+estacoes = Array[StringName]([&"apagao"])
+situacoes = Array[StringName]([&"noite"])
+
+[resource]
+script = ExtResource("2_jkwn7")
+id = &"teo"
+npc_id = "teo"
+nos = Array[ExtResource("1_oger6")]([SubResource("Resource_mcnas"), SubResource("Resource_yve3d"), SubResource("Resource_ff5nd"), SubResource("Resource_7sw1x"), SubResource("Resource_su6lj"), SubResource("Resource_tedcg"), SubResource("Resource_qkq2d"), SubResource("Resource_u3l3p"), SubResource("Resource_6mg45"), SubResource("Resource_ryl0k"), SubResource("Resource_kh0y0"), SubResource("Resource_g1bs3"), SubResource("Resource_geyqu"), SubResource("Resource_5smlv"), SubResource("Resource_d8ohb"), SubResource("Resource_gcp44"), SubResource("Resource_oqqhs"), SubResource("Resource_5e20x"), SubResource("Resource_afuwt"), SubResource("Resource_ie3wc"), SubResource("Resource_c1nsu"), SubResource("Resource_f0sib"), SubResource("Resource_sja1j"), SubResource("Resource_8ed20"), SubResource("Resource_5mrgd"), SubResource("Resource_iwlxh"), SubResource("Resource_j2qcs"), SubResource("Resource_tcjgn"), SubResource("Resource_x0qbh"), SubResource("Resource_n3xvb"), SubResource("Resource_o2rra"), SubResource("Resource_hs0iv"), SubResource("Resource_3rdkw"), SubResource("Resource_t6hwt"), SubResource("Resource_dwsux"), SubResource("Resource_n2p3o"), SubResource("Resource_40m0i"), SubResource("Resource_uq2yf"), SubResource("Resource_b2kh6"), SubResource("Resource_gws6l"), SubResource("Resource_723dt"), SubResource("Resource_1puxb"), SubResource("Resource_mpqf5"), SubResource("Resource_bjquc"), SubResource("Resource_dvg84"), SubResource("Resource_r6iy6"), SubResource("Resource_a7sqx"), SubResource("Resource_fp7xl"), SubResource("Resource_l44gk"), SubResource("Resource_8j6mb"), SubResource("Resource_wweqx"), SubResource("Resource_s6vuq"), SubResource("Resource_xc65a"), SubResource("Resource_a2xni"), SubResource("Resource_gb71d")])
+falas_de_evento = Dictionary[StringName, String]({
+&"amou": "Isso é cobre? Cobre de verdade? Vai pro topo da coleção. Do lado do dente de lobo!",
+&"aniversario": "Você lembrou! Ninguém lembra, nem o tio. Você vai pro caderno, na página mais importante.",
+&"buque_ja_namorando": "Você já tem alguém. E essa pessoa não merece isso.",
+&"buque_nao_romanceavel": "Flor? Pra mim? Vou dar pra Marta, ela gosta. Ou vou secar no caderno, que dá pra guardar pra sempre.",
+&"buque_poucos_coracoes": "Eu gosto de você, mas não desse jeito. Ainda não.",
+&"gostou": "Oba! Vou guardar no caderno. Quer dizer, do lado do caderno.",
+&"ja_presenteou": "Você já me deu uma coisa essa semana. Guarda pra próxima.",
+&"loja_fechada_folga": "Hoje é folga. Volta amanhã.",
+&"loja_fechada_horario": "Tô fechando. Aparece entre nove e seis.",
+&"nao_gostou": "Sopa? Sopa é comida de doente. Mas valeu. Vou dar pro tio.",
+&"neutro": "Ah, valeu. Vou achar um lugar pra isso.",
+&"odiou": "Repolho! É a coisa mais nojenta do mundo. Leva embora, leva!",
+&"sem_credito": "Você não tem o suficiente. Não fio, e você sabe disso."
+})

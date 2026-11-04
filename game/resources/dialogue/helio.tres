@@ -1,0 +1,410 @@
+[gd_resource type="Resource" script_class="Conversa" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/no_dialogo.gd" id="1_0pf8v"]
+[ext_resource type="Script" path="res://scripts/resources/conversa.gd" id="2_boh7e"]
+
+[sub_resource type="Resource" id="Resource_qiq4e"]
+script = ExtResource("1_0pf8v")
+id = "helio_f9aa671e"
+falante_id = "helio"
+texto = "Você é da fazenda nova? Hélio. Que solo é o seu, se você me permite? Argiloso? Pergunto por interesse técnico."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_kjk2k"]
+script = ExtResource("1_0pf8v")
+id = "helio_19422d29"
+falante_id = "helio"
+texto = "Eu troco semente. Não vendo, troco. É uma questão de princípio, e também de não ter balança."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_mwbqq"]
+script = ExtResource("1_0pf8v")
+id = "helio_03948e85"
+falante_id = "helio"
+texto = "Essa cisterna está seca faz anos. Lá dentro é fresco e escuro. Ótimo para guardar semente, péssimo para guardar gente."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_j0sw1"]
+script = ExtResource("1_0pf8v")
+id = "helio_fb3ff416"
+falante_id = "helio"
+texto = "Plantei aquelas mudas na lua crescente. Hipótese de trabalho. Não ri, por favor."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_2pqma"]
+script = ExtResource("1_0pf8v")
+id = "helio_018b3f06"
+falante_id = "helio"
+texto = "Desculpa, eu explico demais. Anotei isso também, como defeito a corrigir."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_vnhnm"]
+script = ExtResource("1_0pf8v")
+id = "helio_73f03311"
+falante_id = "helio"
+texto = "Essa cenoura é dos Silveira. Quer dizer, era. As sementes têm sobrenome, sabia? Pelo menos as minhas têm."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_sn2eb"]
+script = ExtResource("1_0pf8v")
+id = "helio_8df18608"
+falante_id = "helio"
+texto = "Eu trabalhava num laboratório. Classificava semente. Era um trabalho bonito, eu achava."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_7qhm5"]
+script = ExtResource("1_0pf8v")
+id = "helio_5ef15f20"
+falante_id = "helio"
+texto = "Sua beterraba está com a folha bonita. Dá pra ver daqui, pela cor. A terra da sua fazenda é melhor do que parece."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_ef8yi"]
+script = ExtResource("1_0pf8v")
+id = "helio_98dc283b"
+falante_id = "helio"
+texto = "O Rafa leva meus envelopes de semente pra outras vilas. Ele não pergunta o que é. Eu confio em quem não pergunta."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_15aul"]
+script = ExtResource("1_0pf8v")
+id = "helio_7cec8409"
+falante_id = "helio"
+texto = "Anotei quantos dias choveu desde que você chegou. Não é por nada. É hábito de laboratório."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_4pegd"]
+script = ExtResource("1_0pf8v")
+id = "helio_53913854"
+falante_id = "helio"
+texto = "O laboratório era o Biodomo. Cada lote que chegava vinha com etiqueta: espécie, região e o sobrenome da família. Eu escrevia com letra caprichada."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_aljmh"]
+script = ExtResource("1_0pf8v")
+id = "helio_0e8539f9"
+falante_id = "helio"
+texto = "Eu achava que era um banco de sementes, pra proteger. Era pra tirar do campo e vender de volta, estéril. Levei dezenove anos pra entender."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_2t0e4"]
+script = ExtResource("1_0pf8v")
+id = "helio_ecd15738"
+falante_id = "helio"
+texto = "Ficaram caixas lá dentro, no Biodomo. Semente que ninguém plantou. As máquinas de poda continuam lá, cortando tudo que cresce."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_1ayf4"]
+script = ExtResource("1_0pf8v")
+id = "helio_eb85df9c"
+falante_id = "helio"
+texto = "Quando lacraram o prédio, eu saí com envelope no bolso do jaleco. Não foi coragem. Foi a única coisa que minha mão conseguiu fazer."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_0kxq6"]
+script = ExtResource("1_0pf8v")
+id = "helio_e07eb7f8"
+falante_id = "helio"
+texto = "Você planta como quem pede licença à terra. Isso não se ensina. Anotei."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_i3fbo"]
+script = ExtResource("1_0pf8v")
+id = "helio_ca2d12ff"
+falante_id = "helio"
+texto = "Isso aqui é o caderno. Capa verde. Cada página é uma família. Você é a primeira pessoa que vê."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_ire00"]
+script = ExtResource("1_0pf8v")
+id = "helio_a9f983f2"
+falante_id = "helio"
+texto = "Roubo. Foi roubo. Eu sempre digo \"coleta\" e me corrijo. Hoje eu não vou me corrigir."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_xhss4"]
+script = ExtResource("1_0pf8v")
+id = "helio_325aeb0e"
+falante_id = "helio"
+texto = "Tem uma variedade de milho aqui que nunca germinou comigo. Planta você. Se der certo, devolve uma espiga pra cisterna."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_blra6"]
+script = ExtResource("1_0pf8v")
+id = "helio_b6639132"
+falante_id = "helio"
+texto = "Tem uma página com o sobrenome Prado. Não sei se é a família da fiscal. Nunca tive coragem de perguntar."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_mehd6"]
+script = ExtResource("1_0pf8v")
+id = "helio_0ab52ff0"
+falante_id = "helio"
+texto = "Se o caderno precisar de um dono depois de mim, quero que seja você. Não precisa responder. Eu já anotei."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_evy50"]
+script = ExtResource("1_0pf8v")
+id = "helio_6d5222af"
+falante_id = "helio"
+texto = "A estação de trabalho. Germinação, anotação, lua. Se eu sumir, estou de joelho em algum canteiro."
+estacoes = Array[StringName]([&"brotacao"])
+
+[sub_resource type="Resource" id="Resource_n0sjd"]
+script = ExtResource("1_0pf8v")
+id = "helio_e35a52cd"
+falante_id = "helio"
+texto = "A terra racha e eu sinto na mão. Evaporação de quatro milímetros por dia, se você me permite o número."
+estacoes = Array[StringName]([&"estiagem"])
+
+[sub_resource type="Resource" id="Resource_xlpfa"]
+script = ExtResource("1_0pf8v")
+id = "helio_7aeae871"
+falante_id = "helio"
+texto = "Todo mundo colhe. Pouca gente separa semente da melhor planta. É a parte que importa, e ninguém faz."
+estacoes = Array[StringName]([&"colheita"])
+
+[sub_resource type="Resource" id="Resource_x1itj"]
+script = ExtResource("1_0pf8v")
+id = "helio_8a86f96f"
+falante_id = "helio"
+texto = "Nada cresce. Aproveito pra passar o caderno a limpo, com a lamparina. Letra caprichada, de novo. Ironia, eu sei."
+estacoes = Array[StringName]([&"apagao"])
+
+[sub_resource type="Resource" id="Resource_glsj8"]
+script = ExtResource("1_0pf8v")
+id = "helio_9a2bc9b2"
+falante_id = "helio"
+texto = "Ah, você deve ser da fazenda nova. Hélio Tavares. Moro na cisterna, sim, é uma longa história. Que solo é o seu?"
+situacoes = Array[StringName]([&"primeiro_encontro"])
+
+[sub_resource type="Resource" id="Resource_7hw3a"]
+script = ExtResource("1_0pf8v")
+id = "helio_00dba8cb"
+falante_id = "helio"
+texto = "Você não apareceu por uns dias. Eu contei. É hábito, não precisa se preocupar."
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_41rsr"]
+script = ExtResource("1_0pf8v")
+id = "helio_166a096c"
+falante_id = "helio"
+texto = "Oito dias. Anotei os oito. Fiquei pensando se as suas plantas estavam sendo regadas. E se você estava."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_n6ane"]
+script = ExtResource("1_0pf8v")
+id = "helio_28a60b52"
+falante_id = "helio"
+texto = "Soube que você caiu ontem. O corpo também tem estação, se você me permite. Não dá pra colher o ano inteiro."
+situacoes = Array[StringName]([&"desmaiou_ontem"])
+
+[sub_resource type="Resource" id="Resource_bevds"]
+script = ExtResource("1_0pf8v")
+id = "helio_3b30d268"
+falante_id = "helio"
+texto = "Você está pálido. Isso é falta de ferro, ou de sangue, ou de juízo. Vai na Iara agora, por favor."
+situacoes = Array[StringName]([&"vida_baixa"])
+
+[sub_resource type="Resource" id="Resource_rh7ai"]
+script = ExtResource("1_0pf8v")
+id = "helio_1fa47cbb"
+falante_id = "helio"
+texto = "Você esteve lá embaixo, nas máquinas? Qual delas? Se foi o Biodomo, me conta. As caixas ainda estão lá?"
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_bb2mk"]
+script = ExtResource("1_0pf8v")
+id = "helio_0064d729"
+falante_id = "helio"
+texto = "Se você trouxer uma caixa de semente do Biodomo, eu sei de que família é. Eu escrevi a etiqueta."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_71mf6"]
+script = ExtResource("1_0pf8v")
+id = "helio_842fda0f"
+falante_id = "helio"
+texto = "Chuva! Desculpa, eu não posso conversar muito. Tenho lata, balde e lona pra espalhar. Cada gota conta."
+situacoes = Array[StringName]([&"chuva"])
+
+[sub_resource type="Resource" id="Resource_ycvbe"]
+script = ExtResource("1_0pf8v")
+id = "helio_d488c71f"
+falante_id = "helio"
+texto = "A cisterna está enchendo um dedo. Um dedo! Faz anos que ela não vê um dedo de água."
+situacoes = Array[StringName]([&"chuva", &"em:cisterna"])
+
+[sub_resource type="Resource" id="Resource_7peja"]
+script = ExtResource("1_0pf8v")
+id = "helio_51e41da6"
+falante_id = "helio"
+texto = "Choveu ontem e as mudas acordaram outras. Dá pra ver na folha, ela fica mais firme."
+situacoes = Array[StringName]([&"choveu_ontem"])
+
+[sub_resource type="Resource" id="Resource_ix52m"]
+script = ExtResource("1_0pf8v")
+id = "helio_4522ce33"
+falante_id = "helio"
+texto = "Tempestade é bom pra cisterna e péssimo pras mudas. Cobri tudo com lona. Volta pra casa, que eu volto pra minha."
+situacoes = Array[StringName]([&"tempestade"])
+
+[sub_resource type="Resource" id="Resource_lh1wj"]
+script = ExtResource("1_0pf8v")
+id = "helio_971c9b75"
+falante_id = "helio"
+texto = "O vento derrubou três latas de muda. Duas eu salvei. A terceira era pimenta dos Andrade. Anotei a perda."
+situacoes = Array[StringName]([&"tempestade_ontem"])
+
+[sub_resource type="Resource" id="Resource_3xjdf"]
+script = ExtResource("1_0pf8v")
+id = "helio_a99e716f"
+falante_id = "helio"
+texto = "Folga, é? Eu sei que existe. Não sei bem o que se faz nela. Eu fico com o caderno."
+situacoes = Array[StringName]([&"folga"])
+
+[sub_resource type="Resource" id="Resource_x6ros"]
+script = ExtResource("1_0pf8v")
+id = "helio_b6925e15"
+falante_id = "helio"
+texto = "Cedo é a melhor hora pra regar. A água não evapora antes de a raiz beber. Isso vale pra você também."
+situacoes = Array[StringName]([&"manha", &"em:cisterna"])
+
+[sub_resource type="Resource" id="Resource_3w7q1"]
+script = ExtResource("1_0pf8v")
+id = "helio_fad7ab92"
+falante_id = "helio"
+texto = "Trouxe hortelã e capim-santo pra Iara. Ela diz que não é remédio. Eu digo que é química, só que mais antiga."
+situacoes = Array[StringName]([&"tarde", &"em:clinica"])
+
+[sub_resource type="Resource" id="Resource_8x32o"]
+script = ExtResource("1_0pf8v")
+id = "helio_0a99c02b"
+falante_id = "helio"
+texto = "A Marta sabe de que família vem cada semente antes de eu dizer. Ciência de balcão. Respeito muito."
+situacoes = Array[StringName]([&"em:mercado"])
+
+[sub_resource type="Resource" id="Resource_ymym7"]
+script = ExtResource("1_0pf8v")
+id = "helio_9094e1ad"
+falante_id = "helio"
+texto = "Troquei semente de abóbora por feijão com a Marta. Ela ganhou a troca. Ela sempre ganha."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"em:mercado"])
+
+[sub_resource type="Resource" id="Resource_djyip"]
+script = ExtResource("1_0pf8v")
+id = "helio_24c59223"
+falante_id = "helio"
+texto = "Hoje é meu aniversário? Ah, é. Plantei uma semente de cada lote do caderno e esqueci. Obrigado por lembrar."
+situacoes = Array[StringName]([&"aniversario"])
+
+[sub_resource type="Resource" id="Resource_lxr2o"]
+script = ExtResource("1_0pf8v")
+id = "helio_4a2543d7"
+falante_id = "helio"
+texto = "A Iara faz anos hoje. Vou levar uma muda de erva-cidreira com o nome escrito no vaso. Ela acha bobo e guarda."
+situacoes = Array[StringName]([&"aniversario_de:iara"])
+
+[sub_resource type="Resource" id="Resource_sorbj"]
+script = ExtResource("1_0pf8v")
+id = "helio_d5a288bc"
+falante_id = "helio"
+texto = "Aniversário do Téo. Ele me trouxe um osso semana passada achando que era semente de árvore gigante. Vou dar uma lupa pra ele."
+situacoes = Array[StringName]([&"aniversario_de:teo"])
+
+[sub_resource type="Resource" id="Resource_lwe62"]
+script = ExtResource("1_0pf8v")
+id = "helio_727376ea"
+falante_id = "helio"
+texto = "Estação nova. Anotei a data, a lua e a temperatura. Daqui a um ano eu comparo. É assim que se aprende."
+situacoes = Array[StringName]([&"primeiro_dia_da_estacao"])
+
+[sub_resource type="Resource" id="Resource_bdd50"]
+script = ExtResource("1_0pf8v")
+id = "helio_49a090b0"
+falante_id = "helio"
+texto = "Primeiro dia da Brotação! Hoje eu planto tudo que aguentou o Apagão. Se você me permite, eu fico eufórico."
+estacoes = Array[StringName]([&"brotacao"])
+situacoes = Array[StringName]([&"primeiro_dia_da_estacao"])
+
+[sub_resource type="Resource" id="Resource_nis2o"]
+script = ExtResource("1_0pf8v")
+id = "helio_34d3704d"
+falante_id = "helio"
+texto = "Ano novo. Mais uma página no caderno. Ainda faltam muitas famílias pra devolver."
+situacoes = Array[StringName]([&"primeiro_dia_do_ano"])
+
+[sub_resource type="Resource" id="Resource_vkvr7"]
+script = ExtResource("1_0pf8v")
+id = "helio_1706a7fc"
+falante_id = "helio"
+texto = "Ouvi dizer que sua fazenda está vendendo bem. Terra seca produzindo. Isso contraria vários artigos que eu li. Fico feliz em estar errado."
+situacoes = Array[StringName]([&"marco_1"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_yhlh2"]
+script = ExtResource("1_0pf8v")
+id = "helio_3cb84c7f"
+falante_id = "helio"
+texto = "Sua fazenda virou a maior da vila. Se um dia quiser plantar semente nativa em escala, eu tenho o caderno. Pensa nisso."
+situacoes = Array[StringName]([&"marco_2"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_7n53p"]
+script = ExtResource("1_0pf8v")
+id = "helio_5ab7476d"
+falante_id = "helio"
+texto = "Vi que você anda acompanhado. Muda bem plantada perto de outra cresce mais firme. É biologia, não é palpite."
+situacoes = Array[StringName]([&"namorando_outro"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_ju4rl"]
+script = ExtResource("1_0pf8v")
+id = "helio_4d83995a"
+falante_id = "helio"
+texto = "Lua crescente essa semana. Planta hoje, se puder. Hipótese de trabalho, mas até agora a hipótese tem acertado."
+relacionamento_minimo = 1500
+estacoes = Array[StringName]([&"brotacao"])
+situacoes = Array[StringName]([&"manha"])
+
+[sub_resource type="Resource" id="Resource_pw2aw"]
+script = ExtResource("1_0pf8v")
+id = "helio_a039e0ed"
+falante_id = "helio"
+texto = "O Bento vem aqui na Estiagem. A gente fala da água como quem fala do tempo. Ele sabe alguma coisa. Eu não pergunto."
+relacionamento_minimo = 750
+estacoes = Array[StringName]([&"estiagem"])
+situacoes = Array[StringName]([&"tarde"])
+
+[resource]
+script = ExtResource("2_boh7e")
+id = &"helio"
+npc_id = "helio"
+nos = Array[ExtResource("1_0pf8v")]([SubResource("Resource_qiq4e"), SubResource("Resource_kjk2k"), SubResource("Resource_mwbqq"), SubResource("Resource_j0sw1"), SubResource("Resource_2pqma"), SubResource("Resource_vnhnm"), SubResource("Resource_sn2eb"), SubResource("Resource_7qhm5"), SubResource("Resource_ef8yi"), SubResource("Resource_15aul"), SubResource("Resource_4pegd"), SubResource("Resource_aljmh"), SubResource("Resource_2t0e4"), SubResource("Resource_1ayf4"), SubResource("Resource_0kxq6"), SubResource("Resource_i3fbo"), SubResource("Resource_ire00"), SubResource("Resource_xhss4"), SubResource("Resource_blra6"), SubResource("Resource_mehd6"), SubResource("Resource_evy50"), SubResource("Resource_n0sjd"), SubResource("Resource_xlpfa"), SubResource("Resource_x1itj"), SubResource("Resource_glsj8"), SubResource("Resource_7hw3a"), SubResource("Resource_41rsr"), SubResource("Resource_n6ane"), SubResource("Resource_bevds"), SubResource("Resource_rh7ai"), SubResource("Resource_bb2mk"), SubResource("Resource_71mf6"), SubResource("Resource_ycvbe"), SubResource("Resource_7peja"), SubResource("Resource_ix52m"), SubResource("Resource_lh1wj"), SubResource("Resource_3xjdf"), SubResource("Resource_x6ros"), SubResource("Resource_3w7q1"), SubResource("Resource_8x32o"), SubResource("Resource_ymym7"), SubResource("Resource_djyip"), SubResource("Resource_lxr2o"), SubResource("Resource_sorbj"), SubResource("Resource_lwe62"), SubResource("Resource_bdd50"), SubResource("Resource_nis2o"), SubResource("Resource_vkvr7"), SubResource("Resource_yhlh2"), SubResource("Resource_7n53p"), SubResource("Resource_ju4rl"), SubResource("Resource_pw2aw")])
+falas_de_evento = Dictionary[StringName, String]({
+&"amou": "Isso é solo vivo, ou quase. Você sabe o que me deu? Muito obrigado. Vou anotar a data.",
+&"aniversario": "Você lembrou do meu aniversário. Eu nem tinha anotado. Isso é raro, você sabe. Muito obrigado.",
+&"buque_ja_namorando": "Você já tem alguém. E essa pessoa não merece isso.",
+&"buque_nao_romanceavel": "Ah, que gentileza. Mas eu vou colocar num vaso e fingir que você não quis dizer nada com isso.",
+&"buque_poucos_coracoes": "Eu gosto de você, mas não desse jeito. Ainda não.",
+&"gostou": "Ah, que útil. Isso vai pra muda certa, pode deixar.",
+&"ja_presenteou": "Você já me deu uma coisa essa semana. Guarda pra próxima.",
+&"loja_fechada_folga": "Hoje é folga. Volta amanhã.",
+&"loja_fechada_horario": "Tô fechando. Aparece entre nove e seis.",
+&"nao_gostou": "Estimulante? Eu vi colega de laboratório viver disso. Obrigado, mas não.",
+&"neutro": "Obrigado. Vou achar um uso pra isso. Sempre se acha, com paciência.",
+&"odiou": "Nutrisolo. Solo de fábrica, que vicia a terra. Foi a mesma gente das sementes estéreis. Leva isso daqui, por favor.",
+&"sem_credito": "Você não tem o suficiente. Não fio, e você sabe disso."
+})

@@ -1,0 +1,477 @@
+[gd_resource type="Resource" script_class="Conversa" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/no_dialogo.gd" id="1_txd6p"]
+[ext_resource type="Script" path="res://scripts/resources/conversa.gd" id="2_a2d1q"]
+
+[sub_resource type="Resource" id="Resource_nqehg"]
+script = ExtResource("1_txd6p")
+id = "dandara_57b31819"
+falante_id = "dandara"
+texto = "Ô da fazenda. Dandara. O acampamento é ali no leste, depois do ônibus. Não tem erro."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_x4px0"]
+script = ExtResource("1_txd6p")
+id = "dandara_ad85b637"
+falante_id = "dandara"
+texto = "Moto sem combustível é cadeira. Se sobrar biocombustível aí, sabe onde me achar."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_kmi4q"]
+script = ExtResource("1_txd6p")
+id = "dandara_83e91f11"
+falante_id = "dandara"
+texto = "Rá! Você tem cara de quem nunca subiu numa moto. Relaxa, quase ninguém daqui subiu."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_kipbx"]
+script = ExtResource("1_txd6p")
+id = "dandara_1c5f79cc"
+falante_id = "dandara"
+texto = "Fazenda nova é bom sinal. Quer dizer que alguém ainda aposta nesse chão."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_srw20"]
+script = ExtResource("1_txd6p")
+id = "dandara_772fb9ba"
+falante_id = "dandara"
+texto = "Tô no meio de um carburador, mas senta aí. Conversa não atrapalha mão."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_q3ufq"]
+script = ExtResource("1_txd6p")
+id = "dandara_fe1501ac"
+falante_id = "dandara"
+texto = "O Vitor diz que moto é brinquedo. Ele conserta gerador porque não aguenta velocidade. Não conta que eu falei."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_pjasv"]
+script = ExtResource("1_txd6p")
+id = "dandara_086f2dac"
+falante_id = "dandara"
+texto = "Daqui até a cidade são três rotas. Uma eles vigiam, uma desaba e a terceira é minha."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_b8bo1"]
+script = ExtResource("1_txd6p")
+id = "dandara_83bf8648"
+falante_id = "dandara"
+texto = "No acampamento a regra é uma só: ninguém anda sozinha. Ninguém."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_5x85e"]
+script = ExtResource("1_txd6p")
+id = "dandara_c476a3cf"
+falante_id = "dandara"
+texto = "O Rafa acha que conhece estrada. Conhece rua. Estrada é outra coisa."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_w1xen"]
+script = ExtResource("1_txd6p")
+id = "dandara_cfd932b0"
+falante_id = "dandara"
+texto = "Uma vez por mês eu subo até a cidade pra buscar peça. Volto em dois dias. Não precisa se preocupar."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_n41yf"]
+script = ExtResource("1_txd6p")
+id = "dandara_42ecddb1"
+falante_id = "dandara"
+texto = "Eu era mensageira lá embaixo. Levava chip pelas rotas que a câmera não pega. Aprendi a cidade pelo avesso."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_yilq3"]
+script = ExtResource("1_txd6p")
+id = "dandara_64f4af1e"
+falante_id = "dandara"
+texto = "Sabe a Torre? Lá de cima eles decidem o preço do pão de amanhã. Eu já vi a luz dela piscar e o crédito de um bairro sumir."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_texon"]
+script = ExtResource("1_txd6p")
+id = "dandara_7507ff2a"
+falante_id = "dandara"
+texto = "Tinha uma menina no bando, a mais nova. Pilotava melhor que eu. Um dia não voltou da rota."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_kpcwi"]
+script = ExtResource("1_txd6p")
+id = "dandara_2ce18a4c"
+falante_id = "dandara"
+texto = "Se você for descer na dungeon, me avisa antes. Não pra eu ir junto. Só pra eu saber."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_at2ui"]
+script = ExtResource("1_txd6p")
+id = "dandara_05e85ad1"
+falante_id = "dandara"
+texto = "O Kenji me dá os repetidores e eu levo pra cima. Ele acha que é pra rede da vila. Também é."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_ey2ah"]
+script = ExtResource("1_txd6p")
+id = "dandara_3055040d"
+falante_id = "dandara"
+texto = "O nome dela era Nina. Fui eu que mandei ela sozinha naquela rota. Achei que ela tava pronta."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_xk37v"]
+script = ExtResource("1_txd6p")
+id = "dandara_a4c8884f"
+falante_id = "dandara"
+texto = "A moto dela apareceu num pátio de apreensão da corporação. A Nina não apareceu em lugar nenhum."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_vjlga"]
+script = ExtResource("1_txd6p")
+id = "dandara_acee8206"
+falante_id = "dandara"
+texto = "Cada repetidor que eu deixo no caminho fica mais perto da Torre. Um dia eu quero ouvir, de lá de dentro, o que aconteceu com ela."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_uffq2"]
+script = ExtResource("1_txd6p")
+id = "dandara_88647690"
+falante_id = "dandara"
+texto = "Eu não subo pra buscar peça. Nunca subi. Você é a primeira pessoa pra quem eu falo isso."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_3rmyk"]
+script = ExtResource("1_txd6p")
+id = "dandara_49b45869"
+falante_id = "dandara"
+texto = "Com você eu consigo ficar parada. Faz anos que ficar parada não parecia perda de tempo."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_f3rlx"]
+script = ExtResource("1_txd6p")
+id = "dandara_3fbf0741"
+falante_id = "dandara"
+texto = "Arrumei um capacete a mais. Tá no ônibus, com o seu nome riscado por dentro. Bora dar uma volta?"
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_o5skm"]
+script = ExtResource("1_txd6p")
+id = "dandara_50e049b1"
+falante_id = "dandara"
+texto = "Na próxima subida eu não vou sozinha. Primeira vez em três anos. Fiquei com medo de falar isso em voz alta."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_fdpo0"]
+script = ExtResource("1_txd6p")
+id = "dandara_dc1a9987"
+falante_id = "dandara"
+texto = "As meninas perguntaram por que eu tô rindo à toa. Falei que é o carburador novo. Ninguém acreditou."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_t54wh"]
+script = ExtResource("1_txd6p")
+id = "dandara_0b528e52"
+falante_id = "dandara"
+texto = "Você é o primeiro trecho de estrada reta que eu pego em anos."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_s0xbk"]
+script = ExtResource("1_txd6p")
+id = "dandara_bc012263"
+falante_id = "dandara"
+texto = "Hoje eu não medi nada em quilômetro. Só fiquei aqui. Repara como é bom."
+so_namorando = true
+
+[sub_resource type="Resource" id="Resource_aosl2"]
+script = ExtResource("1_txd6p")
+id = "dandara_2d4d661c"
+falante_id = "dandara"
+texto = "Nos trechos baixos a estrada vira lama. Moto atola, e eu xingo a primavera inteira."
+estacoes = Array[StringName]([&"brotacao"])
+
+[sub_resource type="Resource" id="Resource_drriw"]
+script = ExtResource("1_txd6p")
+id = "dandara_aede479e"
+falante_id = "dandara"
+texto = "Asfalto quente, horizonte limpo. Rá! É a minha estação, ô da fazenda."
+estacoes = Array[StringName]([&"estiagem"])
+
+[sub_resource type="Resource" id="Resource_b05hu"]
+script = ExtResource("1_txd6p")
+id = "dandara_f2de382a"
+falante_id = "dandara"
+texto = "Na Colheita a cidade aperta a fiscalização nas rotas. Todo mundo de olho aberto."
+estacoes = Array[StringName]([&"colheita"])
+
+[sub_resource type="Resource" id="Resource_wbe7r"]
+script = ExtResource("1_txd6p")
+id = "dandara_dede8af2"
+falante_id = "dandara"
+texto = "No Apagão as câmeras deles apagam. É quando dá pra subir sem ninguém ver."
+estacoes = Array[StringName]([&"apagao"])
+
+[sub_resource type="Resource" id="Resource_tdq6w"]
+script = ExtResource("1_txd6p")
+id = "dandara_a4881300"
+falante_id = "dandara"
+texto = "Ô da fazenda! Vi a poeira da sua chegada lá do acampamento. Dandara, mas todo mundo diz Dada. Chegou na fronteira, que é a parte boa do mapa."
+situacoes = Array[StringName]([&"primeiro_encontro"])
+
+[sub_resource type="Resource" id="Resource_ww5yh"]
+script = ExtResource("1_txd6p")
+id = "dandara_d30dfe89"
+falante_id = "dandara"
+texto = "Faz um trecho bom que você não aparece. Não que eu tenha contado. Contei."
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_u8ukw"]
+script = ExtResource("1_txd6p")
+id = "dandara_a07775d8"
+falante_id = "dandara"
+texto = "Passei na sua porteira três tardes seguidas. Fingi que era caminho. Não é caminho de nada."
+relacionamento_minimo = 2500
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_kgoim"]
+script = ExtResource("1_txd6p")
+id = "dandara_26c8c103"
+falante_id = "dandara"
+texto = "Me falaram que você caiu ontem. Tanque na reserva não se força, ô da fazenda. Hoje você vai devagar."
+situacoes = Array[StringName]([&"desmaiou_ontem"])
+
+[sub_resource type="Resource" id="Resource_pg6cd"]
+script = ExtResource("1_txd6p")
+id = "dandara_a2445cea"
+falante_id = "dandara"
+texto = "Para. Olha pra mim. Você tá mal. Vai na Iara agora, e se precisar eu te levo na garupa."
+situacoes = Array[StringName]([&"vida_baixa"])
+
+[sub_resource type="Resource" id="Resource_yq4iv"]
+script = ExtResource("1_txd6p")
+id = "dandara_762ee71c"
+falante_id = "dandara"
+texto = "Voltou? Deixa eu ver se tá tudo no lugar. Tá. Agora me conta o caminho, curva por curva."
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_558oj"]
+script = ExtResource("1_txd6p")
+id = "dandara_22d5601a"
+falante_id = "dandara"
+texto = "Toda vez que você desce lá eu fico olhando a entrada até a hora de você sair. Não é exagero. É costume de estrada."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_lx40h"]
+script = ExtResource("1_txd6p")
+id = "dandara_8f24446d"
+falante_id = "dandara"
+texto = "Pista molhada é pista traiçoeira. Cobri as motos e ninguém sai hoje."
+situacoes = Array[StringName]([&"chuva"])
+
+[sub_resource type="Resource" id="Resource_gcx5v"]
+script = ExtResource("1_txd6p")
+id = "dandara_aaaaf861"
+falante_id = "dandara"
+texto = "Barulho de chuva no teto do ônibus. Melhor que qualquer música da cidade."
+situacoes = Array[StringName]([&"chuva", &"em:acampamento"])
+
+[sub_resource type="Resource" id="Resource_3m6ox"]
+script = ExtResource("1_txd6p")
+id = "dandara_a1c60e29"
+falante_id = "dandara"
+texto = "Contei cabeça a noite inteira dentro do ônibus. Todas aqui. Dormi meia hora e tô ótima."
+situacoes = Array[StringName]([&"tempestade_ontem"])
+
+[sub_resource type="Resource" id="Resource_mv7vr"]
+script = ExtResource("1_txd6p")
+id = "dandara_ce3c3f32"
+falante_id = "dandara"
+texto = "A chuva de ontem lavou a poeira da estrada. Dá pra ver as marcas de pneu de quem passou. Gosto de saber quem passou."
+situacoes = Array[StringName]([&"choveu_ontem"])
+
+[sub_resource type="Resource" id="Resource_3yuit"]
+script = ExtResource("1_txd6p")
+id = "dandara_11604cff"
+falante_id = "dandara"
+texto = "Daqui dá pra ver quem sobe e quem desce a estrada. Hoje ninguém subiu. Isso é bom."
+situacoes = Array[StringName]([&"sol", &"em:pista_do_viaduto"])
+
+[sub_resource type="Resource" id="Resource_xishv"]
+script = ExtResource("1_txd6p")
+id = "dandara_d6b69f15"
+falante_id = "dandara"
+texto = "Vim trazer peça pro Kenji. Ele fala sem parar e eu finjo que entendo. É um bom arranjo."
+situacoes = Array[StringName]([&"em:torre_antena"])
+
+[sub_resource type="Resource" id="Resource_c8tdo"]
+script = ExtResource("1_txd6p")
+id = "dandara_eebad26c"
+falante_id = "dandara"
+texto = "O Kenji acha que esses repetidores ficam na vila. Alguns ficam. Outros vão bem mais longe."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"em:torre_antena"])
+
+[sub_resource type="Resource" id="Resource_3f7mk"]
+script = ExtResource("1_txd6p")
+id = "dandara_f3947015"
+falante_id = "dandara"
+texto = "Fogueira acesa, bando inteiro. É a hora do dia em que eu conto as meninas e dá certo."
+situacoes = Array[StringName]([&"noite", &"em:acampamento"])
+
+[sub_resource type="Resource" id="Resource_xdesa"]
+script = ExtResource("1_txd6p")
+id = "dandara_86603216"
+falante_id = "dandara"
+texto = "Cedinho é a melhor hora da estrada. O asfalto ainda tá frio e a cidade ainda tá dormindo."
+situacoes = Array[StringName]([&"manha"])
+
+[sub_resource type="Resource" id="Resource_xwvbs"]
+script = ExtResource("1_txd6p")
+id = "dandara_9171fbbf"
+falante_id = "dandara"
+texto = "Folga. As meninas dormem e eu desmonto moto que não precisa. Não sei ficar parada."
+situacoes = Array[StringName]([&"folga"])
+
+[sub_resource type="Resource" id="Resource_ndh2f"]
+script = ExtResource("1_txd6p")
+id = "dandara_883ddf23"
+falante_id = "dandara"
+texto = "Amanhã é Folga e eu prometi não mexer em motor. Vamos ver quanto dura a promessa."
+situacoes = Array[StringName]([&"vespera_de_folga"])
+
+[sub_resource type="Resource" id="Resource_knf2o"]
+script = ExtResource("1_txd6p")
+id = "dandara_3854c83a"
+falante_id = "dandara"
+texto = "A Marta sempre põe um pão a mais na sacola do bando. Ela acha que eu não percebo."
+situacoes = Array[StringName]([&"em:mercado"])
+
+[sub_resource type="Resource" id="Resource_jq62b"]
+script = ExtResource("1_txd6p")
+id = "dandara_fb20b58c"
+falante_id = "dandara"
+texto = "Hoje é meu aniversário. Rá! Não precisa fazer nada. Mas eu vou estar na pista de tarde, se alguém quiser aparecer."
+situacoes = Array[StringName]([&"aniversario"])
+
+[sub_resource type="Resource" id="Resource_4qhwm"]
+script = ExtResource("1_txd6p")
+id = "dandara_e2f0a7a6"
+falante_id = "dandara"
+texto = "O Kenji faz anos hoje e esqueceu de novo. Vou levar um repetidor embrulhado em pano de prato. Ele vai chorar."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"aniversario_de:kenji"])
+
+[sub_resource type="Resource" id="Resource_cw4ek"]
+script = ExtResource("1_txd6p")
+id = "dandara_9bfe5ddd"
+falante_id = "dandara"
+texto = "O Téo faz anos hoje. Vou ensinar ele a trocar câmara de pneu. Garupa ainda não. Regra é regra."
+situacoes = Array[StringName]([&"aniversario_de:teo"])
+
+[sub_resource type="Resource" id="Resource_j67o6"]
+script = ExtResource("1_txd6p")
+id = "dandara_fe26b54b"
+falante_id = "dandara"
+texto = "Hoje o Zeca faz anos. Ele diz que caminhoneiro não faz aniversário. Vou buzinar na pista até ele admitir."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"aniversario_de:zeca"])
+
+[sub_resource type="Resource" id="Resource_8bko5"]
+script = ExtResource("1_txd6p")
+id = "dandara_7b58179c"
+falante_id = "dandara"
+texto = "Estação nova, rota nova. Hoje eu redesenho o caminho de todas as meninas."
+situacoes = Array[StringName]([&"primeiro_dia_da_estacao"])
+
+[sub_resource type="Resource" id="Resource_ancph"]
+script = ExtResource("1_txd6p")
+id = "dandara_c350056b"
+falante_id = "dandara"
+texto = "Começou o Apagão. Lá em cima as luzes vão diminuir. Eu conheço bem esse escuro."
+estacoes = Array[StringName]([&"apagao"])
+situacoes = Array[StringName]([&"primeiro_dia_da_estacao"])
+
+[sub_resource type="Resource" id="Resource_unn1i"]
+script = ExtResource("1_txd6p")
+id = "dandara_a85b381e"
+falante_id = "dandara"
+texto = "Ano novo. O bando inteiro fez a volta do ano sem ninguém ficar na estrada. Quase inteiro. Bora comemorar o que dá."
+situacoes = Array[StringName]([&"primeiro_dia_do_ano"])
+
+[sub_resource type="Resource" id="Resource_bkn1o"]
+script = ExtResource("1_txd6p")
+id = "dandara_7e7231f4"
+falante_id = "dandara"
+texto = "A sua colheita chegou até a terceira vila da rota. Eu vi o seu caixote numa barraca de lá. Fiquei orgulhosa sem motivo."
+situacoes = Array[StringName]([&"marco_1"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_2njyy"]
+script = ExtResource("1_txd6p")
+id = "dandara_237c12f7"
+falante_id = "dandara"
+texto = "Na cidade já tem gente perguntando de onde vem aquela verdura. Isso é bom e é perigoso. Fica de olho."
+situacoes = Array[StringName]([&"marco_2"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_i1sfr"]
+script = ExtResource("1_txd6p")
+id = "dandara_6b577a99"
+falante_id = "dandara"
+texto = "Fiquei sabendo de vocês. Bom pra você, ô da fazenda. Estrada boa pros dois."
+situacoes = Array[StringName]([&"namorando_outro"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_qjtad"]
+script = ExtResource("1_txd6p")
+id = "dandara_ac7e7b49"
+falante_id = "dandara"
+texto = "Com um sol desses eu te levava até a serra e voltava antes do jantar. Um dia, quando você deixar a enxada."
+relacionamento_minimo = 1500
+estacoes = Array[StringName]([&"estiagem"])
+situacoes = Array[StringName]([&"sol"])
+
+[sub_resource type="Resource" id="Resource_cnnfn"]
+script = ExtResource("1_txd6p")
+id = "dandara_7fea65f7"
+falante_id = "dandara"
+texto = "Nas noites de Apagão eu olho pro alto da cidade. Tem uma luz na Torre que nunca apaga. Fico pensando quem ficou lá dentro."
+relacionamento_minimo = 1500
+estacoes = Array[StringName]([&"apagao"])
+situacoes = Array[StringName]([&"noite"])
+
+[sub_resource type="Resource" id="Resource_qjawi"]
+script = ExtResource("1_txd6p")
+id = "dandara_732a3808"
+falante_id = "dandara"
+texto = "Na Colheita passa mais carro de fiscal nessa estrada. Eu conto todos. Anoto a placa de cabeça."
+estacoes = Array[StringName]([&"colheita"])
+situacoes = Array[StringName]([&"em:pista_do_viaduto"])
+
+[resource]
+script = ExtResource("2_a2d1q")
+id = &"dandara"
+npc_id = "dandara"
+nos = Array[ExtResource("1_txd6p")]([SubResource("Resource_nqehg"), SubResource("Resource_x4px0"), SubResource("Resource_kmi4q"), SubResource("Resource_kipbx"), SubResource("Resource_srw20"), SubResource("Resource_q3ufq"), SubResource("Resource_pjasv"), SubResource("Resource_b8bo1"), SubResource("Resource_5x85e"), SubResource("Resource_w1xen"), SubResource("Resource_n41yf"), SubResource("Resource_yilq3"), SubResource("Resource_texon"), SubResource("Resource_kpcwi"), SubResource("Resource_at2ui"), SubResource("Resource_ey2ah"), SubResource("Resource_xk37v"), SubResource("Resource_vjlga"), SubResource("Resource_uffq2"), SubResource("Resource_3rmyk"), SubResource("Resource_f3rlx"), SubResource("Resource_o5skm"), SubResource("Resource_fdpo0"), SubResource("Resource_t54wh"), SubResource("Resource_s0xbk"), SubResource("Resource_aosl2"), SubResource("Resource_drriw"), SubResource("Resource_b05hu"), SubResource("Resource_wbe7r"), SubResource("Resource_tdq6w"), SubResource("Resource_ww5yh"), SubResource("Resource_u8ukw"), SubResource("Resource_kgoim"), SubResource("Resource_pg6cd"), SubResource("Resource_yq4iv"), SubResource("Resource_558oj"), SubResource("Resource_lx40h"), SubResource("Resource_gcx5v"), SubResource("Resource_3m6ox"), SubResource("Resource_mv7vr"), SubResource("Resource_3yuit"), SubResource("Resource_xishv"), SubResource("Resource_c8tdo"), SubResource("Resource_3f7mk"), SubResource("Resource_xdesa"), SubResource("Resource_xwvbs"), SubResource("Resource_ndh2f"), SubResource("Resource_knf2o"), SubResource("Resource_jq62b"), SubResource("Resource_4qhwm"), SubResource("Resource_cw4ek"), SubResource("Resource_j67o6"), SubResource("Resource_8bko5"), SubResource("Resource_ancph"), SubResource("Resource_unn1i"), SubResource("Resource_bkn1o"), SubResource("Resource_2njyy"), SubResource("Resource_i1sfr"), SubResource("Resource_qjtad"), SubResource("Resource_cnnfn"), SubResource("Resource_qjawi")])
+falas_de_evento = Dictionary[StringName, String]({
+&"amou": "Rá! Isso é combustível de verdade? Você acabou de pagar uma semana de estrada pro bando inteiro.",
+&"aniversario": "Lembrou de mim. Na estrada, quem lembra de você é quem te espera na chegada. Obrigada.",
+&"buque_aceito": "Rá! Eu achei que ia ter que pedir eu mesma. Sim. Bora, sobe na garupa.",
+&"buque_ja_namorando": "Você já tem alguém. E essa pessoa não merece isso.",
+&"buque_nao_romanceavel": "Ah, que gentileza. Mas eu vou colocar num vaso e fingir que você não quis dizer nada com isso.",
+&"buque_poucos_coracoes": "Eu gosto de você, mas não desse jeito. Ainda não.",
+&"gostou": "Opa, isso serve. Valeu, ô da fazenda.",
+&"ja_presenteou": "Você já me deu uma coisa essa semana. Guarda pra próxima.",
+&"loja_fechada_folga": "Hoje é folga. Volta amanhã.",
+&"loja_fechada_horario": "Tô fechando. Aparece entre nove e seis.",
+&"nao_gostou": "Madeira não aguenta estrada. Mas eu agradeço, sério. Rá!",
+&"neutro": "Obrigada. Vai pro ônibus, lá sempre cabe mais uma coisa.",
+&"odiou": "Estimulante? Aqui não. Quem dirige com isso cai na curva. Leva embora.",
+&"sem_credito": "Você não tem o suficiente. Não fio, e você sabe disso."
+})

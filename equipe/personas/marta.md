@@ -18,7 +18,7 @@ ela abriu a loja do mesmo jeito, porque não sabia fazer outra coisa.
 A filha única foi estudar na cidade e ficou. Trabalha lá dentro, liga no aniversário da
 mãe e pergunta se ela já vendeu o mercado. A Marta diz que ainda não e muda de assunto.
 
-Ela é a pessoa mais velha da vila e a memória dela: viu todos chegarem, sabe quem perdeu
+Ela é a moradora mais antiga da vila e a memória dela: viu todos chegarem, sabe quem perdeu
 o quê, e conta quando quer.
 
 ## 3. O que quer e o que precisa

@@ -54,7 +54,7 @@ Laços que as falas atuais já estabelecem, e que as fichas precisam respeitar:
 - **Sol e a vila:** ela é a de fora. Sabe como a expansão funciona por dentro, e ninguém
   sabe o quanto. A Iara é quem mais se aproxima dela (as duas ficam na beira do rio no fim
   da tarde).
-- **Marta:** a mais velha, a memória da vila. Viu todos chegarem.
+- **Marta:** a mais antiga da vila (o Bento é mais velho, mas chegou depois), a memória da vila. Viu todos chegarem.
 - **Não romanceáveis:** Vitor e Marta. **Romanceáveis:** Kenji, Rafa, Iara e Sol.
 
 ## A ficha de persona

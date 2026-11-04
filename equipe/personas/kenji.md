@@ -25,7 +25,11 @@ Subiu a torre da antena com peça descartada, boa parte delas saída da oficina 
 montou uma rede que a corporação não controla. Liga a vila com outras vilas da fronteira,
 e, quando ele quer, escuta o que passa na rede oficial.
 
-Mora na casa geminada, vizinho de parede do Rafa. Não cozinha, e compra comida pronta no
+A irmã mais velha ficou na cidade, trabalhando, e mandou o filho, o Téo, para morar com
+ele "só até as coisas melhorarem" (plano 30). O Kenji, que mal cuida de si, virou tio em
+tempo integral.
+
+Mora na casa geminada, vizinho de parede do Rafa, agora com o Téo. Não cozinha, e compra comida pronta no
 mercado achando que a Marta não percebe.
 
 ## 3. O que quer e o que precisa

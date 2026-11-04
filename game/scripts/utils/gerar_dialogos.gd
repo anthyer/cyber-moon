@@ -20,6 +20,8 @@ const PASTA_DAS_CONVERSAS: String = "res://resources/dialogue/"
 ## O primeiro nome no título da seção para o id do PerfilNpc.
 const IDS_POR_NOME: Dictionary = {
 	"Vitor": "vitor", "Kenji": "kenji", "Rafael": "rafa", "Marta": "marta", "Iara": "iara", "Sol": "sol",
+	# Os novos do plano 30.
+	"Bento": "bento", "Hélio": "helio", "Dandara": "dandara", "Lúcia": "lucia", "Téo": "teo", "Zeca": "zeca",
 }
 ## Faixa de relacionamento para [mínimo, máximo], em pontos, como na tabela da biblioteca.
 const FAIXAS: Dictionary = {
@@ -48,7 +50,8 @@ const SITUACOES_CONHECIDAS: Array[String] = [
 	"namorando_outro", "marco_1", "marco_2", "marco_3",
 ]
 ## Situações com um complemento depois dos dois pontos, e os complementos aceitos.
-const LUGARES: Array[String] = ["praca", "oficina", "mercado", "clinica", "torre_antena", "posto_entrega", "mirante", "ponte", "beira_rio", "casa"]
+const LUGARES: Array[String] = ["praca", "oficina", "mercado", "clinica", "torre_antena", "posto_entrega", "mirante", "ponte", "beira_rio", "casa",
+	"entrada_galeria", "cisterna", "acampamento", "ponto_de_onibus", "pista_do_viaduto"]
 const SECAO_DE_PRESENTE: String = "Presente"
 const SECAO_DE_SISTEMA: String = "Falas de sistema"
 ## Rótulo na biblioteca para a chave em Conversa.falas_de_evento.
@@ -131,8 +134,11 @@ func _init() -> void:
 			evento_atual = &""
 
 	for pronta in conversas:
+		# A fala de sistema é a padrão. O personagem que escreveu a própria (o Téo, que é
+		# criança, recusando o buquê) fica com a dele.
 		for evento: StringName in falas_de_sistema:
-			pronta.falas_de_evento[evento] = falas_de_sistema[evento]
+			if not pronta.falas_de_evento.has(evento):
+				pronta.falas_de_evento[evento] = falas_de_sistema[evento]
 		_salvar(pronta)
 	quit()
 

@@ -1,0 +1,431 @@
+[gd_resource type="Resource" script_class="Conversa" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/no_dialogo.gd" id="1_vt8sv"]
+[ext_resource type="Script" path="res://scripts/resources/conversa.gd" id="2_6ws45"]
+
+[sub_resource type="Resource" id="Resource_jkkyc"]
+script = ExtResource("1_vt8sv")
+id = "bento_651e5e23"
+falante_id = "bento"
+texto = "Fazenda do Tonho, né? Boa terra. Só falta água, adubo e sorte. O resto tem."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_5343p"]
+script = ExtResource("1_vt8sv")
+id = "bento_b72c87f8"
+falante_id = "bento"
+texto = "Se for passear por aqui, não desce na Galeria. Lá embaixo nem a luz volta. Isso é causo, mas é verdade."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_7x1rl"]
+script = ExtResource("1_vt8sv")
+id = "bento_33ab6ce3"
+falante_id = "bento"
+texto = "Bento. Zelador aposentado. Aposentado é jeito bonito de dizer que me mandaram embora, hehe."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_vygoc"]
+script = ExtResource("1_vt8sv")
+id = "bento_6a28398d"
+falante_id = "bento"
+texto = "Varro essa entrada todo dia. Ninguém pediu. O corpo é que não sabe que acabou o turno."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_4dpan"]
+script = ExtResource("1_vt8sv")
+id = "bento_68e0ee4d"
+falante_id = "bento"
+texto = "Já viu rato do tamanho de cachorro? Eu já. Lá embaixo. Não pergunta o que ele comia."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_7me44"]
+script = ExtResource("1_vt8sv")
+id = "bento_9184dac2"
+falante_id = "bento"
+texto = "Lá embaixo tinha um cano que cantava. Quando a pressão subia, saía um assobio afinado. Juro."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_fpjqg"]
+script = ExtResource("1_vt8sv")
+id = "bento_8aaf246d"
+falante_id = "bento"
+texto = "O Tonho plantava milho naquela sua terra. Milho alto assim. Depois a água foi embora, e o Tonho foi atrás dela."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_soy08"]
+script = ExtResource("1_vt8sv")
+id = "bento_75b7fcbb"
+falante_id = "bento"
+texto = "Um colega meu conhecia cada válvula da Galeria pelo barulho. Dizia que cada uma tinha voz. Pois é."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_t3pp6"]
+script = ExtResource("1_vt8sv")
+id = "bento_cfa7f0ba"
+falante_id = "bento"
+texto = "Você tá aguentando melhor que o Tonho. Ele reclamava da enxada no segundo dia."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_7sv6a"]
+script = ExtResource("1_vt8sv")
+id = "bento_78607c10"
+falante_id = "bento"
+texto = "Trinta e um anos debaixo da cidade, vizinho. Eu sei onde ela guarda a sujeira."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_vq3mp"]
+script = ExtResource("1_vt8sv")
+id = "bento_ca0b21e4"
+falante_id = "bento"
+texto = "Debaixo da vila passava um cano grosso assim, o ramal norte. Levava água pras fazendas. Hoje passa vento."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_pxds4"]
+script = ExtResource("1_vt8sv")
+id = "bento_f1e4ee80"
+falante_id = "bento"
+texto = "Um colega fechou um registro uma vez. Ordem de serviço, coisa de rotina. Achou que abria no dia seguinte."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_ur06e"]
+script = ExtResource("1_vt8sv")
+id = "bento_e5e47602"
+falante_id = "bento"
+texto = "Me chamam de engraçado. É que, se eu parar de falar, eu penso. Pensar cansa mais que varrer."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_yy2tu"]
+script = ExtResource("1_vt8sv")
+id = "bento_c1d54be8"
+falante_id = "bento"
+texto = "Guardei um pedaço de madeira bom pra você. Não sei pra quê. Você inventa."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_parys"]
+script = ExtResource("1_vt8sv")
+id = "bento_691d344c"
+falante_id = "bento"
+texto = "Moro na porta da Galeria e não desço. Igual cachorro que espera o dono que não volta. Essa não é causo."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_qy5yl"]
+script = ExtResource("1_vt8sv")
+id = "bento_12e99856"
+falante_id = "bento"
+texto = "O colega do registro era eu, vizinho. Fechei, assinei e entreguei o crachá no mesmo dia. A água do Tonho fui eu."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_u7s8h"]
+script = ExtResource("1_vt8sv")
+id = "bento_dd985147"
+falante_id = "bento"
+texto = "Eu conto causo desde aquele dia. Riso é remédio que não precisa de receita, e eu tomo todo dia."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_toe01"]
+script = ExtResource("1_vt8sv")
+id = "bento_12714f83"
+falante_id = "bento"
+texto = "O registro fica no fundo, atrás da prensa grande. Eu sei o caminho de olho fechado. Só não sei descer."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_xwdh4"]
+script = ExtResource("1_vt8sv")
+id = "bento_07540c92"
+falante_id = "bento"
+texto = "Você é a primeira pessoa que sabe. Nem a dona Marta. Ela desconfia, mas não sabe."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_puhk8"]
+script = ExtResource("1_vt8sv")
+id = "bento_6285e92f"
+falante_id = "bento"
+texto = "Se você um dia for lá embaixo abrir aquilo, me avisa. Eu fico aqui na porta esperando. Nem que seja pra ver a água passar."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_wovhy"]
+script = ExtResource("1_vt8sv")
+id = "bento_ffa2a36f"
+falante_id = "bento"
+texto = "No tempo do Tonho, a Brotação era barulho de água correndo nas valas. Agora é barulho de enxada em terra dura."
+estacoes = Array[StringName]([&"brotacao"])
+
+[sub_resource type="Resource" id="Resource_odcpm"]
+script = ExtResource("1_vt8sv")
+id = "bento_a31889ca"
+falante_id = "bento"
+texto = "Essa estação me pega, vizinho. Terra rachada me lembra ordem de serviço. Não me pergunta por quê."
+estacoes = Array[StringName]([&"estiagem"])
+
+[sub_resource type="Resource" id="Resource_kd0x8"]
+script = ExtResource("1_vt8sv")
+id = "bento_3935edba"
+falante_id = "bento"
+texto = "Colheita é a minha época. A vila tá ocupada, faço anos, e sobra plateia na praça."
+estacoes = Array[StringName]([&"colheita"])
+
+[sub_resource type="Resource" id="Resource_ei0s2"]
+script = ExtResource("1_vt8sv")
+id = "bento_9192b99a"
+falante_id = "bento"
+texto = "No escuro eu enxergo melhor que vocês. Trinta e um anos de lanterna fraca ensinam."
+estacoes = Array[StringName]([&"apagao"])
+
+[sub_resource type="Resource" id="Resource_4vrj3"]
+script = ExtResource("1_vt8sv")
+id = "bento_ba64cf87"
+falante_id = "bento"
+texto = "Então você é o herdeiro da fazenda do Tonho! Bento, ex-zelador, atual contador de causo. Seja bem-vindo à vila mais seca da fronteira."
+situacoes = Array[StringName]([&"primeiro_encontro"])
+
+[sub_resource type="Resource" id="Resource_jt8ve"]
+script = ExtResource("1_vt8sv")
+id = "bento_32896ca8"
+falante_id = "bento"
+texto = "Pensei que você tinha ido embora igual o Tonho, hehe. Que bom que não."
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_84cw2"]
+script = ExtResource("1_vt8sv")
+id = "bento_664da4b1"
+falante_id = "bento"
+texto = "Uma semana sem te ver. Já tava ensaiando o causo do fazendeiro que sumiu. Não me dá esse susto."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_j7cn0"]
+script = ExtResource("1_vt8sv")
+id = "bento_839bc63b"
+falante_id = "bento"
+texto = "Te acharam dormindo no meio do caminho, igual zelador em turno da noite. Dorme em casa, vizinho. Cama é melhor que chão."
+situacoes = Array[StringName]([&"desmaiou_ontem"])
+
+[sub_resource type="Resource" id="Resource_1hyfy"]
+script = ExtResource("1_vt8sv")
+id = "bento_10fd3bc6"
+falante_id = "bento"
+texto = "Para, para. Senta aqui no caixote. O causo pode esperar, você não."
+situacoes = Array[StringName]([&"vida_baixa"])
+
+[sub_resource type="Resource" id="Resource_07ihn"]
+script = ExtResource("1_vt8sv")
+id = "bento_d3e6ddad"
+falante_id = "bento"
+texto = "Você desceu? Ainda cheira a óleo lá embaixo? As máquinas ainda trabalham? Pode falar, eu aguento."
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_t8uw5"]
+script = ExtResource("1_vt8sv")
+id = "bento_9cc1c974"
+falante_id = "bento"
+texto = "Viu a prensa grande? Atrás dela tem uma porta de válvula, pintada de amarelo. Só olha. Não mexe ainda."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_t35ic"]
+script = ExtResource("1_vt8sv")
+id = "bento_e2dac68c"
+falante_id = "bento"
+texto = "Ouve isso! Lá embaixo a chuva entrava pelos canos e a cidade inteira gargarejava."
+situacoes = Array[StringName]([&"chuva"])
+
+[sub_resource type="Resource" id="Resource_dwge2"]
+script = ExtResource("1_vt8sv")
+id = "bento_c6d0713c"
+falante_id = "bento"
+texto = "Dia de chuva a Galeria respira. Sai um bafo morno dessa porta. É a cidade bocejando."
+situacoes = Array[StringName]([&"chuva", &"em:entrada_galeria"])
+
+[sub_resource type="Resource" id="Resource_lyns3"]
+script = ExtResource("1_vt8sv")
+id = "bento_ee9c2778"
+falante_id = "bento"
+texto = "Choveu ontem, né? Fui ver a cisterna do Hélio. Encheu um dedo. Um dedo é um começo."
+situacoes = Array[StringName]([&"choveu_ontem"])
+
+[sub_resource type="Resource" id="Resource_yrf0k"]
+script = ExtResource("1_vt8sv")
+id = "bento_2b29a2a5"
+falante_id = "bento"
+texto = "Esse barraco aguenta. Já aguentou trinta tempestades. Ou quarenta. Depende de quem conta."
+situacoes = Array[StringName]([&"tempestade"])
+
+[sub_resource type="Resource" id="Resource_fjdpg"]
+script = ExtResource("1_vt8sv")
+id = "bento_9a446d2d"
+falante_id = "bento"
+texto = "O vento de ontem levou meu varal inteiro. Agora tem uma cueca minha pendurada na antena do Kenji, hehe."
+situacoes = Array[StringName]([&"tempestade_ontem"])
+
+[sub_resource type="Resource" id="Resource_kapb4"]
+script = ExtResource("1_vt8sv")
+id = "bento_fc6435ba"
+falante_id = "bento"
+texto = "Folga é dia de entalhar. Tô fazendo um pião pro piolho do Téo. Vai rodar torto, igual eu."
+situacoes = Array[StringName]([&"folga"])
+
+[sub_resource type="Resource" id="Resource_7tc61"]
+script = ExtResource("1_vt8sv")
+id = "bento_e45b30c4"
+falante_id = "bento"
+texto = "Amanhã é Folga. Até as máquinas lá embaixo deviam ter folga. Não têm. Por isso que são máquinas."
+situacoes = Array[StringName]([&"vespera_de_folga"])
+
+[sub_resource type="Resource" id="Resource_xfb06"]
+script = ExtResource("1_vt8sv")
+id = "bento_d738aaf4"
+falante_id = "bento"
+texto = "Bom dia, vizinho! Tô varrendo a porta do inferno. Alguém tem que deixar apresentável."
+situacoes = Array[StringName]([&"manha", &"em:entrada_galeria"])
+
+[sub_resource type="Resource" id="Resource_lqlbn"]
+script = ExtResource("1_vt8sv")
+id = "bento_b0e959ea"
+falante_id = "bento"
+texto = "Sentado aqui eu cuido da porta. Ninguém entra sem ouvir um causo antes. É a taxa."
+situacoes = Array[StringName]([&"tarde", &"em:entrada_galeria"])
+
+[sub_resource type="Resource" id="Resource_53otn"]
+script = ExtResource("1_vt8sv")
+id = "bento_2eb546dc"
+falante_id = "bento"
+texto = "A dona Marta diz que eu venho conversar e não compro nada. Calúnia. Comprei um pão na Colheita passada."
+situacoes = Array[StringName]([&"em:mercado"])
+
+[sub_resource type="Resource" id="Resource_kn14w"]
+script = ExtResource("1_vt8sv")
+id = "bento_2986c18d"
+falante_id = "bento"
+texto = "Hora do causo, vizinho. Senta aí. Hoje tem o do rato que roubou a marmita do gerente."
+situacoes = Array[StringName]([&"em:praca", &"noite"])
+
+[sub_resource type="Resource" id="Resource_b4xt2"]
+script = ExtResource("1_vt8sv")
+id = "bento_b6c4d472"
+falante_id = "bento"
+texto = "Eu e a dona Marta brigamos pra saber quem chegou primeiro na vila. Foi ela. Não conta que eu admiti."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"em:praca", &"tarde"])
+
+[sub_resource type="Resource" id="Resource_aahee"]
+script = ExtResource("1_vt8sv")
+id = "bento_599d9e3a"
+falante_id = "bento"
+texto = "O Hélio e eu falamos de água como quem fala do tempo. Dá no mesmo, pra quem não tem nem um nem outro."
+situacoes = Array[StringName]([&"em:cisterna"])
+
+[sub_resource type="Resource" id="Resource_hlpp6"]
+script = ExtResource("1_vt8sv")
+id = "bento_fb5cf735"
+falante_id = "bento"
+texto = "Fiz anos hoje, vizinho! Avisei a semana inteira e mesmo assim tô sem graça. Velho é bicho esquisito."
+situacoes = Array[StringName]([&"aniversario"])
+
+[sub_resource type="Resource" id="Resource_qah7r"]
+script = ExtResource("1_vt8sv")
+id = "bento_75a4574d"
+falante_id = "bento"
+texto = "Aniversário da dona Marta. Vou fazer discurso na praça. Ela vai mandar eu calar a boca. É tradição."
+situacoes = Array[StringName]([&"aniversario_de:marta"])
+
+[sub_resource type="Resource" id="Resource_gofeq"]
+script = ExtResource("1_vt8sv")
+id = "bento_776bd23b"
+falante_id = "bento"
+texto = "O piolho faz anos hoje! Entalhei um caminhãozinho. Não conta que fui eu, que ele pensa que foi o Zeca."
+situacoes = Array[StringName]([&"aniversario_de:teo"])
+
+[sub_resource type="Resource" id="Resource_ot2ms"]
+script = ExtResource("1_vt8sv")
+id = "bento_fcd5b4fa"
+falante_id = "bento"
+texto = "O ferreiro faz anos e acha que ninguém sabe. Todo mundo sabe. A gente finge, por educação."
+relacionamento_minimo = 750
+situacoes = Array[StringName]([&"aniversario_de:vitor"])
+
+[sub_resource type="Resource" id="Resource_eg4d8"]
+script = ExtResource("1_vt8sv")
+id = "bento_bd03461e"
+falante_id = "bento"
+texto = "Estação nova! Lá embaixo a gente trocava os filtros nesse dia. Aqui eu troco de causo."
+situacoes = Array[StringName]([&"primeiro_dia_da_estacao"])
+
+[sub_resource type="Resource" id="Resource_v1to5"]
+script = ExtResource("1_vt8sv")
+id = "bento_6117ee4b"
+falante_id = "bento"
+texto = "Ano novo, vizinho. Mais um ano que eu não desci. Isso é bom ou é ruim? Ainda não decidi."
+situacoes = Array[StringName]([&"primeiro_dia_do_ano"])
+
+[sub_resource type="Resource" id="Resource_8w0yf"]
+script = ExtResource("1_vt8sv")
+id = "bento_bc22b1c0"
+falante_id = "bento"
+texto = "Tão falando da sua colheita lá no mercado! A fazenda do Tonho produzindo de novo. Ele ia chorar. Eu quase chorei."
+situacoes = Array[StringName]([&"marco_1"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_37srq"]
+script = ExtResource("1_vt8sv")
+id = "bento_27763a64"
+falante_id = "bento"
+texto = "Você tirou mais daquela terra seca do que o Tonho tirava com água. Agora eu tenho um causo novo, e é verdade."
+situacoes = Array[StringName]([&"marco_2"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_akj1a"]
+script = ExtResource("1_vt8sv")
+id = "bento_c3e03ff4"
+falante_id = "bento"
+texto = "Te vi passeando acompanhado. Bonito. No meu tempo a gente namorava no elevador de serviço. Era o único lugar quente."
+situacoes = Array[StringName]([&"namorando_outro"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_wqpof"]
+script = ExtResource("1_vt8sv")
+id = "bento_ec34a354"
+falante_id = "bento"
+texto = "Terra assim, rachada, é minha culpa de um jeito que não dá pra contar rindo. Me deixa quieto um pouco."
+relacionamento_minimo = 1500
+estacoes = Array[StringName]([&"estiagem"])
+situacoes = Array[StringName]([&"tarde"])
+
+[sub_resource type="Resource" id="Resource_n24b8"]
+script = ExtResource("1_vt8sv")
+id = "bento_f1fa3a86"
+falante_id = "bento"
+texto = "Quer ouvir a lenda do zelador que ficou lá embaixo? Melhor não. O Téo não dormiu três noites."
+relacionamento_minimo = 750
+estacoes = Array[StringName]([&"apagao"])
+situacoes = Array[StringName]([&"noite"])
+
+[resource]
+script = ExtResource("2_6ws45")
+id = &"bento"
+npc_id = "bento"
+nos = Array[ExtResource("1_vt8sv")]([SubResource("Resource_jkkyc"), SubResource("Resource_5343p"), SubResource("Resource_7x1rl"), SubResource("Resource_vygoc"), SubResource("Resource_4dpan"), SubResource("Resource_7me44"), SubResource("Resource_fpjqg"), SubResource("Resource_soy08"), SubResource("Resource_t3pp6"), SubResource("Resource_7sv6a"), SubResource("Resource_vq3mp"), SubResource("Resource_pxds4"), SubResource("Resource_ur06e"), SubResource("Resource_yy2tu"), SubResource("Resource_parys"), SubResource("Resource_qy5yl"), SubResource("Resource_u7s8h"), SubResource("Resource_toe01"), SubResource("Resource_xwdh4"), SubResource("Resource_puhk8"), SubResource("Resource_wovhy"), SubResource("Resource_odcpm"), SubResource("Resource_kd0x8"), SubResource("Resource_ei0s2"), SubResource("Resource_4vrj3"), SubResource("Resource_jt8ve"), SubResource("Resource_84cw2"), SubResource("Resource_j7cn0"), SubResource("Resource_1hyfy"), SubResource("Resource_07ihn"), SubResource("Resource_t8uw5"), SubResource("Resource_t35ic"), SubResource("Resource_dwge2"), SubResource("Resource_lyns3"), SubResource("Resource_yrf0k"), SubResource("Resource_fjdpg"), SubResource("Resource_kapb4"), SubResource("Resource_7tc61"), SubResource("Resource_xfb06"), SubResource("Resource_lqlbn"), SubResource("Resource_53otn"), SubResource("Resource_kn14w"), SubResource("Resource_b4xt2"), SubResource("Resource_aahee"), SubResource("Resource_hlpp6"), SubResource("Resource_qah7r"), SubResource("Resource_gofeq"), SubResource("Resource_ot2ms"), SubResource("Resource_eg4d8"), SubResource("Resource_v1to5"), SubResource("Resource_8w0yf"), SubResource("Resource_37srq"), SubResource("Resource_akj1a"), SubResource("Resource_wqpof"), SubResource("Resource_n24b8")])
+falas_de_evento = Dictionary[StringName, String]({
+&"amou": "Olha isso! Comida quente feita por alguém. Faz doze anos que ninguém cozinha pra mim. Obrigado, vizinho.",
+&"aniversario": "Você lembrou de verdade? Eu avisei de brincadeira. Ninguém nunca leva a sério. Obrigado, vizinho. Obrigado mesmo.",
+&"buque_ja_namorando": "Você já tem alguém. E essa pessoa não merece isso.",
+&"buque_nao_romanceavel": "Ah, que gentileza. Mas eu vou colocar num vaso e fingir que você não quis dizer nada com isso.",
+&"buque_poucos_coracoes": "Eu gosto de você, mas não desse jeito. Ainda não.",
+&"gostou": "Opa, serve muito bem. Vou guardar pro lanche do causo.",
+&"ja_presenteou": "Você já me deu uma coisa essa semana. Guarda pra próxima.",
+&"loja_fechada_folga": "Hoje é folga. Volta amanhã.",
+&"loja_fechada_horario": "Tô fechando. Aparece entre nove e seis.",
+&"nao_gostou": "Luz de cidade? Ilumina e cobra, vizinho. Prefiro minha lamparina.",
+&"neutro": "Ah, obrigado. Vou achar um lugar no barraco. Tem pouco lugar, mas tem.",
+&"odiou": "Tira isso de perto. Foi uma peça dessas que me aposentou. Não quero nem olhar.",
+&"sem_credito": "Você não tem o suficiente. Não fio, e você sabe disso."
+})
