@@ -51,9 +51,9 @@ chance_de_render_por_fase = Dictionary[int, float]({
 3: 0.0
 })
 energia_da_lua_por_fase = Dictionary[int, float]({
-0: 0.55,
+0: 0.5,
 1: 0.85,
-2: 1.4,
+2: 1.7,
 3: 0.85
 })
 icone_por_fase = Dictionary[int, Texture2D]({

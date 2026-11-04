@@ -18,6 +18,10 @@ extends Node
 ## A estação (plano 11) ajusta por cima: tinge a cor do sol, multiplica a energia e muda a
 ## hora do pôr do sol. A tabela foi escrita para o anoitecer às 18:00; os pontos do fim
 ## da tarde em diante andam junto com o anoitecer da estação, e o resto fica igual.
+##
+## A fase da Lua (plano 37) ajusta só a noite: lua cheia clareia a fazenda, lua nova deixa
+## bem escuro. O multiplicador da fase entra aos poucos entre o anoitecer e a noite
+## fechada, para a troca do sol pela lua não dar degrau na luz.
 
 @export var caminho_da_luz: NodePath = ^"../Luz"
 @export var caminho_do_ambiente: NodePath = ^"../Ambiente"
@@ -51,6 +55,9 @@ const DIRECAO_DO_POR: float = -90.0
 const HORA_DA_TABELA_QUE_ACOMPANHA_O_ANOITECER: float = DayCycleManager.HORA_ANOITECER
 ## Folga mínima entre o ponto das 15:00 e o anoitecer, para a tarde não escurecer de uma vez.
 const FOLGA_ANTES_DO_ANOITECER: float = 1.5
+## Horas entre o anoitecer e a noite fechada (o ponto das 20:00 da tabela, deslocado com a
+## estação). Nesse trecho a luz da Lua entra aos poucos.
+const HORAS_DO_ANOITECER_ATE_A_NOITE: float = DayCycleManager.HORA_NOITE - DayCycleManager.HORA_ANOITECER
 
 @export_group("Dungeon")
 ## A luz de dentro da dungeon: fraca e fria, para as luzes próprias da cena aparecerem.
@@ -77,6 +84,9 @@ var _clarao: float = 1.0
 var _animacao_do_clarao: Tween
 var _trecho_da_sombra: float = -1.0
 var _troca_de_sombra: Tween
+## O multiplicador da luz da noite na fase da Lua de agora. Só muda quando a fase muda,
+## porque a luz é aplicada a cada quadro e não vale buscar no dicionário toda vez.
+var _energia_da_lua: float = 1.0
 
 func _ready() -> void:
 	SeasonManager.season_changed.connect(_ao_mudar_estacao)
@@ -84,6 +94,8 @@ func _ready() -> void:
 	WeatherManager.weather_changed.connect(_ao_mudar_clima)
 	EventBus.dungeon_entered.connect(_ao_entrar_na_dungeon)
 	EventBus.dungeon_left.connect(_ao_sair_da_dungeon)
+	RealWorldManager.moon_phase_changed.connect(_ao_mudar_fase_da_lua)
+	_ao_mudar_fase_da_lua(RealWorldManager.fase_da_lua)
 	# O clima primeiro, porque aplicar a estação já calcula a luz com os dois.
 	_ao_mudar_clima(WeatherManager.clima_atual)
 	_ao_mudar_estacao(SeasonManager.estacao_atual())
@@ -131,6 +143,9 @@ func _ao_mudar_clima(_novo: StringName) -> void:
 	_luz.shadow_opacity = _clima.opacidade_da_sombra
 	_luz.shadow_blur = _clima.desfoque_da_sombra
 
+func _ao_mudar_fase_da_lua(fase: RealWorldManager.FaseDaLua) -> void:
+	_energia_da_lua = RealWorldManager.configuracao().energia_da_lua(fase)
+
 ## O clarão do raio: a luz sobe muito de uma vez e volta em duracao segundos.
 func dar_clarao(intensidade: float = 6.0, duracao: float = 0.25) -> void:
 	if _na_dungeon:
@@ -148,7 +163,7 @@ func _ao_comecar_o_dia(_numero_do_dia: int) -> void:
 
 func _aplicar_hora(hora: float) -> void:
 	var amostra: Array = _amostrar(hora)
-	var energia: float = _estacao.multiplicador_de_energia * _clima.multiplicador_de_energia * _clarao
+	var energia: float = _estacao.multiplicador_de_energia * _clima.multiplicador_de_energia * _clarao * _peso_da_lua(hora)
 	_luz.light_color = (amostra[1] as Color) * _estacao.cor_da_luz * _clima.cor_da_luz
 	_luz.light_energy = amostra[2] * energia
 	var ambiente: Environment = _ambiente.environment
@@ -157,6 +172,14 @@ func _aplicar_hora(hora: float) -> void:
 
 	if _trecho_de(hora) != _trecho_da_sombra:
 		_posicionar_o_sol(hora, _trecho_da_sombra >= 0.0)
+
+## 1.0 de dia, o multiplicador da fase da Lua de noite fechada, e uma mistura dos dois
+## entre o anoitecer e a noite. Não mexe no céu, só na luz direcional e no ambiente, que
+## é o que ilumina a fazenda.
+func _peso_da_lua(hora: float) -> float:
+	var anoitecer: float = _estacao.hora_do_anoitecer
+	var quanto_de_noite: float = clampf((hora - anoitecer) / HORAS_DO_ANOITECER_ATE_A_NOITE, 0.0, 1.0)
+	return lerpf(1.0, _energia_da_lua, quanto_de_noite)
 
 ## Põe o sol na posição do trecho do dia em que a hora cai. Com suave, ele gira até lá em
 ## segundos_da_troca_de_sombra; sem, pula direto.

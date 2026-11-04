@@ -1,7 +1,8 @@
 extends Control
 
 ## Relógio no canto superior direito: a hora, o número do dia, o período do dia e a
-## estação com o dia dentro dela. Ao lado do período fica o ícone do clima do dia.
+## estação com o dia dentro dela. Ao lado do período ficam o ícone do clima do dia e o
+## da fase da Lua (plano 37), para o jogador saber quando vale a pena plantar e colher.
 ##
 ## Depois da meia-noite a hora fica vermelha. É o aviso de que à 1:00 o personagem cai
 ## de sono onde estiver, com penalidade, e que é hora de ir para a cama.
@@ -25,6 +26,7 @@ const COR_DA_HORA_DE_AVISO: Color = Color(1.0, 0.3, 0.3)
 @onready var bolinha_do_periodo: ColorRect = %Bolinha
 @onready var rotulo_da_estacao: Label = %Estacao
 @onready var icone_do_clima: TextureRect = %Clima
+@onready var icone_da_lua: TextureRect = %Lua
 
 func _ready() -> void:
 	# Processa sempre, mesmo com o jogo pausado, só para saber a hora de sumir, como a
@@ -37,6 +39,8 @@ func _ready() -> void:
 	EventBus.game_loaded.connect(func() -> void: _ao_comecar_dia(DayCycleManager.numero_do_dia))
 	WeatherManager.weather_changed.connect(_ao_mudar_clima)
 	_ao_mudar_clima(WeatherManager.clima_atual)
+	RealWorldManager.moon_phase_changed.connect(_ao_mudar_fase_da_lua)
+	_ao_mudar_fase_da_lua(RealWorldManager.fase_da_lua)
 	_ao_mudar_hora(DayCycleManager.hora_atual)
 	_ao_mudar_periodo(DayCycleManager.periodo_atual())
 	_ao_comecar_dia(DayCycleManager.numero_do_dia)
@@ -65,6 +69,10 @@ func _ao_mudar_clima(_clima: StringName) -> void:
 	var perfil: PerfilClima = WeatherManager.perfil_atual()
 	icone_do_clima.texture = perfil.icone
 	icone_do_clima.tooltip_text = perfil.nome_exibido
+
+func _ao_mudar_fase_da_lua(fase: RealWorldManager.FaseDaLua) -> void:
+	icone_da_lua.texture = RealWorldManager.configuracao().icone_da_fase(fase)
+	icone_da_lua.tooltip_text = RealWorldManager.nome_da_fase(fase)
 
 func _ao_mudar_estacao(_nova: StringName) -> void:
 	_atualizar_estacao()
