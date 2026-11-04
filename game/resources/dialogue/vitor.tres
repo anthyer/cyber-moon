@@ -357,9 +357,9 @@ uma_vez = true
 
 [sub_resource type="Resource" id="Resource_f2tt4"]
 script = ExtResource("1_26rlw")
-id = "vitor_9bdab00d"
+id = "vitor_bb9e6fa4"
 falante_id = "vitor"
-texto = "Reparei que você anda acompanhado. Não é da minha conta. Só trata direito."
+texto = "Reparei que você tá namorando. Não é da minha conta. Só trata direito."
 situacoes = Array[StringName]([&"namorando_outro"])
 uma_vez = true
 

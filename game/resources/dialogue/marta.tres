@@ -12,9 +12,9 @@ relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_ieu18"]
 script = ExtResource("1_cj2x5")
-id = "marta_0590471a"
+id = "marta_2e6c8d69"
 falante_id = "marta"
-texto = "Você é o da fazenda do morro. Já sei. Aqui todo mundo sabe tudo."
+texto = "É você que chegou na fazenda do morro. Já sei. Aqui todo mundo sabe tudo."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_wcn80"]
@@ -33,9 +33,9 @@ relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_hvkmy"]
 script = ExtResource("1_cj2x5")
-id = "marta_6539d138"
+id = "marta_caf5736f"
 falante_id = "marta"
-texto = "Marta. Se precisar de alguma coisa, peça. Se não precisar, não fique parado na frente da prateleira."
+texto = "Marta. Se precisar de alguma coisa, peça. Se não precisar, não fique de enfeite na frente da prateleira."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_lhr65"]
@@ -198,9 +198,9 @@ situacoes = Array[StringName]([&"sumido"])
 
 [sub_resource type="Resource" id="Resource_1n4py"]
 script = ExtResource("1_cj2x5")
-id = "marta_73f44a6c"
+id = "marta_0f122327"
 falante_id = "marta"
-texto = "Me contaram que você caiu de cansaço ontem. Planta não cresce mais rápido porque o dono não dorme, viu."
+texto = "Me contaram que você caiu de cansaço ontem. Planta não cresce mais rápido porque quem planta não dorme, viu."
 situacoes = Array[StringName]([&"desmaiou_ontem"])
 
 [sub_resource type="Resource" id="Resource_2xojh"]
@@ -397,7 +397,7 @@ id = &"marta"
 npc_id = "marta"
 nos = Array[ExtResource("1_cj2x5")]([SubResource("Resource_2vldx"), SubResource("Resource_ieu18"), SubResource("Resource_wcn80"), SubResource("Resource_3ijlg"), SubResource("Resource_hvkmy"), SubResource("Resource_lhr65"), SubResource("Resource_iijoh"), SubResource("Resource_lqw0j"), SubResource("Resource_7ecjp"), SubResource("Resource_8skp0"), SubResource("Resource_8dc2w"), SubResource("Resource_vh64i"), SubResource("Resource_6h6op"), SubResource("Resource_rdqea"), SubResource("Resource_13phv"), SubResource("Resource_6s0fj"), SubResource("Resource_yputu"), SubResource("Resource_bgqn5"), SubResource("Resource_h8qd3"), SubResource("Resource_i2lle"), SubResource("Resource_81j7w"), SubResource("Resource_abd1j"), SubResource("Resource_jjl83"), SubResource("Resource_drvch"), SubResource("Resource_m4raf"), SubResource("Resource_g0hq2"), SubResource("Resource_1n4py"), SubResource("Resource_2xojh"), SubResource("Resource_mfxse"), SubResource("Resource_jegyp"), SubResource("Resource_lm1nk"), SubResource("Resource_uunk4"), SubResource("Resource_hxqps"), SubResource("Resource_ojwdj"), SubResource("Resource_huumq"), SubResource("Resource_8b1ec"), SubResource("Resource_ete1v"), SubResource("Resource_e623x"), SubResource("Resource_fcwyu"), SubResource("Resource_ubwqr"), SubResource("Resource_ix4h1"), SubResource("Resource_vtyjj"), SubResource("Resource_xndj5"), SubResource("Resource_t7q68"), SubResource("Resource_b3yw1"), SubResource("Resource_nwc24"), SubResource("Resource_wngj2"), SubResource("Resource_vkv72"), SubResource("Resource_vsiwp"), SubResource("Resource_c4gee"), SubResource("Resource_hi0nk"), SubResource("Resource_0nn73")])
 falas_de_evento = Dictionary[StringName, String]({
-&"amou": "Ah, minha filha. Isso aqui é comida de verdade. Vou comer devagar.",
+&"amou": "Ah, olha só. Isso aqui é comida de verdade. Vou comer devagar.",
 &"aniversario": "Na minha idade a gente para de contar. Mas ganhar presente ainda é bom.",
 &"buque_ja_namorando": "Você já tem alguém. E essa pessoa não merece isso.",
 &"buque_nao_romanceavel": "Ah, que gentileza. Mas eu vou colocar num vaso e fingir que você não quis dizer nada com isso.",

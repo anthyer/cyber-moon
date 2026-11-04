@@ -11,7 +11,7 @@ const DURACAO_DO_TEXTO: float = 3.0
 const DURACAO_DO_CLAREAR: float = 1.0
 
 const TEXTO_DE_EXAUSTAO: String = "Você desmaiou de cansaço.\nAcordou em casa no dia seguinte, com menos fôlego."
-const TEXTO_DE_FERIMENTO: String = "Você foi derrotado.\nAcordou em casa no dia seguinte, ainda machucado."
+const TEXTO_DE_FERIMENTO: String = "Você apagou na luta.\nAcordou em casa no dia seguinte, ainda com os machucados."
 const TEXTO_DE_SONO: String = "Já passava da 1:00 e você caiu de sono onde estava.\nAcordou em casa no dia seguinte, com menos fôlego."
 const TEXTO_DE_DORMIR: String = "Você dormiu bem.\nUm novo dia começou."
 

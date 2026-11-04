@@ -5,9 +5,9 @@
 
 [sub_resource type="Resource" id="Resource_jkkyc"]
 script = ExtResource("1_vt8sv")
-id = "bento_e8b64447"
+id = "bento_bab47c89"
 falante_id = "bento"
-texto = "Ô, criatura! Fazenda nova, é? Chegou gente na fronteira. A água tá atrasada, mas o vizinho chegou na hora."
+texto = "Ô, criatura! Fazenda nova, é? Chegou gente na fronteira. A água tá atrasada, mas a vizinhança chegou na hora."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_5343p"]

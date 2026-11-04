@@ -187,7 +187,7 @@ func _montar_secoes() -> void:
 
 	_novo_titulo_de_secao("Dungeon")
 	_novo_botao("Abrir o lobby", func() -> void: EventBus.lobby_requested.emit(&""))
-	_novo_botao("Entrar sozinho agora", DungeonManager.entrar)
+	_novo_botao("Entrar sem equipe agora", DungeonManager.entrar)
 	_novo_botao("Sair da dungeon", DungeonManager.sair)
 
 	_novo_titulo_de_secao("Tela")

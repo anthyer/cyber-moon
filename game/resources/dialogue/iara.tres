@@ -5,16 +5,16 @@
 
 [sub_resource type="Resource" id="Resource_ou3hd"]
 script = ExtResource("1_38c5c")
-id = "iara_d7572613"
+id = "iara_7e4ab368"
 falante_id = "iara"
-texto = "Bom dia. Se estiver machucado, entra. Se não, também entra, mas espera."
+texto = "Bom dia. Se tiver se machucado, entra. Se não, também entra, mas espera."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_8h8rv"]
 script = ExtResource("1_38c5c")
-id = "iara_60b32f35"
+id = "iara_390dad63"
 falante_id = "iara"
-texto = "Você é novo aqui. Aparece pra um exame antes de precisar."
+texto = "Você chegou agora. Aparece pra um exame antes de precisar."
 relacionamento_maximo = 749
 
 [sub_resource type="Resource" id="Resource_d13ld"]
@@ -104,9 +104,9 @@ relacionamento_maximo = 2499
 
 [sub_resource type="Resource" id="Resource_7kupv"]
 script = ExtResource("1_38c5c")
-id = "iara_65444ca2"
+id = "iara_ab37e604"
 falante_id = "iara"
-texto = "Quando você aparece aqui sem estar machucado, o meu dia melhora."
+texto = "Quando você aparece aqui sem nenhum machucado, o meu dia melhora."
 relacionamento_minimo = 1500
 relacionamento_maximo = 2499
 
@@ -225,9 +225,9 @@ situacoes = Array[StringName]([&"primeiro_encontro"])
 
 [sub_resource type="Resource" id="Resource_vph6s"]
 script = ExtResource("1_38c5c")
-id = "iara_c0947b48"
+id = "iara_05b73910"
 falante_id = "iara"
-texto = "Faz dias que eu não te vejo. Deixa eu olhar pra você primeiro. Inteiro. Bom."
+texto = "Faz dias que eu não te vejo. Deixa eu olhar pra você primeiro. Tudo no lugar. Bom."
 situacoes = Array[StringName]([&"sumido"])
 
 [sub_resource type="Resource" id="Resource_22yvt"]
@@ -255,9 +255,9 @@ situacoes = Array[StringName]([&"desmaiou_ontem"])
 
 [sub_resource type="Resource" id="Resource_r0u6q"]
 script = ExtResource("1_38c5c")
-id = "iara_71831404"
+id = "iara_e545749e"
 falante_id = "iara"
-texto = "Para. Senta aí. Você tá machucado e tá fingindo que não."
+texto = "Para. Senta aí. Você se machucou e tá fingindo que não."
 situacoes = Array[StringName]([&"vida_baixa"])
 
 [sub_resource type="Resource" id="Resource_h2xgm"]

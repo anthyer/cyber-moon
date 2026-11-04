@@ -113,6 +113,9 @@ soam diferentes entre si, lado a lado?
 - A fala de "distante" é de quem acabou de conhecer o jogador. A de "íntimo" é o que ele
   não diria a mais ninguém.
 - A ameaça da cidade entra de lado, num detalhe, e pesa mais conforme a amizade sobe.
+- O jogador não tem gênero na tela. Nada que flexione para ele ("bem-vindo", "cansado",
+  "machucado", "sumido", "o da fazenda nova"), nem "ele/ela" ou "namorado/namorada" para ele:
+  reestruture a frase ("você sumiu", "você se machucou", "quem chegou na fazenda").
 
 ## O formato na biblioteca
 
@@ -164,7 +167,7 @@ Exemplos:
 ```
 - [chuva] Chuva boa. Cobre o que for de metal.
 - [folga, amigo+] Hoje eu não abro nem a porta. Senta aí.
-- [primeiro_encontro] Você é o da fazenda nova. Vitor. Não mexe nas peças.
+- [primeiro_encontro] Você é da fazenda nova. Vitor. Não mexe nas peças.
 - [aniversario_de:kenji, conhecido+] O moleque faz anos hoje. Não conta que eu lembrei.
 ```
 

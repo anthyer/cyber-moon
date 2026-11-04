@@ -29,12 +29,6 @@ mais condições), sem repetir a mesma dentro de uma semana quando há outra que
 falas de presente, de aniversário e de buquê não entram nessa escolha: são disparadas pelo
 evento.
 
----|---|---|---|
-| Distante | 0 a 2 | 0 | 749 |
-| Conhecido | 3 a 5 | 750 | 1499 |
-| Amigo | 6 a 9 | 1500 | 2499 |
-| Íntimo | 10 | 2500 | 9999 |
-
 As falas de estação preenchem `estacoes` e valem em qualquer faixa. As de presente e de
 aniversário não entram no sorteio do dia: elas são disparadas pelo evento.
 
@@ -130,7 +124,7 @@ avisar. Não confia em nada que venha de lá, incluindo remédio. Não é romanc
   leva a que eu afiei.
 - [marco_2, uma_vez] Você tá vendendo mais que fazenda de trinta anos. Tenho coisa mais pesada
   agora. Não é brinquedo.
-- [namorando_outro, uma_vez] Reparei que você anda acompanhado. Não é da minha conta. Só trata
+- [namorando_outro, uma_vez] Reparei que você tá namorando. Não é da minha conta. Só trata
   direito.
 - [apagao, noite, amigo+] No Apagão o velho acendia lamparina e consertava rádio. Eu
   fazia de conta que dormia e ficava olhando.
@@ -219,10 +213,10 @@ o futuro e decidiu provar o contrário usando as ferramentas dela. Romanceável.
 - [sumido, intimo+] O 88.2 ficou mudo a semana inteira. Eu deixei ligado mesmo assim.
 - [desmaiou_ontem] Me falaram que você caiu ontem. Caiu mesmo? Você dormiu? Eu sei que
   não sou a pessoa certa pra perguntar isso, mas você dormiu?
-- [vida_baixa] Você tá péssimo. Desculpa. Quer dizer, tá machucado. Vai na Iara, vai. Eu
-  só sei consertar coisa que tem fio.
-- [saiu_da_dungeon] Você foi lá embaixo? E aí, tem sinal? Não, espera. Primeiro: você tá
-  inteiro?
+- [vida_baixa] Você tá com uma cara péssima. Desculpa. Quer dizer, você se machucou. Vai
+  na Iara, vai. Eu só sei consertar coisa que tem fio.
+- [saiu_da_dungeon] Você foi lá embaixo? E aí, tem sinal? Não, espera. Primeiro: você se
+  machucou?
 - [chuva] Chuva. Cobri tudo com lona, mas lona não é a mesma coisa que telhado, né.
 - [chuva, em:torre_antena] Tá ouvindo esse chiado? É água em conector. Eu vou achar qual.
   São quarenta e dois conectores.
@@ -257,7 +251,7 @@ o futuro e decidiu provar o contrário usando as ferramentas dela. Romanceável.
 - [primeiro_dia_do_ano] Ano novo. A rede fez um ano inteiro sem ficar mais de dois dias
   fora. Ninguém comemora isso. Eu comemoro.
 - [marco_1, uma_vez] Passou mensagem sobre a sua fazenda na rede ontem. Três vilas perguntando o
-  que você planta. Você tá famoso em onda curta.
+  que você planta. Você virou assunto em onda curta.
 - [marco_2, uma_vez] Sabe quanto dado de venda passa pela rede? Bastante. E o seu nome tá em quase
   tudo. Eu não fico olhando. Mas tá.
 - [namorando_outro, uma_vez] Ah, fiquei sabendo de vocês. Legal. Legal mesmo. Tô feliz por você, de
@@ -423,10 +417,10 @@ semente e comida. Não é romanceável.
 **Distante**
 
 - Bom dia. Semente tá na prateleira do fundo, e o preço tá na plaquinha.
-- Você é o da fazenda do morro. Já sei. Aqui todo mundo sabe tudo.
+- É você que chegou na fazenda do morro. Já sei. Aqui todo mundo sabe tudo.
 - Primeira safra é sempre ruim. Não desanima com isso.
 - Compra semente de estação. Fora de estação não nasce, e você vai vir reclamar comigo.
-- Marta. Se precisar de alguma coisa, peça. Se não precisar, não fique parado na frente
+- Marta. Se precisar de alguma coisa, peça. Se não precisar, não fique de enfeite na frente
   da prateleira.
 
 **Conhecido**
@@ -474,7 +468,7 @@ semente e comida. Não é romanceável.
 - [sumido, conhecido+] Sumiu. Eu já ia mandar o Rafa bater na sua porta pra ver se tinha
   gente viva.
 - [desmaiou_ontem] Me contaram que você caiu de cansaço ontem. Planta não cresce mais
-  rápido porque o dono não dorme, viu.
+  rápido porque quem planta não dorme, viu.
 - [vida_baixa] Olha o seu estado. Vai na clínica agora, e depois volta aqui que eu te dou
   um prato de comida.
 - [saiu_da_dungeon] Você tá com cheiro de ferro e de porão. Eu não pergunto onde andou.
@@ -526,7 +520,7 @@ semente e comida. Não é romanceável.
 
 **Presente**
 
-- Amou: Ah, minha filha. Isso aqui é comida de verdade. Vou comer devagar.
+- Amou: Ah, olha só. Isso aqui é comida de verdade. Vou comer devagar.
 - Gostou: Que caprichado. Obrigada.
 - Neutro: Obrigada, viu. Deixa aí no balcão.
 - Não gostou: Isso é ferro velho. Eu vendo comida.
@@ -545,8 +539,8 @@ Romanceável.
 
 **Distante**
 
-- Bom dia. Se estiver machucado, entra. Se não, também entra, mas espera.
-- Você é novo aqui. Aparece pra um exame antes de precisar.
+- Bom dia. Se tiver se machucado, entra. Se não, também entra, mas espera.
+- Você chegou agora. Aparece pra um exame antes de precisar.
 - Bebe água. É o conselho médico mais ignorado do mundo.
 - Não tenho anestésico essa semana. Tenta não se cortar.
 - A clínica é a porta com a luz acesa. Se a luz estiver apagada, bate mesmo assim.
@@ -564,7 +558,7 @@ Romanceável.
 - Estudei na cidade. Voltei porque lá eu tratava executivo e aqui eu trato gente.
 - Perdi um paciente mês passado. Chegou tarde demais. Eu ainda penso nisso todo dia.
 - Trouxe beterraba? Você lembrou. É a única coisa que eu consigo comer quando tô cansada.
-- Quando você aparece aqui sem estar machucado, o meu dia melhora.
+- Quando você aparece aqui sem nenhum machucado, o meu dia melhora.
 - A Marta manda comida quando percebe que eu não almocei. Ela sempre percebe.
 
 **Íntimo**
@@ -594,14 +588,14 @@ Romanceável.
 
 - [primeiro_encontro] Você é quem pegou a fazenda. Iara, da clínica. Espero te conhecer
   bem antes de te atender.
-- [sumido] Faz dias que eu não te vejo. Deixa eu olhar pra você primeiro. Inteiro. Bom.
+- [sumido] Faz dias que eu não te vejo. Deixa eu olhar pra você primeiro. Tudo no lugar. Bom.
 - [sumido, amigo+] Você sumiu. Eu conferi a lista de quem passou na clínica só pra ter
   certeza de que você não tava nela.
 - [desmaiou_ontem] Me contaram que você caiu ontem. Quanto você dormiu, quanto comeu e
   quanto trabalhou? Faz a conta comigo.
 - [desmaiou_ontem, amigo+] Você desmaiou ontem e hoje tá de pé como se nada. Senta. Isso
   não é pedido de médica, é pedido meu.
-- [vida_baixa] Para. Senta aí. Você tá machucado e tá fingindo que não.
+- [vida_baixa] Para. Senta aí. Você se machucou e tá fingindo que não.
 - [saiu_da_dungeon] Mostra os braços. As mãos também. Quem volta de lá sempre acha que não
   foi nada.
 - [chuva] Com chuva eu não desço pro rio. Fico em casa pensando em quem vai escorregar.
@@ -716,16 +710,16 @@ exatamente como a expansão funciona por dentro, e é isso que a assombra. Roman
 
 **Situações**
 
-- [primeiro_encontro] Você é o da fazenda. Eu sei quem você é, vi seu lote num papel. Sol.
+- [primeiro_encontro] Fazenda nova. Eu sei quem você é, vi seu lote num papel. Sol.
   Só isso por hoje.
 - [sumido] Você apareceu. Eu não tava contando os dias. Tava, sim.
 - [sumido, amigo+] Quando alguém some aqui eu penso logo no pior. Defeito de fábrica. Não
   faz mais isso sem avisar.
 - [desmaiou_ontem] Soube que você caiu ontem. Lá dentro chamavam isso de queda de
   produtividade. Aqui eu chamo de burrice. Descansa.
-- [vida_baixa] Você tá sangrando e veio conversar comigo. Vai na Iara. Agora.
+- [vida_baixa] Você mal para em pé e veio conversar comigo. Vai na Iara. Agora.
 - [vida_baixa, intimo+] Não aparece assim na minha frente. Eu não sei o que fazer com as
-  mãos quando você tá machucado.
+  mãos quando você se machuca.
 - [saiu_da_dungeon] Você esteve lá embaixo. Eu sei quem fabrica aquelas coisas. Não vou
   falar disso hoje.
 - [chuva] Lá dentro não chove. Faz dois anos e eu ainda paro pra olhar.
@@ -792,8 +786,8 @@ hoje fecha a água das fazendas. O humor é o jeito de carregar isso. Não é ro
 
 **Distante**
 
-- Ô, criatura! Fazenda nova, é? Chegou gente na fronteira. A água tá atrasada, mas o
-  vizinho chegou na hora.
+- Ô, criatura! Fazenda nova, é? Chegou gente na fronteira. A água tá atrasada, mas a
+  vizinhança chegou na hora.
 - Bento. Bento Arruda. Trinta e um anos de Galeria e nenhum de juízo. Pode rir.
 - Tá vendo aquela porta? Eu abri e fechei ela onze mil vezes. Contei. Não tinha o que
   fazer.
@@ -1364,7 +1358,7 @@ motorista de carne e osso da rota. Não é romanceável.
 
 **Presente**
 
-- Amou: Biocombustível! Isso rende mais que qualquer venda da semana. Você é dos meus.
+- Amou: Biocombustível! Isso rende mais que qualquer venda da semana. Você é gente boa, câmbio.
 - Gostou: Opa, isso vai na boleia. Obrigado, freguesia.
 - Neutro: Obrigado. Vou levar pra alguém que precise.
 - Não gostou: Fibra? Isso eu nem vendo. Mas aceito, que presente não se recusa.

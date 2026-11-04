@@ -237,7 +237,7 @@ id = &"zeca"
 npc_id = "zeca"
 nos = Array[ExtResource("1_2pi8d")]([SubResource("Resource_384v4"), SubResource("Resource_232s3"), SubResource("Resource_cf2og"), SubResource("Resource_ofe2d"), SubResource("Resource_1m6rx"), SubResource("Resource_xg4ss"), SubResource("Resource_fx05l"), SubResource("Resource_8wrrn"), SubResource("Resource_ttrlt"), SubResource("Resource_y3kr4"), SubResource("Resource_jpkkw"), SubResource("Resource_78uir"), SubResource("Resource_tjuly"), SubResource("Resource_f88li"), SubResource("Resource_xlce3"), SubResource("Resource_mrlrs"), SubResource("Resource_u7ymj"), SubResource("Resource_2ulb7"), SubResource("Resource_4gbim"), SubResource("Resource_tegov"), SubResource("Resource_3811v"), SubResource("Resource_jyf4u"), SubResource("Resource_mwrhq"), SubResource("Resource_dvlh1"), SubResource("Resource_usf55"), SubResource("Resource_kf08v"), SubResource("Resource_b6jp0"), SubResource("Resource_eq2xt"), SubResource("Resource_2hegp"), SubResource("Resource_fptpl"), SubResource("Resource_n7563")])
 falas_de_evento = Dictionary[StringName, String]({
-&"amou": "Biocombustível! Isso rende mais que qualquer venda da semana. Você é dos meus.",
+&"amou": "Biocombustível! Isso rende mais que qualquer venda da semana. Você é gente boa, câmbio.",
 &"aniversario": "Lembrou do aniversário do caminhoneiro? Ninguém lembra do caminhoneiro. Câmbio, obrigado.",
 &"buque_ja_namorando": "Você já tem alguém. E essa pessoa não merece isso.",
 &"buque_nao_romanceavel": "Ah, que gentileza. Mas eu vou colocar num vaso e fingir que você não quis dizer nada com isso.",

@@ -68,7 +68,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.66, 0.8, 1)
 theme_override_font_sizes/font_size = 13
-text = "Offline: dá para entrar sozinho"
+text = "Offline: dá para entrar sem equipe"
 horizontal_alignment = 1
 
 [node name="Separador1" type="HSeparator" parent="Centro/Painel/Linhas"]
@@ -122,7 +122,7 @@ visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.66, 0.8, 1)
 theme_override_font_sizes/font_size = 14
-text = "Esperando o anfitrião começar"
+text = "Esperando quem lidera a equipe começar"
 horizontal_alignment = 1
 
 [node name="Rodape" type="HBoxContainer" parent="Centro/Painel/Linhas"]

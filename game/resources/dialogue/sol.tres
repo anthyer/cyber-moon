@@ -218,9 +218,9 @@ estacoes = Array[StringName]([&"apagao"])
 
 [sub_resource type="Resource" id="Resource_jvfyv"]
 script = ExtResource("1_dmbwp")
-id = "sol_b47d8e93"
+id = "sol_0fbb2da9"
 falante_id = "sol"
-texto = "Você é o da fazenda. Eu sei quem você é, vi seu lote num papel. Sol. Só isso por hoje."
+texto = "Fazenda nova. Eu sei quem você é, vi seu lote num papel. Sol. Só isso por hoje."
 situacoes = Array[StringName]([&"primeiro_encontro"])
 
 [sub_resource type="Resource" id="Resource_tl5m0"]
@@ -247,16 +247,16 @@ situacoes = Array[StringName]([&"desmaiou_ontem"])
 
 [sub_resource type="Resource" id="Resource_3sxfs"]
 script = ExtResource("1_dmbwp")
-id = "sol_73d4fe07"
+id = "sol_203373ba"
 falante_id = "sol"
-texto = "Você tá sangrando e veio conversar comigo. Vai na Iara. Agora."
+texto = "Você mal para em pé e veio conversar comigo. Vai na Iara. Agora."
 situacoes = Array[StringName]([&"vida_baixa"])
 
 [sub_resource type="Resource" id="Resource_3sgw0"]
 script = ExtResource("1_dmbwp")
-id = "sol_300af480"
+id = "sol_ec0c177a"
 falante_id = "sol"
-texto = "Não aparece assim na minha frente. Eu não sei o que fazer com as mãos quando você tá machucado."
+texto = "Não aparece assim na minha frente. Eu não sei o que fazer com as mãos quando você se machuca."
 relacionamento_minimo = 2500
 situacoes = Array[StringName]([&"vida_baixa"])
 

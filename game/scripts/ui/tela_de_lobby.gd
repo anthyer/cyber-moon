@@ -135,7 +135,7 @@ func _redesenhar() -> void:
 	if NetworkManager.esta_conectado():
 		rotulo_de_status.text = "Conectado como %s" % NetworkManager.meu_nome
 	else:
-		rotulo_de_status.text = "Offline: dá para entrar sozinho"
+		rotulo_de_status.text = "Offline: dá para entrar sem equipe"
 	_redesenhar_equipe()
 	_redesenhar_online()
 	_redesenhar_dungeons()
@@ -159,7 +159,7 @@ func _redesenhar_equipe() -> void:
 			texto += " (você)"
 		var e_anfitriao: bool = id == LobbyManager.anfitriao
 		if e_anfitriao:
-			texto += ", anfitrião"
+			texto += ", líder da equipe"
 		lista_da_equipe.add_child(_novo_rotulo(texto, COR_DO_ANFITRIAO if e_anfitriao else COR_DO_TEXTO))
 
 func _redesenhar_online() -> void:
@@ -185,7 +185,7 @@ func _nova_linha_de_online(id: String, nome: String) -> HBoxContainer:
 		var botao: Button = Button.new()
 		botao.custom_minimum_size = Vector2(110.0, 0.0)
 		if _convidados.has(id):
-			botao.text = "Convidado"
+			botao.text = "Convite enviado"
 			botao.disabled = true
 		else:
 			botao.text = "Convidar"

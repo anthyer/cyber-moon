@@ -247,16 +247,16 @@ situacoes = Array[StringName]([&"desmaiou_ontem"])
 
 [sub_resource type="Resource" id="Resource_ml5p6"]
 script = ExtResource("1_u5ben")
-id = "kenji_6dae1481"
+id = "kenji_e3147cbf"
 falante_id = "kenji"
-texto = "Você tá péssimo. Desculpa. Quer dizer, tá machucado. Vai na Iara, vai. Eu só sei consertar coisa que tem fio."
+texto = "Você tá com uma cara péssima. Desculpa. Quer dizer, você se machucou. Vai na Iara, vai. Eu só sei consertar coisa que tem fio."
 situacoes = Array[StringName]([&"vida_baixa"])
 
 [sub_resource type="Resource" id="Resource_amoyj"]
 script = ExtResource("1_u5ben")
-id = "kenji_22ed9f02"
+id = "kenji_1861a220"
 falante_id = "kenji"
-texto = "Você foi lá embaixo? E aí, tem sinal? Não, espera. Primeiro: você tá inteiro?"
+texto = "Você foi lá embaixo? E aí, tem sinal? Não, espera. Primeiro: você se machucou?"
 situacoes = Array[StringName]([&"saiu_da_dungeon"])
 
 [sub_resource type="Resource" id="Resource_tysm8"]
@@ -385,9 +385,9 @@ situacoes = Array[StringName]([&"primeiro_dia_do_ano"])
 
 [sub_resource type="Resource" id="Resource_4cw5k"]
 script = ExtResource("1_u5ben")
-id = "kenji_5e755c83"
+id = "kenji_673b4e2a"
 falante_id = "kenji"
-texto = "Passou mensagem sobre a sua fazenda na rede ontem. Três vilas perguntando o que você planta. Você tá famoso em onda curta."
+texto = "Passou mensagem sobre a sua fazenda na rede ontem. Três vilas perguntando o que você planta. Você virou assunto em onda curta."
 situacoes = Array[StringName]([&"marco_1"])
 uma_vez = true
 
