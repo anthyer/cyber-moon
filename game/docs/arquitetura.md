@@ -19,6 +19,7 @@ Este documento descreve os sistemas globais (autoloads) e o modelo de dados do C
 - `InputManager` (`scripts/core/input_manager.gd`): traduz o Input Map do Godot em consultas simples (`obter_direcao_movimento`, `interagir_pressionado`, `abrir_inventario_pressionado`), independente do dispositivo físico usado.
 - `GameManager` (`scripts/core/game_manager.gd`): guarda a fase da história e os marcos de progresso já desbloqueados. Método principal: `desbloquear_marco`, que emite `EventBus.city_expansion_blocked`.
 - `SaveManager` (`scripts/core/save_manager.gd`): grava e lê o progresso em `user://save_game.json`.
+- `RealWorldManager` (`scripts/core/real_world_manager.gd`): o mundo de fora (plano 37). Sincroniza a hora inicial com o relógio do computador, troca o clima do dia pelo tempo real de Florianópolis e define a fase da Lua. Sinais `real_weather_received(clima)` e `moon_phase_changed(fase)`; `fase_da_lua`, `forcar_fase(fase)`, `configuracao()`. Não salva nada. Veja "Mundo real".
 - `AudioManager` (`scripts/core/audio_manager.gd`): Ponto único de reprodução de som do jogo com piscina de tocadores reutilizados para SFX.
 
 Cada autoload tem responsabilidade única. Quando um autoload começar a acumular lógica de um domínio diferente do seu, isso é sinal de que uma responsabilidade nova precisa de seu próprio autoload.
@@ -785,6 +786,37 @@ em `resources/climas/`). Quem reage escuta `WeatherManager.weather_changed`:
   `AudioManager` toca em loop no bus `Ambiente`. Sem clipe, nada toca.
 - **Relógio:** mostra o ícone do clima ao lado do período.
 
+## Mundo real
+
+O `RealWorldManager` liga o jogo ao mundo de fora, com três dados. A configuração fica em
+`resources/mundo_real/configuracao.tres` (`ConfiguracaoMundoReal`): coordenada, endereços,
+limite de espera, tabela de código WMO para clima, os números da Lua por fase e o ícone
+de cada fase. Com `usar_apis` desligado, nada é consultado na rede.
+
+- **Hora inicial:** lida do relógio do computador (`Time`), uma vez, depois que o save
+  carregou (senão o save a sobrescreveria). A madrugada real, da 0:00 às 5:59, começa às
+  6:00. Depois disso o `DayCycleManager` anda como sempre, e o dia só vira dormindo. Pode
+  voltar a hora dentro do mesmo dia do jogo (salvou às 22:00, abriu às 10:00); não
+  adianta a lavoura, porque crescer só acontece dormindo. Para testar,
+  `-- --hora-real=HH:MM`.
+- **Clima:** a Open-Meteo devolve o código WMO de agora, que vira `sol`, `chuva` ou
+  `tempestade` pela tabela. Consultado ao abrir e a cada `day_started`; o
+  `WeatherManager` escuta `real_weather_received` e chama `definir_clima()`. O clima de
+  amanhã continua sorteado.
+- **Fase da Lua:** o USNO devolve as fases principais a partir de 8 dias atrás, e vale a
+  última até hoje. Sem resposta, uma conta local pelo mês lunar médio (erra por cerca de
+  um dia). A fase segue o calendário real: dormir não a troca.
+- **O que a Lua faz:** a `IluminacaoDoCiclo` multiplica a luz da noite pela
+  `energia_da_lua` da fase, entrando aos poucos entre o anoitecer e a noite fechada. Na
+  `GradeSolo`, a planta regada tem `chance_de_crescer` de contar um dia a mais ao dormir
+  (`EventBus.moon_growth_applied`, partícula `lua_cheia`), e a colheita tem
+  `chance_de_render` de dar um item a mais (`EventBus.moon_harvest_bonus`, partícula
+  `colheita_da_lua`). O relógio da tela mostra o ícone da fase.
+
+Sem rede, ou com resposta que demore mais que `segundos_de_limite`, fica a reserva (o
+sorteio e a conta local) com um `push_warning`, nunca erro. O jogo não espera a rede para
+começar. As duas APIs liberam CORS, então o export para a Web consulta igual.
+
 ## Calendário
 
 A tela `Calendario` (`scenes/ui/calendario.tscn`, no `InterfaceHUD`) mostra o mês da
@@ -811,7 +843,7 @@ novo substitui o anterior em vez de empilhar.
 
 O menu de debug (`scenes/ui/menu_debug.tscn`, script `MenuDebug`, no `InterfaceHUD` do
 playground) abre e fecha com F3 e serve para testar os sistemas sem esperar o jogo:
-trocar a hora, avançar o dia, pular para a próxima estação, abrir o calendário, trocar o clima, cair um raio, abrir o lobby, entrar e sair da dungeon, dar corações e itens de presente, dar créditos e abrir as lojas, salvar, carregar e apagar o save, dar sucata e subir níveis, congelar o relógio, encher vida e stamina, tomar dano,
+trocar a hora, avançar o dia, ver de onde vieram a hora, o clima e a Lua (API ou reserva) e forçar cada fase da Lua, pular para a próxima estação, abrir o calendário, trocar o clima, cair um raio, abrir o lobby, entrar e sair da dungeon, dar corações e itens de presente, dar créditos e abrir as lojas, salvar, carregar e apagar o save, dar sucata e subir níveis, congelar o relógio, encher vida e stamina, tomar dano,
 ganhar experiência, ficar invencível, teleportar, molhar o solo e amadurecer as plantas,
 ganhar sementes, pães e armas, ganhar qualquer item por um submenu de ícones, soltar sucata, criar e matar inimigos, mostrar os quadros
 por segundo e ligar e desligar a sombra do sol. Ele não pausa o jogo e os botões não

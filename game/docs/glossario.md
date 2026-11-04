@@ -109,3 +109,6 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Espalhador | Scatter / `EspalhadorDeObjetos`, cópias em MultiMesh |
 | Destaque de interação | Interaction highlight / `DestaqueDeInteracao`, o brilho e o balão no alvo do botão de interagir |
 | Verbo de interação | Interaction label / `texto_de_interacao()`, o que o balão diz ("Abrir baú") |
+| Mundo real | Real world / `RealWorldManager`, a hora, o clima e a Lua de fora do jogo |
+| Fase da Lua | Moon phase / `RealWorldManager.FaseDaLua` (nova, crescente, cheia, minguante) |
+| Bônus da lua cheia | Moon bonus / sinais `EventBus.moon_growth_applied` e `moon_harvest_bonus` |

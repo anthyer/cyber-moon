@@ -373,6 +373,52 @@ login com a conta Google. Em 2026-11-03 o `configuracao.tres` passou a apontar p
 `prod`. Para testar contra o `dev`, trocar de volta `endereco_na_nuvem` e
 `cognito_client_id` pelos valores de `pulumi stack output --stack dev`, sem commitar.
 
+### 2026-11-03, plano 37 (mundo real: hora, clima e Lua)
+
+**Feito.** O autoload `RealWorldManager` sincroniza a hora inicial com o relógio do
+computador, troca o clima do dia pelo tempo real de Florianópolis (Open-Meteo) e define a
+fase da Lua (USNO, com conta local de reserva). A Lua mexe na luz da noite, dá chance de a
+planta regada crescer um dia a mais e de a colheita render um item a mais, cada bônus com a
+sua partícula. O relógio mostra o ícone da fase, e o menu de debug mostra a origem de cada
+dado e força a fase.
+
+**Testado:** a hora às 10:00, 0:30 e 3:00 (as duas últimas começam às 6:00), e com save
+(salvo no dia 5 às 22:00, aberto às 10:00: dia 5, 10:00). As duas APIs respondem e liberam
+CORS. Sem resposta, o jogo abre normal com o sorteio e a conta local. Com 30 plantas
+regadas por fase: a cheia deu 8 dias extras, a crescente 3, nova e minguante nenhum, e as
+secas murcharam em todas. Em 60 colheitas, só a cheia rendeu a mais (37 vezes). A luz da
+noite às 22:00 com lua cheia ficou 2,5 vezes a da lua nova (medido com cheia 1,4 e nova
+0,55; com os valores finais abaixo, a proporção passa a 3,4).
+
+**Decidido sem consultar:**
+
+- **Abrir entre 0:00 e 0:59 começa às 6:00**, como a sugestão do plano. Começar à 0:30
+  faria o jogador cair de sono poucos segundos depois de abrir.
+- **A energia da luz por fase ficou nova 0,5, crescente e minguante 0,85, cheia 1,7.** Com
+  1,4 na cheia, a diferença existia mas era discreta, porque a luz do jogador domina o
+  centro da tela. As chances ficaram nas sugestões do plano: crescer 25% na cheia e 10% na
+  crescente, render 50% na cheia. Tudo no `.tres`, para o balanceamento final.
+- **Crescente iluminado à esquerda** no ícone, como se vê do hemisfério sul. O comentário
+  do script dos ícones explica.
+- **A fase forçada pelo menu de debug conta como conta local** na origem mostrada.
+
+**Divergências do plano:**
+
+- **A conta local erra perto da troca de fase.** Contra o USNO: 26/10 (cheia) e 17/11
+  (crescente) acertam, 1/11 (USNO: minguante) e 9/11 (USNO: nova) dão a fase anterior,
+  porque caem no próprio dia da troca. É o erro de cerca de um dia que o plano já previa.
+- **Os ícones de clima têm `detect_3d/compress_to=1`**, ao contrário do que a skill
+  `rodar-o-jogo` pede para pixel art. Os ícones da Lua foram importados com 0. Os de clima
+  ficaram como estavam, porque a interface não é 3D e não aconteceu de borrar, mas vale
+  igualar.
+- **Num teste, as duas consultas estouraram o limite de 5 segundos** com a máquina rodando
+  três jogos ao mesmo tempo, e o jogo ficou com a reserva, como deve. Sozinho, a resposta
+  chegou dentro do limite em todas as rodadas. Se acontecer em máquina lenta, aumentar
+  `segundos_de_limite` não atrasa nada, porque o jogo não espera a resposta.
+
+**Fica para depois:** a previsão do tempo (o clima de amanhã continua sorteado), e a lua
+nova deixando a dungeon mais difícil ou com mais saque.
+
 ### 2026-10-19, plano 28
 
 - **Decidido sem consultar:** brilho pulsante amarelo claro no lugar de contorno (o

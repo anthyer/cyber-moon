@@ -6,7 +6,7 @@ a fase da Lua vem do calendário real (API do USNO), com efeito na noite e na la
 
 **Depende de:** 10 (dia e noite), 13 (clima), 06 (plantio) e 20 (save).
 
-**Situação:** só registrado.
+**Situação:** feito em 2026-11-03. O que mudou em relação ao plano está em `equipe/pendencias.md`, na entrada do plano 37.
 
 ## O pedido do Antonio (2026-10-27)
 
@@ -212,23 +212,23 @@ Pela regra do projeto, a ação nova já nasce com efeito, pela tabela do `Efeit
 
 ## Passos
 
-- [ ] **1.** Testar as duas URLs no navegador e no Godot (um `HTTPRequest` num script de
+- [x] **1.** Testar as duas URLs no navegador e no Godot (um `HTTPRequest` num script de
   teste), conferir o formato da resposta e se o USNO libera CORS. Ajustar este plano se o
   formato mudou.
-- [ ] **2.** Criar `ConfiguracaoMundoReal` e o `.tres`.
-- [ ] **3.** Criar o `RealWorldManager` com a hora inicial. Testar abrindo o jogo às
+- [x] **2.** Criar `ConfiguracaoMundoReal` e o `.tres`.
+- [x] **3.** Criar o `RealWorldManager` com a hora inicial. Testar abrindo o jogo às
   10:00 (começa às 10:00), à 0:30 e às 3:00 (começa às 6:00), com e sem save. Para testar
   sem esperar o relógio, aceitar um argumento `--hora-real=HH:MM`, como o `--sem-save`.
-- [ ] **4.** Clima pela Open-Meteo, com o plano B do sorteio. Testar com a rede
+- [x] **4.** Clima pela Open-Meteo, com o plano B do sorteio. Testar com a rede
   desligada (o jogo abre normal e sem travar) e com `usar_apis` desligado.
-- [ ] **5.** Fase da Lua pelo USNO, com a conta local. Conferir a conta local contra a
+- [x] **5.** Fase da Lua pelo USNO, com a conta local. Conferir a conta local contra a
   API em quatro datas conhecidas.
-- [ ] **6.** Efeitos da Lua: a luz da noite por fase, o bônus de crescimento (partícula
+- [x] **6.** Efeitos da Lua: a luz da noite por fase, o bônus de crescimento (partícula
   `lua_cheia`) e o bônus de rendimento (partícula `colheita_da_lua`). Testar forçando cada
   fase pelo menu de debug: plantar, regar e dormir com lua cheia e com lua nova, e colher
   dez vezes em cada uma, conferindo que só a cheia rende a mais.
-- [ ] **7.** Ícone da fase no relógio da tela.
-- [ ] **8.** Mostrar no menu de debug a origem de cada dado (API ou reserva) e um botão
+- [x] **7.** Ícone da fase no relógio da tela.
+- [x] **8.** Mostrar no menu de debug a origem de cada dado (API ou reserva) e um botão
   para forçar cada fase da Lua. Atualizar `arquitetura.md`.
 
 ## Como saber que ficou pronto

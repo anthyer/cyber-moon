@@ -43,6 +43,7 @@ pixel art, fundo transparente; modelo em `.glb`. O caminho de importação está
 | Ícone da lixeira do inventário | provisório, desenhado no estilo dos itens | `assets/textures/icones_itens/lixeira.png` | avulso |
 | Ícones dos 30 itens | provisórios | campo `icone` de cada `.tres` em `resources/items/` (trocar o PNG em `assets/textures/icones_itens/` basta) | 03 |
 | Ícones dos três troféus de chefe | provisórios, desenhados no estilo dos itens por `equipe/ferramentas/gerar_icones_de_trofeu.py` | `icone` em `resources/items/especiais/trofeu_*.tres` | 23 |
+| Ícones das fases da Lua (nova, crescente, cheia, minguante) | provisórios, desenhados no estilo dos ícones de clima por `equipe/ferramentas/gerar_icones_da_lua.py` | `icone_por_fase` em `resources/mundo_real/configuracao.tres` (trocar o PNG em `assets/textures/icones_lua/` basta) | 37 |
 | Ícones de clima (sol, chuva, tempestade) | provisórios, desenhados no estilo dos itens | `assets/textures/icones_clima/` | 13 |
 | Ícone de loja aberta em cima do comerciante | provisório, uma banquinha desenhada no estilo dos itens | `assets/textures/efeitos/indicador_de_loja.png` | 17 |
 | Indicador de conversa em cima do NPC | provisório, um balão branco tingido por código | `assets/textures/efeitos/indicador_de_conversa.png` | 15 |
