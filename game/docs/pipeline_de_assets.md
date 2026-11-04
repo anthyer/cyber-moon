@@ -43,9 +43,12 @@ A maior parte da arte do jogo vem de pacotes prontos da Kenney, que chegam como 
 
 ## Pacote próprio
 
-Os modelos feitos pela equipe ficam em `assets/models/cyber_moon_dungeons/` (dungeons) e
-`assets/models/cyber_moon_mundo/` (mapa mundi e fazenda), cada um com a
-paleta em `textures/colormap.png` e o mesmo script de importação dos pacotes da Kenney.
+Os modelos feitos pela equipe ficam em `assets/models/cyber_moon_dungeons/` (dungeons),
+`assets/models/cyber_moon_mundo/` (mapa mundi e fazenda) e
+`assets/models/cyber_moon_personagens/` (os moradores, editados dos personagens da
+Kenney, com esqueleto e animações), cada um com a paleta em `textures/colormap.png` e o
+mesmo script de importação dos pacotes da Kenney. A paleta dos personagens é outra: a
+da Kenney com as cores do tema nas linhas vazias, gerada pelo próprio kit.
 Eles são construídos no Blender por script (`equipe/ferramentas/blender/`), já no tamanho
 do jogo, e entram na cena com escala 1. O estilo, as medidas e o passo a passo estão em
 `docs/biblia_3d.md`. Modelo editado a partir de um pacote da Kenney é salvo ali como

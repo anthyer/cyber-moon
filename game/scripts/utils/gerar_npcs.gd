@@ -16,7 +16,10 @@ extends Node
 ## muda nada aqui, só a posição dos marcadores.
 
 const PASTA_DOS_NPCS: String = "res://resources/npcs/"
-const PASTA_DOS_MODELOS: String = "res://assets/models/kenney_mini_characters/"
+const PASTA_DAS_FIGURANTES: String = "res://resources/npcs/figurantes/"
+## O modelo de cada um é personagem_<id>.glb, feito no Blender a partir de um personagem da
+## Kenney (equipe/ferramentas/blender/modelos/personagens.py).
+const PASTA_DOS_MODELOS: String = "res://assets/models/cyber_moon_personagens/"
 
 const PASTA_DOS_ITENS: String = "res://resources/items/"
 const DIAS_DE_TRABALHO: Array[int] = [0, 1, 2, 3, 4]
@@ -25,7 +28,10 @@ const DIAS_DE_TRABALHO: Array[int] = [0, 1, 2, 3, 4]
 ## listas é neutro. Cada gosto conta algo do personagem: a Iara odeia estimulante porque é
 ## médica e vê o estrago que ele faz; a Sol odeia chapa reciclada porque é feita da sucata
 ## da corporação de onde ela fugiu; o Vitor odeia nanogel porque não confia em remédio da
-## cidade.
+## cidade. Do elenco novo: o Bento odeia biocombustível, que tem o cheiro das máquinas da
+## Galeria; o Hélio odeia núcleo sintético, que é peça da corporação que levou as sementes;
+## a Lúcia odeia biocombustível, porque a cidade jura que ele não existe; o Téo odeia
+## verdura e remédio, como toda criança.
 const GOSTOS: Dictionary = {
 	"vitor": [[&"servomotor", &"chapa_reciclada"], [&"sucata_metal", &"minerio_ferro", &"placa_queimada"], [&"buque"], [&"nanogel"]],
 	"kenji": [[&"nucleo_sintetico", &"fio_optico"], [&"celula_energia", &"placa_queimada", &"estimulante"], [&"pedra", &"fibra"], [&"composto_organico"]],
@@ -33,16 +39,39 @@ const GOSTOS: Dictionary = {
 	"marta": [[&"sopa_de_legumes", &"repolho"], [&"cenoura", &"beterraba", &"tomate", &"trigo"], [&"sucata_metal"], [&"placa_queimada"]],
 	"iara": [[&"nanogel", &"sopa_de_legumes"], [&"beterraba", &"fibra", &"composto_organico"], [&"sucata_metal"], [&"estimulante"]],
 	"sol": [[&"nucleo_sintetico", &"tomate"], [&"celula_energia", &"pao_de_trigo", &"milho"], [&"minerio_cobre"], [&"chapa_reciclada"]],
+	"bento": [[&"sopa_de_legumes", &"pao_de_trigo"], [&"cenoura", &"sucata_metal", &"fio_optico"], [&"estimulante"], [&"biocombustivel"]],
+	"helio": [[&"composto_organico", &"nutrisolo"], [&"beterraba", &"repolho", &"fibra", &"semente_milho"], [&"sucata_metal"], [&"nucleo_sintetico"]],
+	"dandara": [[&"biocombustivel", &"servomotor"], [&"celula_energia", &"sucata_metal", &"pao_de_trigo"], [&"repolho"], [&"nanogel"]],
+	"lucia": [[&"tomate", &"nucleo_sintetico"], [&"chapa_reciclada", &"celula_energia", &"milho"], [&"sucata_metal", &"fibra"], [&"biocombustivel"]],
+	"teo": [[&"milho", &"pao_de_trigo"], [&"pedra", &"minerio_cobre", &"placa_queimada"], [&"repolho", &"beterraba"], [&"nanogel"]],
+	"zeca": [[&"biocombustivel", &"sopa_de_legumes"], [&"pao_de_trigo", &"tomate", &"fio_optico"], [&"fibra"], [&"composto_organico"]],
 }
 
-## id, nome, modelo, estação e dia do aniversário, casa, romanceável.
+## id, nome, estação e dia do aniversário, casa, romanceável.
 const ELENCO: Array = [
-	["vitor", "Vitor Alencar", "character_male_b.glb", &"estiagem", 12, &"casa_vitor", false],
-	["kenji", "Kenji Moura", "character_male_c.glb", &"brotacao", 9, &"casa_kenji", true],
-	["rafa", "Rafael Duarte", "character_male_d.glb", &"colheita", 3, &"casa_rafa", true],
-	["marta", "Marta Bueno", "character_female_a.glb", &"colheita", 20, &"casa_marta", false],
-	["iara", "Iara Nakamura", "character_female_b.glb", &"apagao", 15, &"casa_iara", true],
-	["sol", "Sol Vasques", "character_female_c.glb", &"estiagem", 27, &"casa_sol", true],
+	["vitor", "Vitor Alencar", &"estiagem", 12, &"casa_vitor", false],
+	["kenji", "Kenji Moura", &"brotacao", 9, &"casa_kenji", true],
+	["rafa", "Rafael Duarte", &"colheita", 3, &"casa_rafa", true],
+	["marta", "Marta Bueno", &"colheita", 20, &"casa_marta", false],
+	["iara", "Iara Nakamura", &"apagao", 15, &"casa_iara", true],
+	["sol", "Sol Vasques", &"estiagem", 27, &"casa_sol", true],
+	# Elenco do plano 30. O Téo mora com o tio, o Kenji, na casa geminada.
+	["bento", "Bento Arruda", &"apagao", 2, &"casa_bento", false],
+	["helio", "Hélio Tavares", &"brotacao", 18, &"casa_helio", false],
+	["dandara", "Dandara Reis", &"estiagem", 5, &"casa_dandara", true],
+	["lucia", "Lúcia Prado", &"colheita", 11, &"ponto_de_onibus", false],
+	["teo", "Téo", &"brotacao", 25, &"casa_kenji", false],
+	["zeca", "Zeca", &"apagao", 24, &"fim_da_estrada", false],
+]
+
+## Quem mora fora do mapa e só vem de visita: a casa no ELENCO é o ponto por onde chega.
+const MORAM_FORA_DO_MAPA: Array[String] = ["lucia", "zeca"]
+
+## As figurantes: id, nome, casa. Sem gostos, sem aniversário e sem conversa; ficam numa
+## pasta à parte para não entrar no calendário nem na amizade.
+const FIGURANTES: Array = [
+	["motoqueira_a", "Motoqueira", &"fogueira"],
+	["motoqueira_b", "Motoqueira", &"fogueira"],
 ]
 
 ## Os compromissos fora de casa de cada um: hora inicial, hora final, destino, animação,
@@ -100,6 +129,58 @@ const ROTINAS: Dictionary = {
 		# No aniversário ela passa o dia na praça, à vista de todo mundo.
 		[8.0, 21.0, &"praca", &"idle", {"aniversario": true}],
 	],
+	# O Bento ainda vigia a porta da Galeria, de onde saiu há anos, e desce à praça para
+	# contar causo no almoço. À noite encontra o Kenji e o Rafa na ponte.
+	"bento": [
+		[7.0, 11.0, &"porta_da_galeria", &"idle", {"dias": DIAS_DE_TRABALHO}],
+		[11.0, 13.0, &"praca", &"sit", {"dias": DIAS_DE_TRABALHO}],
+		[13.0, 17.0, &"porta_da_galeria", &"idle", {"dias": DIAS_DE_TRABALHO}],
+		[17.0, 20.0, &"ponte", &"idle", {}],
+	],
+	# O Hélio cuida do caderno de sementes na cisterna e, dia sim dia não, vai trocar
+	# conversa e semente com a Marta no mercado.
+	"helio": [
+		[8.0, 12.0, &"cisterna", &"interact-left", {"dias": DIAS_DE_TRABALHO}],
+		[12.0, 13.0, &"praca", &"sit", {"dias": DIAS_DE_TRABALHO}],
+		[13.0, 17.0, &"mercado", &"idle", {"dias": [0, 2, 4]}],
+		[13.0, 17.0, &"cisterna", &"interact-left", {"dias": [1, 3]}],
+		[18.0, 20.0, &"beira_rio", &"idle", {}],
+	],
+	# A Dandara mexe nas motos de manhã, e duas tardes por semana sobe na antena com o
+	# Kenji para ouvir o que passa no sinal da cidade.
+	"dandara": [
+		[9.0, 13.0, &"oficina_das_motoqueiras", &"interact-left", {"dias": DIAS_DE_TRABALHO}],
+		[13.0, 15.0, &"fogueira", &"sit", {}],
+		[15.0, 18.0, &"torre_antena", &"idle", {"dias": [1, 3]}],
+		[15.0, 18.0, &"oficina_das_motoqueiras", &"interact-left", {"dias": [0, 2, 4]}],
+		[18.0, 23.0, &"fogueira", &"idle", {}],
+	],
+	# A Lúcia desce do ônibus uma vez por semana, olha o mercado, a praça e a oficina, e
+	# volta para a cidade no fim da tarde.
+	"lucia": [
+		[9.0, 12.0, &"mercado", &"idle", {"dias": [2]}],
+		[12.0, 14.0, &"praca", &"idle", {"dias": [2]}],
+		[14.0, 17.0, &"oficina", &"idle", {"dias": [2]}],
+	],
+	# O Téo corre o mapa inteiro: rio, praça, mirante, a porta da Galeria (por causa das
+	# histórias do Bento) e, no fim do dia, a antena do tio.
+	"teo": [
+		[8.0, 11.0, &"beira_rio", &"idle", {}],
+		[11.0, 13.0, &"praca", &"idle", {}],
+		[13.0, 16.0, &"mirante", &"idle", {}],
+		[16.0, 19.0, &"porta_da_galeria", &"idle", {}],
+		[19.0, 21.0, &"torre_antena", &"idle", {}],
+	],
+	# O Zeca para o caminhão debaixo do viaduto um dia por semana, no horário da loja.
+	"zeca": [
+		[9.0, 18.0, &"parada_do_caminhao", &"idle", {"dias": [3]}],
+	],
+	"motoqueira_a": [
+		[8.0, 18.0, &"oficina_das_motoqueiras", &"interact-left", {"dias": DIAS_DE_TRABALHO}],
+	],
+	"motoqueira_b": [
+		[10.0, 18.0, &"fogueira", &"sit", {}],
+	],
 }
 
 const PASTA_DAS_LOJAS: String = "res://resources/lojas/"
@@ -116,6 +197,11 @@ const CATALOGOS: Dictionary = {
 		[&"nanogel", ""], [&"estimulante", ""], [&"bastao_choque", ""],
 		[&"foice_curva", "marco_1"], [&"espadao_sucata", "marco_2"], [&"escopeta_serrada", "marco_2"],
 	],
+	# O Zeca traz o que ninguém da vila vende: peça e energia da estrada.
+	"zeca": [
+		[&"fio_optico", ""], [&"celula_energia", ""], [&"biocombustivel", ""],
+		[&"servomotor", "marco_1"], [&"nucleo_sintetico", "marco_2"],
+	],
 }
 
 ## Quem, além de vender, aprimora armas e ferramentas.
@@ -127,16 +213,11 @@ func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(PASTA_DOS_NPCS)
 	_carregar_itens(PASTA_DOS_ITENS)
 	for linha in ELENCO:
-		var perfil: PerfilNpc = PerfilNpc.new()
-		perfil.id = linha[0]
-		perfil.nome_exibido = linha[1]
-		perfil.modelo = load(PASTA_DOS_MODELOS + String(linha[2]))
-		perfil.estacao_do_aniversario = linha[3]
-		perfil.dia_do_aniversario = linha[4]
-		perfil.casa = linha[5]
-		perfil.eh_romanceavel = linha[6]
-		for item in ROTINAS[perfil.id]:
-			perfil.rotina.append(_novo_compromisso(item))
+		var perfil: PerfilNpc = _novo_perfil(linha[0], linha[1], linha[4])
+		perfil.estacao_do_aniversario = linha[2]
+		perfil.dia_do_aniversario = linha[3]
+		perfil.eh_romanceavel = linha[5]
+		perfil.mora_fora_do_mapa = MORAM_FORA_DO_MAPA.has(perfil.id)
 		var gostos: Array = GOSTOS[perfil.id]
 		perfil.itens_amados.assign(_itens(gostos[0]))
 		perfil.itens_queridos.assign(_itens(gostos[1]))
@@ -148,7 +229,25 @@ func _ready() -> void:
 		var caminho: String = PASTA_DOS_NPCS + perfil.id + ".tres"
 		var erro: Error = ResourceSaver.save(perfil, caminho)
 		print("%s: %d compromissos (erro %d)" % [caminho, perfil.rotina.size(), erro])
+	DirAccess.make_dir_recursive_absolute(PASTA_DAS_FIGURANTES)
+	for linha in FIGURANTES:
+		var figurante: PerfilNpc = _novo_perfil(linha[0], linha[1], linha[2])
+		figurante.eh_figurante = true
+		var caminho_da_figurante: String = PASTA_DAS_FIGURANTES + figurante.id + ".tres"
+		var erro_da_figurante: Error = ResourceSaver.save(figurante, caminho_da_figurante)
+		print("%s: %d compromissos (erro %d)" % [caminho_da_figurante, figurante.rotina.size(), erro_da_figurante])
 	get_tree().quit()
+
+## O que todo NPC tem, morador ou figurante: quem é, o modelo, a casa e a rotina.
+func _novo_perfil(id: String, nome: String, casa: StringName) -> PerfilNpc:
+	var perfil: PerfilNpc = PerfilNpc.new()
+	perfil.id = id
+	perfil.nome_exibido = nome
+	perfil.modelo = load(PASTA_DOS_MODELOS + "personagem_" + id + ".glb")
+	perfil.casa = casa
+	for item in ROTINAS[id]:
+		perfil.rotina.append(_novo_compromisso(item))
+	return perfil
 
 ## Percorre a pasta de itens e guarda cada um pelo id, para os gostos acima poderem citar
 ## o id sem saber em que subpasta o item mora.

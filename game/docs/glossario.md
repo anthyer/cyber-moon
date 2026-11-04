@@ -52,6 +52,10 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Marco de progresso | Progress milestone / `GameManager.marcos_desbloqueados` |
 | Expansão da cidade | City expansion / sinal `city_expansion_blocked` |
 | Perfil de NPC | NPC profile / `PerfilNpc` (classe Resource) |
+| Morador, elenco | Cast / `ElencoDeNpcs`, `ElencoDeNpcs.carregar_perfis()` |
+| Figurante | Extra / `PerfilNpc.eh_figurante`, pasta `resources/npcs/figurantes/`, sinal `npc_waved` |
+| Visitante (mora fora do mapa) | Visitor / `PerfilNpc.mora_fora_do_mapa`, sinais `visitor_arrived` e `visitor_left` |
+| Personagem editado | Edited character / `kit.Personagem` (Blender), pacote `cyber_moon_personagens` |
 | Nó de diálogo | Dialogue node / `NoDialogo` (classe Resource) |
 | Banco de passos | Footsteps bank / `BancoDePassos` (classe Resource) |
 | Superfície | Surface / metadata `superficie` |

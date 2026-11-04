@@ -35,7 +35,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [ ] 27 As dungeons na história e nos itens coletados (só registrado)
 - [x] 28 Destaque do que se vai interagir
 - [x] 29 Ajuda para mirar no solo arado com semente e regador
-- [ ] 30 Mais personagens e os existentes no tema, editados no Blender (vem antes do 27; elenco aprovado em 2026-10-20)
+- [x] 30 Mais personagens e os existentes no tema, editados no Blender (vem antes do 27; feito em 2026-10-27)
 - [ ] 31 Interiores das casas: casa do jogador com cama, calendário e baús dentro; NPCs recolhem ao anoitecer e trancam a casa de noite (só registrado, decisões a fechar)
 - [ ] 32 Diário de missões (quest log) (depois do 27; só registrado)
 - [ ] 33 Minimapa com waypoint da missão acompanhada (depois do 32; só registrado)

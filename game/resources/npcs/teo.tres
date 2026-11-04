@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="PerfilNpc" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_hv367"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/milho.tres" id="2_5juad"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/pao_de_trigo.tres" id="3_mryqr"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/repolho.tres" id="4_lcefp"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/beterraba.tres" id="5_x1pug"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/nanogel.tres" id="6_48c5a"]
+[ext_resource type="Resource" path="res://resources/items/recursos/pedra.tres" id="7_fcr0y"]
+[ext_resource type="Resource" path="res://resources/items/recursos/minerio_cobre.tres" id="8_u46sg"]
+[ext_resource type="Resource" path="res://resources/items/sucata/placa_queimada.tres" id="9_75nwb"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_personagens/personagem_teo.glb" id="10_xvc86"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="11_c6ohd"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="12_4lngl"]
+
+[sub_resource type="Resource" id="Resource_l3y3v"]
+script = ExtResource("11_c6ohd")
+hora_final = 11.0
+destino = &"beira_rio"
+
+[sub_resource type="Resource" id="Resource_lkjhf"]
+script = ExtResource("11_c6ohd")
+hora_inicial = 11.0
+hora_final = 13.0
+destino = &"praca"
+
+[sub_resource type="Resource" id="Resource_apcd8"]
+script = ExtResource("11_c6ohd")
+hora_inicial = 13.0
+hora_final = 16.0
+destino = &"mirante"
+
+[sub_resource type="Resource" id="Resource_kdc07"]
+script = ExtResource("11_c6ohd")
+hora_inicial = 16.0
+hora_final = 19.0
+destino = &"porta_da_galeria"
+
+[sub_resource type="Resource" id="Resource_yview"]
+script = ExtResource("11_c6ohd")
+hora_inicial = 19.0
+hora_final = 21.0
+destino = &"torre_antena"
+
+[resource]
+script = ExtResource("12_4lngl")
+id = "teo"
+nome_exibido = "Téo"
+dia_do_aniversario = 25
+itens_amados = Array[ExtResource("1_hv367")]([ExtResource("2_5juad"), ExtResource("3_mryqr")])
+itens_queridos = Array[ExtResource("1_hv367")]([ExtResource("7_fcr0y"), ExtResource("8_u46sg"), ExtResource("9_75nwb")])
+itens_indesejados = Array[ExtResource("1_hv367")]([ExtResource("4_lcefp"), ExtResource("5_x1pug")])
+itens_odiados = Array[ExtResource("1_hv367")]([ExtResource("6_48c5a")])
+modelo = ExtResource("10_xvc86")
+casa = &"casa_kenji"
+rotina = Array[ExtResource("11_c6ohd")]([SubResource("Resource_l3y3v"), SubResource("Resource_lkjhf"), SubResource("Resource_apcd8"), SubResource("Resource_kdc07"), SubResource("Resource_yview")])

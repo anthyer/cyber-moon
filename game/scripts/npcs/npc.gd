@@ -104,7 +104,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if perfil == null:
 		return
-	var ao_alcance: bool = not DialogueManager.em_dialogo and _sou_o_alvo_do_jogador()
+	# A figurante não conversa, então não promete conversa: só o destaque de interação
+	# (o balão "Acenar") aparece para ela.
+	var ao_alcance: bool = not perfil.eh_figurante and not DialogueManager.em_dialogo and _sou_o_alvo_do_jogador()
 	_indicador.visible = ao_alcance
 	# O comerciante mostra a banquinha em cima da cabeça enquanto está atendendo (no
 	# horário, fora da Folga), de longe, para o jogador saber quem vende e achar a pessoa.
@@ -160,12 +162,27 @@ func ir_para(destino: Vector3) -> void:
 ## o botão. Abre a conversa do dia. Vale também no meio do caminho: ele para, conversa, e
 ## depois segue para onde ia.
 func interagir() -> void:
+	if perfil != null and perfil.eh_figurante:
+		_acenar()
+		return
 	DialogueManager.iniciar(self)
 
 func texto_de_interacao() -> String:
 	if perfil == null:
 		return "Conversar"
+	if perfil.eh_figurante:
+		return "Acenar"
 	return "Conversar com %s" % perfil.nome_exibido
+
+## A figurante responde ao aceno virando para o jogador e acenando de volta. O gesto
+## acaba sozinho e ela volta para a pose do compromisso (veja _ao_terminar_animacao).
+func _acenar() -> void:
+	var jogador: Node3D = get_tree().get_first_node_in_group(&"jogador") as Node3D
+	if jogador != null:
+		var direcao: Vector3 = jogador.global_position - global_position
+		_modelo.rotation.y = atan2(direcao.x, direcao.z)
+	_animacao.play(&"emote-yes")
+	EventBus.npc_waved.emit(global_position)
 
 ## Só para comerciante: depois da conversa do dia, a loja abre. Fora do horário ou na
 ## Folga, ele explica que está fechado, numa fala só, em vez de abrir a tela.
@@ -187,6 +204,10 @@ func _ao_terminar_dialogo(npc_id: String) -> void:
 ## devolvem false: o item fica com o jogador, porque consumi-lo seria punição sem aviso.
 func receber_presente(item: Item) -> bool:
 	if item == null or perfil == null or DialogueManager.em_dialogo:
+		return false
+	if perfil.eh_figurante:
+		_acenar()
+		EventBus.notice_requested.emit("Ela só acena de volta.")
 		return false
 	if not item.pode_ser_presente or not item.pode_ser_descartado():
 		EventBus.notice_requested.emit("Isso não serve de presente.")
@@ -290,6 +311,11 @@ func _conferir_a_rotina(direto: bool) -> void:
 		global_position = posicao
 		velocity = Vector3.ZERO
 		_agente.target_position = posicao
+	# O visitante volta ao mapa já no lugar certo: posto direto no compromisso, ou no ponto
+	# por onde chega, de onde sai andando.
+	if perfil.mora_fora_do_mapa and destino != perfil.casa:
+		_estar_no_mapa(true)
+	if direto:
 		_chegar()
 	else:
 		ir_para(posicao)
@@ -341,6 +367,24 @@ func _chegar() -> void:
 	_modelo.rotation.y = atan2(_frente_no_destino.x, _frente_no_destino.z)
 	_tocar(_animacao_parado)
 	_pausa_da_conversa = randf_range(PAUSA_MINIMA_DA_CONVERSA, PAUSA_MAXIMA_DA_CONVERSA)
+	if perfil.mora_fora_do_mapa and _destino == perfil.casa:
+		_estar_no_mapa(false)
+
+## Quem mora fora do mapa some ao chegar em casa (entrou no ônibus, seguiu viagem) e
+## aparece de novo ao sair para um compromisso. Invisível, ele também não é alvo de
+## interação (AreaDeInteracao ignora alvo invisível) e não ocupa lugar no caminho. A
+## física para junto: sem a colisão, a gravidade o levaria para baixo do chão, e ele
+## voltaria na semana seguinte saindo lá de baixo.
+func _estar_no_mapa(presente: bool) -> void:
+	if presente != visible:
+		if presente:
+			EventBus.visitor_arrived.emit(global_position)
+		else:
+			EventBus.visitor_left.emit(global_position)
+	visible = presente
+	velocity = Vector3.ZERO
+	set_physics_process(presente)
+	($FormaColisao as CollisionShape3D).set_deferred(&"disabled", not presente)
 
 ## Dois NPCs parados em idle perto um do outro se viram um para o outro e fazem gestos
 ## com pausas, cada um no seu tempo. Não é conversa de verdade, é encenação: vista de
@@ -367,7 +411,7 @@ func _encenar_conversa(delta: float) -> void:
 func _parceiro_de_conversa() -> Npc:
 	for no in get_tree().get_nodes_in_group(GRUPO):
 		var outro: Npc = no as Npc
-		if outro == null or outro == self or not outro.esta_parado_em_idle():
+		if outro == null or outro == self or not outro.visible or not outro.esta_parado_em_idle():
 			continue
 		if global_position.distance_to(outro.global_position) <= DISTANCIA_DE_CONVERSA:
 			return outro

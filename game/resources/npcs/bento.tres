@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="PerfilNpc" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_41qbs"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/sopa_de_legumes.tres" id="2_ns3v0"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/pao_de_trigo.tres" id="3_cjeqj"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/estimulante.tres" id="4_c73o6"]
+[ext_resource type="Resource" path="res://resources/items/materiais/biocombustivel.tres" id="5_ukrgh"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/cenoura.tres" id="6_axgcs"]
+[ext_resource type="Resource" path="res://resources/items/sucata/sucata_metal.tres" id="7_w6v6v"]
+[ext_resource type="Resource" path="res://resources/items/sucata/fio_optico.tres" id="8_7u8jq"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_personagens/personagem_bento.glb" id="9_64mgu"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="10_6u22d"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="11_rkl6c"]
+
+[sub_resource type="Resource" id="Resource_pimjc"]
+script = ExtResource("10_6u22d")
+hora_inicial = 7.0
+hora_final = 11.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"porta_da_galeria"
+
+[sub_resource type="Resource" id="Resource_kavhc"]
+script = ExtResource("10_6u22d")
+hora_inicial = 11.0
+hora_final = 13.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"praca"
+animacao_parado = &"sit"
+
+[sub_resource type="Resource" id="Resource_jsib1"]
+script = ExtResource("10_6u22d")
+hora_inicial = 13.0
+hora_final = 17.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"porta_da_galeria"
+
+[sub_resource type="Resource" id="Resource_k3bwx"]
+script = ExtResource("10_6u22d")
+hora_inicial = 17.0
+hora_final = 20.0
+destino = &"ponte"
+
+[resource]
+script = ExtResource("11_rkl6c")
+id = "bento"
+nome_exibido = "Bento Arruda"
+estacao_do_aniversario = &"apagao"
+dia_do_aniversario = 2
+itens_amados = Array[ExtResource("1_41qbs")]([ExtResource("2_ns3v0"), ExtResource("3_cjeqj")])
+itens_queridos = Array[ExtResource("1_41qbs")]([ExtResource("6_axgcs"), ExtResource("7_w6v6v"), ExtResource("8_7u8jq")])
+itens_indesejados = Array[ExtResource("1_41qbs")]([ExtResource("4_c73o6")])
+itens_odiados = Array[ExtResource("1_41qbs")]([ExtResource("5_ukrgh")])
+modelo = ExtResource("9_64mgu")
+casa = &"casa_bento"
+rotina = Array[ExtResource("10_6u22d")]([SubResource("Resource_pimjc"), SubResource("Resource_kavhc"), SubResource("Resource_jsib1"), SubResource("Resource_k3bwx")])

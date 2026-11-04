@@ -20,6 +20,7 @@ const PASTA_DAS_CONVERSAS: String = "res://resources/dialogue/"
 ## O primeiro nome no título da seção para o id do PerfilNpc.
 const IDS_POR_NOME: Dictionary = {
 	"Vitor": "vitor", "Kenji": "kenji", "Rafael": "rafa", "Marta": "marta", "Iara": "iara", "Sol": "sol",
+	"Bento": "bento", "Hélio": "helio", "Dandara": "dandara", "Lúcia": "lucia", "Téo": "teo", "Zeca": "zeca",
 }
 ## Faixa de relacionamento para [mínimo, máximo], em pontos, como na tabela da biblioteca.
 const FAIXAS: Dictionary = {
@@ -48,7 +49,11 @@ const SITUACOES_CONHECIDAS: Array[String] = [
 	"namorando_outro", "marco_1", "marco_2", "marco_3",
 ]
 ## Situações com um complemento depois dos dois pontos, e os complementos aceitos.
-const LUGARES: Array[String] = ["praca", "oficina", "mercado", "clinica", "torre_antena", "posto_entrega", "mirante", "ponte", "beira_rio", "casa"]
+const LUGARES: Array[String] = [
+	"praca", "oficina", "mercado", "clinica", "torre_antena", "posto_entrega", "mirante", "ponte", "beira_rio", "casa",
+	# Os lugares do elenco do plano 30.
+	"porta_da_galeria", "cisterna", "oficina_das_motoqueiras", "fogueira", "parada_do_caminhao",
+]
 const SECAO_DE_PRESENTE: String = "Presente"
 const SECAO_DE_SISTEMA: String = "Falas de sistema"
 ## Rótulo na biblioteca para a chave em Conversa.falas_de_evento.

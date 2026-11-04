@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CatalogoDeLoja" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_1qp5f"]
+[ext_resource type="Resource" path="res://resources/items/sucata/fio_optico.tres" id="2_iccds"]
+[ext_resource type="Resource" path="res://resources/items/sucata/celula_energia.tres" id="3_ic5n4"]
+[ext_resource type="Resource" path="res://resources/items/materiais/biocombustivel.tres" id="4_obkur"]
+[ext_resource type="Resource" path="res://resources/items/sucata/servomotor.tres" id="5_pkvw2"]
+[ext_resource type="Resource" path="res://resources/items/sucata/nucleo_sintetico.tres" id="6_1kopx"]
+[ext_resource type="Script" path="res://scripts/resources/catalogo_de_loja.gd" id="7_jtpaj"]
+
+[resource]
+script = ExtResource("7_jtpaj")
+npc_id = "zeca"
+itens = Array[ExtResource("1_1qp5f")]([ExtResource("2_iccds"), ExtResource("3_ic5n4"), ExtResource("4_obkur"), ExtResource("5_pkvw2"), ExtResource("6_1kopx")])
+marco_necessario = Array[String](["", "", "", "marco_1", "marco_2"])

@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="PerfilNpc" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="1_bjdfr"]
+[ext_resource type="Resource" path="res://resources/items/materiais/biocombustivel.tres" id="2_7qfcs"]
+[ext_resource type="Resource" path="res://resources/items/sucata/servomotor.tres" id="3_n2llv"]
+[ext_resource type="Resource" path="res://resources/items/colheitas/repolho.tres" id="4_5yefs"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/nanogel.tres" id="5_f3ieg"]
+[ext_resource type="Resource" path="res://resources/items/sucata/celula_energia.tres" id="6_hbje0"]
+[ext_resource type="Resource" path="res://resources/items/sucata/sucata_metal.tres" id="7_t3ihj"]
+[ext_resource type="Resource" path="res://resources/items/consumiveis/pao_de_trigo.tres" id="8_q45oi"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_personagens/personagem_dandara.glb" id="9_qqjin"]
+[ext_resource type="Script" path="res://scripts/resources/compromisso.gd" id="10_s3upv"]
+[ext_resource type="Script" path="res://scripts/resources/perfil_npc.gd" id="11_5ysew"]
+
+[sub_resource type="Resource" id="Resource_fp3kr"]
+script = ExtResource("10_s3upv")
+hora_inicial = 9.0
+hora_final = 13.0
+dias_da_semana = Array[int]([0, 1, 2, 3, 4])
+destino = &"oficina_das_motoqueiras"
+animacao_parado = &"interact-left"
+
+[sub_resource type="Resource" id="Resource_65jtl"]
+script = ExtResource("10_s3upv")
+hora_inicial = 13.0
+hora_final = 15.0
+destino = &"fogueira"
+animacao_parado = &"sit"
+
+[sub_resource type="Resource" id="Resource_ssvmc"]
+script = ExtResource("10_s3upv")
+hora_inicial = 15.0
+hora_final = 18.0
+dias_da_semana = Array[int]([1, 3])
+destino = &"torre_antena"
+
+[sub_resource type="Resource" id="Resource_y8t54"]
+script = ExtResource("10_s3upv")
+hora_inicial = 15.0
+hora_final = 18.0
+dias_da_semana = Array[int]([0, 2, 4])
+destino = &"oficina_das_motoqueiras"
+animacao_parado = &"interact-left"
+
+[sub_resource type="Resource" id="Resource_a8k4k"]
+script = ExtResource("10_s3upv")
+hora_inicial = 18.0
+hora_final = 23.0
+destino = &"fogueira"
+
+[resource]
+script = ExtResource("11_5ysew")
+id = "dandara"
+nome_exibido = "Dandara Reis"
+estacao_do_aniversario = &"estiagem"
+dia_do_aniversario = 5
+itens_amados = Array[ExtResource("1_bjdfr")]([ExtResource("2_7qfcs"), ExtResource("3_n2llv")])
+itens_queridos = Array[ExtResource("1_bjdfr")]([ExtResource("6_hbje0"), ExtResource("7_t3ihj"), ExtResource("8_q45oi")])
+itens_indesejados = Array[ExtResource("1_bjdfr")]([ExtResource("4_5yefs")])
+itens_odiados = Array[ExtResource("1_bjdfr")]([ExtResource("5_f3ieg")])
+modelo = ExtResource("9_qqjin")
+casa = &"casa_dandara"
+rotina = Array[ExtResource("10_s3upv")]([SubResource("Resource_fp3kr"), SubResource("Resource_65jtl"), SubResource("Resource_ssvmc"), SubResource("Resource_y8t54"), SubResource("Resource_a8k4k")])
+eh_romanceavel = true

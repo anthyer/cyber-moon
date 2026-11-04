@@ -1,0 +1,283 @@
+[gd_resource type="Resource" script_class="Conversa" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/no_dialogo.gd" id="1_dwx7p"]
+[ext_resource type="Script" path="res://scripts/resources/conversa.gd" id="2_axkax"]
+
+[sub_resource type="Resource" id="Resource_a115u"]
+script = ExtResource("1_dwx7p")
+id = "lucia_1adc15d3"
+falante_id = "lucia"
+texto = "Bom dia. Lúcia Prado, do programa de expansão. Não vim incomodar, vim conhecer."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_ffddq"]
+script = ExtResource("1_dwx7p")
+id = "lucia_3257efef"
+falante_id = "lucia"
+texto = "Veja, eu entendo a desconfiança. Mas a cidade tem hospital a vinte minutos daqui. A vila tem a Iara."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_bw5bv"]
+script = ExtResource("1_dwx7p")
+id = "lucia_d62da5b9"
+falante_id = "lucia"
+texto = "Os números mostram que uma fazenda nessa terra fecha no vermelho em dois anos. Mas os números já erraram antes."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_qy8hf"]
+script = ExtResource("1_dwx7p")
+id = "lucia_e1d060d5"
+falante_id = "lucia"
+texto = "Eu venho toda semana, no mesmo ônibus. Pode me procurar se tiver dúvida sobre o programa."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_iycjf"]
+script = ExtResource("1_dwx7p")
+id = "lucia_d03b99f6"
+falante_id = "lucia"
+texto = "Com todo respeito, essa bomba solar não aguenta mais uma Estiagem. A cidade aguenta."
+relacionamento_maximo = 749
+
+[sub_resource type="Resource" id="Resource_s6dnj"]
+script = ExtResource("1_dwx7p")
+id = "lucia_e8aef980"
+falante_id = "lucia"
+texto = "Eu não sou daqui, mas sou de um lugar igual. Por isso me mandam pra cá. Dizem que eu falo a língua."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_v6nm4"]
+script = ExtResource("1_dwx7p")
+id = "lucia_e494af9e"
+falante_id = "lucia"
+texto = "Na cidade ninguém almoça na praça. Aqui eu almoço. Não conta no relatório."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_3j5i3"]
+script = ExtResource("1_dwx7p")
+id = "lucia_a674a506"
+falante_id = "lucia"
+texto = "A Marta me olha como se eu fosse a seca em pessoa. Eu respeito. Ela tá defendendo o que é dela."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_b5js4"]
+script = ExtResource("1_dwx7p")
+id = "lucia_9e408ffc"
+falante_id = "lucia"
+texto = "A adesão ao programa nesta vila é de zero por cento. É o pior indicador da fronteira. Eu acho isso, sinceramente, admirável."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_ilsjc"]
+script = ExtResource("1_dwx7p")
+id = "lucia_4b81263e"
+falante_id = "lucia"
+texto = "A sua fazenda é o único indicador que sobe por aqui. Isso me deixa curiosa. E preocupada, um pouco."
+relacionamento_minimo = 750
+relacionamento_maximo = 1499
+
+[sub_resource type="Resource" id="Resource_bamuk"]
+script = ExtResource("1_dwx7p")
+id = "lucia_8438bb30"
+falante_id = "lucia"
+texto = "Minha mãe morreu de uma infecção que o hospital da cidade curava em dois dias. A vila dela não tinha hospital. É por isso que eu faço o que faço."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_inq0g"]
+script = ExtResource("1_dwx7p")
+id = "lucia_33ac8f33"
+falante_id = "lucia"
+texto = "Eu trago no bolso um saquinho de semente de tomate da minha mãe. Nunca plantei. Não sei onde."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_xvtja"]
+script = ExtResource("1_dwx7p")
+id = "lucia_f1f6d95c"
+falante_id = "lucia"
+texto = "A Sol trabalhou comigo. Era a melhor. Eu não vou dizer mais nada sobre isso."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_8qkgu"]
+script = ExtResource("1_dwx7p")
+id = "lucia_f5af662f"
+falante_id = "lucia"
+texto = "Às vezes eu desço do ônibus e fico um minuto parada no ponto. Só respirando. Na cidade o ar é filtrado."
+relacionamento_minimo = 1500
+relacionamento_maximo = 2499
+
+[sub_resource type="Resource" id="Resource_vt23e"]
+script = ExtResource("1_dwx7p")
+id = "lucia_f25ec3ea"
+falante_id = "lucia"
+texto = "Eu sabia para onde a Sol tinha ido. Nunca escrevi no relatório. Ela não sabe disso."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_c5xhb"]
+script = ExtResource("1_dwx7p")
+id = "lucia_3801343b"
+falante_id = "lucia"
+texto = "Eu não sei mais o que estou entregando quando a cidade chega. Antes eu sabia. Antes eu tinha certeza."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_bgcxe"]
+script = ExtResource("1_dwx7p")
+id = "lucia_0acb28aa"
+falante_id = "lucia"
+texto = "Se eu sair do programa, mandam alguém que não almoça na praça. É por isso que eu fico. É o que eu digo pra mim."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_888tu"]
+script = ExtResource("1_dwx7p")
+id = "lucia_4f4d7e49"
+falante_id = "lucia"
+texto = "Toma. A semente da minha mãe. Planta na sua fazenda. Eu queria ver ela crescer em algum lugar."
+relacionamento_minimo = 2500
+
+[sub_resource type="Resource" id="Resource_4sl52"]
+script = ExtResource("1_dwx7p")
+id = "lucia_6d915019"
+falante_id = "lucia"
+texto = "A cidade chama a Brotação de \"trimestre de adesão\". Eu chamo de primavera, quando ninguém escuta."
+estacoes = Array[StringName]([&"brotacao"])
+
+[sub_resource type="Resource" id="Resource_21nqb"]
+script = ExtResource("1_dwx7p")
+id = "lucia_6db654d2"
+falante_id = "lucia"
+texto = "Na Estiagem eu uso a seca como argumento. Eu sei. Não me orgulho disso."
+estacoes = Array[StringName]([&"estiagem"])
+
+[sub_resource type="Resource" id="Resource_50jav"]
+script = ExtResource("1_dwx7p")
+id = "lucia_41f373d5"
+falante_id = "lucia"
+texto = "Na Colheita a vila fica bonita. Fica mais difícil escrever o relatório."
+estacoes = Array[StringName]([&"colheita"])
+
+[sub_resource type="Resource" id="Resource_bye0u"]
+script = ExtResource("1_dwx7p")
+id = "lucia_91ba4142"
+falante_id = "lucia"
+texto = "Na cidade dizem que o Apagão é \"ajuste de demanda\". Aqui é só escuro. Eu prefiro a palavra de vocês."
+estacoes = Array[StringName]([&"apagao"])
+
+[sub_resource type="Resource" id="Resource_nflqh"]
+script = ExtResource("1_dwx7p")
+id = "lucia_00c8a4b9"
+falante_id = "lucia"
+texto = "Bom dia. Você é a pessoa da fazenda nova? Lúcia Prado. Eu estava curiosa pra te conhecer. Profissionalmente, claro."
+situacoes = Array[StringName]([&"primeiro_encontro"])
+
+[sub_resource type="Resource" id="Resource_hexdo"]
+script = ExtResource("1_dwx7p")
+id = "lucia_804d954b"
+falante_id = "lucia"
+texto = "Faz tempo que não te vejo. Na cidade, quem some assim costuma ter mudado de endereço. Que bom que aqui não é a cidade."
+situacoes = Array[StringName]([&"sumido"])
+
+[sub_resource type="Resource" id="Resource_igg27"]
+script = ExtResource("1_dwx7p")
+id = "lucia_af9973ff"
+falante_id = "lucia"
+texto = "Você se machucou. Se quiser, eu consigo um encaminhamento pro hospital da cidade. Sem compromisso. Eu falo sério."
+situacoes = Array[StringName]([&"vida_baixa"])
+
+[sub_resource type="Resource" id="Resource_tm0n0"]
+script = ExtResource("1_dwx7p")
+id = "lucia_2bb9a3a5"
+falante_id = "lucia"
+texto = "Você esteve nas instalações antigas? Com todo respeito, aquilo é propriedade da corporação. E também é perigoso. Nessa ordem eu devia dizer, mas não é."
+situacoes = Array[StringName]([&"saiu_da_dungeon"])
+
+[sub_resource type="Resource" id="Resource_67ciu"]
+script = ExtResource("1_dwx7p")
+id = "lucia_c5069fa2"
+falante_id = "lucia"
+texto = "O ônibus atrasou com a chuva. Eu cheguei molhada e com o relatório borrado. Não conta pra ninguém."
+situacoes = Array[StringName]([&"chuva"])
+
+[sub_resource type="Resource" id="Resource_ydwr0"]
+script = ExtResource("1_dwx7p")
+id = "lucia_3bad0773"
+falante_id = "lucia"
+texto = "A Marta não me vende nada. Eu compro do mesmo jeito, deixando o dinheiro no balcão."
+situacoes = Array[StringName]([&"em:mercado"])
+
+[sub_resource type="Resource" id="Resource_uyr0l"]
+script = ExtResource("1_dwx7p")
+id = "lucia_afadc231"
+falante_id = "lucia"
+texto = "Eu almoço aqui toda semana. É a única hora que eu não sou fiscal."
+situacoes = Array[StringName]([&"em:praca"])
+
+[sub_resource type="Resource" id="Resource_7ahxg"]
+script = ExtResource("1_dwx7p")
+id = "lucia_db1f0228"
+falante_id = "lucia"
+texto = "O Vitor me olha como se eu fosse uma peça com defeito. Talvez eu seja."
+situacoes = Array[StringName]([&"em:oficina"])
+
+[sub_resource type="Resource" id="Resource_kq0bt"]
+script = ExtResource("1_dwx7p")
+id = "lucia_fa657802"
+falante_id = "lucia"
+texto = "É meu aniversário. Na cidade ninguém lembra. Eu nem sei por que estou contando."
+situacoes = Array[StringName]([&"aniversario"])
+
+[sub_resource type="Resource" id="Resource_off3v"]
+script = ExtResource("1_dwx7p")
+id = "lucia_0fbc8d76"
+falante_id = "lucia"
+texto = "Hoje é aniversário da Sol. Eu lembro. Eu sempre lembrei. Ela não precisa saber."
+relacionamento_minimo = 1500
+situacoes = Array[StringName]([&"aniversario_de:sol"])
+
+[sub_resource type="Resource" id="Resource_8bpgb"]
+script = ExtResource("1_dwx7p")
+id = "lucia_1bbd2938"
+falante_id = "lucia"
+texto = "Essa época me lembra da minha mãe. Ela colhia tomate de chapéu de palha. Eu achava aquilo pequeno. Não era."
+relacionamento_minimo = 1500
+estacoes = Array[StringName]([&"colheita"])
+
+[sub_resource type="Resource" id="Resource_1yc6r"]
+script = ExtResource("1_dwx7p")
+id = "lucia_d2144f11"
+falante_id = "lucia"
+texto = "Sua produção apareceu nos números da fronteira. Meu chefe perguntou quem é você. Eu disse que não sabia."
+situacoes = Array[StringName]([&"marco_1"])
+uma_vez = true
+
+[sub_resource type="Resource" id="Resource_8uyjp"]
+script = ExtResource("1_dwx7p")
+id = "lucia_abe60c23"
+falante_id = "lucia"
+texto = "Você virou um problema no meu relatório. Um problema bom. Eu escrevo isso com cuidado."
+situacoes = Array[StringName]([&"marco_2"])
+uma_vez = true
+
+[resource]
+script = ExtResource("2_axkax")
+id = &"lucia"
+npc_id = "lucia"
+nos = Array[ExtResource("1_dwx7p")]([SubResource("Resource_a115u"), SubResource("Resource_ffddq"), SubResource("Resource_bw5bv"), SubResource("Resource_qy8hf"), SubResource("Resource_iycjf"), SubResource("Resource_s6dnj"), SubResource("Resource_v6nm4"), SubResource("Resource_3j5i3"), SubResource("Resource_b5js4"), SubResource("Resource_ilsjc"), SubResource("Resource_bamuk"), SubResource("Resource_inq0g"), SubResource("Resource_xvtja"), SubResource("Resource_8qkgu"), SubResource("Resource_vt23e"), SubResource("Resource_c5xhb"), SubResource("Resource_bgcxe"), SubResource("Resource_888tu"), SubResource("Resource_4sl52"), SubResource("Resource_21nqb"), SubResource("Resource_50jav"), SubResource("Resource_bye0u"), SubResource("Resource_nflqh"), SubResource("Resource_hexdo"), SubResource("Resource_igg27"), SubResource("Resource_tm0n0"), SubResource("Resource_67ciu"), SubResource("Resource_ydwr0"), SubResource("Resource_uyr0l"), SubResource("Resource_7ahxg"), SubResource("Resource_kq0bt"), SubResource("Resource_off3v"), SubResource("Resource_8bpgb"), SubResource("Resource_1yc6r"), SubResource("Resource_8uyjp")])
+falas_de_evento = Dictionary[StringName, String]({
+&"amou": "Tomate. Do jeito que a minha mãe plantava. Obrigada. Desculpa, me dá um minuto.",
+&"aniversario": "Você lembrou. Na cidade, ninguém. Aqui, você. Eu não sei o que fazer com isso.",
+&"buque_ja_namorando": "Você já tem alguém. E essa pessoa não merece isso.",
+&"buque_nao_romanceavel": "Ah, que gentileza. Mas eu vou colocar num vaso e fingir que você não quis dizer nada com isso.",
+&"buque_poucos_coracoes": "Eu gosto de você, mas não desse jeito. Ainda não.",
+&"gostou": "Muito gentil. Obrigada, de verdade.",
+&"ja_presenteou": "Você já me deu uma coisa essa semana. Guarda pra próxima.",
+&"loja_fechada_folga": "Hoje é folga. Volta amanhã.",
+&"loja_fechada_horario": "Tô fechando. Aparece entre nove e seis.",
+&"nao_gostou": "Com todo respeito, eu não tenho onde guardar isso no ônibus.",
+&"neutro": "Obrigada. Vou levar comigo pra cidade.",
+&"odiou": "Biocombustível. Na cidade dizem que isso não existe. Eu prefiro não ter na mão a prova de que existe.",
+&"sem_credito": "Você não tem o suficiente. Não fio, e você sabe disso."
+})

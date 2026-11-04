@@ -300,6 +300,50 @@ exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota
 - Login com a conta Google, pedido do Antonio para o jogo final.
 - Publicar o jogo na Web (CloudFront na frente do bucket) e a sprint 5 inteira.
 
+### 2026-10-27, plano 30 (mais personagens)
+
+**Feito.** Doze moradores no tema (os seis antigos repintados e seis novos) e duas
+motoqueiras figurantes, com modelo editado no Blender, rotina, gostos, ficha e falas. O
+resumo está no fim do plano, seção "Revisão de 2026-10-27".
+
+**Decidido sem consultar, para o Antonio revisar:**
+
+- **A base de cada um:** Bento e Vitor são o mesmo careca de barba (o Bento de barba
+  branca e uniforme verde), Hélio é o de óculos e camisa branca, Dandara a de cabelo
+  comprido, Lúcia a de terninho, Téo o menino de mochila (em 80% do tamanho), Zeca o de
+  óculos. O Kenji continua no modelo de policial, repintado.
+- **Dias de visita:** a Lúcia vem no 3º dia da semana, das 9:00 às 17:00 (mercado, praça e
+  oficina do Vitor); o Zeca para no 4º dia, das 9:00 às 18:00, debaixo do viaduto. Na
+  tempestade nenhum dos dois vem.
+- **A loja do Zeca:** fio óptico, célula de energia e biocombustível desde o começo,
+  servomotor no marco 1 e núcleo sintético no marco 2. Ninguém mais vende esses itens.
+- **O Hélio não troca semente ainda.** As sementes nativas são do plano 27; até lá ele só
+  conversa e ganha presente.
+- **A família do Téo:** a mãe é a Yumi, irmã mais velha do Kenji, que trabalha em turno
+  numa fábrica da cidade. Entrou na ficha do Kenji.
+- **A figurante acena** quando o jogador interage, e não recebe presente ("Ela só acena de
+  volta.").
+- **Aniversários:** Bento 2 do Apagão, Hélio 18 da Brotação, Dandara 5 da Estiagem, Lúcia
+  11 da Colheita, Téo 25 da Brotação, Zeca 24 do Apagão. Nenhum cai no dia de outro.
+- **A Marta perdeu os halteres.** O modelo dela (`female_a`) segurava uma anilha em cada
+  mão desde o plano 14; o modelo novo não tem.
+
+**Mudanças no mapa (bug do plano 26):** o acampamento das motoqueiras estava sem caminho.
+O pasto do vizinho ficava em cima da trilha que vai da vila até lá, com a cerca fechando a
+passagem, e a oficina do Vitor tampava a boca dessa trilha. O pasto (com as vacas e a
+caixa d'água) desceu para o sul da trilha, a oficina recuou 2 para oeste, e a malha de
+navegação foi gerada de novo. Vale andar até o acampamento para conferir.
+
+**Fica para depois:**
+
+- **Cerca de 30 a 44 falas por personagem novo**, contra as cerca de 50 dos seis antigos.
+  As faixas, as estações, os presentes e as situações principais estão cobertos; falta
+  encorpar, depois da leitura do Antonio.
+- **O caminhão do Zeca e o ônibus da Lúcia** não existem: os dois aparecem e somem no
+  ponto, com uma poeira. Estão em `assets-pendentes.md`.
+- **A abertura com o Bento** é o plano 34. A ficha dele já está escrita para isso.
+- **As missões do Téo** são do plano 32.
+
 ### 2026-10-21, plano 18 (sprint 4) e plano 36 (login no jogo)
 
 **Feito.** O código Pulumi da sprint 4 (VPC, SES, Cognito e authorizer) já estava escrito

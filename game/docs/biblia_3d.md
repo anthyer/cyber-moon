@@ -29,6 +29,7 @@ o que importa é a silhueta e duas ou três cores, não o detalhe.
 | `kenney_cube_pets` | animais em cubo, com esqueleto | paleta própria | 1 |
 | `cyber_moon_dungeons` | cenário, objetos, inimigos e chefes das dungeons | paleta do industrial | 1 |
 | `cyber_moon_mundo` | deserto, vila, canal, viaduto, acampamento e fazenda | paleta do industrial | 1 |
+| `cyber_moon_personagens` | os moradores e as figurantes, editados da Kenney | paleta dos personagens, com as cores do tema | 1 |
 
 Cada pacote de cidade tem **a sua** `colormap.png`. Os arquivos têm o mesmo desenho
 geral, mas não são iguais: a UV de um modelo do pacote comercial aponta para outra cor
@@ -157,9 +158,16 @@ objetos da dungeon.
 
 Cabeça grande e quadrada, quase do tamanho do tronco; corpo curto; sem dedos, sem rosto
 modelado. Têm esqueleto e um conjunto de animações (`idle`, `walk`, `sprint`,
-`attack-melee-right`, `die` e outras). O jogo diferencia os personagens trocando o
-modelo e tingindo o material. **Não modelamos pessoa nova**: fazer o esqueleto e as
-animações à mão não compensa. Personagem novo é um dos 26 modelos do pacote.
+`attack-melee-right`, `die` e outras). **Não modelamos pessoa do zero**: fazer o
+esqueleto e as animações à mão não compensa. Personagem novo é um dos doze modelos do
+pacote, **editado** (plano 30): troca de cor de partes da roupa, do cabelo e da barba, e
+peças rígidas do tema presas a um osso (visor, capacete, óculos na testa, lenço,
+avental, ombreira, crachá). Os moradores ficam em `cyber_moon_personagens`, um arquivo
+`personagem_<id>.glb` por pessoa, e saem de `equipe/ferramentas/blender/modelos/personagens.py`.
+
+O tema nas pessoas: roupa de trabalho gasta (jeans, couro, verde militar, oliva, areia)
+e **um** detalhe aceso por personagem (o visor ciano do Kenji, a cruz verde da Iara, o
+crachá roxo da Lúcia, a lanterna amarela do Bento). Neon demais vira fantasia.
 
 ### Animais (cube pets)
 
@@ -354,6 +362,46 @@ original da Kenney nunca é alterado. A função importa o `.glb`, copia a malha
 - Vindo do **Nature Kit**: não há UV; passe um dicionário de material para cor
   (`{"leafs": "verde", "wood": "marrom"}`) (`arvore_em_vaso`, `canteiro_hidroponico`).
 
+### Editar uma pessoa
+
+Pessoa tem esqueleto, e por isso o caminho é outro: a classe `kit.Personagem` importa o
+modelo da Kenney inteiro (malha, esqueleto e as 32 animações) e edita em cima.
+
+```python
+def personagem_kenji():
+    p = kit.Personagem("personagem_kenji", "male_c")
+    p.trocar_cor("azul", "preto", parte="cabeca")   # o quepe vira gorro
+    p.trocar_cor("azul", "ardosia", parte="corpo")  # a farda vira jaqueta
+    p.peca("head", visor("neon_ciano"))             # um Modelo do kit, preso ao osso
+    return p
+```
+
+- **A paleta.** O pacote tem a paleta da Kenney com as duas linhas de cima preenchidas
+  (`kit.PALETA_DE_PERSONAGENS`, gerada por `kit.usar_paleta_de_personagens()`). Os doze
+  modelos só usam as linhas 2 e 3, então as cores novas (neon, couro, jeans, oliva,
+  areia) não mudam ninguém. Os acessórios usam a mesma paleta, e o personagem continua
+  com uma textura só.
+- **Trocar cor** move a UV da face de uma célula para a outra, na mesma posição dentro
+  dela: o degradê da Kenney continua igual na cor nova. Com `parte`, só a cabeça ou só o
+  corpo muda (o boné azul e a camisa azul são a mesma célula). Os olhos e a boca nunca
+  mudam (veja as dificuldades).
+- **Peça presa a um osso** entra na própria malha do personagem, com peso 1 num osso só.
+  Ela acompanha o osso inteiro, sem pintura de peso, e todas as animações continuam
+  valendo. A cabeça usa o osso `head`; tronco, ombro e pescoço usam o `torso`. Peça
+  abaixo da cintura atravessaria a perna andando: o avental da Marta para no tronco.
+- **Medidas** (em repouso, braços abertos): a frente do rosto em y = -0,16, os olhos em
+  x = +-0,072 e z = 0,49, a boca em z = 0,42, o pescoço em z = 0,34, o tronco de z = 0,18 a
+  0,37 com a frente em y = -0,11. A tira de óculos e lanterna tem 0,40 por 0,36.
+- **O que o modelo segura** (os halteres da `female_a`) sai com `tirar_da_mao(cores)`.
+- **Criança** é o modelo inteiro em escala (`escalar(0.8)`, o Téo).
+- **A foto** sai de frente e de costas, em repouso, em `~/.cache/cm_blender/personagens_de_frente.png`.
+
+Rodar sem abrir o Blender (o caminho tem de ser absoluto, por causa do flatpak):
+
+```
+flatpak run org.blender.Blender -b --python <repositorio>/equipe/ferramentas/blender/modelos/personagens.py
+```
+
 ## Montar um ambiente sem esconder o jogador
 
 A câmera fica atrás e acima do jogador (`deslocamento = Vector3(0, 5, 5)`), olhando do
@@ -456,10 +504,25 @@ Em ordem de quanto tempo custaram.
     do pacote precisa do script, como manda o `pipeline_de_assets.md`. Na dúvida:
     `grep -L post_import_kenney assets/models/*/*.glb.import`.
 
+25. **Animação renomeada para `idle.001`.** Importar o segundo personagem com o primeiro
+    ainda na cena faz o Blender renomear as ações repetidas, e o jogo procura o clipe
+    pelo nome. Depois de exportar cada personagem, o kit apaga as ações da cena.
+26. **Exportar aplicando modificador congela a pessoa.** O `export_apply` aplica o
+    modificador da armadura e desliga a pele do esqueleto. O personagem é exportado com
+    `export_apply=False` e as animações por ação (`export_animation_mode="ACTIONS"`).
+27. **O olho tem a cor do cabelo preto.** Olho, boca e cabelo escuro usam a mesma célula
+    da paleta; trocar a cor do cabelo apagava o rosto. O `trocar_cor` pula as faces do
+    plano da frente da cabeça, entre a boca e os olhos.
+28. **A `female_a` segura halteres.** A Marta usava esse modelo desde o plano 14, de
+    braços abertos com uma anilha e uma barra em cada mão. Saem com `tirar_da_mao`.
+29. **A foto no Godot por script.** O Godot também é flatpak, com um `/tmp` próprio: a
+    imagem tem de ir para `~/.cache/cm_blender/`. E o mundo só aparece com o `MapManager`
+    ativando ele (`Mapa.ativar`), senão fica invisível e parado.
+
 ## O que ainda não foi feito
 
-- O pacote próprio não tem pessoa nem animal. O plano 30 vai editar os personagens da
-  Kenney no Blender, mantendo o esqueleto.
+- O pacote próprio não tem animal.
+- O jogador ainda é o personagem do pacote Kenney, sem edição.
 - Não há modelo com transparência de verdade (vidro). O vidro da estufa é uma face
   `azul_palido` opaca, como as janelas dos prédios.
 - Os inimigos não têm animação de andar: deslizam, flutuam ou rodam. Para máquina com
