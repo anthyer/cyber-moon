@@ -23,6 +23,10 @@ const CULTURAS: Array[String] = ["beterraba", "repolho", "cenoura", "milho", "to
 const ARMAS: Array[String] = ["cestos", "foice_curva", "bastao_choque", "espadao_sucata", "escopeta_serrada"]
 const SUCATAS: Array[String] = ["sucata_metal", "placa_queimada", "celula_energia", "fio_optico", "servomotor", "nucleo_sintetico"]
 
+## O nome curto de cada fase da Lua, na ordem do enum RealWorldManager.FaseDaLua, para
+## os quatro botões caberem numa linha.
+const NOMES_CURTOS_DAS_FASES: Array[String] = ["Nova", "Crescente", "Cheia", "Minguante"]
+
 const COLUNAS_DO_SUBMENU_DE_ITENS: int = 6
 const TAMANHO_DO_BOTAO_DE_ITEM: Vector2 = Vector2(40.0, 40.0)
 const QUANTIDADE_COM_SHIFT: int = 10
@@ -44,6 +48,9 @@ var _rotulo_da_hora_do_slider: Label
 var _caixa_congelar: CheckBox
 var _caixa_invencivel: CheckBox
 var _caixa_sombra: CheckBox
+var _rotulo_da_origem_da_hora: Label
+var _rotulo_da_origem_do_clima: Label
+var _rotulo_da_origem_da_lua: Label
 var _segundos_ate_atualizar_quadros: float = 0.0
 
 func _ready() -> void:
@@ -56,12 +63,19 @@ func _ready() -> void:
 	DayCycleManager.hour_changed.connect(_ao_mudar_hora.unbind(1))
 	DayCycleManager.day_started.connect(_ao_mudar_hora.unbind(1))
 	_ao_mudar_hora()
+	RealWorldManager.real_weather_received.connect(_atualizar_mundo_real.unbind(1))
+	RealWorldManager.moon_phase_changed.connect(_atualizar_mundo_real.unbind(1))
+	WeatherManager.weather_changed.connect(_atualizar_mundo_real.unbind(1))
+	# O dia novo zera a origem do clima até a consulta do dia responder.
+	DayCycleManager.day_started.connect(_atualizar_mundo_real.unbind(1))
+	_atualizar_mundo_real()
 
 func _process(delta: float) -> void:
 	if InputManager.menu_debug_pressionado():
 		painel.visible = not painel.visible
 		if painel.visible:
 			_sincronizar_caixas()
+			_atualizar_mundo_real()
 	if rotulo_de_quadros.visible:
 		_segundos_ate_atualizar_quadros -= delta
 		if _segundos_ate_atualizar_quadros <= 0.0:
@@ -106,6 +120,18 @@ func _montar_secoes() -> void:
 	_novo_botao("Cair um raio agora", _cair_um_raio)
 	_caixa_congelar = _nova_caixa("Congelar relógio", _ao_marcar_congelar)
 	_novo_botao("Cair de sono agora", _cair_de_sono_agora)
+
+	_novo_titulo_de_secao("Mundo real")
+	_rotulo_da_origem_da_hora = _novo_rotulo("")
+	_rotulo_da_origem_do_clima = _novo_rotulo("")
+	_rotulo_da_origem_da_lua = _novo_rotulo("")
+	var fases: HBoxContainer = HBoxContainer.new()
+	for fase: RealWorldManager.FaseDaLua in RealWorldManager.FaseDaLua.values():
+		var botao_da_fase: Button = _novo_botao_solto(NOMES_CURTOS_DAS_FASES[fase], _forcar_fase.bind(fase))
+		botao_da_fase.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		fases.add_child(botao_da_fase)
+	lista.add_child(fases)
+	_novo_botao("Consultar de novo", _consultar_o_mundo_real_de_novo)
 
 	_novo_titulo_de_secao("Jogador")
 	_novo_botao("Vida cheia", _encher_vida)
@@ -241,6 +267,28 @@ func _pular_para_a_proxima_estacao() -> void:
 ## Pelo mesmo pedido que o quadro de calendário faz, para testar a tela de longe dele.
 func _abrir_o_calendario() -> void:
 	EventBus.calendar_requested.emit()
+
+# Mundo real
+
+## De onde veio cada dado do mundo de fora: da API ou da reserva (o sorteio do clima e a
+## conta local da Lua). Forçar uma fase pelos botões conta como conta local.
+func _atualizar_mundo_real() -> void:
+	var hora_lida: String = RealWorldManager.hora_real_lida
+	_rotulo_da_origem_da_hora.text = "Hora inicial: lida %s do relógio" % hora_lida if hora_lida != "" else "Hora inicial: ainda não sincronizada"
+	var origem_do_clima: String = "API" if RealWorldManager.clima_veio_da_api else "sorteio"
+	_rotulo_da_origem_do_clima.text = "Clima: %s (%s)" % [WeatherManager.perfil_atual().nome_exibido, origem_do_clima]
+	var origem_da_lua: String = "API" if RealWorldManager.fase_veio_da_api else "conta local"
+	_rotulo_da_origem_da_lua.text = "Lua: %s (%s)" % [RealWorldManager.nome_da_fase(), origem_da_lua]
+
+## Forçar a fase que já está não emite moon_phase_changed, mas a origem muda para conta
+## local, então o texto é refeito aqui também.
+func _forcar_fase(fase: RealWorldManager.FaseDaLua) -> void:
+	RealWorldManager.forcar_fase(fase)
+	_atualizar_mundo_real()
+
+func _consultar_o_mundo_real_de_novo() -> void:
+	RealWorldManager.consultar_clima()
+	RealWorldManager.consultar_fase_da_lua()
 
 # Aprimoramento
 
