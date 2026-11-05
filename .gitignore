@@ -11,3 +11,6 @@ game/_import/*.zip
 
 # Cache do Python dos scripts de ferramenta
 __pycache__/
+
+# Exportação do jogo para a Web (plano 18, tarefa 5.3). Gerada, não vai para o git.
+/build/

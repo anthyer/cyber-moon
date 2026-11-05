@@ -1,0 +1,77 @@
+name: Deploy do jogo (Web)
+
+# Plano 18, tarefa 5.3. Um push em game/ na main exporta o jogo para a Web e publica em
+# https://cyber-moon.negoci.online (o CloudFront na frente do bucket de builds).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "game/**"
+      - ".github/workflows/cd-jogo.yml"
+  # Permite rodar à mão pela aba Actions, sem precisar de um commit em game/.
+  workflow_dispatch:
+
+concurrency:
+  group: jogo-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  # A mesma versão do Godot que a equipe usa.
+  GODOT_VERSION: "4.7.2"
+  STACK: bombazaro-org/cybermoon/prod
+
+jobs:
+  build-and-deploy:
+    # Desligado até o ambiente prod, os segredos e a variável DEPLOY_LIGADO existirem.
+    if: vars.DEPLOY_LIGADO == 'true'
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: sa-east-1
+      - uses: pulumi/actions@v6
+
+      - name: Instalar o Godot e os templates de exportação
+        run: |
+          base="https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable"
+          wget -q "${base}/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q "Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          sudo mv "Godot_v${GODOT_VERSION}-stable_linux.x86_64" /usr/local/bin/godot
+          wget -q "${base}/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+          unzip -q "Godot_v${GODOT_VERSION}-stable_export_templates.tpz" -d /tmp/godot
+          templates="${HOME}/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
+          mkdir -p "${templates}"
+          mv /tmp/godot/templates/* "${templates}/"
+
+      # A pasta .godot não está no repositório. Sem importar antes, a exportação sai sem
+      # assets e sem o cache de classes (class_name).
+      - name: Importar os assets
+        run: godot --headless --path game --import
+
+      - name: Exportar para a Web
+        run: |
+          mkdir -p build/web
+          godot --headless --path game --export-release "Web" ../build/web/index.html
+          test -s build/web/index.pck
+
+      - name: Enviar para o S3 e limpar o cache do CloudFront
+        env:
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+        run: |
+          bucket=$(pulumi stack output builds_bucket_name --stack "$STACK" --cwd pulumi-start-aws)
+          distribution=$(pulumi stack output jogo_distribution_id --stack "$STACK" --cwd pulumi-start-aws)
+          # no-cache faz o navegador conferir a versão a cada visita, sem misturar um
+          # index.js novo com um .wasm ou .pck antigo.
+          aws s3 sync build/web/ "s3://${bucket}/" --delete --cache-control "no-cache" --exclude "*.wasm"
+          # O navegador só compila o .wasm em streaming com o tipo certo.
+          aws s3 sync build/web/ "s3://${bucket}/" --cache-control "no-cache" \
+            --exclude "*" --include "*.wasm" --content-type "application/wasm"
+          aws cloudfront create-invalidation --distribution-id "$distribution" --paths "/*"

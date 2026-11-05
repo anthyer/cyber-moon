@@ -579,3 +579,108 @@ if github_repository:
     )
     # Vai no segredo AWS_DEPLOY_ROLE_ARN do repositório.
     pulumi.export('github_deploy_role_arn', github_deploy_role.arn)
+
+# ---------------------------------------------------------------------------
+# Sprint 5: o jogo na Web (só em produção, onde há domínio)
+# ---------------------------------------------------------------------------
+
+if dns_zone is not None:
+    # O CloudFront só aceita certificado do ACM criado em us-east-1, qualquer que seja a
+    # região do resto da infraestrutura.
+    us_east_1 = aws.Provider('us-east-1', region='us-east-1')
+    certificate = aws.acm.Certificate(
+        'cybermoon-jogo-certificado',
+        domain_name=DOMAIN,
+        validation_method='DNS',
+        tags=common_tags,
+        opts=pulumi.ResourceOptions(provider=us_east_1),
+    )
+    # O ACM prova que o domínio é nosso pedindo um CNAME na zona.
+    certificate_record = route53.Record(
+        'cybermoon-jogo-certificado-validacao',
+        zone_id=dns_zone.zone_id,
+        name=certificate.domain_validation_options[0].resource_record_name,
+        type=certificate.domain_validation_options[0].resource_record_type,
+        records=[certificate.domain_validation_options[0].resource_record_value],
+        ttl=300,
+    )
+    validated_certificate = aws.acm.CertificateValidation(
+        'cybermoon-jogo-certificado-validado',
+        certificate_arn=certificate.arn,
+        validation_record_fqdns=[certificate_record.fqdn],
+        opts=pulumi.ResourceOptions(provider=us_east_1),
+    )
+
+    # O bucket continua privado. Só o CloudFront lê, assinando cada pedido ao S3 (OAC).
+    origin_access = aws.cloudfront.OriginAccessControl(
+        'cybermoon-jogo-oac',
+        origin_access_control_origin_type='s3',
+        signing_behavior='always',
+        signing_protocol='sigv4',
+    )
+    # Política de cache gerenciada pela AWS. O workflow do jogo invalida o cache a cada build.
+    caching_optimized = aws.cloudfront.get_cache_policy(name='Managed-CachingOptimized')
+    game_distribution = aws.cloudfront.Distribution(
+        'cybermoon-jogo',
+        enabled=True,
+        aliases=[DOMAIN],
+        default_root_object='index.html',
+        # Só a classe completa tem servidores na América do Sul, perto dos jogadores.
+        price_class='PriceClass_All',
+        origins=[{
+            'origin_id': 'builds',
+            'domain_name': builds_bucket.bucket_regional_domain_name,
+            'origin_access_control_id': origin_access.id,
+        }],
+        default_cache_behavior={
+            'target_origin_id': 'builds',
+            'viewer_protocol_policy': 'redirect-to-https',
+            'allowed_methods': ['GET', 'HEAD'],
+            'cached_methods': ['GET', 'HEAD'],
+            'cache_policy_id': caching_optimized.id,
+            'compress': True,
+        },
+        restrictions={'geo_restriction': {'restriction_type': 'none'}},
+        viewer_certificate={
+            'acm_certificate_arn': validated_certificate.certificate_arn,
+            'ssl_support_method': 'sni-only',
+            'minimum_protocol_version': 'TLSv1.2_2021',
+        },
+        tags=common_tags,
+    )
+
+    # Libera a leitura do bucket só para esta distribuição.
+    s3.BucketPolicy(
+        'cyber-moon-builds-cloudfront',
+        bucket=builds_bucket.id,
+        policy=pulumi.Output.all(builds_bucket.arn, game_distribution.arn).apply(
+            lambda arns: json.dumps({
+                'Version': '2012-10-17',
+                'Statement': [{
+                    'Effect': 'Allow',
+                    'Principal': {'Service': 'cloudfront.amazonaws.com'},
+                    'Action': 's3:GetObject',
+                    'Resource': f'{arns[0]}/*',
+                    'Condition': {'StringEquals': {'AWS:SourceArn': arns[1]}},
+                }],
+            })
+        ),
+        opts=pulumi.ResourceOptions(depends_on=[builds_bucket_public_access_block]),
+    )
+
+    # cyber-moon.negoci.online aponta para a distribuição.
+    route53.Record(
+        'cybermoon-jogo-dominio',
+        zone_id=dns_zone.zone_id,
+        name=DOMAIN,
+        type='A',
+        aliases=[{
+            'name': game_distribution.domain_name,
+            'zone_id': game_distribution.hosted_zone_id,
+            'evaluate_target_health': False,
+        }],
+    )
+
+    pulumi.export('jogo_url', f'https://{DOMAIN}')
+    # O workflow do jogo invalida o cache da distribuição depois de enviar um build novo.
+    pulumi.export('jogo_distribution_id', game_distribution.id)
