@@ -690,6 +690,14 @@ def handler(event, context):
 
 ### Tarefa 3.8: Verificação manual da sprint 3
 
+**Feita em 2026-11-04 no stack `prod`**, com `exigir_login` ligado. Os passos 2 a 7
+rodaram por um script com duas contas de teste (apagadas depois) e passaram os dez
+pontos: `bem_vindo`, `jogador_entrou`, chat nas duas, chat sem `entrar` ignorado,
+`jogador_saiu`, convite, aceite com os dois membros, `dungeon_iniciada`, a mensagem
+`sala` e `sala_encerrada` quando o anfitrião sai. Passo 8: duas janelas do jogo no mesmo
+computador, cada uma numa conta, entraram juntas na dungeon. Passo 9: um jogo parado
+ficou com a mesma conexão por 12 minutos e 42 segundos.
+
 Usar `wscat` (`npm install -g wscat`) ou `websocat`.
 
 1. `pulumi up` no stack `dev` sem erros, e `pulumi stack output wss_url` mostra um
@@ -1597,8 +1605,8 @@ jobs:
 Sprints 3 e 4. A sprint 5 tem verificação própria e fica para depois.
 
 - [x] `pulumi up` no stack `dev` sobe sem erro, com as três chaves desligadas.
-- [ ] Os passos 2 a 9 da tarefa 3.8 passam.
-- [ ] Dois jogos conversam no chat e jogam a dungeon juntos pela AWS.
+- [x] Os passos 2 a 9 da tarefa 3.8 passam (no `prod`, em 2026-11-04).
+- [x] Dois jogos conversam no chat e jogam a dungeon juntos pela AWS.
 - [x] Com `usar_vpc` ligado, o chat continua funcionando.
 - [x] Com `ses_remetente` definido, uma conta nova recebe o e-mail de boas-vindas (no `dev`
   cai no spam; no `prod`, com o domínio e o DKIM, chega na caixa de entrada: ver a tarefa 4.6).

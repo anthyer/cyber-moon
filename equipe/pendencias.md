@@ -300,6 +300,19 @@ exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota
 - Login com a conta Google, pedido do Antonio para o jogo final.
 - Publicar o jogo na Web (CloudFront na frente do bucket) e a sprint 5 inteira.
 
+### 2026-11-04, plano 18 (verificação de dois jogadores da sprint 3)
+
+**Feito no `prod`.** Os passos 2 a 9 da tarefa 3.8 passaram, e duas janelas do jogo
+jogaram a dungeon juntas. Detalhes na tarefa 3.8 do plano 18.
+
+- **Duas janelas no mesmo computador** dividem o `user://conta.cfg`. Cada uma guarda a
+  conta em memória, então dá para logar cada uma numa conta, mas o próximo jogo aberto
+  entra com a última conta logada. A segunda janela precisa de `-- --sem-save`, para não
+  gravar por cima do save da primeira.
+- **Depois de um pull com `class_name` nova**, o jogo pode falhar com `Could not find
+  type` até o cache de classes ser refeito. Aconteceu com o `ConfiguracaoMundoReal` do
+  plano 37. Resolve abrindo o editor ou rodando `godot --headless --path game --import`.
+
 ### 2026-11-04, plano 38 (cadastro sem e-mail)
 
 **Feito, a pedido do professor.** A conta é só nome de usuário e senha. O User Pool do
