@@ -330,10 +330,12 @@ Bernardo não é):
   `Cross-Origin-Opener-Policy` e `Cross-Origin-Embedder-Policy` numa response headers
   policy do CloudFront.
 
-**Achado no teste da Web (plano 37):** no navegador, o pedido do clima e o da fase da
-Lua dão timeout (`resultado 13`), e o jogo fica com a reserva. Uma chamada direta à
-Open-Meteo pelo mesmo navegador responde 200, então o problema está no pedido que o
-`RealWorldManager` monta (cabeçalho que dispara preflight de CORS, ou tempo limite curto).
+**Publicado em 2026-11-04** em `https://cyber-moon.negoci.online`, com o build exportado
+nesta máquina e enviado à mão (o deploy automático ainda espera a configuração acima).
+Conferido no navegador: o jogo carrega em uns 25 segundos (66 MB), o HTTP redireciona
+para HTTPS, o `.wasm` sai como `application/wasm`, o clima real carregou (chuva) e a
+conexão ao `prod` volta 401 sem conta, como esperado. Num teste local em
+`http://127.0.0.1`, o clima e a fase da Lua deram timeout; no site em HTTPS, não.
 
 ### 2026-11-04, plano 18 (verificação de dois jogadores da sprint 3)
 
