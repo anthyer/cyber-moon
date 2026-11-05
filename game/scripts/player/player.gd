@@ -668,25 +668,14 @@ func _tentar_subir_degrau(dir_plana_esperada: Vector3) -> void:
 
 # Save
 
-## Veste o jogador com o visual de um protagonista. Todos os modelos de gente saem do
-## mesmo esqueleto da Kenney, então basta trocar a malha e a pele de cada parte do corpo:
-## o nó Personagem e o AnimationPlayer continuam os mesmos, e quem guardou referência a
-## eles (ataque, passos, reação a dano, dungeon) não percebe a troca. Por isso dá para
-## vestir a qualquer momento, inclusive depois de o save carregar.
+## Veste o jogador com o visual de um protagonista. Só a malha muda (veja
+## PerfilProtagonista.vestir): o nó Personagem e o AnimationPlayer continuam os mesmos,
+## e quem guardou referência a eles (ataque, passos, reação a dano, dungeon) não percebe a
+## troca. Por isso dá para vestir a qualquer momento, inclusive depois de o save carregar.
 func vestir(perfil: PerfilProtagonista) -> void:
-	if perfil == null or perfil.modelo == null:
+	if perfil == null:
 		return
-	var modelo_novo: Node = perfil.modelo.instantiate()
-	var esqueleto_novo: Skeleton3D = modelo_novo.find_children("*", "Skeleton3D", true, false)[0]
-	var esqueleto_atual: Skeleton3D = personagem.find_children("*", "Skeleton3D", true, false)[0]
-	for parte_nova in esqueleto_novo.get_children():
-		var nova: MeshInstance3D = parte_nova as MeshInstance3D
-		var atual: MeshInstance3D = esqueleto_atual.get_node_or_null(NodePath(parte_nova.name)) as MeshInstance3D
-		if nova == null or atual == null:
-			continue
-		atual.mesh = nova.mesh
-		atual.skin = nova.skin
-	modelo_novo.free()
+	perfil.vestir(personagem)
 	perfil_protagonista = perfil
 
 ## Enquanto um visual não foi modelado, o perfil dele não existe, e o jogador fica com o

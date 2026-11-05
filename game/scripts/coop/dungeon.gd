@@ -157,6 +157,8 @@ func _enviar_o_jogador() -> void:
 		"p": [snappedf(local.x, 0.01), snappedf(local.y, 0.01), snappedf(local.z, 0.01)],
 		"g": snappedf(personagem.rotation.y, 0.01),
 		"a": String(animacao.current_animation),
+		# O visual escolhido (plano 39), para o outro jogo vestir o fantoche igual.
+		"v": String(jogador_local.get(&"perfil_protagonista").id) if jogador_local.get(&"perfil_protagonista") != null else "",
 	})
 
 func _enviar_os_inimigos() -> void:
@@ -186,7 +188,9 @@ func _ao_receber(de: String, tipo: String, campos: Dictionary) -> void:
 	match tipo:
 		"jogador":
 			var p: Array = campos["p"]
-			_remoto_de(de).aplicar_estado(to_global(Vector3(p[0], p[1], p[2])), campos["g"], StringName(campos["a"]))
+			var remoto: JogadorRemoto = _remoto_de(de)
+			remoto.aplicar_estado(to_global(Vector3(p[0], p[1], p[2])), campos["g"], StringName(campos["a"]))
+			remoto.vestir_pelo_id(StringName(campos.get("v", "")))
 		"inimigos":
 			if _sou_anfitriao:
 				return

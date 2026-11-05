@@ -60,6 +60,18 @@ func _physics_process(delta: float) -> void:
 	global_position = global_position.lerp(_posicao_alvo, peso)
 	_modelo.rotation.y = lerp_angle(_modelo.rotation.y, _giro_alvo, peso)
 
+## O visual que o outro jogador escolheu (plano 39). Chega junto de cada estado, e só é
+## vestido quando muda.
+var _visual: StringName = &""
+
+func vestir_pelo_id(id_do_perfil: StringName) -> void:
+	if id_do_perfil == &"" or id_do_perfil == _visual:
+		return
+	_visual = id_do_perfil
+	var perfil: PerfilProtagonista = PerfilProtagonista.carregar(id_do_perfil)
+	if perfil != null:
+		perfil.vestir(_modelo)
+
 func definir_nome(nome: String) -> void:
 	_rotulo_do_nome.text = nome
 

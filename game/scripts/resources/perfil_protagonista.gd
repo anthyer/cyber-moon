@@ -25,3 +25,22 @@ static func carregar(id_do_perfil: StringName) -> PerfilProtagonista:
 	if not ResourceLoader.exists(caminho):
 		return null
 	return load(caminho) as PerfilProtagonista
+
+## Veste um modelo de gente que já está na cena com este visual. Todos os modelos de gente
+## saem do mesmo esqueleto da Kenney, então basta trocar a malha e a pele de cada parte do
+## corpo: o nó do modelo e o AnimationPlayer dele continuam os mesmos, e quem guardou
+## referência a eles não percebe a troca.
+func vestir(modelo_na_cena: Node) -> void:
+	if modelo == null or modelo_na_cena == null:
+		return
+	var modelo_novo: Node = modelo.instantiate()
+	var esqueleto_novo: Skeleton3D = modelo_novo.find_children("*", "Skeleton3D", true, false)[0]
+	var esqueleto_atual: Skeleton3D = modelo_na_cena.find_children("*", "Skeleton3D", true, false)[0]
+	for parte_nova in esqueleto_novo.get_children():
+		var nova: MeshInstance3D = parte_nova as MeshInstance3D
+		var atual: MeshInstance3D = esqueleto_atual.get_node_or_null(NodePath(parte_nova.name)) as MeshInstance3D
+		if nova == null or atual == null:
+			continue
+		atual.mesh = nova.mesh
+		atual.skin = nova.skin
+	modelo_novo.free()
