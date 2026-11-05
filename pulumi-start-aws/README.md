@@ -100,3 +100,23 @@ uv pip install --target build/layer/python \
 | `salas_table` | Nome fisico da tabela de salas |
 | `cognito_user_pool_id` | ID do User Pool do Cognito |
 | `cognito_client_id` | ID do App Client do Cognito |
+## Testes, CI e o jogo na Web (sprint 5)
+
+Testes das Lambdas, com a AWS imitada pelo moto (não precisa de credencial):
+
+```bash
+uv run ruff check lambdas tests
+uv run pytest tests -v
+```
+
+No GitHub, `.github/workflows/ci.yml` roda os mesmos testes em todo pull request e push
+que mexe em `pulumi-start-aws/`, e depois faz o `pulumi up` do `prod`.
+`.github/workflows/cd-jogo.yml` exporta o jogo para a Web e publica em
+`https://cyber-moon.negoci.online`. Os dois deploys só rodam com o ambiente `prod`, os
+segredos e a variável `DEPLOY_LIGADO` configurados (ver `equipe/pendencias.md`).
+
+| Chave ou output | Para quê |
+|---|---|
+| `repositorio_github` | Cria o provedor OIDC e a role que o GitHub assume (`dono/nome`) |
+| `github_deploy_role_arn` | Vai no segredo `AWS_DEPLOY_ROLE_ARN` do repositório |
+| `jogo_url`, `jogo_distribution_id` | Endereço do jogo e a distribuição do CloudFront |

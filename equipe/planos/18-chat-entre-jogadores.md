@@ -1222,11 +1222,26 @@ Uma chave por vez, com `pulumi up` e teste entre uma e outra.
 
 ---
 
-## Sprint 5: Testes, CI e CD (a implementar futuramente)
+## Sprint 5: Testes, CI e CD
 
-**Não faz parte da entrega atual.** O texto abaixo está corrigido e pronto para quando a
-equipe decidir fazer. A tarefa 5.1 (testes locais) não depende das outras e pode ser
-adiantada a qualquer momento: ela ajuda a escrever as Lambdas da sprint 3.
+**Feita em 2026-11-04.** O que mudou em relação ao texto abaixo:
+
+- **5.1:** 29 testes em `pulumi-start-aws/tests/` (`test_rotas.py` cobre a lista abaixo,
+  `test_conta.py` cobre o gatilho de cadastro e o authorizer do plano 38).
+- **5.2:** o stack é `bombazaro-org/cybermoon/prod`, não `anthyer-ifsc`. A role do
+  GitHub e o provedor OIDC são criados pelo próprio Pulumi, com a chave
+  `repositorio_github` (`anthyer/cyber-moon` no `prod`), e saem como o output
+  `github_deploy_role_arn`. O deploy só roda com a variável de repositório
+  `DEPLOY_LIGADO` igual a `true`: sem ela, o primeiro push criaria o ambiente `prod` sem
+  aprovação. Decisão do Bernardo: a `main` **não** ganha proteção; o CI avisa, mas não
+  obriga pull request.
+- **5.3:** o jogo fica em `https://cyber-moon.negoci.online` (output `jogo_url`). O
+  preset `Web` sai sem threads (`variant/thread_support=false`), porque com threads o
+  navegador exige os cabeçalhos COOP e COEP. O workflow manda o `.wasm` com o tipo
+  `application/wasm`, invalida o cache do CloudFront e também roda à mão
+  (`workflow_dispatch`). A exportação foi testada nesta máquina: 66 MB, abre no
+  navegador, conecta ao `prod` e chama o Cognito sem erro de CORS.
+- **5.4:** ver a tarefa 5.4 abaixo.
 
 **Meta:** um push na `main` roda os testes das Lambdas e, se passarem, faz o deploy da
 infraestrutura. Um push em `game/` exporta o jogo para a Web e publica.
@@ -1567,6 +1582,11 @@ jobs:
 
 ### Tarefa 5.4: Verificação da sprint 5
 
+**Feito em 2026-11-04:** o primeiro push do `ci.yml` rodou o job `test` no GitHub com
+sucesso e pulou o `deploy` (a variável `DEPLOY_LIGADO` ainda não existe). O passo 2 não
+se aplica, porque a `main` ficou sem proteção. Os passos 3 e 4 dependem da configuração
+do repositório pelo Antonio (está em `equipe/pendencias.md`).
+
 1. Abrir um pull request mexendo em `pulumi-start-aws/`: o job `test` roda, e o `deploy`
    não.
 2. Quebrar um teste de propósito no pull request: o merge fica bloqueado.
@@ -1621,8 +1641,6 @@ Sprints 3 e 4. A sprint 5 tem verificação própria e fica para depois.
 - Histórico de mensagens e mensagem privada.
 - Moderação do chat.
 - Login com a conta Google (anotado em "Decisões desta revisão").
-- Testes automatizados, CI e CD (sprint 5, futura).
-- Publicação do jogo na Web com CloudFront (tarefa 5.3, futura).
 
 ## Resumo dos serviços AWS
 

@@ -300,6 +300,41 @@ exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota
 - Login com a conta Google, pedido do Antonio para o jogo final.
 - Publicar o jogo na Web (CloudFront na frente do bucket) e a sprint 5 inteira.
 
+### 2026-11-04, plano 18 (sprint 5: testes, CI e jogo na Web)
+
+**Feito:** testes das Lambdas (29, rodam no CI), workflow de CI e deploy
+(`.github/workflows/ci.yml`), preset `Web`, CloudFront com `cyber-moon.negoci.online` e
+workflow do jogo (`.github/workflows/cd-jogo.yml`). Detalhes e divergências no começo da
+sprint 5 do plano 18.
+
+**Antonio, para ligar o deploy automático** (precisa ser admin do repositório; o
+Bernardo não é):
+
+1. Settings, Environments: criar `prod` com "Required reviewers" (você e o Bernardo).
+2. Settings, Secrets and variables, Actions, dentro do ambiente `prod` ou do repositório:
+   - segredo `AWS_DEPLOY_ROLE_ARN`: o valor de
+     `pulumi stack output github_deploy_role_arn --stack bombazaro-org/prod`;
+   - segredo `PULUMI_ACCESS_TOKEN`: um token do Pulumi Cloud com acesso à organização
+     `bombazaro-org` (o Bernardo gera em app.pulumi.com, Personal access tokens);
+   - variável `DEPLOY_LIGADO` igual a `true`. Só depois dos dois itens acima.
+3. Testar: Actions, "Deploy do jogo (Web)", Run workflow. Aprovar no ambiente `prod`.
+
+**Decidido sem consultar:**
+
+- A role do GitHub é administradora da conta AWS, como o plano previa. O que segura é a
+  condição do OIDC (só jobs do ambiente `prod` de `anthyer/cyber-moon`) e a aprovação
+  manual.
+- Os workflows só rodam quando mudam os arquivos deles (`pulumi-start-aws/**` para o CI,
+  `game/**` para o jogo), para um commit de documentação não gastar minutos do Actions.
+- O jogo na Web sai sem threads. Se ficar lento, ligar threads pede os cabeçalhos
+  `Cross-Origin-Opener-Policy` e `Cross-Origin-Embedder-Policy` numa response headers
+  policy do CloudFront.
+
+**Achado no teste da Web (plano 37):** no navegador, o pedido do clima e o da fase da
+Lua dão timeout (`resultado 13`), e o jogo fica com a reserva. Uma chamada direta à
+Open-Meteo pelo mesmo navegador responde 200, então o problema está no pedido que o
+`RealWorldManager` monta (cabeçalho que dispara preflight de CORS, ou tempo limite curto).
+
 ### 2026-11-04, plano 18 (verificação de dois jogadores da sprint 3)
 
 **Feito no `prod`.** Os passos 2 a 9 da tarefa 3.8 passaram, e duas janelas do jogo
