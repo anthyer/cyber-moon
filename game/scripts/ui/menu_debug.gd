@@ -133,6 +133,15 @@ func _montar_secoes() -> void:
 	lista.add_child(fases)
 	_novo_botao("Consultar de novo", _consultar_o_mundo_real_de_novo)
 
+	_novo_titulo_de_secao("Protagonista")
+	# Um botão por visual já modelado (plano 39), lido da pasta e não de uma lista aqui.
+	for arquivo in DirAccess.get_files_at(PerfilProtagonista.PASTA):
+		var nome: String = arquivo.trim_suffix(".remap")
+		if nome.ends_with(".tres"):
+			var perfil: PerfilProtagonista = load(PerfilProtagonista.PASTA + nome) as PerfilProtagonista
+			if perfil != null:
+				_novo_botao("Vestir %s (tipo %d)" % [perfil.nome_do_visual, perfil.body_type], _vestir.bind(perfil))
+
 	_novo_titulo_de_secao("Jogador")
 	_novo_botao("Vida cheia", _encher_vida)
 	_novo_botao("Stamina cheia", _encher_stamina)
@@ -522,6 +531,11 @@ func _matar_todos_os_inimigos() -> void:
 		var inimigo: Inimigo = no as Inimigo
 		if inimigo != null and inimigo.esta_vivo():
 			inimigo.receber_dano(99999, jogador)
+
+func _vestir(perfil: PerfilProtagonista) -> void:
+	var jogador: Node3D = _jogador()
+	if jogador != null and jogador.has_method(&"vestir"):
+		jogador.call(&"vestir", perfil)
 
 ## A frente é para onde o modelo do jogador está virado, e não a frente do corpo, que
 ## não gira.

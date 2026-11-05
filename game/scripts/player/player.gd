@@ -51,6 +51,9 @@ const DISTANCIA_MINIMA_DA_MIRA_PELO_MOUSE: float = 0.3
 @onready var ataque: AtaqueDoJogador = $AtaqueDoJogador
 @onready var reacao_a_dano: ReacaoADano = $ReacaoADano
 
+## O visual escolhido (plano 39). Começa no padrão e é trocado ao carregar o jogo.
+var perfil_protagonista: PerfilProtagonista
+
 var _tempo_dash_restante: float = 0.0
 var _tempo_cooldown_restante: float = 0.0
 var _direcao_dash: Vector3 = Vector3.ZERO
@@ -82,6 +85,8 @@ func _ready() -> void:
 	# dos outros jogadores na dungeon em equipe.
 	add_to_group(&"alvos_de_inimigo")
 	add_to_group(SaveManager.GRUPO_DOS_SALVAVEIS)
+	# Jogo novo, sem escolha ainda (a tela de escolha é do plano 39): o visual padrão.
+	_vestir_pelo_id(PerfilProtagonista.ID_PADRAO)
 	StatusManager.player_fainted.connect(_ao_desmaiar)
 	StatusManager.player_woke_up.connect(_ao_acordar)
 	# O modelo na mão acompanha o item na mão, que muda ao trocar de slot e também ao
@@ -663,6 +668,34 @@ func _tentar_subir_degrau(dir_plana_esperada: Vector3) -> void:
 
 # Save
 
+## Veste o jogador com o visual de um protagonista. Todos os modelos de gente saem do
+## mesmo esqueleto da Kenney, então basta trocar a malha e a pele de cada parte do corpo:
+## o nó Personagem e o AnimationPlayer continuam os mesmos, e quem guardou referência a
+## eles (ataque, passos, reação a dano, dungeon) não percebe a troca. Por isso dá para
+## vestir a qualquer momento, inclusive depois de o save carregar.
+func vestir(perfil: PerfilProtagonista) -> void:
+	if perfil == null or perfil.modelo == null:
+		return
+	var modelo_novo: Node = perfil.modelo.instantiate()
+	var esqueleto_novo: Skeleton3D = modelo_novo.find_children("*", "Skeleton3D", true, false)[0]
+	var esqueleto_atual: Skeleton3D = personagem.find_children("*", "Skeleton3D", true, false)[0]
+	for parte_nova in esqueleto_novo.get_children():
+		var nova: MeshInstance3D = parte_nova as MeshInstance3D
+		var atual: MeshInstance3D = esqueleto_atual.get_node_or_null(NodePath(parte_nova.name)) as MeshInstance3D
+		if nova == null or atual == null:
+			continue
+		atual.mesh = nova.mesh
+		atual.skin = nova.skin
+	modelo_novo.free()
+	perfil_protagonista = perfil
+
+## Enquanto um visual não foi modelado, o perfil dele não existe, e o jogador fica com o
+## modelo que já está vestindo.
+func _vestir_pelo_id(id_do_perfil: StringName) -> void:
+	var perfil: PerfilProtagonista = PerfilProtagonista.carregar(id_do_perfil)
+	if perfil != null:
+		vestir(perfil)
+
 func chave_de_save() -> String:
 	return "jogador"
 
@@ -671,9 +704,12 @@ func chave_de_save() -> String:
 func exportar_estado() -> Dictionary:
 	if DungeonManager.esta_na_dungeon():
 		return {}
-	return {"posicao": [global_position.x, global_position.y, global_position.z], "giro": personagem.rotation.y}
+	return {"posicao": [global_position.x, global_position.y, global_position.z], "giro": personagem.rotation.y,
+		"protagonista": String(perfil_protagonista.id) if perfil_protagonista != null else ""}
 
 func importar_estado(dados: Dictionary) -> void:
+	# Save antigo, sem o campo, fica com o padrão.
+	_vestir_pelo_id(StringName(dados.get("protagonista", PerfilProtagonista.ID_PADRAO)))
 	if not dados.has("posicao"):
 		return
 	var p: Array = dados["posicao"]
