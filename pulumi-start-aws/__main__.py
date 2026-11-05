@@ -529,3 +529,53 @@ pulumi.export('wss_url', api_stage.invoke_url)
 
 # Exporta o nome físico do bucket, usado na hora de enviar os builds.
 pulumi.export('builds_bucket_name', builds_bucket.id)
+
+# ---------------------------------------------------------------------------
+# Sprint 5: role do GitHub Actions (chave repositorio_github)
+# ---------------------------------------------------------------------------
+
+# O repositório do GitHub que pode fazer deploy, no formato dono/nome. Sem a chave, não
+# há role: o deploy só sai da máquina de alguém com credencial da AWS.
+github_repository = config.get('repositorio_github')
+
+if github_repository:
+    # O GitHub prova quem é com um token OIDC, sem chave da AWS guardada no repositório.
+    # Só pode existir um provedor deste endereço por conta da AWS.
+    github_oidc = aws.iam.OpenIdConnectProvider(
+        'cybermoon-github-oidc',
+        url='https://token.actions.githubusercontent.com',
+        client_id_lists=['sts.amazonaws.com'],
+        tags=common_tags,
+        opts=pulumi.ResourceOptions(protect=True),
+    )
+    # A condição sub restringe a role aos jobs do ambiente prod deste repositório. O
+    # ambiente prod do GitHub pede aprovação manual antes de rodar.
+    github_deploy_role = aws.iam.Role(
+        'cybermoon-github-deploy',
+        assume_role_policy=github_oidc.arn.apply(lambda provider_arn: json.dumps({
+            'Version': '2012-10-17',
+            'Statement': [{
+                'Effect': 'Allow',
+                'Principal': {'Federated': provider_arn},
+                'Action': 'sts:AssumeRoleWithWebIdentity',
+                'Condition': {
+                    'StringEquals': {
+                        'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
+                        'token.actions.githubusercontent.com:sub':
+                            f'repo:{github_repository}:environment:prod',
+                    },
+                },
+            }],
+        })),
+        tags=common_tags,
+        opts=pulumi.ResourceOptions(protect=True),
+    )
+    # O pulumi up cria roles do IAM, então na prática esta role administra a conta. É por
+    # isso que a condição acima e a aprovação manual no GitHub importam.
+    aws.iam.RolePolicyAttachment(
+        'cybermoon-github-deploy-admin',
+        role=github_deploy_role.name,
+        policy_arn='arn:aws:iam::aws:policy/AdministratorAccess',
+    )
+    # Vai no segredo AWS_DEPLOY_ROLE_ARN do repositório.
+    pulumi.export('github_deploy_role_arn', github_deploy_role.arn)

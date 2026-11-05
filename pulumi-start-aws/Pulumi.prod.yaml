@@ -2,3 +2,4 @@ config:
   aws:region: sa-east-1
   cybermoon:ses_remetente: noreply@cyber-moon.negoci.online
   cybermoon:exigir_login: "true"
+  cybermoon:repositorio_github: anthyer/cyber-moon

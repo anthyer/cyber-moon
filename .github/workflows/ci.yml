@@ -1,0 +1,73 @@
+name: CI e deploy da infraestrutura
+
+# Plano 18, tarefa 5.2. Testa as Lambdas em todo pull request e push na main; o deploy
+# só sai depois dos testes passarem, num push na main, e espera aprovação no ambiente prod.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "pulumi-start-aws/**"
+      - ".github/workflows/ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "pulumi-start-aws/**"
+      - ".github/workflows/ci.yml"
+
+# Dois deploys ao mesmo tempo brigam pelo mesmo stack. O segundo espera o primeiro.
+concurrency:
+  group: infra-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pulumi-start-aws
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+      - name: Instalar dependências
+        run: uv sync
+      - name: Checar o código (ruff)
+        run: uv run ruff check lambdas tests
+      - name: Rodar os testes das Lambdas
+        run: uv run pytest tests -v --tb=short
+
+  deploy:
+    # Só roda depois dos testes passarem, só em push na main, e só depois que o ambiente
+    # prod, os segredos e a variável DEPLOY_LIGADO (igual a true) foram configurados no
+    # repositório. Sem a variável, o GitHub criaria o ambiente prod sozinho, sem aprovação.
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.DEPLOY_LIGADO == 'true'
+    runs-on: ubuntu-latest
+    # Ambiente do GitHub com aprovação manual: o deploy espera alguém liberar.
+    environment: prod
+    permissions:
+      id-token: write
+      contents: read
+    defaults:
+      run:
+        working-directory: pulumi-start-aws
+    env:
+      PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: sa-east-1
+      - uses: astral-sh/setup-uv@v4
+      - name: Instalar dependências
+        run: uv sync
+      # Sem o campo command, esta action só instala a CLI do Pulumi.
+      - uses: pulumi/actions@v6
+      - name: Construir a layer do authorizer
+        run: >
+          uv pip install --target build/layer/python
+          --python-platform x86_64-manylinux2014 --python-version 3.12
+          --only-binary :all: "pyjwt[crypto]"
+      - name: Deploy da infraestrutura
+        run: pulumi up --yes --stack bombazaro-org/cybermoon/prod
