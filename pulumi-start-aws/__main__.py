@@ -368,11 +368,17 @@ if ses_sender:
 # Sprint 4: Cognito (User Pool criado sempre; o authorizer só com exigir_login)
 # ---------------------------------------------------------------------------
 
+# Confere o nome de usuário e confirma a conta sozinha, porque o cadastro não pede e-mail
+# (plano 38). Não precisa de permissão extra: só lê o evento e devolve.
+signup_function = make_lambda('cadastro', 'cadastro', make_role('cadastro'))
+
 user_pool = aws.cognito.UserPool(
     'cybermoon-users',
-    # O jogador entra com o e-mail, e o Cognito confirma o e-mail com um código.
-    username_attributes=['email'],
-    auto_verified_attributes=['email'],
+    # O jogador entra com nome de usuário e senha, sem e-mail. O Cognito não aceita dois
+    # usernames iguais, e sem diferenciar maiúsculas "Ana" e "ana" contam como o mesmo.
+    # Atenção: mudar o username_configuration depois de criado recria o User Pool e apaga
+    # as contas.
+    username_configuration={'case_sensitive': False},
     password_policy={
         'minimum_length': 8,
         'require_lowercase': True,
@@ -380,17 +386,19 @@ user_pool = aws.cognito.UserPool(
         'require_symbols': False,
         'require_uppercase': False,
     },
-    # O nome que aparece no chat. No token ele vem como custom:nome.
-    # Atenção: mudar esta lista depois de criado recria o User Pool e apaga as contas.
-    schemas=[{
-        'name': 'nome',
-        'attribute_data_type': 'String',
-        'mutable': True,
-        'required': False,
-        'string_attribute_constraints': {'min_length': '1', 'max_length': '20'},
-    }],
-    lambda_config={'post_confirmation': welcome_function.arn} if welcome_function else None,
+    lambda_config={
+        'pre_sign_up': signup_function.arn,
+        'post_confirmation': welcome_function.arn if welcome_function else None,
+    },
     tags=common_tags,
+)
+
+aws.lambda_.Permission(
+    'cybermoon-perm-cadastro',
+    action='lambda:InvokeFunction',
+    function=signup_function.name,
+    principal='cognito-idp.amazonaws.com',
+    source_arn=user_pool.arn,
 )
 
 app_client = aws.cognito.UserPoolClient(

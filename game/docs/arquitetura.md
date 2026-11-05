@@ -585,12 +585,14 @@ nuvem não muda nada para quem desenvolve na própria máquina.
   canal de mensagens da sala (`enviar_para_a_sala` e o sinal `room_message`).
 - `InputManager.teclado_capturado`: ligado enquanto o jogador digita no chat ou mexe no
   lobby. Com ele, toda pergunta de gameplay responde que nada foi pressionado.
-- `AccountManager` (autoload, plano 36): a conta do jogador no Cognito da AWS. Cria,
-  confirma, entra, sai e renova o ID token, com POSTs ao Cognito (`HTTPRequest`). Guarda
-  o `RefreshToken` em `user://conta.cfg`, nunca a senha. Sinais `logged_in`,
-  `logged_out`, `sign_up_finished(email)`, `account_confirmed(email)`,
-  `confirmation_required(email)` e `request_failed(mensagem)`. Só existe login quando
-  `cognito_client_id` está preenchido na `ConfiguracaoDeRede`.
+- `AccountManager` (autoload, planos 36 e 38): a conta do jogador no Cognito da AWS, só
+  com nome de usuário e senha, sem e-mail. Cria (e já entra), entra, sai e renova o ID
+  token, com POSTs ao Cognito (`HTTPRequest`). O nome de usuário é único sem diferenciar
+  maiúsculas, segue o `PADRAO_DO_USUARIO` (o mesmo do gatilho de cadastro na AWS) e é o
+  nome no chat. Guarda o `RefreshToken` e o client id em `user://conta.cfg`, nunca a
+  senha; conta guardada de outro client id é descartada. Sinais `logged_in`,
+  `logged_out` e `request_failed(mensagem)`. Só existe login quando `cognito_client_id`
+  está preenchido na `ConfiguracaoDeRede`.
 - O `NetworkManager` pergunta o token ao `AccountManager` ao abrir a conexão e, se houver,
   acrescenta `?token=` ao endereço (o authorizer da AWS confere; o servidor local
   ignora). Token com mais de 50 minutos é renovado antes de abrir. Entrar ou sair da conta

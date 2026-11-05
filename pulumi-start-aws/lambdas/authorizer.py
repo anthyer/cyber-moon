@@ -29,5 +29,8 @@ def handler(event, context):
                 {'Action': 'execute-api:Invoke', 'Effect': 'Allow', 'Resource': event['methodArn']},
             ],
         },
-        'context': {'nome': claims.get('custom:nome', '')},
+        # O nome no chat é o nome de usuário da conta (plano 38). O cognito:username vem
+        # todo em minúsculas, porque o User Pool não diferencia maiúsculas; o
+        # preferred_username guarda o nome como o jogador digitou.
+        'context': {'nome': claims.get('preferred_username') or claims.get('cognito:username', '')},
     }

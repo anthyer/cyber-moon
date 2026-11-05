@@ -11,7 +11,8 @@ Provisiona com **Pulumi** (Python, uv) os recursos da AWS do chat WebSocket do j
   `convidar`, `responder_convite`, `sair_da_sala`, `iniciar_dungeon`, `sala`, `ping`)
 - Uma Lambda por rota, empacotadas com o `utils.py` compartilhado
 - Com `usar_vpc`: VPC privada com NAT e endpoint do DynamoDB
-- Com `ses_remetente`: e-mail de boas-vindas via SES apos cadastro no Cognito
+- User Pool do Cognito sempre criado: conta so com nome de usuario e senha, unico sem diferenciar maiusculas, confirmada pelo gatilho Pre sign-up (`lambdas/cadastro.py`, plano 38)
+- Com `ses_remetente`: verificacao do dominio no SES e e-mail de boas-vindas para conta com e-mail (desde o plano 38 o cadastro nao pede e-mail, entao nada e enviado)
 - Com `exigir_login`: User Pool do Cognito + authorizer JWT no `$connect`
 
 ## Criar o stack de desenvolvimento

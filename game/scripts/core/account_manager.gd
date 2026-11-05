@@ -1,6 +1,9 @@
 extends Node
 
-## A conta do jogador no Cognito da AWS: criar, confirmar, entrar, sair e renovar o token.
+## A conta do jogador no Cognito da AWS: criar, entrar, sair e renovar o token.
+##
+## A conta é só nome de usuário e senha, sem e-mail (plano 38). O Cognito não deixa dois
+## nomes iguais, sem diferenciar maiúsculas, e confirma a conta sozinho ao criar.
 ##
 ## O token serve para uma coisa só: o authorizer do API Gateway (plano 18) só aceita a
 ## conexão de quem manda um ID token válido. O NetworkManager pergunta o token a este
@@ -16,11 +19,6 @@ extends Node
 
 signal logged_in
 signal logged_out
-## A conta foi criada e o Cognito mandou o código de confirmação para o e-mail.
-signal sign_up_finished(email: String)
-signal account_confirmed(email: String)
-## Tentou entrar numa conta criada e ainda não confirmada. O código do e-mail vale 24 horas.
-signal confirmation_required(email: String)
 ## Uma operação falhou. A mensagem já vem em português, pronta para a tela.
 signal request_failed(mensagem: String)
 
@@ -29,22 +27,25 @@ const ARQUIVO_DA_CONTA: String = "user://conta.cfg"
 ## O ID token do Cognito vale 1 hora. Passados 50 minutos ele é renovado antes de abrir
 ## uma conexão nova, para não vencer no meio do caminho.
 const SEGUNDOS_ATE_RENOVAR: float = 50.0 * 60.0
+## A mesma regra do gatilho de cadastro na AWS (pulumi-start-aws/lambdas/cadastro.py):
+## de 3 a 20 caracteres, só letras sem acento, números e sublinhado.
+const PADRAO_DO_USUARIO: String = "^[A-Za-z0-9_]{3,20}$"
+const MENSAGEM_DE_NOME_INVALIDO: String = "Nome de usuário: de 3 a 20 letras sem acento, números ou _."
 ## Os erros do Cognito que um jogador consegue causar, no campo __type da resposta.
 const MENSAGENS_DE_ERRO: Dictionary[String, String] = {
-	"UsernameExistsException": "Já existe uma conta com esse e-mail.",
-	"UserNotFoundException": "Não existe conta com esse e-mail.",
-	"NotAuthorizedException": "E-mail ou senha errados.",
-	"UserNotConfirmedException": "Conta ainda não confirmada. Digite o código do e-mail.",
-	"CodeMismatchException": "Código errado.",
-	"ExpiredCodeException": "O código venceu. Crie a conta de novo para receber outro.",
+	"UsernameExistsException": "Esse nome de usuário já está em uso. Escolha outro.",
+	"UserNotFoundException": "Não existe conta com esse nome de usuário.",
+	"NotAuthorizedException": "Usuário ou senha errados.",
 	"InvalidPasswordException": "Senha fraca: pelo menos 8 caracteres, com letras minúsculas e números.",
-	"InvalidParameterException": "Algum campo está inválido. Confira o e-mail e o nome.",
+	"InvalidParameterException": "Algum campo está inválido. Confira o nome de usuário e a senha.",
+	# O gatilho de cadastro da AWS recusou o nome (plano 38).
+	"UserLambdaValidationException": MENSAGEM_DE_NOME_INVALIDO,
 	"TooManyRequestsException": "Muitas tentativas. Espere um pouco e tente de novo.",
 	"LimitExceededException": "Muitas tentativas. Espere um pouco e tente de novo.",
 }
 
+## O nome de usuário da conta, que é também o nome no chat.
 var nome_da_conta: String = ""
-var email_da_conta: String = ""
 ## Verdadeiro enquanto uma requisição está no ar. As telas desabilitam os botões.
 var ocupado: bool = false
 
@@ -81,40 +82,38 @@ func token_vencendo() -> bool:
 		return false
 	return Time.get_unix_time_from_system() - _recebido_em >= SEGUNDOS_ATE_RENOVAR
 
-func criar_conta(email: String, senha: String, nome: String) -> void:
+## Confere o nome antes de mandar, com a mesma regra da AWS, para a mensagem sair na hora.
+func nome_de_usuario_valido(usuario: String) -> bool:
+	var padrao: RegEx = RegEx.create_from_string(PADRAO_DO_USUARIO)
+	return padrao.search(usuario) != null
+
+## Cria a conta e já entra nela. Se o nome estiver em uso, o Cognito responde
+## UsernameExistsException e a mensagem sai pelo request_failed.
+func criar_conta(usuario: String, senha: String) -> void:
+	if not nome_de_usuario_valido(usuario):
+		request_failed.emit(MENSAGEM_DE_NOME_INVALIDO)
+		return
 	var resposta: Dictionary = await _chamar("SignUp", {
 		"ClientId": _configuracao.cognito_client_id,
-		"Username": email,
+		"Username": usuario,
 		"Password": senha,
-		"UserAttributes": [{"Name": "custom:nome", "Value": nome}],
+		# O Cognito guarda o username em minúsculas. Este atributo guarda o nome como o
+		# jogador digitou, para o chat mostrar "Ana" e não "ana".
+		"UserAttributes": [{"Name": "preferred_username", "Value": usuario}],
 	})
 	if resposta.has("__ok"):
-		sign_up_finished.emit(email)
+		await entrar(usuario, senha)
 
-func confirmar_conta(email: String, codigo: String) -> void:
-	var resposta: Dictionary = await _chamar("ConfirmSignUp", {
-		"ClientId": _configuracao.cognito_client_id,
-		"Username": email,
-		"ConfirmationCode": codigo,
-	})
-	# A resposta de sucesso do ConfirmSignUp é um objeto vazio. Quem diz que deu certo é
-	# a marca que _chamar acrescenta.
-	if resposta.has("__ok"):
-		account_confirmed.emit(email)
-
-func entrar(email: String, senha: String) -> void:
+func entrar(usuario: String, senha: String) -> void:
 	var resposta: Dictionary = await _chamar("InitiateAuth", {
 		"ClientId": _configuracao.cognito_client_id,
 		"AuthFlow": "USER_PASSWORD_AUTH",
-		"AuthParameters": {"USERNAME": email, "PASSWORD": senha},
+		"AuthParameters": {"USERNAME": usuario, "PASSWORD": senha},
 	})
 	if not resposta.has("AuthenticationResult"):
-		if resposta.get("__type", "") == "UserNotConfirmedException":
-			confirmation_required.emit(email)
 		return
 	var resultado: Dictionary = resposta["AuthenticationResult"]
 	_refresh_token = resultado["RefreshToken"]
-	email_da_conta = email
 	_guardar_id_token(resultado["IdToken"])
 	_salvar_conta()
 	logged_in.emit()
@@ -124,7 +123,6 @@ func sair() -> void:
 	_refresh_token = ""
 	_recebido_em = 0.0
 	nome_da_conta = ""
-	email_da_conta = ""
 	DirAccess.remove_absolute(ARQUIVO_DA_CONTA)
 	logged_out.emit()
 
@@ -198,24 +196,32 @@ func _guardar_id_token(token: String) -> void:
 		meio += "="
 	var dados: Variant = JSON.parse_string(Marshalls.base64_to_raw(meio).get_string_from_utf8())
 	if dados is Dictionary:
-		nome_da_conta = (dados as Dictionary).get("custom:nome", "")
-		email_da_conta = (dados as Dictionary).get("email", email_da_conta)
+		# Sem e-mail no cadastro (plano 38), o nome da conta é o nome de usuário, como o
+		# jogador digitou (preferred_username). O cognito:username vem em minúsculas.
+		var conta: Dictionary = dados
+		nome_da_conta = conta.get("preferred_username", conta.get("cognito:username", ""))
 
 func _salvar_conta() -> void:
 	var arquivo: ConfigFile = ConfigFile.new()
-	arquivo.set_value("conta", "email", email_da_conta)
 	arquivo.set_value("conta", "nome", nome_da_conta)
+	# O RefreshToken só vale no cliente que o deu. Guardar o cliente junto permite
+	# descartar a conta quando o jogo passa a apontar para outro User Pool.
+	arquivo.set_value("conta", "cliente", _configuracao.cognito_client_id)
 	arquivo.set_value("conta", "refresh_token", _refresh_token)
 	arquivo.save(ARQUIVO_DA_CONTA)
 
 ## Só lê o que ficou guardado. O ID token não é guardado: _recebido_em fica zero, então
 ## token_vencendo() responde que sim, e a primeira conexão renova antes de abrir.
+## Conta guardada de outro cliente (outro stack, ou um User Pool recriado) é descartada:
+## o RefreshToken dela não vale aqui, e sem isso o jogo tentaria renovar para sempre.
 func _carregar_conta() -> void:
 	if not login_disponivel():
 		return
 	var arquivo: ConfigFile = ConfigFile.new()
 	if arquivo.load(ARQUIVO_DA_CONTA) != OK:
 		return
-	email_da_conta = arquivo.get_value("conta", "email", "")
+	if arquivo.get_value("conta", "cliente", "") != _configuracao.cognito_client_id:
+		DirAccess.remove_absolute(ARQUIVO_DA_CONTA)
+		return
 	nome_da_conta = arquivo.get_value("conta", "nome", "")
 	_refresh_token = arquivo.get_value("conta", "refresh_token", "")

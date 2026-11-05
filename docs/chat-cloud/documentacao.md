@@ -14,10 +14,12 @@ O **CyberMoon Chat** e um sistema de comunicacao em tempo real integrado ao jogo
 
 ## 1. Requisitos Funcionais
 
+RF01 e RF02 mudaram em 2026-11-04 a pedido do professor: o cadastro deixou de pedir e-mail (plano 38).
+
 | ID | Requisito |
 |----|-----------|
-| RF01 | O sistema deve permitir que o jogador se cadastre com e-mail e senha. |
-| RF02 | O sistema deve autenticar o jogador via e-mail e senha antes de acessar o chat. |
+| RF01 | O sistema deve permitir que o jogador se cadastre com nome de usuario e senha, sem e-mail. O nome de usuario e unico (sem diferenciar maiusculas) e e o nome do jogador no chat. |
+| RF02 | O sistema deve autenticar o jogador via nome de usuario e senha antes de acessar o chat. |
 | RF03 | O sistema deve estabelecer uma conexao WebSocket persistente entre o cliente e o servidor ao abrir o chat. |
 | RF04 | O sistema deve permitir que o jogador envie mensagens para o chat global, visivel a todos os jogadores conectados. |
 | RF05 | O sistema deve permitir que o jogador envie mensagens privadas para outro jogador especifico. |
@@ -73,8 +75,8 @@ O **CyberMoon Chat** e um sistema de comunicacao em tempo real integrado ao jogo
 |-------|-----------|
 | **Ator** | Jogador |
 | **Pre-condicao** | O jogador nao possui conta no sistema. |
-| **Fluxo Principal** | 1. Jogador acessa a tela de cadastro. 2. Informa username, e-mail e senha. 3. Sistema valida unicidade. 4. Cognito cria a conta. 5. Lambda cria perfil no DynamoDB. 6. Sistema exibe mensagem de sucesso. |
-| **Fluxo Alternativo** | 3a. Username ou e-mail ja cadastrado -> sistema exibe mensagem de erro. |
+| **Fluxo Principal** | 1. Jogador acessa a tela de cadastro. 2. Informa nome de usuario e senha. 3. Sistema valida o formato do nome (3 a 20 letras sem acento, numeros ou _) e a unicidade. 4. Cognito cria a conta ja confirmada, sem codigo por e-mail. 5. Lambda cria perfil no DynamoDB. 6. Sistema exibe mensagem de sucesso. |
+| **Fluxo Alternativo** | 3a. Nome de usuario ja cadastrado -> sistema exibe mensagem de erro; 3b. Nome fora do formato -> sistema exibe a regra do nome. |
 | **Pos-condicao** | Conta criada; jogador pode fazer login. |
 
 ---
@@ -85,7 +87,7 @@ O **CyberMoon Chat** e um sistema de comunicacao em tempo real integrado ao jogo
 |-------|-----------|
 | **Ator** | Jogador |
 | **Pre-condicao** | O jogador possui conta cadastrada. |
-| **Fluxo Principal** | 1. Jogador informa e-mail e senha. 2. Sistema envia credenciais ao Amazon Cognito via API Gateway. 3. Cognito valida e retorna Token JWT. 4. Token e armazenado na sessao do cliente. 5. Jogador e redirecionado a tela principal. |
+| **Fluxo Principal** | 1. Jogador informa nome de usuario e senha. 2. Sistema envia credenciais ao Amazon Cognito via API Gateway. 3. Cognito valida e retorna Token JWT. 4. Token e armazenado na sessao do cliente. 5. Jogador e redirecionado a tela principal. |
 | **Fluxo Alternativo** | 3a. Credenciais invalidas -> exibir mensagem de erro; 3b. Conta banida -> exibir aviso e bloquear acesso. |
 | **Pos-condicao** | Jogador autenticado com token JWT valido. |
 

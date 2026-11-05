@@ -6,7 +6,7 @@ a chave `exigir_login` não pode ser ligada no stack que o jogo usa.
 
 **Depende de:** 18 (sprint 4, o User Pool e o authorizer) e 21 (o `NetworkManager`).
 
-**Situação:** feito em 2026-10-21.
+**Situação:** feito em 2026-10-21. Em 2026-11-04 o plano 38 tirou o e-mail e o código de confirmação: a conta é só nome de usuário e senha.
 
 ## O que o plano 18 pede (tarefa 4.5)
 

@@ -43,6 +43,7 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 35 Giro automático no golpe: virar para o inimigo mais perto no cone da frente
 - [x] 36 Login no jogo com a conta do Cognito (tarefa 4.5 do plano 18)
 - [x] 37 Mundo real: hora inicial do relógio do computador, clima pela Open-Meteo e fase da Lua
+- [x] 38 Cadastro só com nome de usuário e senha, sem e-mail (pedido do professor; muda o 36 e o User Pool do 18)
 - [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
 
 ## Por que essa ordem

@@ -58,7 +58,7 @@ custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.66, 0.8, 1)
 theme_override_font_sizes/font_size = 13
-text = "Com conta, o seu nome no chat e no lobby é o da conta."
+text = "Com conta, o seu nome no chat e no lobby é o nome de usuário. Para criar, escolha um nome que ninguém usa ainda."
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -70,22 +70,17 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="CampoEmail" type="LineEdit" parent="Centro/Painel/Linhas/FormularioDeEntrada"]
+[node name="CampoUsuario" type="LineEdit" parent="Centro/Painel/Linhas/FormularioDeEntrada"]
 unique_name_in_owner = true
 layout_mode = 2
-placeholder_text = "E-mail"
+placeholder_text = "Nome de usuário"
+max_length = 20
 
 [node name="CampoSenha" type="LineEdit" parent="Centro/Painel/Linhas/FormularioDeEntrada"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Senha"
 secret = true
-
-[node name="CampoNome" type="LineEdit" parent="Centro/Painel/Linhas/FormularioDeEntrada"]
-unique_name_in_owner = true
-layout_mode = 2
-placeholder_text = "Nome no chat (só para criar conta)"
-max_length = 20
 
 [node name="Botoes" type="HBoxContainer" parent="Centro/Painel/Linhas/FormularioDeEntrada"]
 layout_mode = 2
@@ -101,33 +96,6 @@ text = "Entrar"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Criar conta"
-
-[node name="FormularioDeCodigo" type="VBoxContainer" parent="Centro/Painel/Linhas"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="RotuloDoCodigo" type="Label" parent="Centro/Painel/Linhas/FormularioDeCodigo"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(340, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 14
-text = "Digite o código que chegou no e-mail"
-autowrap_mode = 3
-
-[node name="CampoCodigo" type="LineEdit" parent="Centro/Painel/Linhas/FormularioDeCodigo"]
-unique_name_in_owner = true
-layout_mode = 2
-placeholder_text = "Código"
-max_length = 10
-
-[node name="BotaoConfirmar" type="Button" parent="Centro/Painel/Linhas/FormularioDeCodigo"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Confirmar"
 
 [node name="PainelLogado" type="VBoxContainer" parent="Centro/Painel/Linhas"]
 unique_name_in_owner = true

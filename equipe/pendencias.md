@@ -300,6 +300,33 @@ exportado para a Web. O servidor local e o `testar_protocolo.py` conhecem a rota
 - Login com a conta Google, pedido do Antonio para o jogo final.
 - Publicar o jogo na Web (CloudFront na frente do bucket) e a sprint 5 inteira.
 
+### 2026-11-04, plano 38 (cadastro sem e-mail)
+
+**Feito, a pedido do professor.** A conta é só nome de usuário e senha. O User Pool do
+`prod` foi recriado (`sa-east-1_HsjraqTwy`, client `7ib0mqlkoj1h89bt5990c1ckap`), e as
+contas antigas sumiram. RF01, RF02, UC01 e UC02 de `docs/chat-cloud/documentacao.md`
+foram atualizados.
+
+**Testado no `prod`:** criar `TesteAna` devolve a conta já confirmada; `testeana` devolve
+`UsernameExistsException`; `ab` é recusado pelo gatilho de cadastro; nome com espaço é
+recusado pelo próprio Cognito; entrar como `testeANA` funciona; a conexão com o token
+entra com o nome da conta, não com o que o jogo manda. A conta de teste foi apagada.
+
+**Falta o deploy do nome com maiúsculas.** O Cognito guarda o username em minúsculas, e
+o chat mostrava `testeana`. O jogo agora manda o nome digitado em `preferred_username`
+e o authorizer lê esse atributo primeiro, mas a Lambda do authorizer só muda com um
+`pulumi up` no `prod`, que ainda não rodou. Antes dele, o nome no chat sai em minúsculas.
+
+**Decidido sem consultar:**
+
+- Nome de 3 a 20 caracteres, só letras sem acento, números e `_`. A mesma regra no jogo
+  (`PADRAO_DO_USUARIO`) e no gatilho (`lambdas/cadastro.py`).
+- A chave `ses_remetente` continua ligada no `prod`, sem enviar nada: tirar a chave
+  apagaria a verificação do domínio e o DKIM.
+- Sem e-mail não há recuperação de senha. Quem esquecer cria outra conta.
+- O `conta.cfg` guarda o client id; conta guardada de outro User Pool é descartada ao
+  abrir o jogo.
+
 ### 2026-10-27, plano 30 (mais personagens)
 
 **Feito.** Doze moradores no tema (os seis antigos repintados e seis novos) e duas

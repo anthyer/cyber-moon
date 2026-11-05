@@ -11,7 +11,10 @@ ses = boto3.client('ses')
 
 def handler(event, context):
     attributes = event['request']['userAttributes']
-    name = attributes.get('custom:nome', 'Jogador')
+    # Desde o plano 38 o cadastro não pede e-mail. Conta sem e-mail não recebe nada.
+    if 'email' not in attributes:
+        return event
+    name = event['userName']
     text = (
         f'Olá, {name}!\n\n'
         'Sua conta no Cyber Moon foi criada.\n'
