@@ -312,10 +312,10 @@ foram atualizados.
 recusado pelo próprio Cognito; entrar como `testeANA` funciona; a conexão com o token
 entra com o nome da conta, não com o que o jogo manda. A conta de teste foi apagada.
 
-**Falta o deploy do nome com maiúsculas.** O Cognito guarda o username em minúsculas, e
-o chat mostrava `testeana`. O jogo agora manda o nome digitado em `preferred_username`
-e o authorizer lê esse atributo primeiro, mas a Lambda do authorizer só muda com um
-`pulumi up` no `prod`, que ainda não rodou. Antes dele, o nome no chat sai em minúsculas.
+**Nome com maiúsculas:** o Cognito guarda o username em minúsculas, então o jogo manda o
+nome digitado também em `preferred_username`, e o authorizer lê esse atributo primeiro.
+Conferido no `prod`: a conta `TesteAna`, entrando como `testeana`, aparece no chat como
+`TesteAna`.
 
 **Decidido sem consultar:**
 
