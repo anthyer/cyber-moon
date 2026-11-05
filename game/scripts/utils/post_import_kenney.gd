@@ -39,6 +39,8 @@ const TRECHOS_SEM_COLISAO: Array[String] = [
 	# Pacote cyber_moon_personagens: os moradores editados, pelo mesmo motivo do
 	# "character" acima.
 	"personagem_",
+	# Os protagonistas que o jogador escolhe (plano 39), no mesmo pacote e pelo mesmo motivo.
+	"protagonista_",
 ]
 
 ## Peças planas de chão (estrada, calçada, caminho de pedra, piso). Elas não projetam

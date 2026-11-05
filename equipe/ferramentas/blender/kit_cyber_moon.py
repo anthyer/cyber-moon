@@ -612,8 +612,9 @@ PALETA_DE_PERSONAGENS = {
     "oliva": (5, 0),
     "areia": (6, 0),
     "couro": (7, 0),
-    # Linha 1: a primeira célula já vem da Kenney; as outras são novas.
-    "rosa_choque": (0, 1),
+    # Linha 1: cores novas. A primeira célula vinha da Kenney com um rosa que nenhum dos
+    # doze modelos usa (medido face a face) e virou o verde-broto do jogador.
+    "verde_broto": (0, 1),
     "preto": (1, 1),
     "jeans": (2, 1),
     "ferrugem": (3, 1),
@@ -644,6 +645,10 @@ PALETA_DE_PERSONAGENS = {
 # As cores novas, em RGB de 0 a 255. O fim do degradê (embaixo da célula) é a mesma cor
 # mais escura e um pouco mais fria, como nas células da Kenney.
 CORES_NOVAS_DOS_PERSONAGENS = {
+    # O neon reservado ao jogador: o verde da planta que nasce. Fica longe, no tom, do
+    # neon_verde da cruz da Iara (que puxa para o amarelo) e do neon_ciano do Kenji (que
+    # puxa para o azul). Nenhum morador usa esta célula.
+    "verde_broto": (20, 255, 120),
     "neon_ciano": (40, 226, 255),
     "neon_magenta": (255, 52, 182),
     "neon_verde": (130, 255, 96),
@@ -802,6 +807,34 @@ class Personagem:
         malha.to_mesh(objeto.data)
         malha.free()
 
+    def apagar_cor(self, cores, parte):
+        """Apaga da `parte` (`"corpo"` ou `"cabeca"`) toda face pintada com uma das `cores`.
+
+        Serve para tirar um acessório que o modelo da Kenney já traz e que é a marca de
+        outra pessoa, como os óculos da `male_e`, que são do Hélio. Os olhos e a boca nunca
+        saem, pelo mesmo motivo do `trocar_cor`.
+        """
+        objeto = self.partes[parte]
+        malha = bmesh.new()
+        malha.from_mesh(objeto.data)
+        camada = malha.loops.layers.uv[0]
+        celulas = {PALETA_DE_PERSONAGENS[cor] for cor in cores}
+        apagar = []
+        for face in malha.faces:
+            u = sum(laco[camada].uv[0] for laco in face.loops) / len(face.loops)
+            v = sum(laco[camada].uv[1] for laco in face.loops) / len(face.loops)
+            celula = (int(u * 8), int((1.0 - v) * 4))
+            if celula not in celulas:
+                continue
+            if parte == "cabeca" and _e_do_rosto(face.calc_center_median()) and celula == PALETA_DE_PERSONAGENS["grafite"]:
+                continue
+            apagar.append(face)
+        bmesh.ops.delete(malha, geom=apagar, context="FACES")
+        soltos = [vertice for vertice in malha.verts if not vertice.link_faces]
+        bmesh.ops.delete(malha, geom=soltos, context="VERTS")
+        malha.to_mesh(objeto.data)
+        malha.free()
+
     def peca(self, osso, modelo):
         """Soma a peça montada em `modelo` (um `Modelo` do kit, no espaço do personagem em
         repouso) à malha do personagem, presa inteira ao `osso`."""
@@ -847,6 +880,48 @@ class Personagem:
         _apontar_para_a_paleta(caminho)
         print("exportado", nome_do_arquivo, contar_triangulos(self.armadura), "triangulos")
         return caminho
+
+
+# -- protagonistas ----------------------------------------------------------------------
+#
+# O jogador escolhe um de seis protagonistas (plano 39). Os seis carregam a mochila de campo
+# nas costas, a marca que nenhum morador tem, e usam o verde-broto aceso, a cor reservada.
+
+COR_DO_JOGADOR = "verde_broto"
+
+
+def mochila_de_campo(cor=COR_DO_JOGADOR):
+    """A mochila de campo do protagonista, para prender no osso `torso`.
+
+    Um tanque pequeno de água, uma placa de bateria com três células acesas, a mangueira
+    em arco entre os dois e a luz de status em cima da bateria, todos na `cor`. O jogo é
+    visto de cima e por trás, então a mochila é a parte do jogador que mais aparece, e
+    nenhum morador usa uma. Medidas no espaço do personagem em repouso: as costas do
+    tronco vão até y = +0,16, e a mochila fica abaixo de z = 0,5 para não encostar na
+    aba de chapéu nenhum.
+    """
+    m = Modelo("mochila_de_campo")
+    # A armação encostada nas costas e as alças descendo pela frente do peito.
+    m.caixa((0.26, 0.04, 0.22), pos=(0, 0.13, 0.16), cor="grafite", chanfro=0.01)
+    for x in (-0.075, 0.075):
+        m.caixa((0.035, 0.025, 0.16), pos=(x, -0.118, 0.2), cor="preto")
+        m.caixa((0.035, 0.25, 0.025), pos=(x, 0.005, 0.355), cor="preto")
+    # O tanque de água, em pé do lado esquerdo, com a tampa e o visor do nível aceso.
+    m.cilindro(0.075, 0.27, pos=(-0.065, 0.225, 0.13), cor="cromo", lados=10, cor_das_tampas="grafite")
+    m.cilindro(0.04, 0.035, pos=(-0.065, 0.225, 0.4), cor="grafite", lados=8)
+    m.caixa((0.022, 0.012, 0.16), pos=(-0.065, 0.302, 0.17), cor=cor, brilho=True)
+    # A placa de bateria do lado direito, com três células acesas.
+    m.caixa((0.11, 0.07, 0.24), pos=(0.07, 0.185, 0.13), cor="preto", chanfro=0.01)
+    for z in (0.17, 0.23, 0.29):
+        m.caixa((0.075, 0.012, 0.035), pos=(0.07, 0.222, z), cor=cor, brilho=True)
+    # A mangueira sai da tampa do tanque, faz um arco por cima e entra na bateria (é a
+    # bomba que empurra a água para o bico de rega).
+    m.cilindro(0.016, 0.06, pos=(-0.065, 0.215, 0.43), cor="preto", lados=6)
+    m.cilindro(0.016, 0.115, pos=(-0.075, 0.215, 0.475), cor="preto", lados=6, rot=(0, 90, 0))
+    m.cilindro(0.016, 0.12, pos=(0.035, 0.215, 0.36), cor="preto", lados=6)
+    # A luz de status em cima da bateria, abaixo da aba do chapéu e à vista da câmera de trás.
+    m.caixa((0.05, 0.05, 0.05), pos=(0.09, 0.21, 0.37), cor=cor, brilho=True, chanfro=0.01)
+    return m
 
 
 def produzir_personagens(construtores, nome_do_grupo, espaco=0.9):
