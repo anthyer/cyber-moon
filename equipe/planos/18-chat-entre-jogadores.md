@@ -981,6 +981,13 @@ access). Enquanto isso, a Lambda registra a falha no log e o cadastro segue norm
 
 ### Tarefa 4.4: Cognito e o authorizer (chave `exigir_login`)
 
+**Mudou em 2026-11-04 (plano 38, pedido do professor):** o cadastro não usa mais e-mail.
+O User Pool não tem `username_attributes`, `auto_verified_attributes` nem `custom:nome`;
+tem `username_configuration` sem diferenciar maiúsculas e um gatilho Pre sign-up
+(`lambdas/cadastro.py`) que confere o nome e confirma a conta. O authorizer passa adiante
+o `preferred_username` (o nome como o jogador digitou). O código abaixo é a versão
+original; a atual está em `pulumi-start-aws/__main__.py`.
+
 O User Pool e o cliente são criados sempre. O que a chave liga é a exigência do token no
 `$connect`.
 
