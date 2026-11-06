@@ -8,7 +8,7 @@ Theme.
 **Depende de:** 20 (save, para "Continuar" e "Salvar e sair"). As abas de diário e de
 mapa só ganham conteúdo nos planos 32 e 33; aqui elas nascem reservadas.
 
-**Situação:** registrado em 2026-11-03, com os mocks aprovados pelo Antonio. Falta fazer.
+**Situação:** registrado em 2026-11-03, com os mocks aprovados pelo Antonio. Em execução desde 2026-11-05.
 
 ## Os mocks
 
@@ -123,13 +123,14 @@ a lixeira do inventário. Aviso e falta viram âmbar; a lixeira vira roxo escuro
 | HUD da dungeon | `hud_de_dungeon`, `hud_do_chefe` | Objetivo e sala no canto; aliados empilhados embaixo com vida e stamina; barra do chefe no alto, no meio, com o nome, a fase e os golpes; contador de combo; aviso de golpe forte como losango ouro com "!". |
 | Dungeon concluída | não existe | **Nova.** Título de conclusão, o troféu com o que ele abre, o que você levou, a experiência e o que o outro jogador levou; "Voltar para a vila" e "Jogar de novo". Estouro de partícula em ciano e ouro. |
 
-## Decisões a fechar
+## Decisões fechadas (2026-11-05)
 
-- **Trocar de aba no menu de pausa.** O mock mostra Q e E, mas o E já é
-  `abrir_inventario` e o Q é `soltar_item`. Sugestão: ações novas `aba_anterior` e
-  `aba_seguinte` em Tab e Shift+Tab no teclado e L1 e R1 no controle, pelo `InputManager`
-  e documentadas em `entrada.md`. Confirmar com o Antonio.
-- **Linhas de varredura** ligadas ou desligadas por padrão.
+- **Trocar de aba no menu de pausa: Q e E, como no mock.** Só enquanto o menu de pausa
+  está aberto; fora dele, Q continua soltando item e E abrindo o inventário. No controle,
+  L1 e R1. Ações novas `aba_anterior` e `aba_seguinte` no Input Map (Q e L1, E e R1),
+  lidas pelo `InputManager` e documentadas em `entrada.md`. O menu de pausa consome a
+  tecla, para ela não soltar item nem fechar o inventário no mesmo quadro.
+- **Linhas de varredura desligadas por padrão.** A chave fica nas opções.
 
 ## Passos
 
