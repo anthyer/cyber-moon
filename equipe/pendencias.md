@@ -91,6 +91,30 @@ mexa nesse valor.
 
 ---
 
+### 2026-11-05, ventilador de parede da Galeria gira no eixo errado
+
+**Bug, falta consertar.** A hélice do `ventilador_de_parede` (dungeon da Galeria, salas em
+`equipe/ferramentas/gerar_dungeons.py`, linhas com `"gira"`) gira deitada, como um
+ventilador de teto colado na parede. A causa: o `MaquinaAnimada`
+(`game/scripts/combat/maquina_animada.gd`) gira toda peça `Gira...` em torno do eixo
+vertical local dela (`rotate_object_local(Vector3.UP, ...)`). Isso serve à torre de
+resfriamento e às hélices deitadas, mas a hélice do ventilador fica de pé, e o eixo dela
+é o que sai da parede.
+
+Dois jeitos de consertar: no modelo (`ventilador_de_parede()` em
+`equipe/ferramentas/blender/modelos/galeria.py`), pôr a `GiraHelice` dentro de um nó já
+virado, para o eixo vertical local dela apontar para fora da parede; ou no
+`MaquinaAnimada`, aceitar o eixo pelo nome da peça (por exemplo `GiraFrente...` para girar
+em torno do eixo Z local). O primeiro não mexe em código; o segundo serve a qualquer peça
+que gire de pé no futuro.
+
+### 2026-11-05, revisão de todos os assets (plano futuro)
+
+Decidido com o Antonio: um plano futuro revisa todos os assets que faltam, as armas
+principalmente (modelo de cada arma e o encaixe na mão). Entram nele as animações de
+golpe por tipo de arma e a de andar com a arma de distância, que dá para gerar por código
+(ver `assets-pendentes.md`, seção "Modelos e animação"). Não gerar antes desse plano.
+
 ## Registrado pelo Bernardo
 
 <!-- Acrescente aqui. Formato sugerido:
