@@ -1,24 +1,11 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/menu_pausa.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://scenes/ui/barras_de_status.tscn" id="2_barras_de_status"]
 [ext_resource type="Script" path="res://scripts/ui/lixeira_do_inventario.gd" id="90_lixeira"]
 [ext_resource type="Texture2D" path="res://assets/textures/icones_itens/lixeira.png" id="91_icone_lixeira"]
 [ext_resource type="PackedScene" path="res://scenes/ui/aba_de_relacionamentos.tscn" id="3_aba_de_relacionamentos"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_abas"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
-bg_color = Color(0.03, 0.04, 0.08, 0.92)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 0.95, 1, 0.6)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[ext_resource type="PackedScene" path="res://scenes/ui/aba_de_equipamento.tscn" id="4_aba_de_equipamento"]
+[ext_resource type="PackedScene" path="res://scenes/ui/grade_do_calendario.tscn" id="5_grade_do_calendario"]
 
 [node name="MenuPausa" type="Control"]
 process_mode = 3
@@ -32,15 +19,15 @@ grow_vertical = 2
 script = ExtResource("1_script")
 
 [node name="Fundo" type="ColorRect" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.55)
 
-[node name="Centro" type="CenterContainer" parent="."]
+[node name="Margem" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,90 +35,137 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 34
 
-[node name="Painel" type="PanelContainer" parent="Centro"]
+[node name="Linhas" type="VBoxContainer" parent="Margem"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+theme_override_constants/separation = 6
 
-[node name="Margem" type="MarginContainer" parent="Centro/Painel"]
+[node name="LinhaDasAbas" type="HBoxContainer" parent="Margem/Linhas"]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 16
+theme_override_constants/separation = 6
 
-[node name="Colunas" type="VBoxContainer" parent="Centro/Painel/Margem"]
-layout_mode = 2
-theme_override_constants/separation = 14
-
-[node name="Abas" type="HBoxContainer" parent="Centro/Painel/Margem/Colunas"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="BotaoAbaInventario" type="Button" parent="Centro/Painel/Margem/Colunas/Abas"]
+[node name="TeclaAnterior" type="Label" parent="Margem/Linhas/LinhaDasAbas"]
 unique_name_in_owner = true
 layout_mode = 2
-toggle_mode = true
-button_pressed = true
-button_group = SubResource("ButtonGroup_abas")
-text = "Inventário"
+size_flags_vertical = 4
+theme_type_variation = &"TeclaNaTela"
+text = "Q"
 
-[node name="BotaoAbaRelacionamentos" type="Button" parent="Centro/Painel/Margem/Colunas/Abas"]
+[node name="Abas" type="TabBar" parent="Margem/Linhas/LinhaDasAbas"]
 unique_name_in_owner = true
 layout_mode = 2
-toggle_mode = true
-button_group = SubResource("ButtonGroup_abas")
-text = "Relacionamentos"
+focus_mode = 0
+clip_tabs = false
 
-[node name="Topo" type="HBoxContainer" parent="Centro/Painel/Margem/Colunas"]
+[node name="TeclaSeguinte" type="Label" parent="Margem/Linhas/LinhaDasAbas"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 28
+size_flags_vertical = 4
+theme_type_variation = &"TeclaNaTela"
+text = "E"
 
-[node name="ColunaEsquerda" type="VBoxContainer" parent="Centro/Painel/Margem/Colunas/Topo"]
+[node name="Paginas" type="MarginContainer" parent="Margem/Linhas"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PaginaInventario" type="HBoxContainer" parent="Margem/Linhas/Paginas"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PainelMochila" type="PanelContainer" parent="Margem/Linhas/Paginas/PaginaInventario"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"PainelNeutro"
+
+[node name="Linhas" type="VBoxContainer" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="TituloEquipamento" type="Label" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda"]
+[node name="Cabecalho" type="PanelContainer" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.2, 0.95, 1, 1)
-text = "Equipamento"
+theme_type_variation = &"PainelCabecalho"
 
-[node name="ListaDeEquipamento" type="VBoxContainer" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda"]
+[node name="Textos" type="HBoxContainer" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/Cabecalho"]
+layout_mode = 2
+
+[node name="TituloDaMochila" type="Label" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/Cabecalho/Textos"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TituloDoCabecalho"
+text = "Mochila"
+
+[node name="Ocupacao" type="Label" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/Cabecalho/Textos"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_type_variation = &"Titulo"
+text = "0 / 36"
 
-[node name="BarrasDeStatus" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda" instance=ExtResource("2_barras_de_status")]
+[node name="Corpo" type="HBoxContainer" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
-[node name="LinhaDaLixeira" type="HBoxContainer" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda"]
+[node name="ListaDeEquipamento" type="VBoxContainer" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/Corpo"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="ColunaDaGrade" type="VBoxContainer" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/Corpo"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Matriz" type="GridContainer" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/Corpo/ColunaDaGrade"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 9
+
+[node name="Trancados" type="GridContainer" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/Corpo/ColunaDaGrade"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 9
+
+[node name="TituloBarraRapida" type="Label" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/Corpo/ColunaDaGrade"]
+layout_mode = 2
+theme_type_variation = &"TextoApagado"
+text = "Barra rápida"
+
+[node name="BarraRapida" type="GridContainer" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/Corpo/ColunaDaGrade"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 4
+columns = 9
+
+[node name="LinhaDaLixeira" type="HBoxContainer" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="RotuloDaLixeira" type="Label" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda/LinhaDaLixeira"]
-custom_minimum_size = Vector2(90, 0)
-layout_mode = 2
-text = "Lixeira"
-vertical_alignment = 1
-
-[node name="Lixeira" type="Panel" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda/LinhaDaLixeira"]
+[node name="Lixeira" type="Panel" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/LinhaDaLixeira"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 focus_mode = 2
+theme_type_variation = &"SlotLixeira"
 script = ExtResource("90_lixeira")
 
-[node name="Icone" type="TextureRect" parent="Centro/Painel/Margem/Colunas/Topo/ColunaEsquerda/LinhaDaLixeira/Lixeira"]
+[node name="Icone" type="TextureRect" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/LinhaDaLixeira/Lixeira"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = 6.0
-offset_right = -6.0
-offset_bottom = -6.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -139,50 +173,169 @@ texture = ExtResource("91_icone_lixeira")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ColunaDireita" type="VBoxContainer" parent="Centro/Painel/Margem/Colunas/Topo"]
+[node name="DicaDaLixeira" type="Label" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/LinhaDaLixeira"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_type_variation = &"TextoApagado"
+text = "Solte aqui para jogar fora."
+vertical_alignment = 1
 
-[node name="TituloInventario" type="Label" parent="Centro/Painel/Margem/Colunas/Topo/ColunaDireita"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.2, 0.95, 1, 1)
-text = "Inventário"
-
-[node name="Matriz" type="GridContainer" parent="Centro/Painel/Margem/Colunas/Topo/ColunaDireita"]
+[node name="DicaDosTrancados" type="Label" parent="Margem/Linhas/Paginas/PaginaInventario/PainelMochila/Linhas/LinhaDaLixeira"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
-columns = 9
+size_flags_horizontal = 3
+theme_type_variation = &"TextoApagado"
+text = "Os slots riscados ainda estão trancados."
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="TituloBarraRapida" type="Label" parent="Centro/Painel/Margem/Colunas/Topo/ColunaDireita"]
+[node name="CartaoDoItem" type="PanelContainer" parent="Margem/Linhas/Paginas/PaginaInventario"]
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.25, 0.8, 1)
-text = "Barra rápida"
+theme_type_variation = &"PainelCiano"
 
-[node name="BarraRapida" type="GridContainer" parent="Centro/Painel/Margem/Colunas/Topo/ColunaDireita"]
+[node name="Linhas" type="VBoxContainer" parent="Margem/Linhas/Paginas/PaginaInventario/CartaoDoItem"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="QuadroGrande" type="Panel" parent="Margem/Linhas/Paginas/PaginaInventario/CartaoDoItem/Linhas"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"SlotFocado"
+
+[node name="IconeGrande" type="TextureRect" parent="Margem/Linhas/Paginas/PaginaInventario/CartaoDoItem/Linhas/QuadroGrande"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NomeDoItem" type="Label" parent="Margem/Linhas/Paginas/PaginaInventario/CartaoDoItem/Linhas"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/h_separation = 4
-columns = 9
+theme_type_variation = &"Titulo"
+horizontal_alignment = 1
+autowrap_mode = 3
 
-[node name="Rodape" type="VBoxContainer" parent="Centro/Painel/Margem/Colunas"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 56)
-layout_mode = 2
-
-[node name="NomeDoItem" type="Label" parent="Centro/Painel/Margem/Colunas/Rodape"]
+[node name="CategoriaDoItem" type="Label" parent="Margem/Linhas/Paginas/PaginaInventario/CartaoDoItem/Linhas"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+horizontal_alignment = 1
 
-[node name="DescricaoDoItem" type="Label" parent="Centro/Painel/Margem/Colunas/Rodape"]
+[node name="DescricaoDoItem" type="Label" parent="Margem/Linhas/Paginas/PaginaInventario/CartaoDoItem/Linhas"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.75)
 layout_mode = 2
 autowrap_mode = 3
 
-[node name="AbaDeRelacionamentos" parent="Centro/Painel/Margem/Colunas" instance=ExtResource("3_aba_de_relacionamentos")]
+[node name="EfeitosDoItem" type="VBoxContainer" parent="Margem/Linhas/Paginas/PaginaInventario/CartaoDoItem/Linhas"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Espaco" type="Control" parent="Margem/Linhas/Paginas/PaginaInventario/CartaoDoItem/Linhas"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="DicaDoCartao" type="Label" parent="Margem/Linhas/Paginas/PaginaInventario/CartaoDoItem/Linhas"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TextoApagado"
+autowrap_mode = 3
+
+[node name="AbaDeEquipamento" parent="Margem/Linhas/Paginas" instance=ExtResource("4_aba_de_equipamento")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+
+[node name="AbaDeRelacionamentos" parent="Margem/Linhas/Paginas" instance=ExtResource("3_aba_de_relacionamentos")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="AbaDoDiario" type="PanelContainer" parent="Margem/Linhas/Paginas"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"PainelNeutro"
+
+[node name="Centro" type="VBoxContainer" parent="Margem/Linhas/Paginas/AbaDoDiario"]
+layout_mode = 2
+alignment = 1
+
+[node name="Titulo" type="Label" parent="Margem/Linhas/Paginas/AbaDoDiario/Centro"]
+layout_mode = 2
+theme_type_variation = &"TituloGrande"
+text = "Diário"
+horizontal_alignment = 1
+
+[node name="EmBreve" type="Label" parent="Margem/Linhas/Paginas/AbaDoDiario/Centro"]
+layout_mode = 2
+theme_type_variation = &"TextoApagado"
+text = "Em breve: as missões aceitas e o que falta em cada uma."
+horizontal_alignment = 1
+
+[node name="AbaDoMapa" type="PanelContainer" parent="Margem/Linhas/Paginas"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"PainelNeutro"
+
+[node name="Centro" type="VBoxContainer" parent="Margem/Linhas/Paginas/AbaDoMapa"]
+layout_mode = 2
+alignment = 1
+
+[node name="Titulo" type="Label" parent="Margem/Linhas/Paginas/AbaDoMapa/Centro"]
+layout_mode = 2
+theme_type_variation = &"TituloGrande"
+text = "Mapa"
+horizontal_alignment = 1
+
+[node name="EmBreve" type="Label" parent="Margem/Linhas/Paginas/AbaDoMapa/Centro"]
+layout_mode = 2
+theme_type_variation = &"TextoApagado"
+text = "Em breve: a fazenda, a vila e as dungeons num mapa só."
+horizontal_alignment = 1
+
+[node name="AbaDoCalendario" type="PanelContainer" parent="Margem/Linhas/Paginas"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"PainelNeutro"
+
+[node name="GradeDoCalendario" parent="Margem/Linhas/Paginas/AbaDoCalendario" instance=ExtResource("5_grade_do_calendario")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="AbaDeOpcoes" type="PanelContainer" parent="Margem/Linhas/Paginas"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"PainelNeutro"
+
+[node name="Centro" type="VBoxContainer" parent="Margem/Linhas/Paginas/AbaDeOpcoes"]
+layout_mode = 2
+alignment = 1
+
+[node name="Titulo" type="Label" parent="Margem/Linhas/Paginas/AbaDeOpcoes/Centro"]
+layout_mode = 2
+theme_type_variation = &"TituloGrande"
+text = "Opções"
+horizontal_alignment = 1
+
+[node name="EmBreve" type="Label" parent="Margem/Linhas/Paginas/AbaDeOpcoes/Centro"]
+layout_mode = 2
+theme_type_variation = &"TextoApagado"
+text = "Em breve: som, tela, mundo real e controles."
+horizontal_alignment = 1

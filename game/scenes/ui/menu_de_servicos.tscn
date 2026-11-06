@@ -1,22 +1,7 @@
 [gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/menu_de_servicos.gd" id="1_script"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
-bg_color = Color(0.03, 0.04, 0.08, 0.92)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 0.95, 1, 0.6)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-content_margin_left = 24.0
-content_margin_top = 18.0
-content_margin_right = 24.0
-content_margin_bottom = 18.0
+[ext_resource type="PackedScene" path="res://scenes/ui/palco_de_modelo.tscn" id="2_palco"]
 
 [node name="MenuDeServicos" type="Control"]
 process_mode = 3
@@ -38,45 +23,50 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.55)
 
-[node name="Centro" type="CenterContainer" parent="."]
+[node name="Painel" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 36.0
+offset_top = 48.0
+offset_right = 300.0
+offset_bottom = 48.0
 
-[node name="Painel" type="PanelContainer" parent="Centro"]
-custom_minimum_size = Vector2(260, 0)
+[node name="Linhas" type="VBoxContainer" parent="Painel"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+theme_override_constants/separation = 6
 
-[node name="Linhas" type="VBoxContainer" parent="Centro/Painel"]
+[node name="PalcoDoLojista" parent="Painel/Linhas" instance=ExtResource("2_palco")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
-theme_override_constants/separation = 10
+posicao_do_modelo = Vector3(0, 0.1, 0)
+giro_inicial_graus = 15.0
+campo_de_visao = 21.0
 
-[node name="Titulo" type="Label" parent="Centro/Painel/Linhas"]
+[node name="Titulo" type="Label" parent="Painel/Linhas"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 22
+theme_type_variation = &"TituloDoCabecalho"
 text = "Nome"
 horizontal_alignment = 1
 
-[node name="Separador" type="HSeparator" parent="Centro/Painel/Linhas"]
+[node name="Espaco" type="Control" parent="Painel/Linhas"]
+custom_minimum_size = Vector2(0, 6)
 layout_mode = 2
 
-[node name="BotaoLoja" type="Button" parent="Centro/Painel/Linhas"]
+[node name="BotaoLoja" type="Button" parent="Painel/Linhas"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Loja"
+alignment = 0
 
-[node name="BotaoAprimorar" type="Button" parent="Centro/Painel/Linhas"]
+[node name="BotaoAprimorar" type="Button" parent="Painel/Linhas"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Aprimorar"
+alignment = 0
 
-[node name="BotaoSair" type="Button" parent="Centro/Painel/Linhas"]
+[node name="BotaoSair" type="Button" parent="Painel/Linhas"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Sair"
+alignment = 0

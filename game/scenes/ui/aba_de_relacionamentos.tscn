@@ -2,16 +2,19 @@
 
 [ext_resource type="Script" path="res://scripts/ui/aba_de_relacionamentos.gd" id="1_script"]
 
-[node name="AbaDeRelacionamentos" type="VBoxContainer"]
-theme_override_constants/separation = 10
+[node name="AbaDeRelacionamentos" type="PanelContainer"]
+theme_type_variation = &"PainelNeutro"
 script = ExtResource("1_script")
 
-[node name="Titulo" type="Label" parent="."]
+[node name="Rolagem" type="ScrollContainer" parent="."]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.45, 0.75, 1)
-text = "Relacionamentos"
+follow_focus = true
+horizontal_scroll_mode = 0
 
-[node name="ListaDeNpcs" type="VBoxContainer" parent="."]
+[node name="ListaDeMoradores" type="GridContainer" parent="Rolagem"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 12
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 6
+columns = 2

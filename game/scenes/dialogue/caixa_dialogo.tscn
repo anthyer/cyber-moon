@@ -2,22 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/dialogue/caixa_dialogo.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/ui/palco_de_modelo.tscn" id="2_palco"]
-
-[sub_resource type="StyleBoxFlat" id="Estilo_do_painel"]
-bg_color = Color(0.03, 0.04, 0.08, 0.92)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 0.95, 1, 0.6)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-content_margin_left = 22.0
-content_margin_top = 12.0
-content_margin_right = 22.0
-content_margin_bottom = 12.0
+[ext_resource type="Script" path="res://scripts/ui/fileira_de_coracoes.gd" id="3_coracoes"]
 
 [node name="CaixaDialogo" type="Control"]
 visible = false
@@ -34,8 +19,10 @@ script = ExtResource("1_script")
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.3
-anchor_right = 0.5
+anchor_left = 0.08
+anchor_top = 0.24
+anchor_right = 0.48
+anchor_bottom = 0.72
 grow_vertical = 0
 posicao_do_modelo = Vector3(-0.2, 0.2, 0)
 giro_inicial_graus = 28.6
@@ -44,8 +31,10 @@ giro_inicial_graus = 28.6
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.3
+anchor_left = 0.52
+anchor_top = 0.24
+anchor_right = 0.92
+anchor_bottom = 0.72
 grow_vertical = 0
 posicao_do_modelo = Vector3(0.2, 0.2, 0)
 giro_inicial_graus = -28.6
@@ -57,39 +46,75 @@ anchor_left = 0.12
 anchor_top = 1.0
 anchor_right = 0.88
 anchor_bottom = 1.0
-offset_top = -176.0
-offset_bottom = -24.0
+offset_top = -211.0
+offset_bottom = -29.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("Estilo_do_painel")
 
 [node name="Linhas" type="VBoxContainer" parent="Painel"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 6
 
-[node name="NomeDoFalante" type="Label" parent="Painel/Linhas"]
+[node name="Cabecalho" type="HBoxContainer" parent="Painel/Linhas"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="EtiquetaDoNome" type="PanelContainer" parent="Painel/Linhas/Cabecalho"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.3, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 20
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="NomeDoFalante" type="Label" parent="Painel/Linhas/Cabecalho/EtiquetaDoNome"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TituloDoCabecalho"
 text = "Nome"
+
+[node name="FuncaoDoMorador" type="Label" parent="Painel/Linhas/Cabecalho"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"TextoApagado"
+
+[node name="Espaco" type="Control" parent="Painel/Linhas/Cabecalho"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Coracoes" type="HBoxContainer" parent="Painel/Linhas/Cabecalho"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("3_coracoes")
 
 [node name="TextoDaFala" type="RichTextLabel" parent="Painel/Linhas"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
-theme_override_colors/default_color = Color(0.92, 0.95, 1, 1)
-theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/normal_font_size = 30
 text = "Fala"
 scroll_active = false
 
-[node name="IndicadorDeAvancar" type="Label" parent="Painel/Linhas"]
+[node name="IndicadorDeAvancar" type="HBoxContainer" parent="Painel/Linhas"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.66, 0.8, 1)
-theme_override_font_sizes/font_size = 12
-text = "[F] continuar"
-horizontal_alignment = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="TeclaDeAvancar" type="Label" parent="Painel/Linhas/IndicadorDeAvancar"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TeclaNaTela"
+text = "F"
+
+[node name="Continuar" type="Label" parent="Painel/Linhas/IndicadorDeAvancar"]
+layout_mode = 2
+theme_type_variation = &"TextoApagado"
+text = "continuar"

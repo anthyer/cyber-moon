@@ -115,6 +115,33 @@ principalmente (modelo de cada arma e o encaixe na mão). Entram nele as animaç
 golpe por tipo de arma e a de andar com a arma de distância, que dá para gerar por código
 (ver `assets-pendentes.md`, seção "Modelos e animação"). Não gerar antes desse plano.
 
+### 2026-11-06, plano 40 (passos 4 a 7): lacunas de dado nas telas novas
+
+As telas foram refeitas no visual dos mocks, mas algumas partes do mock não têm dado no
+jogo e não foram inventadas:
+
+- **Função do morador** ("Oficina do Vitor", "Mercado"): falta um campo como
+  `PerfilNpc.funcao`, gerado pelo `gerar_npcs.gd`. A conversa já tem o rótulo escondido
+  (`FuncaoDoMorador`), e o cartão de morador mostra o aniversário no lugar.
+- **Escolhas na conversa:** não existe a mecânica (o `NoDialogo` segue só o primeiro
+  próximo nó).
+- **Resumo de vendas:** `item_sold` e `sale_completed` não trazem a quantidade por item,
+  então o cupom mostra o preço unitário e o total no fim. O bônus de lua cheia na venda
+  não existe.
+- **Bancada:** falta `UpgradeManager.dano_no_nivel(arma, nivel)` para mostrar a diferença
+  numérica ("+6"), e o `Item` não diz de onde sai o material que falta.
+- **Desmaio:** não há dado de quem achou o jogador, nem custo em créditos.
+- **HUD da dungeon:** os aliados com vida e stamina, o contador de combo, o aviso de golpe
+  forte e a sala e o tempo ficam para quando existirem. A cor do tema e o chefe de cada
+  dungeon no cartão do lobby pedem campos novos em `DefinicaoDeDungeon`.
+- **Loja:** não há estoque do dia como dado; os botões Comprar 1 e Comprar 5 continuam por
+  linha.
+- **Theme:** coisas feitas localmente que deviam virar variation: painel compacto,
+  etiqueta ciano e ouro, linha em foco da loja, botão de slot, papel do cupom, título
+  gigante, texto sobre o jogo com sombra, separador tracejado e a cor de escurecer.
+- **Cor do Anoitecer** na faixa do dia do relógio: um coral que puxa para o vermelho, igual
+  ao mock aprovado. Decidir se fica.
+
 ## Registrado pelo Bernardo
 
 <!-- Acrescente aqui. Formato sugerido:

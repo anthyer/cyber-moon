@@ -17,14 +17,6 @@ signal focado(slot: SlotInventario)
 ## pega, solta ou desequipa é o menu, que sabe se há um item seguro.
 signal acionado(slot: SlotInventario)
 
-const COR_DE_FUNDO: Color = Color(0.06, 0.07, 0.12, 0.85)
-const COR_DA_BORDA: Color = Color(0.25, 0.3, 0.45, 1.0)
-const COR_DA_BORDA_FOCADA: Color = Color(0.2, 0.95, 1.0, 1.0)
-const COR_DA_BORDA_SEGURANDO: Color = Color(1.0, 0.25, 0.8, 1.0)
-const COR_DA_BORDA_SELECIONADA: Color = Color(1.0, 0.85, 0.2, 1.0)
-const LARGURA_DA_BORDA: int = 2
-const LARGURA_DA_BORDA_SELECIONADA: int = 3
-
 ## Valor de espaco_de_equipamento do espaço "Equipado" do menu. Ele não é um espaço do
 ## InventoryManager: o item em uso é o slot rápido selecionado, guardado pelo
 ## EquipmentManager. Por isso usa um número fora do enum Espaco (que começa em 0) e
@@ -57,16 +49,11 @@ var selecionado: bool = false:
 @onready var rotulo_quantidade: Label = $Quantidade
 @onready var marca_equipado: Label = $MarcaEquipado
 
-var _estilo: StyleBoxFlat = StyleBoxFlat.new()
-
 func _ready() -> void:
-	_estilo.bg_color = COR_DE_FUNDO
-	_estilo.set_corner_radius_all(4)
 	if somente_exibicao:
 		# MOUSE_FILTER_IGNORE também desliga o arraste, que depende do mouse chegar aqui.
 		focus_mode = Control.FOCUS_NONE
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_theme_stylebox_override(&"panel", _estilo)
 	focus_entered.connect(_ao_ganhar_foco)
 	focus_exited.connect(_atualizar_estilo)
 	_atualizar_estilo()
@@ -174,13 +161,15 @@ func _esta_equipado() -> bool:
 			return true
 	return false
 
+## O estado do slot é a variation do Theme (docs/arquitetura.md, "Interface: Theme e
+## palco de modelo"). O foco vem antes do item na mão, para o cursor nunca sumir em cima
+## do slot selecionado.
 func _atualizar_estilo() -> void:
-	_estilo.set_border_width_all(LARGURA_DA_BORDA_SELECIONADA if selecionado else LARGURA_DA_BORDA)
 	if segurando:
-		_estilo.border_color = COR_DA_BORDA_SEGURANDO
-	elif selecionado:
-		_estilo.border_color = COR_DA_BORDA_SELECIONADA
+		theme_type_variation = &"SlotSegurando"
 	elif has_focus():
-		_estilo.border_color = COR_DA_BORDA_FOCADA
+		theme_type_variation = &"SlotFocado"
+	elif selecionado:
+		theme_type_variation = &"SlotNaMao"
 	else:
-		_estilo.border_color = COR_DA_BORDA
+		theme_type_variation = &"SlotNormal"

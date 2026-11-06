@@ -2,12 +2,14 @@ class_name MenuDeServicos
 extends Control
 
 ## O menu de quem é comerciante e ferreiro ao mesmo tempo: depois da conversa, o jogador
-## escolhe entre a loja e a bancada de aprimorar.
+## escolhe entre a loja e a bancada de aprimorar. O comerciante aparece em pé, como modelo
+## 3D num palco (ModelStage), em cima dos botões, como no mock de serviços e loja.
 ##
 ## Abre em EventBus.services_requested e pausa o jogo, como as telas a que ele leva. A
 ## loja e a bancada recusam abrir com o jogo pausado, então a escolha fecha este menu
 ## (e despausa) antes de pedir a tela seguinte.
 
+@onready var palco_do_lojista: ModelStage = %PalcoDoLojista
 @onready var titulo: Label = %Titulo
 @onready var botao_loja: Button = %BotaoLoja
 @onready var botao_aprimorar: Button = %BotaoAprimorar
@@ -35,6 +37,7 @@ func abrir(perfil: PerfilNpc) -> void:
 		return
 	_perfil = perfil
 	titulo.text = perfil.nome_exibido
+	palco_do_lojista.mostrar_cena(perfil.modelo)
 	visible = true
 	get_tree().paused = true
 	botao_loja.grab_focus.call_deferred()
@@ -46,6 +49,7 @@ func fechar() -> void:
 	visible = false
 	get_tree().paused = false
 	_perfil = null
+	palco_do_lojista.limpar()
 
 ## O perfil é guardado antes de fechar, porque fechar o esquece, e o sinal só sai depois,
 ## com o jogo já despausado.

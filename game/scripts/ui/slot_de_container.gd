@@ -12,10 +12,9 @@ signal focado(slot: SlotDeContainer)
 ## mouse e o controle darem sempre o mesmo resultado.
 signal acionado(slot: SlotDeContainer)
 
-const COR_DE_FUNDO: Color = Color(0.06, 0.07, 0.12, 0.85)
-const COR_DA_BORDA: Color = Color(0.25, 0.3, 0.45, 1.0)
-const COR_DA_BORDA_FOCADA: Color = Color(0.2, 0.95, 1.0, 1.0)
-const LARGURA_DA_BORDA: int = 2
+## O visual do slot vem do Theme: trocar de estado é trocar a variation.
+const VARIACAO_NORMAL: StringName = &"SlotNormal"
+const VARIACAO_FOCADA: StringName = &"SlotFocado"
 
 ## Verdadeiro para slot do baú, falso para slot do inventário do jogador.
 var do_bau: bool = false
@@ -27,13 +26,10 @@ var pilha: PilhaDeItens = null
 @onready var icone: TextureRect = $Icone
 @onready var rotulo_quantidade: Label = $Quantidade
 
-var _estilo: StyleBoxFlat = StyleBoxFlat.new()
-
 func _ready() -> void:
-	_estilo.bg_color = COR_DE_FUNDO
-	_estilo.set_corner_radius_all(4)
-	_estilo.set_border_width_all(LARGURA_DA_BORDA)
-	add_theme_stylebox_override(&"panel", _estilo)
+	# O número fica legível sobre qualquer ícone com o contorno na cor do fundo.
+	rotulo_quantidade.add_theme_color_override(&"font_color", CoresDaInterface.texto())
+	rotulo_quantidade.add_theme_color_override(&"font_outline_color", CoresDaInterface.noite())
 	focus_entered.connect(_ao_ganhar_foco)
 	focus_exited.connect(_atualizar_estilo)
 	_atualizar_estilo()
@@ -67,4 +63,4 @@ func _ao_ganhar_foco() -> void:
 	focado.emit(self)
 
 func _atualizar_estilo() -> void:
-	_estilo.border_color = COR_DA_BORDA_FOCADA if has_focus() else COR_DA_BORDA
+	theme_type_variation = VARIACAO_FOCADA if has_focus() else VARIACAO_NORMAL

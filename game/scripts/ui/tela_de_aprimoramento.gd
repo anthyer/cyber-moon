@@ -8,23 +8,31 @@ extends Control
 ## fica com process_mode ALWAYS. Quem sabe os níveis, as receitas e os custos é o
 ## UpgradeManager; esta tela só mostra e pede.
 ##
+## O visual segue o mock da bancada: as armas e ferramentas numa grade de slots à
+## esquerda, com o nível no canto; à direita, o nível atual e o próximo lado a lado, o
+## próximo aceso em ciano; embaixo, os materiais com "tem / precisa", em verde quando
+## tem e em âmbar quando falta.
+##
 ## A lista da esquerda é montada uma vez ao abrir, e os botões dela são atualizados no
 ## lugar quando algo muda. Refazer a lista apagaria o botão focado, e o controle perderia
-## o lugar a cada aprimoramento. A coluna da direita não tem foco nenhum além do botão
-## Aprimorar, que é fixo na cena, então ela pode ser refeita à vontade.
+## o lugar a cada aprimoramento. A coluna da direita não tem foco nenhum, e o botão
+## Aprimorar é fixo na cena, então ela pode ser refeita à vontade.
 
-const TAMANHO_DO_ICONE: Vector2 = Vector2(32.0, 32.0)
+const TAMANHO_DO_SLOT: Vector2 = Vector2(64.0, 64.0)
+## O espaço entre a borda do slot e o ícone.
+const MARGEM_DO_ICONE_NO_SLOT: float = 8.0
+## O "Nv 2" do canto do slot é menor que o texto corrido, para não cobrir o ícone.
+const TAMANHO_DO_NIVEL_NO_SLOT: int = 16
+const TAMANHO_DO_ICONE_DO_CARTAO: Vector2 = Vector2(64.0, 64.0)
 const TAMANHO_DO_ICONE_DA_RECEITA: Vector2 = Vector2(24.0, 24.0)
-const COR_DO_TEXTO: Color = Color(0.92, 0.95, 1.0)
-const COR_DO_TEXTO_APAGADO: Color = Color(0.6, 0.66, 0.8)
-const COR_DO_PROXIMO_NIVEL: Color = Color(0.3, 0.95, 1.0)
-const COR_DE_QUEM_TEM: Color = Color(0.4, 1.0, 0.5)
-const COR_DE_QUEM_FALTA: Color = Color(1.0, 0.4, 0.4)
 const CAMINHO_DO_ICONE_DE_CREDITO: String = "res://assets/textures/icones_itens/credito.png"
 
 @onready var titulo: Label = %Titulo
 @onready var rotulo_do_saldo: Label = %Saldo
-@onready var lista: VBoxContainer = %Lista
+@onready var lista: GridContainer = %Lista
+@onready var linhas_do_agora: VBoxContainer = %LinhasDoAgora
+@onready var linhas_do_proximo: VBoxContainer = %LinhasDoProximo
+@onready var seta: Label = %Seta
 @onready var detalhes: VBoxContainer = %Detalhes
 @onready var botao_aprimorar: Button = %BotaoAprimorar
 @onready var mensagem: Label = %Mensagem
@@ -32,10 +40,14 @@ const CAMINHO_DO_ICONE_DE_CREDITO: String = "res://assets/textures/icones_itens/
 
 ## O botão de cada item da lista, para ser atualizado sem ser recriado.
 var _botoes_por_item: Dictionary[Item, Button] = {}
+## O "Nv 2" no canto de cada slot, para ser atualizado junto com o botão.
+var _niveis_por_item: Dictionary[Item, Label] = {}
 var _item_escolhido: Item
 
 func _ready() -> void:
 	visible = false
+	rotulo_do_saldo.add_theme_color_override(&"font_color", CoresDaInterface.ouro())
+	seta.add_theme_color_override(&"font_color", CoresDaInterface.ciano())
 	botao_fechar.pressed.connect(fechar)
 	botao_aprimorar.pressed.connect(_aprimorar_o_escolhido)
 	EventBus.forge_requested.connect(abrir)
@@ -56,7 +68,7 @@ func abrir(perfil: PerfilNpc) -> void:
 	if visible or get_tree().paused or perfil == null:
 		return
 	titulo.text = "Bancada de %s" % perfil.nome_exibido
-	_mostrar_mensagem("", COR_DO_TEXTO_APAGADO)
+	_mostrar_mensagem("", CoresDaInterface.texto_apagado())
 	_montar_lista(UpgradeManager.itens_aprimoraveis_do_jogador())
 	visible = true
 	get_tree().paused = true
@@ -75,20 +87,16 @@ func _montar_lista(itens: Array[Item]) -> void:
 	for filho in lista.get_children():
 		filho.queue_free()
 	_botoes_por_item.clear()
+	_niveis_por_item.clear()
 	_item_escolhido = null
 	if itens.is_empty():
-		var vazio: Label = _novo_rotulo("Você não tem nada para aprimorar aqui.", 15, COR_DO_TEXTO_APAGADO)
+		var vazio: Label = _novo_rotulo("Você não tem nada para aprimorar aqui.", CoresDaInterface.texto_apagado())
 		vazio.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		vazio.custom_minimum_size = Vector2(200.0, 0.0)
 		lista.add_child(vazio)
 		return
 	for item in itens:
-		var botao: Button = Button.new()
-		botao.icon = item.icone
-		botao.expand_icon = true
-		botao.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		botao.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		botao.custom_minimum_size = Vector2(0.0, TAMANHO_DO_ICONE.y + 12.0)
-		botao.toggle_mode = true
+		var botao: Button = _novo_slot(item)
 		# Escolher é focar: no controle, andar pela lista já mostra o item do lado, sem
 		# precisar confirmar em cada um.
 		botao.focus_entered.connect(_escolher.bind(item))
@@ -97,12 +105,47 @@ func _montar_lista(itens: Array[Item]) -> void:
 		_botoes_por_item[item] = botao
 	_item_escolhido = itens[0]
 
+## Um botão com cara de slot do inventário: as caixas do Theme (SlotNormal, e SlotFocado
+## para o escolhido e o que está sob o mouse), o ícone no meio e o nível no canto.
+func _novo_slot(item: Item) -> Button:
+	var botao: Button = Button.new()
+	botao.icon = item.icone
+	botao.expand_icon = true
+	botao.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	botao.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	botao.custom_minimum_size = TAMANHO_DO_SLOT
+	botao.tooltip_text = item.nome
+	botao.toggle_mode = true
+	var normal: StyleBox = _caixa_de_slot(&"SlotNormal")
+	var aceso: StyleBox = _caixa_de_slot(&"SlotFocado")
+	botao.add_theme_stylebox_override(&"normal", normal)
+	botao.add_theme_stylebox_override(&"hover", aceso)
+	botao.add_theme_stylebox_override(&"pressed", aceso)
+	botao.add_theme_stylebox_override(&"hover_pressed", aceso)
+	# Escolher é focar, então o slot escolhido já mostra o foco em ciano; o anel de foco
+	# do botão comum ficaria por cima do slot.
+	botao.add_theme_stylebox_override(&"focus", StyleBoxEmpty.new())
+	var nivel: Label = _novo_rotulo("", CoresDaInterface.ciano())
+	nivel.add_theme_font_size_override(&"font_size", TAMANHO_DO_NIVEL_NO_SLOT)
+	nivel.position = Vector2(5.0, TAMANHO_DO_SLOT.y - TAMANHO_DO_NIVEL_NO_SLOT - 4.0)
+	botao.add_child(nivel)
+	_niveis_por_item[item] = nivel
+	return botao
+
+func _caixa_de_slot(variacao: StringName) -> StyleBox:
+	var caixa: StyleBox = get_theme_stylebox(&"panel", variacao).duplicate() as StyleBox
+	caixa.content_margin_left = MARGEM_DO_ICONE_NO_SLOT
+	caixa.content_margin_right = MARGEM_DO_ICONE_NO_SLOT
+	caixa.content_margin_top = MARGEM_DO_ICONE_NO_SLOT
+	caixa.content_margin_bottom = MARGEM_DO_ICONE_NO_SLOT
+	return caixa
+
 func _escolher(item: Item) -> void:
 	if item == _item_escolhido:
 		_marcar_o_escolhido()
 		return
 	_item_escolhido = item
-	_mostrar_mensagem("", COR_DO_TEXTO_APAGADO)
+	_mostrar_mensagem("", CoresDaInterface.texto_apagado())
 	_atualizar_tudo()
 
 func _aprimorar_o_escolhido() -> void:
@@ -110,9 +153,9 @@ func _aprimorar_o_escolhido() -> void:
 	if item == null:
 		return
 	if UpgradeManager.aprimorar(item):
-		_mostrar_mensagem("%s agora é nível %d." % [item.nome, UpgradeManager.nivel_de(item)], COR_DE_QUEM_TEM)
+		_mostrar_mensagem("%s agora é nível %d." % [item.nome, UpgradeManager.nivel_de(item)], CoresDaInterface.verde())
 	else:
-		_mostrar_mensagem("Falta material ou crédito.", COR_DE_QUEM_FALTA)
+		_mostrar_mensagem("Falta material ou crédito.", CoresDaInterface.ambar())
 	# O aprimorar já mexeu no inventário e no saldo, e os sinais deles atualizaram a tela.
 	# Esta chamada garante o estado certo mesmo se a receita não gastar nada.
 	_atualizar_tudo()
@@ -123,9 +166,9 @@ func _ao_mudar_algo() -> void:
 		_atualizar_tudo()
 
 func _atualizar_tudo() -> void:
-	rotulo_do_saldo.text = "%d créditos" % EconomyManager.creditos
-	for item: Item in _botoes_por_item:
-		_botoes_por_item[item].text = "%s\n%s" % [item.nome, _texto_do_nivel(UpgradeManager.nivel_de(item))]
+	rotulo_do_saldo.text = str(EconomyManager.creditos)
+	for item: Item in _niveis_por_item:
+		_niveis_por_item[item].text = "Nv%d" % UpgradeManager.nivel_de(item)
 	_marcar_o_escolhido()
 	_montar_detalhes()
 	_ligar_vizinhos_de_foco()
@@ -134,30 +177,28 @@ func _marcar_o_escolhido() -> void:
 	for item: Item in _botoes_por_item:
 		_botoes_por_item[item].set_pressed_no_signal(item == _item_escolhido)
 
-## Refaz a coluna da direita para o item escolhido: o que ele é agora, o que vira, e a
-## receita com o que o jogador tem de cada coisa.
+## Refaz a coluna da direita para o item escolhido: o cartão de agora, o do próximo
+## nível, e a receita com o que o jogador tem de cada coisa.
 func _montar_detalhes() -> void:
-	for filho in detalhes.get_children():
-		filho.queue_free()
+	for pai: Control in [linhas_do_agora, linhas_do_proximo, detalhes]:
+		for filho in pai.get_children():
+			filho.queue_free()
 	var item: Item = _item_escolhido
 	if item == null:
 		_definir_botao_de_aprimorar(false, false)
 		return
 	var nivel: int = UpgradeManager.nivel_de(item)
-	detalhes.add_child(_novo_rotulo(item.nome, 20, COR_DO_TEXTO))
+	_montar_cartao(linhas_do_agora, item, "Agora", nivel, CoresDaInterface.texto_apagado(), CoresDaInterface.texto())
 
 	var receita: ReceitaDeAprimoramento = UpgradeManager.receita_para(item)
 	if nivel >= UpgradeManager.NIVEL_MAXIMO or receita == null:
-		detalhes.add_child(_novo_rotulo("Nível máximo", 15, COR_DO_PROXIMO_NIVEL))
-		detalhes.add_child(_novo_rotulo(UpgradeManager.descricao_do_nivel(item, nivel), 15, COR_DO_TEXTO))
+		linhas_do_proximo.add_child(_rotulo_centrado("Nível máximo", CoresDaInterface.ciano()))
+		linhas_do_proximo.add_child(_rotulo_centrado("Não há o que aprimorar.", CoresDaInterface.texto_apagado()))
 		_definir_botao_de_aprimorar(false, false)
 		return
 
-	detalhes.add_child(_novo_rotulo("Nível %d -> Nível %d" % [nivel, nivel + 1], 15, COR_DO_PROXIMO_NIVEL))
-	detalhes.add_child(_novo_rotulo("Agora: %s" % UpgradeManager.descricao_do_nivel(item, nivel), 15, COR_DO_TEXTO_APAGADO))
-	detalhes.add_child(_novo_rotulo("Depois: %s" % UpgradeManager.descricao_do_nivel(item, nivel + 1), 15, COR_DO_TEXTO))
-	detalhes.add_child(HSeparator.new())
-	detalhes.add_child(_novo_rotulo("Custa", 13, COR_DO_TEXTO_APAGADO))
+	_montar_cartao(linhas_do_proximo, item, "Próximo", nivel + 1, CoresDaInterface.ciano(), CoresDaInterface.ciano())
+	detalhes.add_child(_novo_rotulo("Precisa de", CoresDaInterface.texto_apagado()))
 	for indice in receita.materiais.size():
 		# "material" é nome de propriedade do Control, por isso a variável tem outro nome.
 		var ingrediente: Item = receita.materiais[indice]
@@ -169,22 +210,32 @@ func _montar_detalhes() -> void:
 		detalhes.add_child(_nova_linha_de_custo(icone_de_credito, "Créditos", EconomyManager.creditos, creditos))
 	_definir_botao_de_aprimorar(true, UpgradeManager.pode_aprimorar(item))
 
-## Uma linha da receita: o ícone, o nome e "tem X de Y", em verde quando o jogador tem o
-## bastante e em vermelho quando falta.
+## Um dos dois cartões lado a lado: o título ("Agora" ou "Próximo"), o ícone grande, o
+## nome com o nível e o que o nível dá. No cartão do próximo nível, tudo em ciano.
+func _montar_cartao(pai: VBoxContainer, item: Item, cabecalho: String, nivel: int, cor_do_cabecalho: Color, cor_do_texto: Color) -> void:
+	pai.add_child(_rotulo_centrado(cabecalho, cor_do_cabecalho))
+	var icone: TextureRect = _novo_icone(item.icone, TAMANHO_DO_ICONE_DO_CARTAO)
+	icone.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	pai.add_child(icone)
+	var nome: Label = _rotulo_centrado("%s Nv %d" % [item.nome, nivel], cor_do_texto)
+	nome.theme_type_variation = &"Titulo"
+	nome.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	pai.add_child(nome)
+	pai.add_child(_rotulo_centrado(UpgradeManager.descricao_do_nivel(item, nivel), cor_do_texto))
+
+## Uma linha da receita: o ícone, o nome e "tem / precisa", em verde quando o jogador tem
+## o bastante e em âmbar, com o quanto falta, quando não tem.
 func _nova_linha_de_custo(textura: Texture2D, nome: String, tem: int, pedido: int) -> HBoxContainer:
 	var linha: HBoxContainer = HBoxContainer.new()
 	linha.add_theme_constant_override(&"separation", 10)
-	var icone: TextureRect = TextureRect.new()
-	icone.texture = textura
-	icone.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	icone.custom_minimum_size = TAMANHO_DO_ICONE_DA_RECEITA
-	icone.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	icone.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	linha.add_child(icone)
-	var rotulo_do_nome: Label = _novo_rotulo(nome, 15, COR_DO_TEXTO)
+	linha.add_child(_novo_icone(textura, TAMANHO_DO_ICONE_DA_RECEITA))
+	var rotulo_do_nome: Label = _novo_rotulo(nome, CoresDaInterface.texto())
 	rotulo_do_nome.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	linha.add_child(rotulo_do_nome)
-	linha.add_child(_novo_rotulo("tem %d de %d" % [tem, pedido], 15, COR_DE_QUEM_TEM if tem >= pedido else COR_DE_QUEM_FALTA))
+	if tem >= pedido:
+		linha.add_child(_novo_rotulo("%d / %d" % [tem, pedido], CoresDaInterface.verde()))
+	else:
+		linha.add_child(_novo_rotulo("%d / %d, falta %d" % [tem, pedido, pedido - tem], CoresDaInterface.ambar()))
 	return linha
 
 ## O botão Aprimorar some no nível máximo e fica desabilitado quando falta algo. Botão
@@ -201,9 +252,14 @@ func _definir_botao_de_aprimorar(aparece: bool, habilitado: bool) -> void:
 ## automático do Godot erra aqui, porque as duas colunas têm alturas bem diferentes.
 func _ligar_vizinhos_de_foco() -> void:
 	var da_direita: Button = botao_aprimorar if botao_aprimorar.visible and not botao_aprimorar.disabled else botao_fechar
-	for item: Item in _botoes_por_item:
-		var botao: Button = _botoes_por_item[item]
-		botao.focus_neighbor_right = botao.get_path_to(da_direita)
+	var botoes: Array[Button] = []
+	botoes.assign(_botoes_por_item.values())
+	for indice in botoes.size():
+		# Na grade, só o slot da última coluna (ou o último da lista) sai para a direita;
+		# os outros andam para o slot ao lado, pelo vizinho automático.
+		var na_ultima_coluna: bool = indice % lista.columns == lista.columns - 1 or indice == botoes.size() - 1
+		if na_ultima_coluna:
+			botoes[indice].focus_neighbor_right = botoes[indice].get_path_to(da_direita)
 	var escolhido: Button = _botoes_por_item.get(_item_escolhido, null)
 	if escolhido != null:
 		botao_aprimorar.focus_neighbor_left = botao_aprimorar.get_path_to(escolhido)
@@ -219,17 +275,28 @@ func _focar_o_escolhido() -> void:
 	else:
 		botao_fechar.grab_focus()
 
-func _texto_do_nivel(nivel: int) -> String:
-	return "Nível máximo" if nivel >= UpgradeManager.NIVEL_MAXIMO else "Nível %d" % nivel
-
 func _mostrar_mensagem(texto: String, cor: Color) -> void:
 	mensagem.text = texto
 	mensagem.add_theme_color_override(&"font_color", cor)
 
-func _novo_rotulo(texto: String, tamanho: int, cor: Color) -> Label:
+func _novo_rotulo(texto: String, cor: Color) -> Label:
 	var rotulo: Label = Label.new()
 	rotulo.text = texto
-	rotulo.add_theme_font_size_override(&"font_size", tamanho)
 	rotulo.add_theme_color_override(&"font_color", cor)
 	rotulo.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return rotulo
+
+func _rotulo_centrado(texto: String, cor: Color) -> Label:
+	var rotulo: Label = _novo_rotulo(texto, cor)
+	rotulo.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	return rotulo
+
+func _novo_icone(textura: Texture2D, tamanho: Vector2) -> TextureRect:
+	var icone: TextureRect = TextureRect.new()
+	icone.texture = textura
+	icone.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	icone.custom_minimum_size = tamanho
+	icone.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icone.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icone.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return icone

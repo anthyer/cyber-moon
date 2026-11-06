@@ -558,9 +558,7 @@ em `equipe/planos/16-amizade-e-romance.md`.
   coração em que está.
 - **Namoro:** o buquê é aceito por NPC romanceável, com dez corações, se o jogador não
   namora ninguém. Recusado, o buquê não é consumido.
-- **Interface:** a aba Relacionamentos do menu de pausa (`AbaDeRelacionamentos`) mostra os
-  corações, o aniversário, e se ainda dá para presentear e conversar. Os gostos não
-  aparecem.
+- **Interface:** a aba Relacionamentos do menu de pausa (`AbaDeRelacionamentos`) mostra um cartão por morador com o modelo 3D, os corações, o aniversário (em rosa quando falta uma semana ou menos) e as marcas do dia: "conversou" acesa em ciano se já conversaram hoje, "presente" acesa em rosa se o presente da semana já foi dado. Os gostos não aparecem.
 
 Os gostos saem da tabela de `scripts/utils/gerar_npcs.gd`, e as falas de evento, de
 `scripts/utils/gerar_dialogos.gd`.
@@ -1080,3 +1078,21 @@ quem_fala.tocar(no.animacao)
 quem_fala.definir_aceso(true)
 quem_escuta.definir_aceso(false)
 ```
+
+### Menu de pausa
+
+`scenes/ui/menu_pausa.tscn` tem uma fileira de abas (`TabBar` sem foco, com a `TeclaNaTela` de `aba_anterior` e `aba_seguinte` dos dois lados) e uma página por aba dentro de `Paginas`; trocar de aba só mostra uma e esconde as outras. A ordem está em `NOMES_DAS_ABAS` no `menu_pausa.gd`. Diário, Mapa e Opções ainda são páginas reservadas (planos 32 e 33, e a tela de opções do plano 40): quem fizer o conteúdo troca a página pela cena nova, com o mesmo nome único.
+
+- **Inventário:** mochila (`PainelNeutro` com `PainelCabecalho`), uma linha de `SlotTrancado` só visual (não existe mochila maior ainda), barra rápida com o item em uso em `SlotNaMao`, lixeira em `SlotLixeira` e o cartão do item focado em `PainelCiano`. O estado de cada `SlotInventario` é a variation (segurando, focado, na mão, normal, nessa ordem).
+- **Equipamento:** `AbaDeEquipamento` (`scripts/ui/aba_de_equipamento.gd`), só para olhar: arma na mão (ou o punho do jogador), ferramentas, armadura, acessório, troféus por dungeon (trancado até vencer o chefe), o jogador num `ModelStage` que gira, nível e experiência, e os números com a comparação de troca pela primeira outra arma da mochila (ganho em verde, perda em âmbar).
+- **Relacionamentos:** `AbaDeRelacionamentos` monta um `CartaoDeMorador` por perfil de `resources/npcs/` uma vez só. Cada cartão tem um `ModelStage` pequeno em modo foto; só o cartão com foco anima. Medido com os doze moradores: cerca de 9 ms por quadro em modo foto contra 12 a 13 ms com todos animando. **Palco que ainda não passou pelo container precisa de tamanho antes da foto** (`tirar_foto()` usa o tamanho atual do SubViewport); o cartão faz isso.
+- **Calendário:** `GradeDoCalendario` (`scenes/ui/grade_do_calendario.tscn`) é o conteúdo, usado pela aba e pela tela `Calendario` do quadro no mundo. Seis colunas, Folga em roxo, hoje em `SlotFocado`, aniversário em rosa, e a Lua de cada dia pela conta local do `RealWorldManager.fase_calculada_localmente` (hoje usa a `fase_da_lua` de verdade).
+
+`CoracaoDePixel` (`scripts/ui/coracao_de_pixel.gd`) é o coração de pixel da interface, desenhado em código porque as fontes não têm o caractere; quem mostra pinta com o `modulate`. `FileiraDeCoracoes` (`scripts/ui/fileira_de_coracoes.gd`, `mostrar(cheios)`) monta os dez corações da amizade com ele, e é usada na conversa e nos cartões de morador.
+
+### Telas de serviço e HUD
+
+- A conversa (`caixa_dialogo`) mostra os corações do morador com a `FileiraDeCoracoes` e o nome numa etiqueta; o menu de serviços e a loja mostram o lojista em pé num `ModelStage` (`%PalcoDoLojista`).
+- A loja tem as abas Comprar e Vender; a aba Vender só explica o baú de venda. O `ResumoDeVendas` é um cupom de papel que escuta `item_sold` e `sale_completed`.
+- O aviso (`HudAviso`) fica no alto, no meio. A barra do chefe (`HudDoChefe`) entra no grupo `barra_do_chefe`, e o aviso desce para logo abaixo dela enquanto ela está visível. A barra troca de fase pela variation (`BarraChefe` ou `BarraChefeFase2`) e mostra os golpes da fase.
+- O relógio fica âmbar e com painel magenta depois da meia-noite; os créditos mostram o ganho em verde e o gasto em âmbar. O lobby mostra cada dungeon num cartão com o estado, e o convite é um painel magenta com barra de tempo.

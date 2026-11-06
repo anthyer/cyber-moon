@@ -1,22 +1,7 @@
 [gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/tela_de_aprimoramento.gd" id="1_script"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
-bg_color = Color(0.03, 0.04, 0.08, 0.92)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 0.95, 1, 0.6)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-content_margin_left = 20.0
-content_margin_top = 16.0
-content_margin_right = 20.0
-content_margin_bottom = 16.0
+[ext_resource type="Texture2D" path="res://assets/textures/icones_itens/credito.png" id="2_credito"]
 
 [node name="TelaDeAprimoramento" type="Control"]
 process_mode = 3
@@ -38,92 +23,148 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.55)
 
-[node name="Centro" type="CenterContainer" parent="."]
+[node name="Painel" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -468.0
+offset_top = -283.0
+offset_right = 468.0
+offset_bottom = 283.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Painel" type="PanelContainer" parent="Centro"]
-custom_minimum_size = Vector2(680, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
-
-[node name="Linhas" type="VBoxContainer" parent="Centro/Painel"]
+[node name="Linhas" type="VBoxContainer" parent="Painel"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Cabecalho" type="HBoxContainer" parent="Centro/Painel/Linhas"]
+[node name="Cabecalho" type="PanelContainer" parent="Painel/Linhas"]
 layout_mode = 2
+theme_type_variation = &"PainelCabecalho"
 
-[node name="Titulo" type="Label" parent="Centro/Painel/Linhas/Cabecalho"]
+[node name="Linha" type="HBoxContainer" parent="Painel/Linhas/Cabecalho"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Titulo" type="Label" parent="Painel/Linhas/Cabecalho/Linha"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 22
+theme_type_variation = &"TituloDoCabecalho"
 text = "Bancada"
 
-[node name="Saldo" type="Label" parent="Centro/Painel/Linhas/Cabecalho"]
+[node name="IconeDoSaldo" type="TextureRect" parent="Painel/Linhas/Cabecalho/Linha"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_credito")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Saldo" type="Label" parent="Painel/Linhas/Cabecalho/Linha"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
-theme_override_font_sizes/font_size = 16
-text = "500 créditos"
+theme_type_variation = &"Titulo"
+text = "500"
 vertical_alignment = 1
 
-[node name="Colunas" type="HBoxContainer" parent="Centro/Painel/Linhas"]
+[node name="Colunas" type="HBoxContainer" parent="Painel/Linhas"]
 layout_mode = 2
-theme_override_constants/separation = 20
+size_flags_vertical = 3
+theme_override_constants/separation = 22
 
-[node name="Rolagem" type="ScrollContainer" parent="Centro/Painel/Linhas/Colunas"]
-custom_minimum_size = Vector2(260, 320)
+[node name="Esquerda" type="VBoxContainer" parent="Painel/Linhas/Colunas"]
+custom_minimum_size = Vector2(228, 0)
 layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="SuasArmas" type="Label" parent="Painel/Linhas/Colunas/Esquerda"]
+layout_mode = 2
+theme_type_variation = &"TextoApagado"
+text = "Suas armas e ferramentas"
+autowrap_mode = 3
+
+[node name="Rolagem" type="ScrollContainer" parent="Painel/Linhas/Colunas/Esquerda"]
+layout_mode = 2
+size_flags_vertical = 3
 follow_focus = true
 horizontal_scroll_mode = 0
 
-[node name="Lista" type="VBoxContainer" parent="Centro/Painel/Linhas/Colunas/Rolagem"]
+[node name="Lista" type="GridContainer" parent="Painel/Linhas/Colunas/Esquerda/Rolagem"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 6
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 3
 
-[node name="Divisor" type="VSeparator" parent="Centro/Painel/Linhas/Colunas"]
-layout_mode = 2
-
-[node name="Direita" type="VBoxContainer" parent="Centro/Painel/Linhas/Colunas"]
+[node name="Direita" type="VBoxContainer" parent="Painel/Linhas/Colunas"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
 
-[node name="Detalhes" type="VBoxContainer" parent="Centro/Painel/Linhas/Colunas/Direita"]
+[node name="Comparacao" type="HBoxContainer" parent="Painel/Linhas/Colunas/Direita"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CartaoAgora" type="PanelContainer" parent="Painel/Linhas/Colunas/Direita/Comparacao"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LinhasDoAgora" type="VBoxContainer" parent="Painel/Linhas/Colunas/Direita/Comparacao/CartaoAgora"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Seta" type="Label" parent="Painel/Linhas/Colunas/Direita/Comparacao"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"TituloGrande"
+text = ">"
+
+[node name="CartaoProximo" type="PanelContainer" parent="Painel/Linhas/Colunas/Direita/Comparacao"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"PainelCiano"
+
+[node name="LinhasDoProximo" type="VBoxContainer" parent="Painel/Linhas/Colunas/Direita/Comparacao/CartaoProximo"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Detalhes" type="VBoxContainer" parent="Painel/Linhas/Colunas/Direita"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 6
+theme_override_constants/separation = 4
 
-[node name="BotaoAprimorar" type="Button" parent="Centro/Painel/Linhas/Colunas/Direita"]
-unique_name_in_owner = true
+[node name="Rodape" type="HBoxContainer" parent="Painel/Linhas"]
 layout_mode = 2
-text = "Aprimorar"
+theme_override_constants/separation = 12
 
-[node name="Separador" type="HSeparator" parent="Centro/Painel/Linhas"]
-layout_mode = 2
-
-[node name="Rodape" type="HBoxContainer" parent="Centro/Painel/Linhas"]
-layout_mode = 2
-
-[node name="Mensagem" type="Label" parent="Centro/Painel/Linhas/Rodape"]
+[node name="Mensagem" type="Label" parent="Painel/Linhas/Rodape"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.6, 0.66, 0.8, 1)
-theme_override_font_sizes/font_size = 14
 vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="BotaoFechar" type="Button" parent="Centro/Painel/Linhas/Rodape"]
+[node name="BotaoAprimorar" type="Button" parent="Painel/Linhas/Rodape"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 4
+text = "Aprimorar"
+
+[node name="BotaoFechar" type="Button" parent="Painel/Linhas/Rodape"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
 text = "Fechar"

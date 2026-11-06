@@ -12,17 +12,7 @@ signal descarte_pedido(indice_do_slot: int)
 ## item seguro pelo controle.
 signal acionada
 
-const COR_DE_FUNDO: Color = Color(0.12, 0.06, 0.08, 0.85)
-const COR_DA_BORDA: Color = Color(0.5, 0.25, 0.3, 1.0)
-const COR_DA_BORDA_FOCADA: Color = Color(1.0, 0.35, 0.4, 1.0)
-
-var _estilo: StyleBoxFlat = StyleBoxFlat.new()
-
 func _ready() -> void:
-	_estilo.bg_color = COR_DE_FUNDO
-	_estilo.set_corner_radius_all(4)
-	_estilo.set_border_width_all(2)
-	add_theme_stylebox_override(&"panel", _estilo)
 	focus_entered.connect(_atualizar_estilo)
 	focus_exited.connect(_atualizar_estilo)
 	_atualizar_estilo()
@@ -38,5 +28,7 @@ func _gui_input(evento: InputEvent) -> void:
 		acionada.emit()
 		accept_event()
 
+## Roxo escuro parada e ciano com o foco, como qualquer slot. Nada vermelho: jogar fora
+## é destrutivo, mas não é dano.
 func _atualizar_estilo() -> void:
-	_estilo.border_color = COR_DA_BORDA_FOCADA if has_focus() else COR_DA_BORDA
+	theme_type_variation = &"SlotFocado" if has_focus() else &"SlotLixeira"

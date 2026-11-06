@@ -21,6 +21,8 @@ O jogo tem como alvo inicial a plataforma web, com suporte a mobile e a joystick
 | `slot_anterior` | Nenhum | Roda para cima | Gatilho esquerdo (LT / L2) |
 | `teste_avancar_dia` | N (atalho de teste: avança um dia na hora, sem penalidade) | Nenhum | Nenhum |
 | `soltar_item` | Q (solta o item da mão; perto de um NPC, dá de presente) | Nenhum | R3 (apertar o analógico direito) |
+| `aba_anterior` | Q (só com o menu de pausa aberto; fora dele, Q solta item) | Nenhum | L1 (botão superior esquerdo) |
+| `aba_seguinte` | E (só com o menu de pausa aberto; fora dele, E abre o inventário) | Nenhum | R1 (botão superior direito) |
 | `abrir_chat` | Enter ou T (abre o campo do chat; Enter envia, Esc fecha) | Nenhum | Nenhum |
 | `menu_debug` | F3 (abre e fecha o menu de debug; só teclado, é ferramenta de teste) | Nenhum | Nenhum |
 
@@ -40,8 +42,10 @@ O stick esquerdo move o jogador junto com o D-pad. As quatro ações de moviment
 - Com uma ferramenta aprimorada na mão, `atacar` age ao soltar: um toque faz um quadrado, e segurar aumenta a área em etapas, até o máximo do nível. O personagem fica parado enquanto o botão está apertado.
 - Na conversa com um NPC, `interagir` (ou o clique de `atacar`) completa a fala e depois avança, e `ui_cancel` encerra. O personagem fica parado e o menu de pausa não abre.
 - Com o chat aberto ou a tela de lobby na frente, o `InputManager.teclado_capturado` fica ligado e o personagem não responde a nada. Nenhuma das duas pausa o jogo, porque a rede precisa continuar.
-- O calendário pausa o jogo como o menu de pausa. Esquerda e direita trocam a estação mostrada, e `ui_cancel` (Esc ou B) fecha. Ele não tem tecla de atalho: abre só pelo quadro de calendário no mundo. Com uma das duas telas aberta, a outra não abre.
-- `abrir_inventario` e `menu_pausa` abrem a mesma tela por enquanto, o menu de pausa com o inventário, porque ainda não existe tela de opções. Com o menu aberto, qualquer uma das duas fecha, e o jogo fica pausado de verdade enquanto ele está aberto.
+- O calendário do quadro no mundo pausa o jogo como o menu de pausa. Esquerda e direita trocam a estação mostrada, e `ui_cancel` (Esc ou B) fecha. Ele não tem tecla de atalho: abre só pelo quadro de calendário no mundo. O mesmo conteúdo está na aba Calendário do menu de pausa. Com uma das duas telas aberta, a outra não abre.
+- `abrir_inventario` e `menu_pausa` abrem o menu de pausa, sempre na aba Inventário, e o jogo fica pausado de verdade enquanto ele está aberto. As abas (Inventário, Equipamento, Relacionamentos, Diário, Mapa, Calendário, Opções) trocam com `aba_anterior` e `aba_seguinte` (Q e E, L1 e R1), em volta, ou com o clique na aba. Com o menu aberto, a troca de aba é lida primeiro e consome o quadro: o E troca de aba e não fecha o menu, e o Q troca de aba e não solta item (o jogador está pausado). Trocar de aba desfaz uma pega pelo controle. O menu fecha com Esc (`menu_pausa` ou `ui_cancel`; com item seguro, Esc só desfaz a pega) e, no controle, com Back, B, ou com os botões de `abrir_inventario` que não trocam de aba (Y e Start). Na aba Calendário, esquerda e direita trocam a estação mostrada.
+- O `InputManager` roda com o jogo pausado (`process_mode` sempre), para as telas de pausa saberem quando o jogador troca de aparelho com elas abertas. Ele só observa a entrada; nada de gameplay roda por isso.
+- `nome_da_tecla` também lê ações nativas da interface, que guardam a tecla pelo `keycode` e não pela posição física (`ui_accept` vira "Enter", `ui_cancel` vira "Escape").
 - O palco de modelo (`ModelStage`) com giro ligado gira o modelo arrastando com o botão esquerdo do mouse ou com o direcional direito do controle. O direcional direito é lido por `InputManager.giro_do_direcional_direito()`, que devolve de -1 a 1 (folga de 0.2) e não é ação do Input Map, porque o valor é contínuo.
 - Menus e telas de UI usam o sistema nativo de foco dos nós `Control` do Godot, permitindo navegação por teclado ou joystick sem depender do mouse.
 

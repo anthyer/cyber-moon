@@ -142,12 +142,12 @@ a lixeira do inventário. Aviso e falta viram âmbar; a lixeira vira roxo escuro
   cor de cada script de `scripts/ui/` saem do script e passam a ser lidas do Theme
   (`get_theme_color`), num lugar só. Registrar em `game/docs/arquitetura.md`.
 - [x] **3.** A cena `palco_de_modelo.tscn` e a `caixa_dialogo` passando a usá-la.
-- [ ] **4.** HUD da fazenda e da dungeon (status, relógio, créditos, barra rápida,
+- [x] **4.** HUD da fazenda e da dungeon (status, relógio, créditos, barra rápida,
   destaque, chat, aviso, objetivo, chefe, aliados, combo).
-- [ ] **5.** Conversa, serviços, loja, bancada, baú, resumo de vendas, desmaio.
-- [ ] **6.** Menu de pausa com a fileira de abas, inventário, equipamento,
+- [x] **5.** Conversa, serviços, loja, bancada, baú, resumo de vendas, desmaio.
+- [x] **6.** Menu de pausa com a fileira de abas, inventário, equipamento,
   relacionamentos e calendário; as abas de diário e mapa reservadas.
-- [ ] **7.** Lobby, convite, conta.
+- [x] **7.** Lobby, convite, conta.
 - [ ] **8.** Telas novas: tela inicial (vira a cena principal do projeto; "Continuar" só
   aparece com save), opções e dungeon concluída.
 - [ ] **9.** Partículas (regra do plano 19): abrir a tela inicial (poeira de estrela),

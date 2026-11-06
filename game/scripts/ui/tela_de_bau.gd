@@ -1,10 +1,12 @@
 class_name TelaDeBau
 extends Control
 
-## A tela de um baú: os slots dele em cima e o inventário do jogador embaixo.
+## A tela de um baú: o baú à esquerda e o inventário do jogador à direita, com a mesma
+## grade de slots, como no mock do baú.
 ##
 ## Serve o baú de guardar e o baú de venda. A diferença entre os dois (o que cada um
-## aceita, e o valor da venda) é do próprio Bau; esta tela só pergunta.
+## aceita, e o valor da venda) é do próprio Bau; esta tela só pergunta. O de venda tem o
+## painel com borda ouro e mostra o valor e quando ele é recolhido.
 ##
 ## Não há arrastar. Um clique, ou confirmar com o slot focado, manda a pilha inteira para
 ## o outro lado: do inventário para o baú, ou do baú para o inventário. Assim o mouse e o
@@ -22,8 +24,15 @@ const AJUDA_DE_VENDA: String = "O que ficar aqui é vendido quando você dormir.
 const AVISO_DE_ITEM_RECUSADO: String = "Isso não pode ir neste baú."
 const AVISO_DE_BAU_CHEIO: String = "O baú está cheio."
 const AVISO_DE_INVENTARIO_CHEIO: String = "O inventário está cheio."
+## A venda acontece na virada do dia (Bau._ao_terminar_o_dia), e não numa hora fixa.
+const QUANDO_O_BAU_DE_VENDA_E_RECOLHIDO: String = "O Rafa recolhe quando o dia vira. Você recebe ao acordar."
+## O número de cada slot da barra rápida fica no canto, como na barra da tela de jogo.
+const TAMANHO_DO_NUMERO_DO_SLOT: int = 16
 
+@onready var painel_do_bau: PanelContainer = %PainelDoBau
 @onready var titulo: Label = %Titulo
+@onready var caixa_da_venda: PanelContainer = %CaixaDaVenda
+@onready var quando_recolhe: Label = %QuandoRecolhe
 @onready var grade_do_bau: GridContainer = %GradeDoBau
 @onready var matriz: GridContainer = %Matriz
 @onready var barra_rapida: GridContainer = %BarraRapida
@@ -41,6 +50,8 @@ var _slot_focado: SlotDeContainer = null
 
 func _ready() -> void:
 	visible = false
+	valor_da_venda.add_theme_color_override(&"font_color", CoresDaInterface.ouro())
+	quando_recolhe.text = QUANDO_O_BAU_DE_VENDA_E_RECOLHIDO
 	botao_fechar.pressed.connect(fechar)
 	EventBus.chest_requested.connect(abrir)
 	_criar_slots_do_inventario()
@@ -59,7 +70,10 @@ func abrir(bau: Bau) -> void:
 		return
 	_bau = bau
 	titulo.text = bau.nome_exibido
-	valor_da_venda.visible = bau.e_de_venda()
+	# O baú de venda é dinheiro: painel e título em ouro, com a caixa do valor.
+	painel_do_bau.theme_type_variation = &"PainelOuro" if bau.e_de_venda() else &"PainelNeutro"
+	titulo.add_theme_color_override(&"font_color", CoresDaInterface.ouro() if bau.e_de_venda() else CoresDaInterface.ciano())
+	caixa_da_venda.visible = bau.e_de_venda()
 	linha_de_ajuda.text = AJUDA_DE_VENDA if bau.e_de_venda() else AJUDA_DE_GUARDAR
 	nome_do_item.text = ""
 	_criar_slots_do_bau()
@@ -87,7 +101,9 @@ func fechar() -> void:
 ## O inventário tem sempre o mesmo tamanho, então os slots dele são criados uma vez só.
 func _criar_slots_do_inventario() -> void:
 	for indice in InventoryManager.SLOTS_RAPIDOS:
-		_slots_do_inventario.append(_novo_slot(false, indice, barra_rapida))
+		var slot: SlotDeContainer = _novo_slot(false, indice, barra_rapida)
+		slot.add_child(_novo_numero_de_slot(indice + 1))
+		_slots_do_inventario.append(slot)
 	for indice in InventoryManager.SLOTS_DA_MATRIZ:
 		_slots_do_inventario.append(_novo_slot(false, InventoryManager.SLOTS_RAPIDOS + indice, matriz))
 
@@ -119,7 +135,7 @@ func _redesenhar() -> void:
 	for slot in _slots_do_inventario:
 		slot.mostrar(InventoryManager.slot_em(slot.indice))
 	if _bau.e_de_venda():
-		valor_da_venda.text = "Valor da venda: %d créditos" % _bau.valor_total()
+		valor_da_venda.text = str(_bau.valor_total())
 	if _slot_focado != null:
 		_mostrar_nome(_slot_focado)
 
@@ -143,3 +159,12 @@ func _ao_focar_slot(slot: SlotDeContainer) -> void:
 
 func _mostrar_nome(slot: SlotDeContainer) -> void:
 	nome_do_item.text = "" if slot.esta_vazio() else slot.pilha.item.nome
+
+func _novo_numero_de_slot(numero: int) -> Label:
+	var rotulo: Label = Label.new()
+	rotulo.text = str(numero)
+	rotulo.theme_type_variation = &"TextoApagado"
+	rotulo.add_theme_font_size_override(&"font_size", TAMANHO_DO_NUMERO_DO_SLOT)
+	rotulo.position = Vector2(4.0, 1.0)
+	rotulo.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return rotulo

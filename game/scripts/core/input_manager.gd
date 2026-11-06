@@ -20,6 +20,11 @@ var _usando_controle: bool = false
 const NOMES_DOS_BOTOES: Dictionary = {0: "A", 1: "B", 2: "X", 3: "Y", 9: "LB", 10: "RB", 4: "Select", 6: "Start"}
 var _posicao_do_mouse: Vector2 = Vector2.ZERO
 
+## Continua ouvindo com o jogo pausado, para as telas de pausa (o menu de pausa) saberem
+## quando o jogador troca do teclado para o controle com elas abertas.
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 ## Guarda de qual aparelho veio a última entrada e por onde o mouse andou. Não decide
 ## nada de gameplay: só responde às perguntas de quem pergunta, como o resto deste script.
 func _input(evento: InputEvent) -> void:
@@ -60,7 +65,12 @@ func nome_da_tecla(acao: StringName) -> String:
 		if _usando_controle and evento is InputEventJoypadButton:
 			return NOMES_DOS_BOTOES.get((evento as InputEventJoypadButton).button_index, "Botão")
 		if not _usando_controle and evento is InputEventKey:
-			var tecla: Key = DisplayServer.keyboard_get_keycode_from_physical((evento as InputEventKey).physical_keycode)
+			var tecla_do_evento: InputEventKey = evento as InputEventKey
+			# As ações nativas da interface (ui_accept, por exemplo) guardam a tecla pelo
+			# keycode, e não pela posição física.
+			if tecla_do_evento.physical_keycode == KEY_NONE:
+				return OS.get_keycode_string(tecla_do_evento.keycode)
+			var tecla: Key = DisplayServer.keyboard_get_keycode_from_physical(tecla_do_evento.physical_keycode)
 			return OS.get_keycode_string(tecla)
 	return "?"
 
@@ -87,6 +97,14 @@ func abrir_inventario_pressionado() -> bool:
 
 func menu_pausa_pressionado() -> bool:
 	return not teclado_capturado and Input.is_action_just_pressed("menu_pausa")
+
+## Trocam a aba do menu de pausa (Q e E, L1 e R1). Só o menu de pausa pergunta: fora
+## dele, as mesmas teclas soltam item e abrem o inventário.
+func aba_anterior_pressionada() -> bool:
+	return not teclado_capturado and Input.is_action_just_pressed("aba_anterior")
+
+func aba_seguinte_pressionada() -> bool:
+	return not teclado_capturado and Input.is_action_just_pressed("aba_seguinte")
 
 func dash_pressionado() -> bool:
 	return not teclado_capturado and Input.is_action_just_pressed("dash")
