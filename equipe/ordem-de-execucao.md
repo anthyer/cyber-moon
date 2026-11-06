@@ -44,6 +44,8 @@ assume que os anteriores existem. Marque o checkbox quando terminar.
 - [x] 36 Login no jogo com a conta do Cognito (tarefa 4.5 do plano 18)
 - [x] 37 Mundo real: hora inicial do relógio do computador, clima pela Open-Meteo e fase da Lua
 - [x] 38 Cadastro só com nome de usuário e senha, sem e-mail (pedido do professor; muda o 36 e o User Pool do 18)
+- [ ] 40 Redesenho da interface: todas as telas num Theme só, pixel art, modelos 3D no lugar de retrato (mocks em `equipe/mocks-de-interface/`; depois do 20)
+- [ ] 39 Escolha do personagem: seis protagonistas modelados no Blender, corpo tipo 1 e tipo 2, sem gênero no jogo (depois de 30 em main e do 40; vem antes do 34)
 - [ ] Balanceamento e revisão final (depois de tudo pronto): custos de stamina, números dos inimigos, cores do dia e da noite, e a revisão do combate com stagger, combos e animações
 
 ## Por que essa ordem

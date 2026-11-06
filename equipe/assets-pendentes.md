@@ -65,6 +65,6 @@ pixel art, fundo transparente; modelo em `.glb`. O caminho de importação está
 | Animação de andar dos inimigos das dungeons | são máquinas de malha rígida: deslizam, flutuam ou giram, sem passo | um esqueleto e clipes nos `.glb` de `assets/models/cyber_moon_dungeons/inimigo_*` e `chefe_*`; o `Inimigo` já toca clipe quando o modelo tem `AnimationPlayer` | 23 |
 | Vidro de verdade na estufa | face azul opaca, como as janelas dos prédios | `parede_de_estufa` em `equipe/ferramentas/blender/modelos/biodomo.py` | 23 |
 | Modelo do outro jogador na dungeon | um personagem do pacote Kenney, diferente do local | `scenes/coop/jogador_remoto.tscn` | 22 |
-| Modelo próprio do jogador | personagem do pacote Kenney | `scenes/player/player.tscn` | sem plano |
+| Modelo próprio do jogador | personagem do pacote Kenney | `scenes/player/player.tscn` (vira o `modelo` de `resources/protagonistas/*.tres`) | 39 |
 | Animação de golpe por tipo de arma | todas usam o soco do pacote Kenney | revisão do combate | 08 |
 | Animação de andar segurando a arma de distância | o braço abaixa a escopeta ao andar | revisão do combate | 08 |

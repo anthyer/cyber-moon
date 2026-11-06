@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cyber Moon, mocks de interface</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=VT323&display=swap">
+<link rel="stylesheet" href="estilo.css">
+<script src="pixel.js"></script>
+<style>
+  /* Peças que só aparecem numa tela. */
+  /* Modelo 3D do morador, num palco com luz de baixo, como o SubViewport da conversa. */
+  img.modelo { width: 96px; height: 96px; image-rendering: pixelated; background: radial-gradient(ellipse at 50% 92%, rgba(51, 242, 255, 0.35) 0 18%, transparent 19%), radial-gradient(circle at 50% 60%, #1a2140 0%, transparent 70%); }
+  img.modelo.pequeno { width: 64px; height: 64px; }
+  img.modelo.grande { width: 260px; height: 260px; }
+  .palco-da-conversa { position: absolute; left: 0; right: 0; top: 160px; height: 380px; }
+  .palco-da-conversa img { position: absolute; bottom: 120px; width: 300px; height: 300px; image-rendering: pixelated; filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.45)); }
+  .palco-da-conversa .luz { position: absolute; bottom: 132px; width: 200px; height: 26px; border-radius: 50%; background: radial-gradient(ellipse, rgba(51, 242, 255, 0.45), transparent 70%); }
+  .ponto-de-aliado { width: 12px; height: 12px; flex: none; box-shadow: 0 0 0 2px #000; }
+
+  .logo { position: absolute; left: 60px; top: 36px; }
+  .logo .palavra {
+    font-family: var(--fonte-titulo); font-weight: 700; font-size: 68px; line-height: 0.9; letter-spacing: 4px;
+  }
+  .logo .cyber { color: var(--magenta); text-shadow: 4px 4px 0 #3a0f33, 0 0 18px rgba(255, 64, 204, 0.7); }
+  .logo .moon { color: var(--ciano); text-shadow: 4px 4px 0 #0d3a44, 0 0 18px rgba(51, 242, 255, 0.7); padding-left: 64px; }
+  .logo .lema { margin-top: 14px; font-size: 24px; color: var(--ouro); letter-spacing: 1px; text-shadow: 2px 2px 0 #000; }
+
+  .menu-titulo { left: 60px; top: 222px; width: 330px; padding: 10px 12px 6px; }
+  .menu-titulo .botao { width: 100%; margin-bottom: 4px; padding: 1px 12px; font-size: 21px; }
+  .menu-titulo .save { font-size: 17px; color: var(--apagado); margin: -4px 0 8px 26px; }
+
+  .relogio { right: 16px; top: 16px; width: 250px; white-space: nowrap; padding: 8px 12px; }
+  .relogio .hora { font-family: var(--fonte-titulo); font-size: 30px; line-height: 1; }
+  .relogio .faixa { display: flex; height: 6px; margin: 6px 0; }
+  .relogio .faixa i { flex: 1; }
+
+  .bolha {
+    position: absolute; padding: 2px 10px; font-size: 22px; background: var(--painel);
+    border: 3px solid var(--ciano); box-shadow: 0 0 12px rgba(51, 242, 255, 0.45);
+  }
+  .bolha::after {
+    content: ""; position: absolute; left: 50%; bottom: -12px; margin-left: -6px;
+    border: 6px solid transparent; border-top-color: var(--ciano);
+  }
+
+  .toast { position: absolute; display: flex; align-items: center; gap: 8px; padding: 4px 12px; font-size: 22px; background: var(--painel); border-left: 4px solid var(--verde); }
+
+  .chat { left: 16px; bottom: 100px; width: 280px; padding: 8px 10px; font-size: 18px; background: rgba(7, 9, 18, 0.7); }
+
+  .numero-de-dano {
+    position: absolute; font-family: var(--fonte-titulo); font-size: 22px; color: var(--magenta);
+    text-shadow: 2px 2px 0 #2a0b26, 0 0 8px rgba(255, 64, 204, 0.7);
+  }
+
+  .calendario .dias { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+  .calendario .dia { position: relative; height: 58px; padding: 2px 6px; background: rgba(26, 33, 51, 0.9); font-size: 20px; }
+  .calendario .dia.folga { background: rgba(41, 31, 51, 0.9); }
+  .calendario .dia.hoje { background: rgba(51, 242, 255, 0.25); outline: 3px solid var(--ciano); }
+  .calendario .dia.passou { color: #59627f; }
+  .calendario .dia img { position: absolute; right: 3px; bottom: 3px; width: 16px; height: 16px; image-rendering: pixelated; }
+  .calendario .dia .evento { position: absolute; left: 6px; bottom: 2px; font-size: 15px; }
+
+  .loja-lista .linha-loja { display: grid; grid-template-columns: 40px 1fr 70px 90px; align-items: center; gap: 8px; padding: 3px 6px; font-size: 21px; border-bottom: 2px solid #1a1f36; }
+  .loja-lista .linha-loja.foco { background: #0d2630; outline: 3px solid var(--ciano); }
+  .loja-lista img { width: 32px; height: 32px; image-rendering: pixelated; }
+
+  .nota-fiscal {
+    background: #e8e1c8; color: #1d1a14; font-size: 21px; padding: 18px 22px;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), 95% 100%, 90% calc(100% - 8px), 85% 100%, 80% calc(100% - 8px), 75% 100%, 70% calc(100% - 8px), 65% 100%, 60% calc(100% - 8px), 55% 100%, 50% calc(100% - 8px), 45% 100%, 40% calc(100% - 8px), 35% 100%, 30% calc(100% - 8px), 25% 100%, 20% calc(100% - 8px), 15% 100%, 10% calc(100% - 8px), 5% 100%, 0 calc(100% - 8px));
+  }
+  .nota-fiscal .tracejado { border-top: 2px dashed #8a8270; margin: 6px 0; }
+
+  .cartao-dungeon { position: relative; width: 196px; padding: 10px; background: #10142a; border: 3px solid var(--borda); }
+  .cartao-dungeon.foco { border-color: var(--ciano); box-shadow: 0 0 12px rgba(51, 242, 255, 0.4); }
+  .cartao-dungeon.trancada { opacity: 0.55; }
+  .cartao-dungeon .faixa-cor { height: 46px; margin: -10px -10px 8px; }
+
+  .passo { display: flex; gap: 8px; font-size: 21px; margin-bottom: 4px; }
+  .passo .caixa { width: 16px; height: 16px; margin-top: 3px; border: 3px solid var(--borda); flex: none; }
+  .passo.feito { color: #5f6a8c; text-decoration: line-through; }
+  .passo.feito .caixa { background: var(--ciano); border-color: var(--ciano); }
+  .passo.atual .caixa { border-color: var(--ouro); box-shadow: 0 0 8px rgba(255, 217, 77, 0.6); }
+
+  .deslizador { position: relative; height: 12px; background: #0b0e1a; border: 3px solid var(--borda); }
+  .deslizador i { position: absolute; inset: 0 auto 0 0; background: var(--ciano); }
+  .deslizador b { position: absolute; top: -8px; width: 10px; height: 22px; background: var(--texto); box-shadow: 0 3px 0 #6b7699; }
+
+  .interruptor { display: inline-block; width: 44px; height: 20px; border: 3px solid var(--borda); background: #0b0e1a; position: relative; }
+  .interruptor::after { content: ""; position: absolute; top: 2px; left: 2px; width: 12px; height: 10px; background: #59627f; }
+  .interruptor.ligado { border-color: var(--verde); }
+  .interruptor.ligado::after { left: auto; right: 2px; background: var(--verde); }
+
+  .glitch { font-family: var(--fonte-titulo); font-size: 64px; color: var(--violeta); text-shadow: -4px 0 var(--magenta), 4px 0 var(--ciano); letter-spacing: 6px; }
+</style>
+</head>
+<body>
+<div class="galeria">
+
+<nav class="indice">
+  <h1>Cyber Moon</h1>
+  <p>Mocks de interface. Cada tela é desenhada em 960 por 540, como o jogo.</p>
+
+  <h2>Entrada</h2>
+  <a href="#tela-inicial">Tela inicial <span class="novo">nova</span></a>
+  <a href="#conta">Conta online</a>
+  <a href="#opcoes">Opções <span class="novo">nova</span></a>
+
+  <h2>No campo</h2>
+  <a href="#hud-dia">HUD da fazenda, de dia</a>
+  <a href="#hud-noite">HUD de noite, com aviso</a>
+  <a href="#dialogo">Conversa</a>
+  <a href="#servicos-loja">Serviços e loja</a>
+  <a href="#bancada">Bancada de aprimoramento</a>
+  <a href="#bau">Baú de venda</a>
+  <a href="#resumo-vendas">Resumo das vendas</a>
+  <a href="#desmaio">Desmaio</a>
+
+  <h2>Menu de pausa</h2>
+  <a href="#pausa-inventario">Inventário</a>
+  <a href="#pausa-equipamento">Equipamento</a>
+  <a href="#pausa-relacionamentos">Relacionamentos</a>
+  <a href="#pausa-diario">Diário de missões <span class="novo">nova</span></a>
+  <a href="#pausa-mapa">Mapa grande <span class="novo">nova</span></a>
+  <a href="#calendario">Calendário</a>
+
+  <h2>Dungeon</h2>
+  <a href="#lobby">Lobby e convite</a>
+  <a href="#hud-dungeon">HUD da dungeon e do chefe</a>
+  <a href="#dungeon-concluida">Dungeon concluída <span class="novo">nova</span></a>
+
+  <h2>Referência</h2>
+  <a href="#componentes">Folha de componentes</a>
+</nav>
+
+<main>
+
+<!-- ============================================================ -->
+<section class="tela" id="tela-inicial">
+  <h3>Tela inicial <span class="cena">ainda não existe no jogo</span></h3>
+  <p class="nota">Hoje o jogo abre direto no save. A tela de título resolve o "Novo jogo" e o "Salvar e sair" que estão em <b>pendencias.md</b>. A Lua do canto é a fase de verdade de hoje (plano 37), e o rodapé mostra o céu real que o jogo puxou.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="titulo"></canvas>
+
+    <div class="logo">
+      <div class="palavra cyber">CYBER</div>
+      <div class="palavra moon">MOON</div>
+      <div class="lema">a última fazenda antes da cidade</div>
+    </div>
+
+    <div class="painel menu-titulo">
+      <div class="botao foco">Continuar</div>
+      <div class="save">Dia 12 de Brotação, ano 1 . 1.240 créditos</div>
+      <div class="botao">Novo jogo</div>
+      <div class="botao">Jogar em equipe</div>
+      <div class="botao">Opções</div>
+      <div class="botao">Créditos</div>
+      <div class="botao">Sair</div>
+      <div class="dica" style="margin-top: 2px;"><span class="tecla">F</span> escolher <span class="tecla">ESC</span> voltar</div>
+    </div>
+
+    <div class="painel" style="right: 16px; bottom: 16px; width: 300px; padding: 8px 12px;">
+      <div class="linha"><img class="icone" src="icones/crescente.png" alt=""><span>Lua crescente hoje</span></div>
+      <div class="linha"><img class="icone" src="icones/chuva.png" alt=""><span>Chuva fraca, 21 graus</span></div>
+      <div class="dica">O céu da fazenda segue o seu céu.</div>
+    </div>
+
+    <div style="position: absolute; right: 16px; top: 14px; font-size: 18px;" class="apagado">
+      <span class="verde">●</span> Conectado como <span class="ciano">fazendeira_07</span>
+    </div>
+    <div style="position: absolute; right: 16px; top: 36px; font-size: 16px; color: #59627f;">v0.37 . IFSC</div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="conta">
+  <h3>Conta online <span class="cena">tela_de_conta.tscn</span></h3>
+  <p class="nota">O mesmo fluxo do plano 36 (entrar, criar, confirmar código), num painel com cara de terminal de acesso. Erro aparece em âmbar, não em vermelho.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="titulo"></canvas>
+    <div class="escurecer"></div>
+    <div class="painel neon" style="left: 280px; top: 70px; width: 400px;">
+      <div class="cabeca">Conta online</div>
+      <div class="apagado" style="font-size: 19px; margin-bottom: 12px;">Com conta, o seu nome no chat e no lobby é o da conta.</div>
+      <div class="coluna">
+        <div class="botao" style="justify-content: flex-start; color: var(--texto);"><span class="apagado">@</span> fazendeira07@vila.net</div>
+        <div class="botao foco" style="justify-content: flex-start;">●●●●●●●●<span class="piscar">_</span></div>
+        <div class="botao desligado" style="justify-content: flex-start;">Nome no chat (só para criar conta)</div>
+      </div>
+      <div class="ambar" style="font-size: 19px; margin: 10px 0;">! Senha curta. Use 8 caracteres ou mais.</div>
+      <div class="linha">
+        <div class="botao foco">Entrar</div>
+        <div class="botao">Criar conta</div>
+        <div class="botao empurra">Voltar</div>
+      </div>
+      <div style="margin-top: 14px; padding-top: 10px; border-top: 3px dashed var(--borda-escura);">
+        <div class="apagado" style="font-size: 19px;">Digite o código que chegou no e-mail</div>
+        <div class="linha" style="margin-top: 6px;">
+          <span class="slot" style="width: 40px; font-size: 26px;">4</span>
+          <span class="slot" style="width: 40px; font-size: 26px;">8</span>
+          <span class="slot foco" style="width: 40px; font-size: 26px;">_</span>
+          <span class="slot" style="width: 40px;"></span>
+          <span class="slot" style="width: 40px;"></span>
+          <span class="slot" style="width: 40px;"></span>
+          <div class="botao empurra">Confirmar</div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="opcoes">
+  <h3>Opções <span class="cena">nova, aba do menu de pausa e da tela inicial</span></h3>
+  <p class="nota">Junta o que hoje está espalhado no menu de debug (F3): volume, tela, as chaves do mundo real do plano 37 e o "Salvar e sair". O debug continua existindo, só para a equipe.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="fazendaNoite"></canvas>
+    <div class="escurecer"></div>
+    <div class="painel" style="left: 120px; top: 40px; width: 720px; height: 460px;">
+      <div class="cabeca">Opções</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <div class="coluna" style="gap: 10px;">
+          <div class="ouro titulo-pixel" style="font-size: 12px;">Som</div>
+          <div><div class="rotulo-barra"><span>Música</span><span>70</span></div><div class="deslizador"><i style="width: 70%;"></i><b style="left: 68%;"></b></div></div>
+          <div><div class="rotulo-barra"><span>Efeitos</span><span>85</span></div><div class="deslizador"><i style="width: 85%;"></i><b style="left: 83%;"></b></div></div>
+          <div><div class="rotulo-barra"><span>Ambiente (chuva, vento)</span><span>50</span></div><div class="deslizador"><i style="width: 50%;"></i><b style="left: 48%;"></b></div></div>
+          <div class="ouro titulo-pixel" style="font-size: 12px; margin-top: 8px;">Tela</div>
+          <div class="linha"><span>Tela cheia</span><span class="interruptor ligado empurra"></span></div>
+          <div class="linha"><span>Linhas de varredura</span><span class="interruptor empurra"></span></div>
+          <div class="linha"><span>Tremor na tela ao bater</span><span class="interruptor ligado empurra"></span></div>
+        </div>
+        <div class="coluna" style="gap: 10px;">
+          <div class="ouro titulo-pixel" style="font-size: 12px;">Mundo real</div>
+          <div class="linha botao foco" style="padding: 2px 8px;"><span>Começar na hora do computador</span><span class="interruptor ligado empurra"></span></div>
+          <div class="linha"><span>Clima da minha cidade</span><span class="interruptor ligado empurra"></span></div>
+          <div class="linha"><span>Fase da Lua de verdade</span><span class="interruptor ligado empurra"></span></div>
+          <div class="linha"><span>Cidade</span><span class="botao empurra" style="font-size: 19px; padding: 0 8px;">Florianópolis ▾</span></div>
+          <div class="dica">A Lua cheia rende mais na colheita e clareia a noite.</div>
+          <div class="ouro titulo-pixel" style="font-size: 12px; margin-top: 8px;">Controles</div>
+          <div class="linha"><span>Mapa de teclas</span><span class="botao empurra" style="font-size: 19px; padding: 0 8px;">Ver</span></div>
+        </div>
+      </div>
+      <div class="linha" style="position: absolute; left: 14px; right: 14px; bottom: 12px;">
+        <div class="botao rosa">Salvar e sair</div>
+        <div class="dica empurra"><span class="tecla">ESC</span> voltar</div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="hud-dia">
+  <h3>HUD da fazenda, de dia <span class="cena">barras_de_status, hud_relogio, barra_rapida, hud_creditos, destaque_de_interacao, hud_chat</span></h3>
+  <p class="nota">A barra de vida e a de stamina viram baterias segmentadas. O relógio ganha a faixa colorida do dia (as mesmas cores do <b>hud_relogio.gd</b>) e o ícone da Lua. O minimapa do plano 33 entra no canto de baixo.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="fazendaDia"></canvas>
+
+    <div class="painel" style="left: 16px; top: 16px; width: 250px; padding: 8px 12px;">
+      <div class="linha" style="margin-bottom: 6px;">
+        <span class="titulo-pixel" style="font-size: 12px;">fazendeira_07</span>
+        <span class="empurra ciano">Nv. 4</span>
+      </div>
+      <div class="rotulo-barra"><span class="verde">Vida</span><span>86 / 100</span></div>
+      <div class="barra vida"><i style="width: 86%;"></i></div>
+      <div class="rotulo-barra" style="margin-top: 6px;"><span class="ouro">Stamina</span><span>54 / 100</span></div>
+      <div class="barra stamina"><i style="width: 54%;"></i></div>
+      <div class="barra xp" style="margin-top: 8px;"><i style="width: 62%;"></i></div>
+    </div>
+
+    <div class="painel relogio">
+      <div class="linha">
+        <span class="hora">14:20</span>
+        <img class="icone empurra" src="icones/sol.png" alt="">
+        <img class="icone" src="icones/crescente.png" alt="">
+      </div>
+      <div class="faixa">
+        <i style="background: #5a4dbf;"></i><i style="background: #ffd959;"></i><i style="background: #ffa633; outline: 2px solid #fff;"></i><i style="background: #f2664d;"></i><i style="background: #4066f2;"></i>
+      </div>
+      <div class="linha"><span class="ouro">Tarde</span><span class="empurra apagado">Brotação, dia 12</span></div>
+    </div>
+
+    <div class="painel" style="right: 16px; top: 112px; padding: 4px 12px;">
+      <div class="linha"><img class="icone" src="icones/credito.png" alt=""><span style="font-size: 26px;">1.240</span><span class="verde" style="font-size: 20px;">+45</span></div>
+    </div>
+
+    <div class="toast" style="left: 50%; top: 20px; transform: translateX(-50%);">
+      <img class="icone" src="icones/semente_tomate.png" alt="">
+      <span>Tomate x3 no inventário</span>
+    </div>
+
+    <div class="bolha" style="left: 418px; top: 330px;"><span class="tecla ciano">F</span> Regar</div>
+
+    <div class="painel chat">
+      <div><span class="ouro">fazendeira_07:</span> alguém tem semente de milho?</div>
+      <div><span class="ciano">rafa_entrega:</span> a Marta tem, mas tá cara</div>
+      <div class="apagado">kenji entrou na vila.</div>
+    </div>
+
+    <div style="position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); text-align: center;">
+      <div style="font-size: 20px; text-shadow: 2px 2px 0 #000; margin-bottom: 4px;">Regador <span class="ciano">8 / 10 de água</span></div>
+      <div class="grade" data-numerar data-colunas="10" data-itens="enxada,regador#foco,foice_curva,semente_tomate x14,semente_milho x6,espadao_sucata+2,nanogel x3,pao_de_trigo x5,-,-"></div>
+    </div>
+
+    <div class="painel" style="right: 16px; bottom: 16px; width: 168px; height: 128px; padding: 4px;">
+      <canvas class="mapa" style="width: 154px; height: 96px;"></canvas>
+      <div style="position: absolute; left: 66px; top: 70px; width: 0; height: 0; border: 6px solid transparent; border-bottom: 10px solid var(--texto);"></div>
+      <div style="position: absolute; left: 100px; top: 54px; width: 10px; height: 10px; background: var(--ouro); transform: rotate(45deg); box-shadow: 0 0 8px var(--ouro);"></div>
+      <div style="font-size: 16px; text-align: center;" class="ouro">◆ Galeria, 140 m</div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="hud-noite">
+  <h3>HUD de noite, com aviso <span class="cena">hud_relogio e hud_aviso</span></h3>
+  <p class="nota">Perto das 2:00 a hora fica âmbar e pisca (no jogo era vermelha). Lua cheia de verdade: o ícone grande do relógio vira a Lua, a noite fica mais clara e o aviso lembra que a colheita rende mais.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="fazendaNoite"></canvas>
+
+    <div class="painel" style="left: 16px; top: 16px; width: 250px; padding: 8px 12px;">
+      <div class="rotulo-barra"><span class="verde">Vida</span><span>100 / 100</span></div>
+      <div class="barra vida"><i style="width: 100%;"></i></div>
+      <div class="rotulo-barra" style="margin-top: 6px;"><span class="ouro">Stamina</span><span class="ambar">12 / 100</span></div>
+      <div class="barra stamina"><i style="width: 12%;"></i></div>
+      <div class="dica" style="margin-top: 4px;">Cansada. Tudo gasta o dobro.</div>
+    </div>
+
+    <div class="painel relogio rosa">
+      <div class="linha">
+        <span class="hora ambar">01:40</span>
+        <img class="icone empurra" src="icones/tempestade.png" alt="">
+        <img class="icone" src="icones/cheia.png" alt="">
+      </div>
+      <div class="faixa">
+        <i style="background: #5a4dbf;"></i><i style="background: #ffd959;"></i><i style="background: #ffa633;"></i><i style="background: #f2664d;"></i><i style="background: #4066f2; outline: 2px solid #fff;"></i>
+      </div>
+      <div class="linha"><span class="violeta">Madrugada</span><span class="empurra apagado">Brotação, dia 12</span></div>
+    </div>
+
+    <div class="painel ouro" style="left: 50%; top: 150px; transform: translateX(-50%); width: 460px; text-align: center;">
+      <div class="titulo-pixel ambar" style="font-size: 14px;">Já é tarde</div>
+      <div style="font-size: 22px; margin-top: 6px;">Durma antes das 2:00 ou você apaga onde estiver.</div>
+    </div>
+
+    <div class="toast" style="left: 50%; top: 260px; transform: translateX(-50%); border-left-color: var(--ciano);">
+      <img class="icone" src="icones/cheia.png" alt="">
+      <span>Lua cheia: a colheita de amanhã rende <span class="ciano">+25%</span></span>
+    </div>
+
+    <div style="position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);">
+      <div class="grade" data-numerar data-colunas="10" data-itens="enxada,regador,foice_curva#foco,semente_tomate x14,semente_milho x6,espadao_sucata+2,nanogel x3,pao_de_trigo x5,-,-"></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="dialogo">
+  <h3>Conversa <span class="cena">dialogue/caixa_dialogo.tscn</span></h3>
+  <p class="nota">Igual ao jogo: os modelos 3D ficam num palco atrás da caixa, o jogador à esquerda e o morador à direita, virados um para o outro e animados. Quem está falando fica aceso e um pouco à frente; quem escuta fica mais escuro. O nome vem numa etiqueta de neon, com os corações da amizade no canto, e as escolhas aparecem só no fim da fala.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="vila"></canvas>
+    <div style="position: absolute; inset: 0; background: linear-gradient(transparent 30%, rgba(4, 5, 12, 0.55) 70%);"></div>
+
+    <div class="palco-da-conversa">
+      <div class="luz" style="left: 160px; opacity: 0.4;"></div>
+      <img data-modelo="jogador" style="left: 110px; transform: scaleX(-1); filter: brightness(0.5) saturate(0.7) drop-shadow(0 6px 0 rgba(0, 0, 0, 0.45));">
+      <div class="luz" style="right: 160px;"></div>
+      <img data-modelo="marta" style="right: 110px; transform: scale(1.06);">
+    </div>
+
+    <div class="painel" style="left: 115px; right: 115px; bottom: 24px; height: 152px; padding: 14px 20px;">
+      <div class="linha" style="margin-bottom: 6px;">
+        <span class="etiqueta ciano titulo-pixel" style="font-size: 13px; padding: 2px 8px;">Marta Bueno</span>
+        <span class="apagado" style="font-size: 18px;">dona do mercado</span>
+        <span class="coracoes empurra"><i></i><i></i><i></i><i></i><i class="vazio"></i><i class="vazio"></i><i class="vazio"></i><i class="vazio"></i><i class="vazio"></i><i class="vazio"></i></span>
+      </div>
+      <div style="font-size: 25px; line-height: 1.15;">Tomate bonito desse jeito? Seu avô ia ficar orgulhoso. Agora, se for vender pra corporação, eu nem quero saber.</div>
+      <div class="dica" style="position: absolute; right: 20px; bottom: 10px;"><span class="tecla">F</span> continuar ▼</div>
+    </div>
+
+    <div class="painel" style="left: 50%; transform: translateX(-50%); top: 40px; width: 260px; padding: 8px;">
+      <div class="botao foco" style="width: 100%; margin-bottom: 4px;">Dar presente</div>
+      <div class="botao" style="width: 100%; margin-bottom: 4px;">Conversar</div>
+      <div class="botao" style="width: 100%; margin-bottom: 4px;">Loja</div>
+      <div class="botao" style="width: 100%;">Até mais</div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="servicos-loja">
+  <h3>Serviços e loja <span class="cena">menu_de_servicos e tela_de_loja</span></h3>
+  <p class="nota">A loja tem aba de comprar e de vender, estoque do dia e o preço em ouro. Quando falta crédito, o preço fica apagado e a mensagem vem em âmbar.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="interior"></canvas>
+    <div class="escurecer"></div>
+
+    <div class="painel" style="left: 30px; top: 40px; width: 220px; text-align: center;">
+      <img class="modelo" data-modelo="vitor" style="width: 150px; height: 150px; margin: -6px auto 0; display: block;">
+      <div class="titulo-pixel ciano" style="font-size: 13px;">Vitor Alencar</div>
+      <div class="apagado" style="font-size: 18px; margin-bottom: 10px;">Oficina do Vitor</div>
+      <div class="botao foco" style="width: 100%; margin-bottom: 4px;">Loja</div>
+      <div class="botao" style="width: 100%; margin-bottom: 4px;">Aprimorar</div>
+      <div class="botao" style="width: 100%;">Sair</div>
+      <div style="margin-top: 10px; font-size: 19px; text-align: left;" class="apagado">"Não pechincha. Já tá barato."</div>
+    </div>
+
+    <div class="painel" style="left: 270px; top: 40px; width: 660px; height: 460px;">
+      <div class="cabeca">Loja <span class="direita"><img class="icone" style="width: 20px; height: 20px; vertical-align: -3px;" src="icones/credito.png" alt=""> 1.240</span></div>
+      <div class="linha" style="gap: 2px; margin: -2px 0 0;">
+        <span class="aba ativa">Comprar</span><span class="aba">Vender</span>
+      </div>
+      <div class="loja-lista" style="border-top: 3px solid var(--ciano);">
+        <div class="linha-loja"><img src="icones/bastao_choque.png" alt=""><span>Bastão de choque</span><span class="apagado">x1</span><span class="ouro">680</span></div>
+        <div class="linha-loja foco"><img src="icones/escopeta_serrada.png" alt=""><span>Escopeta serrada</span><span class="apagado">x1</span><span class="ouro">920</span></div>
+        <div class="linha-loja"><img src="icones/nanogel.png" alt=""><span>Nanogel</span><span class="apagado">x8</span><span class="ouro">60</span></div>
+        <div class="linha-loja"><img src="icones/estimulante.png" alt=""><span>Estimulante</span><span class="apagado">x5</span><span class="ouro">90</span></div>
+        <div class="linha-loja" style="color: #59627f;"><img src="icones/nucleo_sintetico.png" alt="" style="opacity: 0.5;"><span>Núcleo sintético</span><span>x1</span><span>2.400</span></div>
+        <div class="linha-loja"><img src="icones/chapa_reciclada.png" alt=""><span>Chapa reciclada</span><span class="apagado">x20</span><span class="ouro">35</span></div>
+      </div>
+      <div style="display: grid; grid-template-columns: 64px 1fr; gap: 12px; margin-top: 12px; padding: 10px; background: #10142a;">
+        <div class="slot foco" style="width: 64px; height: 64px;"><img src="icones/escopeta_serrada.png" alt="" style="width: 48px; height: 48px;"></div>
+        <div>
+          <div class="titulo-pixel" style="font-size: 13px;">Escopeta serrada</div>
+          <div class="apagado" style="font-size: 19px;">Arma de perto. Cone largo, empurra o inimigo. Recarrega devagar.</div>
+          <div class="linha" style="margin-top: 4px;"><span>Dano <span class="ciano">24</span></span><span>Alcance <span class="ciano">curto</span></span><span>Stamina <span class="ouro">8</span></span></div>
+        </div>
+      </div>
+      <div class="linha" style="position: absolute; left: 14px; right: 14px; bottom: 12px;">
+        <span class="ambar">Depois da compra: 320 créditos</span>
+        <div class="botao foco empurra">Comprar</div>
+        <div class="botao">Fechar</div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="bancada">
+  <h3>Bancada de aprimoramento <span class="cena">tela_de_aprimoramento.tscn</span></h3>
+  <p class="nota">O nível atual e o próximo lado a lado, com a diferença em ciano. Material que falta aparece em âmbar com o quanto falta; o que tem, em verde.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="interior"></canvas>
+    <div class="escurecer"></div>
+    <div class="painel" style="left: 90px; top: 34px; width: 780px; height: 472px;">
+      <div class="cabeca">Bancada <span class="direita"><img class="icone" style="width: 20px; height: 20px; vertical-align: -3px;" src="icones/credito.png" alt=""> 1.240</span></div>
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 18px;">
+        <div>
+          <div class="dica" style="margin-bottom: 6px;">Suas armas</div>
+          <div class="grade" data-colunas="3" data-itens="espadao_sucata+2#foco,bastao_choque+1,foice_curva+1,cestos+1,escopeta_serrada+3,-"></div>
+        </div>
+        <div>
+          <div class="linha" style="gap: 18px; align-items: stretch;">
+            <div class="painel estatico" style="flex: 1; text-align: center;">
+              <div class="apagado">Agora</div>
+              <img src="icones/espadao_sucata.png" alt="" style="width: 64px; height: 64px; image-rendering: pixelated;">
+              <div class="titulo-pixel" style="font-size: 13px;">Espadão Nv 2</div>
+              <div>Dano 18</div><div>Golpe 3 no combo</div>
+            </div>
+            <div style="align-self: center; font-size: 40px;" class="ciano">▶</div>
+            <div class="painel estatico neon" style="flex: 1; text-align: center;">
+              <div class="ciano">Próximo</div>
+              <img src="icones/espadao_sucata.png" alt="" style="width: 64px; height: 64px; image-rendering: pixelated; filter: drop-shadow(0 0 6px #33f2ff);">
+              <div class="titulo-pixel ciano" style="font-size: 13px;">Espadão Nv 3</div>
+              <div>Dano <span class="ciano">24 (+6)</span></div><div class="ciano">Golpe 4 libera</div>
+            </div>
+          </div>
+          <div class="dica" style="margin: 8px 0 2px;">Precisa de</div>
+          <div class="coluna" style="gap: 0;">
+            <div class="linha"><img class="icone" src="icones/sucata_metal.png" alt=""><span>Sucata de metal</span><span class="empurra verde">12 / 8</span></div>
+            <div class="linha"><img class="icone" src="icones/servomotor.png" alt=""><span>Servomotor</span><span class="empurra verde">2 / 2</span></div>
+            <div class="linha"><img class="icone" src="icones/placa_queimada.png" alt=""><span>Placa queimada (Galeria)</span><span class="empurra ambar">0 / 1, falta 1</span></div>
+            <div class="linha"><img class="icone" src="icones/credito.png" alt=""><span>Créditos</span><span class="empurra verde">1.240 / 400</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="linha" style="position: absolute; left: 14px; right: 14px; bottom: 12px;">
+        <span class="ambar">A placa queimada sai do Compactador, na Galeria.</span>
+        <div class="botao desligado empurra">Aprimorar</div>
+        <div class="botao">Fechar</div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="bau">
+  <h3>Baú de venda <span class="cena">tela_de_bau.tscn</span></h3>
+  <p class="nota">Dois lados com a mesma grade: baú à esquerda, mochila à direita. O valor da venda atualiza conforme os itens entram. O que entra no baú de venda vai para o caminhão do Rafa de madrugada.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="fazendaDia"></canvas>
+    <div class="escurecer"></div>
+    <div class="painel ouro" style="left: 26px; top: 40px; width: 448px; height: 460px;">
+      <div class="cabeca" style="color: var(--ouro);">Baú de venda</div>
+      <div class="grade" data-colunas="8" data-itens="tomato_icon x24,corn_icon x12,carrot_icon x8,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-"></div>
+      <div class="painel estatico" style="margin-top: 16px;">
+        <div class="linha"><span>Valor da venda</span><span class="empurra ouro" style="font-size: 28px;">1.104</span><img class="icone" src="icones/credito.png" alt=""></div>
+        <div class="dica">O Rafa recolhe às 2:00. Você recebe ao acordar.</div>
+      </div>
+    </div>
+    <div class="painel" style="left: 486px; top: 40px; width: 448px; height: 460px;">
+      <div class="cabeca">Inventário</div>
+      <div class="grade" data-colunas="8" data-itens="tomato_icon x6#foco,beetroot_icon x4,cabbage_icon x2,madeira x30,pedra x18,fibra x9,minerio_cobre x4,sucata_metal x12,composto_organico x5,nutrisolo x2,-,-,-,-,-,-,-,-,-,-,-,-,-,-"></div>
+      <div class="dica" style="margin: 14px 0 4px;">Barra rápida</div>
+      <div class="grade" data-numerar data-colunas="8" data-itens="enxada,regador,foice_curva,semente_tomate x14,semente_milho x6,espadao_sucata+2,nanogel x3,pao_de_trigo x5"></div>
+      <div class="linha" style="position: absolute; left: 14px; right: 14px; bottom: 12px;">
+        <span class="dica">Clique num item para mandar para o outro lado.</span>
+        <div class="botao empurra">Fechar</div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="resumo-vendas">
+  <h3>Resumo das vendas <span class="cena">resumo_de_vendas.tscn</span></h3>
+  <p class="nota">Ao acordar, a nota do caminhão do Rafa, num papel amassado de cupom fiscal. Um jeito de a economia ter cara de vila e não de planilha.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="fazendaDia"></canvas>
+    <div class="escurecer"></div>
+    <div class="nota-fiscal" style="position: absolute; left: 330px; top: 40px; width: 300px; transform: rotate(-2deg);">
+      <div class="titulo-pixel" style="text-align: center; font-size: 13px;">Entregas Duarte</div>
+      <div style="text-align: center; font-size: 17px;">recolhido às 02:00, dia 12</div>
+      <div class="tracejado"></div>
+      <div class="linha"><span>Tomate x24</span><span class="empurra">720</span></div>
+      <div class="linha"><span>Milho x12</span><span class="empurra">288</span></div>
+      <div class="linha"><span>Cenoura x8</span><span class="empurra">96</span></div>
+      <div class="tracejado"></div>
+      <div class="linha"><span>Bônus de Lua cheia</span><span class="empurra">+0</span></div>
+      <div class="linha" style="font-size: 24px;"><b>Total</b><b class="empurra">1.104</b></div>
+      <div class="tracejado"></div>
+      <div style="font-size: 17px; text-align: center;">"Vendi bem, não reclama. R."</div>
+    </div>
+    <div class="toast" style="left: 50%; bottom: 40px; transform: translateX(-50%);"><img class="icone" src="icones/credito.png" alt=""><span>+1.104 créditos</span></div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="desmaio">
+  <h3>Desmaio <span class="cena">tela_de_desmaio.tscn</span></h3>
+  <p class="nota">Sem sangue e sem vermelho: a tela sai do ar como sinal perdido, em violeta. Diz quem te achou e o que custou.</p>
+  <div class="monitor"><div class="quadro" style="background: #07060f;">
+    <div style="position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, rgba(155, 92, 255, 0.06) 0 2px, transparent 2px 6px);"></div>
+    <div style="position: absolute; left: 0; right: 0; top: 150px; text-align: center;">
+      <div class="glitch">SINAL PERDIDO</div>
+      <div style="font-size: 26px; margin-top: 18px;">Você apagou no talhão às 02:00.</div>
+      <div class="linha" style="justify-content: center; margin-top: 24px; gap: 16px;">
+        <img class="modelo" data-modelo="iara">
+        <div style="text-align: left; font-size: 22px;">
+          <div><span class="verde">Iara</span> te achou e te levou para casa.</div>
+          <div class="apagado">Consulta: <span class="ouro">120 créditos</span> . Stamina pela metade amanhã</div>
+        </div>
+      </div>
+      <div class="dica" style="margin-top: 40px;"><span class="tecla">F</span> acordar</div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="pausa-inventario">
+  <h3>Menu de pausa: inventário <span class="cena">menu_pausa.tscn</span></h3>
+  <p class="nota">As abas do menu de pausa ficam numa fileira só, trocadas com Q e E (L1 e R1 no controle). O cartão da direita mostra o item focado, com o preço de venda e o que ele faz. Os estados do slot (focado, segurando, selecionado) são os do <b>slot_inventario.gd</b>.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="fazendaDia"></canvas>
+    <div class="escurecer"></div>
+    <div class="linha" style="position: absolute; left: 40px; top: 22px; gap: 2px;">
+      <span class="tecla">Q</span>
+      <span class="aba ativa">Inventário</span><span class="aba">Equipamento</span><span class="aba">Relacionamentos</span><span class="aba">Diário</span><span class="aba">Mapa</span><span class="aba">Calendário</span><span class="aba">Opções</span>
+      <span class="tecla">E</span>
+    </div>
+    <div class="painel" style="left: 40px; top: 56px; width: 560px; height: 452px;">
+      <div class="cabeca">Mochila <span class="direita">30 / 40</span></div>
+      <div class="grade" data-colunas="10" data-itens="tomato_icon x6,beetroot_icon x4,cabbage_icon x2,madeira x30,pedra x18,fibra x9,minerio_cobre x4,minerio_ferro x2,sucata_metal x12#segurando,celula_energia,composto_organico x5,nutrisolo x2,biocombustivel x3,fio_optico x2,servomotor x2,sopa_de_legumes#foco,estimulante x2,buque,semente_cenoura x10,semente_trigo x8,semente_beterraba x4,semente_repolho x3,picareta,-,-,-,-,-,-,-,-#trancado,-#trancado,-#trancado,-#trancado,-#trancado,-#trancado,-#trancado,-#trancado,-#trancado,-#trancado"></div>
+      <div class="dica" style="margin: 14px 0 4px;">Barra rápida</div>
+      <div class="linha" style="align-items: flex-end;">
+        <div class="grade" data-numerar data-colunas="10" data-itens="enxada,regador,foice_curva,semente_tomate x14,semente_milho x6,espadao_sucata+2#selecionado,nanogel x3,pao_de_trigo x5,-,-"></div>
+      </div>
+      <div class="linha" style="margin-top: 14px;">
+        <div class="slot lixeira"><img src="icones/lixeira.png" alt=""></div>
+        <span class="dica">Solte aqui para jogar fora.</span>
+        <span class="dica empurra">10 slots se abrem com a mochila de couro sintético.</span>
+      </div>
+    </div>
+    <div class="painel neon" style="left: 620px; top: 56px; width: 300px; height: 452px;">
+      <div style="text-align: center;">
+        <div class="slot foco" style="width: 96px; height: 96px; margin: 6px auto;"><img src="icones/sopa_de_legumes.png" alt="" style="width: 64px; height: 64px;"></div>
+        <div class="titulo-pixel" style="font-size: 14px;">Sopa de legumes</div>
+        <div class="etiqueta verde" style="margin-top: 4px;">Comida</div>
+      </div>
+      <div style="font-size: 20px; margin: 12px 0;">Cenoura, repolho e um tomate que não ficou bonito para vender. Esquenta até a alma.</div>
+      <div class="coluna" style="font-size: 20px;">
+        <div class="linha"><span class="verde">+40 vida</span><span class="ouro empurra">+30 stamina</span></div>
+        <div class="linha"><span class="apagado">Vende por</span><span class="ouro empurra">85</span></div>
+      </div>
+      <div class="coluna" style="position: absolute; left: 14px; right: 14px; bottom: 12px;">
+        <div class="botao foco">Comer</div>
+        <div class="dica"><span class="tecla">F</span> usar <span class="tecla">G</span> pegar <span class="tecla">1</span>..<span class="tecla">0</span> mandar para a barra</div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="pausa-equipamento">
+  <h3>Menu de pausa: equipamento <span class="cena">aba de equipamento do menu_pausa</span></h3>
+  <p class="nota">O jogador de corpo inteiro no meio, com a arma e o acessório em volta. Os números de combate ficam à direita, com o que muda se trocar de arma.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="fazendaDia"></canvas>
+    <div class="escurecer"></div>
+    <div class="linha" style="position: absolute; left: 40px; top: 22px; gap: 2px;">
+      <span class="tecla">Q</span>
+      <span class="aba">Inventário</span><span class="aba ativa">Equipamento</span><span class="aba">Relacionamentos</span><span class="aba">Diário</span><span class="aba">Mapa</span><span class="aba">Calendário</span><span class="aba">Opções</span>
+      <span class="tecla">E</span>
+    </div>
+    <div class="painel" style="left: 40px; top: 56px; width: 880px; height: 452px;">
+      <div style="display: grid; grid-template-columns: 260px 300px 1fr; gap: 20px; height: 100%;">
+        <div class="coluna" style="gap: 10px;">
+          <div class="dica">Arma na mão</div>
+          <div class="linha"><div class="slot selecionado"><img src="icones/espadao_sucata.png" alt=""><span class="nivel">Nv2</span></div><div><div>Espadão de sucata</div><div class="apagado" style="font-size: 18px;">pesado, combo de 3</div></div></div>
+          <div class="dica">Ferramentas</div>
+          <div class="grade" data-colunas="4" data-itens="enxada,regador,foice_curva,picareta"></div>
+          <div class="dica">Acessório</div>
+          <div class="linha"><div class="slot"></div><span class="apagado" style="font-size: 18px;">Vazio. Sai das dungeons.</span></div>
+          <div class="dica">Troféus</div>
+          <div class="grade" data-colunas="3" data-itens="trofeu_do_compactador,trofeu_da_colheitadeira#trancado,trofeu_do_auditor#trancado"></div>
+        </div>
+        <div style="display: grid; place-items: center; background: radial-gradient(circle, #13203a 0%, transparent 70%);">
+          <img class="modelo grande" data-modelo="jogador">
+          <div class="dica">◀ arraste ou use o direcional direito para girar ▶</div>
+          <div class="titulo-pixel" style="font-size: 13px;">fazendeira_07 . Nv 4</div>
+          <div class="barra xp" style="width: 200px; margin-top: 6px;"><i style="width: 62%;"></i></div>
+          <div class="dica">620 / 1.000 de experiência</div>
+        </div>
+        <div class="coluna" style="gap: 8px; font-size: 22px;">
+          <div class="dica">Números</div>
+          <div class="linha"><span>Vida máxima</span><span class="empurra verde">100</span></div>
+          <div class="linha"><span>Stamina máxima</span><span class="empurra ouro">100</span></div>
+          <div class="linha"><span>Dano</span><span class="empurra">18</span></div>
+          <div class="linha"><span>Velocidade do golpe</span><span class="empurra">lenta</span></div>
+          <div class="linha"><span>Giro até o inimigo</span><span class="empurra ciano">ligado</span></div>
+          <div class="painel estatico neon" style="margin-top: 12px; font-size: 20px;">
+            <div class="ciano">Se trocar pelo bastão de choque Nv1</div>
+            <div class="linha"><span>Dano</span><span class="empurra ambar">12 (−6)</span></div>
+            <div class="linha"><span>Velocidade</span><span class="empurra ciano">rápida</span></div>
+            <div class="linha"><span>Atordoa</span><span class="empurra ciano">sim</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="pausa-relacionamentos">
+  <h3>Menu de pausa: relacionamentos <span class="cena">aba_de_relacionamentos.tscn</span></h3>
+  <p class="nota">Um cartão por morador, com o modelo 3D dele, corações em rosa, e duas marcas do dia: se já conversou e se já deu presente. O aniversário perto aparece em destaque. O elenco do plano 30 entra na mesma lista.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="fazendaDia"></canvas>
+    <div class="escurecer"></div>
+    <div class="linha" style="position: absolute; left: 40px; top: 22px; gap: 2px;">
+      <span class="tecla">Q</span>
+      <span class="aba">Inventário</span><span class="aba">Equipamento</span><span class="aba ativa">Relacionamentos</span><span class="aba">Diário</span><span class="aba">Mapa</span><span class="aba">Calendário</span><span class="aba">Opções</span>
+      <span class="tecla">E</span>
+    </div>
+    <div class="painel" style="left: 40px; top: 56px; width: 880px; height: 452px;">
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 18px;" id="lista-de-moradores"></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="pausa-diario">
+  <h3>Menu de pausa: diário de missões <span class="cena">plano 32, ainda não existe</span></h3>
+  <p class="nota">Missões ativas no alto, concluídas embaixo. A acompanhada tem a estrela e vira o waypoint do minimapa. As etapas têm caixinha: feita em ciano, a atual em ouro.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="fazendaDia"></canvas>
+    <div class="escurecer"></div>
+    <div class="linha" style="position: absolute; left: 40px; top: 22px; gap: 2px;">
+      <span class="tecla">Q</span>
+      <span class="aba">Inventário</span><span class="aba">Equipamento</span><span class="aba">Relacionamentos</span><span class="aba ativa">Diário</span><span class="aba">Mapa</span><span class="aba">Calendário</span><span class="aba">Opções</span>
+      <span class="tecla">E</span>
+    </div>
+    <div class="painel" style="left: 40px; top: 56px; width: 330px; height: 452px;">
+      <div class="cabeca">Ativas</div>
+      <div class="coluna" style="gap: 4px;">
+        <div class="botao foco" style="justify-content: flex-start;"><span class="ouro">★</span> A água que sumiu</div>
+        <div class="botao" style="justify-content: flex-start;"><span class="etiqueta ciano" style="font-size: 14px;">vila</span> Osso para o Téo</div>
+        <div class="botao" style="justify-content: flex-start;"><span class="etiqueta verde" style="font-size: 14px;">dia</span> 20 tomates para a Marta</div>
+        <div class="botao" style="justify-content: flex-start;"><span class="etiqueta ciano" style="font-size: 14px;">vila</span> Peça para a antena</div>
+      </div>
+      <div class="cabeca" style="margin-top: 16px;">Concluídas</div>
+      <div class="coluna apagado" style="gap: 2px; font-size: 20px;">
+        <div>✓ Primeira colheita</div>
+        <div>✓ O registro da Galeria</div>
+      </div>
+    </div>
+    <div class="painel neon" style="left: 390px; top: 56px; width: 530px; height: 452px;">
+      <div class="linha">
+        <img class="modelo pequeno" data-modelo="bento">
+        <div>
+          <div class="titulo-pixel" style="font-size: 15px;">A água que sumiu</div>
+          <div class="apagado" style="font-size: 18px;">Principal . pedida por <span class="ciano">Bento Arruda</span></div>
+        </div>
+      </div>
+      <div style="font-size: 21px; margin: 12px 0;">As máquinas da Galeria fecharam o registro que levava água às fazendas. O Bento sabe o caminho, mas o joelho não aguenta mais a escada.</div>
+      <div class="passo feito"><span class="caixa"></span>Falar com o Bento na entrada da Galeria</div>
+      <div class="passo feito"><span class="caixa"></span>Descer até a sala das bombas</div>
+      <div class="passo atual"><span class="caixa"></span>Vencer o Compactador <span class="ouro empurra">aqui</span></div>
+      <div class="passo"><span class="caixa"></span>Abrir o registro e voltar para contar</div>
+      <div class="dica" style="margin-top: 10px;">Recompensa</div>
+      <div class="linha">
+        <div class="slot"><img src="icones/credito.png" alt=""><span class="qtd">150</span></div>
+        <div class="slot"><img src="icones/trofeu_do_compactador.png" alt=""></div>
+        <div class="slot"><img src="icones/placa_queimada.png" alt=""></div>
+        <span class="apagado" style="font-size: 19px;">e água nos talhões de novo</span>
+      </div>
+      <div class="linha" style="position: absolute; left: 14px; right: 14px; bottom: 12px;">
+        <div class="botao foco">★ Acompanhando</div>
+        <div class="botao">Ver no mapa</div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="pausa-mapa">
+  <h3>Menu de pausa: mapa grande <span class="cena">plano 33, ainda não existe</span></h3>
+  <p class="nota">O mapa sai do mesmo traçado que gera o terreno, desenhado como imagem e sem segunda câmera. Moradores aparecem com a cor deles; as dungeons com a cor do tema de cada uma.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="fazendaDia"></canvas>
+    <div class="escurecer"></div>
+    <div class="linha" style="position: absolute; left: 40px; top: 22px; gap: 2px;">
+      <span class="tecla">Q</span>
+      <span class="aba">Inventário</span><span class="aba">Equipamento</span><span class="aba">Relacionamentos</span><span class="aba">Diário</span><span class="aba ativa">Mapa</span><span class="aba">Calendário</span><span class="aba">Opções</span>
+      <span class="tecla">E</span>
+    </div>
+    <div class="painel" style="left: 40px; top: 56px; width: 660px; height: 452px; padding: 8px;">
+      <canvas class="mapa" style="width: 640px; height: 400px;"></canvas>
+      <div style="position: absolute; left: 260px; top: 300px; width: 0; height: 0; border: 9px solid transparent; border-bottom: 15px solid var(--texto); filter: drop-shadow(0 0 4px #000);"></div>
+      <div style="position: absolute; left: 396px; top: 202px; width: 16px; height: 16px; background: var(--ouro); transform: rotate(45deg); box-shadow: 0 0 12px var(--ouro);"></div>
+      <div style="position: absolute; left: 186px; top: 344px; font-size: 18px; text-shadow: 2px 2px 0 #000;">Sua fazenda</div>
+      <div style="position: absolute; left: 470px; top: 60px; font-size: 18px; text-shadow: 2px 2px 0 #000;">Vila</div>
+      <div style="position: absolute; left: 340px; top: 226px; font-size: 18px; text-shadow: 2px 2px 0 #000;" class="ouro">Galeria</div>
+      <div style="position: absolute; left: 520px; top: 300px; font-size: 18px; text-shadow: 2px 2px 0 #000;" class="verde">Biodomo</div>
+      <div style="position: absolute; left: 540px; top: 14px; font-size: 18px; text-shadow: 2px 2px 0 #000;" class="violeta">Torre</div>
+      <div style="position: absolute; left: 70px; top: 300px; font-size: 18px; text-shadow: 2px 2px 0 #000;" class="ciano">Lago</div>
+      <div style="position: absolute; left: 380px; top: 4px; font-size: 18px; text-shadow: 2px 2px 0 #000;" class="apagado">viaduto</div>
+      <div style="position: absolute; left: 456px; top: 96px; width: 8px; height: 8px; background: #c2416b; box-shadow: 0 0 0 2px #000;"></div>
+      <div style="position: absolute; left: 500px; top: 120px; width: 8px; height: 8px; background: #33f2ff; box-shadow: 0 0 0 2px #000;"></div>
+      <div style="position: absolute; left: 410px; top: 180px; width: 8px; height: 8px; background: #4a6a4a; box-shadow: 0 0 0 2px #000;"></div>
+    </div>
+    <div class="painel" style="left: 720px; top: 56px; width: 200px; height: 452px;">
+      <div class="cabeca">Legenda</div>
+      <div class="coluna" style="font-size: 19px; gap: 4px;">
+        <div class="linha"><span style="width: 0; height: 0; border: 6px solid transparent; border-bottom: 10px solid var(--texto);"></span>Você</div>
+        <div class="linha"><span style="width: 10px; height: 10px; background: var(--ouro); transform: rotate(45deg);"></span>Missão</div>
+        <div class="linha"><span style="width: 8px; height: 8px; background: #c2416b;"></span>Marta</div>
+        <div class="linha"><span style="width: 8px; height: 8px; background: #33f2ff;"></span>Kenji</div>
+        <div class="linha"><span style="width: 8px; height: 8px; background: #4a6a4a;"></span>Bento</div>
+        <div class="linha"><span style="width: 8px; height: 8px; background: var(--magenta);"></span>Dungeon</div>
+      </div>
+      <div class="dica" style="position: absolute; left: 14px; right: 14px; bottom: 12px;"><span class="tecla">M</span> fecha<br><span class="tecla">F</span> marca ponto</div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="calendario">
+  <h3>Calendário <span class="cena">calendario.tscn</span></h3>
+  <p class="nota">Trinta dias em semanas de seis, com a folga em roxo, como o <b>calendario.gd</b>. Cada dia mostra a fase da Lua (plano 37), aniversários em rosa e o dia de feira em ouro.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="fazendaDia"></canvas>
+    <div class="escurecer"></div>
+    <div class="painel calendario" style="left: 120px; top: 24px; width: 720px; height: 492px;">
+      <div class="linha" style="justify-content: center; margin-bottom: 8px;">
+        <span class="botao">&lt;</span>
+        <span class="titulo-pixel verde" style="font-size: 18px; width: 300px; text-align: center;">Brotação, ano 1</span>
+        <span class="botao">&gt;</span>
+      </div>
+      <div class="dias" style="margin-bottom: 4px; font-size: 18px;" >
+        <span class="apagado">Raiz</span><span class="apagado">Broto</span><span class="apagado">Chuva</span><span class="apagado">Sinal</span><span class="apagado">Feira</span><span class="violeta">Folga</span>
+      </div>
+      <div class="dias" id="dias-do-calendario"></div>
+      <div class="linha" style="margin-top: 8px; font-size: 19px;">
+        <span class="rosa">♥ Dia 9: aniversário do Kenji</span>
+        <span class="dica empurra">Esquerda e direita trocam a estação. Esc ou B fecha.</span>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="lobby">
+  <h3>Lobby e convite <span class="cena">tela_de_lobby, hud_convite, hud_chat</span></h3>
+  <p class="nota">Cada dungeon vira um cartão com o tema, o chefe e o que destrava. A trancada diz qual troféu falta. A equipe mostra o anfitrião em ciano e quem está pronto.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="vila"></canvas>
+    <div class="escurecer"></div>
+    <div class="painel" style="left: 30px; top: 30px; width: 650px; height: 480px;">
+      <div class="cabeca">Dungeon <span class="direita"><span class="verde">●</span> Online</span></div>
+      <div class="linha" style="gap: 12px; align-items: stretch;">
+        <div class="cartao-dungeon foco">
+          <div class="faixa-cor" style="background: linear-gradient(135deg, #1d2138, #3a4166); display: grid; place-items: center;"><img class="icone" src="icones/trofeu_do_compactador.png" alt=""></div>
+          <div class="titulo-pixel ouro" style="font-size: 12px;">Galeria de Manutenção</div>
+          <div style="font-size: 18px;" class="apagado">Água . 3 salas</div>
+          <div style="font-size: 18px;">Chefe: Compactador</div>
+          <div style="font-size: 18px;" class="verde">Aberta desde o dia 1</div>
+        </div>
+        <div class="cartao-dungeon">
+          <div class="faixa-cor" style="background: linear-gradient(135deg, #12301a, #3b7f2a); display: grid; place-items: center;"><img class="icone" src="icones/trofeu_da_colheitadeira.png" alt=""></div>
+          <div class="titulo-pixel verde" style="font-size: 12px;">Biodomo Abandonado</div>
+          <div style="font-size: 18px;" class="apagado">Sementes . 4 salas</div>
+          <div style="font-size: 18px;">Chefe: Colheitadeira</div>
+          <div style="font-size: 18px;" class="ciano">Aberta</div>
+        </div>
+        <div class="cartao-dungeon trancada">
+          <div class="faixa-cor" style="background: linear-gradient(135deg, #1a1030, #5c3a99); display: grid; place-items: center; font-family: var(--fonte-titulo); font-size: 12px; color: var(--violeta);">TRANCADA</div>
+          <div class="titulo-pixel violeta" style="font-size: 12px;">Torre de Retransmissão</div>
+          <div style="font-size: 18px;" class="apagado">Sinal . 5 salas</div>
+          <div style="font-size: 18px;">Chefe: Auditor</div>
+          <div style="font-size: 18px;" class="ambar">Falta o troféu da Colheitadeira</div>
+        </div>
+      </div>
+      <div class="cabeca" style="margin-top: 14px;">Sua equipe <span class="direita">2 / 4</span></div>
+      <div class="coluna" style="gap: 4px; font-size: 21px;">
+        <div class="linha"><span class="ponto-de-aliado" style="background: var(--ciano);"></span><span class="ciano">fazendeira_07</span><span class="apagado">(anfitriã)</span><span class="empurra verde">pronta</span></div>
+        <div class="linha"><span class="ponto-de-aliado" style="background: var(--ambar);"></span><span>rafa_entrega</span><span class="empurra apagado">escolhendo arma...</span></div>
+        <div class="linha apagado"><span class="slot" style="width: 32px; height: 32px; border-width: 2px;"></span>vaga livre</div>
+      </div>
+      <div class="linha" style="position: absolute; left: 14px; right: 14px; bottom: 12px;">
+        <div class="botao foco">Entrar na dungeon</div>
+        <div class="botao">Sair da equipe</div>
+        <div class="botao">Conta</div>
+        <div class="botao empurra">Fechar</div>
+      </div>
+    </div>
+
+    <div class="painel rosa" style="right: 24px; top: 30px; width: 250px;">
+      <div class="titulo-pixel magenta" style="font-size: 12px;">Convite</div>
+      <div style="font-size: 20px; margin: 6px 0;"><span class="ciano">kenji_antena</span> chamou você para o Biodomo.</div>
+      <div class="linha"><div class="botao foco">Aceitar</div><div class="botao">Recusar</div></div>
+      <div class="barra xp" style="margin-top: 8px;"><i style="width: 40%;"></i></div>
+    </div>
+
+    <div class="painel chat" style="left: auto; right: 24px; bottom: 30px; width: 250px; height: 210px; display: flex; flex-direction: column;">
+      <div class="titulo-pixel apagado" style="font-size: 11px;">Chat</div>
+      <div><span class="ciano">rafa_entrega:</span> leva nanogel</div>
+      <div><span class="ouro">fazendeira_07:</span> levei 3</div>
+      <div class="apagado">kenji_antena está online.</div>
+      <div style="margin-top: auto; border: 3px solid var(--borda); padding: 0 6px;" class="apagado">Escreva e aperte Enter_</div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="hud-dungeon">
+  <h3>HUD da dungeon e do chefe <span class="cena">hud_de_dungeon e hud_do_chefe</span></h3>
+  <p class="nota">Barra do chefe no alto, em ouro na fase 1 e violeta na fase 2 (as cores do <b>hud_do_chefe.gd</b>). Número de dano em magenta, nunca vermelho. O aviso de golpe forte é um losango de alerta sobre o chefe. Os aliados ficam empilhados à esquerda.</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="dungeon"></canvas>
+
+    <div style="position: absolute; left: 290px; top: 18px; width: 440px; text-align: center;">
+      <div class="linha" style="justify-content: center; margin-bottom: 4px;">
+        <span class="titulo-pixel ouro" style="font-size: 16px; text-shadow: 2px 2px 0 #000;">Compactador</span>
+        <span class="etiqueta ouro" style="font-size: 15px;">fase 1</span>
+      </div>
+      <div class="barra chefe"><i style="width: 58%;"></i></div>
+      <div class="linha" style="justify-content: space-between; font-size: 17px; margin-top: 2px;"><span class="apagado">Prensa . Onda de choque . Chuva de sucata</span><span>58%</span></div>
+    </div>
+
+    <div class="painel" style="left: 16px; top: 16px; width: 230px; padding: 8px 10px;">
+      <div class="titulo-pixel ciano" style="font-size: 11px;">Galeria de Manutenção</div>
+      <div class="dica">Sala 3 de 3 . 06:42</div>
+      <div style="margin-top: 6px; font-size: 19px;">
+        <div class="ciano">✓ Desligar as bombas 2 / 2</div>
+        <div>▸ Vencer o Compactador</div>
+      </div>
+    </div>
+
+    <div class="coluna" style="position: absolute; left: 16px; top: 140px; width: 200px; gap: 6px;">
+      <div class="painel estatico" style="padding: 6px 8px;">
+        <div class="linha"><span class="ponto-de-aliado" style="background: var(--ciano);"></span><span style="font-size: 18px;">você</span></div>
+        <div class="barra vida" style="height: 10px; margin-top: 4px;"><i style="width: 72%;"></i></div>
+        <div class="barra stamina" style="height: 8px; margin-top: 4px;"><i style="width: 40%;"></i></div>
+      </div>
+      <div class="painel estatico" style="padding: 6px 8px;">
+        <div class="linha"><span class="ponto-de-aliado" style="background: var(--ambar);"></span><span style="font-size: 18px;">rafa_entrega</span></div>
+        <div class="barra vida" style="height: 10px; margin-top: 4px;"><i style="width: 30%;"></i></div>
+        <div class="ambar" style="font-size: 16px;">precisa de cura</div>
+      </div>
+    </div>
+
+    <div style="position: absolute; left: 470px; top: 150px; width: 26px; height: 26px; background: var(--ouro); transform: rotate(45deg); box-shadow: 0 0 16px var(--ouro); display: grid; place-items: center;"><b style="transform: rotate(-45deg); color: #000; font-family: var(--fonte-titulo);">!</b></div>
+    <div class="numero-de-dano" style="left: 430px; top: 200px;">-18</div>
+    <div class="numero-de-dano" style="left: 520px; top: 230px; font-size: 28px; color: var(--ciano);">-32 CRÍTICO</div>
+
+    <div class="painel" style="right: 16px; top: 120px; padding: 6px 12px; text-align: right;">
+      <div class="titulo-pixel magenta" style="font-size: 28px;">x3</div>
+      <div class="dica">combo</div>
+    </div>
+
+    <div style="position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);">
+      <div class="grade" data-numerar data-colunas="6" data-itens="espadao_sucata+2#foco,escopeta_serrada+3,nanogel x3,estimulante x2,sopa_de_legumes,-"></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="dungeon-concluida">
+  <h3>Dungeon concluída <span class="cena">nova, abre com o baú de recompensa</span></h3>
+  <p class="nota">Hoje o fim da dungeon é só o baú. A tela junta o que cada um levou, o troféu e o tempo, com partícula de estouro em ciano e ouro (plano 19).</p>
+  <div class="monitor"><div class="quadro">
+    <canvas class="cenario" data-cena="dungeon"></canvas>
+    <div class="escurecer"></div>
+    <div style="position: absolute; left: 0; right: 0; top: 34px; text-align: center;">
+      <div class="titulo-pixel ciano" style="font-size: 38px; text-shadow: 4px 4px 0 #0d3a44, 0 0 16px rgba(51, 242, 255, 0.7);">REGISTRO ABERTO</div>
+      <div class="ouro" style="font-size: 24px;">Galeria de Manutenção . 08:12</div>
+    </div>
+    <div class="painel ouro" style="left: 230px; top: 140px; width: 500px; height: 300px;">
+      <div class="linha" style="gap: 20px;">
+        <div style="text-align: center;">
+          <div class="slot selecionado" style="width: 96px; height: 96px;"><img src="icones/trofeu_do_compactador.png" alt="" style="width: 64px; height: 64px;"></div>
+          <div class="ouro" style="font-size: 19px;">Troféu</div>
+        </div>
+        <div style="flex: 1;">
+          <div class="titulo-pixel" style="font-size: 13px;">Placa do Compactador</div>
+          <div class="apagado" style="font-size: 19px;">Abre o Biodomo e uma conversa nova com o Vitor.</div>
+        </div>
+      </div>
+      <div class="dica" style="margin: 12px 0 4px;">Você levou</div>
+      <div class="grade" data-colunas="8" data-itens="credito x150,placa_queimada,sucata_metal x9,servomotor,celula_energia x2,fio_optico,-,-"></div>
+      <div class="linha" style="margin-top: 12px; font-size: 20px;">
+        <span class="verde">+340 experiência</span>
+        <span class="empurra apagado">rafa_entrega levou 7 itens</span>
+      </div>
+    </div>
+    <div class="linha" style="position: absolute; left: 0; right: 0; bottom: 30px; justify-content: center;">
+      <div class="botao foco">Voltar para a vila</div>
+      <div class="botao">Jogar de novo</div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="tela" id="componentes">
+  <h3>Folha de componentes</h3>
+  <p class="nota">As peças soltas, com todos os estados. É daqui que sai o Theme do Godot quando a interface for refeita.</p>
+  <div class="folha">
+    <div class="peca">
+      <h4>Slot</h4>
+      <div class="linha" style="flex-wrap: wrap;">
+        <div class="coluna" style="align-items: center;"><div class="grade" data-itens="tomato_icon x6"></div><span class="dica">normal</span></div>
+        <div class="coluna" style="align-items: center;"><div class="grade" data-itens="tomato_icon x6#foco"></div><span class="dica">focado</span></div>
+        <div class="coluna" style="align-items: center;"><div class="grade" data-itens="tomato_icon x6#segurando"></div><span class="dica">segurando</span></div>
+        <div class="coluna" style="align-items: center;"><div class="grade" data-itens="espadao_sucata+2#selecionado"></div><span class="dica">na mão</span></div>
+        <div class="coluna" style="align-items: center;"><div class="grade" data-itens="-#trancado"></div><span class="dica">trancado</span></div>
+      </div>
+    </div>
+    <div class="peca">
+      <h4>Botão</h4>
+      <div class="coluna" style="align-items: flex-start;">
+        <span class="botao">Normal</span>
+        <span class="botao foco">Focado</span>
+        <span class="botao rosa">Destrutivo</span>
+        <span class="botao desligado">Desligado</span>
+      </div>
+    </div>
+    <div class="peca">
+      <h4>Barras</h4>
+      <div class="rotulo-barra"><span class="verde">Vida</span><span>86</span></div><div class="barra vida"><i style="width: 86%;"></i></div>
+      <div class="rotulo-barra" style="margin-top: 6px;"><span class="ouro">Stamina</span><span>54</span></div><div class="barra stamina"><i style="width: 54%;"></i></div>
+      <div class="rotulo-barra" style="margin-top: 6px;"><span class="ciano">Experiência</span><span>62%</span></div><div class="barra xp"><i style="width: 62%;"></i></div>
+      <div class="rotulo-barra" style="margin-top: 6px;"><span class="violeta">Chefe, fase 2</span><span>21%</span></div><div class="barra chefe fase2"><i style="width: 21%;"></i></div>
+    </div>
+    <div class="peca">
+      <h4>Céu e Lua</h4>
+      <div class="linha" style="flex-wrap: wrap;">
+        <img class="icone" src="icones/sol.png" alt=""><img class="icone" src="icones/chuva.png" alt=""><img class="icone" src="icones/tempestade.png" alt="">
+        <img class="icone" src="icones/nova.png" alt=""><img class="icone" src="icones/crescente.png" alt=""><img class="icone" src="icones/cheia.png" alt=""><img class="icone" src="icones/minguante.png" alt="">
+      </div>
+      <div class="dica">Faixa do dia: madrugada, manhã, tarde, fim de tarde, noite.</div>
+      <div class="linha" style="height: 10px; gap: 0;"><i style="flex: 1; height: 10px; background: #5a4dbf;"></i><i style="flex: 1; height: 10px; background: #ffd959;"></i><i style="flex: 1; height: 10px; background: #ffa633;"></i><i style="flex: 1; height: 10px; background: #f2664d;"></i><i style="flex: 1; height: 10px; background: #4066f2;"></i></div>
+    </div>
+    <div class="peca" style="min-height: 120px;">
+      <h4>Destaque de interação</h4>
+      <div class="bolha" style="position: relative; display: inline-block; margin-top: 6px;"><span class="tecla ciano">F</span> Colher</div>
+      <div class="bolha" style="position: relative; display: inline-block; margin: 6px 0 0 8px; border-color: var(--ambar); box-shadow: none;"><span class="tecla">F</span> Trancada</div>
+    </div>
+    <div class="peca">
+      <h4>Avisos</h4>
+      <div class="coluna">
+        <div class="toast" style="position: relative;"><img class="icone" src="icones/credito.png" alt=""><span>+45 créditos</span></div>
+        <div class="toast" style="position: relative; border-left-color: var(--ambar);"><span class="ambar">!</span><span>Mochila cheia</span></div>
+        <div class="toast" style="position: relative; border-left-color: var(--rosa);"><span class="rosa">♥</span><span>Marta gostou do presente</span></div>
+      </div>
+    </div>
+    <div class="peca">
+      <h4>Dano e cura</h4>
+      <div class="linha" style="gap: 18px;">
+        <span class="numero-de-dano" style="position: relative;">-18</span>
+        <span class="numero-de-dano" style="position: relative; color: var(--ciano);">-32</span>
+        <span class="numero-de-dano" style="position: relative; color: var(--verde); text-shadow: 2px 2px 0 #0b2a12;">+40</span>
+      </div>
+      <div class="dica">Normal em magenta, crítico em ciano, cura em verde. Nada vermelho.</div>
+    </div>
+    <div class="peca">
+      <h4>Modelos no palco</h4>
+      <div class="linha" style="flex-wrap: wrap;" id="todos-os-modelos"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+  // Lista dos moradores na aba de relacionamentos. Corações de 0 a 10, como no jogo.
+  const MORADORES_DA_LISTA = [
+    ["marta", "Marta Bueno", "dona do mercado", 4, true, true, ""],
+    ["kenji", "Kenji Moura", "cuida da antena", 6, true, false, "aniversário no dia 9"],
+    ["vitor", "Vitor Alencar", "mecânico da oficina", 2, false, false, ""],
+    ["iara", "Iara Nakamura", "médica da vila", 3, true, false, ""],
+    ["sol", "Sol Vasques", "vigia da fronteira", 1, false, false, ""],
+    ["rafa", "Rafael Duarte", "entregador", 5, false, true, ""],
+    ["bento", "Bento Arruda", "ex-zelador da Galeria", 2, true, false, ""],
+    ["teo", "Téo", "sobrinho do Kenji", 0, false, false, "ainda não se conheceram"]
+  ];
+
+  function montarRelacionamentos() {
+    const lista = document.getElementById("lista-de-moradores");
+    MORADORES_DA_LISTA.forEach(function (morador, indice) {
+      const [id, nome, papel, coracoes, conversou, presenteou, observacao] = morador;
+      let coracoesHtml = "";
+      for (let i = 0; i < 10; i++) coracoesHtml += i < coracoes ? "<i></i>" : '<i class="vazio"></i>';
+      const cartao = document.createElement("div");
+      cartao.className = "linha";
+      cartao.style.cssText = "padding: 6px; background: #10142a; border: 3px solid " + (indice === 1 ? "var(--ciano)" : "var(--borda-escura)") + ";";
+      cartao.innerHTML =
+        '<img class="modelo pequeno" data-modelo="' + id + '">' +
+        '<div style="flex: 1;">' +
+          '<div class="linha"><span class="titulo-pixel" style="font-size: 12px;">' + nome + "</span>" +
+          '<span class="empurra ' + (conversou ? "ciano" : "apagado") + '" style="font-size: 15px;">conversou</span>' +
+          '<span class="' + (presenteou ? "rosa" : "apagado") + '" style="font-size: 15px;">presente</span></div>' +
+          '<div class="apagado" style="font-size: 17px;">' + papel + (observacao ? ' . <span class="rosa">' + observacao + "</span>" : "") + "</div>" +
+          '<span class="coracoes">' + coracoesHtml + "</span>" +
+        "</div>";
+      lista.appendChild(cartao);
+    });
+  }
+
+  // Os 30 dias da Brotação, com a Lua de cada dia e os eventos.
+  function montarCalendario() {
+    const dias = document.getElementById("dias-do-calendario");
+    const fases = ["nova", "crescente", "cheia", "minguante"];
+    for (let dia = 1; dia <= 30; dia++) {
+      const caixa = document.createElement("div");
+      caixa.className = "dia";
+      if ((dia - 1) % 6 === 5) caixa.classList.add("folga");
+      if (dia < 12) caixa.classList.add("passou");
+      if (dia === 12) caixa.classList.add("hoje");
+      caixa.innerHTML = String(dia);
+      const fase = fases[Math.floor(((dia + 4) % 30) / 7.5)];
+      if (dia % 4 === 0 || dia === 12) caixa.innerHTML += '<img alt="" src="icones/' + fase + '.png">';
+      if (dia === 9) caixa.innerHTML += '<span class="evento rosa">♥ Kenji</span>';
+      if (dia === 15) caixa.innerHTML += '<span class="evento ouro">Feira</span>';
+      if (dia === 20) caixa.innerHTML += '<span class="evento ciano">Lúcia vem</span>';
+      if (dia === 12) caixa.innerHTML += '<span class="evento ciano">hoje</span>';
+      dias.appendChild(caixa);
+    }
+  }
+
+  function montarTodosOsModelos() {
+    const caixa = document.getElementById("todos-os-modelos");
+    Object.keys(MODELOS).forEach(function (id) {
+      caixa.innerHTML += '<img class="modelo pequeno" title="' + id + '" data-modelo="' + id + '">';
+    });
+  }
+
+  // Precisa rodar antes do pixel.js montar os modelos, então entra no começo do carregamento.
+  window.addEventListener("DOMContentLoaded", function () {
+    montarRelacionamentos();
+    montarCalendario();
+    montarTodosOsModelos();
+  }, { capture: true });
+</script>
+</body>
+</html>
