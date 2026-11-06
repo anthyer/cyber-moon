@@ -442,7 +442,10 @@ falas em `equipe/biblioteca-de-dialogos.md`. O guia `equipe/personas/leiame.md` 
 formato e a tabela de condições com os pesos.
 
 A tela é a `CaixaDialogo` (`scenes/dialogue/caixa_dialogo.tscn`): a caixa de texto embaixo
-e, atrás, os modelos 3D dos dois personagens num `SubViewport` com mundo próprio. O texto
+e, atrás, os modelos 3D dos dois personagens, cada um no seu palco de modelo (`ModelStage`,
+veja "Interface: Theme e palco de modelo"): o jogador à esquerda, vestido com o visual
+escolhido, e o morador à direita. Quem fala fica aceso e um pouco à frente; quem escuta
+fica mais escuro. O texto
 aparece letra por letra; o botão de interagir completa a fala e depois avança, e Esc
 encerra. Com `DialogueManager.em_dialogo`, o jogador fica parado, o NPC vira para ele, a
 barra rápida some e o menu de pausa não abre.
@@ -880,3 +883,200 @@ chão (estrada, calçada, caminho, piso) não projetam sombra: o script de impor
 a sombra delas pela lista `TRECHOS_SEM_SOMBRA`, e os planos de grama da fase também estão
 sem sombra. Na mesma máquina, a cena passou de 145 para 191 quadros por segundo.
 
+
+## Interface: Theme e palco de modelo
+
+O visual da interface (plano 40) sai de um Theme só, e os personagens aparecem como modelo
+3D num palco reutilizável. Esta seção é o contrato para quem refaz uma tela.
+
+### Fontes
+
+Ficam em `assets/fonts/`, cada uma na sua pasta com a licença (`OFL.txt`, SIL Open Font
+License 1.1) ao lado, baixadas do repositório `google/fonts`:
+
+- `silkscreen/silkscreen_regular.ttf` e `silkscreen/silkscreen_bold.ttf`: títulos,
+  etiquetas, abas e números grandes. Só tem maiúsculas, por desenho. Fica nítida em
+  múltiplos de 8 (8, 16, 24, 32).
+- `vt323/vt323_regular.ttf`: texto corrido. O tamanho base do jogo é 24, que equivale aos
+  20 px do mock em 1152 por 648.
+
+Fonte de pixel não pode ter suavização, senão a borda de cada pixel vira um borrão
+cinza. Os `.ttf.import` das três estão com `antialiasing=0` (nenhum), `hinting=0`
+(nenhum, para o contorno não ser puxado para fora da grade do desenho) e
+`subpixel_positioning=0` (desligado, para cada letra começar num pixel inteiro). Com
+`oversampling=0` a fonte é rasterizada de novo na escala da janela, então ela continua
+nítida em tela cheia. Fonte nova de pixel entra com as mesmas três opções.
+
+O projeto também usa filtro `nearest` no 2D (`rendering/textures/canvas_textures/
+default_texture_filter=0` no `project.godot`), para os painéis e os ícones de pixel não
+borrarem quando a janela cresce. Uma imagem que precise de suavização liga o filtro no
+próprio nó (`texture_filter`).
+
+### O Theme
+
+`resources/ui/tema_cyber_moon.tres`, gerado por `scripts/utils/gerar_tema.gd`:
+
+```bash
+godot --headless --path game --script res://scripts/utils/gerar_tema.gd
+godot --headless --path game --import
+```
+
+Na primeira vez as texturas ainda não estão importadas: rode o script, o `--import` e o
+script de novo. Não edite o `.tres` no Inspector, porque a próxima geração apaga a
+mudança; edite as tabelas e funções do gerador. As texturas de 9 fatias são desenhadas
+pelo mesmo script em `assets/textures/ui/`, em pixel de tela (borda de 3 px, como no
+mock).
+
+O Theme é o tema padrão do projeto (`gui/theme/custom`), então **toda tela já herda dele
+sem fazer nada**. Tela nova não aplica o Theme no nó raiz nem cria `StyleBoxFlat`
+próprio: escolhe a variation certa em cada nó, no Inspector (`Theme Type Variation`) ou
+por código (`theme_type_variation = &"PainelCiano"`). As telas antigas ainda têm
+`StyleBoxFlat` e cor próprios, que os passos 4 a 8 do plano 40 trocam pelo Theme.
+
+Padrões (sem variation):
+
+- Fonte VT323 24, texto `texto` em `Label` e `RichTextLabel`.
+- `PanelContainer` e `Panel`: painel neutro de chapa, com canto em degrau de pixel e
+  sombra preta de 3 px embaixo (fora do retângulo, não ocupa layout).
+- `Button`: chapa com sombra. Sob o mouse ou com foco, borda e texto ciano e uma seta na
+  frente; pressionado, afunda (sem sombra); desligado, cinza azulado. A seta faz parte da
+  textura dos estados acesos (no canto de cima à esquerda, que não estica), então não
+  precisa de script, e o `icon` próprio de um botão continua funcionando. Ela fica
+  centrada num botão de uma linha (32 px de altura); num botão mais alto, fica no alto.
+- `TabBar` e `TabContainer`: abas em Silkscreen 16; a ativa é ciano cheio com texto
+  escuro, e o painel do `TabContainer` é o painel neutro.
+- `ProgressBar`: bateria em segmentos de 8 px com vão de 2 px, em verde. Desligue
+  `show_percentage` e dê a altura por `custom_minimum_size.y` (veja abaixo).
+- `LineEdit`: caixa escura de borda neutra, ciano com foco.
+- `TooltipPanel`: painel neutro.
+
+Variations:
+
+| Variation | Base | Para quê |
+|---|---|---|
+| `PainelNeutro` | `PanelContainer` | Igual ao padrão, para deixar explícito |
+| `PainelCiano` | `PanelContainer` | O que está em foco ou aceso, terminal de acesso |
+| `PainelMagenta` | `PanelContainer` | Convite, ação destrutiva |
+| `PainelOuro` | `PanelContainer` | Dinheiro, baú de venda, recompensa |
+| `PainelCabecalho` | `PanelContainer` | A faixa de cabeçalho com um rebite em cada ponta; dentro, um `Label` com `TituloDoCabecalho` |
+| `Titulo` | `Label` | Silkscreen 16, cor `texto` |
+| `TituloDoCabecalho` | `Label` | Silkscreen 16, ciano |
+| `TituloGrande` | `Label` | Silkscreen negrito 32 |
+| `NumeroGrande` | `Label` | Silkscreen negrito 24 (relógio, créditos, dano) |
+| `TextoApagado` | `Label` | VT323 24, cor `texto_apagado` (função do morador, dica) |
+| `TeclaNaTela` | `Label` | Tecla clara com sombra; o texto é `InputManager.nome_da_tecla(acao)` |
+| `TeclaPrincipal` | `Label` | A mesma tecla em ciano, para a ação principal do momento |
+| `BotaoDestrutivo` | `Button` | Magenta ("Salvar e sair", descartar) |
+| `BarraVida` | `ProgressBar` | Verde; altura 20 |
+| `BarraStamina` | `ProgressBar` | Ouro; altura 20 |
+| `BarraExperiencia` | `ProgressBar` | Ciano fina; altura 12 |
+| `BarraChefe` | `ProgressBar` | Ouro; altura 24 |
+| `BarraChefeFase2` | `ProgressBar` | Violeta; altura 24 |
+| `SlotNormal` | `Panel` | Slot do inventário, borda neutra |
+| `SlotFocado` | `Panel` | Slot com foco, ciano |
+| `SlotSegurando` | `Panel` | Slot de onde o item foi pego, magenta |
+| `SlotNaMao` | `Panel` | O item na mão, ouro |
+| `SlotTrancado` | `Panel` | Slot ainda não liberado, com listras |
+| `SlotLixeira` | `Panel` | A lixeira, roxo escuro |
+
+Trocar o estado de um slot é trocar a variation: `slot.theme_type_variation =
+&"SlotFocado"`. Trocar a barra do chefe para a fase 2 é a mesma coisa, com
+`&"BarraChefeFase2"`.
+
+### Cores
+
+As cores ficam no Theme, no type `Cores`. Script de tela **não declara constante de cor**:
+lê pela classe `CoresDaInterface` (`scripts/ui/cores_da_interface.gd`, só funções
+estáticas):
+
+```gdscript
+rotulo.add_theme_color_override(&"font_color", CoresDaInterface.ouro())
+var cor: Color = CoresDaInterface.cor(&"texto_apagado")
+```
+
+| Nome | Função | Papel |
+|---|---|---|
+| `ciano` | `ciano()` | Foco, informação, golpe crítico |
+| `magenta` | `magenta()` | Segurando item, dano, convite, destrutivo |
+| `ouro` | `ouro()` | Dinheiro, preço, item na mão, stamina |
+| `verde` | `verde()` | Vida, ganho, cura, o que se tem |
+| `rosa` | `rosa()` | Corações, aniversário |
+| `violeta` | `violeta()` | Fase 2 do chefe, desmaio, madrugada |
+| `ambar` | `ambar()` | Aviso, erro, o que falta (o que antes era vermelho) |
+| `texto` | `texto()` | Texto |
+| `texto_apagado` | `texto_apagado()` | Texto secundário |
+| `desligado` | `desligado()` | Botão desligado, item que não dá para pagar |
+| `fundo_painel` | `fundo_painel()` | Fundo de painel |
+| `borda` | `borda()` | Borda neutra |
+| `borda_escura` | `borda_escura()` | Borda de dentro, aba inativa |
+| `noite` | `noite()` | Texto sobre fundo aceso (aba ativa, tecla) |
+| `lixeira` | `lixeira()` | A lixeira do inventário |
+
+Nada vermelho em lugar nenhum. Número de dano: `magenta()` normal, `ciano()` crítico,
+`verde()` cura. Cor nova entra no dicionário `CORES` do gerador e ganha uma função aqui.
+
+### Palco de modelo
+
+`scenes/ui/palco_de_modelo.tscn`, classe `ModelStage` (`scripts/ui/palco_de_modelo.gd`).
+É um `Control` que ocupa o retângulo que a tela der a ele; dentro, um `SubViewport` com
+mundo próprio, câmera, luz, um brilho e uma luz ciano no chão. Ele anima com o jogo
+pausado (`process_mode` sempre), porque o menu de pausa também mostra modelo.
+
+Para pôr na tela: instancie a cena como filho, ajuste âncoras e tamanho como qualquer
+`Control`, marque com nome único (`%PalcoDoMorador`) e chame pelo script da tela.
+Propriedades no Inspector:
+
+- `posicao_do_modelo` (padrão `(0, 0.2, 0)`): onde ficam os pés; o x desloca o modelo para
+  o lado dentro do palco.
+- `giro_inicial_graus`: zero é de frente para a câmera; positivo vira para a direita.
+- `distancia_da_camera` (2.2), `altura_da_camera` (0.5) e `campo_de_visao` (30): o
+  enquadramento. Menos campo de visão, modelo maior.
+- `gira_com_mouse_e_direcional`: arrastar com o botão esquerdo ou o direcional direito
+  do controle (`InputManager.giro_do_direcional_direito()`) gira o modelo. Para a aba de
+  equipamento.
+- `mostrar_brilho_do_chao`: o brilho ciano embaixo dos pés.
+
+Funções:
+
+| Função | O que faz |
+|---|---|
+| `mostrar_cena(cena: PackedScene)` | Mostra um modelo qualquer |
+| `mostrar_npc(id: String) -> bool` | Pelo `PerfilNpc` em `resources/npcs/<id>.tres` (ou a pasta das figurantes) |
+| `mostrar_protagonista(id: StringName) -> bool` | Pelo `PerfilProtagonista` em `resources/protagonistas/<id>.tres` |
+| `mostrar_jogador()` | O jogador desta máquina, com o visual que está vestindo |
+| `mostrar_por_id(id: StringName) -> bool` | `&"jogador"`, id de morador ou id de protagonista |
+| `tocar(clipe: StringName)` | Toca um clipe; clipe que não existe vira `idle` |
+| `definir_aceso(aceso: bool, imediato := false)` | Aceso: claro e à frente. Apagado: mais escuro |
+| `esta_aceso() -> bool` | |
+| `limpar()` | Tira o modelo |
+| `modelo() -> Node3D` e `animacao() -> AnimationPlayer` | Para mexer no modelo (vestir, trocar arma) |
+| `tirar_foto() -> Texture2D` | Modo foto, com `await`; emite `foto_tirada(foto)` |
+| `voltar_a_animar()` e `esta_em_foto() -> bool` | Desfaz o modo foto |
+
+O palco usa o próprio `modulate` para apagar quem escuta: não mexa no `modulate` dele de
+fora. Para esmaecer a tela inteira, use o `modulate` de um pai.
+
+**Modo foto.** Para tela com muitos modelos (a aba de relacionamentos, com até catorze):
+`await palco.tirar_foto()` renderiza uma vez, troca a imagem animada por uma foto parada,
+para de renderizar o `SubViewport` e pausa a animação. Anime só o cartão focado
+(`voltar_a_animar()` nele e `tirar_foto()` no que perdeu o foco). Funciona com o palco
+ainda escondido numa aba fechada. `mostrar_*` num palco em foto volta a animar sozinho.
+
+**Mistura pré-multiplicada.** O `SubViewport` transparente guarda a cor já multiplicada
+pelo alfa. Desenhado com a mistura comum, a borda semitransparente (o brilho do chão)
+escurece o que está atrás. Por isso a `Tela` e a `Foto` do palco usam um
+`CanvasItemMaterial` com `blend_mode` pré-multiplicado. Quem mostrar uma
+`ViewportTexture` transparente fora do palco precisa do mesmo material.
+
+Exemplo, a conversa (`caixa_dialogo.gd`):
+
+```gdscript
+@onready var palco_do_jogador: ModelStage = %PalcoDoJogador
+@onready var palco_do_morador: ModelStage = %PalcoDoMorador
+
+palco_do_morador.mostrar_cena(npc.perfil.modelo)
+palco_do_jogador.mostrar_jogador()
+quem_fala.tocar(no.animacao)
+quem_fala.definir_aceso(true)
+quem_escuta.definir_aceso(false)
+```

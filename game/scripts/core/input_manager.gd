@@ -4,6 +4,9 @@ extends Node
 ## nunca fica exatamente em zero, e sem a folga o jogo acharia que o jogador pegou o
 ## controle só porque o stick tremeu.
 const FOLGA_DO_EIXO_DO_CONTROLE: float = 0.5
+## Folga menor para o giro de modelo pelo direcional direito: ali o toque leve é para
+## girar devagar, como no movimento.
+const FOLGA_DO_GIRO_DO_DIRECIONAL_DIREITO: float = 0.2
 
 ## Ligado enquanto o jogador digita no chat ou mexe numa tela que não pausa o jogo (o
 ## lobby). Com ele ligado, toda pergunta de gameplay responde que nada foi pressionado:
@@ -60,6 +63,21 @@ func nome_da_tecla(acao: StringName) -> String:
 			var tecla: Key = DisplayServer.keyboard_get_keycode_from_physical((evento as InputEventKey).physical_keycode)
 			return OS.get_keycode_string(tecla)
 	return "?"
+
+## Quanto o direcional direito do controle está empurrado para o lado, de -1 (esquerda) a
+## 1 (direita), ou zero dentro da folga. Gira o modelo do palco de modelo (ModelStage) nas
+## telas que deixam girar; não é uma ação do Input Map porque o valor é contínuo.
+func giro_do_direcional_direito() -> float:
+	if teclado_capturado:
+		return 0.0
+	var maior: float = 0.0
+	for aparelho in Input.get_connected_joypads():
+		var eixo: float = Input.get_joy_axis(aparelho, JOY_AXIS_RIGHT_X)
+		if absf(eixo) > absf(maior):
+			maior = eixo
+	if absf(maior) < FOLGA_DO_GIRO_DO_DIRECIONAL_DIREITO:
+		return 0.0
+	return maior
 
 func interagir_pressionado() -> bool:
 	return not teclado_capturado and Input.is_action_just_pressed("interagir")

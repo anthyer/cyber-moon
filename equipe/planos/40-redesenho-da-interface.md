@@ -134,14 +134,14 @@ a lixeira do inventário. Aviso e falta viram âmbar; a lixeira vira roxo escuro
 
 ## Passos
 
-- [ ] **1.** Fontes: baixar Silkscreen e VT323 para `game/assets/fonts/`, com a licença
+- [x] **1.** Fontes: baixar Silkscreen e VT323 para `game/assets/fonts/`, com a licença
   OFL junto.
-- [ ] **2.** O Theme: `resources/ui/tema_cyber_moon.tres` com fontes, painéis
+- [x] **2.** O Theme: `resources/ui/tema_cyber_moon.tres` com fontes, painéis
   (`StyleBoxTexture` com o canto em degrau, uma textura de 9 fatias por variante de
   borda), botões, abas, barras e slots. Aplicado no nó raiz das telas. As constantes de
   cor de cada script de `scripts/ui/` saem do script e passam a ser lidas do Theme
   (`get_theme_color`), num lugar só. Registrar em `game/docs/arquitetura.md`.
-- [ ] **3.** A cena `palco_de_modelo.tscn` e a `caixa_dialogo` passando a usá-la.
+- [x] **3.** A cena `palco_de_modelo.tscn` e a `caixa_dialogo` passando a usá-la.
 - [ ] **4.** HUD da fazenda e da dungeon (status, relógio, créditos, barra rápida,
   destaque, chat, aviso, objetivo, chefe, aliados, combo).
 - [ ] **5.** Conversa, serviços, loja, bancada, baú, resumo de vendas, desmaio.

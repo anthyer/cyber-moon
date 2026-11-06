@@ -45,6 +45,10 @@ MapManager="*res://scripts/core/map_manager.gd"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[gui]
+
+theme/custom="res://resources/ui/tema_cyber_moon.tres"
+
 [input]
 
 ui_accept={
@@ -263,3 +267,4 @@ rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 lights_and_shadows/directional_shadow/size=2048
+textures/canvas_textures/default_texture_filter=0

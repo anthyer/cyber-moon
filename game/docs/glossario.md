@@ -116,3 +116,10 @@ Mapeamento entre termos de design em português e os nomes técnicos corresponde
 | Mundo real | Real world / `RealWorldManager`, a hora, o clima e a Lua de fora do jogo |
 | Fase da Lua | Moon phase / `RealWorldManager.FaseDaLua` (nova, crescente, cheia, minguante) |
 | Bônus da lua cheia | Moon bonus / sinais `EventBus.moon_growth_applied` e `moon_harvest_bonus` |
+| Theme da interface | UI theme / `resources/ui/tema_cyber_moon.tres`, gerado por `scripts/utils/gerar_tema.gd` |
+| Painel de chapa | Plate panel / variations `PainelNeutro`, `PainelCiano`, `PainelMagenta`, `PainelOuro`, `PainelCabecalho` |
+| Barra de bateria | Segmented bar / variations `BarraVida`, `BarraStamina`, `BarraExperiencia`, `BarraChefe`, `BarraChefeFase2` |
+| Tecla na tela | On-screen key / variations `TeclaNaTela` e `TeclaPrincipal` |
+| Cores da interface | UI colors / `CoresDaInterface`, lê o type `Cores` do Theme |
+| Palco de modelo | Model stage / `ModelStage`, `scenes/ui/palco_de_modelo.tscn` |
+| Modo foto | Snapshot mode / `ModelStage.tirar_foto()` |

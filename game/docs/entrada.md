@@ -42,6 +42,7 @@ O stick esquerdo move o jogador junto com o D-pad. As quatro ações de moviment
 - Com o chat aberto ou a tela de lobby na frente, o `InputManager.teclado_capturado` fica ligado e o personagem não responde a nada. Nenhuma das duas pausa o jogo, porque a rede precisa continuar.
 - O calendário pausa o jogo como o menu de pausa. Esquerda e direita trocam a estação mostrada, e `ui_cancel` (Esc ou B) fecha. Ele não tem tecla de atalho: abre só pelo quadro de calendário no mundo. Com uma das duas telas aberta, a outra não abre.
 - `abrir_inventario` e `menu_pausa` abrem a mesma tela por enquanto, o menu de pausa com o inventário, porque ainda não existe tela de opções. Com o menu aberto, qualquer uma das duas fecha, e o jogo fica pausado de verdade enquanto ele está aberto.
+- O palco de modelo (`ModelStage`) com giro ligado gira o modelo arrastando com o botão esquerdo do mouse ou com o direcional direito do controle. O direcional direito é lido por `InputManager.giro_do_direcional_direito()`, que devolve de -1 a 1 (folga de 0.2) e não é ação do Input Map, porque o valor é contínuo.
 - Menus e telas de UI usam o sistema nativo de foco dos nós `Control` do Godot, permitindo navegação por teclado ou joystick sem depender do mouse.
 
 ## Painel arcade (placa DragonRise)
