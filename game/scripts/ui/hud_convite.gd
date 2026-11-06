@@ -6,6 +6,9 @@ extends Control
 ## Não pausa o jogo, porque o convite pode chegar a qualquer hora e o jogador decide se
 ## para o que está fazendo. Sem resposta em SEGUNDOS_PARA_RESPONDER, o convite conta como
 ## recusado, para quem convidou não ficar esperando para sempre.
+##
+## O visual é o painel magenta do Theme (convite), com a barra fina embaixo mostrando o
+## tempo que resta para responder.
 
 const SEGUNDOS_PARA_RESPONDER: float = 20.0
 
@@ -13,6 +16,8 @@ const SEGUNDOS_PARA_RESPONDER: float = 20.0
 @onready var rotulo_do_texto: Label = %Texto
 @onready var botao_aceitar: Button = %BotaoAceitar
 @onready var botao_recusar: Button = %BotaoRecusar
+@onready var rotulo_do_cabecalho: Label = %Cabecalho
+@onready var barra_do_tempo: ProgressBar = %TempoRestante
 
 ## Há um convite esperando resposta. Fica separado do visible porque o painel se esconde
 ## com o jogo pausado sem que o convite seja perdido.
@@ -24,6 +29,7 @@ func _ready() -> void:
 	# voltar, como as outras HUDs.
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	painel.visible = false
+	rotulo_do_cabecalho.add_theme_color_override(&"font_color", CoresDaInterface.magenta())
 	botao_aceitar.pressed.connect(_responder.bind(true))
 	botao_recusar.pressed.connect(_responder.bind(false))
 	LobbyManager.invite_received.connect(_ao_receber_convite)
@@ -42,6 +48,7 @@ func _process(delta: float) -> void:
 	if get_tree().paused:
 		return
 	_segundos_restantes -= delta
+	barra_do_tempo.value = maxf(_segundos_restantes, 0.0) / SEGUNDOS_PARA_RESPONDER
 	if _segundos_restantes <= 0.0:
 		_responder(false)
 

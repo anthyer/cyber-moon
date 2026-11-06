@@ -15,17 +15,22 @@ extends Control
 ## A tela de conta (plano 36) é filha desta. O botão "Conta" esconde o painel do lobby e
 ## abre a de conta por cima; quando ela fecha, o painel volta. O teclado continua
 ## capturado o tempo todo, porque o lobby não fechou.
+##
+## Cada dungeon é um cartão (um botão de alternar com o ícone do troféu, o nome e o
+## estado), e a descrição da escolhida fica embaixo dos cartões. As cores vêm de
+## CoresDaInterface: o líder da equipe em ciano, a dungeon aberta em verde, a trancada em
+## âmbar com o que falta.
 
-const COR_DO_TEXTO: Color = Color(0.92, 0.95, 1.0)
-const COR_DO_TEXTO_APAGADO: Color = Color(0.6, 0.66, 0.8)
-const COR_DO_ANFITRIAO: Color = Color(0.2, 0.95, 1.0)
-const TAMANHO_DA_DESCRICAO: int = 12
-const LARGURA_DA_DESCRICAO: float = 380.0
+## O tamanho de cada cartão de dungeon e do ícone do troféu dentro dele.
+const TAMANHO_DO_CARTAO: Vector2 = Vector2(250.0, 184.0)
+const TAMANHO_DO_ICONE_DO_CARTAO: Vector2 = Vector2(32.0, 32.0)
+const MARGEM_DO_CARTAO: int = 12
 
 @onready var rotulo_de_status: Label = %Status
 @onready var lista_da_equipe: VBoxContainer = %ListaDaEquipe
 @onready var lista_de_online: VBoxContainer = %ListaDeOnline
-@onready var lista_de_dungeons: VBoxContainer = %ListaDeDungeons
+@onready var lista_de_dungeons: HBoxContainer = %ListaDeDungeons
+@onready var descricao_da_dungeon: Label = %DescricaoDaDungeon
 @onready var botao_entrar: Button = %BotaoEntrar
 @onready var rotulo_de_espera: Label = %Espera
 @onready var botao_sair_da_equipe: Button = %BotaoSairDaEquipe
@@ -150,7 +155,7 @@ func _redesenhar() -> void:
 func _redesenhar_equipe() -> void:
 	_esvaziar(lista_da_equipe)
 	if not LobbyManager.esta_em_sala():
-		lista_da_equipe.add_child(_novo_rotulo("Você", COR_DO_TEXTO))
+		lista_da_equipe.add_child(_novo_rotulo("Você", CoresDaInterface.texto()))
 		return
 	for membro: Dictionary in LobbyManager.membros:
 		var id: String = membro["id"]
@@ -160,7 +165,7 @@ func _redesenhar_equipe() -> void:
 		var e_anfitriao: bool = id == LobbyManager.anfitriao
 		if e_anfitriao:
 			texto += ", líder da equipe"
-		lista_da_equipe.add_child(_novo_rotulo(texto, COR_DO_ANFITRIAO if e_anfitriao else COR_DO_TEXTO))
+		lista_da_equipe.add_child(_novo_rotulo(texto, CoresDaInterface.ciano() if e_anfitriao else CoresDaInterface.texto()))
 
 func _redesenhar_online() -> void:
 	_esvaziar(lista_de_online)
@@ -171,12 +176,12 @@ func _redesenhar_online() -> void:
 		algum = true
 		lista_de_online.add_child(_nova_linha_de_online(id, NetworkManager.online[id]))
 	if not algum:
-		lista_de_online.add_child(_novo_rotulo("Ninguém online.", COR_DO_TEXTO_APAGADO))
+		lista_de_online.add_child(_novo_rotulo("Ninguém online.", CoresDaInterface.texto_apagado()))
 
 func _nova_linha_de_online(id: String, nome: String) -> HBoxContainer:
 	var linha: HBoxContainer = HBoxContainer.new()
 	linha.add_theme_constant_override(&"separation", 12)
-	var rotulo: Label = _novo_rotulo(nome, COR_DO_TEXTO)
+	var rotulo: Label = _novo_rotulo(nome, CoresDaInterface.texto())
 	rotulo.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	linha.add_child(rotulo)
 	# Só o anfitrião convida, para a sala ter um dono só. Quem está sozinho é anfitrião
@@ -193,41 +198,89 @@ func _nova_linha_de_online(id: String, nome: String) -> HBoxContainer:
 		linha.add_child(botao)
 	return linha
 
-## Um botão por dungeon, na ordem do DungeonManager. A liberada é um botão de alternar,
+## Um cartão por dungeon, na ordem do DungeonManager. O cartão é um botão de alternar,
 ## num grupo, para só uma ficar marcada. A trancada fica desabilitada e diz o que falta.
-## Quem escolhe é o anfitrião: o convidado vê a lista, mas com os botões desabilitados.
+## Quem escolhe é o anfitrião: o convidado vê os cartões, mas desabilitados.
 func _redesenhar_dungeons() -> void:
 	_esvaziar(lista_de_dungeons)
 	var grupo: ButtonGroup = ButtonGroup.new()
 	var pode_escolher: bool = LobbyManager.sou_anfitriao()
 	for definicao in DungeonManager.definicoes():
 		var liberada: bool = DungeonManager.esta_liberada(definicao)
-		var botao: Button = Button.new()
-		botao.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		botao.text = definicao.nome
-		if DungeonManager.chefe_ja_foi_vencido(definicao.id):
-			botao.text += " (chefe vencido)"
-		botao.toggle_mode = true
-		botao.button_group = grupo
-		botao.disabled = not liberada or not pode_escolher
-		botao.set_pressed_no_signal(liberada and definicao.id == _dungeon_escolhida)
-		botao.pressed.connect(_ao_escolher_dungeon.bind(definicao.id))
-		lista_de_dungeons.add_child(botao)
-		var texto: String = definicao.descricao
-		if not liberada:
-			var anterior: DefinicaoDeDungeon = DungeonManager.definicao_de(definicao.requer)
-			texto = "Trancada: vença o chefe de %s" % (anterior.nome if anterior != null else "outra dungeon")
-		if texto != "":
-			var descricao: Label = _novo_rotulo(texto, COR_DO_TEXTO_APAGADO)
-			descricao.add_theme_font_size_override(&"font_size", TAMANHO_DA_DESCRICAO)
-			descricao.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-			descricao.custom_minimum_size = Vector2(LARGURA_DA_DESCRICAO, 0.0)
-			lista_de_dungeons.add_child(descricao)
+		var cartao: Button = _novo_cartao(definicao, liberada)
+		cartao.toggle_mode = true
+		cartao.button_group = grupo
+		cartao.disabled = not liberada or not pode_escolher
+		cartao.set_pressed_no_signal(liberada and definicao.id == _dungeon_escolhida)
+		cartao.pressed.connect(_ao_escolher_dungeon.bind(definicao.id))
+		lista_de_dungeons.add_child(cartao)
+	_mostrar_descricao_da_escolhida()
 
-## Só guarda a escolha. A lista não é redesenhada aqui, para o foco não sair do botão que
-## acabou de ser apertado; o grupo de botões já cuida de desmarcar o outro.
+## O cartão de uma dungeon: o ícone do troféu do chefe, o nome e o estado. O conteúdo é
+## só de leitura (não pega o mouse), para o clique cair no botão.
+func _novo_cartao(definicao: DefinicaoDeDungeon, liberada: bool) -> Button:
+	var cartao: Button = Button.new()
+	cartao.custom_minimum_size = TAMANHO_DO_CARTAO
+	var margem: MarginContainer = MarginContainer.new()
+	margem.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	margem.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for lado: StringName in [&"margin_left", &"margin_top", &"margin_right", &"margin_bottom"]:
+		margem.add_theme_constant_override(lado, MARGEM_DO_CARTAO)
+	cartao.add_child(margem)
+	var linhas: VBoxContainer = VBoxContainer.new()
+	linhas.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	margem.add_child(linhas)
+
+	if definicao.trofeu != null and definicao.trofeu.icone != null:
+		var icone: TextureRect = TextureRect.new()
+		icone.texture = definicao.trofeu.icone
+		icone.custom_minimum_size = TAMANHO_DO_ICONE_DO_CARTAO
+		icone.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icone.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icone.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		icone.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		if not liberada:
+			icone.modulate = CoresDaInterface.desligado()
+		linhas.add_child(icone)
+
+	var nome: Label = _novo_rotulo(definicao.nome, CoresDaInterface.texto() if liberada else CoresDaInterface.desligado())
+	nome.theme_type_variation = &"Titulo"
+	nome.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	linhas.add_child(nome)
+
+	var estado: Label = _novo_rotulo(_estado_da_dungeon(definicao, liberada), _cor_do_estado(definicao, liberada))
+	estado.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	estado.size_flags_vertical = Control.SIZE_EXPAND | Control.SIZE_SHRINK_END
+	linhas.add_child(estado)
+	return cartao
+
+func _estado_da_dungeon(definicao: DefinicaoDeDungeon, liberada: bool) -> String:
+	if not liberada:
+		var anterior: DefinicaoDeDungeon = DungeonManager.definicao_de(definicao.requer)
+		return "Trancada: vença o chefe de %s" % (anterior.nome if anterior != null else "outra dungeon")
+	if DungeonManager.chefe_ja_foi_vencido(definicao.id):
+		return "Aberta, chefe vencido"
+	return "Aberta"
+
+func _cor_do_estado(definicao: DefinicaoDeDungeon, liberada: bool) -> Color:
+	if not liberada:
+		return CoresDaInterface.ambar()
+	if DungeonManager.chefe_ja_foi_vencido(definicao.id):
+		return CoresDaInterface.ciano()
+	return CoresDaInterface.verde()
+
+## A descrição da dungeon escolhida, embaixo dos cartões. Cabe numa linha larga e não no
+## cartão, que é pequeno para o texto inteiro.
+func _mostrar_descricao_da_escolhida() -> void:
+	var escolhida: DefinicaoDeDungeon = DungeonManager.definicao_de(_dungeon_escolhida) if _dungeon_escolhida != &"" else null
+	descricao_da_dungeon.text = escolhida.descricao if escolhida != null else ""
+	descricao_da_dungeon.visible = descricao_da_dungeon.text != ""
+
+## Só guarda a escolha e troca a descrição. Os cartões não são refeitos aqui, para o foco
+## não sair do que acabou de ser apertado; o grupo de botões já cuida de desmarcar o outro.
 func _ao_escolher_dungeon(id: StringName) -> void:
 	_dungeon_escolhida = id
+	_mostrar_descricao_da_escolhida()
 
 ## O id da última dungeon liberada, na ordem do lobby, ou vazio quando não há nenhuma.
 func _ultima_liberada() -> StringName:
@@ -257,7 +310,7 @@ func _dar_foco() -> void:
 	else:
 		botao_fechar.grab_focus()
 
-func _esvaziar(lista: VBoxContainer) -> void:
+func _esvaziar(lista: BoxContainer) -> void:
 	for filho in lista.get_children():
 		lista.remove_child(filho)
 		filho.queue_free()
@@ -265,6 +318,5 @@ func _esvaziar(lista: VBoxContainer) -> void:
 func _novo_rotulo(texto: String, cor: Color) -> Label:
 	var rotulo: Label = Label.new()
 	rotulo.text = texto
-	rotulo.add_theme_font_size_override(&"font_size", 15)
 	rotulo.add_theme_color_override(&"font_color", cor)
 	return rotulo

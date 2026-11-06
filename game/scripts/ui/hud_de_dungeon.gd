@@ -5,10 +5,7 @@ extends Control
 ## esquerdo, abaixo das barras de status. Fora da dungeon não aparece.
 ##
 ## Esta HUD não sabe qual é o objetivo: o objetivo paralelo avisa o próprio progresso, em
-## texto pronto, pelo EventBus.dungeon_objective_changed.
-
-const COR_DO_OBJETIVO: Color = Color(0.75, 0.8, 0.9)
-const COR_DO_OBJETIVO_CONCLUIDO: Color = Color(0.3, 0.95, 1.0)
+## texto pronto, pelo EventBus.dungeon_objective_changed. O objetivo cumprido fica ciano.
 
 @onready var rotulo_do_nome: Label = %Nome
 @onready var rotulo_do_objetivo: Label = %Objetivo
@@ -41,4 +38,4 @@ func _ao_sair() -> void:
 func _ao_mudar_objetivo(texto: String, concluido: bool) -> void:
 	rotulo_do_objetivo.text = texto
 	rotulo_do_objetivo.visible = texto != ""
-	rotulo_do_objetivo.add_theme_color_override(&"font_color", COR_DO_OBJETIVO_CONCLUIDO if concluido else COR_DO_OBJETIVO)
+	rotulo_do_objetivo.add_theme_color_override(&"font_color", CoresDaInterface.ciano() if concluido else CoresDaInterface.texto())

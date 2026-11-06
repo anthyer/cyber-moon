@@ -1,23 +1,7 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/tela_de_lobby.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/ui/tela_de_conta.tscn" id="2_conta"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
-bg_color = Color(0.03, 0.04, 0.08, 0.92)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 0.95, 1, 0.6)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-content_margin_left = 20.0
-content_margin_top = 16.0
-content_margin_right = 20.0
-content_margin_bottom = 16.0
 
 [node name="TelaDeLobby" type="Control"]
 process_mode = 3
@@ -48,36 +32,55 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Painel" type="PanelContainer" parent="Centro"]
-custom_minimum_size = Vector2(420, 0)
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+theme_type_variation = &"PainelNeutro"
 
 [node name="Linhas" type="VBoxContainer" parent="Centro/Painel"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
 
-[node name="Titulo" type="Label" parent="Centro/Painel/Linhas"]
+[node name="CabecalhoDaDungeon" type="PanelContainer" parent="Centro/Painel/Linhas"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 22
-text = "Dungeon"
-horizontal_alignment = 1
+theme_type_variation = &"PainelCabecalho"
 
-[node name="Status" type="Label" parent="Centro/Painel/Linhas"]
+[node name="Linha" type="HBoxContainer" parent="Centro/Painel/Linhas/CabecalhoDaDungeon"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Titulo" type="Label" parent="Centro/Painel/Linhas/CabecalhoDaDungeon/Linha"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_type_variation = &"TituloDoCabecalho"
+text = "Dungeon"
+
+[node name="Status" type="Label" parent="Centro/Painel/Linhas/CabecalhoDaDungeon/Linha"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.66, 0.8, 1)
-theme_override_font_sizes/font_size = 13
+theme_type_variation = &"TextoApagado"
 text = "Offline: dá para entrar sem equipe"
-horizontal_alignment = 1
+horizontal_alignment = 2
 
-[node name="Separador1" type="HSeparator" parent="Centro/Painel/Linhas"]
+[node name="ListaDeDungeons" type="HBoxContainer" parent="Centro/Painel/Linhas"]
+unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="TituloDaEquipe" type="Label" parent="Centro/Painel/Linhas"]
+[node name="DescricaoDaDungeon" type="Label" parent="Centro/Painel/Linhas"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(760, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.2, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 15
+theme_type_variation = &"TextoApagado"
+autowrap_mode = 3
+
+[node name="CabecalhoDaEquipe" type="PanelContainer" parent="Centro/Painel/Linhas"]
+layout_mode = 2
+theme_type_variation = &"PainelCabecalho"
+
+[node name="Titulo" type="Label" parent="Centro/Painel/Linhas/CabecalhoDaEquipe"]
+layout_mode = 2
+theme_type_variation = &"TituloDoCabecalho"
 text = "Sua equipe"
 
 [node name="ListaDaEquipe" type="VBoxContainer" parent="Centro/Painel/Linhas"]
@@ -85,13 +88,9 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="Separador2" type="HSeparator" parent="Centro/Painel/Linhas"]
-layout_mode = 2
-
 [node name="TituloDeOnline" type="Label" parent="Centro/Painel/Linhas"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.2, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 15
+theme_type_variation = &"Titulo"
 text = "Online"
 
 [node name="ListaDeOnline" type="VBoxContainer" parent="Centro/Painel/Linhas"]
@@ -99,36 +98,16 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Separador3" type="HSeparator" parent="Centro/Painel/Linhas"]
-layout_mode = 2
-
-[node name="TituloDaDungeon" type="Label" parent="Centro/Painel/Linhas"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.2, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 15
-text = "Dungeon"
-
-[node name="ListaDeDungeons" type="VBoxContainer" parent="Centro/Painel/Linhas"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 6
-
-[node name="Separador4" type="HSeparator" parent="Centro/Painel/Linhas"]
-layout_mode = 2
-
 [node name="Espera" type="Label" parent="Centro/Painel/Linhas"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.66, 0.8, 1)
-theme_override_font_sizes/font_size = 14
+theme_type_variation = &"TextoApagado"
 text = "Esperando quem lidera a equipe começar"
-horizontal_alignment = 1
 
 [node name="Rodape" type="HBoxContainer" parent="Centro/Painel/Linhas"]
 layout_mode = 2
 theme_override_constants/separation = 8
-alignment = 1
 
 [node name="BotaoEntrar" type="Button" parent="Centro/Painel/Linhas/Rodape"]
 unique_name_in_owner = true
@@ -146,6 +125,10 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 text = "Conta"
+
+[node name="Espaco" type="Control" parent="Centro/Painel/Linhas/Rodape"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="BotaoFechar" type="Button" parent="Centro/Painel/Linhas/Rodape"]
 unique_name_in_owner = true

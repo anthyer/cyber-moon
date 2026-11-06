@@ -8,7 +8,7 @@ extends Control
 
 const CENA_DO_SLOT: PackedScene = preload("res://scenes/ui/slot_inventario.tscn")
 
-## Quanto tempo o nome do item fica visível acima do slot depois de trocar a seleção,
+## Quanto tempo o nome do item fica visível acima da barra depois de trocar a seleção,
 ## e quanto dura o sumiço no fim.
 const DURACAO_DO_NOME: float = 2.0
 const DURACAO_DO_SUMICO: float = 0.4
@@ -45,15 +45,15 @@ func _atualizar_slots() -> void:
 
 func _ao_mudar_selecao(indice: int) -> void:
 	_marcar_selecionado(indice)
-	_mostrar_nome(indice)
+	_mostrar_nome()
 
 func _marcar_selecionado(indice: int) -> void:
 	for slot in _slots:
 		slot.selecionado = slot.indice_do_slot == indice
 
-## Mostra o nome do item acima do slot selecionado e some depois de um tempo, como no
-## Minecraft. Ajuda quando os ícones são pequenos. Slot vazio não mostra nada.
-func _mostrar_nome(indice: int) -> void:
+## Mostra o nome do item na mão no meio, acima da barra, e some depois de um tempo, como
+## no Minecraft. Ajuda quando os ícones são pequenos. Slot vazio não mostra nada.
+func _mostrar_nome() -> void:
 	if _animacao_do_nome != null:
 		_animacao_do_nome.kill()
 	var item: Item = EquipmentManager.item_na_mao()
@@ -61,9 +61,6 @@ func _mostrar_nome(indice: int) -> void:
 		nome_do_item.modulate.a = 0.0
 		return
 	nome_do_item.text = item.nome
-	var slot: SlotInventario = _slots[indice]
-	var centro_do_slot: float = caixa_dos_slots.position.x + slot.position.x + slot.size.x / 2.0
-	nome_do_item.position.x = centro_do_slot - nome_do_item.size.x / 2.0
 	nome_do_item.modulate.a = 1.0
 	_animacao_do_nome = create_tween()
 	_animacao_do_nome.tween_interval(DURACAO_DO_NOME)

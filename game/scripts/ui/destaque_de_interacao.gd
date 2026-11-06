@@ -12,6 +12,13 @@ extends Control
 const BRILHO: Shader = preload("res://assets/shaders/destaque_de_interacao.gdshader")
 ## Quanto acima do alvo o balão fica, em unidades do mundo.
 const ALTURA_DO_BALAO: float = 1.4
+## A ponta do balão, um triângulo ciano embaixo dele apontando para o alvo, em pixels.
+const ALTURA_DA_PONTA: float = 8.0
+const LARGURA_DA_PONTA: float = 14.0
+## As margens de dentro do balão. O painel ciano do Theme tem margem de painel grande, e
+## o balão precisa ser compacto para não cobrir o que está perto do alvo.
+const MARGEM_DO_BALAO_NOS_LADOS: float = 10.0
+const MARGEM_DO_BALAO_EM_CIMA_E_EMBAIXO: float = 6.0
 
 @onready var balao: PanelContainer = %Balao
 @onready var rotulo_da_tecla: Label = %Tecla
@@ -26,6 +33,7 @@ var _camadas_de_antes: Array[Material] = []
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	balao.visible = false
+	_deixar_o_balao_compacto()
 	_material_do_brilho = ShaderMaterial.new()
 	_material_do_brilho.shader = BRILHO
 	EventBus.interaction_target_changed.connect(_ao_mudar_alvo)
@@ -44,16 +52,42 @@ func _ao_mudar_alvo(alvo: Node3D) -> void:
 func _process(_delta: float) -> void:
 	if _alvo == null or not is_instance_valid(_alvo):
 		balao.visible = false
+		queue_redraw()
 		return
 	var camera: Camera3D = get_viewport().get_camera_3d()
 	var ponto: Vector3 = _alvo.global_position + Vector3.UP * ALTURA_DO_BALAO
 	if camera == null or get_tree().paused or camera.is_position_behind(ponto):
 		balao.visible = false
+		queue_redraw()
 		return
 	rotulo_da_tecla.text = InputManager.nome_da_tecla(&"interagir")
 	balao.visible = true
 	balao.reset_size()
-	balao.position = camera.unproject_position(ponto) - Vector2(balao.size.x / 2.0, balao.size.y)
+	balao.position = camera.unproject_position(ponto) - Vector2(balao.size.x / 2.0, balao.size.y + ALTURA_DA_PONTA)
+	queue_redraw()
+
+## A ponta do balão é desenhada aqui, e não dentro dele, porque fica fora do retângulo
+## do painel.
+func _draw() -> void:
+	if not balao.visible:
+		return
+	var centro_de_baixo: Vector2 = balao.position + Vector2(balao.size.x / 2.0, balao.size.y)
+	var ponta: PackedVector2Array = [
+		centro_de_baixo + Vector2(-LARGURA_DA_PONTA / 2.0, 0.0),
+		centro_de_baixo + Vector2(LARGURA_DA_PONTA / 2.0, 0.0),
+		centro_de_baixo + Vector2(0.0, ALTURA_DA_PONTA),
+	]
+	draw_colored_polygon(ponta, CoresDaInterface.ciano())
+
+## Usa o painel ciano do Theme com margens menores. A cópia é só deste balão, então o
+## painel ciano das outras telas não muda.
+func _deixar_o_balao_compacto() -> void:
+	var caixa: StyleBox = balao.get_theme_stylebox(&"panel").duplicate() as StyleBox
+	caixa.content_margin_left = MARGEM_DO_BALAO_NOS_LADOS
+	caixa.content_margin_right = MARGEM_DO_BALAO_NOS_LADOS
+	caixa.content_margin_top = MARGEM_DO_BALAO_EM_CIMA_E_EMBAIXO
+	caixa.content_margin_bottom = MARGEM_DO_BALAO_EM_CIMA_E_EMBAIXO
+	balao.add_theme_stylebox_override(&"panel", caixa)
 
 func _acender_brilho() -> void:
 	var no: Node3D = _alvo.call(&"no_do_destaque") as Node3D if _alvo.has_method(&"no_do_destaque") else _alvo

@@ -15,11 +15,6 @@ const SEGUNDOS_ATE_SUMIR: float = 6.0
 const SEGUNDOS_DO_FADE: float = 0.6
 const LIMITE_DE_CARACTERES: int = 200
 
-const COR_DO_NOME_DOS_OUTROS: Color = Color(0.2, 0.95, 1.0)
-const COR_DO_MEU_NOME: Color = Color(1.0, 0.85, 0.3)
-const COR_DO_SISTEMA: Color = Color(0.6, 0.66, 0.8)
-const COR_DO_TEXTO: Color = Color(0.92, 0.95, 1.0)
-
 @onready var painel: PanelContainer = %Painel
 @onready var historico: RichTextLabel = %Historico
 @onready var rotulo_de_status: Label = %Status
@@ -27,7 +22,7 @@ const COR_DO_TEXTO: Color = Color(0.92, 0.95, 1.0)
 
 var _aberto: bool = false
 var _segundos_sem_mensagem: float = SEGUNDOS_ATE_SUMIR
-## O fundo escuro do estado aberto, tirado da cena, e o fundo vazio do estado fechado.
+## O fundo do estado aberto (o painel do Theme) e o fundo vazio do estado fechado.
 ## O vazio tem as mesmas margens, para o texto não pular de lugar ao abrir e fechar.
 var _fundo_aberto: StyleBox
 var _fundo_fechado: StyleBoxEmpty
@@ -155,11 +150,12 @@ func _escrever(mensagem: Dictionary) -> void:
 	var texto: String = _sem_marcacao(String(mensagem.get("texto", "")))
 	var linha: String = ""
 	if mensagem.get("sistema", false):
-		linha = "[color=#%s]%s[/color]" % [COR_DO_SISTEMA.to_html(false), texto]
+		linha = "[color=#%s]%s[/color]" % [CoresDaInterface.texto_apagado().to_html(false), texto]
 	else:
-		var cor_do_nome: Color = COR_DO_MEU_NOME if mensagem.get("minha", false) else COR_DO_NOME_DOS_OUTROS
+		# O meu nome em ouro e o dos outros em ciano, para a minha fala ser achada de relance.
+		var cor_do_nome: Color = CoresDaInterface.ouro() if mensagem.get("minha", false) else CoresDaInterface.ciano()
 		var nome: String = _sem_marcacao(String(mensagem.get("nome", "")))
-		linha = "[color=#%s]%s:[/color] [color=#%s]%s[/color]" % [cor_do_nome.to_html(false), nome, COR_DO_TEXTO.to_html(false), texto]
+		linha = "[color=#%s]%s:[/color] [color=#%s]%s[/color]" % [cor_do_nome.to_html(false), nome, CoresDaInterface.texto().to_html(false), texto]
 	if historico.get_parsed_text().length() > 0:
 		linha = "\n" + linha
 	historico.append_text(linha)

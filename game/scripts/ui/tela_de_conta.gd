@@ -11,13 +11,12 @@ extends Control
 ## jogador digitou e mostra o que volta pelos sinais. A conta é só nome de usuário e
 ## senha (plano 38), e a tela tem dois modos, um por vez: entrar ou criar conta, e já
 ## logado.
+##
+## O visual é o painel ciano do Theme, com cara de terminal de acesso. O erro aparece em
+## âmbar, e não em vermelho: o jogo não usa vermelho nem para dano.
 
 ## Avisa o lobby que a tela fechou, para ele aparecer de novo.
 signal closed
-
-## Amarelo, e não vermelho: o jogo não usa vermelho nem para dano.
-const COR_DO_ERRO: Color = Color(1.0, 0.8, 0.3)
-const COR_DO_STATUS: Color = Color(0.6, 0.66, 0.8)
 
 @onready var formulario_de_entrada: VBoxContainer = %FormularioDeEntrada
 @onready var campo_usuario: LineEdit = %CampoUsuario
@@ -32,6 +31,7 @@ const COR_DO_STATUS: Color = Color(0.6, 0.66, 0.8)
 
 func _ready() -> void:
 	visible = false
+	rotulo_da_conta.add_theme_color_override(&"font_color", CoresDaInterface.ciano())
 	botao_entrar.pressed.connect(_ao_entrar)
 	botao_criar_conta.pressed.connect(_ao_criar_conta)
 	botao_sair_da_conta.pressed.connect(AccountManager.sair)
@@ -111,4 +111,4 @@ func _mostrar_modo() -> void:
 
 func _mostrar_status(texto: String, erro: bool = false) -> void:
 	rotulo_de_status.text = texto
-	rotulo_de_status.add_theme_color_override(&"font_color", COR_DO_ERRO if erro else COR_DO_STATUS)
+	rotulo_de_status.add_theme_color_override(&"font_color", CoresDaInterface.ambar() if erro else CoresDaInterface.texto_apagado())
