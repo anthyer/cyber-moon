@@ -755,14 +755,17 @@ class Personagem:
                         no.interpolation = "Closest"
                 material.name = NOME_DO_MATERIAL
 
-    def trocar_cor(self, de, para, parte=None):
+    def trocar_cor(self, de, para, parte=None, onde=None):
         """Toda face pintada com a cor `de` passa para a cor `para`.
 
         A face é movida de célula sem sair da mesma posição dentro dela, e por isso o
         degradê do modelo original continua igual na cor nova. Com `parte` (`"corpo"` ou
         `"cabeca"`), só aquela malha muda: é como separar a camisa do boné, quando os dois
-        usam a mesma cor. Os olhos e a boca nunca mudam: eles usam a mesma célula escura
-        do cabelo preto, e pintar o cabelo não pode apagar o rosto.
+        usam a mesma cor. Com `onde`, uma função que recebe o centro da face (em repouso) e
+        responde sim ou não, só as faces daquela região mudam: é como separar a calça do
+        paletó, quando o modelo pinta os dois com a mesma cor (`onde=abaixo_da_cintura`).
+        Os olhos e a boca nunca mudam: eles usam a mesma célula escura do cabelo preto, e
+        pintar o cabelo não pode apagar o rosto.
         """
         coluna_de, linha_de = PALETA_DE_PERSONAGENS[de]
         coluna_para, linha_para = PALETA_DE_PERSONAGENS[para]
@@ -777,6 +780,8 @@ class Personagem:
                 coluna = int(sum(us) / len(us) * 8)
                 linha = int((1.0 - sum(vs) / len(vs)) * 4)
                 if (coluna, linha) != (coluna_de, linha_de):
+                    continue
+                if onde is not None and not onde(poligono.center):
                     continue
                 if objeto is self.partes.get("cabeca") and _e_do_rosto(poligono.center):
                     continue
@@ -807,12 +812,14 @@ class Personagem:
         malha.to_mesh(objeto.data)
         malha.free()
 
-    def apagar_cor(self, cores, parte):
+    def apagar_cor(self, cores, parte, onde=None):
         """Apaga da `parte` (`"corpo"` ou `"cabeca"`) toda face pintada com uma das `cores`.
 
         Serve para tirar um acessório que o modelo da Kenney já traz e que é a marca de
-        outra pessoa, como os óculos da `male_e`, que são do Hélio. Os olhos e a boca nunca
-        saem, pelo mesmo motivo do `trocar_cor`.
+        outra pessoa, como os óculos da `male_e`, que são do Hélio. Com `onde` (igual ao do
+        `trocar_cor`), só sai o que está naquela região, como a ponta de um cabelo comprido
+        que bateria na mochila. Os olhos e a boca nunca saem, pelo mesmo motivo do
+        `trocar_cor`.
         """
         objeto = self.partes[parte]
         malha = bmesh.new()
@@ -825,6 +832,8 @@ class Personagem:
             v = sum(laco[camada].uv[1] for laco in face.loops) / len(face.loops)
             celula = (int(u * 8), int((1.0 - v) * 4))
             if celula not in celulas:
+                continue
+            if onde is not None and not onde(face.calc_center_median()):
                 continue
             if parte == "cabeca" and _e_do_rosto(face.calc_center_median()) and celula == PALETA_DE_PERSONAGENS["grafite"]:
                 continue

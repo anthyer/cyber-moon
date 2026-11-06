@@ -134,8 +134,8 @@ Entra pelo "Novo jogo" da tela inicial (plano 40), antes da abertura (plano 34).
 - [x] **2.** Mochila de campo e a cor verde-broto no kit; um protagonista de prova
   (`protagonista_1a`) com foto ao lado dos moradores. Ajustar até passar no teste da
   fila. **Mostrar ao Antonio.**
-- [ ] **3.** Os outros cinco, com as fotos de aprovação dos seis.
-- [ ] **4.** `PerfilProtagonista` e os seis `.tres`; o jogador montando o modelo do perfil;
+- [x] **3.** Os outros cinco, com as fotos de aprovação dos seis.
+- [x] **4.** `PerfilProtagonista` e os seis `.tres`; o jogador montando o modelo do perfil;
   o campo no save com o padrão para save antigo.
 - [ ] **5.** Mock da tela de escolha e, aprovado, a tela no Godot.
 - [x] **6.** Rede: a escolha chega no outro jogador.

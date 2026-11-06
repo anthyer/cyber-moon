@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PerfilProtagonista" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/perfil_protagonista.gd" id="1_perfil"]
+[ext_resource type="PackedScene" path="res://assets/models/cyber_moon_personagens/protagonista_2c.glb" id="2_modelo"]
+
+[resource]
+script = ExtResource("1_perfil")
+id = &"protagonista_2c"
+body_type = 2
+nome_do_visual = "Ombreira"
+modelo = ExtResource("2_modelo")

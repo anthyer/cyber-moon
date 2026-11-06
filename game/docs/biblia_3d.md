@@ -393,6 +393,12 @@ def personagem_kenji():
   x = +-0,072 e z = 0,49, a boca em z = 0,42, o pescoço em z = 0,34, o tronco de z = 0,18 a
   0,37 com a frente em y = -0,11. A tira de óculos e lanterna tem 0,40 por 0,36.
 - **O que o modelo segura** (os halteres da `female_a`) sai com `tirar_da_mao(cores)`.
+- **Acessório da base que é marca de outra pessoa** (os óculos da `male_e`, que são do
+  Hélio) sai com `apagar_cor(cores, parte)`.
+- **Duas partes com a mesma cor** (o paletó e a calça da `male_d` são o mesmo grafite)
+  separam-se com `onde`, uma função que recebe o centro da face em repouso:
+  `trocar_cor("grafite", "jeans", parte="corpo", onde=abaixo_da_cintura)`. O `apagar_cor`
+  aceita o mesmo `onde` (a ponta do cabelo comprido da `female_e`, que bateria na mochila).
 - **Criança** é o modelo inteiro em escala (`escalar(0.8)`, o Téo).
 - **A foto** sai de frente e de costas, em repouso, em `~/.cache/cm_blender/personagens_de_frente.png`.
 
@@ -401,6 +407,45 @@ Rodar sem abrir o Blender (o caminho tem de ser absoluto, por causa do flatpak):
 ```
 flatpak run org.blender.Blender -b --python <repositorio>/equipe/ferramentas/blender/modelos/personagens.py
 ```
+
+### Protagonistas
+
+Os seis personagens que o jogador escolhe (plano 39) saem de
+`equipe/ferramentas/blender/modelos/protagonistas.py`, com o mesmo `kit.Personagem` dos
+moradores, e vão para `cyber_moon_personagens/protagonista_<id>.glb` (`1a`, `1b`, `1c` no
+corpo tipo 1; `2a`, `2b`, `2c` no tipo 2). O nome da base da Kenney (`male_*`,
+`female_*`) só aparece no script; fora dele não há palavra de gênero.
+
+Os doze modelos da Kenney já são moradores, então protagonista não pode ser só uma base
+com outra cor. O que faz ele ser achado na tela:
+
+- **A mochila de campo** (`kit.mochila_de_campo()`, presa no `torso`): tanque de água,
+  placa de bateria com três células acesas, mangueira e a luz de status. O jogo é visto de
+  cima e por trás, e as costas são o que mais aparece. **Nenhum morador usa mochila.** A
+  mochila fica abaixo de z = 0,5, e o que vai na cabeça para acima dela (a aba do chapéu,
+  o fundo do capuz, o rabo de cabelo) para não esconder a luz da câmera do jogo.
+- **A cor reservada, o verde-broto** (`kit.COR_DO_JOGADOR`, RGB 20, 255, 120), na célula
+  (0, 1) da paleta dos personagens, que era um rosa que nenhum dos doze modelos usa. Ela
+  acende a mochila e um detalhe de cada visual (a faixa do chapéu, as lentes, o fone, a
+  costura do boné, o visor, a tira da ombreira). **Morador nunca usa essa cor.** Ela fica
+  longe do `neon_verde` da Iara, que puxa para o amarelo, e do `neon_ciano` do Kenji, que
+  puxa para o azul.
+- **Uma peça grande que muda o contorno**, na cabeça ou nos ombros: chapéu de aba larga,
+  gola alta, capuz com antena, lenço com as pontas soltas, rabo de cabelo alto, ombreira
+  num ombro só. Peça pequena some com a câmera longe. Os seis contornos são diferentes
+  entre si, para dar para saber quem é quem de longe.
+- **Contraste mais forte que o dos moradores**: roupa de trabalho de fazenda (jeans, lona,
+  couro, oliva, ferrugem) em tom médio com um detalhe claro (palha, gola creme, lenço
+  amarelo, cabelo loiro, camiseta creme), enquanto os moradores ficam nos tons gastos.
+- **A base igual à de um morador** pede cor e silhueta bem diferentes, e sai o acessório
+  da base que lembra o morador: os óculos da `male_e` (Hélio) no Palha, o quepe da
+  `male_c` (Kenji) no Solda, os brincos da `female_d` (Lúcia) no Lenço.
+- **Mesma escala** dos moradores e **peça só nos ossos `head` e `torso`**, como em toda
+  pessoa.
+
+As fotos de aprovação saem de frente, de costas e pela câmera do jogo (atrás e acima),
+os seis lado a lado e numa fila misturados com os moradores. A pergunta da fila é se dá
+para achar cada protagonista em um segundo.
 
 ## Montar um ambiente sem esconder o jogador
 
@@ -518,11 +563,19 @@ Em ordem de quanto tempo custaram.
 29. **A foto no Godot por script.** O Godot também é flatpak, com um `/tmp` próprio: a
     imagem tem de ir para `~/.cache/cm_blender/`. E o mundo só aparece com o `MapManager`
     ativando ele (`Mapa.ativar`), senão fica invisível e parado.
+30. **Animações em dobro no protagonista.** O `limpar_cena()` apaga objetos e malhas, mas
+    não apaga ações. Importar um modelo a mais para medir (uma base da Kenney, um
+    morador) na mesma sessão, antes de exportar, deixa as 32 ações dele na cena, e o
+    `.glb` seguinte sai com 64 animações, metade com `_001` no nome. Exportar sempre numa
+    sessão limpa, ou apagar as ações antes (`for acao in list(bpy.data.actions):
+    bpy.data.actions.remove(acao)`), e conferir que cada `.glb` tem exatamente 32
+    animações.
 
 ## O que ainda não foi feito
 
 - O pacote próprio não tem animal.
-- O jogador ainda é o personagem do pacote Kenney, sem edição.
+- O jogador ainda é o personagem do pacote Kenney, sem edição: os seis protagonistas
+  estão modelados, mas o `player.tscn` só passa a montar o escolhido no passo 4 do plano 39.
 - Não há modelo com transparência de verdade (vidro). O vidro da estufa é uma face
   `azul_palido` opaca, como as janelas dos prédios.
 - Os inimigos não têm animação de andar: deslizam, flutuam ou rodam. Para máquina com
